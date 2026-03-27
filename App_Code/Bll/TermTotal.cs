@@ -5,17 +5,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàTermTotal µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»TermTotal çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class TermTotal
 	{
 		private readonly LearnSite.DAL.TermTotal dal=new LearnSite.DAL.TermTotal();
 		public TermTotal()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Tid)
 		{
@@ -31,7 +31,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.TermTotal model)
 		{
@@ -39,7 +39,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.TermTotal model)
 		{
@@ -47,7 +47,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Tid)
 		{
@@ -56,7 +56,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.TermTotal GetModel(int Tid)
 		{
@@ -65,7 +65,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.TermTotal GetModelByCache(int Tid)
 		{
@@ -89,21 +89,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.TermTotal> GetModelList(string strWhere)
 		{
@@ -111,7 +111,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.TermTotal> DataTableToList(DataTable dt)
 		{
@@ -176,7 +176,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -184,14 +184,14 @@ namespace LearnSite.BLL
 		}
                         
         /// <summary>
-        /// Éú³ÉÑ§ÆÚÍ³¼Æ±í
+        /// ç”Ÿæˆå­¦æœŸç»Ÿè®¡è¡¨
         /// </summary>
         public void TermScore()
         {
             dal.TermScore();
         }
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§ºÅµÄÃ¿Ñ§ÆÚ³É¼¨ÁĞ±í
+        /// è·å–è¯¥å­¦å·çš„æ¯å­¦æœŸæˆç»©åˆ—è¡¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -200,7 +200,7 @@ namespace LearnSite.BLL
             return dal.GetSnumList(Snum);
         }
         /// <summary>
-        /// »ñÈ¡Ä³Äê¼¶ËùÓĞÑ§ÆÚ×ÛºÏÆÀ¶¨³É¼¨
+        /// è·å–æŸå¹´çº§æ‰€æœ‰å­¦æœŸç»¼åˆè¯„å®šæˆç»©
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="GradeArray"></param>
@@ -210,7 +210,7 @@ namespace LearnSite.BLL
             DataTable stuDt = null;
             if (GradeArray != "")
             {
-                stuDt = dal.GetTyearStuTwo(Tyear);//»ñÈ¡±¾Äê¼¶ËùÓĞÑ§Éú£¬°´°à¼¶¡¢Ñ§ºÅÅÅĞò Tnum,Tclass,Tname
+                stuDt = dal.GetTyearStuTwo(Tyear);//è·å–æœ¬å¹´çº§æ‰€æœ‰å­¦ç”Ÿï¼ŒæŒ‰ç­çº§ã€å­¦å·æ’åº Tnum,Tclass,Tname
                 if (stuDt != null)
                 {
                     string[] grades = GradeArray.Split(',');
@@ -224,7 +224,7 @@ namespace LearnSite.BLL
                         stuDt.Columns.Add(gtermone, typeof(string));
                         stuDt.Columns.Add(gtermtwo, typeof(string));
                     }
-                    DataTable ApeDt = dal.GetGradeAllScores(Tyear);//»ñÈ¡×Ö¶ÎTnum,Tgrade,Tterm,Tape,Tname
+                    DataTable ApeDt = dal.GetGradeAllScores(Tyear);//è·å–å­—æ®µTnum,Tgrade,Tterm,Tape,Tname
                     if (ApeDt != null)
                     {
                         int scount = stuDt.Rows.Count;
@@ -241,17 +241,17 @@ namespace LearnSite.BLL
                                 string tterm = dtsnum.Rows[k][2].ToString();
                                 string tape = dtsnum.Rows[k][3].ToString();
                                 string clmname = "g" + tgrade + "m" + tterm;
-                                //Èç¹ûĞÂÔöÁĞÃûÖĞ°üº¬´ËÑ§ÆÚÔòÌí¼Ó
+                                //å¦‚æœæ–°å¢åˆ—åä¸­åŒ…å«æ­¤å­¦æœŸåˆ™æ·»åŠ 
                                 if (stuDt.Columns.Contains(clmname))
-                                    stuDt.Rows[j][clmname] = tape;//½«´ËÑ§ÆÚÆÀ¶¨¸³¸øĞÂ±íÏàÓ¦ĞĞµÄÁĞÖĞ(¹Ø¼üÓï¾ä)
+                                    stuDt.Rows[j][clmname] = tape;//å°†æ­¤å­¦æœŸè¯„å®šèµ‹ç»™æ–°è¡¨ç›¸åº”è¡Œçš„åˆ—ä¸­(å…³é”®è¯­å¥)
                             }
                         }
-                        //Éú³ÉĞÂ±íÄÚÈİºó£¬¸ÄÁĞÃû£¬ÒÔ±ãÉú³É×Ô¶¯°ó¶¨×Ö¶Î±êÌâ Ô­Ê¼ÁĞÃûÎªTnum,Tclass,Tname°´°à¼¶¡¢Ñ§ºÅÅÅĞò
-                        int lcount = stuDt.Columns.Count;//»ñÈ¡µ±Ç°±íÁĞÃûÊı
-                        for (int l = 4; l < lcount; l++)//´ÓÉú³ÉµÄÁĞÃû¿ªÊ¼
+                        //ç”Ÿæˆæ–°è¡¨å†…å®¹åï¼Œæ”¹åˆ—åï¼Œä»¥ä¾¿ç”Ÿæˆè‡ªåŠ¨ç»‘å®šå­—æ®µæ ‡é¢˜ åŸå§‹åˆ—åä¸ºTnum,Tclass,TnameæŒ‰ç­çº§ã€å­¦å·æ’åº
+                        int lcount = stuDt.Columns.Count;//è·å–å½“å‰è¡¨åˆ—åæ•°
+                        for (int l = 4; l < lcount; l++)//ä»ç”Ÿæˆçš„åˆ—åå¼€å§‹
                         {
                             string clmtitle = stuDt.Columns[l].ColumnName;
-                            clmtitle = clmtitle.Substring(1);//È¥µôÊ××ÖÄ¸
+                            clmtitle = clmtitle.Substring(1);//å»æ‰é¦–å­—æ¯
                             string[] clms = clmtitle.Split('m');
                             string lgrade = clms[0];
                             string lterm = clms[1];
@@ -259,10 +259,10 @@ namespace LearnSite.BLL
                             string chineseTerm = Common.WordProcess.ChineseTerm(lterm);
                             stuDt.Columns[l].ColumnName = chineseGrade + chineseTerm;
                         }
-                        stuDt.Columns[0].ColumnName = "ĞòºÅ";
-                        stuDt.Columns[1].ColumnName = "Ñ§ºÅ";
-                        stuDt.Columns[2].ColumnName = "°à¼¶";
-                        stuDt.Columns[3].ColumnName = "ĞÕÃû";
+                        stuDt.Columns[0].ColumnName = "åºå·";
+                        stuDt.Columns[1].ColumnName = "å­¦å·";
+                        stuDt.Columns[2].ColumnName = "ç­çº§";
+                        stuDt.Columns[3].ColumnName = "å§“å";
                     }
                 }
             }
@@ -278,8 +278,8 @@ namespace LearnSite.BLL
                 dm = GetOverallMerit(Tyear, GradeArray);
                 if (dm != null)
                 {
-                    int clmcounts = dm.Columns.Count;//»ñÈ¡Ô­Ê¼ÁĞÊı Ô­Ê¼ÁĞÃûÎªSnum,Sclass,Sname
-                    string allape = "Totel";//ĞÂÔö×ÛºÏÆÀ¶¨Í³¼ÆÁĞÃû
+                    int clmcounts = dm.Columns.Count;//è·å–åŸå§‹åˆ—æ•° åŸå§‹åˆ—åä¸ºSnum,Sclass,Sname
+                    string allape = "Totel";//æ–°å¢ç»¼åˆè¯„å®šç»Ÿè®¡åˆ—å
                     dm.Columns.Add(allape, typeof(string));
                     int dcount = dm.Rows.Count;
                     for (int i = 0; i < dcount; i++)
@@ -306,13 +306,13 @@ namespace LearnSite.BLL
                         }
                         dm.Rows[i][allape] = Aset + Pset + Eset;
                     }
-                    dm.Columns[allape].ColumnName = "ºÏ¼Æ";
+                    dm.Columns[allape].ColumnName = "åˆè®¡";
                 }
             }
             return dm;
         }
         /// <summary>
-        ///  »ñÈ¡µ±Ç°°à¼¶ÔÚ¸÷Äê¼¶¸÷Ñ§ÆÚµÄÆÚÄ©³É¼¨
+        ///  è·å–å½“å‰ç­çº§åœ¨å„å¹´çº§å„å­¦æœŸçš„æœŸæœ«æˆç»©
         /// </summary>
         /// <param name="Tyear"></param>
         /// <param name="Tgrade"></param>
@@ -325,7 +325,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// µ¼³ö¸ÃÄê¼¶ÔÚÄ³Äê¼¶Ê±Ä³Ñ§ÆÚµÄ³É¼¨ÆÀ¶¨
+        /// å¯¼å‡ºè¯¥å¹´çº§åœ¨æŸå¹´çº§æ—¶æŸå­¦æœŸçš„æˆç»©è¯„å®š
         /// </summary>
         /// <param name="Tyear"></param>
         /// <param name="Tgrade"></param>
@@ -336,7 +336,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔö×Ö¶ÎTyearTclassTname
+        /// åˆå§‹åŒ–æ–°å¢å­—æ®µTyearTclassTname
         /// </summary>
         /// <returns></returns>
         public int initTyearTclassTname()
@@ -345,7 +345,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡ÈëÑ§Äê¶ÈÁĞ±í
+        /// è·å–å…¥å­¦å¹´åº¦åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
         public DataTable TyearList()
@@ -353,14 +353,14 @@ namespace LearnSite.BLL
             return dal.TyearList();
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

@@ -1,4 +1,4 @@
-﻿clockShow();
+clockShow();
 function clockShow() {
     var now = new Date();
     var hour = now.getHours();

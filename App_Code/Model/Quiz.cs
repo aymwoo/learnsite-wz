@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// Quiz:实体类
+	/// Quiz:实锟斤拷锟斤拷
 	/// </summary>
 	[Serializable]
 	public partial class Quiz

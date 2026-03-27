@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="htmledit.aspx.cs" Inherits="student_htmledit" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="htmledit.aspx.cs" Inherits="student_htmledit" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head >  
@@ -299,13 +299,31 @@
         }
 
 		// 更新预览函数
-		function updatePreview(htmlCode) {
-                frameDoc.open();                
+		function updatePreviewold(htmlCode) {
+                frameDoc.open();
                 htmlCode = updateImgsrc(htmlCode);
                 frameDoc.write(htmlCode);//同步预览
 				document.title = frameDoc.title;//同步标题
                 frameDoc.close();
         }
+        
+		function updatePreview(htmlCode) {
+			// 处理 HTML
+			htmlCode = updateImgsrc(htmlCode);			
+			// 直接使用 srcdoc 替换内容（这会创建全新的文档环境）
+			previewFrame.srcdoc = htmlCode;			
+			// 异步更新标题
+			previewFrame.onload = function() {
+				try {
+					const frameDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+					if (frameDoc.title) {
+						document.title = frameDoc.title;
+					}
+				} catch (e) {
+					// 忽略跨域错误
+				}
+			};
+		}
 
         function updateImgsrc(html){            
             let doc = new DOMParser().parseFromString(html, 'text/html');
@@ -316,6 +334,7 @@
             imgs.forEach(img => {
                 let src = img.getAttribute('src')?.trim(); // 清除前后空格
                 if (!src) return;
+				if (src.startsWith('https://')) return;
                 if (!src.startsWith(root)) {
                     let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
                     img.setAttribute('src', root + normalizedSrc);
@@ -324,12 +343,24 @@
 
             // 处理音频
             let audios = doc.querySelectorAll('audio');
-            audios.forEach(audio => {
-                let src = audio.getAttribute('src')?.trim(); // 清除前后空格
+            audios.forEach(audiomp3 => {
+                let src = audiomp3.getAttribute('src')?.trim(); // 清除前后空格
                 if (!src) return;
+				if (src.startsWith('https://')) return;
                 if (!src.startsWith(root)) {
                     let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-                    audio.setAttribute('src', root + normalizedSrc);
+                    audiomp3.setAttribute('src', root + normalizedSrc);
+                }
+            });
+            // 处理音视频source
+            let sources = doc.querySelectorAll('source');
+            sources.forEach(source => {
+                let src = source.getAttribute('src')?.trim(); // 清除前后空格
+                if (!src) return;
+				if (src.startsWith('https://')) return;
+                if (!src.startsWith(root)) {
+                    let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
+                    source.setAttribute('src', root + normalizedSrc);
                 }
             });
 
@@ -338,6 +369,7 @@
             videos.forEach(video => {
                 let src = video.getAttribute('src')?.trim(); // 清除前后空格;
                 if (!src) return;
+				if (src.startsWith('https://')) return;
                 if (!src.startsWith(root)) {
                     let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
                     video.setAttribute('src', root + normalizedSrc);
@@ -349,6 +381,7 @@
             scripts.forEach(script => {
                 let src = script.getAttribute('src')?.trim(); // 清除前后空格;
                 if (!src) return;
+				if (src.startsWith('https://')) return;
                 if (!src.startsWith(root)) {
                     let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
                     script.setAttribute('src', root + normalizedSrc);
@@ -360,6 +393,7 @@
             links.forEach(link => {
                 let href = link.getAttribute('href')?.trim(); // 清除前后空格;
                 if (!href) return;
+				if (href.startsWith('https://')) return;
                 if (!href.startsWith(root)) {
                     let normalizedHref = href.startsWith('/') ? href.substring(1) : href;
                     link.setAttribute('href', root + normalizedHref);
@@ -371,6 +405,7 @@
             anchors.forEach(anchor => {
                 let href = anchor.getAttribute('href')?.trim(); // 清除前后空格;
                 if (!href) return;
+				if (href.startsWith('https://')) return;
                 if (!href.startsWith(root)) {        
                     let normalizedHref = href.startsWith('/') ? href.substring(1) : href;
                     anchor.setAttribute('href', root + normalizedHref);

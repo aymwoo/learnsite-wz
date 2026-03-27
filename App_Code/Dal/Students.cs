@@ -3,20 +3,20 @@ using System.Data;
 using System.Text;
 using System.Web;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
-	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàStudents¡£
-	/// </summary>
-	public class Students
-	{
-		public Students()
-		{}
-		#region  ³ÉÔ±·½·¨
+    /// <summary>
+    /// æ•°æ®è®¿é—®ç±»Studentsã€‚
+    /// </summary>
+    public class Students
+    {
+        public Students()
+        { }
+        #region  æˆå‘˜æ–¹æ³•
 
         /// <summary>
-        /// ³õÊ¼»¯ztype´ò×Ö³É¼¨
+        /// åˆå§‹åŒ–ztypeæ‰“å­—æˆç»©
         /// </summary>
         public void initSztype()
         {
@@ -24,7 +24,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸üĞÂztype´ò×Ö³É¼¨
+        /// æ›´æ–°ztypeæ‰“å­—æˆç»©
         /// </summary>
         /// <param name="Sztype"></param>
         public void updateSztype(int Sztype)
@@ -41,11 +41,11 @@ namespace LearnSite.DAL
             parameters[0].Value = Sztype;
             parameters[1].Value = Sid;
 
-            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters); 
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
 
         /// <summary>
-        /// ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñÔÊĞí¸öÈËÄ£Ê½µÇÂ¼
+        /// åˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å…è®¸ä¸ªäººæ¨¡å¼ç™»å½•
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -62,7 +62,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ³õÊ¼»¯ÖĞÎÄÆ´Òô×Ü¼Æ
+        /// åˆå§‹åŒ–ä¸­æ–‡æ‹¼éŸ³æ€»è®¡
         /// </summary>
         public void initSchinese()
         {
@@ -70,7 +70,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯±íµ¥·ÖÊı×Ü¼Æ
+        /// åˆå§‹åŒ–è¡¨å•åˆ†æ•°æ€»è®¡
         /// </summary>
         public void initStxtform()
         {
@@ -78,25 +78,25 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯×÷Òµ¼Ó·Ö×Ü¼Æ
+        /// åˆå§‹åŒ–ä½œä¸šåŠ åˆ†æ€»è®¡
         /// </summary>
         public void initSwdscore()
         {
             string mysql = "update Students set Swdscore=0 where Swdscore is null";
             DbHelperSQL.ExecuteSql(mysql);
         }
-		/// <summary>
-		/// µÃµ½×î´óID
-		/// </summary>
-		public int GetMaxId()
-		{
-		return DbHelperSQL.GetMaxID("Sid", "Students"); 
-		}
+        /// <summary>
+        /// å¾—åˆ°æœ€å¤§ID
+        /// </summary>
+        public int GetMaxId()
+        {
+            return DbHelperSQL.GetMaxID("Sid", "Students");
+        }
 
         public long maxGradeSnumInit(int Sgrade, int Sclass)
         {
             string strWhere = " Sgrade=" + Sgrade;
-            string gsnum=DateTime.Now.Year.ToString()+Sgrade.ToString()+Sclass.ToString()+"001";
+            string gsnum = DateTime.Now.Year.ToString() + Sgrade.ToString() + Sclass.ToString() + "001";
             long test = DbHelperSQL.FieldMaxValue("Snum", "Students", strWhere);
             if (test == 1)
                 return long.Parse(gsnum);
@@ -106,7 +106,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// µÃµ½×î´óSnum¡¡£»²»È¡°à¼¶ÁË
+        /// å¾—åˆ°æœ€å¤§Snumã€€ï¼›ä¸å–ç­çº§äº†
         /// </summary>
         public long GetMaxSnum(int Sgrade, int Sclass)
         {
@@ -115,16 +115,16 @@ namespace LearnSite.DAL
 
             if (!ExistsSnum(maxGradeSnum.ToString()))
             {
-                return maxGradeSnum;//²»´æÔÚ£¬Ôò·µ»ØÄê¼¶Ñ§ºÅ×î´óÖµ
+                return maxGradeSnum;//ä¸å­˜åœ¨ï¼Œåˆ™è¿”å›å¹´çº§å­¦å·æœ€å¤§å€¼
             }
             else
             {
                 long tt = DbHelperSQL.FieldMaxValueNoWhere("Snum", "Students") + 1;
-                return tt;//²»´æÔÚ£¬Ôò·µ»ØÈ«Ğ£Ñ§ºÅ×î´óÖµ
+                return tt;//ä¸å­˜åœ¨ï¼Œåˆ™è¿”å›å…¨æ ¡å­¦å·æœ€å¤§å€¼
             }
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸ÃÑ§ºÅ
+        /// æ˜¯å¦å­˜åœ¨è¯¥å­¦å·
         /// </summary>
         public bool ExistsSnum(string Snum)
         {
@@ -137,28 +137,28 @@ namespace LearnSite.DAL
 
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
-		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
-		/// </summary>
-		public bool Exists(int Sid)
-		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select count(1) from Students");
-			strSql.Append(" where Sid=@Sid ");
-			SqlParameter[] parameters = {
-					new SqlParameter("@Sid", SqlDbType.Int,4)};
-			parameters[0].Value = Sid;
-
-			return DbHelperSQL.Exists(strSql.ToString(),parameters);
-		}
-
         /// <summary>
-        /// °à¼¶²âÆÀÇé¿ö
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
-        public DataTable SolveAll(int Sgrade,int Sclass,int Nid)
+        public bool Exists(int Sid)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Sid, Sgrade as Äê¼¶,Sclass as °à¼¶,Sname as ĞÕÃû from Students");
+            strSql.Append("select count(1) from Students");
+            strSql.Append(" where Sid=@Sid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Sid", SqlDbType.Int,4)};
+            parameters[0].Value = Sid;
+
+            return DbHelperSQL.Exists(strSql.ToString(), parameters);
+        }
+
+        /// <summary>
+        /// ç­çº§æµ‹è¯„æƒ…å†µ
+        /// </summary>
+        public DataTable SolveAll(int Sgrade, int Sclass, int Nid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Sid, Sgrade as å¹´çº§,Sclass as ç­çº§,Sname as å§“å from Students");
             strSql.Append(" where Sgrade=@Sgrade and Sclass=@Sclass ");
             SqlParameter[] parameters = {
 					new SqlParameter("@Sgrade", SqlDbType.Int,4),
@@ -167,32 +167,32 @@ namespace LearnSite.DAL
             parameters[1].Value = Sclass;
 
             DataTable dt = DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
-            int scount=dt.Rows.Count;
+            int scount = dt.Rows.Count;
 
             BLL.Problems pbll = new BLL.Problems();
-            DataTable pdt= pbll.GetListNidTable(Nid);
+            DataTable pdt = pbll.GetListNidTable(Nid);
             int pcount = pdt.Rows.Count;
             if (pcount > 0)
             {
-                //½«ËùÓĞÌâÄ¿Ìí¼Óµ½Ñ§Éú±íµÄÁĞÖĞ
+                //å°†æ‰€æœ‰é¢˜ç›®æ·»åŠ åˆ°å­¦ç”Ÿè¡¨çš„åˆ—ä¸­
                 for (int i = 0; i < pcount; i++)
                 {
                     int n = i + 1;
-                    string clm = "µÚ" + n.ToString() + "Ìâ";
+                    string clm = "ç¬¬" + n.ToString() + "é¢˜";
                     dt.Columns.Add(clm);
                 }
                 BLL.Solves vbll = new BLL.Solves();
-                //Ìí¼ÓÃ¿Ò»Î»Ñ§Éú³É¼¨
+                //æ·»åŠ æ¯ä¸€ä½å­¦ç”Ÿæˆç»©
                 for (int j = 0; j < scount; j++)
                 {
-                    int sid = Int32.Parse( dt.Rows[j][0].ToString());
+                    int sid = Int32.Parse(dt.Rows[j][0].ToString());
                     for (int k = 0; k < pcount; k++)
                     {
                         int m = k + 1;
-                        string clm = "µÚ" + m.ToString() + "Ìâ";
+                        string clm = "ç¬¬" + m.ToString() + "é¢˜";
                         int pid = Int32.Parse(pdt.Rows[k][0].ToString());
                         string vscore = vbll.GetScore(pid, sid);
-                        if (!string.IsNullOrEmpty(vscore)) vscore = "¡Ì";
+                        if (!string.IsNullOrEmpty(vscore)) vscore = "âˆš";
                         dt.Rows[j][clm] = vscore;
                     }
 
@@ -202,11 +202,11 @@ namespace LearnSite.DAL
             dt.Columns.Remove("Sid");
             return dt;
         }
-		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
-		/// </summary>
-		public int Add(LearnSite.Model.Students model)
-		{
+        /// <summary>
+        /// å¢åŠ ä¸€æ¡æ•°æ®
+        /// </summary>
+        public int Add(LearnSite.Model.Students model)
+        {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Students(");
             strSql.Append("Snum,Syear,Sgrade,Sclass,Sname,Spwd,Sex,Saddress,Sphone,Sparents,Sheadtheacher,Sscore,Squiz,Sattitude,Sape)");
@@ -246,18 +246,18 @@ namespace LearnSite.DAL
             parameters[14].Value = model.Sape;
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
-			if (obj == null)
-			{
-				return 1;
-			}
-			else
-			{
-				return Convert.ToInt32(obj);
-			}
-		}
+            if (obj == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return Convert.ToInt32(obj);
+            }
+        }
 
         /// <summary>
-        /// Ôö¼ÓÒ»Î»Ñ§Éú
+        /// å¢åŠ ä¸€ä½å­¦ç”Ÿ
         /// </summary>
         public int AddStudent(LearnSite.Model.Students model)
         {
@@ -307,11 +307,11 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸üĞÂ±¾°àÑ§ÉúµÄÃÜÂë
+        /// æ›´æ–°æœ¬ç­å­¦ç”Ÿçš„å¯†ç 
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
-        public void UpdateMyClassPwd(int Sgrade,int Sclass,string Spwd)
+        public void UpdateMyClassPwd(int Sgrade, int Sclass, string Spwd)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update Students set Spwd=@Spwd ");
@@ -327,7 +327,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄÃÜÂë
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„å¯†ç 
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Spwd"></param>
@@ -345,7 +345,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃSidÑ§ÉúµÄÃÜÂë
+        /// æ›´æ–°è¯¥Sidå­¦ç”Ÿçš„å¯†ç 
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="Spwd"></param>
@@ -363,7 +363,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄĞÔ±ğ
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„æ€§åˆ«
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sex"></param>
@@ -373,7 +373,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¶Ô¸ÃÉú»»°à
+        /// å¯¹è¯¥ç”Ÿæ¢ç­
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -383,11 +383,11 @@ namespace LearnSite.DAL
         {
             bool Okd = false;
             string sqlstr = "select count(*) from Students where Sgrade=" + Sgrade + " and Sname='" + Sname + "'";
-            string fstr = DbHelperSQL.FindString(sqlstr);//²éÕÒ¸ÃÄê¼¶ĞÕÃûÑ§ÉúÈËÊı
+            string fstr = DbHelperSQL.FindString(sqlstr);//æŸ¥æ‰¾è¯¥å¹´çº§å§“åå­¦ç”Ÿäººæ•°
             int fcount = 0;
             if (fstr != "")
                 fcount = Int32.Parse(fstr);
-            if (fcount == 1)//Èç¹û¸ÕºÃÒ»Î»£¬Ôò½øĞĞ·Ö°à
+            if (fcount == 1)//å¦‚æœåˆšå¥½ä¸€ä½ï¼Œåˆ™è¿›è¡Œåˆ†ç­
             {
                 string mysql = "update Students set Sclass=" + Sclass + " where Sgrade=" + Sgrade + " and Sname='" + Sname + "'";
                 DbHelperSQL.ExecuteSql(mysql);
@@ -395,25 +395,25 @@ namespace LearnSite.DAL
             }
             return Okd;
         }
-		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
-		/// </summary>
-		public void Update(LearnSite.Model.Students model)
-		{
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("update Students set ");
-			strSql.Append("Syear=@Syear,");
-			strSql.Append("Sgrade=@Sgrade,");
-			strSql.Append("Sclass=@Sclass,");
-			strSql.Append("Sname=@Sname,");
-			strSql.Append("Spwd=@Spwd,");
-			strSql.Append("Sex=@Sex,");
-			strSql.Append("Saddress=@Saddress,");
-			strSql.Append("Sphone=@Sphone,");
-			strSql.Append("Sparents=@Sparents,");
-			strSql.Append("Sheadtheacher=@Sheadtheacher");
-			strSql.Append(" where Sid=@Sid ");
-			SqlParameter[] parameters = {
+        /// <summary>
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
+        /// </summary>
+        public void Update(LearnSite.Model.Students model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("update Students set ");
+            strSql.Append("Syear=@Syear,");
+            strSql.Append("Sgrade=@Sgrade,");
+            strSql.Append("Sclass=@Sclass,");
+            strSql.Append("Sname=@Sname,");
+            strSql.Append("Spwd=@Spwd,");
+            strSql.Append("Sex=@Sex,");
+            strSql.Append("Saddress=@Saddress,");
+            strSql.Append("Sphone=@Sphone,");
+            strSql.Append("Sparents=@Sparents,");
+            strSql.Append("Sheadtheacher=@Sheadtheacher");
+            strSql.Append(" where Sid=@Sid ");
+            SqlParameter[] parameters = {
 					new SqlParameter("@Sid", SqlDbType.Int,4),
 					new SqlParameter("@Syear", SqlDbType.Int,4),
 					new SqlParameter("@Sgrade", SqlDbType.Int,4),
@@ -425,40 +425,40 @@ namespace LearnSite.DAL
 					new SqlParameter("@Sphone", SqlDbType.NVarChar,50),
 					new SqlParameter("@Sparents", SqlDbType.NVarChar,50),
 					new SqlParameter("@Sheadtheacher", SqlDbType.NVarChar,50)};
-			parameters[0].Value = model.Sid;
-			parameters[1].Value = model.Syear;
-			parameters[2].Value = model.Sgrade;
-			parameters[3].Value = model.Sclass;
-			parameters[4].Value = model.Sname;
-			parameters[5].Value = model.Spwd;
-			parameters[6].Value = model.Sex;
-			parameters[7].Value = model.Saddress;
-			parameters[8].Value = model.Sphone;
-			parameters[9].Value = model.Sparents;
-			parameters[10].Value = model.Sheadtheacher;
+            parameters[0].Value = model.Sid;
+            parameters[1].Value = model.Syear;
+            parameters[2].Value = model.Sgrade;
+            parameters[3].Value = model.Sclass;
+            parameters[4].Value = model.Sname;
+            parameters[5].Value = model.Spwd;
+            parameters[6].Value = model.Sex;
+            parameters[7].Value = model.Saddress;
+            parameters[8].Value = model.Sphone;
+            parameters[9].Value = model.Sparents;
+            parameters[10].Value = model.Sheadtheacher;
 
-			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-		}
-
-		/// <summary>
-		/// É¾³ıÒ»ÌõÑ§ÉúÊı¾İ£¨É¾³ıÑ§Éú±í£¬ÍøÒ³±íÖĞµÄÍ¬Ñ§ºÅ£©
-		/// </summary>
-		public void Delete(int Sid)
-		{
-			
-			StringBuilder strSql=new StringBuilder();
-			strSql.Append("delete from Students ");
-			strSql.Append(" where Sid=@Sid ");
-			SqlParameter[] parameters = {
-					new SqlParameter("@Sid", SqlDbType.Int,4)};
-			parameters[0].Value = Sid;
-
-			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
-
-		}
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+        }
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶ºÍ°à¼¶ Ëæ»úµÃµ½¸Ã°àÄ³¸öÑ§ÉúÒ»¸ö¶ÔÏóÊµÌå
+        /// åˆ é™¤ä¸€æ¡å­¦ç”Ÿæ•°æ®ï¼ˆåˆ é™¤å­¦ç”Ÿè¡¨ï¼Œç½‘é¡µè¡¨ä¸­çš„åŒå­¦å·ï¼‰
+        /// </summary>
+        public void Delete(int Sid)
+        {
+
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete from Students ");
+            strSql.Append(" where Sid=@Sid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Sid", SqlDbType.Int,4)};
+            parameters[0].Value = Sid;
+
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+
+        }
+
+        /// <summary>
+        /// æ ¹æ®å¹´çº§å’Œç­çº§ éšæœºå¾—åˆ°è¯¥ç­æŸä¸ªå­¦ç”Ÿä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Students GetRndModel(int Sgrade, int Sclass)
         {
@@ -571,9 +571,9 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍÃÜÂë µÃµ½Ñ§ÉúÒ»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®å­¦å·å’Œå¯†ç  å¾—åˆ°å­¦ç”Ÿä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
-        public LearnSite.Model.Students GetStudentModel(string Snum,string Spwd)
+        public LearnSite.Model.Students GetStudentModel(string Snum, string Spwd)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select  top 1 Sid,Snum,Syear,Sgrade,Sclass,Sname,Spwd,Sex,Saddress,Sphone,Sparents,Sheadtheacher,Sscore,Squiz,Sattitude,Sape,Swscore,Stscore,Sallscore,Spscore,Sgroup,Sleader,Svote,Sgscore,Stxtform,Sidle from Students ");
@@ -682,30 +682,30 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ù¾İ×Ô¶¯±àºÅ·µ»ØĞÕÃû
+        /// æ ¹æ®è‡ªåŠ¨ç¼–å·è¿”å›å§“å
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
         public string GetSnameBySid(int Sid)
         {
-            string mysql = "select Sname from Students where Sid="+Sid;
+            string mysql = "select Sname from Students where Sid=" + Sid;
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ·µ»ØĞÕÃû
+        /// æ ¹æ®å­¦å·è¿”å›å§“å
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
         public string GetSnameBySnum(string Snum)
         {
-            string mysql = "select Sname from Students where Snum='" + Snum+"'";
+            string mysql = "select Sname from Students where Snum='" + Snum + "'";
             return DbHelperSQL.FindString(mysql);
         }
-		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
-		/// </summary>
-		public LearnSite.Model.Students GetModel(int Sid)
-		{
+        /// <summary>
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
+        /// </summary>
+        public LearnSite.Model.Students GetModel(int Sid)
+        {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select  top 1 Sid,Snum,Syear,Sgrade,Sclass,Sname,Spwd,Sex,Saddress,Sphone,Sparents,Sheadtheacher,Sscore,Squiz,Sattitude,Sape,Swscore,Stscore,Sallscore,Spscore,Sgroup,Sleader,Svote,Sgscore,Stxtform,Sidle  from Students ");
             strSql.Append(" where Sid=@Sid ");
@@ -811,7 +811,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®å­¦å·ï¼Œå¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Students SnumGetModel(string Snum)
         {
@@ -920,33 +920,33 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Ñ§Éú±í»ù±¾Êı¾İµ¼³öExcel
+        /// å­¦ç”Ÿè¡¨åŸºæœ¬æ•°æ®å¯¼å‡ºExcel
         /// </summary>
         public void StudentsToExcel()
         {
             DateTime dt = DateTime.Now;
             string today = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day;
             string FileName = "StudentsToExcel" + today;
-            string strSql = "select Snum as Ñ§ºÅ,Syear as ÈëÑ§Äê¶È, Sgrade as Äê¼¶,Sclass as °à¼¶, Sname as ĞÕÃû,Spwd as ÃÜÂë,Sex as ĞÔ±ğ,Saddress as ¼ÒÍ¥×¡Ö·,Sphone as ÁªÏµµç»°,Sparents as ¼Ò³¤ĞÕÃû,Sheadtheacher as °àÖ÷ÈÎ  FROM Students order by Sgrade asc,Sclass asc,Snum asc  ";
+            string strSql = "select Snum as å­¦å·,Syear as å…¥å­¦å¹´åº¦, Sgrade as å¹´çº§,Sclass as ç­çº§, Sname as å§“å,Spwd as å¯†ç ,Sex as æ€§åˆ«,Saddress as å®¶åº­ä½å€,Sphone as è”ç³»ç”µè¯,Sparents as å®¶é•¿å§“å,Sheadtheacher as ç­ä¸»ä»»  FROM Students order by Sgrade asc,Sclass asc,Snum asc  ";
             DataSet ds = DbHelperSQL.Query(strSql);
             Common.DataExcel.DataSetToExcel(ds, FileName);
         }
 
         /// <summary>
-        /// ×îÖÕ³É¼¨ÆÀ¶¨µ¼³öExcel
+        /// æœ€ç»ˆæˆç»©è¯„å®šå¯¼å‡ºExcel
         /// </summary>
         public void TermExcel(int hid)
         {
             DateTime dt = DateTime.Now;
             string today = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day;
             string FileName = "TermExcel" + today;
-            string strSql = "select  Snum as Ñ§ºÅ,(cast(Sgrade as nvarchar(20))+'.'+cast(Sclass as  nvarchar(20))) as °à¼¶,Sname as ĞÕÃû,Sscore as ×÷Æ·,Sgscore as Ğ¡×é,Spscore as ÌÖÂÛ,Stxtform as ±íµ¥,Svscore as µ÷²é,Swscore as ÍøÒ³, Squiz as ²âÑé,Schinese as Æ´Òô,Sfscore as Ó¢Óï,Stscore as ÖĞÎÄ,Sattitude as ±íÏÖ,Sallscore as ×Ü·ÖÕÛËã,Sape as ÆÀ¶¨,Stenscore as ×ÛºÏ  FROM Students,Room where Sgrade=Rgrade and Sclass=Rclass and Rhid=" + hid.ToString() + " order by Sgrade asc,Sclass asc,Snum asc  ";
+            string strSql = "select  Snum as å­¦å·,(cast(Sgrade as nvarchar(20))+'.'+cast(Sclass as  nvarchar(20))) as ç­çº§,Sname as å§“å,Sscore as ä½œå“,Sgscore as å°ç»„,Spscore as è®¨è®º,Stxtform as è¡¨å•,Svscore as è°ƒæŸ¥,Swscore as ç½‘é¡µ, Squiz as æµ‹éªŒ,Schinese as æ‹¼éŸ³,Sfscore as è‹±è¯­,Stscore as ä¸­æ–‡,Sattitude as è¡¨ç°,Sallscore as æ€»åˆ†æŠ˜ç®—,Sape as è¯„å®š,Stenscore as ç»¼åˆ  FROM Students,Room where Sgrade=Rgrade and Sclass=Rclass and Rhid=" + hid.ToString() + " order by Sgrade asc,Sclass asc,Snum asc  ";
             DataSet ds = DbHelperSQL.Query(strSql);
             Common.DataExcel.DataSetToExcel(ds, FileName);
         }
 
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËùÓĞÑ§ÆÚ×Ü»ı·Ö
+        /// æ‰¹é‡æ›´æ–°æ‰€æœ‰å­¦æœŸæ€»ç§¯åˆ†
         /// </summary>
         public void TeamScores()
         {
@@ -958,14 +958,14 @@ namespace LearnSite.DAL
             {
                 for (int i = 0; i < counts; i++)
                 {
-                string  Snum = dt.Rows[i]["Snum"].ToString();
-                string mysql = " UPDATE Students SET Sscore=(SELECT SUM(Wscore) FROM Works WHERE Wnum='" + Snum + "'" + ") FROM Students WHERE Snum='" + Snum + "'";
-                DbHelperSQL.ExecuteSql(mysql);
+                    string Snum = dt.Rows[i]["Snum"].ToString();
+                    string mysql = " UPDATE Students SET Sscore=(SELECT SUM(Wscore) FROM Works WHERE Wnum='" + Snum + "'" + ") FROM Students WHERE Snum='" + Snum + "'";
+                    DbHelperSQL.ExecuteSql(mysql);
                 }
             }
         }
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËù½Ì°à¼¶µ±Ç°Ñ§ÆÚĞ¡×éºÏ×÷·Ö
+        /// æ‰¹é‡æ›´æ–°æ‰€æ•™ç­çº§å½“å‰å­¦æœŸå°ç»„åˆä½œåˆ†
         /// </summary>
         public void ThisTeamGroupScores(int Rhid)
         {
@@ -987,7 +987,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// Í³¼Æµ¥¸öÑ§ÉúĞ¡×éºÏ×÷µÃ·Ö
+        /// ç»Ÿè®¡å•ä¸ªå­¦ç”Ÿå°ç»„åˆä½œå¾—åˆ†
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1012,7 +1012,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// Í³¼Æµ¥¸öÑ§ÉúĞ¡×éºÏ×÷µÃ·Ö£¬Õâ¸öÓĞÎÊÌâ£¬Í³¼Æ²»³É¹¦2013-4-11ºÅ·¢ÏÖ
+        /// ç»Ÿè®¡å•ä¸ªå­¦ç”Ÿå°ç»„åˆä½œå¾—åˆ†ï¼Œè¿™ä¸ªæœ‰é—®é¢˜ï¼Œç»Ÿè®¡ä¸æˆåŠŸ2013-4-11å·å‘ç°
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1043,7 +1043,7 @@ namespace LearnSite.DAL
         }
 
 
-        public void TotalSgscore(string gstudnets,int Cobj,int Cterm)
+        public void TotalSgscore(string gstudnets, int Cobj, int Cterm)
         {
             string[] gstu = gstudnets.Split('_');
             int gcount = gstu.Length;
@@ -1052,12 +1052,12 @@ namespace LearnSite.DAL
                 foreach (string stu in gstu)
                 {
                     string sqlgw = "update Students set Sgscore=(select ISNULL(sum(Gscore),0) from GroupWork where Gterm=" + Cterm + " and Ggrade=" + Cobj + " and Gstudents like '%" + stu + "%' ) where Snum='" + stu + "'";
-                    DbHelperSQL.ExecuteSql(sqlgw);//Í³¼Æµ¥¸öÑ§ÉúĞ¡×éºÏ×÷µÃ·Ö
+                    DbHelperSQL.ExecuteSql(sqlgw);//ç»Ÿè®¡å•ä¸ªå­¦ç”Ÿå°ç»„åˆä½œå¾—åˆ†
                 }
             }
-        }     
+        }
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËù½Ì°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·ÖºÍ±íÏÖ×Ü»ı·Ö¡¢µ÷²é²âÑé·Ö¡¢±íµ¥µÃ·Ö//ISNULL  COALESCE
+        /// æ‰¹é‡æ›´æ–°æ‰€æ•™ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ã€è°ƒæŸ¥æµ‹éªŒåˆ†ã€è¡¨å•å¾—åˆ†//ISNULL  COALESCE
         /// </summary>
         public void ThisTeamScoresNew(int Rhid)
         {
@@ -1073,71 +1073,107 @@ namespace LearnSite.DAL
                     {
                         int Syear = Int32.Parse(ds.Tables[0].Rows[i]["Syear"].ToString());
                         int Sgrade = Int32.Parse(ds.Tables[0].Rows[i]["Sgrade"].ToString());
-                        AllClassTeamScoresNew(Sgrade, Syear, Cterm);//µ÷ÓÃÅúÁ¿
+                        AllClassTeamScoresNew(Sgrade, Syear, Cterm);//è°ƒç”¨æ‰¹é‡
                     }
                 }
             }
         }
+
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËùÓĞ°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·ÖºÍ±íÏÖ×Ü»ı·Ö¡¢µ÷²é²âÑé·Ö¡¢±íµ¥µÃ·ÖµÈ£¨ÅúÁ¿group·½·¨£©
+        /// æ‰¹é‡æ›´æ–°æ‰€æœ‰ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ã€è°ƒæŸ¥æµ‹éªŒåˆ†ã€è¡¨å•å¾—åˆ†ç­‰ï¼ˆæ‰¹é‡groupæ–¹æ³•ï¼‰
+        /// </summary>
+        /// <summary>
+        /// æ‰¹é‡æ›´æ–°æ‰€æœ‰ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ã€è°ƒæŸ¥æµ‹éªŒåˆ†ã€è¡¨å•å¾—åˆ†ç­‰ï¼ˆæ‰¹é‡groupæ–¹æ³•ï¼‰
         /// </summary>
         private void AllClassTeamScoresNew(int Sgrade, int Syear, int Cterm)
         {
+            // 1. ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("update Students set Sscore=nc.ws  from( SELECT Wnum, ISNULL(SUM(Wscore)+SUM(Wdscore),0)as ws FROM Works ");
+            strSql.Append("update Students set Sscore=nc.ws from( SELECT Wnum, ISNULL(SUM(Wscore)+SUM(Wdscore),0)as ws FROM Works ");
             strSql.Append(" where Wyear=@Syear and Wcid in ( ");
             strSql.Append("select Cid from Courses where Cterm=@Cterm and Cobj=@Sgrade");
             strSql.Append(" ) group by Wnum )as nc ");
             strSql.Append(" where Snum=nc.Wnum and Sgrade=@Sgrade ");
 
-            SqlParameter[] parameters = {
-					new SqlParameter("@Sgrade", SqlDbType.Int,4),
-                    new SqlParameter("@Cterm", SqlDbType.Int,4),
-                    new SqlParameter("@Syear", SqlDbType.Int,4)};
+            SqlParameter[] parameters1 = {
+        new SqlParameter("@Sgrade", SqlDbType.Int,4),
+        new SqlParameter("@Cterm", SqlDbType.Int,4),
+        new SqlParameter("@Syear", SqlDbType.Int,4)
+    };
+            parameters1[0].Value = Sgrade;
+            parameters1[1].Value = Cterm;
+            parameters1[2].Value = Syear;
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters1);
 
-            parameters[0].Value = Sgrade;
-            parameters[1].Value = Cterm;
-            parameters[2].Value = Syear;
-            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·Ö
-
+            // 2. ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸè¡¨ç°åˆ†
             StringBuilder mySql = new StringBuilder();
-            mySql.Append("update Students set Sattitude=qt.sqe  from( SELECT Qnum, ISNULL(SUM(Qattitude),0)as sqe FROM Signin ");
-            mySql.Append(" where Qsyear=@Syear and Qgrade=@Sgrade and Qterm=@Cterm  group by Qnum )as qt ");
+            mySql.Append("update Students set Sattitude=qt.sqe from( SELECT Qnum, ISNULL(SUM(Qattitude),0)as sqe FROM Signin ");
+            mySql.Append(" where Qsyear=@Syear and Qgrade=@Sgrade and Qterm=@Cterm group by Qnum )as qt ");
             mySql.Append(" where Snum=qt.Qnum and Sgrade=@Sgrade ");
 
-            DbHelperSQL.ExecuteSql(mySql.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚ±íÏÖ·Ö
+            SqlParameter[] parameters2 = {
+        new SqlParameter("@Sgrade", SqlDbType.Int,4),
+        new SqlParameter("@Cterm", SqlDbType.Int,4),
+        new SqlParameter("@Syear", SqlDbType.Int,4)
+    };
+            parameters2[0].Value = Sgrade;
+            parameters2[1].Value = Cterm;
+            parameters2[2].Value = Syear;
+            DbHelperSQL.ExecuteSql(mySql.ToString(), parameters2);
 
+            // 3. ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸæµ‹éªŒåˆ†
             StringBuilder mySqlv = new StringBuilder();
-            mySqlv.Append("update Students set Svscore=sv.sqe  from( SELECT Fnum, ISNULL(SUM(Fscore),0)as sqe FROM SurveyFeedback ");
-            mySqlv.Append(" where Fvtype=1 and Fyear=@Syear and Fgrade=@Sgrade and Fterm=@Cterm  group by Fnum )as sv ");
-            mySqlv.Append(" where Snum=sv.Fnum and Sgrade=@Sgrade ");
+            mySqlv.Append("update Students set Svscore=sv.sqe from( SELECT Asnum, ISNULL(SUM(Ascore),0)as sqe FROM Answers ");
+            mySqlv.Append(" where Asgrade=@Sgrade group by Asnum )as sv ");
+            mySqlv.Append(" where Snum=sv.Asnum and Sgrade=@Sgrade ");
 
-            DbHelperSQL.ExecuteSql(mySqlv.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚµ÷²é·Ö
+            SqlParameter[] parameters3 = {
+        new SqlParameter("@Sgrade", SqlDbType.Int,4)
+    };
+            parameters3[0].Value = Sgrade;
+            DbHelperSQL.ExecuteSql(mySqlv.ToString(), parameters3);
 
+            // 4. ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸä¸»é¢˜è®¨è®ºåˆ†
             StringBuilder mySqlp = new StringBuilder();
-            mySqlp.Append("update Students set Spscore=sp.sqe  from( SELECT Rsnum, ISNULL(SUM(Rscore),0)as sqe FROM TopicReply ");
-            mySqlp.Append(" where Ryear=@Syear and Rgrade=@Sgrade and Rterm=@Cterm  group by Rsnum )as sp ");
+            mySqlp.Append("update Students set Spscore=sp.sqe from( SELECT Rsnum, ISNULL(SUM(Rscore),0)as sqe FROM TopicReply ");
+            mySqlp.Append(" where Ryear=@Syear and Rgrade=@Sgrade and Rterm=@Cterm group by Rsnum )as sp ");
             mySqlp.Append(" where Snum=sp.Rsnum and Sgrade=@Sgrade ");
 
-            DbHelperSQL.ExecuteSql(mySqlp.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚÖ÷ÌâÌÖÂÛ·Ö
+            SqlParameter[] parameters4 = {
+        new SqlParameter("@Sgrade", SqlDbType.Int,4),
+        new SqlParameter("@Cterm", SqlDbType.Int,4),
+        new SqlParameter("@Syear", SqlDbType.Int,4)
+    };
+            parameters4[0].Value = Sgrade;
+            parameters4[1].Value = Cterm;
+            parameters4[2].Value = Syear;
+            DbHelperSQL.ExecuteSql(mySqlp.ToString(), parameters4);
 
+            // 5. ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸè¡¨å•å¾—åˆ†
             StringBuilder mySqlf = new StringBuilder();
-            mySqlf.Append("update Students set Stxtform=sp.sqe  from( SELECT Rsnum, ISNULL(SUM(Rscore),0)as sqe FROM TxtFormBack ");
-            mySqlf.Append(" where Ryear=@Syear and Rgrade=@Sgrade and Rterm=@Cterm  group by Rsnum )as sp ");
+            mySqlf.Append("update Students set Stxtform=sp.sqe from( SELECT Rsnum, ISNULL(SUM(Rscore),0)as sqe FROM TxtFormBack ");
+            mySqlf.Append(" where Ryear=@Syear and Rgrade=@Sgrade and Rterm=@Cterm group by Rsnum )as sp ");
             mySqlf.Append(" where Snum=sp.Rsnum and Sgrade=@Sgrade ");
 
-            DbHelperSQL.ExecuteSql(mySqlf.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚ±íµ¥µÃ·Ö
-
+            SqlParameter[] parameters5 = {
+        new SqlParameter("@Sgrade", SqlDbType.Int,4),
+        new SqlParameter("@Cterm", SqlDbType.Int,4),
+        new SqlParameter("@Syear", SqlDbType.Int,4)
+    };
+            parameters5[0].Value = Sgrade;
+            parameters5[1].Value = Cterm;
+            parameters5[2].Value = Syear;
+            DbHelperSQL.ExecuteSql(mySqlf.ToString(), parameters5);
         }
         /// <summary>
-        /// ÅúÁ¿¸üĞÂ¸Ã°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·ÖºÍ±íÏÖ×Ü»ı·Ö£¨ÅúÁ¿group·½·¨£©
+        /// æ‰¹é‡æ›´æ–°è¯¥ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ï¼ˆæ‰¹é‡groupæ–¹æ³•ï¼‰
         /// </summary>
         public void ThisClassTeamScoresNew(int Sgrade, int Sclass)
         {
             int Cterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());
-            int Syear = GetYear(Sgrade,Sclass);
+            int Syear = GetYear(Sgrade, Sclass);
             string mysqla = "update Students set Sscore=0,Sattitude=0 where Sgrade=" + Sgrade + " and Sclass=" + Sclass;
-            DbHelperSQL.ExecuteSql(mysqla);//Í³¼ÆÇ°½«³É¼¨Çå¿Õ
+            DbHelperSQL.ExecuteSql(mysqla);//ç»Ÿè®¡å‰å°†æˆç»©æ¸…ç©º
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update Students set Sscore=nc.ws  from( SELECT Wnum, ISNULL(SUM(Wscore)+SUM(Wdscore),0)as ws FROM Works ");
             strSql.Append(" where Wyear=@Syear and Wcid in ( ");
@@ -1155,7 +1191,7 @@ namespace LearnSite.DAL
             parameters[1].Value = Sclass;
             parameters[2].Value = Cterm;
             parameters[3].Value = Syear;
-            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);//Í³¼Æ°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·Ö
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);//ç»Ÿè®¡ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†
 
             StringBuilder mySql = new StringBuilder();
             mySql.Append("update Students set Sattitude=qt.sqe  from( SELECT Qnum, ISNULL(SUM(Qattitude),0)as sqe FROM Signin ");
@@ -1167,7 +1203,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Í³¼Æµ¥¸öÑ§ÉúÖ÷ÌâÌÖÂÛµÃ·Ö
+        /// ç»Ÿè®¡å•ä¸ªå­¦ç”Ÿä¸»é¢˜è®¨è®ºå¾—åˆ†
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1191,7 +1227,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Í³¼Æµ¥¸öÑ§ÉúµÄµ÷²é²âÑé·Ö
+        /// ç»Ÿè®¡å•ä¸ªå­¦ç”Ÿçš„è°ƒæŸ¥æµ‹éªŒåˆ†
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1215,7 +1251,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Í³¼ÆÒ»¸öÑ§ÉúµÄ±íÏÖ·Ö
+        /// ç»Ÿè®¡ä¸€ä¸ªå­¦ç”Ÿçš„è¡¨ç°åˆ†
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1238,7 +1274,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// Í³¼ÆÒ»¸öÑ§ÉúµÄ×÷Æ··Ö
+        /// ç»Ÿè®¡ä¸€ä¸ªå­¦ç”Ÿçš„ä½œå“åˆ†
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Cterm"></param>
@@ -1262,11 +1298,11 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ÖÕ½áĞÔÆÀ¶¨
+        /// ç»ˆç»“æ€§è¯„å®š
         /// </summary>
         /// <param name="perA"></param>
         /// <param name="perE"></param>
-        public void TermAPE(int perA,int perE)
+        public void TermAPE(int perA, int perE)
         {
             string strSql = "UPDATE Students SET Sape='P'";
             DbHelperSQL.ExecuteSql(strSql);
@@ -1276,39 +1312,39 @@ namespace LearnSite.DAL
             int SgradeMax = rm.GetMaxRgrade();
             int SclassMin = rm.GetMinRclass();
             int SclassMax = rm.GetMaxRclass();
-            for (int i = SgradeMin; i < SgradeMax+1; i++)
+            for (int i = SgradeMin; i < SgradeMax + 1; i++)
             {
-                for (int j = SclassMin; j < SclassMax+1; j++)
+                for (int j = SclassMin; j < SclassMax + 1; j++)
                 {
                     int Sgrade = i;
                     int Sclass = j;
-                    int Scount=0;
+                    int Scount = 0;
                     string mysql = "SELECT MAX(Sallscore) From Students WHERE Sgrade=" + Sgrade + " AND Sclass=" + Sclass;
                     int Sallscore = DbHelperSQL.FindNum(mysql);
 
-                    string strcount = "SELECT COUNT(*) From Students WHERE Sgrade=" + Sgrade + " AND Sclass=" + Sclass ;
-                    object objcount= DbHelperSQL.GetSingle(strcount);
+                    string strcount = "SELECT COUNT(*) From Students WHERE Sgrade=" + Sgrade + " AND Sclass=" + Sclass;
+                    object objcount = DbHelperSQL.GetSingle(strcount);
                     if (objcount != null)
                         Scount = Int32.Parse(objcount.ToString());
                     else
                     {
                         break;
                     }
-                    int setA = Scount *perA/100;
+                    int setA = Scount * perA / 100;
                     //int setE = Scount * perE/100;
                     int EscoreLimit = Sallscore * perE / 100;
                     string strA = "UPDATE Students SET Sape='A' WHERE  Sid IN (SELECT TOP " + setA + " Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' ORDER BY Sallscore DESC) ";
                     DbHelperSQL.ExecuteSql(strA);
                     //string strE = "UPDATE Students SET Sape='E' WHERE  Sid IN (SELECT TOP " + setE + " Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' ORDER BY Sallscore ASC) ";
                     //DbHelperSQL.ExecuteSql(strE);
-                    string strKill = "UPDATE Students SET Sape='E' WHERE Sallscore<" + EscoreLimit;//×Ü·ÖµÍÓÚ£ÅµÄ·ÖÖµÊ±¾ÍÆÀÎª£Å
+                    string strKill = "UPDATE Students SET Sape='E' WHERE Sallscore<" + EscoreLimit;//æ€»åˆ†ä½äºï¼¥çš„åˆ†å€¼æ—¶å°±è¯„ä¸ºï¼¥
                     DbHelperSQL.ExecuteSql(strKill);
                 }
             }
         }
 
         /// <summary>
-        /// ÖÕ½áĞÔÆÀ¶¨
+        /// ç»ˆç»“æ€§è¯„å®š
         /// </summary>
         public void TermABCD()
         {
@@ -1326,25 +1362,26 @@ namespace LearnSite.DAL
                 {
                     int Sgrade = i;
                     int Sclass = j;
-                    
+
                     string mysql = "SELECT MAX(Sallscore) From Students WHERE Sgrade=" + Sgrade + " AND Sclass=" + Sclass;
                     int Smaxscore = DbHelperSQL.FindNum(mysql);
 
-                    if (Smaxscore >0)
-                    {   
+                    if (Smaxscore > 0)
+                    {
                         int A = Smaxscore * 80 / 100;
                         int B = Smaxscore * 60 / 100;
                         int C = Smaxscore * 30 / 100;
-
-                        string strA = "UPDATE Students SET Sape='ÓÅĞã',Stenscore= 10  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore>= "+A+" AND Sape='' ) ";
+                        string strape = "ALTER TABLE Students ALTER COLUMN Sape varchar(10)";
+                        DbHelperSQL.ExecuteSql(strape);
+                        string strA = "UPDATE Students SET Sape='ä¼˜ç§€',Stenscore= 10  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore>= " + A + " AND Sape='' ) ";
                         DbHelperSQL.ExecuteSql(strA);
-                        string strB = "UPDATE Students SET Sape='Á¼ºÃ',Stenscore= 8  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore< " + A + " AND Sallscore>= " + B + " AND Sape='' ) ";
+                        string strB = "UPDATE Students SET Sape='è‰¯å¥½',Stenscore= 8  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore< " + A + " AND Sallscore>= " + B + " AND Sape='' ) ";
                         DbHelperSQL.ExecuteSql(strB);
-                        string strC = "UPDATE Students SET Sape='¼°¸ñ',Stenscore= 6 WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore< " + B + " AND Sallscore>= " + C + " AND Sape='' ) ";
+                        string strC = "UPDATE Students SET Sape='åŠæ ¼',Stenscore= 6 WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore< " + B + " AND Sallscore>= " + C + " AND Sape='' ) ";
                         DbHelperSQL.ExecuteSql(strC);
-                        string strD = "UPDATE Students SET Sape='²»¼°¸ñ',Stenscore= 4  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sape='' ) ";
+                        string strD = "UPDATE Students SET Sape='ä¸åŠæ ¼',Stenscore= 4  WHERE  Sid IN (SELECT Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sape='' ) ";
                         DbHelperSQL.ExecuteSql(strD);
-                        string strE = "UPDATE Students SET Sape='²»¼°¸ñ', Stenscore=2  WHERE  Sid IN (SELECT  Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore=0 ) ";
+                        string strE = "UPDATE Students SET Sape='ä¸åŠæ ¼', Stenscore=2  WHERE  Sid IN (SELECT  Sid FROM Students WHERE Sgrade='" + Sgrade + "' AND Sclass='" + Sclass + "' AND Sallscore=0 ) ";
                         DbHelperSQL.ExecuteSql(strE);
                     }
                 }
@@ -1353,7 +1390,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// ÖÕ½áĞÔÆÀ¶¨
+        /// ç»ˆç»“æ€§è¯„å®š
         /// </summary>
         public void TermABCDE()
         {
@@ -1406,12 +1443,12 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃ×÷Æ·×ÜÆÀÊı¾İÁĞ±í
+        /// è·å¾—ä½œå“æ€»è¯„æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetListTerm(int Sgrade, int Sclass)
-		{
-            StringBuilder strSql=new StringBuilder();
-            strSql.Append("select Sid,Snum,(STR(Sgrade)+'.'+STR(Sclass)) as Sgradeclass,Sname,Sscore,Squiz,Sattitude,Swscore,Stscore,Sallscore,Sape,Spscore,Sgscore,Sfscore,Svscore,Stxtform,Schinese,Stenscore,Sidle ");           
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Sid,Snum,(STR(Sgrade)+'.'+STR(Sclass)) as Sgradeclass,Sname,Sscore,Sattitude,Swscore,Stscore,Sallscore,Sape,Spscore,Sgscore,Sfscore,Svscore,Stxtform,Schinese,Stenscore,Sidle ");
             strSql.Append(" FROM Students ");
             strSql.Append(" where Sgrade=@Sgrade and Sclass=@Sclass ");
             SqlParameter[] parameters = {
@@ -1421,10 +1458,10 @@ namespace LearnSite.DAL
             parameters[0].Value = Sgrade;
             parameters[1].Value = Sclass;
 
-            return DbHelperSQL.Query(strSql.ToString(),parameters);
-		}
+            return DbHelperSQL.Query(strSql.ToString(), parameters);
+        }
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetList(string strWhere)
         {
@@ -1439,7 +1476,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃÌõ¼şÊı¾İÁĞ±í
+        /// è·å¾—æ¡ä»¶æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetSqlList(string strSql)
         {
@@ -1447,7 +1484,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃµ¥¸öÑ§ÉúÊı¾İ
+        /// è·å¾—å•ä¸ªå­¦ç”Ÿæ•°æ®
         /// </summary>
         public DataSet GetOneStudent(int Sid)
         {
@@ -1463,7 +1500,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñµÃµ±Ç°°à¼¶Ñ§Éú±íÏÖÊı¾İÁĞ±í
+        /// è·å¾—å½“å‰ç­çº§å­¦ç”Ÿè¡¨ç°æ•°æ®åˆ—è¡¨
         /// </summary>
         /// <param name="Syear"></param>
         /// <param name="Sgrade"></param>
@@ -1487,9 +1524,9 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
         /// <summary>
-        /// »ñµÃÑ§Éú¹ÜÀíÒ³Êı¾İÁĞ±í
+        /// è·å¾—å­¦ç”Ÿç®¡ç†é¡µæ•°æ®åˆ—è¡¨
         /// </summary>
-        public DataSet GetListStudents(int Sgrade,int Sclass)
+        public DataSet GetListStudents(int Sgrade, int Sclass)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("select Sid,Snum,Spwd,Sgrade,Sclass,Sname,Sex,Sphone,Sscore,Squiz,Sattitude,Sleader,Sgroup ");
@@ -1506,7 +1543,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃ±¾°àÑ§ÉúÑ§ºÅºÍĞÕÃûÊı¾İÁĞ±í
+        /// è·å¾—æœ¬ç­å­¦ç”Ÿå­¦å·å’Œå§“åæ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetStudentsSnumSname(int Sgrade, int Sclass)
         {
@@ -1524,7 +1561,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñµÃ±¾°àÑ§ÉúSidÑ§ºÅºÍĞÕÃûÊı¾İÁĞ±í
+        /// è·å¾—æœ¬ç­å­¦ç”ŸSidå­¦å·å’Œå§“åæ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetStudentsSnumSidSname(int Sgrade, int Sclass)
         {
@@ -1542,7 +1579,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñµÃ±¾Äê¼¶ËùÓĞÑ§ÉúÁĞ±í
+        /// è·å¾—æœ¬å¹´çº§æ‰€æœ‰å­¦ç”Ÿåˆ—è¡¨
         /// </summary>
         public DataTable GetStudentsSnumSname(int Sgrade)
         {
@@ -1557,7 +1594,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
         /// <summary>
-        /// »ñµÃÈ«ÌåÑ§ÉúµÄÑ§ÄêÁĞ±í
+        /// è·å¾—å…¨ä½“å­¦ç”Ÿçš„å­¦å¹´åˆ—è¡¨
         /// </summary>
         public DataSet GetAllYears()
         {
@@ -1565,7 +1602,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql);
         }
         /// <summary>
-        /// »ñµÃÇ°¼¸ĞĞÊı¾İ
+        /// è·å¾—å‰å‡ è¡Œæ•°æ®
         /// </summary>
         public DataSet GetList(int Top, string strWhere, string filedOrder)
         {
@@ -1586,14 +1623,14 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ´ÓÑ§Éú±íµÃµ½¸ÃÄê·İµÄ¼ÇÂ¼Êı
+        /// ä»å­¦ç”Ÿè¡¨å¾—åˆ°è¯¥å¹´ä»½çš„è®°å½•æ•°
         /// </summary>
         /// <param name="Syear"></param>
         /// <returns></returns>
         public int FindCount(int Syear)
         {
             int fcount = 0;
-            string strSql = "select count(*) from Students where Syear="+Syear;
+            string strSql = "select count(*) from Students where Syear=" + Syear;
             string findstr = DbHelperSQL.FindString(strSql);
             if (findstr != "")
             {
@@ -1602,7 +1639,7 @@ namespace LearnSite.DAL
             return fcount;
         }
         /// <summary>
-        /// Ñ§Éú±íËùÓĞÑ§ÉúÄê¼¶¶¼ÉıÒ»¼¶£¬²¢É¾³ıÑ§Éú±íÖĞ³¬¹ı°à¼¶±í×î¸ßÄê¼¶+2µÄÑ§Éú
+        /// å­¦ç”Ÿè¡¨æ‰€æœ‰å­¦ç”Ÿå¹´çº§éƒ½å‡ä¸€çº§ï¼Œå¹¶åˆ é™¤å­¦ç”Ÿè¡¨ä¸­è¶…è¿‡ç­çº§è¡¨æœ€é«˜å¹´çº§+2çš„å­¦ç”Ÿ
         /// </summary>
         public void Upgrade()
         {
@@ -1610,35 +1647,35 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
             System.Threading.Thread.Sleep(1000);
             BLL.Room rbll = new BLL.Room();
-            int maxGrade = rbll.GetMaxRgrade()+2;
+            int maxGrade = rbll.GetMaxRgrade() + 2;
             string mysql = "delete Students where Sgrade>" + maxGrade;
-            DbHelperSQL.ExecuteSql(mysql);            
+            DbHelperSQL.ExecuteSql(mysql);
         }
 
 
         /// <summary>
-        /// »ñµÃ¸ÃÄê¼¶µÄÈëÑ§Äê·İ
+        /// è·å¾—è¯¥å¹´çº§çš„å…¥å­¦å¹´ä»½
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
         public string GetYear(int Sgrade)
         {
-            string mysql = "select top 1  Syear from Students where Sgrade=" + Sgrade ;
+            string mysql = "select top 1  Syear from Students where Sgrade=" + Sgrade;
             string getstr = DbHelperSQL.FindString(mysql);
             if (getstr == "")
                 getstr = DateTime.Now.Year.ToString();
             return getstr;
         }
         /// <summary>
-        /// »ñµÃ¸ÃÄê¼¶µÄÈëÑ§Äê·İ
+        /// è·å¾—è¯¥å¹´çº§çš„å…¥å­¦å¹´ä»½
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
-        public int GetYear(int Sgrade,int Sclass)
+        public int GetYear(int Sgrade, int Sclass)
         {
-            string mysql = "select top 1 Syear from Students where Sgrade=" + Sgrade+" and Sclass="+Sclass;
+            string mysql = "select top 1 Syear from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass;
             object aa = DbHelperSQL.GetSingle(mysql);
             if (aa != null)
             {
@@ -1650,7 +1687,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ù¾İÄê¼¶¡¢°à¼¶»ñµÃĞÕÃûºÍÑ§ºÅ
+        /// æ ¹æ®å¹´çº§ã€ç­çº§è·å¾—å§“åå’Œå­¦å·
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1658,21 +1695,21 @@ namespace LearnSite.DAL
         public DataSet GetNameNum(int Sgrade, int Sclass)
         {
             string mysql = "select Snum,Sname from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass;
-            return DbHelperSQL.GetDataSet(mysql);      
+            return DbHelperSQL.GetDataSet(mysql);
         }
 
         /// <summary>
-        /// ÏÔÊ¾±¾Äê¼¶»ı·Ö×î¸ßµÄ20Ìõ¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬å¹´çº§ç§¯åˆ†æœ€é«˜çš„20æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="GridViewscore"></param>
-        public  DataSet ShowTopScore(int Sgrade)
+        public DataSet ShowTopScore(int Sgrade)
         {
             string mysql = "Select top 20 Snum,Sgrade,Sclass,Sname,(Sscore+Spscore+Stxtform+Sidle)as Sscore from Students where Sgrade=" + Sgrade + "  ORDER BY Sscore DESC";
             return DbHelperSQL.GetDataSet(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾±¾°à¼¶20Ìõ¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬ç­çº§20æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1683,7 +1720,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.GetDataSet(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾±¾°à¼¶ËùÓĞ»ı·Ö¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬ç­çº§æ‰€æœ‰ç§¯åˆ†è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1691,70 +1728,70 @@ namespace LearnSite.DAL
         public DataSet ShowMyclassScore(int Sgrade, int Sclass)
         {
             string mysql = "Select Sname,(Sscore+Spscore+Stxtform+Sidle)as Sscore from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + "  ORDER BY Sscore DESC";
-            return DbHelperSQL.GetDataSet(mysql);        
+            return DbHelperSQL.GetDataSet(mysql);
         }
         /// <summary>
-        /// ²éÑ¯Ñ§Éú±íµÄ¼ÇÂ¼×ÜÊı
+        /// æŸ¥è¯¢å­¦ç”Ÿè¡¨çš„è®°å½•æ€»æ•°
         /// </summary>
         /// <returns></returns>
         public int GetCounts()
         {
-           return DbHelperSQL.TableCounts("Students");
+            return DbHelperSQL.TableCounts("Students");
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄ²âÑé³É¼¨
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„æµ‹éªŒæˆç»©
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Squiz"></param>
         public void SetSquiz(int Rsid, int Squiz)
         {
-            string mysql = "update Students set Squiz=" + Squiz + "  where Sid=" + Rsid ;
+            string mysql = "update Students set Squiz=" + Squiz + "  where Sid=" + Rsid;
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ñµÃ±¾Äê¼¶²âÑé³É¼¨×î¸ßµÄ50Ìõ¼ÇÂ¼
+        /// è·å¾—æœ¬å¹´çº§æµ‹éªŒæˆç»©æœ€é«˜çš„50æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <returns></returns>
         public DataSet TopGradeQuiz(int Sgrade)
         {
             string mysql = "Select top 50 Snum,(STR(Sgrade)+STR(Sclass)) as Sgradeclass,Sname,Squiz from Students where Sgrade=" + Sgrade + " and Squiz>0  ORDER BY Squiz DESC";
-            return DbHelperSQL.GetDataSet(mysql);        
+            return DbHelperSQL.GetDataSet(mysql);
         }
         /// <summary>
-        /// »ñµÃ±¾°à¼¶²âÑé³É¼¨ËùÓĞ¼ÇÂ¼
+        /// è·å¾—æœ¬ç­çº§æµ‹éªŒæˆç»©æ‰€æœ‰è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
         public DataSet TopClassQuiz(int Sgrade, int Sclass)
         {
-            string mysql = "Select  Snum,(STR(Sgrade)+STR(Sclass)) as Sgradeclass,Sname,Squiz from Students where Sgrade=" + Sgrade + " and Sclass="+Sclass+" and Squiz>0  ORDER BY Squiz DESC";
+            string mysql = "Select  Snum,(STR(Sgrade)+STR(Sclass)) as Sgradeclass,Sname,Squiz from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and Squiz>0  ORDER BY Squiz DESC";
             return DbHelperSQL.GetDataSet(mysql);
         }
         /// <summary>
-        /// »ñµÃÎÒµÄ²âÑéÆ½¾ù³É¼¨
+        /// è·å¾—æˆ‘çš„æµ‹éªŒå¹³å‡æˆç»©
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
         public string MySquiz(string Snum)
         {
-            string mysql = "select Squiz from Students where Snum='"+Snum+"'";
+            string mysql = "select Squiz from Students where Snum='" + Snum + "'";
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍ°à¼¶ÃÜÂë£¬ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñ´æÔÚ
+        /// æ ¹æ®å­¦å·å’Œç­çº§å¯†ç ï¼Œåˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Rpwd"></param>
         /// <returns></returns>
-        public bool ExistsLogin(string Snum,string Rpwd)
+        public bool ExistsLogin(string Snum, string Rpwd)
         {
-            string mysql = "select count(1) from Students,Room where Sgrade=Rgrade and Sclass=Rclass and Snum='"+Snum+"' and Rpwd='"+Rpwd+"'";
-            return DbHelperSQL.Exists(mysql);        
+            string mysql = "select count(1) from Students,Room where Sgrade=Rgrade and Sclass=Rclass and Snum='" + Snum + "' and Rpwd='" + Rpwd + "'";
+            return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍ¸öÈËÃÜÂë£¬ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñ´æÔÚ
+        /// æ ¹æ®å­¦å·å’Œä¸ªäººå¯†ç ï¼Œåˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Spwd"></param>
@@ -1773,7 +1810,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸üĞÂÑ§Éú±íÖĞÍøÒ³ÖÆ×÷³É¼¨
+        /// æ›´æ–°å­¦ç”Ÿè¡¨ä¸­ç½‘é¡µåˆ¶ä½œæˆç»©
         /// </summary>
         public void UpdateWebScore()
         {
@@ -1781,79 +1818,76 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// µÇÂ¼ÕËºÅ½ÌÊ¦Ëù½Ì°à¼¶°´Éè¶¨°Ù·Ö±È¼ÆËã×Ü·Ö
+        /// ç™»å½•è´¦å·æ•™å¸ˆæ‰€æ•™ç­çº§æŒ‰è®¾å®šç™¾åˆ†æ¯”è®¡ç®—æ€»åˆ†
         /// </summary>
         /// <param name="persscore"></param>
         /// <param name="persquiz"></param>
         /// <param name="perswscore"></param>
         /// <param name="perstscore"></param>
         /// <param name="perattitude"></param>
-        public void UpdateAllScore(int persscore, int persquiz, int perstscore, int perattitude, int persurvey, int Rhid)
+        public void UpdateAllScore(int persscore, int persexam, int perstscore, int perattitude, int Rhid)
         {
-
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update Students set Sallscore= ");
-            strSql.Append("(Sscore+Sgscore+Spscore+Stxtform+Sidle)*@persscore/100+Svscore*@persurvey/100+Squiz*@persquiz/100+Sattitude*@perattitude/100+(Stscore+Sfscore+Schinese)*@perstscore/100");
+            strSql.Append("(Sscore+Sgscore+Spscore+Stxtform+Sidle)*@persscore/100+Svscore*@persexam/100+Sattitude*@perattitude/100+(Stscore+Sfscore+Schinese)*@perstscore/100");
             string aa = " from Students,Room where Sgrade=Rgrade and Sclass=Rclass  and Rhid=@Rhid ";
             strSql.Append(aa);
             SqlParameter[] parameters = {					
 					new SqlParameter("@persscore", SqlDbType.Int,4),
-					new SqlParameter("@persquiz", SqlDbType.Int,4),
+					new SqlParameter("@persexam", SqlDbType.Int,4),
 					new SqlParameter("@perstscore", SqlDbType.Int,4),
                     new SqlParameter("@perattitude", SqlDbType.Int,4),
-                    new SqlParameter("@persurvey", SqlDbType.Int,4),
                     new SqlParameter("@Rhid", SqlDbType.Int,4)};
 
             parameters[0].Value = persscore;
-            parameters[1].Value = persquiz;
+            parameters[1].Value = persexam;
             parameters[2].Value = perstscore;
             parameters[3].Value = perattitude;
-            parameters[4].Value = persurvey;
-            parameters[5].Value = Rhid;
+            parameters[4].Value = Rhid;
 
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸üĞÂÑ§Éú±íµÄ´ò×Ö³É¼¨
+        /// æ›´æ–°å­¦ç”Ÿè¡¨çš„æ‰“å­—æˆç»©
         /// </summary>
         public void UpdateStscore()
         {
             //string sqlstr = "update Students set Stscore=0";
-            //DbHelperSQL.ExecuteSql(sqlstr);//ÏÈÇå¿Õ
+            //DbHelperSQL.ExecuteSql(sqlstr);//å…ˆæ¸…ç©º
             string nowterm = LearnSite.Common.XmlHelp.GetTerm();
             string mysql = "update Students set Stscore=Pdegree from Students,Ptyper where Snum=Psnum and Sgrade=Pgrade and Pterm=" + nowterm;
             DbHelperSQL.ExecuteSql(mysql);
         }
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬¸üĞÂ°à¼¶
+        /// æ ¹æ®å­¦å·ï¼Œæ›´æ–°ç­çº§
         /// </summary>
         /// <param name="Sclass"></param>
         /// <param name="Snum"></param>
         public void UpdateStuclass(int Sclass, string Snum)
         {
-            string sqlstr = "update Students set Sclass="+Sclass+" where Snum='"+Snum+"'";
+            string sqlstr = "update Students set Sclass=" + Sclass + " where Snum='" + Snum + "'";
             DbHelperSQL.ExecuteSql(sqlstr);
         }
         /// <summary>
-        /// ¸ù¾İ½ÌÊ¦×Ô¶¯±àºÅHid£¬·µ»ØËù½Ì°à¼¶µÄSyear,SclassÊı¾İ¼¯
+        /// æ ¹æ®æ•™å¸ˆè‡ªåŠ¨ç¼–å·Hidï¼Œè¿”å›æ‰€æ•™ç­çº§çš„Syear,Sclassæ•°æ®é›†
         /// </summary>
         /// <param name="Rhid"></param>
         /// <returns></returns>
         public DataSet TeacherSyearSclass(int hid)
         {
-            string mysql = "select distinct Syear,Sgrade,Sclass from Students where Sclass in (select Rclass from Room where Rhid="+hid+")";
+            string mysql = "select distinct Syear,Sgrade,Sclass from Students where Sclass in (select Rclass from Room where Rhid=" + hid + ")";
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// ½«Ëù½Ì°à¼¶µÄÑ§ÉúÃÜÂëÈç¹ûÎªÔ­³õÊ¼»¯ÃÜÂëÔò¸üĞÂ×ª»»ÎªĞÕÃûÆ´ÒôËõĞ´£¨Èç¹û×ª»»µÄ²»ÊÇ×ÖÄ¸»òÊı×Ö£¬Ôò²»¸üĞÂÃÜÂë£©
+        /// å°†æ‰€æ•™ç­çº§çš„å­¦ç”Ÿå¯†ç å¦‚æœä¸ºåŸåˆå§‹åŒ–å¯†ç åˆ™æ›´æ–°è½¬æ¢ä¸ºå§“åæ‹¼éŸ³ç¼©å†™ï¼ˆå¦‚æœè½¬æ¢çš„ä¸æ˜¯å­—æ¯æˆ–æ•°å­—ï¼Œåˆ™ä¸æ›´æ–°å¯†ç ï¼‰
         /// </summary>
         /// <param name="hid"></param>
         /// <param name="Spwd"></param>
-        public string SpwdToSpell(int hid,string Spwd)
+        public string SpwdToSpell(int hid, string Spwd)
         {
             string str = "";
-            string mysql = "select Snum,Sname from Students,Room where Sgrade=Rgrade and Sclass=Rclass and Rhid="+hid+" and Spwd='"+Spwd+"'";
+            string mysql = "select Snum,Sname from Students,Room where Sgrade=Rgrade and Sclass=Rclass and Rhid=" + hid + " and Spwd='" + Spwd + "'";
             DataSet ds = DbHelperSQL.Query(mysql);
             int counts = ds.Tables[0].Rows.Count;
             int right = 0;
@@ -1863,20 +1897,20 @@ namespace LearnSite.DAL
                 {
                     string mySnum = ds.Tables[0].Rows[i]["Snum"].ToString();
                     string mySname = ds.Tables[0].Rows[i]["Sname"].ToString();
-                    string spellname = Common.Gbk2Spell.Chinese.FirstLetter(mySname.Replace(" ", ""));//È¡ĞÕÃûµÄÆ´ÒôËõĞ´ÎªÃÜÂë
+                    string spellname = Common.Gbk2Spell.Chinese.FirstLetter(mySname.Replace(" ", ""));//å–å§“åçš„æ‹¼éŸ³ç¼©å†™ä¸ºå¯†ç 
                     if (LearnSite.Common.WordProcess.IsEnNum(spellname))
                     {
                         BLL.Students sbll = new BLL.Students();
-                        sbll.UpdatePwd(mySnum, spellname);//Èç¹ûËõĞ´Îª×ÖÄ¸»òÊı×ÖÔò¸üĞÂ
+                        sbll.UpdatePwd(mySnum, spellname);//å¦‚æœç¼©å†™ä¸ºå­—æ¯æˆ–æ•°å­—åˆ™æ›´æ–°
                         right++;
                     }
                 }
             }
-            str = "·ûºÏÔ­³õÊ¼»¯ÃÜÂëµÄËù½ÌÑ§Éú×ÜÊıÎª£º"+counts.ToString()+"Î» ×ª»»³É¹¦£º"+right.ToString();
+            str = "ç¬¦åˆåŸåˆå§‹åŒ–å¯†ç çš„æ‰€æ•™å­¦ç”Ÿæ€»æ•°ä¸ºï¼š" + counts.ToString() + "ä½ è½¬æ¢æˆåŠŸï¼š" + right.ToString();
             return str;
         }
         /// <summary>
-        /// ½«ËùÓĞÑ§ÉúµÄ²âÑéÍ³¼Æ³É¼¨¸üĞÂÎªÆä²âÑé×î¸ß·Ö
+        /// å°†æ‰€æœ‰å­¦ç”Ÿçš„æµ‹éªŒç»Ÿè®¡æˆç»©æ›´æ–°ä¸ºå…¶æµ‹éªŒæœ€é«˜åˆ†
         /// </summary>
         public void UpdateBestSquiz()
         {
@@ -1890,7 +1924,7 @@ namespace LearnSite.DAL
 
                 for (int i = 0; i < counts; i++)
                 {
-                    int  mySid =Int32.Parse( ds.Tables[0].Rows[i]["Sid"].ToString());
+                    int mySid = Int32.Parse(ds.Tables[0].Rows[i]["Sid"].ToString());
                     string mySgrade = ds.Tables[0].Rows[i]["Sgrade"].ToString();
                     if (!string.IsNullOrEmpty(mySgrade))
                     {
@@ -1901,7 +1935,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ³õÊ¼»¯SleaderÖµ£¬Êı¾İ¿âÉı¼¶Ê±ÓÃ
+        /// åˆå§‹åŒ–Sleaderå€¼ï¼Œæ•°æ®åº“å‡çº§æ—¶ç”¨
         /// </summary>
         public void InitSleader()
         {
@@ -1909,7 +1943,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ×Ô¶¯·ÖÅäĞ¡×é
+        /// è‡ªåŠ¨åˆ†é…å°ç»„
         /// </summary>
         public void AutoSleader(int Sgrade, int Sclass, int Leadnum, int groupmax)
         {
@@ -1931,7 +1965,7 @@ namespace LearnSite.DAL
                 for (int i = 0; i < count; i++)
                 {
                     string sid = dt.Rows[i]["Sid"].ToString();
-                    string leadsid = dtlead.Rows[i % Leadnum]["Sid"].ToString();//ÒÀ´Î·ÖÅäÑ§Éú
+                    string leadsid = dtlead.Rows[i % Leadnum]["Sid"].ToString();//ä¾æ¬¡åˆ†é…å­¦ç”Ÿ
                     string sqlgroup = "update Students set Sgroup=" + leadsid + " where   Sid=" + sid;
                     DbHelperSQL.ExecuteSql(sqlgroup);
                 }
@@ -1940,7 +1974,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ÈÎÃü»òĞ¶ÈÎ×é³¤
+        /// ä»»å‘½æˆ–å¸ä»»ç»„é•¿
         /// </summary>
         /// <param name="Snum"></param>
         public void ChangeSleader(int Sid)
@@ -1948,29 +1982,29 @@ namespace LearnSite.DAL
             string mysql = "update Students set Sleader=Sleader^1 where Sid=" + Sid;
             DbHelperSQL.ExecuteSql(mysql);
 
-            string wrdsql = "update Students set Sgroup=null where Sgroup=" + Sid; ;//½«±¾×éµÄ³ÉÔ±È«ÍË×é£¨ÎŞÂÛÈÎÃü»òĞ¶ÈÎ£©
+            string wrdsql = "update Students set Sgroup=null where Sgroup=" + Sid; ;//å°†æœ¬ç»„çš„æˆå‘˜å…¨é€€ç»„ï¼ˆæ— è®ºä»»å‘½æˆ–å¸ä»»ï¼‰
             DbHelperSQL.ExecuteSql(wrdsql);
 
-            string strsql = "update Students set Sgroup=Sid where Sleader=1 and Sid=" + Sid;//¸üĞÂ×éºÅÎª×Ô¶¯±àºÅ
+            string strsql = "update Students set Sgroup=Sid where Sleader=1 and Sid=" + Sid;//æ›´æ–°ç»„å·ä¸ºè‡ªåŠ¨ç¼–å·
             DbHelperSQL.ExecuteSql(strsql);
 
-            string gtitlesql = "update Students set Sgtitle=Sname where Sleader=1 and Sid=" + Sid;//Ğ¡×éÃû³ÆÄ¬ÈÏÎŞ
+            string gtitlesql = "update Students set Sgtitle=Sname where Sleader=1 and Sid=" + Sid;//å°ç»„åç§°é»˜è®¤æ— 
             DbHelperSQL.ExecuteSql(gtitlesql);
         }
         /// <summary>
-        /// »ñÈ¡°à¼¶ËùÓĞĞ¡×é¶Ó³¤ĞÅÏ¢
+        /// è·å–ç­çº§æ‰€æœ‰å°ç»„é˜Ÿé•¿ä¿¡æ¯
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
         public DataSet ClassGroup(int Sgrade, int Sclass)
         {
-            string mysql = "select Sid,Snum,Sname,Sgroup,Sgtitle from Students where Sleader=1 and Sgrade="+Sgrade+" and Sclass="+Sclass+" order by Snum asc";
-            return DbHelperSQL.Query(mysql);        
+            string mysql = "select Sid,Snum,Sname,Sgroup,Sgtitle from Students where Sleader=1 and Sgrade=" + Sgrade + " and Sclass=" + Sclass + " order by Snum asc";
+            return DbHelperSQL.Query(mysql);
         }
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±Ãûµ¥
+        /// è·å–æœ¬å°ç»„æˆå‘˜åå•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1978,7 +2012,7 @@ namespace LearnSite.DAL
         /// <returns></returns>
         public string GroupMember(int Sgrade, int Sclass, int Sgroup)
         {
-            string mysql = "select Sname from Students where Sleader=0 and Sgroup="+Sgroup+" and Sgrade=" + Sgrade + " and Sclass=" + Sclass + " order by Snum asc";
+            string mysql = "select Sname from Students where Sleader=0 and Sgroup=" + Sgroup + " and Sgrade=" + Sgrade + " and Sclass=" + Sclass + " order by Snum asc";
             DataSet ds = DbHelperSQL.Query(mysql);
             string str = "";
             int counts = ds.Tables[0].Rows.Count;
@@ -1990,7 +2024,7 @@ namespace LearnSite.DAL
                     str = str + Sname;
                     if (i < counts - 1)
                     {
-                        str = str + "¡¢";
+                        str = str + "ã€";
                     }
                 }
             }
@@ -1999,7 +2033,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// »ñÈ¡±¾°àÎ´²Î¼ÓĞ¡×éÃûµ¥
+        /// è·å–æœ¬ç­æœªå‚åŠ å°ç»„åå•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2018,7 +2052,7 @@ namespace LearnSite.DAL
                     str = str + Sname;
                     if (i < counts - 1)
                     {
-                        str = str + "¡¢";
+                        str = str + "ã€";
                     }
                 }
             }
@@ -2026,13 +2060,13 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ»ñÈ¡Í¬×é³ÉÔ±µÄËùÓĞÑ§ºÅ
+        /// æ ¹æ®å­¦å·è·å–åŒç»„æˆå‘˜çš„æ‰€æœ‰å­¦å·
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
         public string GroupSnum(string Snum)
         {
-            string mysql = "select Snum from Students where Sgroup=(select top 1 Sgroup from Students where Snum='"+Snum+"')";
+            string mysql = "select Snum from Students where Sgroup=(select top 1 Sgroup from Students where Snum='" + Snum + "')";
             DataSet ds = DbHelperSQL.Query(mysql);
             string str = "";
             int counts = ds.Tables[0].Rows.Count;
@@ -2051,21 +2085,21 @@ namespace LearnSite.DAL
             return str;
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅµÄĞ¡×éºÅ
-        /// Èç¹ûÔ­×é³¤ÒÑĞ¶ÈÎÔò¼ÓÈëĞÂĞ¡×é
+        /// æ›´æ–°è¯¥å­¦å·çš„å°ç»„å·
+        /// å¦‚æœåŸç»„é•¿å·²å¸ä»»åˆ™åŠ å…¥æ–°å°ç»„
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sgroup"></param>
         public int AddThisGroup(string Snum, int Sgroup)
         {
-            if (!FindLeader(Snum))//Èç¹ûÔ­×é³¤ÒÑĞ¶ÈÎÔò¼ÓÈëĞÂĞ¡×é
+            if (!FindLeader(Snum))//å¦‚æœåŸç»„é•¿å·²å¸ä»»åˆ™åŠ å…¥æ–°å°ç»„
             {
                 string mysql = "update Students set Sgroup=" + Sgroup + " where   Snum='" + Snum + "'";
                 return DbHelperSQL.ExecuteSql(mysql);
             }
             return 0;
         }
-        /// ÍË×é
+        /// é€€ç»„
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sgroup"></param>
@@ -2080,7 +2114,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾°à±¾Ğ¡×éÈËÊı
+        /// è·å–æœ¬ç­æœ¬å°ç»„äººæ•°
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2088,7 +2122,7 @@ namespace LearnSite.DAL
         /// <returns></returns>
         public int GetGroupCount(int Sgrade, int Sclass, int Sgroup)
         {
-            string mysql = "select count(*) from Students where Sgrade="+Sgrade+" and Sclass="+Sclass+" and Sgroup="+Sgroup;
+            string mysql = "select count(*) from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and Sgroup=" + Sgroup;
             string str = DbHelperSQL.FindString(mysql);
             if (str == "")
                 return 0;
@@ -2096,16 +2130,16 @@ namespace LearnSite.DAL
                 return Int32.Parse(str);
         }
         /// <summary>
-        /// ½«¸ÃÑ§ºÅ·Ç×é³¤Í¬Ñ§ÍË×é
+        /// å°†è¯¥å­¦å·éç»„é•¿åŒå­¦é€€ç»„
         /// </summary>
         /// <param name="Snum"></param>
         public void QuitThitGroup(string Snum)
         {
-            string mysql = "update Students set Sgroup=null where Sleader=0 and Snum='"+Snum+"'";
+            string mysql = "update Students set Sgroup=null where Sleader=0 and Snum='" + Snum + "'";
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ½«¸ÃÑ§ºÅ·Ç×é³¤Í¬Ñ§ÍË×é
+        /// å°†è¯¥å­¦å·éç»„é•¿åŒå­¦é€€ç»„
         /// </summary>
         /// <param name="Sid"></param>
         public void QuitThitGroup(int Sid)
@@ -2114,17 +2148,17 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// Ñ°Ë÷¸Ã×éºÅµÄ×é³¤ÊÇ·ñ´æÔÚ
+        /// å¯»ç´¢è¯¥ç»„å·çš„ç»„é•¿æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
         private bool FindLeader(string Snum)
         {
-            string mysql = "select count(1) from Students where Sleader=1 and Sid=( select top 1 Sgroup from Students where Snum='"+Snum+"')";
+            string mysql = "select count(1) from Students where Sleader=1 and Sid=( select top 1 Sgroup from Students where Snum='" + Snum + "')";
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// ÊÇ·ñ×é³¤
+        /// æ˜¯å¦ç»„é•¿
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -2134,7 +2168,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// ÊÇ·ñ×é³¤
+        /// æ˜¯å¦ç»„é•¿
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -2144,7 +2178,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// »ñÈ¡Ğ¡×éÃû³Æ
+        /// è·å–å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -2154,7 +2188,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ¸üĞÂĞ¡×éÃû³Æ
+        /// æ›´æ–°å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="Sgtitle"></param>
@@ -2174,7 +2208,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§ºÅÄê¼¶
+        /// è·å–è¯¥å­¦å·å¹´çº§
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -2192,14 +2226,14 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬ĞŞ¸ÄĞÕÃû
+        /// æ ¹æ®å­¦å·ï¼Œä¿®æ”¹å§“å
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sname"></param>
         /// <returns></returns>
         public int ChangeSname(string Snum, string Sname)
         {
-            string mysql = "update Students set Sname='"+Sname+"' where Snum='"+Snum+"'";
+            string mysql = "update Students set Sname='" + Sname + "' where Snum='" + Snum + "'";
             return DbHelperSQL.ExecuteSql(mysql);
         }
 
@@ -2222,17 +2256,17 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸üĞÂÖ¸·¨³É¼¨
+        /// æ›´æ–°æŒ‡æ³•æˆç»©
         /// </summary>
         /// <returns></returns>
         public int UpdateSfscore()
         {
             string nowterm = LearnSite.Common.XmlHelp.GetTerm();
-            string mysql = "update Students set Sfscore=Pspd from Students,Pfinger where Snum=Psnum and Sgrade=Pgrade and Pterm="+nowterm;
+            string mysql = "update Students set Sfscore=Pspd from Students,Pfinger where Snum=Psnum and Sgrade=Pgrade and Pterm=" + nowterm;
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸üĞÂÖĞÎÄÆ´Òô³É¼¨
+        /// æ›´æ–°ä¸­æ–‡æ‹¼éŸ³æˆç»©
         /// </summary>
         /// <returns></returns>
         public int UpdateSchinese()
@@ -2243,12 +2277,12 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Í³¼ÆÇ°£¬ÏÈÇå¿ÕÑ§Éú³É¼¨
+        /// ç»Ÿè®¡å‰ï¼Œå…ˆæ¸…ç©ºå­¦ç”Ÿæˆç»©
         /// </summary>
         public void ClearAllScores(int hid)
         {
             string strsql = "update Students set Sscore=0,Squiz=0,Sattitude=0,Sape='',Swscore=0,Stscore=0,Sallscore=0,Spscore=0,Sgscore=0,Sfscore=0,Svscore=0,Stxtform=0 from Students,Room where Sgrade=Rgrade and Sclass=Rclass  and Rhid=" + hid.ToString();
-            DbHelperSQL.ExecuteSql(strsql);//ÏÈÇå¿Õ
+            DbHelperSQL.ExecuteSql(strsql);//å…ˆæ¸…ç©º
         }
 
         public string GetLeader(int Sid)
@@ -2258,7 +2292,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ·µ»ØĞ¡×éÃû³Æ
+        /// è¿”å›å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -2274,7 +2308,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ½â³ı·Ö×é
+        /// è§£é™¤åˆ†ç»„
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2286,14 +2320,14 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°°à¼¶Ñ§ºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰ç­çº§å­¦å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
         public string ShowClassSnums(int Sgrade, int Sclass)
         {
-            string mysql = "SELECT Snum FROM Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass ;
+            string mysql = "SELECT Snum FROM Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass;
             DataTable dt = DbHelperSQL.Query(mysql).Tables[0];
             int n = dt.Rows.Count;
             if (n > 0)
@@ -2301,7 +2335,7 @@ namespace LearnSite.DAL
                 string strtemp = "";
                 for (int i = 0; i < n; i++)
                 {
-                    strtemp = strtemp +"'"+ dt.Rows[i]["Snum"].ToString() + "',";
+                    strtemp = strtemp + "'" + dt.Rows[i]["Snum"].ToString() + "',";
                 }
                 if (strtemp.EndsWith(","))
                     strtemp = strtemp.Substring(0, strtemp.Length - 1);
@@ -2314,7 +2348,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°°à¼¶Ñ§Éú±àºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰ç­çº§å­¦ç”Ÿç¼–å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2329,7 +2363,7 @@ namespace LearnSite.DAL
                 string strtemp = "";
                 for (int i = 0; i < n; i++)
                 {
-                    strtemp = strtemp + dt.Rows[i]["Sid"].ToString()+",";
+                    strtemp = strtemp + dt.Rows[i]["Sid"].ToString() + ",";
                 }
                 if (strtemp.EndsWith(","))
                     strtemp = strtemp.Substring(0, strtemp.Length - 1);
@@ -2341,7 +2375,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// »ñÈ¡µ±Ç°Äê¼¶Ñ§Éú±àºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰å¹´çº§å­¦ç”Ÿç¼–å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <returns></returns>
@@ -2367,7 +2401,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// »ñÈ¡¸Ã°à¼¶µÄÈËÊı
+        /// è·å–è¯¥ç­çº§çš„äººæ•°
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2379,10 +2413,10 @@ namespace LearnSite.DAL
             if (ob != null)
                 return Convert.ToInt32(ob);
             else
-                return 0;//Èç¹ûÃ»ÓĞ£¬Ôò·µ»ØÁã
+                return 0;//å¦‚æœæ²¡æœ‰ï¼Œåˆ™è¿”å›é›¶
         }
         /// <summary>
-        /// Çå³ı¸Ã°à¼¶µÄËùÓĞÑ§Éú¼ÇÂ¼
+        /// æ¸…é™¤è¯¥ç­çº§çš„æ‰€æœ‰å­¦ç”Ÿè®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2393,7 +2427,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ĞŞÕıÒòÄ³Ğ©Ô­ÒòÒıÆğµÄ×é³¤µÄ×éºÅÎª0µÄÇé¿ö
+        /// ä¿®æ­£å› æŸäº›åŸå› å¼•èµ·çš„ç»„é•¿çš„ç»„å·ä¸º0çš„æƒ…å†µ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2403,7 +2437,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ã×Ü±íĞ¡×éÍ³¼Æ
+        /// æ±‡æ€»è¡¨å°ç»„ç»Ÿè®¡
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2417,9 +2451,9 @@ namespace LearnSite.DAL
             int n = dt.Rows.Count;
             dt.Columns.Add("Sgscore", typeof(int));//4
             dt.Columns.Add("Svscore", typeof(float));//5
-            dt.Columns.Add("Sgwork", typeof(int));//6Ğ¡×é×÷Æ··Ö
-            dt.Columns.Add("Sgattitude", typeof(int));//7Ğ¡×é±íÏÖ·Ö
-            //LearnSite.Common.Log.AddLogTable(dt);//µ÷ÊÔĞÅÏ¢
+            dt.Columns.Add("Sgwork", typeof(int));//6å°ç»„ä½œå“åˆ†
+            dt.Columns.Add("Sgattitude", typeof(int));//7å°ç»„è¡¨ç°åˆ†
+            //LearnSite.Common.Log.AddLogTable(dt);//è°ƒè¯•ä¿¡æ¯
             if (dttotal.Columns.Count > 0 && n > 0)
             {
                 string sqlstr = "select Snum,Sgroup from Students where Sgroup>0 and  Sgrade=" + Sgrade + " and Sclass=" + Sclass;
@@ -2427,9 +2461,9 @@ namespace LearnSite.DAL
                 int p = dmp.Rows.Count;
                 if (p > 0)
                 {
-                    dttotal.Columns["»ã×Ü"].ColumnName = "Stotals";
+                    dttotal.Columns["æ±‡æ€»"].ColumnName = "Stotals";
                     dttotal.Columns.Add("Sgroup", typeof(int));
-                    GetSgroups(dttotal, dmp); //½«»ã×Ü±íĞÂÁĞ¸³Öµ
+                    GetSgroups(dttotal, dmp); //å°†æ±‡æ€»è¡¨æ–°åˆ—èµ‹å€¼
                     LearnSite.BLL.GroupWork gbll = new BLL.GroupWork();
                     LearnSite.BLL.Signin sgbll = new BLL.Signin();
                     for (int i = 0; i < n; i++)
@@ -2445,7 +2479,7 @@ namespace LearnSite.DAL
                         dt.Rows[i][7] = sgbll.GetLeaderQgroup(sgroupnum, Gcid);
                     }
 
-                    //LearnSite.Common.Log.AddLogTable(dt);//µ÷ÊÔĞÅÏ¢
+                    //LearnSite.Common.Log.AddLogTable(dt);//è°ƒè¯•ä¿¡æ¯
                 }
             }
             return dt;
@@ -2455,50 +2489,50 @@ namespace LearnSite.DAL
             int scount = dttotal.Rows.Count;
             for (int i = 0; i < scount; i++)
             {
-                string snum = dttotal.Rows[i]["Ñ§ºÅ"].ToString();
+                string snum = dttotal.Rows[i]["å­¦å·"].ToString();
                 int dcount = dmp.Rows.Count;
                 for (int j = 0; j < dcount; j++)
                 {
-                    string xsnum = dmp.Rows[j]["Snum"].ToString();//µÚ2ÕÅ±í»ñÈ¡µÄÑ§ºÅ×Ö¶ÎÒªÖØÃüÃûÎªSnum
-                    string mygroup = dmp.Rows[j]["Sgroup"].ToString();//µÚ2ÕÅ±í»ñÈ¡µÄ·ÖÖµ×Ö¶ÎÒªÖØÃüÃûÎªSgroup
+                    string xsnum = dmp.Rows[j]["Snum"].ToString();//ç¬¬2å¼ è¡¨è·å–çš„å­¦å·å­—æ®µè¦é‡å‘½åä¸ºSnum
+                    string mygroup = dmp.Rows[j]["Sgroup"].ToString();//ç¬¬2å¼ è¡¨è·å–çš„åˆ†å€¼å­—æ®µè¦é‡å‘½åä¸ºSgroup
                     if (snum == xsnum)
                     {
                         dttotal.Rows[i]["Sgroup"] = mygroup;
                         break;
                     }
                 }
-            }         
+            }
         }
         /// <summary>
-        /// »ñÈ¡Î´²Î×é°à¼¶ÄÚÑ§Éú
+        /// è·å–æœªå‚ç»„ç­çº§å†…å­¦ç”Ÿ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <returns></returns>
-        public DataTable NoGroupStudents(int Sgrade, int Sclass,string sort)
+        public DataTable NoGroupStudents(int Sgrade, int Sclass, string sort)
         {
             string mysql = "";
             switch (sort)
-            { 
+            {
                 case "0":
                     mysql = "select Sid,Snum,Sname,Sscore from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and (Sgroup =0 or Sgroup is null) order by Sscore desc";
                     break;
                 case "1":
                     mysql = "select Sid,Snum,Sname,Sscore from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and (Sgroup =0 or Sgroup is null) order by Snum desc";
-                    break;            
+                    break;
             }
             return DbHelperSQL.Query(mysql).Tables[0];
         }
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±ĞÕÃûºÍÑ§ºÅ Snum as Head, Sname,Sex
+        /// è·å–æœ¬å°ç»„æˆå‘˜å§“åå’Œå­¦å· Snum as Head, Sname,Sex
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
         /// <param name="Sgroup"></param>
         /// <param name="Sid"></param>
         /// <returns></returns>
-        public DataTable Teamer(int Sgrade, int Sclass,int Sgroup, string Snum, string Sname, string Sex)
+        public DataTable Teamer(int Sgrade, int Sclass, int Sgroup, string Snum, string Sname, string Sex)
         {
             string mysql = "select Snum,Sname,Sex from Students where Sgroup<>0 and  Sgroup=" + Sgroup + " and Sgrade=" + Sgrade + " and Sclass=" + Sclass + "  order by Sscore desc";
             if (Snum.IndexOf('s') > -1)
@@ -2538,26 +2572,27 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ÁÄÌì±íÇéÍ¼±ê
+        /// èŠå¤©è¡¨æƒ…å›¾æ ‡
         /// </summary>
         /// <returns></returns>
-        public DataTable Emo() {
+        public DataTable Emo()
+        {
             DataTable dt = new DataTable();
-            dt.Columns.Add("Emo",typeof(string));
+            dt.Columns.Add("Emo", typeof(string));
             for (int i = 1; i < 61; i++)
             {
                 string num = i.ToString("D2");
                 string emourl = "../code/imgchat/emo/emo_" + num + ".gif";
                 DataRow row = dt.NewRow();
                 row[0] = emourl;
-                dt.Rows.Add(row);           
+                dt.Rows.Add(row);
             }
             return dt;
         }
 
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±ĞÕÃû×Ö·û´®£¬ÒÔ¶ÙºÅÎª·Ö¸ô·û
+        /// è·å–æœ¬å°ç»„æˆå‘˜å§“åå­—ç¬¦ä¸²ï¼Œä»¥é¡¿å·ä¸ºåˆ†éš”ç¬¦
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2577,7 +2612,7 @@ namespace LearnSite.DAL
                     numstr = numstr + dt.Rows[i][0].ToString();
                     if (i < dcount - 1)
                     {
-                        numstr = numstr + "¡¢";
+                        numstr = numstr + "ã€";
                     }
                 }
             }
@@ -2586,7 +2621,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±×Ö·û´®£¬ÒÔ¶ººÅÎª·Ö¸ô·û
+        /// è·å–æœ¬å°ç»„æˆå‘˜å­—ç¬¦ä¸²ï¼Œä»¥é€—å·ä¸ºåˆ†éš”ç¬¦
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2598,20 +2633,23 @@ namespace LearnSite.DAL
             DataTable dt = DbHelperSQL.Query(mysql).Tables[0];
             int dcount = dt.Rows.Count;
             string numstr = "";
-            if (dcount > 0) {
-                for (int i = 0; i < dcount; i++) {
+            if (dcount > 0)
+            {
+                for (int i = 0; i < dcount; i++)
+                {
                     numstr = numstr + dt.Rows[i][0].ToString();
-                    if (i < dcount - 1) {
+                    if (i < dcount - 1)
+                    {
                         numstr = numstr + ",";
-                    }                
-                }            
+                    }
+                }
             }
 
             return numstr;
         }
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±
+        /// è·å–æœ¬å°ç»„æˆå‘˜
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2620,10 +2658,10 @@ namespace LearnSite.DAL
         public DataTable GroupMembers(int Sgrade, int Sclass, int Sgroup)
         {
             string mysql = "select Sid,Sname,Sscore from Students where Sleader=0 and Sgroup=" + Sgroup + " and Sgrade=" + Sgrade + " and Sclass=" + Sclass + " order by Sscore desc";
-            return  DbHelperSQL.Query(mysql).Tables[0];
+            return DbHelperSQL.Query(mysql).Tables[0];
         }
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×éÍøÅÌ³ÉÔ±£¨°üÀ¨×é³¤£©Sid,Snum,Sname
+        /// è·å–æœ¬å°ç»„ç½‘ç›˜æˆå‘˜ï¼ˆåŒ…æ‹¬ç»„é•¿ï¼‰Sid,Snum,Sname
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2635,7 +2673,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql).Tables[0];
         }
         /// <summary>
-        /// »ñÈ¡±¾×éÄÚµÄ×÷Æ·Æ½¾ù·Ö
+        /// è·å–æœ¬ç»„å†…çš„ä½œå“å¹³å‡åˆ†
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -2647,7 +2685,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯Ğ¡×éÃû³ÆÎª×é³¤ĞÕÃû
+        /// åˆå§‹åŒ–å°ç»„åç§°ä¸ºç»„é•¿å§“å
         /// </summary>
         /// <returns></returns>
         public int InitSgtitle()
@@ -2656,7 +2694,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸ù¾İSid»ñÈ¡×éºÅ
+        /// æ ¹æ®Sidè·å–ç»„å·
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -2667,11 +2705,11 @@ namespace LearnSite.DAL
         }
         public void UpdateKaoxu(string kaoxu, string Sname)
         {
-            string mysql = "update Students set Skaoxu='"+kaoxu+"' where Sname='"+Sname+"'";
+            string mysql = "update Students set Skaoxu='" + kaoxu + "' where Sname='" + Sname + "'";
             DbHelperSQL.ExecuteSql(mysql);
         }
 
-        public int UpdateStat(int Sgrade, int Classone ,int Classtwo ,DateTime Wdate)
+        public int UpdateStat(int Sgrade, int Classone, int Classtwo, DateTime Wdate)
         {
             // update Students set Stat=1 from Students,Works where Snum=Wnum and Wgrade=8 and (Wclass=3 or Wclass=4) and Wdate>'2018-10-16'
             StringBuilder strSql = new StringBuilder();
@@ -2687,11 +2725,11 @@ namespace LearnSite.DAL
             parameters[2].Value = Classtwo;
             parameters[3].Value = Wdate;
 
-          return  DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+            return DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
 
         }
 
-        public int UpdateClass(int Sgrade, int Classone, int Classtwo,int Classset)
+        public int UpdateClass(int Sgrade, int Classone, int Classtwo, int Classset)
         {
             // update Students set Stat=1 from Students,Works where Snum=Wnum and Wgrade=8 and (Wclass=3 or Wclass=4) and Wdate>'2018-10-16'
             StringBuilder strSql = new StringBuilder();
@@ -2712,7 +2750,7 @@ namespace LearnSite.DAL
 
         }
 
-        public int  UpdateClassNoSign(int Sgrade, int Classone, int Classtwo, int Classset)
+        public int UpdateClassNoSign(int Sgrade, int Classone, int Classtwo, int Classset)
         {
             // update Students set Stat=1 from Students,Works where Snum=Wnum and Wgrade=8 and (Wclass=3 or Wclass=4) and Wdate>'2018-10-16'
             StringBuilder strSql = new StringBuilder();
@@ -2734,7 +2772,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// »ñµÃ×é³¤ÍÆ¼öÁĞ±í
+        /// è·å¾—ç»„é•¿æ¨èåˆ—è¡¨
         /// </summary>
         public DataTable GetListTeam(int Sgrade, int Sclass)
         {
@@ -2769,10 +2807,10 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// ¸üĞÂ¸ÃSidÑ§ÉúµÄ×é³¤ÍÆ¼ö
+        /// æ›´æ–°è¯¥Sidå­¦ç”Ÿçš„ç»„é•¿æ¨è
         /// </summary>
-        /// <param name="Sid">×Ô¼ºID</param>
-        /// <param name="Steam">×é³¤ID</param>
+        /// <param name="Sid">è‡ªå·±ID</param>
+        /// <param name="Steam">ç»„é•¿ID</param>
         public void UpdateSidSteam(int Sid, int Steam)
         {
             StringBuilder strSql = new StringBuilder();
@@ -2787,32 +2825,32 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
 
-		/*
-		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
-		/// </summary>
-		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-		{
-			SqlParameter[] parameters = {
-					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
-					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
-					new SqlParameter("@PageSize", SqlDbType.Int),
-					new SqlParameter("@PageIndex", SqlDbType.Int),
-					new SqlParameter("@IsReCount", SqlDbType.Bit),
-					new SqlParameter("@OrderType", SqlDbType.Bit),
-					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
-					};
-			parameters[0].Value = "Students";
-			parameters[1].Value = "ID";
-			parameters[2].Value = PageSize;
-			parameters[3].Value = PageIndex;
-			parameters[4].Value = 0;
-			parameters[5].Value = 0;
-			parameters[6].Value = strWhere;	
-			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
-		}*/
+        /*
+        /// <summary>
+        /// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
+        /// </summary>
+        public DataSet GetList(int PageSize,int PageIndex,string strWhere)
+        {
+            SqlParameter[] parameters = {
+                    new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+                    new SqlParameter("@PageSize", SqlDbType.Int),
+                    new SqlParameter("@PageIndex", SqlDbType.Int),
+                    new SqlParameter("@IsReCount", SqlDbType.Bit),
+                    new SqlParameter("@OrderType", SqlDbType.Bit),
+                    new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
+                    };
+            parameters[0].Value = "Students";
+            parameters[1].Value = "ID";
+            parameters[2].Value = PageSize;
+            parameters[3].Value = PageIndex;
+            parameters[4].Value = 0;
+            parameters[5].Value = 0;
+            parameters[6].Value = strWhere;	
+            return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
+        }*/
 
-		#endregion  ³ÉÔ±·½·¨
-	}
+        #endregion  æˆå‘˜æ–¹æ³•
+    }
 }
 

@@ -6,7 +6,7 @@ using LearnSite.DBUtility;//Please add references
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:House
+	/// æ•°æ®è®¿é—®ç±»:House
 	/// </summary>
 	public partial class House
 	{
@@ -15,7 +15,7 @@ namespace LearnSite.DAL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Hid)
 		{
@@ -40,7 +40,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.House model)
 		{
@@ -68,7 +68,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public bool UpdateHseat(int Hid, string Hseat)
         {
@@ -93,7 +93,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.House model)
 		{
@@ -122,7 +122,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Hid)
 		{
@@ -146,7 +146,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Hidlist )
 		{
@@ -164,7 +164,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.House GetModel(string Hname)
         {
@@ -196,7 +196,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.House GetModel(int Hid)
 		{
@@ -228,7 +228,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -243,7 +243,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetListHouse()
         {
@@ -256,7 +256,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public string GetHseat(int Hid)
         {
@@ -267,7 +267,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(strSql.ToString());
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -289,7 +289,7 @@ namespace LearnSite.DAL
 
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{

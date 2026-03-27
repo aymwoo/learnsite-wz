@@ -1,4 +1,4 @@
-﻿function WriteBg()
+function WriteBg()
 {
 	var a=["#E9FAFF","#CCCCCC","#FFFDDD","#EEFAEE","#A3CAEB","#D0CFB2","#B7D1A5","#C2CEDA","#9799AC"]
 	for(var i=0;i<a.length;i++){

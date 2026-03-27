@@ -3,27 +3,27 @@ using System.Data;
 using System.Text;
 using System.Web;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàTeacher¡£
+	/// æ•°æ®è®¿é—®ç±»Teacherã€‚
 	/// </summary>
 	public class Teacher
 	{
 		public Teacher()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
 		return DbHelperSQL.GetMaxID("Hid", "Teacher"); 
 		}
         /// <summary>
-        /// ¼ÇÂ¼½ÌÊ¦ÉÏ¿ÎµÄµçÄÔÊÒÃû³Æ
+        /// è®°å½•æ•™å¸ˆä¸Šè¯¾çš„ç”µè„‘å®¤åç§°
         /// </summary>
         /// <param name="Hid"></param>
         /// <param name="Hroom"></param>
@@ -33,7 +33,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯êÇ³Æ
+        /// åˆå§‹åŒ–æ˜µç§°
         /// </summary>
         public void initHnick()
         {
@@ -41,7 +41,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Hid)
 		{
@@ -55,7 +55,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsHname(string Hname)
         {
@@ -70,7 +70,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Teacher model)
 		{
@@ -103,7 +103,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Teacher model)
 		{
@@ -132,7 +132,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        ///¸ù¾İHid ¸üĞÂÃÜÂë
+        ///æ ¹æ®Hid æ›´æ–°å¯†ç 
         /// </summary>
         /// <param name="Hid"></param>
         /// <param name="Hpwd"></param>
@@ -151,7 +151,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ¸øËùÓĞÀÏÊ¦Í³¼ÆÑ§°¸Êı
+        /// ç»™æ‰€æœ‰è€å¸ˆç»Ÿè®¡å­¦æ¡ˆæ•°
         /// </summary>
         public void UpdateHcountAll()
         {
@@ -168,7 +168,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸øÒ»Î»ÀÏÊ¦Í³¼ÆÑ§°¸Êı
+        /// ç»™ä¸€ä½è€å¸ˆç»Ÿè®¡å­¦æ¡ˆæ•°
         /// </summary>
         /// <param name="hid"></param>
         public void UpdateHcount(string hid)
@@ -191,7 +191,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Hid)
 		{			
@@ -205,7 +205,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// É¾³ı±êÖ¾Ò»ÌõÊı¾İ
+        /// åˆ é™¤æ ‡å¿—ä¸€æ¡æ•°æ®
         /// </summary>
         public int DownTeacher(int Hid)
         {
@@ -220,7 +220,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Teacher GetModel(int Hid)
         {
@@ -266,7 +266,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// ¸ù¾İĞÕÃûºÍÃÜÂëµÃµ½Ò»¸ö½ÌÊ¦¶ÔÏóÊµÌå£¬Èç¹û²»´æÔÚ·µ»Ønull
+        /// æ ¹æ®å§“åå’Œå¯†ç å¾—åˆ°ä¸€ä¸ªæ•™å¸ˆå¯¹è±¡å®ä½“ï¼Œå¦‚æœä¸å­˜åœ¨è¿”å›null
         /// </summary>
         public LearnSite.Model.Teacher GetTeacherModel(string Hname, string Hpwd)
         {
@@ -311,7 +311,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetList(string strWhere)
         {
@@ -325,7 +325,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// »ñµÃ½ÌÊ¦IDºÍĞÕÃûÁĞ±í£¬·Ç¹ÜÀíÔ±
+        /// è·å¾—æ•™å¸ˆIDå’Œå§“ååˆ—è¡¨ï¼Œéç®¡ç†å‘˜
         /// </summary>
         public DataSet GetListHidHname()
         {
@@ -333,7 +333,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -354,7 +354,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ÉèÖÃ¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼
+        /// è®¾ç½®è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•
         /// </summary>
         /// <param name="Hpath"></param>
         /// <param name="Hid"></param>
@@ -371,7 +371,7 @@ namespace LearnSite.DAL
             DbHelperSQL.Query(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ·µ»Ø¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼£¬ÎŞÔò·µ»Ø¿Õ×Ö·û""
+        /// è¿”å›è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•ï¼Œæ— åˆ™è¿”å›ç©ºå­—ç¬¦""
         /// </summary>
         /// <param name="Hid"></param>
         /// <returns></returns>
@@ -381,7 +381,7 @@ namespace LearnSite.DAL
             string res = DbHelperSQL.FindString(strSql);
             if (res.IndexOf('~') > -1)
             {
-                SetHpath("", Int32.Parse(Hid));//ÖØÖÃÎª""£¬½â¾öÔ­Î´ÓÃ×Ö¶Î²ĞÁôÎÊÌâ
+                SetHpath("", Int32.Parse(Hid));//é‡ç½®ä¸º""ï¼Œè§£å†³åŸæœªç”¨å­—æ®µæ®‹ç•™é—®é¢˜
                 return "";
             }
             else
@@ -389,7 +389,7 @@ namespace LearnSite.DAL
         }
         
         /// <summary>
-        /// ·µ»Ø¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼£¬ÎŞÔò·µ»Ø¿Õ×Ö·û""
+        /// è¿”å›è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•ï¼Œæ— åˆ™è¿”å›ç©ºå­—ç¬¦""
         /// </summary>
         /// <param name="Hid"></param>
         /// <returns></returns>
@@ -406,7 +406,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -429,7 +429,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

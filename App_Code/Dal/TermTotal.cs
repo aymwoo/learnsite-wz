@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàTermTotal¡£
+	/// æ•°æ®è®¿é—®ç±»TermTotalã€‚
 	/// </summary>
 	public class TermTotal
 	{
 		public TermTotal()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Tid)
 		{
@@ -37,7 +37,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ²éÑ¯¼ÇÂ¼ÊÇ·ñ´æÔÚ
+        /// æŸ¥è¯¢è®°å½•æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Tnum"></param>
         /// <param name="Tterm"></param>
@@ -49,7 +49,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);      
         }
        /// <summary>
-        /// Ìí¼ÓÒ»Ìõ¼ÇÂ¼Tnum,Tterm,Tgrade,Tsid,Tyear,Tclass,Tname
+        /// æ·»åŠ ä¸€æ¡è®°å½•Tnum,Tterm,Tgrade,Tsid,Tyear,Tclass,Tname
        /// </summary>
        /// <param name="Tnum"></param>
        /// <param name="Tterm"></param>
@@ -60,11 +60,13 @@ namespace LearnSite.DAL
        /// <param name="Tname"></param>
         public void AddOne(string Tnum, int Tterm, int Tgrade, int Tsid,int Tyear,int Tclass,string Tname)
         {
+            string strape = "ALTER TABLE TermTotal ALTER COLUMN Tape varchar(10)";
+            DbHelperSQL.ExecuteSql(strape);
             string mysql = "insert into TermTotal (Tnum,Tterm,Tgrade,Tsid,Tyear,Tclass,Tname) values('" + Tnum + "'," + Tterm + "," + Tgrade + "," + Tsid + "," + Tyear + "," + Tclass + ",'" +Tname+ "')";
             DbHelperSQL.ExecuteSql(mysql);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.TermTotal model)
 		{
@@ -86,7 +88,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@Ttscore", SqlDbType.Int,4),
 					new SqlParameter("@Tpscore", SqlDbType.Int,4),
 					new SqlParameter("@Tallscore", SqlDbType.Int,4),
-					new SqlParameter("@Tape", SqlDbType.NVarChar,1)};
+					new SqlParameter("@Tape", SqlDbType.NVarChar,10)};
 			parameters[0].Value = model.Tnum;
 			parameters[1].Value = model.Tterm;
 			parameters[2].Value = model.Tgrade;
@@ -111,7 +113,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.TermTotal model)
 		{
@@ -162,7 +164,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Tid)
 		{
@@ -179,7 +181,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.TermTotal GetModel(int Tid)
 		{
@@ -250,7 +252,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -265,7 +267,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ»ñÈ¡¸÷Ñ§ÆÚ³É¼¨µ¥
+        /// æ ¹æ®å­¦å·è·å–å„å­¦æœŸæˆç»©å•
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -282,7 +284,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -302,14 +304,14 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// Éú³ÉÑ§ÆÚÍ³¼Æ±í
+        /// ç”Ÿæˆå­¦æœŸç»Ÿè®¡è¡¨
         /// </summary>
         public void TermScore()
         {
             string strSql = " select Sid,Snum,Sname,Syear,Sgrade,Sclass from Students ";
             DataSet ds = DbHelperSQL.GetDataSet(strSql);
             int counts = ds.Tables[0].Rows.Count;
-            int Cterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());//»ñÈ¡µ±Ç°Ñ§ÆÚÖµ
+            int Cterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());//è·å–å½“å‰å­¦æœŸå€¼
             if (counts > 0)
             {
                 for (int i = 0; i < counts; i++)
@@ -324,17 +326,17 @@ namespace LearnSite.DAL
                         string Sname = ds.Tables[0].Rows[i]["Sname"].ToString();
                         if (!ExistsTerm(Snum, Cterm, Sgrade))
                         {
-                            AddOne(Snum, Cterm, Sgrade, Sid, Syear, Sclass, Sname);//±¾Ñ§ÆÚ±¾Äê¼¶Ñ§ºÅ£¬Èç¹û²»´æÔÚÔòÌí¼Ó
+                            AddOne(Snum, Cterm, Sgrade, Sid, Syear, Sclass, Sname);//æœ¬å­¦æœŸæœ¬å¹´çº§å­¦å·ï¼Œå¦‚æœä¸å­˜åœ¨åˆ™æ·»åŠ 
                         }
                     }
                 }
             }
 
-            string mysql = "update TermTotal set Tscore=Sscore,Tgscore=Sgscore,Tquiz=Squiz,Tattitude=Sattitude,Twscore=Swscore,Ttscore=Stscore,Tpscore=Spscore,Tallscore=Sallscore,Tape=Sape,Tfscore=Sfscore,Tvscore=Svscore,Ttxtform=Stxtform,Tchinese=Schinese  from Students where Tnum=Snum and Tgrade=Sgrade and Tterm="+Cterm;
-            DbHelperSQL.ExecuteSql(mysql);//Í¬²½¸üĞÂÑ§Éú±íÊı¾İµ½Ñ§ÆÚ±í
+            string mysql = "update TermTotal set Tscore=Sscore,Tgscore=Sgscore,Tquiz=Squiz,Tattitude=Sattitude,Twscore=Swscore,Ttscore=Stscore,Tpscore=Spscore,Tallscore=Sallscore,Tape=Sape,Tfscore=Sfscore,Tvscore=Svscore,Ttxtform=Stxtform,Tchinese=Schinese  from TermTotal,Students where Tnum=Snum and Tgrade=Sgrade and Tterm=" + Cterm;
+            DbHelperSQL.ExecuteSql(mysql);//åŒæ­¥æ›´æ–°å­¦ç”Ÿè¡¨æ•°æ®åˆ°å­¦æœŸè¡¨
         }
         /// <summary>
-        /// »ñÈ¡¸ÃÈëÑ§Äê¶ÈÑ§Éú£¬Tnum,Tclass,TnameÅÅĞòorder by Tclass asc,Tnum asc
+        /// è·å–è¯¥å…¥å­¦å¹´åº¦å­¦ç”Ÿï¼ŒTnum,Tclass,Tnameæ’åºorder by Tclass asc,Tnum asc
         /// </summary>
         /// <param name="Tyear"></param>
         /// <returns></returns>
@@ -351,7 +353,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql).Tables[0];
         }
         /// <summary>
-        ///  »ñÈ¡µ±Ç°°à¼¶ÔÚ¸÷Äê¼¶¸÷Ñ§ÆÚµÄÆÚÄ©³É¼¨
+        ///  è·å–å½“å‰ç­çº§åœ¨å„å¹´çº§å„å­¦æœŸçš„æœŸæœ«æˆç»©
         /// </summary>
         /// <param name="Tyear"></param>
         /// <param name="Tgrade"></param>
@@ -378,9 +380,9 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñÈ¡±¾Äê¼¶ËùÓĞÑ§ÆÚ´æµµ³É¼¨£¬°´TnumÅÅĞò
+        /// è·å–æœ¬å¹´çº§æ‰€æœ‰å­¦æœŸå­˜æ¡£æˆç»©ï¼ŒæŒ‰Tnumæ’åº
         /// </summary>
-        /// <param name="Tyear">ÈëÑ§Äê¶È</param>
+        /// <param name="Tyear">å…¥å­¦å¹´åº¦</param>
         /// <returns></returns>
         public DataTable GetGradeAllScores(int Tyear)
         {
@@ -396,7 +398,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0]; 
         }
         /// <summary>
-        /// µ¼³ö¸ÃÄê¼¶ÔÚÄ³Äê¼¶Ê±Ä³Ñ§ÆÚµÄ³É¼¨ÆÀ¶¨
+        /// å¯¼å‡ºè¯¥å¹´çº§åœ¨æŸå¹´çº§æ—¶æŸå­¦æœŸçš„æˆç»©è¯„å®š
         /// </summary>
         /// <param name="Tyear"></param>
         /// <param name="Tgrade"></param>
@@ -406,12 +408,12 @@ namespace LearnSite.DAL
             DateTime dt = DateTime.Now;
             string today = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day;
             string FileName =Tyear.ToString()+ "-grade"+Tgrade.ToString()+"-term"+Tterm.ToString()+"-"+ today;
-            string strSql = "select  Tnum as Ñ§ºÅ,Tgrade as Äê¼¶,Tclass as °à¼¶,Tterm as Ñ§ÆÚ,Tname as ĞÕÃû,Tscore as ×÷Æ·,Tgscore as Ğ¡×é,Tpscore as ÌÖÂÛ,Ttxtform as ±íµ¥,Tvscore as µ÷²é,Twscore as ÍøÒ³,Tquiz as ²âÑé,Tchinese as Æ´Òô,Tfscore as Ó¢Óï,Ttscore as ÖĞÎÄ,Tattitude as ±íÏÖ,Tallscore as ×Ü·ÖÕÛËã,Tape as ÆÀ¶¨µÈ¼¶,Tyear as ÈëÑ§Äê¶È FROM TermTotal where  Tyear="+Tyear+" and Tgrade="+Tgrade+" and Tterm="+Tterm+" order by Tclass asc,Tnum asc  ";
+            string strSql = "select  Tnum as å­¦å·,Tgrade as å¹´çº§,Tclass as ç­çº§,Tterm as å­¦æœŸ,Tname as å§“å,Tscore as ä½œå“,Tgscore as å°ç»„,Tpscore as è®¨è®º,Ttxtform as è¡¨å•,Tvscore as è°ƒæŸ¥,Twscore as ç½‘é¡µ,Tquiz as æµ‹éªŒ,Tchinese as æ‹¼éŸ³,Tfscore as è‹±è¯­,Ttscore as ä¸­æ–‡,Tattitude as è¡¨ç°,Tallscore as æ€»åˆ†æŠ˜ç®—,Tape as è¯„å®šç­‰çº§,Tyear as å…¥å­¦å¹´åº¦ FROM TermTotal where  Tyear="+Tyear+" and Tgrade="+Tgrade+" and Tterm="+Tterm+" order by Tclass asc,Tnum asc  ";
             DataSet ds = DbHelperSQL.Query(strSql);
             Common.DataExcel.DataSetToExcel(ds, FileName);
         }
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔö×Ö¶ÎTyearTclassTname
+        /// åˆå§‹åŒ–æ–°å¢å­—æ®µTyearTclassTname
         /// </summary>
         /// <returns></returns>
         public int initTyearTclassTname()
@@ -420,7 +422,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ñÈ¡ÈëÑ§Äê¶ÈÁĞ±í
+        /// è·å–å…¥å­¦å¹´åº¦åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
         public DataTable TyearList()
@@ -430,7 +432,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -453,7 +455,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

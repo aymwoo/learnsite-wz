@@ -5,17 +5,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàTyper µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Typer çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Typer
 	{
 		private readonly LearnSite.DAL.Typer dal=new LearnSite.DAL.Typer();
 		public Typer()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Tid)
 		{
@@ -31,7 +31,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Typer model)
 		{
@@ -39,7 +39,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Typer model)
 		{
@@ -47,7 +47,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Tid)
 		{
@@ -56,7 +56,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸ù¾İ±àºÅ»ñÈ¡ÎÄÕÂ±êÌâ
+        /// æ ¹æ®ç¼–å·è·å–æ–‡ç« æ ‡é¢˜
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -65,7 +65,7 @@ namespace LearnSite.BLL
             return dal.GetTitle(Tid);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Typer GetModel(int Tid)
 		{
@@ -73,14 +73,14 @@ namespace LearnSite.BLL
 			return dal.GetModel(Tid);
 		}
         /// <summary>
-        /// Ëæ»úµÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// éšæœºå¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Typer GetModelRnd(string tids)
         {
             return dal.GetModelRnd(tids);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Typer GetModelByCache(int Tid)
 		{
@@ -104,7 +104,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -112,21 +112,21 @@ namespace LearnSite.BLL
 		}
 
                 /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í,²»°üº¬TcontentÄÚÈİ
+        /// è·å¾—æ•°æ®åˆ—è¡¨,ä¸åŒ…å«Tcontentå†…å®¹
         /// </summary>
         public DataSet GetListArticle(string strWhere)
         {
             return dal.GetListArticle(strWhere);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Typer> GetModelList(string strWhere)
 		{
@@ -134,7 +134,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Typer> DataTableToList(DataTable dt)
 		{
@@ -167,14 +167,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
 			return GetList("");
 		}
         /// <summary>
-        /// »ñµÃÖ¸¶¨TidµÄÎÄÕÂ
+        /// è·å¾—æŒ‡å®šTidçš„æ–‡ç« 
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -184,14 +184,14 @@ namespace LearnSite.BLL
             return GetList(strWhere);
         }
                 /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í,²»°üº¬TcontentÄÚÈİµÄ´ò×ÖÎÄÕÂÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨,ä¸åŒ…å«Tcontentå†…å®¹çš„æ‰“å­—æ–‡ç« åˆ—è¡¨
         /// </summary>
         public DataSet GetListArticle()
         {
             return GetListArticle("");
         }
         /// <summary>
-        /// ½«´ò×ÖÎÄÕÂTid°ó¶¨µ½datalistÖĞ
+        /// å°†æ‰“å­—æ–‡ç« Tidç»‘å®šåˆ°datalistä¸­
         /// </summary>
         /// <param name="DLTid"></param>
         public DataSet ShowAllTid()
@@ -199,7 +199,7 @@ namespace LearnSite.BLL
             return dal.ShowAllTid();
         }
         /// <summary>
-        /// ½«Ö¸¶¨´ò×ÖÎÄÕÂTid°ó¶¨µ½datalistÖĞ
+        /// å°†æŒ‡å®šæ‰“å­—æ–‡ç« Tidç»‘å®šåˆ°datalistä¸­
         /// </summary>
         /// <param name="DLTid"></param>
         public DataSet ShowAllTid(string tids)
@@ -207,7 +207,7 @@ namespace LearnSite.BLL
             return dal.ShowAllTid(tids);
         }
         /// <summary>
-        /// »ñÈ¡ËùÓĞÎÄÕÂ±êÌâTid, Ttitle
+        /// è·å–æ‰€æœ‰æ–‡ç« æ ‡é¢˜Tid, Ttitle
         /// </summary>
         /// <returns></returns>
         public DataTable ShowAllTitle()
@@ -215,14 +215,14 @@ namespace LearnSite.BLL
             return dal.ShowAllTitle();
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

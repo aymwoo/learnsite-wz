@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="judgeedit.aspx.cs" Inherits="Teacher_judgeedit" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="judgeedit.aspx.cs" Inherits="Teacher_judgeedit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -313,7 +313,7 @@ function save(){
 					x.height = bOffset-tOffset;
 					var xx = x.getContext("2d");
 					xx.drawImage(img, lOffset, tOffset, x.width, x.height, 0, 0, x.width, x.height);
-					
+					// 🔥 简单版调用复杂度计算
 					
 					var newimgData = xx.getImageData(0, 0, x.width, x.height).data;
 					var arrsetl=new Array();
@@ -391,7 +391,7 @@ function save(){
 					var scale=x.width/x.height;//宽高比例
 					scale=scale.toFixed(2);
 					
-					resimg=x.width+"x"+scale+"x"+milr;					
+					resimg=x.width+"x"+scale+"x"+milr;				
 
 					console.log("自动裁剪");
 
@@ -418,6 +418,37 @@ function save(){
 		upload(codevalue,resimg,Cover,fullCover);
 	}
 }
+
+
+function getFastBoundingBox(canvas, threshold) {
+    const ctx = canvas.getContext('2d');
+    const width = canvas.width;
+    const height = canvas.height;
+    
+    // 快速扫描边界
+    const step = Math.max(2, Math.floor(Math.min(width, height) / 50));
+    
+    let minX = width, maxX = 0, minY = height, maxY = 0;
+    
+    // 只扫描边界区域
+    for (let x = 0; x < width; x += step) {
+        for (let y = 0; y < height; y += step) {
+            const imageData = ctx.getImageData(x, y, 1, 1);
+            if (imageData.data[3] > threshold) {
+                if (x < minX) minX = x;
+                if (x > maxX) maxX = x;
+                if (y < minY) minY = y;
+                if (y > maxY) maxY = y;
+            }
+        }
+    }
+    
+    return {
+        width: Math.max(1, maxX - minX),
+        height: Math.max(1, maxY - minY)
+    };
+}
+
 
 $("#cv").dblclick(function (){
     var codevalue= editor.getValue().trim(); 

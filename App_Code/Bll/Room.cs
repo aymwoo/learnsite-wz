@@ -6,17 +6,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
     /// <summary>
-    /// ÒµÎñÂß¼­ÀàRoom µÄÕªÒªËµÃ÷¡£
+    /// ä¸šåŠ¡é€»è¾‘ç±»Room çš„æ‘˜è¦è¯´æ˜ã€‚
     /// </summary>
     public class Room
     {
         private readonly LearnSite.DAL.Room dal = new LearnSite.DAL.Room();
         public Room()
         { }
-        #region  ³ÉÔ±·½·¨
+        #region  æˆå‘˜æ–¹æ³•
 
         /// <summary>
-        /// µÃµ½×î´óID
+        /// å¾—åˆ°æœ€å¤§ID
         /// </summary>
         public int GetMaxId()
         {
@@ -40,49 +40,49 @@ namespace LearnSite.BLL
             return dal.GetMaxRclass();
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool Exists(int Rid)
         {
             return dal.Exists(Rid);
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã°à¼¶
+        /// æ˜¯å¦å­˜åœ¨è¯¥ç­çº§
         /// </summary>
         public bool ExistsGC(int Rgrade, int Rclass)
         {
             return dal.ExistsGC(Rgrade, Rclass);
         }
         /// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İ
+        /// å¢åŠ ä¸€æ¡æ•°æ®
         /// </summary>
         public int Add(LearnSite.Model.Room model)
         {
             return dal.Add(model);
         }
         /// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İ
+        /// å¢åŠ ä¸€æ¡æ•°æ®
         /// </summary>
         public void AddRoom(int Rgrade, int Rclass)
         {
             dal.AddRoom(Rgrade, Rclass);
         }
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public void Update(LearnSite.Model.Room model)
         {
             dal.Update(model);
         }
         /// <summary>
-        /// ¸üĞÂÒ»Ìõ°à¼¶Ñ¡ÔñÊı¾İ
+        /// æ›´æ–°ä¸€æ¡ç­çº§é€‰æ‹©æ•°æ®
         /// </summary>
         public void UpdateRhid(int Rid, int Rhid)
         {
             dal.UpdateRhid(Rid, Rhid);
         }
         /// <summary>
-        /// Çå³ıËùÓĞ°à¼¶Ñ¡Ôñ
+        /// æ¸…é™¤æ‰€æœ‰ç­çº§é€‰æ‹©
         /// </summary>
         public void UpdateRhidNone()
         {
@@ -90,35 +90,35 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// Çå³ı¸Ã½ÌÊ¦ËùÓĞ°à¼¶Ñ¡Ôñ
+        /// æ¸…é™¤è¯¥æ•™å¸ˆæ‰€æœ‰ç­çº§é€‰æ‹©
         /// </summary>
         public void ClearRhid(int Rhid)
         {
             dal.ClearRhid(Rhid);
         }
         /// <summary>
-        /// ¸üĞÂ°à¼¶»ú·¿²¼ÖÃ
+        /// æ›´æ–°ç­çº§æœºæˆ¿å¸ƒç½®
         /// </summary>
         public void UpdateRseat(int Rgrade, int Rclass, int Houseid)
         {
             dal.UpdateRseat(Rgrade, Rclass, Houseid);
         }
         /// <summary>
-        /// ¸üĞÂ°à¼¶ÃÜÂëÏÔÊ¾·½Ê½£º1ÏÔÊ¾£»0Òş²Ø
+        /// æ›´æ–°ç­çº§å¯†ç æ˜¾ç¤ºæ–¹å¼ï¼š1æ˜¾ç¤ºï¼›0éšè—
         /// </summary>
         public void UpdateRip(int Rgrade, int Rclass, bool isshow)
         {
             dal.UpdateRip(Rgrade, Rclass, isshow);
         }
         /// <summary>
-        /// ¸üĞÂ°à¼¶ÃÜÂëÏÔÊ¾·½Ê½£º1ÏÔÊ¾£»0Òş²Ø
+        /// æ›´æ–°ç­çº§å¯†ç æ˜¾ç¤ºæ–¹å¼ï¼š1æ˜¾ç¤ºï¼›0éšè—
         /// </summary>
         public bool GetRip(int Rgrade, int Rclass)
         {
             return dal.GetRip(Rgrade, Rclass);
         }
         /// <summary>
-        /// É¾³ıÒ»ÌõÊı¾İ
+        /// åˆ é™¤ä¸€æ¡æ•°æ®
         /// </summary>
         public void Delete(int Rid)
         {
@@ -127,14 +127,14 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// É¾³ıÒ»ÌõÊı¾İ
+        /// åˆ é™¤ä¸€æ¡æ•°æ®
         /// </summary>
         public void DeleteAll()
         {
             dal.DeleteAll();
         }
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Room GetModel(int Rid)
         {
@@ -143,14 +143,14 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Room GetModel(int Rgrade, int Rclass)
         {
             return dal.GetModel(Rgrade, Rclass);
         }
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
         /// </summary>
         public LearnSite.Model.Room GetModelByCache(int Rid)
         {
@@ -174,7 +174,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetList(string strWhere)
         {
@@ -182,7 +182,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡´³¹Ø¿ØÖÆÖµ
+        /// è·å–é—¯å…³æ§åˆ¶å€¼
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -193,7 +193,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸üĞÂ´³¹Ø¿ØÖÆ
+        /// æ›´æ–°é—¯å…³æ§åˆ¶
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -203,7 +203,7 @@ namespace LearnSite.BLL
             dal.UpdateRpass(Rgrade, Rclass, Rpass);
         }
         /// <summary>
-        /// »ñÈ¡»¥ÆÀ¿ØÖÆÖµ
+        /// è·å–äº’è¯„æ§åˆ¶å€¼
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -213,7 +213,7 @@ namespace LearnSite.BLL
             return dal.GetRgauge(Rgrade, Rclass);
         }
         /// <summary>
-        /// ¸üĞÂ»¥ÆÀ¿ØÖÆ
+        /// æ›´æ–°äº’è¯„æ§åˆ¶
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -224,7 +224,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// °à¼¶±à³Ì¿ØÖÆ¿ª¹Ø
+        /// ç­çº§ç¼–ç¨‹æ§åˆ¶å¼€å…³
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -235,7 +235,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÔÊĞí±¾°àµ¥¶À¸öÈËÄ£Ê½µÇÂ¼¿ª¹Ø
+        /// å…è®¸æœ¬ç­å•ç‹¬ä¸ªäººæ¨¡å¼ç™»å½•å¼€å…³
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -245,14 +245,14 @@ namespace LearnSite.BLL
             dal.UpdateMyRlogin(Rgrade, Rclass, Rlogin);
         }
         /// <summary>
-        /// »ñµÃÇ°¼¸ĞĞÊı¾İ
+        /// è·å¾—å‰å‡ è¡Œæ•°æ®
         /// </summary>
         public DataSet GetList(int Top, string strWhere, string filedOrder)
         {
             return dal.GetList(Top, strWhere, filedOrder);
         }
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public List<LearnSite.Model.Room> GetModelList(string strWhere)
         {
@@ -260,7 +260,7 @@ namespace LearnSite.BLL
             return DataTableToList(ds.Tables[0]);
         }
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public List<LearnSite.Model.Room> DataTableToList(DataTable dt)
         {
@@ -330,7 +330,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetAllList()
         {
@@ -338,14 +338,14 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃÖ¸¶¨RhidµÄ°à¼¶Êı¾İÁĞ±í(Äê¼¶°à¼¶±ğÃûÎªRgradeclass
+        /// è·å¾—æŒ‡å®šRhidçš„ç­çº§æ•°æ®åˆ—è¡¨(å¹´çº§ç­çº§åˆ«åä¸ºRgradeclass
         /// </summary>
         public DataSet GetMyClassList(int Rhid)
         {
             return dal.GetMyClassList(Rhid);
         }
         /// <summary>
-        ///  ´ÓÄê¼¶±íÖĞ»ñµÃ²»ÖØ¸´µÄÄê¼¶
+        ///  ä»å¹´çº§è¡¨ä¸­è·å¾—ä¸é‡å¤çš„å¹´çº§
         /// </summary>
         /// <returns></returns>
         public DataTable GetGrade(int Rhid)
@@ -353,7 +353,7 @@ namespace LearnSite.BLL
             return dal.GetGrade(Rhid).Tables[0];
         }
         /// <summary>
-        ///  ´ÓÄê¼¶±íÖĞ»ñµÃ²»ÖØ¸´µÄÄê¼¶
+        ///  ä»å¹´çº§è¡¨ä¸­è·å¾—ä¸é‡å¤çš„å¹´çº§
         /// </summary>
         /// <returns></returns>
         public DataTable GetFindGrade()
@@ -362,7 +362,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ´ÓÄê¼¶±íÖĞ»ñµÃ²»ÖØ¸´µÄËùÓĞÄê¼¶
+        /// ä»å¹´çº§è¡¨ä¸­è·å¾—ä¸é‡å¤çš„æ‰€æœ‰å¹´çº§
         /// </summary>
         /// <returns></returns>
         public DataSet GetAllGrade()
@@ -370,7 +370,7 @@ namespace LearnSite.BLL
             return dal.GetAllGrade();
         }       
         /// <summary>
-        /// ´ÓÄê¼¶±íÖĞ»ñµÃ²»ÖØ¸´µÄËùÓĞ¿É×¢²áÄê¼¶
+        /// ä»å¹´çº§è¡¨ä¸­è·å¾—ä¸é‡å¤çš„æ‰€æœ‰å¯æ³¨å†Œå¹´çº§
         /// </summary>
         /// <returns></returns>
         public DataSet GetAllRegGrade()
@@ -379,7 +379,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// Ñ§°¸Äê¼¶ÁĞ±í×¨ÓÃ£¬ÏÔÊ¾½Ì¹ıµÄÄê¼¶¼°µ±Ç°°à¼¶ÁĞ±íÖĞµÄÄê¼¶
+        /// å­¦æ¡ˆå¹´çº§åˆ—è¡¨ä¸“ç”¨ï¼Œæ˜¾ç¤ºæ•™è¿‡çš„å¹´çº§åŠå½“å‰ç­çº§åˆ—è¡¨ä¸­çš„å¹´çº§
         /// </summary>
         /// <returns></returns>
         public DataTable GetAllCourseGrade()
@@ -388,14 +388,14 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃÖ¸¶¨RhidµÄ°à¼¶Êı¾İÁĞ±í(Rgrade,Rclass
+        /// è·å¾—æŒ‡å®šRhidçš„ç­çº§æ•°æ®åˆ—è¡¨(Rgrade,Rclass
         /// </summary>
         public DataTable GetMyGradeClass(int Rhid)
         {
             return dal.GetMyGradeClass(Rhid);
         }
         /// <summary>
-        /// ´ÓÄê¼¶±íÖĞ»ñµÃ²»ÖØ¸´µÄ°à¼¶
+        /// ä»å¹´çº§è¡¨ä¸­è·å¾—ä¸é‡å¤çš„ç­çº§
         /// </summary>
         /// <returns></returns>
         public DataSet GetFindClass()
@@ -404,7 +404,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ´ÓÏÂÀ­ÁĞ±í¿òÖĞÑ¡È¡Äê¼¶ºóÖØĞÂ»ñµÃ²»ÖØ¸´µÄ°à¼¶,ÏŞÖÆËù½Ì°à¼¶
+        /// ä»ä¸‹æ‹‰åˆ—è¡¨æ¡†ä¸­é€‰å–å¹´çº§åé‡æ–°è·å¾—ä¸é‡å¤çš„ç­çº§,é™åˆ¶æ‰€æ•™ç­çº§
         /// </summary>
         /// <returns></returns>
         public DataTable GetLimitClass(int Rgrade)
@@ -413,7 +413,7 @@ namespace LearnSite.BLL
         }
         
         /// <summary>
-        /// ´ÓÏÂÀ­ÁĞ±í¿òÖĞÑ¡È¡Äê¼¶ºóÖØĞÂ»ñµÃ²»ÖØ¸´µÄËùÓĞ°à¼¶£¬²»ÏŞÖÆ
+        /// ä»ä¸‹æ‹‰åˆ—è¡¨æ¡†ä¸­é€‰å–å¹´çº§åé‡æ–°è·å¾—ä¸é‡å¤çš„æ‰€æœ‰ç­çº§ï¼Œä¸é™åˆ¶
         /// </summary>
         /// <returns></returns>
         public DataSet GetAllClass()
@@ -421,7 +421,7 @@ namespace LearnSite.BLL
             return dal.GetAllClass();
         }
         /// <summary>
-        /// ´ÓÏÂÀ­ÁĞ±í¿òÖĞÑ¡È¡Äê¼¶ºóÖØĞÂ»ñµÃ²»ÖØ¸´µÄËùÓĞ°à¼¶£¬²»ÏŞÖÆ
+        /// ä»ä¸‹æ‹‰åˆ—è¡¨æ¡†ä¸­é€‰å–å¹´çº§åé‡æ–°è·å¾—ä¸é‡å¤çš„æ‰€æœ‰ç­çº§ï¼Œä¸é™åˆ¶
         /// </summary>
         /// <returns></returns>
         public DataSet GetLimitAllClass(int Rgrade)
@@ -429,7 +429,7 @@ namespace LearnSite.BLL
             return dal.GetLimitAllClass(Rgrade);
         }                
         /// <summary>
-        /// »ñÈ¡¿É×¢²á°à¼¶
+        /// è·å–å¯æ³¨å†Œç­çº§
         /// </summary>
         /// <returns></returns>
         public DataSet GetRegClass(int Rgrade)
@@ -437,7 +437,7 @@ namespace LearnSite.BLL
             return dal.GetRegClass(Rgrade);
         }
         /// <summary>
-        /// ½«ÒªÉÏ¿Î°à¼¶ÉèÖÃ£¬·½±ãÑ§Éú²éÑ¯ÕËºÅ£¬·µ»ØÉèÖÃÃÜÂë(6Î»)
+        /// å°†è¦ä¸Šè¯¾ç­çº§è®¾ç½®ï¼Œæ–¹ä¾¿å­¦ç”ŸæŸ¥è¯¢è´¦å·ï¼Œè¿”å›è®¾ç½®å¯†ç (6ä½)
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -447,7 +447,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶·¶Î§ºÍ°à¼¶×î´óÖµ£¬Ñ­»·Éú³ÉËùÓĞ°à¼¶Êı
+        /// æ ¹æ®å¹´çº§èŒƒå›´å’Œç­çº§æœ€å¤§å€¼ï¼Œå¾ªç¯ç”Ÿæˆæ‰€æœ‰ç­çº§æ•°
         /// </summary>
         /// <param name="RgradeMin"></param>
         /// <param name="RgradeMax"></param>
@@ -459,7 +459,7 @@ namespace LearnSite.BLL
 
 
         /// <summary>
-        /// ²éÑ¯°à¼¶±íÖĞ¼ÇÂ¼Êı
+        /// æŸ¥è¯¢ç­çº§è¡¨ä¸­è®°å½•æ•°
         /// </summary>
         /// <returns></returns>
         public int GradeCount()
@@ -468,7 +468,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶ºÍ°à¼¶£¬»ñÈ¡ÃÜÂë
+        /// æ ¹æ®å¹´çº§å’Œç­çº§ï¼Œè·å–å¯†ç 
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -478,7 +478,7 @@ namespace LearnSite.BLL
             return dal.GetRoomPwd(Rgrade, Rclass);
         }
         /// <summary>
-        /// ¸ù¾İÄê¼¶ºÍ°à¼¶£¬»ñÈ¡½ÌÊ¦Rhid
+        /// æ ¹æ®å¹´çº§å’Œç­çº§ï¼Œè·å–æ•™å¸ˆRhid
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -488,7 +488,7 @@ namespace LearnSite.BLL
             return dal.GetRoomRhid(Rgrade, Rclass);
         }
         /// <summary>
-        /// ½«Ëù½ÌµÄµ±Ç°ÉÏ¿Î°à¼¶±äÎª²»ÉÏ¿Î
+        /// å°†æ‰€æ•™çš„å½“å‰ä¸Šè¯¾ç­çº§å˜ä¸ºä¸ä¸Šè¯¾
         /// </summary>
         /// <param name="Rhid"></param>
         public void UnlineClass(int Rhid)
@@ -497,7 +497,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ²éÑ¯µ±Ç°ÉÏ¿Î°à¼¶µÄËùÓĞÑ§ÉúÑ§ºÅ
+        /// æŸ¥è¯¢å½“å‰ä¸Šè¯¾ç­çº§çš„æ‰€æœ‰å­¦ç”Ÿå­¦å·
         /// </summary>
         /// <param name="Rhid"></param>
         /// <returns></returns>
@@ -506,7 +506,7 @@ namespace LearnSite.BLL
             return dal.GetCurrentClassSnum(Rhid);
         }
         /// <summary>
-        /// ²éÑ¯¸Ã°à¼¶µÄËùÓĞÑ§ÉúÑ§ºÅ
+        /// æŸ¥è¯¢è¯¥ç­çº§çš„æ‰€æœ‰å­¦ç”Ÿå­¦å·
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -516,7 +516,7 @@ namespace LearnSite.BLL
             return dal.GetGradeClassSnum(Sgrade, Sclass);
         }
         /// <summary>
-        /// °à¼¶Ñ§ÉúµÇÂ¼IPËø¶¨È¡·´
+        /// ç­çº§å­¦ç”Ÿç™»å½•IPé”å®šå–å
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -525,7 +525,7 @@ namespace LearnSite.BLL
             dal.UpdateLock(Rgrade, Rclass, Rlock);
         }
         /// <summary>
-        /// Êı¾İ±í×Ö¶Î¸üĞÂÊ±ÓÃ
+        /// æ•°æ®è¡¨å­—æ®µæ›´æ–°æ—¶ç”¨
         /// </summary>
         public void InitLock()
         {
@@ -533,7 +533,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ÅĞ¶Ï¸Ã°à¼¶µÄµÇÂ¼IPÊÇ·ñËø¶¨£¬Èç¹ûËø¶¨Ôò·µ»ØÕæ
+        /// åˆ¤æ–­è¯¥ç­çº§çš„ç™»å½•IPæ˜¯å¦é”å®šï¼Œå¦‚æœé”å®šåˆ™è¿”å›çœŸ
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -543,7 +543,7 @@ namespace LearnSite.BLL
             return dal.IsLoginLock(Rgrade, Rclass);
         }
         /// <summary>
-        /// ³õÊ¼»¯
+        /// åˆå§‹åŒ–
         /// </summary>
         public void UpdateRgauge()
         {
@@ -551,7 +551,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ³õÊ¼»¯
+        /// åˆå§‹åŒ–
         /// </summary>
         public void UpdateRgroupMax()
         {
@@ -567,7 +567,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ²éÑ¯ÊÇ·ñÓĞÈÎ½Ì°à¼¶
+        /// æŸ¥è¯¢æ˜¯å¦æœ‰ä»»æ•™ç­çº§
         /// </summary>
         /// <param name="Rhid"></param>
         /// <returns></returns>
@@ -620,7 +620,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ø°à¼¶ÉèÖÃÉÏ¿ÎµÄÑ§°¸±àºÅ±êÖ¾
+        /// ç»™ç­çº§è®¾ç½®ä¸Šè¯¾çš„å­¦æ¡ˆç¼–å·æ ‡å¿—
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -630,7 +630,7 @@ namespace LearnSite.BLL
             dal.UpdateRcid(Rgrade, Rclass, Rcid);
         }
         /// <summary>
-        /// »ñÈ¡¸Ã°à¼¶µ±Ç°ÉÏ¿ÎÑ§°¸µÄ±àºÅ
+        /// è·å–è¯¥ç­çº§å½“å‰ä¸Šè¯¾å­¦æ¡ˆçš„ç¼–å·
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -641,7 +641,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸üĞÂRopen
+        /// æ›´æ–°Ropen
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -651,7 +651,7 @@ namespace LearnSite.BLL
             dal.UpdateRopen(Rgrade, Rclass, Ropen);
         }
         /// <summary>
-        /// ÅĞ¶ÏÊÇ²»ÊÇ¹«¿ª¿ÎÄ£Ê½
+        /// åˆ¤æ–­æ˜¯ä¸æ˜¯å…¬å¼€è¯¾æ¨¡å¼
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -662,7 +662,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ÅĞ¶ÏÊÇ²»ÊÇ¹«¿ª¿ÎÄ£Ê½£¬·µ»ØRcid£¬Èç¹û²»ÊÇ£¬·µ»Ø""¿Õ×Ö·û
+        /// åˆ¤æ–­æ˜¯ä¸æ˜¯å…¬å¼€è¯¾æ¨¡å¼ï¼Œè¿”å›Rcidï¼Œå¦‚æœä¸æ˜¯ï¼Œè¿”å›""ç©ºå­—ç¬¦
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -685,7 +685,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸üĞÂRshare
+        /// æ›´æ–°Rshare
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -695,7 +695,7 @@ namespace LearnSite.BLL
             dal.UpdateRshare(Rgrade, Rclass, Rshare);
         }       
         /// <summary>
-        /// ¸üĞÂRgroupshare
+        /// æ›´æ–°Rgroupshare
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -705,7 +705,7 @@ namespace LearnSite.BLL
             dal.UpdateRgroupshare(Rgrade, Rclass, Rgroupshare);
         }
         /// <summary>
-        /// ÅĞ¶ÏÊÇ·ñ¹²ÏíRshare
+        /// åˆ¤æ–­æ˜¯å¦å…±äº«Rshare
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -714,7 +714,7 @@ namespace LearnSite.BLL
             return dal.IsRshare(Rgrade, Rclass);
         }                
         /// <summary>
-        /// ÅĞ¶ÏÊÇ·ñ¹²ÏíRgroupshare
+        /// åˆ¤æ–­æ˜¯å¦å…±äº«Rgroupshare
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -723,7 +723,7 @@ namespace LearnSite.BLL
             return dal.IsRgroupshare(Rgrade, Rclass);
         }
         /// <summary>
-        /// ¸üĞÂRpwdsee
+        /// æ›´æ–°Rpwdsee
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -733,7 +733,7 @@ namespace LearnSite.BLL
             dal.UpdateRpwdsee(Rgrade, Rclass, Rpwdsee);
         }
         /// <summary>
-        /// ÅĞ¶ÏÊÇ·ñ°à¼¶ÃÜÂë¿É²éRpwdsee
+        /// åˆ¤æ–­æ˜¯å¦ç­çº§å¯†ç å¯æŸ¥Rpwdsee
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -742,7 +742,7 @@ namespace LearnSite.BLL
             return dal.IsRpwdsee(Rgrade, Rclass);
         }
         /// <summary>
-        /// »ñÈ¡Äê¼¶ÖĞÎÄ´ò×ÖÉèÖÃ
+        /// è·å–å¹´çº§ä¸­æ–‡æ‰“å­—è®¾ç½®
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rhid"></param>
@@ -752,7 +752,7 @@ namespace LearnSite.BLL
             return dal.GetRtyper(Rgrade, Rhid);
         }                
         /// <summary>
-        /// »ñÈ¡°à¼¶ÖĞÎÄ´ò×ÖÉèÖÃ
+        /// è·å–ç­çº§ä¸­æ–‡æ‰“å­—è®¾ç½®
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -762,7 +762,7 @@ namespace LearnSite.BLL
             return dal.GetRtyperByClass(Rgrade, Rclass);
         }
         /// <summary>
-        /// ÉèÖÃËù½ÌÄê¼¶ÖĞÎÄ´ò×ÖÖ¸¶¨ÎÄÕÂ
+        /// è®¾ç½®æ‰€æ•™å¹´çº§ä¸­æ–‡æ‰“å­—æŒ‡å®šæ–‡ç« 
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rtyper"></param>
@@ -774,7 +774,7 @@ namespace LearnSite.BLL
 
 
         /// <summary>
-        /// »ñÈ¡Äê¼¶Æ´Òô´ÊÓï´ò×ÖÉèÖÃ
+        /// è·å–å¹´çº§æ‹¼éŸ³è¯è¯­æ‰“å­—è®¾ç½®
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rhid"></param>
@@ -784,7 +784,7 @@ namespace LearnSite.BLL
             return dal.GetRchinese(Rgrade, Rhid);
         }
         /// <summary>
-        /// »ñÈ¡°à¼¶Æ´Òô´ÊÓï´ò×ÖÉèÖÃ
+        /// è·å–ç­çº§æ‹¼éŸ³è¯è¯­æ‰“å­—è®¾ç½®
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -795,7 +795,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡Rid
+        /// è·å–Rid
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rclass"></param>
@@ -805,7 +805,7 @@ namespace LearnSite.BLL
             return dal.GetRidByGradeClass(Rgrade, Rclass);
         }
         /// <summary>
-        /// ÉèÖÃËù½ÌÄê¼¶Æ´Òô´ÊÓï´ò×ÖÖ¸¶¨ÎÄÕÂ
+        /// è®¾ç½®æ‰€æ•™å¹´çº§æ‹¼éŸ³è¯è¯­æ‰“å­—æŒ‡å®šæ–‡ç« 
         /// </summary>
         /// <param name="Rgrade"></param>
         /// <param name="Rchinese"></param>
@@ -815,7 +815,7 @@ namespace LearnSite.BLL
             dal.SetRchinese(Rgrade, Rchinese, Rhid);
         }
         /// <summary>
-        /// ³õÊ¼»¯×Ö¶ÎÄ¬ÈÏÎª0
+        /// åˆå§‹åŒ–å­—æ®µé»˜è®¤ä¸º0
         /// </summary>
         public void initRreg()
         {
@@ -832,14 +832,14 @@ namespace LearnSite.BLL
             dal.updateRscratch(Rgrade, Rclass, Rscratch);
         }
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         //public DataSet GetList(int PageSize,int PageIndex,string strWhere)
         //{
         //return dal.GetList(PageSize,PageIndex,strWhere);
         //}
 
-        #endregion  ³ÉÔ±·½·¨
+        #endregion  æˆå‘˜æ–¹æ³•
     }
 }
 

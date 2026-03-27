@@ -1,7 +1,7 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="courseshow.aspx.cs" Inherits="Teacher_courseshow" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="courseshow.aspx.cs" Inherits="Teacher_courseshow" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div  class="courseshow">	
+    <div  class="courseshow">	
     <asp:Label ID="LabelCtitle" runat="server"  CssClass="coursetitle"></asp:Label><br /><br />
     <div class="courseother">
 					 <asp:Image ID="Imagebanner" runat="server" Height="20px" ToolTip="横幅图片"  />
@@ -17,16 +17,16 @@
                  OnClick="LinkBtnReturn_Click" title ="返回" ><img src="../images/return.gif" /></asp:LinkButton>
     </div>   
     <br /> 
-<div class="courseother" style="width: 1200px;">
-<div style="margin: auto; ">
+<div class="courseother" style="width: 1300px;">
+<div style="margin: auto; width: 1300px;">
          <asp:LinkButton ID="LinkBtnAdd" runat="server"  
           OnClick="LinkBtnAdd_Click" CssClass="button24" title="学习活动" >添加活动</asp:LinkButton>
              &nbsp;
          <asp:LinkButton ID="LinkBtnAddTopic" runat="server" 
           OnClick="LinkBtnAddTopic_Click" CssClass="button24" title="课堂讨论板"  >添加讨论</asp:LinkButton>
              &nbsp; 
-         <asp:LinkButton ID="LinkBtnAddSurvey" runat="server"  
-          OnClick="LinkBtnAddSurvey_Click" CssClass="button24" title="课堂调查"  >添加调查</asp:LinkButton>
+         <asp:LinkButton ID="LinkButtonAddExam" runat="server"  
+          OnClick="LinkBtnAddExam_Click" CssClass="button24" title="课堂测验"  >添加测验</asp:LinkButton>
              &nbsp; 
          <asp:LinkButton ID="LinkBtnAddTxtForm" runat="server"  
           OnClick="LinkBtnAddTxtForm_Click" CssClass="button24" title="表格填写"  >添加填表</asp:LinkButton>

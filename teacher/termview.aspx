@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="termview.aspx.cs" Inherits="Teacher_termview" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="termview.aspx.cs" Inherits="Teacher_termview" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <div  class="placehold"> 
@@ -43,7 +43,6 @@
                     <asp:BoundField DataField="Ttxtform" HeaderText="表单" />
                     <asp:BoundField DataField="Tvscore" HeaderText="调查" />
                     <asp:BoundField DataField="Twscore" HeaderText="网页" />
-                    <asp:BoundField DataField="Tquiz" HeaderText="测验" />
                     <asp:BoundField DataField="Tchinese" HeaderText="拼音" />
                     <asp:BoundField DataField="Tfscore" HeaderText="英语" />
                     <asp:BoundField DataField="Ttscore" HeaderText="中文" />

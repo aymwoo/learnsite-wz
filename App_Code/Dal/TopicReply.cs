@@ -2,11 +2,11 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:TopicReply
+	/// æ•°æ®è®¿é—®ç±»:TopicReply
 	/// </summary>
 	public class TopicReply
 	{
@@ -16,7 +16,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists()
 		{
@@ -27,7 +27,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.TopicReply model)
 		{
@@ -82,7 +82,7 @@ namespace LearnSite.DAL
             }
 		}
         /// <summary>
-        /// ¸ø»Ø¸´ÆÀ·Ö
+        /// ç»™å›å¤è¯„åˆ†
         /// </summary>
         /// <param name="Rid"></param>
         public bool Lessscore(int Rid)
@@ -99,7 +99,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ø»Ø¸´ÆÀ·Ö
+        /// ç»™å›å¤è¯„åˆ†
         /// </summary>
         /// <param name="Rid"></param>
         public bool Updatescore(int Rid)
@@ -129,7 +129,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ø±¾°àËùÓĞ»Ø¸´ÆÀ·Ö+2
+        /// ç»™æœ¬ç­æ‰€æœ‰å›å¤è¯„åˆ†+2
         /// </summary>
         /// <param name="Rid"></param>
         public int UpdateAllscore(int Rtid, int Rgrade, int Rclass, int Ryear)
@@ -138,7 +138,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸ø±¾°àËùÓĞ»Ø¸´ÆÀ·Ö+6
+        /// ç»™æœ¬ç­æ‰€æœ‰å›å¤è¯„åˆ†+6
         /// </summary>
         /// <param name="Rid"></param>
         public int UpdateAllscore6(int Rtid, int Rgrade, int Rclass, int Ryear)
@@ -147,7 +147,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸ø¸ÃÌù×Ó¼Ó½ûÑÔ±ê¼Ç
+        /// ç»™è¯¥è´´å­åŠ ç¦è¨€æ ‡è®°
         /// </summary>
         /// <param name="Rid"></param>
         public bool UpdateBan(int Rid)
@@ -164,7 +164,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ø¸ÃÌù×ÓÔÊĞíĞŞ¸Ä
+        /// ç»™è¯¥è´´å­å…è®¸ä¿®æ”¹
         /// </summary>
         /// <param name="Rid"></param>
         public bool UpdateEdit(int Rid)
@@ -181,7 +181,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸ø¸ÃÌù×ÓµãÔŞ
+        /// ç»™è¯¥è´´å­ç‚¹èµ
         /// </summary>
         /// <param name="Rid"></param>
         /// <returns></returns>
@@ -199,7 +199,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸üĞÂÀÏÊ¦×Ü½á
+        /// æ›´æ–°è€å¸ˆæ€»ç»“
         /// </summary>
         /// <param name="Rtid"></param>
         /// <param name="Rnum"></param>
@@ -219,7 +219,7 @@ namespace LearnSite.DAL
             }        
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.TopicReply model)
 		{
@@ -269,7 +269,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        ///Rid ¸üĞÂÒ»ÌõÊı¾İ Rwords Rtime Redit Ragree
+        ///Rid æ›´æ–°ä¸€æ¡æ•°æ® Rwords Rtime Redit Ragree
         ///rtid, rsid
         /// </summary>
         public bool UpdateOne(LearnSite.Model.TopicReply model)
@@ -306,7 +306,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Rid)
 		{
@@ -323,7 +323,7 @@ namespace LearnSite.DAL
 				return false;
 			}
 		}		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Ridlist )
 		{
@@ -342,7 +342,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// É¾³ıÒ»¸ö°à¼¶µÄÌÖÂÛ¼ÇÂ¼
+        /// åˆ é™¤ä¸€ä¸ªç­çº§çš„è®¨è®ºè®°å½•
         /// </summary>
         public int DelClass(int Rgrade, int Rclass, int Ryear)
         {
@@ -361,7 +361,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.TopicReply GetModel(int Rid)
 		{
@@ -428,7 +428,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -442,7 +442,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñµÃ¸ÃÖ÷Ìâ±¾°à»Ø¸´Êı¾İÁĞ±í
+        /// è·å¾—è¯¥ä¸»é¢˜æœ¬ç­å›å¤æ•°æ®åˆ—è¡¨
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -461,7 +461,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// »ñÈ¡±¾°àÎ´»Ø¸´µÄÍ¬Ñ§ĞÕÃûÁĞ±í
+        /// è·å–æœ¬ç­æœªå›å¤çš„åŒå­¦å§“ååˆ—è¡¨
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -486,7 +486,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
         /// <summary>
-        /// »ñµÃ¸ÃÖ÷Ìâ±¾°à»Ø¸´Êı¾İÁĞ±í
+        /// è·å¾—è¯¥ä¸»é¢˜æœ¬ç­å›å¤æ•°æ®åˆ—è¡¨
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -505,7 +505,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString()).Tables[0];
         }
         /// <summary>
-        /// »ñÈ¡½ÌÊ¦Ä£ÄâÑ§Éú»Ø¸´×÷Îª×Ü½á
+        /// è·å–æ•™å¸ˆæ¨¡æ‹Ÿå­¦ç”Ÿå›å¤ä½œä¸ºæ€»ç»“
         /// </summary>
         /// <param name="Rtid"></param>
         /// <param name="Rsnum"></param>
@@ -516,7 +516,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ÅĞ¶Ï¸ÃÑ§ºÅ±¾Ìâ»Ø¸´ÊÇ·ñ±»½ûÑÔ¹ı
+        /// åˆ¤æ–­è¯¥å­¦å·æœ¬é¢˜å›å¤æ˜¯å¦è¢«ç¦è¨€è¿‡
         /// </summary>
         /// <param name="Rtid"></param>
         /// <param name="Rsnum"></param>
@@ -527,7 +527,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// ÅĞ¶Ï¸ÃÑ§ºÅ±¾Ìâ»Ø¸´ÊÇ·ñÔÊĞí»Ø¸´ĞŞ¸Ä
+        /// åˆ¤æ–­è¯¥å­¦å·æœ¬é¢˜å›å¤æ˜¯å¦å…è®¸å›å¤ä¿®æ”¹
         /// </summary>
         /// <param name="Rtid"></param>
         /// <param name="Rsid"></param>
@@ -538,7 +538,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// ÅĞ¶Ï¸ÃÑ§ºÅ±¾Ìâ»Ø¸´´ÎÊı
+        /// åˆ¤æ–­è¯¥å­¦å·æœ¬é¢˜å›å¤æ¬¡æ•°
         /// </summary>
         /// <param name="Rtid"></param>
         /// <param name="Rsnum"></param>
@@ -553,7 +553,7 @@ namespace LearnSite.DAL
                 return 0;
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -573,7 +573,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔöRcid×Ö¶Î
+        /// åˆå§‹åŒ–æ–°å¢Rcidå­—æ®µ
         /// </summary>
         public void InitRcid()
         {
@@ -581,7 +581,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔöRclass×Ö¶Î
+        /// åˆå§‹åŒ–æ–°å¢Rclasså­—æ®µ
         /// </summary>
         public void InitRclass()
         {
@@ -590,7 +590,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°°à¼¶Ñ§¹ıµÄÑ§°¸Cid
+        /// è·å–å½“å‰ç­çº§å­¦è¿‡çš„å­¦æ¡ˆCid
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -615,7 +615,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// »ñÈ¡Ä³Ñ§ÉúÑ§¹ıµÄÑ§°¸Cid
+        /// è·å–æŸå­¦ç”Ÿå­¦è¿‡çš„å­¦æ¡ˆCid
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>

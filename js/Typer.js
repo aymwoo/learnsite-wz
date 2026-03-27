@@ -1,4 +1,4 @@
-﻿var wenzhi = $('#Tcontent').text().replace(/(\s*$)/g, "");
+var wenzhi = $('#Tcontent').text().replace(/(\s*$)/g, "");
 var wln = wenzhi.length;
 var typestart = 0;
 var myspeed = 0;

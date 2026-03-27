@@ -34,7 +34,6 @@
             <li class="navigli"><a href="../teacher/works.aspx">作品</a></li>
             <li class="navigli"><a href="../teacher/signin.aspx">签到</a></li>
             <li class="navigli"><a href="../teacher/student.aspx">学生</a></li>
-            <li class="navigli"><a href="../quiz/quiz.aspx">常识</a></li>
             <li class="navigli"><a href="../teacher/typer.aspx">中文</a></li>
             <li class="navigli"><a href="../teacher/typechinese.aspx">拼音</a></li>
             <li class="navigli"><a href="../teacher/soft.aspx">资源</a></li>

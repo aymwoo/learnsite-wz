@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using LearnSite.Model;
@@ -2046,8 +2046,7 @@ namespace LearnSite.BLL
             string Wurl = MyWebPath + "/" + NewFileName;
             string SaveFile = HttpContext.Current.Server.MapPath(Wurl);
             string[] htmlname = mypage.Split('.');
-            string Wthumbnail = MyWebPath + "/" + htmlname[0] + ".ico";
-            string thumbnailpath = HttpContext.Current.Server.MapPath(Wthumbnail);
+            string Wthumbnail = "";
 
             int flen = 0;
             string title = "";
@@ -2075,8 +2074,11 @@ namespace LearnSite.BLL
                         System.IO.File.WriteAllText(SaveFile, cf, Encoding.UTF8);
                         flen = codefile.Length;
 
-                        if (cover.ContentLength > 0) { 
-                            cover.SaveAs(thumbnailpath);                        
+                        if (cover.ContentLength > 0)
+                        {
+                            Wthumbnail = MyWebPath + "/" + htmlname[0] + ".ico";
+                            string thumbnailpath = HttpContext.Current.Server.MapPath(Wthumbnail);
+                            cover.SaveAs(thumbnailpath);
                         }
                     }
                     // LearnSite.Common.Log.Addlog("python作品上传调试信息：", msg);

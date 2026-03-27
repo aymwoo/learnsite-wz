@@ -1,4 +1,4 @@
-﻿# Resources from graph.properties
+# Resources from graph.properties
 alreadyConnected=已经连接的节点
 cancel=取消
 close=关闭

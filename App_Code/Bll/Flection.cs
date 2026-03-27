@@ -5,16 +5,16 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàFlection µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Flection çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Flection
 	{
 		private readonly LearnSite.DAL.Flection dal=new LearnSite.DAL.Flection();
 		public Flection()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Fid)
 		{
@@ -22,14 +22,14 @@ namespace LearnSite.BLL
 		}
 
         /// <summary>
-        ///¸ù¾İFcid ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        ///æ ¹æ®Fcid æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsFcid(int Fcid)
         {
             return dal.ExistsFcid(Fcid);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Flection model)
 		{
@@ -37,7 +37,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Flection model)
 		{
@@ -45,7 +45,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Fid)
 		{
@@ -54,7 +54,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Flection GetModel(int Fcid)
 		{
@@ -63,7 +63,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Flection GetModelByCache(int Fid)
 		{
@@ -87,21 +87,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Flection> GetModelList(string strWhere)
 		{
@@ -109,7 +109,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Flection> DataTableToList(DataTable dt)
 		{
@@ -145,14 +145,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
 			return GetList("");
 		}
         /// <summary>
-        /// »ñµÃÖ¸¶¨FcidµÄÏêÏ¸¼ÇÂ¼
+        /// è·å¾—æŒ‡å®šFcidçš„è¯¦ç»†è®°å½•
         /// </summary>
         /// <param name="Fcid"></param>
         /// <returns></returns>
@@ -162,14 +162,14 @@ namespace LearnSite.BLL
             return GetList(strWhere);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

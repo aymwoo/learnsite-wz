@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -273,6 +273,10 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                         case "38"://网页课件
                             ma.ImageUrl = "~/images/ware.png";
                             ma.NavigateUrl = "~/student/ware.aspx?lid=" + Lid;
+                            break;
+                        case "39"://课堂考试
+                            ma.ImageUrl = "~/images/wvote.png";
+                            ma.NavigateUrl = "~/webform/preview.aspx?lid=" + Lid;
                             break;
                     }
                     if (ispass)

@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàEnglish 
+	/// å®ä½“ç±»English 
 	/// </summary>
 	[Serializable]
 	public class English

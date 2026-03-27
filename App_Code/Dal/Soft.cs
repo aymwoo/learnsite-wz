@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàSoft¡£
+	/// æ•°æ®è®¿é—®ç±»Softã€‚
 	/// </summary>
 	public class Soft
 	{
 		public Soft()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Fid)
 		{
@@ -39,7 +39,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Soft model)
 		{
@@ -86,7 +86,7 @@ namespace LearnSite.DAL
             }
 		}
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public bool Update(LearnSite.Model.Soft model)
         {
@@ -145,7 +145,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
         public bool Delete(int Fid)
         {
@@ -169,7 +169,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Soft GetModel(int Fid)
 		{
@@ -234,7 +234,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -249,7 +249,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// »ñµÃ×ÊÔ´ÁĞ±í£¬ÎŞ¼ò½é
+        /// è·å¾—èµ„æºåˆ—è¡¨ï¼Œæ— ç®€ä»‹
         /// </summary>
         public DataSet GetSoftList(string strWhere)
         {
@@ -264,7 +264,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// ×ÊÔ´ÊÇ·ñ·¢²¼×´Ì¬¸üĞÂ
+        /// èµ„æºæ˜¯å¦å‘å¸ƒçŠ¶æ€æ›´æ–°
         /// </summary>
         /// <param name="Fid"></param>
         public void UpdateFhide(int Fid)
@@ -273,7 +273,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strsql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -293,7 +293,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñÈ¡ÓĞÌá½»×÷Æ·µÄ±¾·ÖÀà×ÊÔ´ÁĞ±í
+        /// è·å–æœ‰æäº¤ä½œå“çš„æœ¬åˆ†ç±»èµ„æºåˆ—è¡¨
         /// </summary>
         /// <param name="Fyid"></param>
         /// <returns></returns>
@@ -303,7 +303,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql).Tables[0];
         }
         /// <summary>
-        /// »ñµÃÓĞ×÷Æ·Ìá½»µÄ·ÖÀàÏîÊı¾İÁĞ±í£¬°´ĞòºÅºÍ±àºÅÅÅĞò
+        /// è·å¾—æœ‰ä½œå“æäº¤çš„åˆ†ç±»é¡¹æ•°æ®åˆ—è¡¨ï¼ŒæŒ‰åºå·å’Œç¼–å·æ’åº
         /// </summary>
         public DataTable GetListCategory()
         {
@@ -316,7 +316,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString()).Tables[0];
         }
         /// <summary>
-        /// ÊÇ·ñ¿ÉÏÂÔØ×ÊÔ´£¨ÊÇ·ñÏŞÖÆÏÂÔØÊ±¼ä£©
+        /// æ˜¯å¦å¯ä¸‹è½½èµ„æºï¼ˆæ˜¯å¦é™åˆ¶ä¸‹è½½æ—¶é—´ï¼‰
         /// </summary>
         /// <returns></returns>
         public  bool IsDownCan()
@@ -333,13 +333,13 @@ namespace LearnSite.DAL
             }
             else
             {
-                candown = true;//Èç¹û²»ÏŞÖÆÏÂÔØ
+                candown = true;//å¦‚æœä¸é™åˆ¶ä¸‹è½½
             }            
             return candown;
         }
 
         /// <summary>
-        /// ¸üĞÂµã»÷ÂÊ
+        /// æ›´æ–°ç‚¹å‡»ç‡
         /// </summary>
         /// <param name="Fid"></param>
         /// <param name="Fhit"></param>
@@ -356,7 +356,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸ÃÀà±ğµÄ×ÊÔ´
+        /// æ˜¯å¦å­˜åœ¨è¯¥ç±»åˆ«çš„èµ„æº
         /// </summary>
         /// <param name="Fyid"></param>
         /// <returns></returns>
@@ -373,7 +373,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -396,7 +396,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

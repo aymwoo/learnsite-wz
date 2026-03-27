@@ -6,7 +6,7 @@ using LearnSite.DBUtility;//Please add references
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:Computers
+	/// æ•°æ®è®¿é—®ç±»:Computers
 	/// </summary>
 	public class Computers
 	{
@@ -15,7 +15,7 @@ namespace LearnSite.DAL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -27,7 +27,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ñÈ¡µçÄÔÊÒÃû³Æ
+        /// è·å–ç”µè„‘å®¤åç§°
         /// </summary>
         /// <returns></returns>
         public DataTable CmpRoom()
@@ -37,7 +37,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ½«µ±Ç°ÉÏ¿Î°à¼¶Ñ§ºÅ×Ô¶¯·ÖÅä¸øµ±Ç°»ú·¿IPÁĞ±í£¬·½±ãÅàÑµ¿ÎÊ±£¬×Ô¶¯Ìî³äµÇÂ¼Ñ§ºÅ£¬ÒÔÃâÖØ¸´
+        /// å°†å½“å‰ä¸Šè¯¾ç­çº§å­¦å·è‡ªåŠ¨åˆ†é…ç»™å½“å‰æœºæˆ¿IPåˆ—è¡¨ï¼Œæ–¹ä¾¿åŸ¹è®­è¯¾æ—¶ï¼Œè‡ªåŠ¨å¡«å……ç™»å½•å­¦å·ï¼Œä»¥å…é‡å¤
         /// </summary>
         /// <param name="hid"></param>
         public void AutoAssign(string hid) {
@@ -66,7 +66,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Çå³ı·ÖÅäµÄÑ§ºÅ
+        /// æ¸…é™¤åˆ†é…çš„å­¦å·
         /// </summary>
         public void ClearAssign()
         {
@@ -74,7 +74,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(sql);
         }
         /// <summary>
-        /// ¸ù¾İIp»ñÈ¡·ÖÅäµÄÑ§ºÅ
+        /// æ ¹æ®Ipè·å–åˆ†é…çš„å­¦å·
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
@@ -90,7 +90,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İÀÏÊ¦»ñÈ¡µçÄÔÊÒµÄ£É£Ğ¡¢Ö÷»úÃûºÍ×ø±ê
+        /// æ ¹æ®è€å¸ˆè·å–ç”µè„‘å®¤çš„ï¼©ï¼°ã€ä¸»æœºåå’Œåæ ‡
         /// select Pip,Pmachine,Px,Py from Computers
         /// </summary>
         /// <param name="Ph"></param>
@@ -108,7 +108,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsIp(string Pip)
         {
@@ -122,7 +122,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼£¬·µ»ØÖ÷»úÃû
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•ï¼Œè¿”å›ä¸»æœºå
         /// </summary>
         public string GetmachineByIp(string Pip)
         {
@@ -130,7 +130,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(strSql);
         }
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Pid)
 		{
@@ -144,7 +144,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ÊÇ·ñÓĞÎ´°ó¶¨µÄÖ÷»úÃûIP
+        /// æ˜¯å¦æœ‰æœªç»‘å®šçš„ä¸»æœºåIP
         /// </summary>
         /// <returns></returns>
         public string ExistPlock(string Pip)
@@ -153,7 +153,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Computers model)
 		{
@@ -186,7 +186,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İ
+        /// å¢åŠ ä¸€æ¡æ•°æ®
         /// </summary>
         public int AddModel(LearnSite.Model.Computers model)
         {
@@ -223,7 +223,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ½«±íÖĞPlockÖµÈ¡·´£¬¸üĞÂ
+        /// å°†è¡¨ä¸­Plockå€¼å–åï¼Œæ›´æ–°
         /// </summary>
         /// <param name="Pid"></param>
         public void UpLock(int Pid)
@@ -233,7 +233,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ½«±íÖĞPlockÖµÎª0£¬¼´½âËø
+        /// å°†è¡¨ä¸­Plockå€¼ä¸º0ï¼Œå³è§£é”
         /// </summary>
         public void UnLockAll()
         {
@@ -241,7 +241,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ½«±íÖĞPlockÖµÎª0£¬¼´½âËø
+        /// å°†è¡¨ä¸­Plockå€¼ä¸º0ï¼Œå³è§£é”
         /// </summary>
         public void OnLockAll()
         {
@@ -249,7 +249,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ¸ù¾İIP¸üĞÂµçÄÔÊÒÃûºÍµçÄÔ×ø±ê
+        /// æ ¹æ®IPæ›´æ–°ç”µè„‘å®¤åå’Œç”µè„‘åæ ‡
         /// </summary>
         public bool UpdateIpPxPy(string Pip, int Px, int Py, string Pm)
         {
@@ -279,7 +279,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İIP¸üĞÂÖ÷»úÃû
+        /// æ ¹æ®IPæ›´æ–°ä¸»æœºå
         /// </summary>
         public bool UpdateIp(string Pip,string Pmachine)
         {
@@ -305,7 +305,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İPid¸üĞÂÖ÷»úÃû
+        /// æ ¹æ®Pidæ›´æ–°ä¸»æœºå
         /// </summary>
         public bool UpdateByPid(int Pid,string Pmachine)
         {
@@ -330,7 +330,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Computers model)
 		{
@@ -364,7 +364,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// ¸ù¾İPid¸üĞÂÒ»ÌõÊı¾İPmachine,Plock,Pdate
+        /// æ ¹æ®Pidæ›´æ–°ä¸€æ¡æ•°æ®Pmachine,Plock,Pdate
         /// </summary>
         public bool UpdateMachine(LearnSite.Model.Computers model)
         {
@@ -395,7 +395,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// É¾³ıËùÓĞÊı¾İ
+        /// åˆ é™¤æ‰€æœ‰æ•°æ®
         /// </summary>
         public bool DeleteAll()
         {
@@ -411,7 +411,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// É¾³ı¸ÃÈÕÆÚÖ®Ç°µÄ¼ÇÂ¼
+        /// åˆ é™¤è¯¥æ—¥æœŸä¹‹å‰çš„è®°å½•
         /// </summary>
         /// <param name="pdate"></param>
         /// <returns></returns>
@@ -429,7 +429,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Pid)
 		{
@@ -453,7 +453,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Pidlist )
 		{
@@ -473,7 +473,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Computers GetModel(int Pid)
 		{
@@ -520,7 +520,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸ù¾İPipµÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®Pipå¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Computers GetModelByIp(string Pip)
         {
@@ -566,7 +566,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -580,7 +580,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í£¬Ìõ¼şÅÅĞò
+        /// è·å¾—æ•°æ®åˆ—è¡¨ï¼Œæ¡ä»¶æ’åº
         /// </summary>
         public DataSet GetListOrder(string strorder)
         {
@@ -594,7 +594,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -614,7 +614,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñÈ¡IPÓëÖ÷»úÃû¶ÔÓ¦±í
+        /// è·å–IPä¸ä¸»æœºåå¯¹åº”è¡¨
         /// </summary>
         /// <returns></returns>
         public DataTable GetPipPmachine()
@@ -624,7 +624,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{

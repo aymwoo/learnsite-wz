@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.IO;
@@ -109,9 +109,7 @@ namespace LearnSite.Store
                 DataTable dtCourse = new DataTable();
                 DataTable dtMission = new DataTable();
                 DataTable dtTopicDicuss = new DataTable();
-                DataTable dtSurvey = new DataTable();
-                DataTable dtSurveyQuestion = new DataTable();
-                DataTable dtSurveyItem = new DataTable();
+                DataTable dtExam = new DataTable();
                 DataTable dtTxtForm = new DataTable();
                 DataTable dtListMenu = new DataTable();
                 DataTable dtConsole = new DataTable();
@@ -125,12 +123,8 @@ namespace LearnSite.Store
                     dtMission = ds.Tables["Mission"];//获得活动表mission 
                 if (ds.Tables.Contains("TopicDiscuss"))
                     dtTopicDicuss = ds.Tables["TopicDiscuss"];//获得讨论表
-                if (ds.Tables.Contains("Survey"))
-                    dtSurvey = ds.Tables["Survey"];//获得调查表
-                if (ds.Tables.Contains("SurveyQuestion"))
-                    dtSurveyQuestion = ds.Tables["SurveyQuestion"];//获得调查试题表
-                if (ds.Tables.Contains("SurveyItem"))
-                    dtSurveyItem = ds.Tables["SurveyItem"];//获得调查试题选项表
+                if (ds.Tables.Contains("Exams"))
+                    dtExam = ds.Tables["Exams"];//获得测验表
                 if (ds.Tables.Contains("TxtForm"))
                     dtTxtForm = ds.Tables["TxtForm"];
                 if (ds.Tables.Contains("ListMenu"))
@@ -149,8 +143,8 @@ namespace LearnSite.Store
                     CreateMission(dtMission, dtJudgeArg, newCid, Hid);//将活动添加到新学案下，循环解决两张表编号关联
                     if (dtTopicDicuss != null)
                         CreateTopicDiscuss(dtTopicDicuss, newCid, Hid);
-                    if (dtSurvey != null)
-                        CreateSurvey(dtSurvey, dtSurveyQuestion, dtSurveyItem, newCid, Hid);//循环解决三张表编号关联
+                    if (dtExam != null)
+                        CreateExam(dtExam, newCid, Hid);//循环解决三张表编号关联
                     if (dtTxtForm != null)
                         CreateTxtForm(dtTxtForm, newCid);
                     if (dtConsole != null)
@@ -165,9 +159,7 @@ namespace LearnSite.Store
                 dtCourse.Dispose();
                 dtMission.Dispose();
                 dtTopicDicuss.Dispose();
-                dtSurvey.Dispose();
-                dtSurveyQuestion.Dispose();
-                dtSurveyItem.Dispose();
+                dtExam.Dispose();
                 dtTxtForm.Dispose();
                 dtListMenu.Dispose();
                 ds.Dispose();
@@ -233,97 +225,22 @@ namespace LearnSite.Store
                 bll.Add(model);//增加测评试题
             }
         }
-
-
-        /// <summary>
-        /// 添加学案调查试题选项ok
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="Cid"></param>
-        private static void CreateSurveyItem(DataTable dtm, int Cid, int oldQid, int newQid, int newVid)
-        {
-            int dCount = dtm.Rows.Count;
-            LearnSite.BLL.SurveyItem bll = new LearnSite.BLL.SurveyItem();
-            if (dCount > 0)
-            {
-                for (int k = 0; k < dCount; k++)
-                {
-                    LearnSite.Model.SurveyItem model = new LearnSite.Model.SurveyItem();
-                    model = bll.GetModel(dtm, k);
-                    int oldMcid = model.Mcid.Value;
-                    string thisMcontent = model.Mitem;
-                    model.Mcid = Cid;//更换成新学案编号
-                    string oldstr = "store/" + oldMcid.ToString();
-                    string newstr = "store/" + Cid.ToString();
-                    model.Mitem = CaseInsenstiveReplace(thisMcontent, oldstr, newstr);//替换链接地址
-                    model.Mqid = newQid;
-                    model.Mvid = newVid;
-                    bll.Add(model);//增加学案调查试题选项
-                }
-            }
-        }
-
-        /// <summary>
-        /// 添加学案调查试题ok
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="Cid"></param>
-        private static void CreateSurveyQuestion(DataTable dt,DataTable dtitems, int Cid,int oldVid,int newVid)
-        {
-            int dCount = dt.Rows.Count;
-            LearnSite.BLL.SurveyQuestion bll = new LearnSite.BLL.SurveyQuestion();
-            if (dCount > 0)
-            {
-                for (int j = 0; j < dCount; j++)
-                {
-                    LearnSite.Model.SurveyQuestion model = new LearnSite.Model.SurveyQuestion();
-                    model = bll.GetModel(dt, j);
-                    if (model.Qvid.Value == oldVid)
-                    {
-                        model.Qvid = newVid;//如果是这个调查的试题，则换成新的
-                        int oldMcid = model.Qcid.Value;
-                        string thisMcontent = model.Qtitle;
-                        model.Qcid = Cid;//更换成新学案编号
-                        string oldstr = "store/" + oldMcid.ToString();
-                        string newstr = "store/" + Cid.ToString();
-                        model.Qtitle = CaseInsenstiveReplace(thisMcontent, oldstr, newstr);//替换链接地址
-                        int oldQid = model.Qid;
-                        int newQid = bll.Add(model);//增加学案调查试题
-                        if (dtitems != null)
-                        {
-                            DataView dv = new DataView(dtitems);
-                            dv.RowFilter = "Mqid=" + oldQid.ToString();//直接过滤得到该试题的选项
-                            CreateSurveyItem(dv.ToTable(), Cid, oldQid, newQid, newVid);
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
+       /// <summary>
         /// 添加学案调查ok
         /// </summary>
         /// <param name="dt"></param>
         /// <param name="Cid"></param>
-        private static void CreateSurvey(DataTable dt,DataTable dtquestion,DataTable dtitem, int Cid,int Hid)
+        private static void CreateExam(DataTable dt, int Cid, int Hid)
         {
             int dCount = dt.Rows.Count;
-            LearnSite.BLL.Survey bll = new LearnSite.BLL.Survey();
+            LearnSite.BLL.Exams bll = new LearnSite.BLL.Exams();
             for (int i = 0; i < dCount; i++)
             {
-                LearnSite.Model.Survey model = new LearnSite.Model.Survey();
-                model = bll.GetModel(dt, i);
-                int oldMcid = model.Vcid.Value;
-                string thisMcontent = model.Vcontent;
-                model.Vcid = Cid;//更换成新学案编号
-                model.Vhid = Hid;//换成导入老师
-                string oldstr = "store/" + oldMcid.ToString();
-                string newstr = "store/" + Cid.ToString();
-                model.Vcontent = CaseInsenstiveReplace(thisMcontent, oldstr, newstr);//替换链接地址
-                int oldvid = model.Vid;
+                LearnSite.Model.Exams model = new LearnSite.Model.Exams();
+                model = bll.GetModelDataRow(dt, i);
+                model.Cid = Cid;//更换成新学案编号
+                model.Hid = Hid;//换成导入老师
                 int newvid = bll.Add(model);//增加学案调查
-                if (dtquestion != null)
-                    CreateSurveyQuestion(dtquestion, dtitem, Cid, oldvid, newvid);
             }
         }
         /// <summary>

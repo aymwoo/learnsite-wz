@@ -1,4 +1,4 @@
-﻿var wenzhi = $('#Tcontent').text().replace(/(\s*$)/g, "");
+var wenzhi = $('#Tcontent').text().replace(/(\s*$)/g, "");
 var wln = wenzhi.length;
 var timeset = wln * 3; //限制打字时间为一个字3秒
 var timeall = timeset;

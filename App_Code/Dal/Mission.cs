@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàMission¡£
+	/// æ•°æ®è®¿é—®ç±»Missionã€‚
 	/// </summary>
 	public class Mission
 	{
 		public Mission()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Mid)
 		{
@@ -37,7 +37,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// »ñÈ¡»î¶¯ĞòºÅ×î´óÖµ
+        /// è·å–æ´»åŠ¨åºå·æœ€å¤§å€¼
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -57,7 +57,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡±Èµ±Ç°»î¶¯ĞòºÅĞ¡µÄ×î´ó¿ÉÌá½»»î¶¯ĞòºÅ£¬ÎŞÔò·µ»Ø0
+        /// è·å–æ¯”å½“å‰æ´»åŠ¨åºå·å°çš„æœ€å¤§å¯æäº¤æ´»åŠ¨åºå·ï¼Œæ— åˆ™è¿”å›0
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -79,7 +79,7 @@ namespace LearnSite.DAL
             return result;
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Mission model)
 		{
@@ -134,7 +134,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ£¨ÎŞmcid)
+		/// æ›´æ–°ä¸€æ¡æ•°æ®ï¼ˆæ— mcid)
 		/// </summary>
 		public void Update(LearnSite.Model.Mission model)
 		{
@@ -190,7 +190,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ¸ü¸Äµ¼º½´ÎĞò updown Öµ0ÏòÉÏ ¼õ£¬1ÏòÏÂ¡¡Ôö
+        /// æ›´æ”¹å¯¼èˆªæ¬¡åº updown å€¼0å‘ä¸Š å‡ï¼Œ1å‘ä¸‹ã€€å¢
         /// </summary>
         /// <param name="Mid"></param>
         /// <param name="updown"></param>
@@ -202,7 +202,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Mid)
 		{			
@@ -216,7 +216,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// É¾³ıÒ»ÌõÊı¾İ
+        /// åˆ é™¤ä¸€æ¡æ•°æ®
         /// </summary>
         public void DeleteMission(int Mid)
         {
@@ -231,7 +231,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Mission GetModel(int Mid)
 		{
@@ -343,7 +343,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ´Ó²éÑ¯±íÖĞµÃµ½Ò»¸öMission¶ÔÏóÊµÌå,TsortÎªTable¼ÇÂ¼ĞòºÅ£¨´Ó0¿ªÊ¼£©
+        /// ä»æŸ¥è¯¢è¡¨ä¸­å¾—åˆ°ä¸€ä¸ªMissionå¯¹è±¡å®ä½“,Tsortä¸ºTableè®°å½•åºå·ï¼ˆä»0å¼€å§‹ï¼‰
         /// </summary>
         public LearnSite.Model.Mission GetTableModel(DataTable dt, int Tsort)
         {
@@ -458,7 +458,7 @@ namespace LearnSite.DAL
 
         }
         /// <summary>
-        /// »ñÈ¡»î¶¯×÷Æ·ÉÏ´«ÀàĞÍ
+        /// è·å–æ´»åŠ¨ä½œå“ä¸Šä¼ ç±»å‹
         /// </summary>
         /// <param name="Mid"></param>
         /// <returns></returns>
@@ -468,7 +468,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -483,7 +483,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// »ñµÃÎŞÄÚÈİÈÎÎñÁĞ±í
+        /// è·å¾—æ— å†…å®¹ä»»åŠ¡åˆ—è¡¨
         /// </summary>
         public DataSet GetListNoContent(string strWhere)
         {
@@ -498,7 +498,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃÎŞÄÚÈİÈÎÎñÁĞ±í£¨ÓĞ±êÌâ£©
+        /// è·å¾—æ— å†…å®¹ä»»åŠ¡åˆ—è¡¨ï¼ˆæœ‰æ ‡é¢˜ï¼‰
         /// </summary>
         public DataSet GetListMission(int Mcid)
         {
@@ -513,7 +513,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// »ñÈ¡±êÌâ
+        /// è·å–æ ‡é¢˜
         /// </summary>
         /// <param name="Mid"></param>
         /// <returns></returns>
@@ -523,7 +523,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾½Ú¿Î³ÌµÄ±à³ÌÈÎÎñMid
+        /// è·å–æœ¬èŠ‚è¯¾ç¨‹çš„ç¼–ç¨‹ä»»åŠ¡Mid
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -533,7 +533,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNum(mysql);
         }
         /// <summary>
-        /// »ñÈ¡Mgid
+        /// è·å–Mgid
         /// </summary>
         /// <param name="Mid"></param>
         /// <returns></returns>
@@ -543,7 +543,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -564,7 +564,7 @@ namespace LearnSite.DAL
 		}
  
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã»î¶¯¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥æ´»åŠ¨è®°å½•
         /// </summary>
         public bool MsortExists(int Mcid,int Msort)
         {
@@ -580,7 +580,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñµÃ¸ÃÑ§°¸µÄ»î¶¯ĞòºÅ
+        /// è·å¾—è¯¥å­¦æ¡ˆçš„æ´»åŠ¨åºå·
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -591,7 +591,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñµÃ¸ÃÑ§°¸ÓĞ×÷Æ·Ìá½»µÄ»î¶¯ĞòºÅ
+        /// è·å¾—è¯¥å­¦æ¡ˆæœ‰ä½œå“æäº¤çš„æ´»åŠ¨åºå·
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -601,7 +601,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql);
         }
         /// <summary>
-        /// »ñµÃ¸ÃÑ§°¸ÓĞ×÷Æ·Ìá½»µÄ»î¶¯±àºÅºÍ±êÌâ
+        /// è·å¾—è¯¥å­¦æ¡ˆæœ‰ä½œå“æäº¤çš„æ´»åŠ¨ç¼–å·å’Œæ ‡é¢˜
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -611,7 +611,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql);
         }
         /// <summary>
-        /// »ñµÃ¸ÃÑ§°¸ËùÓĞ»î¶¯±àºÅºÍ±êÌâ
+        /// è·å¾—è¯¥å­¦æ¡ˆæ‰€æœ‰æ´»åŠ¨ç¼–å·å’Œæ ‡é¢˜
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -621,7 +621,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql);
         }
         /// <summary>
-        /// ³õÊ¼»¯Mgroup×Ö¶ÎnullÎªfalse
+        /// åˆå§‹åŒ–Mgroupå­—æ®µnullä¸ºfalse
         /// </summary>
         public void InitMgroup()
         {
@@ -629,7 +629,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
         }
         /// <summary>
-        /// ÈÎÎñ»î¶¯×´Ì¬£º·¢²¼»ò»ØÊÕ
+        /// ä»»åŠ¡æ´»åŠ¨çŠ¶æ€ï¼šå‘å¸ƒæˆ–å›æ”¶
         /// </summary>
         /// <param name="Mid"></param>
         public void UpdateMpublish(int Mid)
@@ -638,7 +638,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
         }
         /// <summary>
-        /// ³õÊ¼»¯£¬Êı¾İ¿â¸üĞÂÓÃ
+        /// åˆå§‹åŒ–ï¼Œæ•°æ®åº“æ›´æ–°ç”¨
         /// </summary>
         public void UpdateMgid()
         {
@@ -651,7 +651,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
         }
         /// <summary>
-        /// ³õÊ¼»¯×Ö¶ÎÖµÎª0£»
+        /// åˆå§‹åŒ–å­—æ®µå€¼ä¸º0ï¼›
         /// </summary>
         public void InitMcategory()
         {
@@ -660,7 +660,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -683,7 +683,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

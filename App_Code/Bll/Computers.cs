@@ -16,7 +16,7 @@ namespace LearnSite.BLL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -28,7 +28,7 @@ namespace LearnSite.BLL
             dal.initPxy();
         }
         /// <summary>
-        /// »ñÈ¡µçÄÔÊÒÃû³Æ
+        /// è·å–ç”µè„‘å®¤åç§°
         /// </summary>
         /// <returns></returns>
         public DataTable CmpRoom()
@@ -37,7 +37,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İIp»ñÈ¡·ÖÅäµÄÑ§ºÅ
+        /// æ ¹æ®Ipè·å–åˆ†é…çš„å­¦å·
         /// </summary>
         /// <param name="ip"></param>
         /// <returns></returns>
@@ -47,14 +47,14 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// Çå³ı·ÖÅäµÄÑ§ºÅ
+        /// æ¸…é™¤åˆ†é…çš„å­¦å·
         /// </summary>
         public void ClearAssign()
         {
             dal.ClearAssign();
         }
         /// <summary>
-        /// ½«µ±Ç°ÉÏ¿Î°à¼¶Ñ§ºÅ×Ô¶¯·ÖÅä¸øµ±Ç°»ú·¿IPÁĞ±í£¬·½±ãÅàÑµ¿ÎÊ±£¬×Ô¶¯Ìî³äµÇÂ¼Ñ§ºÅ£¬ÒÔÃâÖØ¸´
+        /// å°†å½“å‰ä¸Šè¯¾ç­çº§å­¦å·è‡ªåŠ¨åˆ†é…ç»™å½“å‰æœºæˆ¿IPåˆ—è¡¨ï¼Œæ–¹ä¾¿åŸ¹è®­è¯¾æ—¶ï¼Œè‡ªåŠ¨å¡«å……ç™»å½•å­¦å·ï¼Œä»¥å…é‡å¤
         /// </summary>
         /// <param name="hid"></param>
         public void AutoAssign(string hid)
@@ -63,7 +63,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ù¾İÀÏÊ¦»ñÈ¡µçÄÔÊÒµÄ£É£Ğ¡¢Ö÷»úÃûºÍ×ø±ê
+        /// æ ¹æ®è€å¸ˆè·å–ç”µè„‘å®¤çš„ï¼©ï¼°ã€ä¸»æœºåå’Œåæ ‡
         /// select Pip,Pmachine,Px,Py from Computers
         /// </summary>
         /// <param name="Ph"></param>
@@ -78,52 +78,52 @@ namespace LearnSite.BLL
             sct.Column = 8;
             if (count > 6)
             {
-                int beginX = Int32.Parse(dt.Rows[0][2].ToString());//»ñÈ¡³õÊ¼X×ø±ê
+                int beginX = Int32.Parse(dt.Rows[0][2].ToString());//è·å–åˆå§‹Xåæ ‡
                 ArrayList arrayX = new ArrayList();
                 arrayX.Add(beginX);
 
-                #region    ±ê×¼»¯X×ø±ê  Í¬ÁĞÆ«ÒÆ60ÄÚ ×Ô¶¯´¹Ö±¶ÔÆë  dt
+                #region    æ ‡å‡†åŒ–Xåæ ‡  åŒåˆ—åç§»60å†… è‡ªåŠ¨å‚ç›´å¯¹é½  dt
 
                 for (int i = 0; i < count; i++)
                 {
-                    int Px = Int32.Parse(dt.Rows[i][2].ToString());//¶ÁÈ¡Ä³IPµÄX×ø±ê
+                    int Px = Int32.Parse(dt.Rows[i][2].ToString());//è¯»å–æŸIPçš„Xåæ ‡
                     if (Px > beginX + 60)
                     {
-                        beginX = Px;//µÃµ½µ±Ç°X×ø±ê
+                        beginX = Px;//å¾—åˆ°å½“å‰Xåæ ‡
                         arrayX.Add(beginX);
                     }
                     else
                     {
-                        dt.Rows[i][2] = beginX; //Èç¹ûĞ¡ÓÚ²îÖµÔòÈ«²¿ÉèÖÃÎªµ±Ç°Öµ
+                        dt.Rows[i][2] = beginX; //å¦‚æœå°äºå·®å€¼åˆ™å…¨éƒ¨è®¾ç½®ä¸ºå½“å‰å€¼
                     }
                 }
                 #endregion
 
                 DataView dv = dt.DefaultView;
                 dv.Sort = "Py  Asc";
-                DataTable dt2 = dv.ToTable();//µÃµ½°´Y×ø±êÅÅĞòµÄ±í
-                int beginY = Int32.Parse(dt2.Rows[0][3].ToString());//»ñÈ¡³õÊ¼Y×ø±ê
+                DataTable dt2 = dv.ToTable();//å¾—åˆ°æŒ‰Yåæ ‡æ’åºçš„è¡¨
+                int beginY = Int32.Parse(dt2.Rows[0][3].ToString());//è·å–åˆå§‹Yåæ ‡
                 ArrayList arrayY = new ArrayList();
                 arrayY.Add(beginY);
 
-                #region    ±ê×¼»¯Y×ø±ê   Í¬ĞĞÆ«ÒÆ60ÄÚ ×Ô¶¯Ë®Æ½¶ÔÆë dt2
+                #region    æ ‡å‡†åŒ–Yåæ ‡   åŒè¡Œåç§»60å†… è‡ªåŠ¨æ°´å¹³å¯¹é½ dt2
 
                 for (int i = 0; i < count; i++)
                 {
-                    int Py = Int32.Parse(dt2.Rows[i][3].ToString());//¶ÁÈ¡Ä³IPµÄX×ø±ê
+                    int Py = Int32.Parse(dt2.Rows[i][3].ToString());//è¯»å–æŸIPçš„Xåæ ‡
                     if (Py > beginY + 60)
                     {
-                        beginY = Py;//µÃµ½µ±Ç°Y×ø±ê
+                        beginY = Py;//å¾—åˆ°å½“å‰Yåæ ‡
                         arrayY.Add(beginY);
                     }
                     else
                     {
-                        dt2.Rows[i][3] = beginY; //Èç¹ûĞ¡ÓÚ²îÖµÔòÈ«²¿ÉèÖÃÎªµ±Ç°Öµ
+                        dt2.Rows[i][3] = beginY; //å¦‚æœå°äºå·®å€¼åˆ™å…¨éƒ¨è®¾ç½®ä¸ºå½“å‰å€¼
                     }
                 }
                 #endregion
 
-                #region ²éÑ¯±ê×¼Î»ÖÃ£¬ÔÚ±íÖĞ´æÔÚ²»´æÔÚ£¬²»´æÔÚÔòÌí¼Ó¿ÕÎ»
+                #region æŸ¥è¯¢æ ‡å‡†ä½ç½®ï¼Œåœ¨è¡¨ä¸­å­˜åœ¨ä¸å­˜åœ¨ï¼Œä¸å­˜åœ¨åˆ™æ·»åŠ ç©ºä½
                 int empty = 0;
                 for (int i = 0; i < arrayX.Count; i++)
                 {
@@ -131,7 +131,7 @@ namespace LearnSite.BLL
                     for (int j = 0; j < arrayY.Count; j++)
                     {
                         int y = Int32.Parse(arrayY[j].ToString());
-                        //²éÑ¯±ê×¼Î»ÖÃ£¬ÔÚ±íÖĞ´æÔÚ²»´æÔÚ£¬²»´æÔÚÔòÌí¼Ó¼ÇÂ¼
+                        //æŸ¥è¯¢æ ‡å‡†ä½ç½®ï¼Œåœ¨è¡¨ä¸­å­˜åœ¨ä¸å­˜åœ¨ï¼Œä¸å­˜åœ¨åˆ™æ·»åŠ è®°å½•
                         if (dt2.Select("Px=" + x + " and Py=" + y).Length < 1)
                         {
                             empty++;
@@ -149,7 +149,7 @@ namespace LearnSite.BLL
                 DataView dvok = dt2.DefaultView;
                 dvok.Sort = "Px Asc , Py Asc";
 
-                DataTable dt3 = dvok.ToTable();//µÃµ½×îÖÕ±ê×¼¸ñÊ½Î»ÖÃ±í£¨´ø¿ÕÎ»£©
+                DataTable dt3 = dvok.ToTable();//å¾—åˆ°æœ€ç»ˆæ ‡å‡†æ ¼å¼ä½ç½®è¡¨ï¼ˆå¸¦ç©ºä½ï¼‰
                 dt.Dispose();
                 dt2.Dispose();
                 sct.Column = arrayX.Count;
@@ -159,7 +159,7 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Pid)
 		{
@@ -167,21 +167,21 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsIp(string Pip)
         {
             return dal.ExistsIp(Pip);
         }                
         /// <summary>
-        /// ·µ»ØÖ÷»úÃû
+        /// è¿”å›ä¸»æœºå
         /// </summary>
         public string GetmachineByIp(string Pip)
         {
             return dal.GetmachineByIp(Pip);
         }
         /// <summary>
-        /// ÊÇ·ñÓĞÎ´°ó¶¨µÄÖ÷»úÃûIP
+        /// æ˜¯å¦æœ‰æœªç»‘å®šçš„ä¸»æœºåIP
         /// </summary>
         /// <returns></returns>
         public string ExistPlock(string Pip)
@@ -189,21 +189,21 @@ namespace LearnSite.BLL
             return dal.ExistPlock(Pip);
         }
 		/// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İPip,Pmachine,Plock,Pdate
+        /// å¢åŠ ä¸€æ¡æ•°æ®Pip,Pmachine,Plock,Pdate
 		/// </summary>
 		public int  Add(LearnSite.Model.Computers model)
 		{
 			return dal.Add(model);
 		}
         /// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İPip,Pmachine,Plock,Pdate,Px,Py,Pm
+        /// å¢åŠ ä¸€æ¡æ•°æ®Pip,Pmachine,Plock,Pdate,Px,Py,Pm
         /// </summary>
         public int AddModel(LearnSite.Model.Computers model)
         {
             return dal.AddModel(model);
         }
         /// <summary>
-        /// ½«±íÖĞPlockÖµÈ¡·´£¬¸üĞÂ
+        /// å°†è¡¨ä¸­Plockå€¼å–åï¼Œæ›´æ–°
         /// </summary>
         /// <param name="Pid"></param>
         public void UpLock(int Pid)
@@ -211,7 +211,7 @@ namespace LearnSite.BLL
             dal.UpLock(Pid);
         }
         /// <summary>
-        /// ½«±íÖĞPlockÖµÎª0£¬¼´½âËø
+        /// å°†è¡¨ä¸­Plockå€¼ä¸º0ï¼Œå³è§£é”
         /// </summary>
         public void UnLockAll()
         {
@@ -219,35 +219,35 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ½«±íÖĞPlockÖµÎª0£¬¼´½âËø
+        /// å°†è¡¨ä¸­Plockå€¼ä¸º0ï¼Œå³è§£é”
         /// </summary>
         public void OnLockAll()
         {
             dal.OnLockAll();
         }
         /// <summary>
-        /// ¸ù¾İIP¸üĞÂµçÄÔÊÒÃûºÍµçÄÔ×ø±ê
+        /// æ ¹æ®IPæ›´æ–°ç”µè„‘å®¤åå’Œç”µè„‘åæ ‡
         /// </summary>
         public bool UpdateIpPxPy(string Pip, int Px, int Py, string Pm)
         {
             return dal.UpdateIpPxPy(Pip, Px, Py, Pm);
         }
         /// <summary>
-        /// ¸ù¾İPid¸üĞÂÒ»ÌõÊı¾İPmachine,Plock,Pdate
+        /// æ ¹æ®Pidæ›´æ–°ä¸€æ¡æ•°æ®Pmachine,Plock,Pdate
         /// </summary>
         public bool UpdateMachine(LearnSite.Model.Computers model)
         {
             return UpdateMachine(model);
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Computers model)
 		{
 			return dal.Update(model);
 		}                
         /// <summary>
-        /// ¸ù¾İIP¸üĞÂÖ÷»úÃû£¬²»´æÔÚÔòÌí¼Ó
+        /// æ ¹æ®IPæ›´æ–°ä¸»æœºåï¼Œä¸å­˜åœ¨åˆ™æ·»åŠ 
         /// </summary>
         public bool UpdateIp(string Pip, string Pmachine)
         {
@@ -273,14 +273,14 @@ namespace LearnSite.BLL
         }
                         
         /// <summary>
-        /// ¸ù¾İPid¸üĞÂÖ÷»úÃû²¢Ëø¶¨
+        /// æ ¹æ®Pidæ›´æ–°ä¸»æœºåå¹¶é”å®š
         /// </summary>
         public bool UpdateByPid(int Pid, string Pmachine)
         {
             return dal.UpdateByPid(Pid, Pmachine);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Pid)
 		{
@@ -289,7 +289,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// É¾³ıËùÓĞÊı¾İ
+        /// åˆ é™¤æ‰€æœ‰æ•°æ®
         /// </summary>
         public bool DeleteAll()
         {
@@ -297,7 +297,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// É¾³ı¸ÃÈÕÆÚÖ®Ç°µÄ¼ÇÂ¼
+        /// åˆ é™¤è¯¥æ—¥æœŸä¹‹å‰çš„è®°å½•
         /// </summary>
         /// <param name="pdate"></param>
         /// <returns></returns>
@@ -306,21 +306,21 @@ namespace LearnSite.BLL
             return dal.DeleteThis(pdate);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Pidlist )
 		{
 			return dal.DeleteList(Pidlist );
 		}
                 /// <summary>
-        /// ¸ù¾İPipµÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®Pipå¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Computers GetModelByIp(string Pip)
         {
             return dal.GetModelByIp(Pip);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Computers GetModel(int Pid)
 		{
@@ -329,7 +329,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­
 		/// </summary>
 		public LearnSite.Model.Computers GetModelByCache(int Pid)
 		{
@@ -353,7 +353,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -361,7 +361,7 @@ namespace LearnSite.BLL
 		}
 
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í£¬Ìõ¼şÅÅĞò
+        /// è·å¾—æ•°æ®åˆ—è¡¨ï¼Œæ¡ä»¶æ’åº
         /// </summary>
         public DataSet GetListOrderBy(string str)
         {
@@ -383,14 +383,14 @@ namespace LearnSite.BLL
 
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Computers> GetModelList(string strWhere)
 		{
@@ -398,7 +398,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Computers> DataTableToList(DataTable dt)
 		{
@@ -438,7 +438,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -446,7 +446,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// »ñÈ¡IPÓëÖ÷»úÃû¶ÔÓ¦±í
+        /// è·å–IPä¸ä¸»æœºåå¯¹åº”è¡¨
         /// </summary>
         /// <returns></returns>
         public DataTable GetPipPmachine()
@@ -454,7 +454,7 @@ namespace LearnSite.BLL
             return dal.GetPipPmachine();
         }
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{

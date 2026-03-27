@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàStudentsExcel ¡£
+	/// å®ä½“ç±»StudentsExcel ã€‚
 	/// </summary>
 	[Serializable]
 	public class StudentsExcel

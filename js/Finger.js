@@ -1,4 +1,4 @@
-﻿var wordKeyObj; //当前要打的字符键对象
+var wordKeyObj; //当前要打的字符键对象
 var oldwordKeyObj; //上次字符键对象
 var downKeyWord; //按下键值转成的字符
 var downKeyObj; //按下的键对像

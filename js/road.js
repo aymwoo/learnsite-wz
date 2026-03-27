@@ -1,5 +1,5 @@
-//upmodel值表示：jpg格式横幅显示
-//请自行选择
+//upmodel鍊艰〃绀猴細jpg鏍煎紡妯箙鏄剧ず
+//璇疯嚜琛岄�夋嫨
 function ShowRoad(first) {
     bannerjpg(first);
 }

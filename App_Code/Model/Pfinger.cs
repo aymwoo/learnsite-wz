@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// Pfinger:实体类
+	/// Pfinger:实锟斤拷锟斤拷
 	/// </summary>
 	[Serializable]
 	public class Pfinger

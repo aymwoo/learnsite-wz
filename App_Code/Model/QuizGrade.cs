@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàQuizGrade 
+	/// å®ä½“ç±»QuizGrade 
 	/// </summary>
 	[Serializable]
 	public class QuizGrade

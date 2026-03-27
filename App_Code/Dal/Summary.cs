@@ -6,7 +6,7 @@ using LearnSite.DBUtility;//Please add references
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:Summary
+	/// æ•°æ®è®¿é—®ç±»:Summary
 	/// </summary>
 	public partial class Summary
 	{
@@ -15,7 +15,7 @@ namespace LearnSite.DAL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Sid)
 		{
@@ -40,7 +40,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Summary model)
 		{
@@ -79,7 +79,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Summary model)
 		{
@@ -126,7 +126,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Sid)
 		{
@@ -150,7 +150,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Sidlist )
 		{
@@ -168,7 +168,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// µÃµ½Ö¸¶¨»î¶¯ÄÚÈİµÄ×Ü½áÒ»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°æŒ‡å®šæ´»åŠ¨å†…å®¹çš„æ€»ç»“ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Summary GetModelByClass(int Scid,int Shid,int Sgrade,int Sclass)
         {
@@ -238,7 +238,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Summary GetModel(int Sid)
 		{
@@ -304,7 +304,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -319,7 +319,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -341,7 +341,7 @@ namespace LearnSite.DAL
 
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{

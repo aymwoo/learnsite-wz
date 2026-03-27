@@ -6,7 +6,7 @@ using LearnSite.DBUtility;//Please add references
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:Pfinger
+	/// æ•°æ®è®¿é—®ç±»:Pfinger
 	/// </summary>
 	public class Pfinger
 	{
@@ -15,7 +15,7 @@ namespace LearnSite.DAL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Pid)
 		{
@@ -38,7 +38,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ±¾ÔÂ¸ÃÑ§ºÅÖ¸·¨¼ÇÂ¼£¬·µ»ØPid
+        /// æ˜¯å¦å­˜åœ¨æœ¬æœˆè¯¥å­¦å·æŒ‡æ³•è®°å½•ï¼Œè¿”å›Pid
         /// </summary>
         public string ExistsMonth(string Psnum, int Pyear,int Pmonth)
         {
@@ -47,7 +47,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸ÃÑ§ºÅÖ¸·¨¼ÇÂ¼£¬·µ»ØPid
+        /// æ˜¯å¦å­˜åœ¨è¯¥å­¦å·æŒ‡æ³•è®°å½•ï¼Œè¿”å›Pid
         /// </summary>
         public string ExistsPsnum(string Psnum)
         {
@@ -55,7 +55,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(astrSql);
         }
         /// <summary>
-        /// ·µ»Ø¸ÃÑ§ºÅÖ¸·¨³É¼¨
+        /// è¿”å›è¯¥å­¦å·æŒ‡æ³•æˆç»©
         /// </summary>
         public string GetPsnum(string Psnum)
         {
@@ -63,7 +63,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(strSql);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Pfinger model)
 		{
@@ -99,7 +99,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// ¸üĞÂÄ³ÌõPidµÄPspdÖµ
+        /// æ›´æ–°æŸæ¡Pidçš„Pspdå€¼
         /// </summary>
         /// <param name="Pid"></param>
         /// <param name="Pspd"></param>
@@ -136,7 +136,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Pfinger model)
 		{
@@ -176,7 +176,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// Çå¿Õ±í
+        /// æ¸…ç©ºè¡¨
         /// </summary>
         public int ClearTb()
         {
@@ -184,7 +184,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSql(strSql);
         }
         /// <summary>
-        /// Çå¿ÕËù½Ì°à¼¶µÄÑ§ÉúÖ¸·¨¼ÇÂ¼
+        /// æ¸…ç©ºæ‰€æ•™ç­çº§çš„å­¦ç”ŸæŒ‡æ³•è®°å½•
         /// </summary>
         public void ClearMyTb(int Rhid)
         {
@@ -192,7 +192,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Pid)
 		{
@@ -216,7 +216,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Pidlist )
 		{
@@ -236,7 +236,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Pfinger GetModel(int Pid)
 		{
@@ -295,7 +295,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -309,7 +309,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// ÏÔÊ¾°à¼¶Ö¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºç­çº§æŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowClassFingerScore(int Sgrade,int Sclass)
@@ -318,7 +318,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾Äê¼¶¶ÎÖ¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºå¹´çº§æ®µæŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowAllFingerScore(int Sgrade)
@@ -327,7 +327,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾Ñ§Ğ£Ö¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºå­¦æ ¡æŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowSchoolFingerScore()
@@ -336,7 +336,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -356,7 +356,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// ±£´æ³É¼¨
+        /// ä¿å­˜æˆç»©
         /// </summary>
         /// <param name="psnum"></param>
         /// <param name="myspd"></param>
@@ -370,14 +370,14 @@ namespace LearnSite.DAL
                 int Pyear = nowdate.Year;
                 int Pmonth = nowdate.Month;
                 decimal Pspd = decimal.Parse(myspd);
-                if (Pspd > 30) return isok;//Èç¹ûËÙ¶È³¬¹ı30,Îª×÷±×,²»¼ÇÂ¼
+                if (Pspd > 30) return isok;//å¦‚æœé€Ÿåº¦è¶…è¿‡30,ä¸ºä½œå¼Š,ä¸è®°å½•
 
                 string pstr = ExistsPsnum(psnum);
                 int pterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());
                 if (pstr != "")
                 {
-                    isok = UpdatePspd(Int32.Parse(pstr), Pspd, nowdate,pgrade,pterm);//Èç¹û´æÔÚÔò¸üĞÂËÙ¶È
-                    string mysql = "update Students set Sfscore=" + Pspd + " where Snum='" + psnum + "'";//Ñ§Éú±í³É¼¨Í¬²½
+                    isok = UpdatePspd(Int32.Parse(pstr), Pspd, nowdate,pgrade,pterm);//å¦‚æœå­˜åœ¨åˆ™æ›´æ–°é€Ÿåº¦
+                    string mysql = "update Students set Sfscore=" + Pspd + " where Snum='" + psnum + "'";//å­¦ç”Ÿè¡¨æˆç»©åŒæ­¥
                     DbHelperSQL.ExecuteSql(mysql);
                 }
                 else
@@ -405,7 +405,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ÏÔÊ¾Äê¼¶¶ÎÖ¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºå¹´çº§æ®µæŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowTopFingerScore(int Sgrade,int nTop)
@@ -414,7 +414,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾Äê¼¶¶ÎÖ¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºå¹´çº§æ®µæŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowTopFingerScoreAs(int Sgrade, int nTop)
@@ -423,7 +423,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// ÏÔÊ¾Ñ§Ğ£Ö¸·¨Ó¢ĞÛ°ñ¼ÇÂ¼
+        /// æ˜¾ç¤ºå­¦æ ¡æŒ‡æ³•è‹±é›„æ¦œè®°å½•
         /// </summary>
         /// <param name="GVtyper"></param>
         public DataSet ShowSchoolTopFingerScore(int nTop)
@@ -433,7 +433,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{

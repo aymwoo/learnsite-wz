@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="htmladd.aspx.cs" Inherits="teacher_htmladd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="htmladd.aspx.cs" Inherits="teacher_htmladd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <div  class="cplace">
@@ -13,6 +13,11 @@
             <asp:ListItem>w3.html</asp:ListItem>
             <asp:ListItem>w4.html</asp:ListItem>
             <asp:ListItem>w5.html</asp:ListItem>
+            <asp:ListItem>a1.html</asp:ListItem>
+            <asp:ListItem>a2.html</asp:ListItem>
+            <asp:ListItem>a3.html</asp:ListItem>
+            <asp:ListItem>a4.html</asp:ListItem>
+            <asp:ListItem>a5.html</asp:ListItem>
         </asp:DropDownList>
 </div>
     <div  >

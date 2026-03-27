@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Web;
@@ -306,9 +306,7 @@ namespace LearnSite.DBUtility
                 string strCourse = "select * from Courses where Cid= " + Cid;
                 string strMission = "select * from Mission where Mcid=" + Cid + " and Mdelete=0 order by Msort asc";
                 string strTopicDiscuss = "select * from TopicDiscuss where Tcid=" + Cid;
-                string strSurvey = "select * from Survey where Vcid=" + Cid;
-                string strSurveyQuestion = "select * from SurveyQuestion where Qcid=" + Cid;
-                string strSurveyItem = "select * from SurveyItem where Mcid=" + Cid;
+                string strExam = "select * from Exams where Cid=" + Cid;
                 string strTxtForm = "select * from TxtForm where Mcid=" + Cid + " and Mdelete=0";
                 string strListMenu = "select * from ListMenu where Lcid=" + Cid;
                 string strConsole = "select * from Consoles where Ncid=" + Cid;
@@ -322,12 +320,8 @@ namespace LearnSite.DBUtility
                     dam.Fill(ds, "Mission");
                     SqlDataAdapter dat = new SqlDataAdapter(strTopicDiscuss, conn);
                     dat.Fill(ds, "TopicDiscuss");
-                    SqlDataAdapter dav = new SqlDataAdapter(strSurvey, conn);
-                    dav.Fill(ds, "Survey");
-                    SqlDataAdapter daq = new SqlDataAdapter(strSurveyQuestion, conn);
-                    daq.Fill(ds, "SurveyQuestion");
-                    SqlDataAdapter dae = new SqlDataAdapter(strSurveyItem, conn);
-                    dae.Fill(ds, "SurveyItem");
+                    SqlDataAdapter dav = new SqlDataAdapter(strExam, conn);
+                    dav.Fill(ds, "Exams");
                     SqlDataAdapter daf = new SqlDataAdapter(strTxtForm, conn);
                     daf.Fill(ds, "TxtForm");
                     SqlDataAdapter dal = new SqlDataAdapter(strListMenu, conn);
@@ -343,8 +337,6 @@ namespace LearnSite.DBUtility
                     dam.Dispose();
                     dat.Dispose();
                     dav.Dispose();
-                    daq.Dispose();
-                    dae.Dispose();
                     daf.Dispose();
                     dal.Dispose();
                     dan.Dispose();

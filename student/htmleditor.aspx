@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="htmleditor.aspx.cs" Inherits="student_htmleditor" %>
-
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="htmleditor.aspx.cs" Inherits="student_htmleditor" %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head >  
   <meta charset="UTF-8">
@@ -61,12 +60,13 @@
 			display:inline-block;		
 			margin:auto;
 			padding:2px;
-			color:#666;	
+			color:#333;	
 			cursor: hand;
 			min-width:30px;
 			text-align:center;
 			box-shadow: 1px 1px 1px #999;
-			border-radius:2px;			
+			border-radius:2px;	
+			background-color: #ebddc5;		
 		}
 		.keyword:hover{
 			cursor: hand;
@@ -280,90 +280,101 @@
 	    var sessionkey = "htmlcode" + snum + "-" + id + "-" + mypage;
 
 		// 更新预览函数
-		function updatePreview(htmlCode) {
+		function updatePreviewold(htmlCode) {
                 frameDoc.open();
-                htmlCode = updateImgsrc(htmlCode);
+                htmlCode = updateUrlsrc(htmlCode);
                 frameDoc.write(htmlCode);//同步预览
 				document.title = frameDoc.title;//同步标题
                 frameDoc.close();
         }
-                
-        function updateImgsrc(html){            
-            let doc = new DOMParser().parseFromString(html, 'text/html');
-            let root = "../website/"+snum+"/";
+        
+		function updatePreview(htmlCode) {
+			// 处理 HTML
+			htmlCode = updateUrlsrc(htmlCode);			
+			// 直接使用 srcdoc 替换内容（这会创建全新的文档环境）
+			previewFrame.srcdoc = htmlCode;			
+			// 异步更新标题
+			previewFrame.onload = function() {
+				try {
+					const frameDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+					if (frameDoc.title) {
+						document.title = frameDoc.title;
+					}
+				} catch (e) {
+					// 忽略跨域错误
+				}
+			};
+		}
 
-            // 处理图片
-            let imgs = doc.querySelectorAll('img');
-            imgs.forEach(img => {
-                let src = img.getAttribute('src')?.trim(); // 清除前后空格
-                if (!src) return;
-                if (!src.startsWith(root)) {
-                    let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-                    img.setAttribute('src', root + normalizedSrc);
-                }
+function updateUrlsrc(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const root = `../website/${snum}/`;
+    const isExternal = url => url && /^(https?:|\/\/|data:)/i.test(url);
+    const hasRoot = url => url && (url.startsWith(root) || url.startsWith(`website/${snum}/`));
+    
+    // 处理 HTML 元素的属性
+    const processElementAttr = (el, attr) => {
+        const url = el.getAttribute(attr)?.trim();
+        if (!url || isExternal(url) || hasRoot(url)) return;
+        el.setAttribute(attr, root + (url.startsWith('/') ? url.substring(1) : url));
+    };
+    
+    // 处理 JavaScript 代码中的数组对象
+    const processJavaScript = () => {
+        // 获取所有的 script 标签
+        const scripts = doc.querySelectorAll('script:not([src])');
+        
+        scripts.forEach(script => {
+            const scriptContent = script.textContent;
+            if (!scriptContent) return;
+            
+            // 查找并替换数组对象中的 src 属性
+            let modifiedContent = scriptContent;
+            
+            // 方法1: 使用正则表达式匹配常见的数组格式
+            const patterns = [
+                // 匹配 musicList 或类似数组中的 src 属性
+                /(const\s+\w+\s*=\s*\[\s*\{[\s\S]*?src:\s*["'])([^"']+)(["'][\s\S]*?\}\s*\])/gi,
+                // 匹配对象中的 src 属性（更通用的模式）
+                /(src:\s*["'])([^"']+)(["'])/gi,
+                // 匹配 JSON 格式的 src 属性
+                /("src":\s*")([^"]+)(")/gi
+            ];
+            
+            patterns.forEach(pattern => {
+                modifiedContent = modifiedContent.replace(pattern, (match, prefix, url, suffix) => {
+                    if (!url || isExternal(url) || hasRoot(url)) {
+                        return match; // 不处理外部链接或已包含根路径的链接
+                    }
+                    return prefix + root + (url.startsWith('/') ? url.substring(1) : url) + suffix;
+                });
             });
-
-            // 处理音频
-            let audios = doc.querySelectorAll('audio');
-            audios.forEach(audio => {
-                let src = audio.getAttribute('src')?.trim(); // 清除前后空格
-                if (!src) return;
-                if (!src.startsWith(root)) {
-                    let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-                    audio.setAttribute('src', root + normalizedSrc);
-                }
-            });
-
-            // 处理视频
-            let videos = doc.querySelectorAll('video');
-            videos.forEach(video => {
-                let src = video.getAttribute('src')?.trim(); // 清除前后空格;
-                if (!src) return;
-                if (!src.startsWith(root)) {
-                    let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-                    video.setAttribute('src', root + normalizedSrc);
-                }
-            });
-
-            // 处理脚本
-            let scripts = doc.querySelectorAll('script[src]');
-            scripts.forEach(script => {
-                let src = script.getAttribute('src')?.trim(); // 清除前后空格;
-                if (!src) return;
-                if (!src.startsWith(root)) {
-                    let normalizedSrc = src.startsWith('/') ? src.substring(1) : src;
-                    script.setAttribute('src', root + normalizedSrc);
-                }
-            });
-
-            // 处理样式表
-            let links = doc.querySelectorAll('link[rel="stylesheet"][href]');
-            links.forEach(link => {
-                let href = link.getAttribute('href')?.trim(); // 清除前后空格;
-                if (!href) return;
-                if (!href.startsWith(root)) {
-                    let normalizedHref = href.startsWith('/') ? href.substring(1) : href;
-                    link.setAttribute('href', root + normalizedHref);
-                }
-            });
-
-            // 处理链接
-            let anchors = doc.querySelectorAll('a[href]');
-            anchors.forEach(anchor => {
-                let href = anchor.getAttribute('href')?.trim(); // 清除前后空格;
-                if (!href) return;
-                if (!href.startsWith(root)) {        
-                    let normalizedHref = href.startsWith('/') ? href.substring(1) : href;
-                    anchor.setAttribute('href', root + normalizedHref);
-                }
-            });
-
-          // 获取 body 内的所有内容（包括 title 等标签）
-          //console.log(doc.documentElement.outerHTML);
-          return doc.documentElement.outerHTML;  
-          // 或者只获取 body 内容
-          // return doc.body.innerHTML;
-        }
+                       
+            // 如果内容有修改，更新 script 标签
+            if (modifiedContent !== scriptContent) {
+                script.textContent = modifiedContent;
+            }
+        });
+    };
+    
+    // 处理 HTML 元素
+    [
+        ['img', 'src'],
+        ['audio', 'src'],
+        ['video', 'src'],
+        ['source', 'src'],
+        ['link[rel="stylesheet"][href]', 'href'],
+        ['a[href]', 'href'],
+        ['script[src]', 'src']  // 处理有 src 属性的 script 标签
+    ].forEach(([sel, attr]) => {
+        doc.querySelectorAll(sel).forEach(el => processElementAttr(el, attr));
+    });
+    
+    // 处理内联 JavaScript 代码
+    processJavaScript();
+    
+    return doc.documentElement.outerHTML;
+}
 		
 		function autosaving(){
 			var codestr = editor.getValue();
@@ -425,21 +436,17 @@
         }
 
 	    function savehtml() { 
+			var preview = document.getElementById("left");  
         	var htmlcode = editor.getValue();
-        	if (htmlcode != null && htmlcode != "") {
-                html2canvas(frameDoc.body, {
-                    useCORS: true
-                }).then(pic => {
-                    var dataURL=pic.toDataURL("image/jpg",0.5);
-                    var cover=blob(dataURL);
-					
+        	if (htmlcode != null && htmlcode != "") {					
         	        localStorage .setItem(sessionkey, htmlcode); //保存时更新临时数据
         	        var urls = 'uploadhtml.ashx?id=' + id;
         	        var formData = new FormData();
         	        var encodehtml = window.btoa(encodeURIComponent(htmlcode));
+					//console.log(encodehtml);
         	        formData.append('codefile', encodehtml);
         	        formData.append('mypage', mypage);
-                    formData.append('cover', cover);
+                    formData.append('cover', "");
 
         	        $.ajax({
         	            url: urls,
@@ -455,8 +462,6 @@
         	        }).fail(function (res) {
         	            console.log(res)
         	        }); 	
-            
-                });		
         	}
         }
 
@@ -492,7 +497,7 @@
         function example() {
 			if( editor.session.getLength()<8)
 			{
-				var examplecode = "JTNDaHRtbCUzRSUwRCUwQSUyMCUyMCUyMCUyMCUzQ2hlYWQlM0UlMEQlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlM0N0aXRsZSUzRSVFNyVCRCU5MSVFOSVBMSVCNSVFNiVBMCU4NyVFOSVBMiU5OCUzQyUyRnRpdGxlJTNFJTBEJTBBJTIwJTIwJTIwJTIwJTNDJTJGaGVhZCUzRSUwRCUwQSUyMCUyMCUyMCUyMCUzQ2JvZHklM0UlMEQlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlM0NoMSUzRSVFNSU4NiU4NSVFNSVBRSVCOSVFNiVBMCU4NyVFOSVBMiU5OCUzQyUyRmgxJTNFJTBEJTBBJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTIwJTNDcCUzRSUwRCUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCVFOCVCRiU5OSVFNiU5OCVBRiVFNiVBRSVCNSVFOCU5MCVCRCUwRCUwQSUyMCUyMCUyMCUyMCUyMCUyMCUyMCUyMCUzQyUyRnAlM0UlMEQlMEElMjAlMjAlMjAlMjAlM0MlMkZib2R5JTNFJTBEJTBBJTNDJTJGaHRtbCUzRQ";
+				var examplecode = "JTNDaHRtbCUzRSUwRCUwQSUyMCUyMCUyMCUyMCUzQ2hlYWQlM0UlMEQlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlM0N0aXRsZSUzRSVFNyVCRCU5MSVFOSVBMSVCNSVFNiVBMCU4NyVFOSVBMiU5OCUzQyUyRnRpdGxlJTNFJTBEJTBBJTIwJTIwJTIwJTIwJTNDJTJGaGVhZCUzRSUwRCUwQSUyMCUyMCUyMCUyMCUzQ2JvZHklM0UlMEQlMEElMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMEQlMEElMjAlMjAlMjAlMjAlM0MlMkZib2R5JTNFJTBEJTBBJTNDJTJGaHRtbCUzRQ";
 				var exampledecode = decodeURIComponent(window.atob(examplecode)); //网页模板
 				updatePreview(exampledecode);
 				editor.setValue(exampledecode, 1);

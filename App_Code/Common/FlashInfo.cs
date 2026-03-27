@@ -18,10 +18,10 @@ namespace LearnSite.Common
             try
             {
                 if (stream.Length < 8)
-                    throw new InvalidDataException("文件不是 Flash 文件格式");
+                    throw new InvalidDataException("鏂囦欢涓嶆槸 Flash 鏂囦欢鏍煎紡");
                 string flashMark = new string(reader.ReadChars(3));
                 if (flashMark != "FWS" && flashMark != "CWS")
-                    throw new InvalidDataException("文件不是 Flash 文件格式");
+                    throw new InvalidDataException("鏂囦欢涓嶆槸 Flash 鏂囦欢鏍煎紡");
                 isCompressed = flashMark == "CWS";
                 version = Convert.ToInt32(reader.ReadByte());
                 fileLength = reader.ReadInt32();

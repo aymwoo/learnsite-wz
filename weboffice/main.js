@@ -1,7 +1,7 @@
 
 /****************************************************
 *
-*		¹Ø±ÕÒ³ÃæÊ±µ÷ÓÃ´Ëº¯Êı£¬¹Ø±ÕÎÄ¼ş 
+*		å…³é—­é¡µé¢æ—¶è°ƒç”¨æ­¤å‡½æ•°ï¼Œå…³é—­æ–‡ä»¶ 
 *
 ****************************************************/
 function window_onunload() {
@@ -9,12 +9,12 @@ function window_onunload() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.Close();
 	}catch(e){
-	//	alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+	//	alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					ĞÂ½¨ÎÄµµ
+*					æ–°å»ºæ–‡æ¡£
 *
 ****************************************************/
 function newDoc() {
@@ -23,13 +23,13 @@ function newDoc() {
 		var doctype=document.getElementById("doctype").value;
 		webObj.LoadOriginalFile("", doctype);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 
 /****************************************************
 *
-*			¹Ø±ÕÒ³ÃæÊ±µ÷ÓÃ´Ëº¯Êı£¬¹Ø±ÕÎÄ¼ş 
+*			å…³é—­é¡µé¢æ—¶è°ƒç”¨æ­¤å‡½æ•°ï¼Œå…³é—­æ–‡ä»¶ 
 *
 ****************************************************/
 function window_onunload() {
@@ -37,12 +37,12 @@ function window_onunload() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.Close();
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*				 ½â³ıÎÄµµ±£»¤ 
+*				 è§£é™¤æ–‡æ¡£ä¿æŠ¤ 
 *
 ****************************************************/
 function UnProtect() {
@@ -50,12 +50,12 @@ function UnProtect() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.ProtectDoc(0,1, document.all.docPwd.value);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *			
-*				ÉèÖÃÎÄµµ±£»¤ 
+*				è®¾ç½®æ–‡æ¡£ä¿æŠ¤ 
 *
 ****************************************************/
 function ProtectFull() {
@@ -63,14 +63,14 @@ function ProtectFull() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.ProtectDoc(1,1, document.all.docPwd.value);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 
 
 /****************************************************
 *
-*					½ûÖ¹¸´ÖÆ
+*					ç¦æ­¢å¤åˆ¶
 *
 /****************************************************/
 function notCopy() {
@@ -78,12 +78,12 @@ function notCopy() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetSecurity(0x04); 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					»Ö¸´ÔÊĞí¸´ÖÆ
+*					æ¢å¤å…è®¸å¤åˆ¶
 *
 /****************************************************/
 function okCopy() {
@@ -91,12 +91,12 @@ function okCopy() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetSecurity(0x04 + 0x8000); 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					½ûÖ¹ÍÏ¶¯
+*					ç¦æ­¢æ‹–åŠ¨
 *
 /****************************************************/
 function notDrag() {
@@ -104,12 +104,12 @@ function notDrag() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetSecurity(0x08); 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					»Ö¸´ÍÏ¶¯
+*					æ¢å¤æ‹–åŠ¨
 *
 /****************************************************/
 function okDrag() {
@@ -117,14 +117,14 @@ function okDrag() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetSecurity(0x08 + 0x8000); 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 
 }
 
 /****************************************************
 *
-*					´ò¿ª±¾µØÎÄ¼ş
+*					æ‰“å¼€æœ¬åœ°æ–‡ä»¶
 *
 /****************************************************/
 function docOpen() {
@@ -132,13 +132,13 @@ function docOpen() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.LoadOriginalFile("open", "doc");
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 
 /****************************************************
 *
-*					Òş²Ø²Ëµ¥
+*					éšè—èœå•
 *
 /****************************************************/
 function notMenu() {
@@ -146,12 +146,12 @@ function notMenu() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Menu Bar",1,8);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					ÏÔÊ¾²Ëµ¥
+*					æ˜¾ç¤ºèœå•
 *
 /****************************************************/
 function okMenu() {
@@ -159,12 +159,12 @@ function okMenu() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Menu Bar",1,11);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					Òş²Ø³£ÓÃ¹¤¾ßÀ¸
+*					éšè—å¸¸ç”¨å·¥å…·æ 
 *
 /****************************************************/
 function notOfter() {
@@ -172,12 +172,12 @@ function notOfter() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Standard",1,8);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					ÏÔÊ¾³£ÓÃ¹¤¾ßÀ¸
+*					æ˜¾ç¤ºå¸¸ç”¨å·¥å…·æ 
 *
 /****************************************************/
 function okOfter() {
@@ -185,12 +185,12 @@ function okOfter() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Standard",1,11);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					Òş²Ø¸ñÊ½¹¤¾ßÀ¸
+*					éšè—æ ¼å¼å·¥å…·æ 
 *
 /****************************************************/
 function notFormat() {
@@ -198,12 +198,12 @@ function notFormat() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Formatting",1,8);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*					ÏÔÊ¾¸ñÊ½¹¤¾ßÀ¸
+*					æ˜¾ç¤ºæ ¼å¼å·¥å…·æ 
 *
 /****************************************************/
 function okFormat() {
@@ -211,13 +211,13 @@ function okFormat() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.SetToolBarButton2("Formatting",1,11);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }    
 
 /****************************************************
 *
-*					È«ÆÁ
+*					å…¨å±
 *
 /****************************************************/
 function bToolBar_FullScreen_onclick() {
@@ -225,12 +225,12 @@ function bToolBar_FullScreen_onclick() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.FullScreen = true;
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*		ÉèÖÃweboffice×Ô´ø¹¤¾ßÀ¸ÏÔÊ¾»òÒş²Ø
+*		è®¾ç½®webofficeè‡ªå¸¦å·¥å…·æ æ˜¾ç¤ºæˆ–éšè—
 *
 /****************************************************/
 function bToolBar_onclick() {
@@ -238,13 +238,13 @@ function bToolBar_onclick() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.ShowToolBar =  !webObj.ShowToolBar;
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 
 /****************************************************
 *
-*		ÉèÖÃweboffice×Ô´ø¹¤¾ßÀ¸ÏÔÊ¾»òÒş²Ø
+*		è®¾ç½®webofficeè‡ªå¸¦å·¥å…·æ æ˜¾ç¤ºæˆ–éšè—
 *
 /****************************************************/
 function NobToolBar() {
@@ -252,13 +252,13 @@ function NobToolBar() {
 		var webObj=document.getElementById("WebOffice1");
 		webObj.ShowToolBar =  false;
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			----¿ªÊ¼²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			----å¼€å§‹èœå•éšè—
 *
 /****************************************************/
 function beginMenu_onclick()
@@ -266,15 +266,15 @@ function beginMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x100000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---²åÈë²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---æ’å…¥èœå•éšè—
 *
 /****************************************************/
 function insertMenu_onclick()
@@ -282,16 +282,16 @@ function insertMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x200000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
 *			
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---Ò³Ãæ²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---é¡µé¢èœå•éšè—
 *
 /****************************************************/
 function pageMenu_onclick()
@@ -299,15 +299,15 @@ function pageMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x400000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			--ÒıÓÃ²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			--å¼•ç”¨èœå•éšè—
 *
 /****************************************************/
 function adducMenu_onclick()
@@ -315,15 +315,15 @@ function adducMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x800000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---ÓÊ¼ş²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---é‚®ä»¶èœå•éšè—
 *
 /****************************************************/
 function	emailMenu_onclick()
@@ -331,14 +331,14 @@ function	emailMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x1000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---ÉóÔÄ²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---å®¡é˜…èœå•éšè—
 *
 /****************************************************/
 function	checkMenu_onclick()
@@ -346,14 +346,14 @@ function	checkMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x2000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---ÊÓÍ¼²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---è§†å›¾èœå•éšè—
 *
 /****************************************************/
 function	viewMenu_onclick()
@@ -361,14 +361,14 @@ function	viewMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x4000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---¿ª·¢¹¤¾ß²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---å¼€å‘å·¥å…·èœå•éšè—
 *
 /****************************************************/
 function	empolderMenu_onclick()
@@ -376,14 +376,14 @@ function	empolderMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x8000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---¼ÓÔØÏî²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---åŠ è½½é¡¹èœå•éšè—
 *
 /****************************************************/
 function	loadMenu_onclick()
@@ -391,14 +391,14 @@ function	loadMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x10000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---È«²¿²Ëµ¥Òş²Ø
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---å…¨éƒ¨èœå•éšè—
 *
 /****************************************************/
 function	allHideMenu_onclick()
@@ -406,14 +406,14 @@ function	allHideMenu_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj.HideMenuAction(1,0x100000+0x200000+0x400000+0x800000+0x1000000+0x2000000+0x4000000+0x8000000+0x10000000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---¸´ÖÆÎŞĞ§
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---å¤åˆ¶æ— æ•ˆ
 *
 /****************************************************/
 function nullityCopy_onclick()
@@ -421,14 +421,14 @@ function nullityCopy_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj. HideMenuAction(1,0x2000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*			---Õ³ÌùÎŞĞ§
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*			---ç²˜è´´æ— æ•ˆ
 *
 /****************************************************/
 function nullityAffix_onclick()
@@ -436,14 +436,14 @@ function nullityAffix_onclick()
 	try{
 		var webObj=document.getElementById("WebOffice1");
 		webObj. HideMenuAction(1,0x1000);
-		webObj. HideMenuAction(5,0);//¼¤»îÉèÖÃ
+		webObj. HideMenuAction(5,0);//æ¿€æ´»è®¾ç½®
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }
 /****************************************************
-*			Office2007²Ëµ¥Òş²ØºÍ»Ö¸´
-*	---»Ö¸´ÖÁÉèÖÃÖ®Ç°×´Ì¬£¨²Ëµ¥ÏÔÊ¾£¬¸´ÖÆ£¬Õ³Ìù¿ÉÓÃ£©
+*			Office2007èœå•éšè—å’Œæ¢å¤
+*	---æ¢å¤è‡³è®¾ç½®ä¹‹å‰çŠ¶æ€ï¼ˆèœå•æ˜¾ç¤ºï¼Œå¤åˆ¶ï¼Œç²˜è´´å¯ç”¨ï¼‰
 *
 /****************************************************/
 function affixCopy_onclick()
@@ -452,6 +452,6 @@ function affixCopy_onclick()
 		var webObj=document.getElementById("WebOffice1");
 		webObj. HideMenuAction(6,0);
 	}catch(e){
-		alert("Òì³£\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
+		alert("å¼‚å¸¸\r\nError:"+e+"\r\nError Code:"+e.number+"\r\nError Des:"+e.description);
 	}
 }

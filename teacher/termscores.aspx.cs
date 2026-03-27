@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -28,8 +28,7 @@ public partial class Teacher_termscores : System.Web.UI.Page
         LearnSite.BLL.Students stu = new LearnSite.BLL.Students();
         stu.ClearAllScores(hid);
         stu.InitSidle();
-        stu.UpdateBestSquiz();//取回测验最高成绩
-        stu.ThisTeamScoresNew(hid);//批量更新所教所有班级当前学期作品总积分和表现总积分、调查测验分
+        stu.ThisTeamScoresNew(hid);//批量更新所教所有班级当前学期作品总积分和表现总积分、测验分
 
         stu.ThisTeamGroupScores(hid);//批量更新所教班级当前学期小组合作分
                 
@@ -38,11 +37,10 @@ public partial class Teacher_termscores : System.Web.UI.Page
         stu.UpdateSchinese();//更新学生表的中文拼音成绩
 
         int persscore = int.Parse(DDLwork.SelectedValue);
-        int persquiz = int.Parse(DDLquiz.SelectedValue);
+        int persexam = int.Parse(DDLexam.SelectedValue);
         int perstscore = int.Parse(DDLtyper.SelectedValue);
         int perattitude = int.Parse(DDLattitude.SelectedValue);
-        int persurvey = int.Parse(DDLsurvey.SelectedValue);
-        stu.UpdateAllScore(persscore, persquiz, perstscore, perattitude, persurvey, hid);//登录账号教师所教班级按设定百分比计算总分
+        stu.UpdateAllScore(persscore, persexam, perstscore, perattitude,hid);//登录账号教师所教班级按设定百分比计算总分
         DateTime nowtime2 = DateTime.Now;
         Labelmsg.Text = "统计用时：" + LearnSite.Common.Computer.DatagoneMilliseconds(nowtime1, nowtime2) + "毫秒";
         System.Threading.Thread.Sleep(200);
@@ -118,14 +116,6 @@ public partial class Teacher_termscores : System.Web.UI.Page
         LearnSite.BLL.Works works = new LearnSite.BLL.Works();
         works.WorkNoScoreSetP(tcook.Hid);
         Labelmsg.Text = "所教班级未评作品已经被评为C即6分！";
-        System.Threading.Thread.Sleep(500);
-        showstudents();
-    }
-    protected void BtnQuizbest_Click(object sender, EventArgs e)
-    {
-        LearnSite.BLL.Students sbll = new LearnSite.BLL.Students();
-        sbll.UpdateBestSquiz();
-        Labelmsg.Text = "将所有学生的测验统计成绩更新为本学期其测验最高分！";
         System.Threading.Thread.Sleep(500);
         showstudents();
     }

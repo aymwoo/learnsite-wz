@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàGroupWork¡£
+	/// æ•°æ®è®¿é—®ç±»GroupWorkã€‚
 	/// </summary>
 	public class GroupWork
 	{
 		public GroupWork()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Gid)
 		{
@@ -50,7 +50,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.GroupWork model)
 		{
@@ -115,7 +115,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.GroupWork model)
 		{
@@ -190,7 +190,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Gid)
 		{
@@ -206,7 +206,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.GroupWork GetModel(int Gid)
 		{			
@@ -300,7 +300,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸ù¾İ×é³¤Ñ§ºÅºÍ»î¶¯±àºÅµÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®ç»„é•¿å­¦å·å’Œæ´»åŠ¨ç¼–å·å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.GroupWork GetModelBySnum(string Gnum,int Gmid)
         {
@@ -395,7 +395,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -410,7 +410,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -430,7 +430,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñÈ¡×Ô¼º²ÎÓëĞ¡×éµÄºÏ×÷×÷Æ·
+        /// è·å–è‡ªå·±å‚ä¸å°ç»„çš„åˆä½œä½œå“
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -440,7 +440,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§ºÅ×é³¤Ìá½»×÷Æ·µÄÊÇ·ñ´æÔÚ
+        /// è·å–è¯¥å­¦å·ç»„é•¿æäº¤ä½œå“çš„æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Gmid"></param>
@@ -451,7 +451,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// »ñÈ¡¸Ã×éºÅÌá½»×÷Æ·µÄÊÇ·ñ´æÔÚ
+        /// è·å–è¯¥ç»„å·æäº¤ä½œå“çš„æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Ggroup"></param>
         /// <param name="Gmid"></param>
@@ -462,7 +462,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Exists(mysql);
         }
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§ºÅ×é³¤Ìá½»×÷Æ·µÄÊÇ·ñ´æÔÚ
+        /// è·å–è¯¥å­¦å·ç»„é•¿æäº¤ä½œå“çš„æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Gmid"></param>
@@ -473,7 +473,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// ÅĞ¶Ï×÷Æ·ÊÇ·ñÆÀ¼Û
+        /// åˆ¤æ–­ä½œå“æ˜¯å¦è¯„ä»·
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Gmid"></param>
@@ -485,7 +485,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸øĞ¡×é×÷Æ·ÆÀ·Ö
+        /// ç»™å°ç»„ä½œå“è¯„åˆ†
         /// </summary>
         /// <param name="Gid"></param>
         /// <param name="Gscore"></param>
@@ -498,11 +498,11 @@ namespace LearnSite.DAL
             if (findstr != "")
             {
                 BLL.Students sbll = new BLL.Students();
-                sbll.TotalSgscore(findstr, Cobj, Cterm);//Í¬Ê±¸øĞ¡×é³ÉÔ±Í³¼Æ
+                sbll.TotalSgscore(findstr, Cobj, Cterm);//åŒæ—¶ç»™å°ç»„æˆå‘˜ç»Ÿè®¡
             }
         }
         /// <summary>
-        /// ¸øĞ¡×é×÷Æ·È¡ÏûÆÀ¼Û
+        /// ç»™å°ç»„ä½œå“å–æ¶ˆè¯„ä»·
         /// </summary>
         /// <param name="Gid"></param>
         /// <param name="Gscore"></param>
@@ -522,7 +522,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// »ñÈ¡Ä³°à¼¶Ä³»î¶¯Ğ¡×éºÏ×÷×÷Æ·ÁĞ±í
+        /// è·å–æŸç­çº§æŸæ´»åŠ¨å°ç»„åˆä½œä½œå“åˆ—è¡¨
         /// </summary>
         /// <param name="Ggrade"></param>
         /// <param name="Gclass"></param>
@@ -534,7 +534,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾¿Î³ÌĞ¡×é×÷Æ·×Ü·Ö
+        /// è·å–æœ¬è¯¾ç¨‹å°ç»„ä½œå“æ€»åˆ†
         /// </summary>
         /// <param name="Gnum"></param>
         /// <param name="Gcid"></param>
@@ -545,10 +545,10 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNum(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾¿ÎĞ¡×é×÷Æ·×Ü·Ö
+        /// è·å–æœ¬è¯¾å°ç»„ä½œå“æ€»åˆ†
         /// </summary>
-        /// <param name="Ggroup">×éºÅ</param>
-        /// <param name="Gcid">Ñ§°¸±àºÅ</param>
+        /// <param name="Ggroup">ç»„å·</param>
+        /// <param name="Gcid">å­¦æ¡ˆç¼–å·</param>
         /// <returns></returns>
         public int GetGscore(int Ggroup, int Gcid)
         {
@@ -556,9 +556,9 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNum(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾°à±¾Ñ§ÆÚ±¾Ğ¡×éµÄºÏ×÷×÷Æ·×Ü·Ö
+        /// è·å–æœ¬ç­æœ¬å­¦æœŸæœ¬å°ç»„çš„åˆä½œä½œå“æ€»åˆ†
         /// </summary>
-        /// <param name="Ggroup">×éºÅ</param>
+        /// <param name="Ggroup">ç»„å·</param>
         /// <param name="Ggrade"></param>
         /// <param name="Gclass"></param>
         /// <param name="Gterm"></param>
@@ -569,7 +569,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNum(mysql);
         }
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔö×Ö¶ÎGgroup ×éºÅ£¨Ğ¡×é×÷Æ·±í£©
+        /// åˆå§‹åŒ–æ–°å¢å­—æ®µGgroup ç»„å·ï¼ˆå°ç»„ä½œå“è¡¨ï¼‰
         /// </summary>
         /// <returns></returns>
         public int initGgroup()
@@ -579,7 +579,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ³õÊ¼»¯ĞÂÔö×Ö¶ÎGyear ×é³¤ÈëÑ§Äê¶È£¨Ğ¡×é×÷Æ·±í£©
+        /// åˆå§‹åŒ–æ–°å¢å­—æ®µGyear ç»„é•¿å…¥å­¦å¹´åº¦ï¼ˆå°ç»„ä½œå“è¡¨ï¼‰
         /// </summary>
         /// <returns></returns>
         public int initGyear()
@@ -589,7 +589,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -612,7 +612,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàCourses¡£
+	/// æ•°æ®è®¿é—®ç±»Coursesã€‚
 	/// </summary>
 	public class Courses
 	{
 		public Courses()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Cid)
 		{
@@ -37,7 +37,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ½«ËùÓĞÑ§°¸±àºÅºÍ±êÌâÉú³É¶ÔÕÕÄ¿Â¼·Åµ½Ñ§°¸°üÄ¿Â¼ÏÂ£¬·½±ãÒÔºó²é¿´
+        /// å°†æ‰€æœ‰å­¦æ¡ˆç¼–å·å’Œæ ‡é¢˜ç”Ÿæˆå¯¹ç…§ç›®å½•æ”¾åˆ°å­¦æ¡ˆåŒ…ç›®å½•ä¸‹ï¼Œæ–¹ä¾¿ä»¥åæŸ¥çœ‹
         /// </summary>
         /// <param name="xmlpath"></param>
         public void CreatPackageNameList(string xmlpath)
@@ -47,7 +47,7 @@ namespace LearnSite.DAL
             ds.WriteXml(xmlpath, XmlWriteMode.IgnoreSchema);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Courses model)
 		{
@@ -96,7 +96,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// ´´½¨ĞÂÑ§°¸£¨Ctitle,Cclass£¬Cdate,Cobj,Cterm,Cks,Cfiletype,Cupload,Cpublish£©£¬·µ»Ø×Ô¶¯±àºÅ
+        /// åˆ›å»ºæ–°å­¦æ¡ˆï¼ˆCtitle,Cclassï¼ŒCdate,Cobj,Cterm,Cks,Cfiletype,Cupload,Cpublishï¼‰ï¼Œè¿”å›è‡ªåŠ¨ç¼–å·
         /// </summary>
         /// <param name="Ctitle"></param>
         /// <returns></returns>
@@ -137,7 +137,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Courses model)
 		{
@@ -188,7 +188,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ,¸üĞÂÑ§°¸ÄÚÈİ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®,æ›´æ–°å­¦æ¡ˆå†…å®¹
         /// </summary>
         public void UpdateCourse(LearnSite.Model.Courses model)
         {
@@ -233,7 +233,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ,¸üĞÂÑ§°¸ÄÚÈİ£¬Ñ§°¸°üµ¼ÈëÊ±×¨ÓÃ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®,æ›´æ–°å­¦æ¡ˆå†…å®¹ï¼Œå­¦æ¡ˆåŒ…å¯¼å…¥æ—¶ä¸“ç”¨
         /// </summary>
         public void UpdateCcontent(int Cid,string Ccontent,string Cbanner)
         {
@@ -254,7 +254,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ĞŞ¸ÄÑ§°¸·¢²¼×´Ì¬
+        /// ä¿®æ”¹å­¦æ¡ˆå‘å¸ƒçŠ¶æ€
         /// </summary>
         public void UpdateCpublish(int Cid, bool Cpublish)
         {
@@ -271,7 +271,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ĞŞ¸ÄÑ§°¸·¢²¼×´Ì¬
+        /// ä¿®æ”¹å­¦æ¡ˆå‘å¸ƒçŠ¶æ€
         /// </summary>
         public void UpdateCpublish(int Cid)
         {
@@ -286,7 +286,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ĞŞ¸ÄÑ§°¸Èë¿â×´Ì¬
+        /// ä¿®æ”¹å­¦æ¡ˆå…¥åº“çŠ¶æ€
         /// </summary>
         public void UpdateCold(int Cid)
         {
@@ -301,7 +301,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
         /// <summary>
-        /// ĞŞ¸ÄÑ§°¸ÍÆ¼ö×´Ì¬
+        /// ä¿®æ”¹å­¦æ¡ˆæ¨èçŠ¶æ€
         /// </summary>
         public void UpdateCgood(int Cid)
         {
@@ -316,7 +316,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Cid,int Chid)
 		{			
@@ -332,7 +332,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// É¾³ıÒ»ÌõÊı¾İ
+        /// åˆ é™¤ä¸€æ¡æ•°æ®
         /// </summary>
         public void DeleteCourse(int Cid, int Chid)
         {
@@ -348,7 +348,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Courses GetModel(int Cid)
 		{
@@ -430,7 +430,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ´Ó±íÖĞµÚÒ»Ìõ¼ÇÂ¼µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// ä»è¡¨ä¸­ç¬¬ä¸€æ¡è®°å½•å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Courses GetTableModel(DataTable dt)
         {             
@@ -503,7 +503,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡ÍøÒ³ÖÆ×÷»î¶¯Mid
+        /// è·å–ç½‘é¡µåˆ¶ä½œæ´»åŠ¨Mid
         /// </summary>
         /// <param name="Mcid"></param>
         /// <returns></returns>
@@ -523,7 +523,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -537,7 +537,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñµÃÑ§°¸ÁĞ±í£¬ÎŞÄÚÈİ
+        /// è·å¾—å­¦æ¡ˆåˆ—è¡¨ï¼Œæ— å†…å®¹
         /// </summary>
         /// <param name="strWhere"></param>
         /// <returns></returns>
@@ -553,7 +553,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// »ñÈ¡±¾Ñ§ÆÚ±¾½ÌÊ¦µÄÑ§°¸±àºÅºÍ±êÌâÁĞ±í
+        /// è·å–æœ¬å­¦æœŸæœ¬æ•™å¸ˆçš„å­¦æ¡ˆç¼–å·å’Œæ ‡é¢˜åˆ—è¡¨
         /// </summary>
         /// <param name="Chid"></param>
         /// <param name="Cobj"></param>
@@ -565,7 +565,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// »ñÈ¡±¾Ñ§ÆÚ±¾½ÌÊ¦µÄÇ°Ò»¸ö¿ÎÊ±Ñ§°¸±àºÅ,ÈçÎŞ·µ»Ø0
+        /// è·å–æœ¬å­¦æœŸæœ¬æ•™å¸ˆçš„å‰ä¸€ä¸ªè¯¾æ—¶å­¦æ¡ˆç¼–å·,å¦‚æ— è¿”å›0
         /// </summary>
         /// <param name="Chid"></param>
         /// <param name="Cobj"></param>
@@ -578,7 +578,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNum(mysql);
         }
         /// <summary>
-        /// »ñµÃÑ§°¸ÁĞ±í£¬ÎŞÄÚÈİ£¬±êÌâ
+        /// è·å¾—å­¦æ¡ˆåˆ—è¡¨ï¼Œæ— å†…å®¹ï¼Œæ ‡é¢˜
         /// </summary>
         /// <param name="strWhere"></param>
         /// <returns></returns>
@@ -594,7 +594,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// ÎŞÌõ¼ş£¬ÎŞÄÚÈİ£¬°´Ìõ¼şÅÅĞò
+        /// æ— æ¡ä»¶ï¼Œæ— å†…å®¹ï¼ŒæŒ‰æ¡ä»¶æ’åº
         /// </summary>
         /// <param name="strOrder"></param>
         /// <returns></returns>
@@ -610,7 +610,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(strSql.ToString());
         }
         /// <summary>
-        /// ÎŞÄÚÈİ£¬ ÎŞÌõ¼ş£¬°´Ñ§ÆÚ¡¢Äê¼¶¡¢¿ÎÊ±ÉıĞòÅÅĞò
+        /// æ— å†…å®¹ï¼Œ æ— æ¡ä»¶ï¼ŒæŒ‰å­¦æœŸã€å¹´çº§ã€è¯¾æ—¶å‡åºæ’åº
         /// </summary>
         /// <param name="Cterm"></param>
         /// <param name="Cobj"></param>
@@ -621,7 +621,7 @@ namespace LearnSite.DAL
             return GetListNoContent(strWhere);
         }
         /// <summary>
-        /// ¸ù¾İÑ§°¸±àºÅ£¬·µ»ØÑ§°¸±êÌâ
+        /// æ ¹æ®å­¦æ¡ˆç¼–å·ï¼Œè¿”å›å­¦æ¡ˆæ ‡é¢˜
         /// </summary>
         /// <param name="Fcid"></param>
         /// <returns></returns>
@@ -632,7 +632,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İÑ§°¸±àºÅ£¬·µ»ØÑ§°¸ºá·ù
+        /// æ ¹æ®å­¦æ¡ˆç¼–å·ï¼Œè¿”å›å­¦æ¡ˆæ¨ªå¹…
         /// </summary>
         /// <param name="Fcid"></param>
         /// <returns></returns>
@@ -643,7 +643,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -664,7 +664,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶ÏÔÊ¾±¾°à½ÌÊ¦×îĞÂÎ´Ñ§Ñ§°¸
+        /// æ ¹æ®å¹´çº§æ˜¾ç¤ºæœ¬ç­æ•™å¸ˆæœ€æ–°æœªå­¦å­¦æ¡ˆ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="GridViewnewkc"></param>
@@ -683,7 +683,7 @@ namespace LearnSite.DAL
                     {
                         if (ch == Cid)
                         {
-                            dt.Rows[i].Delete();//Èç¹û·ûºÏ¾ÍÉ¾³ı
+                            dt.Rows[i].Delete();//å¦‚æœç¬¦åˆå°±åˆ é™¤
                             break;
                         }
                     }
@@ -693,7 +693,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ·µ»ØÈÎÎñÍê³ÉÇé¿ö
+        /// è¿”å›ä»»åŠ¡å®Œæˆæƒ…å†µ
         /// </summary>
         /// <param name="Cid"></param>
         /// <returns></returns>
@@ -735,7 +735,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶ÏÔÊ¾±¾°à½ÌÊ¦×îĞÂÎ´Ñ§Ñ§°¸
+        /// æ ¹æ®å¹´çº§æ˜¾ç¤ºæœ¬ç­æ•™å¸ˆæœ€æ–°æœªå­¦å­¦æ¡ˆ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="GridViewnewkc"></param>
@@ -749,7 +749,7 @@ namespace LearnSite.DAL
             return dt;
         }
         /// <summary>
-        /// ¸ù¾İSnumÏÔÊ¾ÒÑÑ§Ñ§°¸ (SnumÎªStudents±íµÄÑ§ºÅ)
+        /// æ ¹æ®Snumæ˜¾ç¤ºå·²å­¦å­¦æ¡ˆ (Snumä¸ºStudentsè¡¨çš„å­¦å·)
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="GridViewdonekc"></param>
@@ -769,7 +769,7 @@ namespace LearnSite.DAL
                     {
                         if (ch == Cid)
                         {
-                            dt.Rows[i]["Checker"] = "1";//Èç¹û·ûºÏ¾Í±êÖ¾£¬ËµÃ÷ÒÑÑ§¹ı
+                            dt.Rows[i]["Checker"] = "1";//å¦‚æœç¬¦åˆå°±æ ‡å¿—ï¼Œè¯´æ˜å·²å­¦è¿‡
                             break;
                         }
                     }
@@ -786,7 +786,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İSnumÏÔÊ¾ÒÑÑ§Ñ§°¸ (SnumÎªStudents±íµÄÑ§ºÅ)
+        /// æ ¹æ®Snumæ˜¾ç¤ºå·²å­¦å­¦æ¡ˆ (Snumä¸ºStudentsè¡¨çš„å­¦å·)
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="GridViewdonekc"></param>
@@ -805,7 +805,7 @@ namespace LearnSite.DAL
         }     
 
         /// <summary>
-        /// ¸ù¾İ°à¼¶ÏÔÊ¾ÒÑÑ§Ñ§°¸
+        /// æ ¹æ®ç­çº§æ˜¾ç¤ºå·²å­¦å­¦æ¡ˆ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -828,7 +828,7 @@ namespace LearnSite.DAL
                     {
                         if (ch == Cid)
                         {
-                            dt.Rows[i]["Checker"] = "1";//Èç¹û·ûºÏ¾Í±êÖ¾£¬ËµÃ÷ÒÑÑ§¹ı
+                            dt.Rows[i]["Checker"] = "1";//å¦‚æœç¬¦åˆå°±æ ‡å¿—ï¼Œè¯´æ˜å·²å­¦è¿‡
                             break;
                         }
                     }
@@ -845,7 +845,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İ°à¼¶ÏÔÊ¾Î´Ñ§Ñ§°¸
+        /// æ ¹æ®ç­çº§æ˜¾ç¤ºæœªå­¦å­¦æ¡ˆ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -866,7 +866,7 @@ namespace LearnSite.DAL
                     {
                         if (ch == Cid)
                         {
-                            dt.Rows[i].Delete();//Èç¹û·ûºÏ¾ÍÉ¾³ı
+                            dt.Rows[i].Delete();//å¦‚æœç¬¦åˆå°±åˆ é™¤
                             break;
                         }
                     }
@@ -875,7 +875,7 @@ namespace LearnSite.DAL
             return dt;
         }
         /// <summary>
-        /// ¸ù¾İÑ§°¸±àºÅ·µ»ØÑ§°¸Ãû³Æ
+        /// æ ¹æ®å­¦æ¡ˆç¼–å·è¿”å›å­¦æ¡ˆåç§°
         /// </summary>
         /// <param name="Cid"></param>
         /// <returns></returns>
@@ -886,7 +886,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸ù¾İ½ÌÊ¦¡¢Äê¼¶¡¢Ñ§ÆÚ·µ»ØÑ§°¸Ãû³ÆºÍ±àºÅ
+        /// æ ¹æ®æ•™å¸ˆã€å¹´çº§ã€å­¦æœŸè¿”å›å­¦æ¡ˆåç§°å’Œç¼–å·
         /// </summary>
         /// <param name="Cobj"></param>
         /// <param name="Cterm"></param>
@@ -898,7 +898,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// »ñÈ¡Ö¸¶¨Ñ§ÆÚ£¬Ö¸¶¨Äê¼¶µÄ¿ÎÊ±×î´óÖµ
+        /// è·å–æŒ‡å®šå­¦æœŸï¼ŒæŒ‡å®šå¹´çº§çš„è¯¾æ—¶æœ€å¤§å€¼
         /// </summary>
         /// <param name="Cterm"></param>
         /// <param name="Cobj"></param>
@@ -917,7 +917,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// »ñÈ¡ÍøÒ³ÖÆ×÷Ñ§°¸µÄÄê¼¶ÁĞ±í
+        /// è·å–ç½‘é¡µåˆ¶ä½œå­¦æ¡ˆçš„å¹´çº§åˆ—è¡¨
         /// </summary>
         /// <returns></returns>
         public DataSet GethtmGrade()
@@ -926,7 +926,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
-        /// È«²¿Ñ§°¸ÊÕ»ØÒş²Ø
+        /// å…¨éƒ¨å­¦æ¡ˆæ”¶å›éšè—
         /// </summary>
         public void HideCourse()
         {
@@ -934,7 +934,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// ½«Ñ§°¸µÄÉÏ´«ÀàĞÍ¸ú¸ÃÑ§°¸»î¶¯¸üĞÂÒ»ÖÂ
+        /// å°†å­¦æ¡ˆçš„ä¸Šä¼ ç±»å‹è·Ÿè¯¥å­¦æ¡ˆæ´»åŠ¨æ›´æ–°ä¸€è‡´
         /// </summary>
         public void UpdateCfiletype()
         {
@@ -953,7 +953,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// »ñÈ¡Cid¼¯µÄËùÓĞÑ§°¸ÁĞ±í£¬·µ»Ø×Ö¶ÎCid,Cobj,Cks,Ctitle,Cclass
+        /// è·å–Cidé›†çš„æ‰€æœ‰å­¦æ¡ˆåˆ—è¡¨ï¼Œè¿”å›å­—æ®µCid,Cobj,Cks,Ctitle,Cclass
         /// </summary>
         /// <param name="cids"></param>
         /// <returns></returns>
@@ -964,7 +964,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡ÉÏÒ»½Ú¿Î×÷Æ·
+        /// è·å–ä¸Šä¸€èŠ‚è¯¾ä½œå“
         /// </summary>
         /// <param name="Cid"></param>
         /// <param name="Wnum"></param>
@@ -976,7 +976,7 @@ namespace LearnSite.DAL
             return DBUtility.DbHelperSQL.FindString(mysql);
         }        
         /// <summary>
-        /// »ñÈ¡ÉÏÒ»½Ú¿Î×÷Æ·
+        /// è·å–ä¸Šä¸€èŠ‚è¯¾ä½œå“
         /// </summary>
         /// <param name="Cid"></param>
         /// <param name="Wnum"></param>
@@ -989,7 +989,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -1012,7 +1012,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

@@ -3,20 +3,20 @@ using System.Data;
 using System.Text;
 using System.Web;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàEnglish¡£
+	/// æ•°æ®è®¿é—®ç±»Englishã€‚
 	/// </summary>
 	public class English
 	{
 		public English()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -24,7 +24,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Eid)
 		{
@@ -38,7 +38,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// Í³¼ÆÏàÓ¦¼¶±ğµÄµ¥´ÊÊı
+        /// ç»Ÿè®¡ç›¸åº”çº§åˆ«çš„å•è¯æ•°
         /// </summary>
         /// <param name="Elevel"></param>
         /// <returns></returns>
@@ -50,7 +50,7 @@ namespace LearnSite.DAL
 
 
         /// <summary>
-        /// Ôö¼ÓÒ»ÌõÊı¾İ
+        /// å¢åŠ ä¸€æ¡æ•°æ®
         /// </summary>
         public int Add(LearnSite.Model.English model)
         {
@@ -79,7 +79,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public bool Update(LearnSite.Model.English model)
         {
@@ -110,7 +110,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// ½«¸Ã´Ê±ê¼ÇÎªÏàÓ¦¼¶±ğ
+        /// å°†è¯¥è¯æ ‡è®°ä¸ºç›¸åº”çº§åˆ«
         /// </summary>
         /// <param name="Eword"></param>
         /// <param name="Elevel"></param>
@@ -128,7 +128,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Eid)
 		{
@@ -143,7 +143,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// É¾³ıÒ»ÌõÊı¾İ
+        /// åˆ é™¤ä¸€æ¡æ•°æ®
         /// </summary>
         public void DeleteAll()
         {
@@ -151,7 +151,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql);
         }
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.English GetModel(int Eid)
         {
@@ -186,7 +186,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// Ëæ»ú»ñÈ¡Ò»¸öµ¥´ÊÊµÌå
+        /// éšæœºè·å–ä¸€ä¸ªå•è¯å®ä½“
         /// </summary>
         /// <returns></returns>
         public LearnSite.Model.English GetRndModel(int Elevel)
@@ -217,7 +217,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// Ëæ»ú»ñÈ¡Ò»¸öµ¥´ÊÊµÌå
+        /// éšæœºè·å–ä¸€ä¸ªå•è¯å®ä½“
         /// </summary>
         /// <returns></returns>
         public LearnSite.Model.English GetNextModel(int Eid,int Elevel)
@@ -250,7 +250,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡Ä³µÈ¼¶ËùÓĞµ¥´ÊºÍÒâË¼
+        /// è·å–æŸç­‰çº§æ‰€æœ‰å•è¯å’Œæ„æ€
         /// </summary>
         /// <returns></returns>
         public string GetLevelwords(int Elevel)
@@ -288,7 +288,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -303,7 +303,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -325,7 +325,7 @@ namespace LearnSite.DAL
 
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -348,7 +348,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

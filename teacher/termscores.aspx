@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="termscores.aspx.cs" Inherits="Teacher_termscores" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="termscores.aspx.cs" Inherits="Teacher_termscores" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <div  class="placehold"> 
         <div  >        
@@ -39,30 +39,17 @@
                 <asp:ListItem>20</asp:ListItem>
                 <asp:ListItem>10</asp:ListItem>
                 <asp:ListItem>0</asp:ListItem>
-            </asp:DropDownList>&nbsp;调查：<asp:DropDownList ID="DDLsurvey" runat="server" Font-Size="9pt" 
-                Width="50px">
-                <asp:ListItem Selected="True">100</asp:ListItem>
-                <asp:ListItem>90</asp:ListItem>
-                <asp:ListItem>80</asp:ListItem>
-                <asp:ListItem>70</asp:ListItem>
-                <asp:ListItem>60</asp:ListItem>
-                <asp:ListItem>50</asp:ListItem>
-                <asp:ListItem>40</asp:ListItem>
-                <asp:ListItem>30</asp:ListItem>
-                <asp:ListItem>20</asp:ListItem>
-                <asp:ListItem>10</asp:ListItem>
-                <asp:ListItem>0</asp:ListItem>
-            </asp:DropDownList>&nbsp;测验：<asp:DropDownList ID="DDLquiz" runat="server" 
+            </asp:DropDownList>&nbsp;测验：<asp:DropDownList ID="DDLexam" runat="server" 
                 Font-Size="9pt" Width="50px">
                 <asp:ListItem>100</asp:ListItem>
                 <asp:ListItem>90</asp:ListItem>
                 <asp:ListItem>80</asp:ListItem>
                 <asp:ListItem>70</asp:ListItem>
                 <asp:ListItem>60</asp:ListItem>
-                <asp:ListItem>50</asp:ListItem>
+                <asp:ListItem Selected="True">50</asp:ListItem>
                 <asp:ListItem>40</asp:ListItem>
                 <asp:ListItem>30</asp:ListItem>
-                <asp:ListItem Selected="True">20</asp:ListItem>
+                <asp:ListItem>20</asp:ListItem>
                 <asp:ListItem>10</asp:ListItem>
                 <asp:ListItem>0</asp:ListItem>
             </asp:DropDownList>中英文：<asp:DropDownList ID="DDLtyper" runat="server" 
@@ -114,8 +101,7 @@
                     <asp:BoundField DataField="Sgscore" HeaderText="小组" />
                     <asp:BoundField DataField="Spscore" HeaderText="讨论" />
                     <asp:BoundField DataField="Stxtform" HeaderText="表单" />
-                    <asp:BoundField DataField="Svscore" HeaderText="调查" />
-                    <asp:BoundField DataField="Squiz" HeaderText="测验" />
+                    <asp:BoundField DataField="Svscore" HeaderText="测验" />
                     <asp:BoundField DataField="Schinese" HeaderText="拼音" />
                     <asp:BoundField DataField="Sfscore" HeaderText="英语" />
                     <asp:BoundField DataField="Stscore" HeaderText="中文" />

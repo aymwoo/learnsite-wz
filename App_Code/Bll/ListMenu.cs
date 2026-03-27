@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Collections.Generic;
 using LearnSite.Model;
@@ -50,7 +50,7 @@ namespace LearnSite.BLL
         }
          /// <summary>
         /// 关联更新一条数据 
-        /// 条件Lcid,Lxid,Ltype 更新Ltitle,Lshow
+        /// 条件Lcid,Lxid,Ltype 更新Ltitle
         /// </summary>
         public bool UpdateLtitle(LearnSite.Model.ListMenu model)
         {

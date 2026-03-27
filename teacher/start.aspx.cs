@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -701,9 +701,6 @@ public partial class Teacher_start : System.Web.UI.Page
                         case "1"://活动
                             imgurl = "~/images/mission.png";
                             break;
-                        case "2"://调查
-                            imgurl = "~/images/survey.png";
-                            break;
                         case "3"://讨论
                             imgurl = "~/images/topic.png";
                             break;
@@ -805,6 +802,12 @@ public partial class Teacher_start : System.Web.UI.Page
                             break;
                         case "37"://网站设计
                             imgurl = "~/images/website.png";
+                            break;
+                        case "38"://网页课件
+                            imgurl = "~/images/ware.png";
+                            break;
+                        case "39"://课堂测验
+                            imgurl = "~/images/wvote.png";
                             break;
 
                         default://默认

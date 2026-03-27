@@ -14,7 +14,7 @@ namespace LearnSite.BLL
 		{}
 		#region  Method
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists()
 		{
@@ -22,14 +22,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.TopicDiscuss model)
 		{
 			return dal.Add(model);
 		}         
         /// <summary>
-        /// ¸üĞÂÀÏÊ¦×Ü½á
+        /// æ›´æ–°è€å¸ˆæ€»ç»“
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Tresult"></param>
@@ -39,7 +39,7 @@ namespace LearnSite.BLL
             return dal.UpdateTresult(Tid, Tresult);
         }
         /// <summary>
-        /// ¸üĞÂÖ÷ÌâÌÖÂÛµÄ¿ª¹ØÉèÖÃ
+        /// æ›´æ–°ä¸»é¢˜è®¨è®ºçš„å¼€å…³è®¾ç½®
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Tclose"></param>
@@ -49,7 +49,7 @@ namespace LearnSite.BLL
             return dal.UpdateTclose(Tid, Tclose);
         }
         /// <summary>
-        /// ¸üĞÂÖ÷ÌâÌÖÂÛµÄ¿ª¹ØÉèÖÃ
+        /// æ›´æ–°ä¸»é¢˜è®¨è®ºçš„å¼€å…³è®¾ç½®
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -59,7 +59,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¹Ø±Õ¸Ã½ÌÊ¦µÄËùÓĞÖ÷ÌâÌÖÂÛ
+        /// å…³é—­è¯¥æ•™å¸ˆçš„æ‰€æœ‰ä¸»é¢˜è®¨è®º
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -68,7 +68,7 @@ namespace LearnSite.BLL
             return dal.CloseMyAllTopic(hid);
         }
         /// <summary>
-        /// ¸üĞÂÌÖÂÛÖ÷Ìâ
+        /// æ›´æ–°è®¨è®ºä¸»é¢˜
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Ttitle"></param>
@@ -80,7 +80,7 @@ namespace LearnSite.BLL
             return dal.UpdateTopic(Tid, Ttitle, Tcontent,Tclose);
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.TopicDiscuss model)
 		{
@@ -88,7 +88,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Tid)
 		{
@@ -96,7 +96,7 @@ namespace LearnSite.BLL
 			return dal.Delete(Tid);
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Tidlist )
 		{
@@ -104,7 +104,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.TopicDiscuss GetModel(int Tid)
 		{
@@ -113,14 +113,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.TopicDiscuss GetModel(DataTable dt, int Tsort)
         {
             return dal.GetModel(dt, Tsort);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­
 		/// </summary>
 		public LearnSite.Model.TopicDiscuss GetModelByCache(int Tid)
 		{
@@ -144,21 +144,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.TopicDiscuss> GetModelList(string strWhere)
 		{
@@ -166,7 +166,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.TopicDiscuss> DataTableToList(DataTable dt)
 		{
@@ -219,14 +219,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
 			return GetList("");
 		}
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§°¸µÄÖ÷ÌâÌÖÂÛÁĞ±í
+        /// è·å–è¯¥å­¦æ¡ˆçš„ä¸»é¢˜è®¨è®ºåˆ—è¡¨
         /// </summary>
         /// <param name="Tcid"></param>
         /// <returns></returns>
@@ -236,7 +236,7 @@ namespace LearnSite.BLL
             return GetList(strWhere);
         }
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{

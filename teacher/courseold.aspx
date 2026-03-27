@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="courseold.aspx.cs" Inherits="Teacher_courseold" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="courseold.aspx.cs" Inherits="Teacher_courseold" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <div  >
@@ -61,8 +61,8 @@
                                     <ControlStyle Width="70px" />
                                     <ItemStyle HorizontalAlign="Left" />
                                 </asp:TemplateField>
-                                <asp:HyperLinkField DataNavigateUrlFields="Cid" 
-                                    DataNavigateUrlFormatString="~/teacher/coursedel.aspx?cid={0}" Text="删除">
+                                <asp:HyperLinkField DataNavigateUrlFields="Cid,Cobj" 
+                                    DataNavigateUrlFormatString="~/teacher/coursedel.aspx?cid={0}&grade={1}" Text="删除">
                                 <ItemStyle Width="60px" />
                                 </asp:HyperLinkField>
                             </Columns>

@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàTyper 
+	/// å®ä½“ç±»Typer 
 	/// </summary>
 	[Serializable]
 	public class Typer

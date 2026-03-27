@@ -1,4 +1,4 @@
-﻿KindEditor.plugin('text', function (K) {
+KindEditor.plugin('text', function (K) {
     var editor = this, name = 'text';
     // 点击图标时执行
     editor.clickToolbar(name, function () {

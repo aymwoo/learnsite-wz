@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// Result:实体类
+	/// Result:实锟斤拷锟斤拷
 	/// </summary>
 	[Serializable]
 	public partial class Result

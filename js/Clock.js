@@ -1,4 +1,4 @@
-﻿function ShowFlash()
+function ShowFlash()
 { 
 url="../images/clock.swf";
 var Width=120;

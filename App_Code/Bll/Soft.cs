@@ -5,17 +5,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàSoft µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Soft çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Soft
 	{
 		private readonly LearnSite.DAL.Soft dal=new LearnSite.DAL.Soft();
 		public Soft()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Fid)
 		{
@@ -31,7 +31,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Soft model)
 		{
@@ -39,7 +39,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Soft model)
 		{
@@ -47,7 +47,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Fid)
 		{
@@ -56,7 +56,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Soft GetModel(int Fid)
 		{
@@ -65,7 +65,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Soft GetModelByCache(int Fid)
 		{
@@ -89,7 +89,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList()
 		{
@@ -97,7 +97,7 @@ namespace LearnSite.BLL
 		}
                         
         /// <summary>
-        /// »ñµÃËùÓĞ×ÊÔ´ÁĞ±í£¬ÎŞ¼ò½é
+        /// è·å¾—æ‰€æœ‰èµ„æºåˆ—è¡¨ï¼Œæ— ç®€ä»‹
         /// </summary>
         public DataSet GetSoftList(string Fhid)
         {
@@ -105,14 +105,14 @@ namespace LearnSite.BLL
             return dal.GetSoftList(strWhere);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Soft> GetModelList(string strWhere)
 		{
@@ -120,7 +120,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Soft> DataTableToList(DataTable dt)
 		{
@@ -178,7 +178,7 @@ namespace LearnSite.BLL
             return modelList;
         }
         /// <summary>
-        /// »ñÈ¡ÓĞÌá½»×÷Æ·µÄ±¾·ÖÀà×ÊÔ´ÁĞ±í
+        /// è·å–æœ‰æäº¤ä½œå“çš„æœ¬åˆ†ç±»èµ„æºåˆ—è¡¨
         /// </summary>
         /// <param name="Fyid"></param>
         /// <returns></returns>
@@ -187,7 +187,7 @@ namespace LearnSite.BLL
             return dal.GetListnomic(Fyid);
         }
         /// <summary>
-        /// »ñµÃÓĞ×÷Æ·Ìá½»µÄ·ÖÀàÏîÊı¾İÁĞ±í£¬°´ĞòºÅºÍ±àºÅÅÅĞò
+        /// è·å¾—æœ‰ä½œå“æäº¤çš„åˆ†ç±»é¡¹æ•°æ®åˆ—è¡¨ï¼ŒæŒ‰åºå·å’Œç¼–å·æ’åº
         /// </summary>
         public DataTable GetListCategory()
         {
@@ -195,7 +195,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃËùÓĞ×ÊÔ´ÁĞ±í£¬ÎŞ¼ò½é
+        /// è·å¾—æ‰€æœ‰èµ„æºåˆ—è¡¨ï¼Œæ— ç®€ä»‹
         /// </summary>
         public DataTable GetSoftList(string Fhid, string Fyid)
         {
@@ -205,7 +205,7 @@ namespace LearnSite.BLL
             return dal.GetSoftList(strWhere).Tables[0];
         }
         /// <summary>
-        /// Ñ§ÉúÆ½Ì¨»ñµÃ·¢²¼µÄ×ÊÔ´ÁĞ±í£¬ÎŞ¼ò½é
+        /// å­¦ç”Ÿå¹³å°è·å¾—å‘å¸ƒçš„èµ„æºåˆ—è¡¨ï¼Œæ— ç®€ä»‹
         /// </summary>
         public DataTable GetShowSoftList(string Fhid, int Fyid)
         {
@@ -218,7 +218,7 @@ namespace LearnSite.BLL
             return dal.GetSoftList(strWhere).Tables[0];
         }   
         /// <summary>
-        /// ×ÊÔ´ÊÇ·ñ·¢²¼×´Ì¬¸üĞÂ
+        /// èµ„æºæ˜¯å¦å‘å¸ƒçŠ¶æ€æ›´æ–°
         /// </summary>
         /// <param name="Fid"></param>
         public void UpdateFhide(int Fid)
@@ -227,14 +227,14 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
         /// <summary>
-        /// ·µ»Ø×ÊÔ´ÉÏ´«µÄÂ·¾¶
+        /// è¿”å›èµ„æºä¸Šä¼ çš„è·¯å¾„
         /// </summary>
         /// <returns></returns>
        public static string SoftUploadPath()
@@ -249,7 +249,7 @@ namespace LearnSite.BLL
 
 
        /// <summary>
-       /// ÊÇ·ñ¿ÉÏÂÔØ×ÊÔ´£¨ÊÇ·ñÏŞÖÆÏÂÔØÊ±¼ä£©
+       /// æ˜¯å¦å¯ä¸‹è½½èµ„æºï¼ˆæ˜¯å¦é™åˆ¶ä¸‹è½½æ—¶é—´ï¼‰
        /// </summary>
        /// <returns></returns>
        public bool IsDownCan()
@@ -258,7 +258,7 @@ namespace LearnSite.BLL
        }
 
        /// <summary>
-       /// ¸üĞÂµã»÷ÂÊ,µã»÷Êı¼Ó1
+       /// æ›´æ–°ç‚¹å‡»ç‡,ç‚¹å‡»æ•°åŠ 1
        /// </summary>
        /// <param name="Fid"></param>
        /// <param name="Fhit"></param>
@@ -267,7 +267,7 @@ namespace LearnSite.BLL
            dal.UpdateFhit(Fid);
        }                
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸ÃÀà±ğµÄ×ÊÔ´
+        /// æ˜¯å¦å­˜åœ¨è¯¥ç±»åˆ«çš„èµ„æº
         /// </summary>
         /// <param name="Fyid"></param>
         /// <returns></returns>
@@ -275,7 +275,7 @@ namespace LearnSite.BLL
        {
            return dal.ExistYid(Fyid);
        }
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

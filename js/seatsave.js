@@ -1,4 +1,4 @@
-﻿var docurl = document.URL;
+var docurl = document.URL;
 var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
 
 function SaveSeats(hid, collects) {

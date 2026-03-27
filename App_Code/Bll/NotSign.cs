@@ -5,17 +5,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàNotSign µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»NotSign çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class NotSign
 	{
 		private readonly LearnSite.DAL.NotSign dal=new LearnSite.DAL.NotSign();
 		public NotSign()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,21 +23,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Nid)
 		{
 			return dal.Exists(Nid);
 		}
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ½ñÌìÎ´Ç©µ½¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨ä»Šå¤©æœªç­¾åˆ°è®°å½•
         /// </summary>
         public bool ExistsToday(string Nnum)
         {
             return dal.ExistsToday(Nnum);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.NotSign model)
 		{
@@ -45,21 +45,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.NotSign model)
 		{
 			dal.Update(model);
 		}
         /// <summary>
-        /// ¸üĞÂ±¸×¢Ò»ÌõÊı¾İ
+        /// æ›´æ–°å¤‡æ³¨ä¸€æ¡æ•°æ®
         /// </summary>
         public void UpdateNote(string Nnum, string Nnote)
         {
             dal.UpdateNote(Nnum, Nnote);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Nid)
 		{
@@ -68,7 +68,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.NotSign GetModel(int Nid)
 		{
@@ -77,7 +77,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.NotSign GetModelByCache(int Nid)
 		{
@@ -100,7 +100,7 @@ namespace LearnSite.BLL
 			return (LearnSite.Model.NotSign)objModel;
 		}                
         /// <summary>
-        /// »ñÈ¡½ñÌìÎ´Ç©µ½±¸×¢
+        /// è·å–ä»Šå¤©æœªç­¾åˆ°å¤‡æ³¨
         /// </summary>
         /// <param name="Nnum"></param>
         /// <returns></returns>
@@ -110,7 +110,7 @@ namespace LearnSite.BLL
         }
                
         /// <summary>
-        /// »ñÈ¡Ä³ÌìÎ´Ç©µ½±¸×¢
+        /// è·å–æŸå¤©æœªç­¾åˆ°å¤‡æ³¨
         /// </summary>
         /// <param name="Nnum"></param>
         /// <returns></returns>
@@ -119,21 +119,21 @@ namespace LearnSite.BLL
             return dal.GetNoteThisday(Nnum, Nyear, Nmonth, Nday);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.NotSign> GetModelList(string strWhere)
 		{
@@ -141,7 +141,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.NotSign> DataTableToList(DataTable dt)
 		{
@@ -191,7 +191,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -199,7 +199,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ»ñÈ¡È±Ï¯¼ÇÂ¼ÁĞ±í£¬°´ÈÕÆÚÅÅĞò
+        /// æ ¹æ®å­¦å·è·å–ç¼ºå¸­è®°å½•åˆ—è¡¨ï¼ŒæŒ‰æ—¥æœŸæ’åº
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -208,7 +208,7 @@ namespace LearnSite.BLL
             return dal.NotSignSnumdetail(Snum);
         }        
         /// <summary>
-        /// Ôö¼Ó×Ö¶Î³õÊ¼»¯
+        /// å¢åŠ å­—æ®µåˆå§‹åŒ–
         /// </summary>
         public void upgradefix()
         {
@@ -216,21 +216,21 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// Ä³°à¼¶Ç©µ½µ¼³öµ½Excel
+        /// æŸç­çº§ç­¾åˆ°å¯¼å‡ºåˆ°Excel
         /// </summary>
         public void NotSignExcel(int Sgrade, int Sclass, int Nterm)
         {
             dal.NotSignExcel(Sgrade, Sclass, Nterm);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàFlection¡£
+	/// æ•°æ®è®¿é—®ç±»Flectionã€‚
 	/// </summary>
 	public class Flection
 	{
 		public Flection()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼Fid
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•Fid
 		/// </summary>
 		public bool Exists(int Fid)
 		{
@@ -30,7 +30,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼Fcid
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•Fcid
         /// </summary>
         public bool ExistsFcid(int Fcid)
         {
@@ -45,7 +45,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Flection model)
 		{
@@ -76,7 +76,7 @@ namespace LearnSite.DAL
             }
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Flection model)
 		{
@@ -95,7 +95,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Fid)
 		{
@@ -112,7 +112,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Flection GetModel(int Fcid)
 		{
@@ -154,7 +154,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -169,7 +169,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// »ñµÃÇ°¼¸ĞĞÊı¾İ
+        /// è·å¾—å‰å‡ è¡Œæ•°æ®
         /// </summary>
         public DataSet GetList(int Top, string strWhere, string filedOrder)
         {
@@ -191,7 +191,7 @@ namespace LearnSite.DAL
 
         /*
         /// <summary>
-        /// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+        /// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetList(int PageSize,int PageIndex,string strWhere)
         {
@@ -214,6 +214,6 @@ namespace LearnSite.DAL
             return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
         }*/
 
-        #endregion  ³ÉÔ±·½·¨
+        #endregion  æˆå‘˜æ–¹æ³•
     }
 }

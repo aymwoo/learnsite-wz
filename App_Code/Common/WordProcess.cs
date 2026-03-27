@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.IO;
@@ -30,7 +30,7 @@ namespace LearnSite.Common
         }
         public static string SysVerUpdate()
         {
-            return "2026-1-5";
+            return "2026-1-27";
         }
         public static string SystemVersion()
         {
@@ -38,7 +38,7 @@ namespace LearnSite.Common
         }
         public static string NewVersion()
         {
-            return "v1.5.0.0";
+            return "v1.6.0.0";
         }
                 
 

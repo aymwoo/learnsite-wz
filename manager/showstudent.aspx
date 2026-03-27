@@ -8,26 +8,26 @@
                             OnRowDataBound="GVstudent_RowDataBound" 
                AutoGenerateColumns="False">
                <Columns>
-                   <asp:BoundField DataField="Snum" HeaderText="Ñ§ºÅ" />
-                   <asp:BoundField DataField="Syear" HeaderText="ÈëÑ§Äê¶È" />
-                   <asp:BoundField DataField="Sgrade" HeaderText="Äê¼¶" />
-                   <asp:BoundField DataField="Sclass" HeaderText="°à¼¶" />
-                   <asp:BoundField DataField="Sname" HeaderText="ÐÕÃû" />
-                   <asp:BoundField DataField="Spwd" HeaderText="ÃÜÂë" />
-                   <asp:BoundField DataField="Sex" HeaderText="ÐÔ±ð" />
-                   <asp:BoundField DataField="Saddress" HeaderText="¼ÒÍ¥×¡Ö·" />
-                   <asp:BoundField DataField="Sphone" HeaderText="ÁªÏµµç»°" />
-                   <asp:BoundField DataField="Sparents" HeaderText="¼Ò³¤ÐÕÃû" />
-                   <asp:BoundField DataField="Sheadtheacher" HeaderText="°àÖ÷ÈÎ" />
+                   <asp:BoundField DataField="Snum" HeaderText="å­¦å·" />
+                   <asp:BoundField DataField="Syear" HeaderText="å…¥å­¦å¹´åº¦" />
+                   <asp:BoundField DataField="Sgrade" HeaderText="å¹´çº§" />
+                   <asp:BoundField DataField="Sclass" HeaderText="ç­çº§" />
+                   <asp:BoundField DataField="Sname" HeaderText="å§“å" />
+                   <asp:BoundField DataField="Spwd" HeaderText="å¯†ç " />
+                   <asp:BoundField DataField="Sex" HeaderText="æ€§åˆ«" />
+                   <asp:BoundField DataField="Saddress" HeaderText="å®¶åº­ä½å€" />
+                   <asp:BoundField DataField="Sphone" HeaderText="è”ç³»ç”µè¯" />
+                   <asp:BoundField DataField="Sparents" HeaderText="å®¶é•¿å§“å" />
+                   <asp:BoundField DataField="Sheadtheacher" HeaderText="ç­ä¸»ä»»" />
                </Columns>
             <pagertemplate>
                            <div style="width:100%; height:13px; text-align:right">
-                            µÚ<asp:Label id="lblPageIndex" runat="server" text='<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>' />Ò³
-                               ¹²<asp:Label id="lblPageCount" runat="server" text='<%# ((GridView)Container.Parent.Parent).PageCount  %>' />Ò³ 
-                                <asp:linkbutton id="btnFirst" runat="server" causesvalidation="False" commandargument="First" commandname="Page" text="Ê×Ò³" Font-Underline="False" ForeColor="Black" />
-                              <asp:linkbutton id="btnPrev" runat="server" causesvalidation="False" commandargument="Prev" commandname="Page" text="ÉÏÒ»Ò³" Font-Underline="False" ForeColor="Black" />
-                             <asp:linkbutton id="btnNext" runat="server" causesvalidation="False" commandargument="Next" commandname="Page" text="ÏÂÒ»Ò³" Font-Underline="False" ForeColor="Black" />                          
-                             <asp:linkbutton id="btnLast" runat="server" causesvalidation="False" commandargument="Last" commandname="Page" text="Î²Ò³" Font-Underline="False" ForeColor="Black" />
+                            ç¬¬<asp:Label id="lblPageIndex" runat="server" text='<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>' />é¡µ
+                               å…±<asp:Label id="lblPageCount" runat="server" text='<%# ((GridView)Container.Parent.Parent).PageCount  %>' />é¡µ 
+                                <asp:linkbutton id="btnFirst" runat="server" causesvalidation="False" commandargument="First" commandname="Page" text="é¦–é¡µ" Font-Underline="False" ForeColor="Black" />
+                              <asp:linkbutton id="btnPrev" runat="server" causesvalidation="False" commandargument="Prev" commandname="Page" text="ä¸Šä¸€é¡µ" Font-Underline="False" ForeColor="Black" />
+                             <asp:linkbutton id="btnNext" runat="server" causesvalidation="False" commandargument="Next" commandname="Page" text="ä¸‹ä¸€é¡µ" Font-Underline="False" ForeColor="Black" />                          
+                             <asp:linkbutton id="btnLast" runat="server" causesvalidation="False" commandargument="Last" commandname="Page" text="å°¾é¡µ" Font-Underline="False" ForeColor="Black" />
                                
                            </div>
                     </pagertemplate>
@@ -43,12 +43,12 @@
     <br />
             <asp:Button ID="ButtonReturn" runat="server" BorderColor="Silver" BorderStyle="Solid"
                 BorderWidth="1px" Font-Names="Arial" Font-Size="9pt" Height="18px" OnClick="ButtonInsert_Click"
-                TabIndex="1" Text="·µ»Ø" Width="100px" BackColor="#E8E8E8" />
+                TabIndex="1" Text="è¿”å›ž" Width="100px" BackColor="#E8E8E8" />
             
             <br />
             
             <br />            
-    ÁÙÊ±±íÄÚÈÝ<asp:Label ID="Labelcount" runat="server" Font-Names="Arial"></asp:Label>
+    ä¸´æ—¶è¡¨å†…å®¹<asp:Label ID="Labelcount" runat="server" Font-Names="Arial"></asp:Label>
             <br />
             <br />
 

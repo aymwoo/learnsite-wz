@@ -1,4 +1,4 @@
-﻿KindEditor.plugin('word', function (K) {
+KindEditor.plugin('word', function (K) {
     // 点击图标时执行
 	var name = 'word';
     editor.clickToolbar(name, function () {

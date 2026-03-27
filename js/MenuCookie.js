@@ -1,4 +1,4 @@
-﻿function ShowMenu() {
+function ShowMenu() {
     var div = document.getElementById("MenuDiv");
     div.style.display = "block";
 }

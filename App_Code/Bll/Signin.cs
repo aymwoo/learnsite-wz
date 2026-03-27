@@ -6,17 +6,17 @@ using System.Collections;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàSignin µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Signin çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Signin
 	{
 		private readonly LearnSite.DAL.Signin dal=new LearnSite.DAL.Signin();
 		public Signin()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -24,7 +24,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Qid)
 		{
@@ -32,7 +32,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Signin model)
 		{
@@ -40,14 +40,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Signin model)
 		{
 			dal.Update(model);
 		}
                 /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅ½ñÌìµÄ×÷Æ·ÊıÁ¿
+        /// æ›´æ–°è¯¥å­¦å·ä»Šå¤©çš„ä½œå“æ•°é‡
         /// </summary>
         /// <param name="Qnum"></param>
         /// <param name="Qwork"></param>
@@ -56,7 +56,7 @@ namespace LearnSite.BLL
             dal.UpdateQwork(Qsid,Wcid);
         }
                 /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ£¨¸øÑ§ÉúÑ§Ï°±íÏÖÆÀ·Ö£©
+        /// æ›´æ–°ä¸€æ¡æ•°æ®ï¼ˆç»™å­¦ç”Ÿå­¦ä¹ è¡¨ç°è¯„åˆ†ï¼‰
         /// </summary>
         public void UpdateAttitude(int Qid, int Qattitude, string Qnote, int Qcid)
         {
@@ -64,7 +64,7 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Qid)
 		{
@@ -73,7 +73,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// Çå³ı¼¸ÄêÇ°µÄÇ©µ½¼ÇÂ¼
+        /// æ¸…é™¤å‡ å¹´å‰çš„ç­¾åˆ°è®°å½•
         /// </summary>
         /// <param name="Wyear"></param>
         public int DeleteOldyear(int Wyear)
@@ -81,7 +81,7 @@ namespace LearnSite.BLL
             return dal.DeleteOldyear(Wyear);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Signin GetModel(int Qid)
 		{
@@ -90,14 +90,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅµÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬×î½üµÄÇ©µ½¼ÇÂ¼
+        /// æ ¹æ®å­¦å·å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œæœ€è¿‘çš„ç­¾åˆ°è®°å½•
         /// </summary>
         public LearnSite.Model.Signin GetModelm(string Qnum)
         {
             return dal.GetModelm(Qnum);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Signin GetModelByCache(int Qid)
 		{
@@ -121,21 +121,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Signin> GetModelList(string strWhere)
 		{
@@ -143,7 +143,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
         /// <summary>
-        /// »ñµÃÊı¾İÁĞ±í
+        /// è·å¾—æ•°æ®åˆ—è¡¨
         /// </summary>
         public List<LearnSite.Model.Signin> DataTableToList(DataTable dt)
         {
@@ -202,7 +202,7 @@ namespace LearnSite.BLL
             return modelList;
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -210,7 +210,7 @@ namespace LearnSite.BLL
 		}
                
         /// <summary>
-        /// Ñ§Éú½çÃæ½ñÌìÇ©µ½ÏÔÊ¾
+        /// å­¦ç”Ÿç•Œé¢ä»Šå¤©ç­¾åˆ°æ˜¾ç¤º
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -224,7 +224,7 @@ namespace LearnSite.BLL
         }
         
         /// <summary>
-        /// ²éÑ¯°à¼¶Ç©µ½ÁĞ±í
+        /// æŸ¥è¯¢ç­çº§ç­¾åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -235,7 +235,7 @@ namespace LearnSite.BLL
         }
 
          /// <summary>
-        /// ²éÑ¯°à¼¶Ä³ÄêÄ³ÔÂÄ³ÈÕµÄÏêÏ¸ ÒÑÇ©µ½¼ÇÂ¼11111111
+        /// æŸ¥è¯¢ç­çº§æŸå¹´æŸæœˆæŸæ—¥çš„è¯¦ç»† å·²ç­¾åˆ°è®°å½•11111111
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -251,14 +251,14 @@ namespace LearnSite.BLL
             return dal.SignclassdetailSort(Sgrade, Sclass, Qyear, Qmonth, Qday, sort);
         }
         /// <summary>
-        /// Ä³°à¼¶Ç©µ½µ¼³öµ½Excel
+        /// æŸç­çº§ç­¾åˆ°å¯¼å‡ºåˆ°Excel
         /// </summary>
         public void SignExcel(int Sgrade, int Sclass, int Qterm)
         {
             dal.SignExcel(Sgrade, Sclass, Qterm);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ²éÑ¯Ç©µ½¼ÇÂ¼£¬°´Äê¼¶¡¢Ñ§ÆÚÅÅĞò
+        /// æ ¹æ®å­¦å·æŸ¥è¯¢ç­¾åˆ°è®°å½•ï¼ŒæŒ‰å¹´çº§ã€å­¦æœŸæ’åº
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -268,7 +268,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ²éÑ¯°à¼¶Ä³ÄêÄ³ÔÂÄ³ÈÕµÄÏêÏ¸ Î´Ç©µ½¼ÇÂ¼0000000
+        /// æŸ¥è¯¢ç­çº§æŸå¹´æŸæœˆæŸæ—¥çš„è¯¦ç»† æœªç­¾åˆ°è®°å½•0000000
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -282,7 +282,7 @@ namespace LearnSite.BLL
 
                 
         /// <summary>
-        /// »ñÈ¡½ñÌìÇ©µ½µÄÍ¬Ñ§
+        /// è·å–ä»Šå¤©ç­¾åˆ°çš„åŒå­¦
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -292,7 +292,7 @@ namespace LearnSite.BLL
             return dal.GetSiginStudents(Sgrade, Sclass);
         }
         /// <summary>
-        /// ²éÑ¯¿ªÊ¼ÉÏ¿ÎÒ³Ãæ£¬°à¼¶Ç©µ½ÁĞ±í
+        /// æŸ¥è¯¢å¼€å§‹ä¸Šè¯¾é¡µé¢ï¼Œç­çº§ç­¾åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -306,7 +306,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ²éÑ¯¿ªÊ¼ÉÏ¿ÎÒ³Ãæ£¬°à¼¶Ç©µ½ÁĞ±í
+        /// æŸ¥è¯¢å¼€å§‹ä¸Šè¯¾é¡µé¢ï¼Œç­çº§ç­¾åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -320,8 +320,8 @@ namespace LearnSite.BLL
         {
             SeatCollect sct = new SeatCollect();
             sct.Dt = dal.StartSignClass(Sgrade, Sclass, Qyear, Qmonth, Qday, "1").Tables[0];
-            sct.Online = sct.Dt.Rows.Count;//ÔÚÏßÈËÊı
-            sct.Column = 8;//ÁĞÊı
+            sct.Online = sct.Dt.Rows.Count;//åœ¨çº¿äººæ•°
+            sct.Column = 8;//åˆ—æ•°
             if (!string.IsNullOrEmpty(pcroom) && sct.Online > 0)
             {
                 //Qid,Qip, Qnum, Qname,Sleader,Sgroup,Sgtitle,left(Qmachine,12) as QmachineShort,right(Qdate,8) as Qdate,Qattitude,Qnote,Qwork,Qgroup,Qgscore
@@ -336,7 +336,7 @@ namespace LearnSite.BLL
                 if (scount > 0 && pcount > 0)
                 {
                     studt.Columns.Add("Px", typeof(int));
-                    studt.Columns.Add("Py", typeof(int));//Ôö¼Ó×ø±ê×Ö¶Î
+                    studt.Columns.Add("Py", typeof(int));//å¢åŠ åæ ‡å­—æ®µ
                     for (int i = 0; i < pcount; i++)
                     {
                         string pip = cmpdt.Rows[i][0].ToString();
@@ -347,18 +347,18 @@ namespace LearnSite.BLL
                             string sip = studt.Rows[j][1].ToString();
                             if (pip.Equals(sip))
                             {
-                                find = true;//Èç¹ûÏàµÈ£¬ËµÃ÷ÕÒµ½£¬Ìø³öÑ­»·
+                                find = true;//å¦‚æœç›¸ç­‰ï¼Œè¯´æ˜æ‰¾åˆ°ï¼Œè·³å‡ºå¾ªç¯
                                 tempj = j;
                                 break;
                             }
                         }
                         if (!find)
                         {
-                            empty.Add(i); //Èç¹ûÕÒ²»µ½£¬ÔòÊÕ¼¯ĞòºÅ
+                            empty.Add(i); //å¦‚æœæ‰¾ä¸åˆ°ï¼Œåˆ™æ”¶é›†åºå·
                         }
                         else
                         {
-                            if (tempj > -1) //Èç¹ûÕÒµ½£¬Ôò¸øÑ§Éú±íÔö¼Ó×ø±êÎ»ÖÃ
+                            if (tempj > -1) //å¦‚æœæ‰¾åˆ°ï¼Œåˆ™ç»™å­¦ç”Ÿè¡¨å¢åŠ åæ ‡ä½ç½®
                             {
                                 studt.Rows[tempj][13] = cmpdt.Rows[i][2];
                                 studt.Rows[tempj][14] = cmpdt.Rows[i][3];
@@ -403,7 +403,7 @@ namespace LearnSite.BLL
                 
         
         /// <summary>
-        /// ²éÑ¯¿ªÊ¼ÉÏ¿ÎÒ³Ãæ£¬°à¼¶Ã»ÓĞÇ©µ½ÁĞ±í
+        /// æŸ¥è¯¢å¼€å§‹ä¸Šè¯¾é¡µé¢ï¼Œç­çº§æ²¡æœ‰ç­¾åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -416,7 +416,7 @@ namespace LearnSite.BLL
             return dal.StartNoSignClass(Sgrade, Sclass,Syear,Qyear,Qmonth,Qday);
         }
                 /// <summary>
-        /// ²éÑ¯¿ªÊ¼ÉÏ¿ÎÒ³Ãæ£¬°à¼¶Ã»ÓĞÇ©µ½ÁĞ±í
+        /// æŸ¥è¯¢å¼€å§‹ä¸Šè¯¾é¡µé¢ï¼Œç­çº§æ²¡æœ‰ç­¾åˆ°åˆ—è¡¨
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -429,7 +429,7 @@ namespace LearnSite.BLL
             return dal.StartNoSignClassTwo(Sgrade, Sclass, Syear, Qyear, Qmonth, Qday);
         }
         /// <summary>
-        /// ·µ»Ø±¾°à½ñÌì×÷Æ·Î´Ìá½»µÄÑ§Éú Qid, Qnum, Sname,Sscore
+        /// è¿”å›æœ¬ç­ä»Šå¤©ä½œå“æœªæäº¤çš„å­¦ç”Ÿ Qid, Qnum, Sname,Sscore
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -444,7 +444,7 @@ namespace LearnSite.BLL
             return dal.GetNoWorkStudents(Sgrade, Sclass, Qyear, Qmonth, Qday, Qwork);
         }
         /// <summary>
-        /// ÔÚÇ©µ½±íÖĞÉ¾³ıÑ§Éú±íÖĞ²»´æÔÚ°à¼¶µÄÑ§Éú
+        /// åœ¨ç­¾åˆ°è¡¨ä¸­åˆ é™¤å­¦ç”Ÿè¡¨ä¸­ä¸å­˜åœ¨ç­çº§çš„å­¦ç”Ÿ
         /// </summary>
         public void Upgrade()
         {
@@ -452,10 +452,10 @@ namespace LearnSite.BLL
         }
 
                 /// <summary>
-        ///Ç©µ½£¬Èç¹û½ñÌìµÄÇ©µ½¼ÇÂ¼²»´æÔÚÔòÔö¼ÓÒ»Ìõ
-        ///Ç©µ½²ÎÊı£ºÑ§ºÅ¡¢ÈÕÆÚ¡¢IP
+        ///ç­¾åˆ°ï¼Œå¦‚æœä»Šå¤©çš„ç­¾åˆ°è®°å½•ä¸å­˜åœ¨åˆ™å¢åŠ ä¸€æ¡
+        ///ç­¾åˆ°å‚æ•°ï¼šå­¦å·ã€æ—¥æœŸã€IP
         /// 
-        ///Ä£´«µİ²ÎÊıQnum,Qdate,Qyear,Qmonth,Qday,Qweek,Qip
+        ///æ¨¡ä¼ é€’å‚æ•°Qnum,Qdate,Qyear,Qmonth,Qday,Qweek,Qip
         /// </summary>
         /// <param name="smodel"></param>
         public int SigninToday(string Qnum, DateTime Qdate, string Qip, int Qgrade, int Qterm, int Qsid, string Qname, int Qclass, int Qsyear)
@@ -464,7 +464,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÅĞ¶Ïµ±Ç°µÇÂ¼µÄIPÊÇ·ñÓë×î½üÈÕÆÚµÇÂ¼µÄIPÒ»ÖÂ
+        /// åˆ¤æ–­å½“å‰ç™»å½•çš„IPæ˜¯å¦ä¸æœ€è¿‘æ—¥æœŸç™»å½•çš„IPä¸€è‡´
         /// </summary>
         /// <param name="Qnum"></param>
         /// <param name="LoginIp"></param>
@@ -475,7 +475,7 @@ namespace LearnSite.BLL
         }
                         
         /// <summary>
-        /// »ñÈ¡×î½üÈı¸öÔÂÄÚ±¾»úµÇÂ¼¹ıµÄÑ§ÉúĞÕÃû
+        /// è·å–æœ€è¿‘ä¸‰ä¸ªæœˆå†…æœ¬æœºç™»å½•è¿‡çš„å­¦ç”Ÿå§“å
         /// </summary>
         /// <param name="Qip"></param>
         /// <returns></returns>
@@ -484,7 +484,7 @@ namespace LearnSite.BLL
             return dal.GetIpStudents(Qip);
         }
         /// <summary>
-        /// ¸üĞÂ×éÆÀ¼Û
+        /// æ›´æ–°ç»„è¯„ä»·
         /// </summary>
         /// <param name="Sgroup"></param>
         /// <param name="Qgroup"></param>
@@ -496,7 +496,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// É¾³ı¸Ã°à¼¶µÄÇ©µ½¼ÇÂ¼
+        /// åˆ é™¤è¯¥ç­çº§çš„ç­¾åˆ°è®°å½•
         /// </summary>
         /// <param name="Qgrade"></param>
         /// <param name="Qclass"></param>
@@ -507,7 +507,7 @@ namespace LearnSite.BLL
             return dal.DelSignClass(Qgrade, Qclass, Qsyear);
         }
         /// <summary>
-        /// »ñÈ¡×î½üÒ»¸öÔÂËù½Ì°à¼¶Ç©µ½Ñ§ÉúµÄĞÕÃûºÍIPÁĞ±í
+        /// è·å–æœ€è¿‘ä¸€ä¸ªæœˆæ‰€æ•™ç­çº§ç­¾åˆ°å­¦ç”Ÿçš„å§“åå’ŒIPåˆ—è¡¨
         /// Qsid,Qgrade,Qclass,Qname,Qip
         /// </summary>
         /// <param name="Rhid"></param>
@@ -519,7 +519,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñµÃ¸Ã±¾°à±¾¿ÎµÄ¿ÎÌÃ±íÏÖ
+        /// è·å¾—è¯¥æœ¬ç­æœ¬è¯¾çš„è¯¾å ‚è¡¨ç°
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -531,7 +531,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡×é³¤µÄĞ¡×é±íÏÖ·Ö
+        /// è·å–ç»„é•¿çš„å°ç»„è¡¨ç°åˆ†
         /// </summary>
         /// <param name="Qnum"></param>
         /// <param name="Qcid"></param>
@@ -542,7 +542,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡×é³¤µÄĞ¡×é±íÏÖ·Ö
+        /// è·å–ç»„é•¿çš„å°ç»„è¡¨ç°åˆ†
         /// </summary>
         /// <param name="Qsid"></param>
         /// <param name="Qcid"></param>
@@ -552,14 +552,14 @@ namespace LearnSite.BLL
             return dal.GetLeaderQgroup(Qsid, Qcid);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

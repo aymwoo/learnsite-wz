@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webcam.aspx.cs" Inherits="faceai_webcam" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webcam.aspx.cs" Inherits="faceai_webcam" %>
 
 <!DOCTYPE html>
 <html lang="en">

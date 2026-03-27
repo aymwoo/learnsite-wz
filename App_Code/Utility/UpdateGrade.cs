@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Web;
@@ -47,8 +47,8 @@ namespace LearnSite.DBUtility
             //如果数据库不为空
             if (DBUtility.SqlHelper.CountTable() > 0)
             {
-                string CheckTabel = "Files";//Folders
-                string CheckField = "FileId";//这里是每次字段增加时的判断入口FolderId
+                string CheckTabel = "Answers";//Folders
+                string CheckField = "Aid";//这里是每次字段增加时的判断入口FolderId
                 if (DbHelperSQL.TabExists(CheckTabel))
                 {
                     try
@@ -98,7 +98,7 @@ namespace LearnSite.DBUtility
                 astr.Append(" Did int  IDENTITY (1, 1)  primary key not null, ");
                 astr.Append(" Dwid int,");
                 astr.Append(" Dsnum nvarchar(50),");
-                astr.Append(" Dwords ntext,");
+                astr.Append(" Dwords NVARCHAR(MAX),");
                 astr.Append(" Dtime datetime,");
                 astr.Append(" Dip nvarchar(50)");
                 astr.Append(" )");
@@ -153,7 +153,7 @@ namespace LearnSite.DBUtility
                 astr.Append(" create table QuizGrade (");
                 astr.Append(" Qid int  IDENTITY (1, 1)  primary key not null, ");
                 astr.Append(" Qobj int DEFAULT 0,");
-                astr.Append(" Qclass ntext");
+                astr.Append(" Qclass NVARCHAR(MAX)");
                 astr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(astr.ToString());
@@ -183,7 +183,7 @@ namespace LearnSite.DBUtility
                 astr.Append(" Nmonth int,");
                 astr.Append(" Nday int,");
                 astr.Append(" Nweek nvarchar(50),");
-                astr.Append(" Nnote ntext");
+                astr.Append(" Nnote NVARCHAR(MAX)");
                 astr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(astr.ToString());
@@ -208,12 +208,12 @@ namespace LearnSite.DBUtility
                 astr.Append(" Tid int  IDENTITY (1, 1)  primary key not null, ");
                 astr.Append(" Tcid int,");
                 astr.Append(" Ttitle nvarchar(50),");
-                astr.Append(" Tcontent ntext,");
+                astr.Append(" Tcontent NVARCHAR(MAX),");
                 astr.Append(" Tcount int DEFAULT 0,");
                 astr.Append(" Tteacher int,");
                 astr.Append(" Tdate datetime,");
                 astr.Append(" Tclose bit DEFAULT 0,");
-                astr.Append(" Tresult ntext");
+                astr.Append(" Tresult NVARCHAR(MAX)");
                 astr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(astr.ToString());
@@ -226,7 +226,7 @@ namespace LearnSite.DBUtility
                 bastr.Append(" Rid int  IDENTITY (1, 1)  primary key not null, ");
                 bastr.Append(" Rtid int,");
                 bastr.Append(" Rsnum nvarchar(50),");
-                bastr.Append(" Rwords ntext,");
+                bastr.Append(" Rwords NVARCHAR(MAX),");
                 bastr.Append(" Rtime datetime,");
                 bastr.Append(" Rip nvarchar(50),");
                 bastr.Append(" Rscore int,");
@@ -421,7 +421,7 @@ namespace LearnSite.DBUtility
                 gastr.Append(" Gtime int,");
                 gastr.Append(" Gvote int,");
                 gastr.Append(" Gcheck bit DEFAULT 0,");
-                gastr.Append(" Gnote ntext,");
+                gastr.Append(" Gnote NVARCHAR(MAX),");
                 gastr.Append(" Grank int,");
                 gastr.Append(" Ghit int DEFAULT 0,");
                 gastr.Append(" Gip nvarchar(50),");
@@ -441,7 +441,7 @@ namespace LearnSite.DBUtility
                 estr.Append(" create table English (");
                 estr.Append(" Eid int  IDENTITY (1, 1)  primary key not null, ");
                 estr.Append(" Eword nvarchar(50),");
-                estr.Append(" Emeaning ntext,");
+                estr.Append(" Emeaning NVARCHAR(MAX),");
                 estr.Append(" Elevel int");
                 estr.Append(" )");
 
@@ -534,7 +534,7 @@ namespace LearnSite.DBUtility
                 Pstr.Append(" Scid int,");
                 Pstr.Append(" Smid int,");
                 Pstr.Append(" Shid int,");
-                Pstr.Append(" Scontent ntext,");
+                Pstr.Append(" Scontent NVARCHAR(MAX),");
                 Pstr.Append(" Sdate datetime,");
                 Pstr.Append(" Sgrade int,");
                 Pstr.Append(" Sclass int,");
@@ -583,11 +583,11 @@ namespace LearnSite.DBUtility
             string Rwrongstr = "Rwrong";
             if (!DbHelperSQL.ColumnExists(ResultTable, Rhistorystr))
             {
-                DbHelperSQL.AddColumn(ResultTable, Rhistorystr, "ntext", -1);
+                DbHelperSQL.AddColumn(ResultTable, Rhistorystr, "NVARCHAR(MAX)", -1);
             }
             if (!DbHelperSQL.ColumnExists(ResultTable, Rwrongstr))
             {
-                DbHelperSQL.AddColumn(ResultTable, Rwrongstr, "ntext", -1);
+                DbHelperSQL.AddColumn(ResultTable, Rwrongstr, "NVARCHAR(MAX)", -1);
             }
         }
 
@@ -858,7 +858,7 @@ namespace LearnSite.DBUtility
                 Vstr.Append(" Vcid int,");
                 Vstr.Append(" Vhid int,");
                 Vstr.Append(" Vtitle nvarchar(50),");
-                Vstr.Append(" Vcontent ntext,");
+                Vstr.Append(" Vcontent NVARCHAR(MAX),");
                 Vstr.Append(" Vtype int DEFAULT 0,");
                 Vstr.Append(" Vtotal int DEFAULT 0,");
                 Vstr.Append(" Vscore int DEFAULT 0,");
@@ -882,8 +882,8 @@ namespace LearnSite.DBUtility
                 Ystr.Append(" Yterm int,");
                 Ystr.Append(" Ycid int,");
                 Ystr.Append(" Yvid int,");
-                Ystr.Append(" Yselect ntext,");
-                Ystr.Append(" Ycount ntext,");
+                Ystr.Append(" Yselect NVARCHAR(MAX),");
+                Ystr.Append(" Ycount NVARCHAR(MAX),");
                 Ystr.Append(" Yscore int,");
                 Ystr.Append(" Ydate datetime");
                 Ystr.Append(" )");
@@ -904,7 +904,7 @@ namespace LearnSite.DBUtility
                 Fstr.Append(" Fcid int,");
                 Fstr.Append(" Fvid int,");
                 Fstr.Append(" Fvtype int DEFAULT 0,");
-                Fstr.Append(" Fselect ntext,");
+                Fstr.Append(" Fselect NVARCHAR(MAX),");
                 Fstr.Append(" Fscore int DEFAULT 0,");
                 Fstr.Append(" Fdate datetime");
                 Fstr.Append(" )");
@@ -919,7 +919,7 @@ namespace LearnSite.DBUtility
                 Mstr.Append(" Mid int  IDENTITY (1, 1)  primary key not null, ");
                 Mstr.Append(" Mqid int,");
                 Mstr.Append(" Mvid int,");
-                Mstr.Append(" Mitem ntext,");
+                Mstr.Append(" Mitem NVARCHAR(MAX),");
                 Mstr.Append(" Mscore int DEFAULT 0,");
                 Mstr.Append(" Mcount int DEFAULT 0");
                 Mstr.Append(" )");
@@ -934,7 +934,7 @@ namespace LearnSite.DBUtility
                 Qstr.Append(" Qid int  IDENTITY (1, 1)  primary key not null, ");
                 Qstr.Append(" Qvid int,");
                 Qstr.Append(" Qcid int,");
-                Qstr.Append(" Qtitle ntext,");
+                Qstr.Append(" Qtitle NVARCHAR(MAX),");
                 Qstr.Append(" Qcount int DEFAULT 0");
                 Qstr.Append(" )");
 
@@ -1278,7 +1278,7 @@ namespace LearnSite.DBUtility
                 Hstr.Append(" create table House (");
                 Hstr.Append(" Hid int  IDENTITY (1, 1)  primary key not null, ");
                 Hstr.Append(" Hname nvarchar(50),");
-                Hstr.Append(" Hseat ntext");
+                Hstr.Append(" Hseat NVARCHAR(MAX)");
                 Hstr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(Hstr.ToString());//创建机房表
@@ -1643,7 +1643,7 @@ namespace LearnSite.DBUtility
                 Mstr.Append(" Mid int  IDENTITY (1, 1)  primary key not null, ");
                 Mstr.Append(" Mtitle nvarchar(50),");
                 Mstr.Append(" Mcid int,");
-                Mstr.Append(" Mcontent ntext,");
+                Mstr.Append(" Mcontent NVARCHAR(MAX),");
                 Mstr.Append(" Mdate datetime,");
                 Mstr.Append(" Mhit int,");
                 Mstr.Append(" Mpublish bit DEFAULT 0,");
@@ -1661,7 +1661,7 @@ namespace LearnSite.DBUtility
                 Tstr.Append(" Rmid int,");
                 Tstr.Append(" Rsnum nvarchar(50),");
                 Tstr.Append(" Rsid int,");
-                Tstr.Append(" Rwords ntext,");
+                Tstr.Append(" Rwords NVARCHAR(MAX),");
                 Tstr.Append(" Rtime datetime,");
                 Tstr.Append(" Rip nvarchar(50),");
                 Tstr.Append(" Rscore int DEFAULT 0,");
@@ -1685,7 +1685,7 @@ namespace LearnSite.DBUtility
                 Cstr.Append(" create table Chinese (");
                 Cstr.Append(" Nid int  IDENTITY (1, 1)  primary key not null, ");
                 Cstr.Append(" Ntitle nvarchar(50),");
-                Cstr.Append(" Ncontent ntext");
+                Cstr.Append(" Ncontent NVARCHAR(MAX)");
                 Cstr.Append(" )");
                 DbHelperSQL.ExecuteSql(Cstr.ToString());
             }
@@ -1876,12 +1876,12 @@ namespace LearnSite.DBUtility
             string Wdict = "Wdict";
             if (!DbHelperSQL.ColumnExists(workstable, Wdict))
             {
-                DbHelperSQL.AddColumn(workstable, Wdict, "ntext", -1);
+                DbHelperSQL.AddColumn(workstable, Wdict, "NVARCHAR(MAX)", -1);
             }
             string Wcode = "Wcode";
             if (!DbHelperSQL.ColumnExists(workstable, Wcode))
             {
-                DbHelperSQL.AddColumn(workstable, Wcode, "ntext", -1);
+                DbHelperSQL.AddColumn(workstable, Wcode, "NVARCHAR(MAX)", -1);
             }
 
             string RoomTable = "Room";
@@ -1916,7 +1916,7 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Nhid int,");
                 Gstr.Append(" Ncid int,");
                 Gstr.Append(" Ntitle nvarchar(50),");
-                Gstr.Append(" Ncontent ntext,");
+                Gstr.Append(" Ncontent NVARCHAR(MAX),");
                 Gstr.Append(" Npublish bit DEFAULT 0,");
                 Gstr.Append(" Ndate datetime");
                 Gstr.Append(" )");
@@ -1984,7 +1984,7 @@ namespace LearnSite.DBUtility
                 castr.Append(" Joutwo nvarchar(200),");
                 castr.Append(" Jouthree nvarchar(200),");
                 castr.Append(" Jright bit DEFAULT 0,");
-                castr.Append(" Jcode ntext ");
+                castr.Append(" Jcode NVARCHAR(MAX) ");
                 castr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(castr.ToString());
@@ -2033,7 +2033,7 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Gnum int,");
                 Gstr.Append(" Gtitle nvarchar(50),");
                 Gstr.Append(" Gsave int,");
-                Gstr.Append(" Gnote ntext,");
+                Gstr.Append(" Gnote NVARCHAR(MAX),");
                 Gstr.Append(" Gscore int,");
                 Gstr.Append(" Gdate datetime");
                 Gstr.Append(" )");
@@ -2157,10 +2157,10 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Tid int  IDENTITY (1, 1)  primary key not null, ");
                 Gstr.Append(" Thid int,");
                 Gstr.Append(" Ttilte nvarchar(50),");
-                Gstr.Append(" Tcontent ntext,");
+                Gstr.Append(" Tcontent NVARCHAR(MAX),");
                 Gstr.Append(" Tdegree int,");//星级难度
                 Gstr.Append(" Tsort int,");//题目序号
-                Gstr.Append(" Tcode ntext,");//代码
+                Gstr.Append(" Tcode NVARCHAR(MAX),");//代码
                 Gstr.Append(" Timg nvarchar(50),");//绘图尺寸特征
                 Gstr.Append(" Turl nvarchar(50),");//绘图链接
                 Gstr.Append(" Tout nvarchar(200),");//输出结果
@@ -2207,7 +2207,7 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Mid int  IDENTITY (1, 1)  primary key not null, ");
                 Gstr.Append(" Mhid int,");
                 Gstr.Append(" Mtitle nvarchar(50),");
-                Gstr.Append(" Mcontent ntext,");
+                Gstr.Append(" Mcontent NVARCHAR(MAX),");
                 Gstr.Append(" Mbegin datetime,");
                 Gstr.Append(" Mend datetime,");
                 Gstr.Append(" Mpublish bit DEFAULT 0,");
@@ -2224,10 +2224,10 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Qid int  IDENTITY (1, 1)  primary key not null, ");
                 Gstr.Append(" Qmid int,");
                 Gstr.Append(" Qtitle nvarchar(50),");
-                Gstr.Append(" Qcontent ntext,");
+                Gstr.Append(" Qcontent NVARCHAR(MAX),");
                 Gstr.Append(" Qdegree int,");//星级难度
                 Gstr.Append(" Qsort int,");//题目序号
-                Gstr.Append(" Qcode ntext,");//代码
+                Gstr.Append(" Qcode NVARCHAR(MAX),");//代码
                 Gstr.Append(" Qimg nvarchar(50),");//绘图尺寸特征
                 Gstr.Append(" Qurl nvarchar(50),");//绘图链接
                 Gstr.Append(" Qout nvarchar(200),");//输出结果
@@ -2245,7 +2245,7 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" Aid int  IDENTITY (1, 1)  primary key not null, ");
                 Gstr.Append(" Amid int,");
                 Gstr.Append(" Aqid int,");
-                Gstr.Append(" Acode ntext,");
+                Gstr.Append(" Acode NVARCHAR(MAX),");
                 Gstr.Append(" Aimg nvarchar(50),");
                 Gstr.Append(" Aurl nvarchar(50),");
                 Gstr.Append(" Aout nvarchar(200),");
@@ -2388,13 +2388,13 @@ namespace LearnSite.DBUtility
             string rcontent = "Rcontent";//填表内容
             if (!DbHelperSQL.ColumnExists(TxtFormBacktable, rcontent))
             {
-                DbHelperSQL.AddColumn(TxtFormBacktable, rcontent, "ntext", -1);
+                DbHelperSQL.AddColumn(TxtFormBacktable, rcontent, "NVARCHAR(MAX)", -1);
             }
             string MissionTable = "Mission";
             string mcase = "Mcase";//任务实例内容
             if (!DbHelperSQL.ColumnExists(MissionTable, mcase))
             {
-                DbHelperSQL.AddColumn(MissionTable, mcase, "ntext", -1);
+                DbHelperSQL.AddColumn(MissionTable, mcase, "NVARCHAR(MAX)", -1);
             }
 
             string Studentstable = "Students";
@@ -2458,8 +2458,50 @@ namespace LearnSite.DBUtility
                 Gstr.Append(" )");
 
                 DbHelperSQL.ExecuteSql(Gstr.ToString());
+            }        
+        }
+        public static void UpdateTable1600()
+        {
+            // 创建试卷表 (Exams)
+            if (!DbHelperSQL.TabExists("Exams"))
+            {
+                StringBuilder examStr = new StringBuilder();
+                examStr.Append(" CREATE TABLE [dbo].[Exams] (");
+                examStr.Append(" [Eid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                examStr.Append(" [Etitle] NVARCHAR(200) NOT NULL, ");
+                examStr.Append(" [Edescription] NVARCHAR(500) NULL, ");
+                examStr.Append(" [Cid] INT NOT NULL, ");
+                examStr.Append(" [Hid] INT NOT NULL, ");
+                examStr.Append(" [Etime] DATETIME NULL, ");
+                examStr.Append(" [Eclose] BIT DEFAULT 1, ");
+                examStr.Append(" [Escore] INT DEFAULT 0, ");
+                examStr.Append(" [Ecount] INT DEFAULT 0, ");
+                examStr.Append(" [Edata] NVARCHAR(MAX) NOT NULL ");
+                examStr.Append(" )");
+
+                DbHelperSQL.ExecuteSql(examStr.ToString());
             }
-        
+
+            // 创建答题表 (Answers)
+            if (!DbHelperSQL.TabExists("Answers"))
+            {
+                StringBuilder answerStr = new StringBuilder();
+                answerStr.Append(" CREATE TABLE [dbo].[Answers] (");
+                answerStr.Append(" [Aid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                answerStr.Append(" [Eid] INT NOT NULL, ");
+                answerStr.Append(" [Asid] INT NOT NULL, ");
+                answerStr.Append(" [Asnum] NVARCHAR(50)  NULL, ");
+                answerStr.Append(" [Asname] NVARCHAR(50) NULL, ");
+                answerStr.Append(" [Asgrade] INT NULL, ");
+                answerStr.Append(" [Asclass] INT NULL, ");
+                answerStr.Append(" [Atime] DATETIME NULL, ");
+                answerStr.Append(" [Ascore] INT NULL, ");
+                answerStr.Append(" [Aspent] INT NULL, ");
+                answerStr.Append(" [Adata] NVARCHAR(MAX) NULL ");
+                answerStr.Append(" )");
+
+                DbHelperSQL.ExecuteSql(answerStr.ToString());
+            }
         }
     }
 }

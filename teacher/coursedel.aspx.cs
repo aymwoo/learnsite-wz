@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -30,12 +30,14 @@ public partial class Teacher_coursedel : System.Web.UI.Page
         if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
         {
             int Cid = Int32.Parse(Request.QueryString["cid"].ToString());
+            string Grade = Request.QueryString["grade"].ToString();
             LearnSite.Model.TeaCook tcook = new LearnSite.Model.TeaCook();
             int Chid = tcook.Hid;
             LearnSite.BLL.Courses coursebll = new LearnSite.BLL.Courses();
             coursebll.DeleteCourse(Cid, Chid);
             System.Threading.Thread.Sleep(500);
-            Response.Redirect("~/teacher/course.aspx", false);
+            string url = "~/teacher/courseold.aspx?Cgrade="+Grade;
+            Response.Redirect(url, false);
         }
     }
     protected void ButtonCancle_Click(object sender, EventArgs e)

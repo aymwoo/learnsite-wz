@@ -5,11 +5,11 @@
     <br />  	
     <asp:Label ID="LabelCtitle" runat="server"  CssClass="coursetitle"></asp:Label><br /><br />
     <div class="courseother">
-                 ÈÕÆÚ£º[<asp:Label ID="LabelCdate"  runat="server" ></asp:Label>]&nbsp;&nbsp;
-			     Ñ§°¸ÀàÐÍ£º[<asp:Label ID="LabelCclass"  runat="server" ></asp:Label>] &nbsp;   
-                 Ñ§Ï°Äê¼¶£º[<asp:Label ID="LabelCobj"  runat="server" ></asp:Label>]&nbsp;
-                 µÚ[<asp:Label ID="LabelCterm"  runat="server" ></asp:Label>]Ñ§ÆÚ&nbsp;&nbsp;
-                 [¿ÎÊ±£º<asp:Label ID="LabelCks"  runat="server" ></asp:Label>]			
+                 æ—¥æœŸï¼š[<asp:Label ID="LabelCdate"  runat="server" ></asp:Label>]&nbsp;&nbsp;
+			     å­¦æ¡ˆç±»åž‹ï¼š[<asp:Label ID="LabelCclass"  runat="server" ></asp:Label>] &nbsp;   
+                 å­¦ä¹ å¹´çº§ï¼š[<asp:Label ID="LabelCobj"  runat="server" ></asp:Label>]&nbsp;
+                 ç¬¬[<asp:Label ID="LabelCterm"  runat="server" ></asp:Label>]å­¦æœŸ&nbsp;&nbsp;
+                 [è¯¾æ—¶ï¼š<asp:Label ID="LabelCks"  runat="server" ></asp:Label>]			
     </div>
     <div  id="Ccontent" class="coursecontent" runat ="server">   
     </div>

@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     var x = 10;
     var y = 20;
     $("span.tooltip").mouseover(function (e) {

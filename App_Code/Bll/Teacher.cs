@@ -6,24 +6,24 @@ using System.Web;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàTeacher µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Teacher çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Teacher
 	{
 		private readonly LearnSite.DAL.Teacher dal=new LearnSite.DAL.Teacher();
 		public Teacher()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
 			return dal.GetMaxId();
 		}
         /// <summary>
-        /// ¼ÇÂ¼½ÌÊ¦ÉÏ¿ÎµÄµçÄÔÊÒÃû³Æ
+        /// è®°å½•æ•™å¸ˆä¸Šè¯¾çš„ç”µè„‘å®¤åç§°
         /// </summary>
         /// <param name="Hid"></param>
         /// <param name="Hroom"></param>
@@ -32,28 +32,28 @@ namespace LearnSite.BLL
             dal.updateHroom(Hid, Hroom);
         }
         /// <summary>
-        /// ³õÊ¼»¯êÇ³Æ
+        /// åˆå§‹åŒ–æ˜µç§°
         /// </summary>
         public void initHnick()
         {
             dal.initHnick();
         }
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Hid)
 		{
 			return dal.Exists(Hid);
 		}
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsHname(string Hname)
         {
             return dal.ExistsHname(Hname);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Teacher model)
 		{
@@ -61,7 +61,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Teacher model)
 		{
@@ -69,14 +69,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸øËùÓĞÀÏÊ¦Í³¼ÆÑ§°¸Êı
+        /// ç»™æ‰€æœ‰è€å¸ˆç»Ÿè®¡å­¦æ¡ˆæ•°
         /// </summary>
         public void UpdateHcountAll()
         {
             dal.UpdateHcountAll();
         }
         /// <summary>
-        /// ¸øÒ»Î»ÀÏÊ¦Í³¼ÆÑ§°¸Êı
+        /// ç»™ä¸€ä½è€å¸ˆç»Ÿè®¡å­¦æ¡ˆæ•°
         /// </summary>
         /// <param name="hid"></param>
         public void UpdateHcount(string hid)
@@ -85,7 +85,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        ///¸ù¾İHid ¸üĞÂÃÜÂë
+        ///æ ¹æ®Hid æ›´æ–°å¯†ç 
         /// </summary>
         /// <param name="Hid"></param>
         /// <param name="Hpwd"></param>
@@ -94,7 +94,7 @@ namespace LearnSite.BLL
             dal.UpdatePwd(Hid, Hpwd);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Hid)
 		{			
@@ -102,14 +102,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// É¾³ı±êÖ¾Ò»ÌõÊı¾İ
+        /// åˆ é™¤æ ‡å¿—ä¸€æ¡æ•°æ®
         /// </summary>
         public int DownTeacher(int Hid)
         {
             return dal.DownTeacher(Hid);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Teacher GetModel(int Hid)
 		{
@@ -118,7 +118,7 @@ namespace LearnSite.BLL
 		}
 
                /// <summary>
-        /// ¸ù¾İĞÕÃûºÍÃÜÂëµÃµ½Ò»¸ö½ÌÊ¦¶ÔÏóÊµÌå£¬Èç¹û²»´æÔÚ·µ»Ønull
+        /// æ ¹æ®å§“åå’Œå¯†ç å¾—åˆ°ä¸€ä¸ªæ•™å¸ˆå¯¹è±¡å®ä½“ï¼Œå¦‚æœä¸å­˜åœ¨è¿”å›null
         /// </summary>
         public LearnSite.Model.Teacher GetTeacherModel(string Hname, string Hpwd)
         {
@@ -126,7 +126,7 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Teacher GetModelByCache(int Hid)
 		{
@@ -150,21 +150,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Teacher> GetModelList(string strWhere)
 		{
@@ -172,7 +172,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Teacher> DataTableToList(DataTable dt)
 		{
@@ -209,14 +209,14 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
 			return GetList("");
 		}
         /// <summary>
-        /// »ñÈ¡Î´É¾³ı±êÖ¾½ÌÊ¦ÕËºÅ
+        /// è·å–æœªåˆ é™¤æ ‡å¿—æ•™å¸ˆè´¦å·
         /// </summary>
         /// <returns></returns>
         public DataSet GetTeacherList()
@@ -224,14 +224,14 @@ namespace LearnSite.BLL
             return GetList(" Hdelete=0 ");
         }
         /// <summary>
-        /// »ñµÃ½ÌÊ¦IDºÍĞÕÃûÁĞ±í
+        /// è·å¾—æ•™å¸ˆIDå’Œå§“ååˆ—è¡¨
         /// </summary>
         public DataSet GetListHidHname()
         {
             return dal.GetListHidHname();
         }
         /// <summary>
-        /// ÉèÖÃ¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼
+        /// è®¾ç½®è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•
         /// </summary>
         /// <param name="Hpath"></param>
         /// <param name="Hid"></param>
@@ -240,7 +240,7 @@ namespace LearnSite.BLL
             dal.SetHpath(Hpath, Hid);
         }
         /// <summary>
-        /// ·µ»Ø¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼£¬ÎŞÔò·µ»Ø¿Õ×Ö·û""
+        /// è¿”å›è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•ï¼Œæ— åˆ™è¿”å›ç©ºå­—ç¬¦""
         /// </summary>
         /// <param name="Hid"></param>
         /// <returns></returns>
@@ -250,7 +250,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ·µ»Ø¸Ã½ÌÊ¦µÄÑ§Éú¿Õ¼äµ±Ç°½ÌÑ§×ÓÄ¿Â¼£¬ÎŞÔò·µ»Ø¿Õ×Ö·û""
+        /// è¿”å›è¯¥æ•™å¸ˆçš„å­¦ç”Ÿç©ºé—´å½“å‰æ•™å­¦å­ç›®å½•ï¼Œæ— åˆ™è¿”å›ç©ºå­—ç¬¦""
         /// </summary>
         /// <param name="Hid"></param>
         /// <returns></returns>
@@ -259,14 +259,14 @@ namespace LearnSite.BLL
             return dal.GetHpathfroStu(Sgrade, Sclass);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

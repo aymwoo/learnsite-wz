@@ -1588,7 +1588,7 @@ Graph.prototype.standalone = false;
 Graph.prototype.xmla="aa";
 
 Graph.prototype.xml = function(){
-	var xmlstr="ok";//ÖÜ
+	var xmlstr="ok";//å‘¨
 	return xmlstr;
 }
 

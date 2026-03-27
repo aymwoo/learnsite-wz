@@ -1,6 +1,6 @@
-Ê¹ÓÃËµÃ÷£º
+ä½¿ç”¨è¯´æ˜ï¼š
 
-ÔÚIIS»òapacheµÄMIMEÀàĞÍÌí¼ÓÒÔÏÂÀàĞÍ£¬Èç¹ûÒÑ¾­´æÔÚÔòºöÂÔ£º
+åœ¨IISæˆ–apacheçš„MIMEç±»å‹æ·»åŠ ä»¥ä¸‹ç±»å‹ï¼Œå¦‚æœå·²ç»å­˜åœ¨åˆ™å¿½ç•¥ï¼š
 
 .sb     application/octet-stream
 .sb2    application/octet-stream

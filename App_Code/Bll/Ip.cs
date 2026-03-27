@@ -16,7 +16,7 @@ namespace LearnSite.BLL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -24,7 +24,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Iid)
 		{
@@ -32,14 +32,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsIp(int Ihid, string Iip)
         {
             return dal.ExistsIp(Ihid, Iip);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Ip model)
 		{
@@ -47,7 +47,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Ip model)
 		{
@@ -55,21 +55,21 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public bool UpdateIip(string Iip, int Iid)
         {
             return dal.UpdateIip(Iip, Iid);
         }
         /// <summary>
-        /// É¾³ı¸Ã»ú·¿ËùÓĞIP¼ÇÂ¼
+        /// åˆ é™¤è¯¥æœºæˆ¿æ‰€æœ‰IPè®°å½•
         /// </summary>
         public bool DeleteIhid(int Ihid)
         {
             return dal.DeleteIhid(Ihid);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Iid)
 		{
@@ -77,7 +77,7 @@ namespace LearnSite.BLL
 			return dal.Delete(Iid);
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Iidlist )
 		{
@@ -85,7 +85,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Ip GetModel(int Iid)
 		{
@@ -94,7 +94,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­
 		/// </summary>
 		public LearnSite.Model.Ip GetModelByCache(int Iid)
 		{
@@ -118,7 +118,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -130,14 +130,14 @@ namespace LearnSite.BLL
             return GetList(strWhere).Tables[0];
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Ip> GetModelList(string strWhere)
 		{
@@ -145,7 +145,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Ip> DataTableToList(DataTable dt)
 		{
@@ -177,7 +177,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -185,7 +185,7 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// »ñÈ¡±¾°àµ±ÌìÇ©µ½Í¬Ñ§µÄ Qnum,Qname,Inum
+        /// è·å–æœ¬ç­å½“å¤©ç­¾åˆ°åŒå­¦çš„ Qnum,Qname,Inum
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -196,7 +196,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡±¾°àµ±ÌìÇ©µ½Í¬Ñ§µÄInum- Qnum- Qname-phototype| ĞÎÊ½µÄ×Ö·û´®
+        /// è·å–æœ¬ç­å½“å¤©ç­¾åˆ°åŒå­¦çš„Inum- Qnum- Qname-phototype| å½¢å¼çš„å­—ç¬¦ä¸²
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -206,7 +206,7 @@ namespace LearnSite.BLL
             return dal.GetSiginStudentStr(Sgrade, Sclass, Ihid,isshow);
         }
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{

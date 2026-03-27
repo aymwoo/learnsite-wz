@@ -5,17 +5,17 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàQuiz µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Quiz çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Quiz
 	{
 		private readonly LearnSite.DAL.Quiz dal=new LearnSite.DAL.Quiz();
 		public Quiz()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Qid)
 		{
@@ -31,14 +31,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ³õÊ¼»¯ÕıÈ·ºÍ´íÎóÍ³¼Æ
+        /// åˆå§‹åŒ–æ­£ç¡®å’Œé”™è¯¯ç»Ÿè®¡
         /// </summary>
         public void initQuizRW()
         {
             dal.initQuizRW();
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Quiz model)
 		{
@@ -58,7 +58,7 @@ namespace LearnSite.BLL
             dal.UpdateQaccuracy(Quizqid);
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Quiz model)
 		{
@@ -66,7 +66,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Qid)
 		{
@@ -75,7 +75,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Quiz GetModel(int Qid)
 		{
@@ -84,7 +84,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Quiz GetModelByCache(int Qid)
 		{
@@ -108,21 +108,21 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Quiz> GetModelList(string strWhere)
 		{
@@ -130,7 +130,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
         public List<LearnSite.Model.Quiz> DataTableToList(DataTable dt)
         {
@@ -188,7 +188,7 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -196,7 +196,7 @@ namespace LearnSite.BLL
 		}
                         
         /// <summary>
-        /// ¸ù¾İÊÔÌâÀàĞÍ·µ»Ø²éÑ¯dataset
+        /// æ ¹æ®è¯•é¢˜ç±»å‹è¿”å›æŸ¥è¯¢dataset
         /// </summary>
         /// <returns></returns>
         public DataSet GetListByQtype(int Qtype)
@@ -205,7 +205,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İÊÔÌâÀàĞÍºÍÑ§°¸ÀàĞÍ·µ»Ø²éÑ¯dataset
+        /// æ ¹æ®è¯•é¢˜ç±»å‹å’Œå­¦æ¡ˆç±»å‹è¿”å›æŸ¥è¯¢dataset
         /// </summary>
         /// <returns></returns>
         public DataSet GetListByQtypeQclass(int Qtype, string Qclass)
@@ -214,7 +214,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İÊÔÌâÀàĞÍ£¬ÊÔÌâÊıÁ¿£¬·µ»ØËæ»ú²éÑ¯dataset
+        /// æ ¹æ®è¯•é¢˜ç±»å‹ï¼Œè¯•é¢˜æ•°é‡ï¼Œè¿”å›éšæœºæŸ¥è¯¢dataset
         /// </summary>
         /// <returns></returns>
         public DataSet GetListByQtypeNum(int Qtype, int num, string selectclass)
@@ -222,7 +222,7 @@ namespace LearnSite.BLL
             return dal.GetListByQtypeNum(Qtype, num, selectclass);
         }
         /// <summary>
-        /// ¸ù¾İÊı×é²éÑ¯·µ»ØÊÔÌâ
+        /// æ ¹æ®æ•°ç»„æŸ¥è¯¢è¿”å›è¯•é¢˜
         /// </summary>
         /// <param name="quizQid"></param>
         /// <returns></returns>
@@ -231,14 +231,14 @@ namespace LearnSite.BLL
             return dal.GetListByQidArray(quizQid);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

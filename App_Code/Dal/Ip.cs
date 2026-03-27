@@ -6,7 +6,7 @@ using LearnSite.DBUtility;//Please add references
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:Ip
+	/// æ•°æ®è®¿é—®ç±»:Ip
 	/// </summary>
 	public partial class Ip
 	{
@@ -15,7 +15,7 @@ namespace LearnSite.DAL
 		#region  Method
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Iid)
 		{
@@ -38,7 +38,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
         /// </summary>
         public bool ExistsIp(int Ihid, string Iip)
         {
@@ -55,7 +55,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.Ip model)
 		{
@@ -84,7 +84,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.Ip model)
 		{
@@ -116,7 +116,7 @@ namespace LearnSite.DAL
 		}
 
         /// <summary>
-        /// ¸üĞÂÒ»ÌõÊı¾İ
+        /// æ›´æ–°ä¸€æ¡æ•°æ®
         /// </summary>
         public bool UpdateIip(string Iip, int Iid)
         {
@@ -141,7 +141,7 @@ namespace LearnSite.DAL
             }
         }
         /// <summary>
-        /// É¾³ı¸Ã»ú·¿ËùÓĞIP¼ÇÂ¼
+        /// åˆ é™¤è¯¥æœºæˆ¿æ‰€æœ‰IPè®°å½•
         /// </summary>
         public bool DeleteIhid(int Ihid)
         {
@@ -165,7 +165,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Iid)
 		{
@@ -189,7 +189,7 @@ namespace LearnSite.DAL
 			}
 		}
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Iidlist )
 		{
@@ -209,7 +209,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Ip GetModel(int Iid)
 		{
@@ -248,7 +248,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -263,7 +263,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -283,7 +283,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// »ñÈ¡±¾°àµ±ÌìÇ©µ½Í¬Ñ§µÄ Qnum,Qname,Inum
+        /// è·å–æœ¬ç­å½“å¤©ç­¾åˆ°åŒå­¦çš„ Qnum,Qname,Inum
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -316,7 +316,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// »ñÈ¡±¾°àµ±ÌìÇ©µ½Í¬Ñ§µÄInum- Qnum- Qname-phototype| ĞÎÊ½µÄ×Ö·û´®
+        /// è·å–æœ¬ç­å½“å¤©ç­¾åˆ°åŒå­¦çš„Inum- Qnum- Qname-phototype| å½¢å¼çš„å­—ç¬¦ä¸²
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -361,7 +361,7 @@ namespace LearnSite.DAL
                         qmachine = dt.Rows[i]["Qmachine"].ToString();
                         qmachine = qmachine.Replace("-", "");
                         qmachine = qmachine.Replace("_", "");
-                        qmachine = qmachine.Replace("|", "");//È¥µôÕâÁ½¸ö·Ö¸ô·û
+                        qmachine = qmachine.Replace("|", "");//å»æ‰è¿™ä¸¤ä¸ªåˆ†éš”ç¬¦
                     }
                     if (isshow)
                         qname = qname + "_" + qmachine;
@@ -375,7 +375,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{

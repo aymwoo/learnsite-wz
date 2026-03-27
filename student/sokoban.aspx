@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sokoban.aspx.cs" Inherits="student_sokoban" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sokoban.aspx.cs" Inherits="student_sokoban" %>
 
 <!doctype html>
 <html>
@@ -352,6 +352,19 @@
 				var data_id = dataid.split('-');
 
 				var datavalue=parseInt($(this).text());
+				
+				if(dataNum == 4 && datavalue != 4){
+					for(var i = 0; i < 16; i++){
+						for(var j = 0; j < 16; j++){
+							if(curMap[i][j] == 4){
+								curMap[i][j] = 0;
+								curLevel[i][j] = 0;
+								$(".unit[data-id='"+i+"-"+j+"']").html("0");
+							}
+						}
+					}
+				}
+				
 				if(datavalue!=dataNum){
 					$(this).html(dataNum);
 					curMap[data_id[0]][data_id[1]]=dataNum;

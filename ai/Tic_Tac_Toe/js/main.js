@@ -1,4 +1,4 @@
-﻿init(30,"mylegend",390,420,main);
+init(30,"mylegend",390,420,main);
 var backLayer,chessLayer,overLayer;
 var statusText = new LTextField();
 var statusContent="您先请吧……";

@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàPtyper ¡£(ÊôĞÔËµÃ÷×Ô¶¯ÌáÈ¡Êı¾İ¿â×Ö¶ÎµÄÃèÊöĞÅÏ¢)
+	/// å®ä½“ç±»Ptyper ã€‚(å±æ€§è¯´æ˜è‡ªåŠ¨æå–æ•°æ®åº“å­—æ®µçš„æè¿°ä¿¡æ¯)
 	/// </summary>
 	[Serializable]
 	public class Ptyper

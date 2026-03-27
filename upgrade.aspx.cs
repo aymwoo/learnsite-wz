@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -20,6 +20,7 @@ public partial class UpGrade : System.Web.UI.Page
                 Oldupdate();//旧网站更新
                 LearnSite.DBUtility.UpdateGrade.UpdateTableEnglish();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1500();
+                LearnSite.DBUtility.UpdateGrade.UpdateTable1600();
 
                 Labelmsg.Text = "升级完毕，请删除本页面！以免数据库出错！";
 

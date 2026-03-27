@@ -2,11 +2,11 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀà:TopicDiscuss
+	/// æ•°æ®è®¿é—®ç±»:TopicDiscuss
 	/// </summary>
 	public class TopicDiscuss
 	{
@@ -16,7 +16,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists()
 		{
@@ -27,7 +27,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.TopicDiscuss model)
 		{
@@ -64,7 +64,7 @@ namespace LearnSite.DAL
             }
 		}
         /// <summary>
-        /// ¸üĞÂÀÏÊ¦×Ü½á
+        /// æ›´æ–°è€å¸ˆæ€»ç»“
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Tresult"></param>
@@ -83,7 +83,7 @@ namespace LearnSite.DAL
             } 
         }
         /// <summary>
-        /// ¸üĞÂÖ÷ÌâÌÖÂÛµÄ¿ª¹ØÉèÖÃ
+        /// æ›´æ–°ä¸»é¢˜è®¨è®ºçš„å¼€å…³è®¾ç½®
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Tclose"></param>
@@ -107,7 +107,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸üĞÂÖ÷ÌâÌÖÂÛµÄ¿ª¹ØÉèÖÃ
+        /// æ›´æ–°ä¸»é¢˜è®¨è®ºçš„å¼€å…³è®¾ç½®
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -126,7 +126,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¹Ø±Õ¸Ã½ÌÊ¦µÄËùÓĞÖ÷ÌâÌÖÂÛ
+        /// å…³é—­è¯¥æ•™å¸ˆçš„æ‰€æœ‰ä¸»é¢˜è®¨è®º
         /// </summary>
         /// <param name="Tid"></param>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// ¸üĞÂÌÖÂÛÖ÷Ìâ
+        /// æ›´æ–°è®¨è®ºä¸»é¢˜
         /// </summary>
         /// <param name="Tid"></param>
         /// <param name="Ttitle"></param>
@@ -176,7 +176,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Update(LearnSite.Model.TopicDiscuss model)
 		{
@@ -223,7 +223,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool Delete(int Tid)
 		{
@@ -245,7 +245,7 @@ namespace LearnSite.DAL
                 return false;
             }
 		}		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public bool DeleteList(string Tidlist )
 		{
@@ -265,7 +265,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.TopicDiscuss GetModel(int Tid)
 		{
@@ -320,7 +320,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.TopicDiscuss GetModel(DataTable dt, int Tsort)
         {
@@ -377,7 +377,7 @@ namespace LearnSite.DAL
             }
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -392,7 +392,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{

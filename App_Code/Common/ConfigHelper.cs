@@ -1,4 +1,4 @@
-﻿namespace LearnSite.Common
+namespace LearnSite.Common
 {
     using System;
     using System.Configuration;

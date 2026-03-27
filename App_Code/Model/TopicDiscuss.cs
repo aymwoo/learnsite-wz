@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// TopicDiscuss:ÊµÌåÀà(ÊôĞÔËµÃ÷×Ô¶¯ÌáÈ¡Êı¾İ¿â×Ö¶ÎµÄÃèÊöĞÅÏ¢)
+	/// TopicDiscuss:å®ä½“ç±»(å±æ€§è¯´æ˜è‡ªåŠ¨æå–æ•°æ®åº“å­—æ®µçš„æè¿°ä¿¡æ¯)
 	/// </summary>
 	[Serializable]
 	public class TopicDiscuss

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="poster.aspx.cs" Inherits="fabriceditor_poster" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="poster.aspx.cs" Inherits="fabriceditor_poster" %>
 <!doctype html>
 <html lang="en" style="overflow: hidden">
 <head runat="server">

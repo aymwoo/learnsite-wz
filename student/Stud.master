@@ -18,8 +18,12 @@
 
         function showChat() {
             var urlat = "../student/chat.aspx";
-            TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 616, height: 515, fixed: true, maskopacity: 100, close: true })
-        }   
+            TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 616, height: 515, fixed: false, maskopacity: 100, close: true });
+        }
+        function showRobot() {
+            var urlat = "../deepseek/robot.html";
+            TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 616, height: 515, fixed: false, maskopacity: 100, close: true });
+        }  
     </script>
     <script src="../js/ruffle.js" type="text/javascript"></script>
 	<script type="text/javascript">
@@ -42,8 +46,6 @@
             <li ><span class="sp"></span></li>
             <li ><a href="../student/myfinger.aspx">打字宝典</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a href="../student/myquiz.aspx">常识积累</a></li>
-            <li ><span class="sp"></span></li>
             <li ><a href="../student/myfile.aspx">在线资源</a></li>
             <li ><span class="sp"></span></li>
             <li ><a onclick="showShare()">我的网盘</a> </li>
@@ -62,7 +64,8 @@
         </div>      
         </div>
         <br />
-		<div class="chatimg"  onclick="showChat()"  title="小组讨论" ></div>
+		<div class="chatimg"  onclick="showChat()"  title="小组在线聊天" ></div>
+		<div class="robotimg"  title="人工智能对话"   onclick="showRobot()" ></div>
     </form>
 </body>
 </html>

@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ΚµΜεΐΰSoft 
+	/// ε®δ½“η±»Soft 
 	/// </summary>
 	[Serializable]
 	public class Soft

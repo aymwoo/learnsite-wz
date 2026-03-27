@@ -1,4 +1,4 @@
-﻿/* NicEdit - Micro Inline WYSIWYG
+/* NicEdit - Micro Inline WYSIWYG
 * Copyright 2007-2008 Brian Kirchoff
 *
 * NicEdit is distributed under the terms of the MIT license

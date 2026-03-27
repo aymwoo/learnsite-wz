@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="website.aspx.cs" Inherits="student_website" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="website.aspx.cs" Inherits="student_website" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -100,7 +100,7 @@
     <div class="modal" id="createDocModal">
         <div class="modal-content" style="width: 600px; height: 200px; ">
             <div class="modal-header">
-                <h3>新建网页文件名</h3>
+                <h3>新建网页</h3>
                 <button type="button" class="modal-close" onclick="closeCreateDocModal()">&times;</button>
             </div>
             <div class="form-group">

@@ -2,20 +2,20 @@ using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
-using LearnSite.DBUtility;//ÇëÏÈÌí¼ÓÒıÓÃ
+using LearnSite.DBUtility;//è¯·å…ˆæ·»åŠ å¼•ç”¨
 namespace LearnSite.DAL
 {
 	/// <summary>
-	/// Êı¾İ·ÃÎÊÀàNotSign
+	/// æ•°æ®è®¿é—®ç±»NotSign
 	/// </summary>
 	public class NotSign
 	{
 		public NotSign()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
 
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -23,7 +23,7 @@ namespace LearnSite.DAL
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Nid)
 		{
@@ -37,7 +37,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ½ñÌìÎ´Ç©µ½¼ÇÂ¼
+        /// æ˜¯å¦å­˜åœ¨ä»Šå¤©æœªç­¾åˆ°è®°å½•
         /// </summary>
         public bool ExistsToday(string Nnum)
         {
@@ -51,7 +51,7 @@ namespace LearnSite.DAL
         }
 
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int Add(LearnSite.Model.NotSign model)
 		{
@@ -93,7 +93,7 @@ namespace LearnSite.DAL
 		}
         
         /// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.NotSign model)
 		{
@@ -134,7 +134,7 @@ namespace LearnSite.DAL
 			DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 		}
         /// <summary>
-        /// ¸üĞÂ±¸×¢Ò»ÌõÊı¾İ
+        /// æ›´æ–°å¤‡æ³¨ä¸€æ¡æ•°æ®
         /// </summary>
         public void UpdateNote(string Nnum,string Nnote)
         {
@@ -151,7 +151,7 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
         }
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Nid)
 		{
@@ -168,7 +168,7 @@ namespace LearnSite.DAL
 
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.NotSign GetModel(int Nid)
 		{
@@ -223,7 +223,7 @@ namespace LearnSite.DAL
 			}
 		}
         /// <summary>
-        /// »ñÈ¡½ñÌìÎ´Ç©µ½±¸×¢
+        /// è·å–ä»Šå¤©æœªç­¾åˆ°å¤‡æ³¨
         /// </summary>
         /// <param name="Nnum"></param>
         /// <returns></returns>
@@ -238,7 +238,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
         /// <summary>
-        /// »ñÈ¡Ä³ÌìÎ´Ç©µ½±¸×¢
+        /// è·å–æŸå¤©æœªç­¾åˆ°å¤‡æ³¨
         /// </summary>
         /// <param name="Nnum"></param>
         /// <returns></returns>
@@ -249,7 +249,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindString(mysql);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
@@ -263,7 +263,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ»ñÈ¡È±Ï¯¼ÇÂ¼ÁĞ±í£¬°´ÈÕÆÚÅÅĞò
+        /// æ ¹æ®å­¦å·è·å–ç¼ºå¸­è®°å½•åˆ—è¡¨ï¼ŒæŒ‰æ—¥æœŸæ’åº
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -273,7 +273,7 @@ namespace LearnSite.DAL
             return DbHelperSQL.Query(mysql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
@@ -293,7 +293,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.Query(strSql.ToString());
 		}
         /// <summary>
-        /// Ôö¼Ó×Ö¶Î³õÊ¼»¯
+        /// å¢åŠ å­—æ®µåˆå§‹åŒ–
         /// </summary>
         public void upgradefix()
         {
@@ -304,15 +304,15 @@ namespace LearnSite.DAL
         }
 
         /// <summary>
-        /// Ä³°à¼¶Ç©µ½µ¼³öµ½Excel
+        /// æŸç­çº§ç­¾åˆ°å¯¼å‡ºåˆ°Excel
         /// </summary>
         public void NotSignExcel(int Sgrade, int Sclass, int Nterm)
         {
             DateTime dt = DateTime.Now;
             string today = dt.Year.ToString() + "-" + dt.Month.ToString() + "-" + dt.Day;
-            string FileName = Sgrade.ToString() + "_" + Sclass.ToString() + "_" + Nterm.ToString() + System.Web.HttpUtility.UrlEncode("È±Ï¯") + today;
+            string FileName = Sgrade.ToString() + "_" + Sclass.ToString() + "_" + Nterm.ToString() + System.Web.HttpUtility.UrlEncode("ç¼ºå¸­") + today;
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Nnum as Ñ§ºÅ, Sname as ĞÕÃû,Sgrade as Äê¼¶,Sclass as °à¼¶,Nnote as È±Ï¯Ô­Òò,Ndate as ÈÕÆÚ");
+            strSql.Append("select Nnum as å­¦å·, Sname as å§“å,Sgrade as å¹´çº§,Sclass as ç­çº§,Nnote as ç¼ºå¸­åŸå› ,Ndate as æ—¥æœŸ");
             strSql.Append(" FROM NotSign,Students ");
             strSql.Append(" WHERE Nnum=Snum AND Sgrade=Ngrade AND Sgrade=@Sgrade AND Sclass=@Sclass AND Nterm=@Nterm ORDER BY Nnum ASC");
             SqlParameter[] parameters = {
@@ -329,7 +329,7 @@ namespace LearnSite.DAL
         }
 		/*
 		/// <summary>
-		/// ·ÖÒ³»ñÈ¡Êı¾İÁĞ±í
+		/// åˆ†é¡µè·å–æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
@@ -352,7 +352,7 @@ namespace LearnSite.DAL
 			return DbHelperSQL.RunProcedure("UP_GetRecordByPage",parameters,"ds");
 		}*/
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

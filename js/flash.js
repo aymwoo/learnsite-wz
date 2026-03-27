@@ -1,4 +1,4 @@
-﻿function ShowFlash() {
+function ShowFlash() {
     var url = "../images/road.swf";
     var Width = 640;
     var Height = 480;

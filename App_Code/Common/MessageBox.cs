@@ -3,7 +3,7 @@ using System.Text;
 namespace LearnSite.Common
 {
     /// <summary>
-    /// ÏÔÊ¾ÏûÏ¢ÌáÊ¾¶Ô»°¿ò¡£
+    /// æ˜¾ç¤ºæ¶ˆæ¯æç¤ºå¯¹è¯æ¡†ã€‚
     /// </summary>
     public class MessageBox
     {
@@ -11,11 +11,11 @@ namespace LearnSite.Common
         {
         }
 
-        ///ĞÂ°æ±¾
+        ///æ–°ç‰ˆæœ¬
         /// <summary>
-        /// µ¯³öJavaScriptĞ¡´°¿Ú
+        /// å¼¹å‡ºJavaScriptå°çª—å£
         /// </summary>
-        /// <param name="js">´°¿ÚĞÅÏ¢</param>
+        /// <param name="js">çª—å£ä¿¡æ¯</param>
         public static void Alert(string message,System.Web.UI.Page page)
         {
             string js = @"<Script language='JavaScript'>

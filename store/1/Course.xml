@@ -1,0 +1,597 @@
+<?xml version="1.0" standalone="yes"?>
+<LearnSite>
+  <xs:schema id="LearnSite" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="LearnSite" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="Course">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Cid" type="xs:int" minOccurs="0" />
+                <xs:element name="Ctitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Cclass" type="xs:string" minOccurs="0" />
+                <xs:element name="Ccontent" type="xs:string" minOccurs="0" />
+                <xs:element name="Cdate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Chit" type="xs:int" minOccurs="0" />
+                <xs:element name="Cobj" type="xs:int" minOccurs="0" />
+                <xs:element name="Cterm" type="xs:int" minOccurs="0" />
+                <xs:element name="Cks" type="xs:int" minOccurs="0" />
+                <xs:element name="Cfiletype" type="xs:string" minOccurs="0" />
+                <xs:element name="Cupload" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Chid" type="xs:int" minOccurs="0" />
+                <xs:element name="Cpublish" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Cdelete" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Cgood" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Cold" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Cbanner" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Mission">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Mid" type="xs:int" minOccurs="0" />
+                <xs:element name="Mtitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Mcid" type="xs:int" minOccurs="0" />
+                <xs:element name="Mcontent" type="xs:string" minOccurs="0" />
+                <xs:element name="Mdate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Mhit" type="xs:int" minOccurs="0" />
+                <xs:element name="Mfiletype" type="xs:string" minOccurs="0" />
+                <xs:element name="Mupload" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Msort" type="xs:int" minOccurs="0" />
+                <xs:element name="Mpublish" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mgroup" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mgid" type="xs:int" minOccurs="0" />
+                <xs:element name="Mdelete" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mexample" type="xs:string" minOccurs="0" />
+                <xs:element name="Mcategory" type="xs:int" minOccurs="0" />
+                <xs:element name="Microworld" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mback" type="xs:string" minOccurs="0" />
+                <xs:element name="Mhelp" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mcase" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="TopicDiscuss">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Tid" type="xs:int" minOccurs="0" />
+                <xs:element name="Tcid" type="xs:int" minOccurs="0" />
+                <xs:element name="Ttitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Tcontent" type="xs:string" minOccurs="0" />
+                <xs:element name="Tcount" type="xs:int" minOccurs="0" />
+                <xs:element name="Tteacher" type="xs:int" minOccurs="0" />
+                <xs:element name="Tdate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Tclose" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Tresult" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Exams">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Eid" type="xs:int" minOccurs="0" />
+                <xs:element name="Etitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Edescription" type="xs:string" minOccurs="0" />
+                <xs:element name="Cid" type="xs:int" minOccurs="0" />
+                <xs:element name="Hid" type="xs:int" minOccurs="0" />
+                <xs:element name="Etime" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Eclose" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Escore" type="xs:int" minOccurs="0" />
+                <xs:element name="Ecount" type="xs:int" minOccurs="0" />
+                <xs:element name="Edata" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="TxtForm">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Mid" type="xs:int" minOccurs="0" />
+                <xs:element name="Mtitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Mcid" type="xs:int" minOccurs="0" />
+                <xs:element name="Mcontent" type="xs:string" minOccurs="0" />
+                <xs:element name="Mdate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Mhit" type="xs:int" minOccurs="0" />
+                <xs:element name="Mpublish" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mdelete" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Mcollabo" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ListMenu">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Lid" type="xs:int" minOccurs="0" />
+                <xs:element name="Lcid" type="xs:int" minOccurs="0" />
+                <xs:element name="Lsort" type="xs:int" minOccurs="0" />
+                <xs:element name="Ltype" type="xs:int" minOccurs="0" />
+                <xs:element name="Lxid" type="xs:int" minOccurs="0" />
+                <xs:element name="Lshow" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Ltitle" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Console">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Nid" type="xs:int" minOccurs="0" />
+                <xs:element name="Nhid" type="xs:int" minOccurs="0" />
+                <xs:element name="Ncid" type="xs:int" minOccurs="0" />
+                <xs:element name="Ntitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Ncontent" type="xs:string" minOccurs="0" />
+                <xs:element name="Npublish" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Ndate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Nbegin" type="xs:boolean" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="Problem">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Pid" type="xs:int" minOccurs="0" />
+                <xs:element name="Phid" type="xs:int" minOccurs="0" />
+                <xs:element name="Pnid" type="xs:int" minOccurs="0" />
+                <xs:element name="Ptitle" type="xs:string" minOccurs="0" />
+                <xs:element name="Pcode" type="xs:string" minOccurs="0" />
+                <xs:element name="Pouput" type="xs:string" minOccurs="0" />
+                <xs:element name="Pscore" type="xs:int" minOccurs="0" />
+                <xs:element name="Pdate" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="Psort" type="xs:int" minOccurs="0" />
+                <xs:element name="Pcid" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="JudgeArg">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Jid" type="xs:int" minOccurs="0" />
+                <xs:element name="Jhid" type="xs:int" minOccurs="0" />
+                <xs:element name="Jmid" type="xs:int" minOccurs="0" />
+                <xs:element name="Jsleep" type="xs:int" minOccurs="0" />
+                <xs:element name="Jinone" type="xs:string" minOccurs="0" />
+                <xs:element name="Jintwo" type="xs:string" minOccurs="0" />
+                <xs:element name="Jinthree" type="xs:string" minOccurs="0" />
+                <xs:element name="Joutone" type="xs:string" minOccurs="0" />
+                <xs:element name="Joutwo" type="xs:string" minOccurs="0" />
+                <xs:element name="Jouthree" type="xs:string" minOccurs="0" />
+                <xs:element name="Jright" type="xs:boolean" minOccurs="0" />
+                <xs:element name="Jcode" type="xs:string" minOccurs="0" />
+                <xs:element name="Jcid" type="xs:int" minOccurs="0" />
+                <xs:element name="Jimg" type="xs:string" minOccurs="0" />
+                <xs:element name="Jthumb" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <Course>
+    <Cid>1</Cid>
+    <Ctitle>AI应用网页设计打包测试</Ctitle>
+    <Cclass>Word</Cclass>
+    <Ccontent>大地震奔d</Ccontent>
+    <Cdate>2026-01-16T09:50:18.42+08:00</Cdate>
+    <Chit>0</Chit>
+    <Cobj>7</Cobj>
+    <Cterm>1</Cterm>
+    <Cks>1</Cks>
+    <Cupload>true</Cupload>
+    <Chid>2</Chid>
+    <Cpublish>true</Cpublish>
+    <Cdelete>false</Cdelete>
+    <Cgood>true</Cgood>
+    <Cold>false</Cold>
+    <Cbanner />
+  </Course>
+  <Mission>
+    <Mid>1</Mid>
+    <Mtitle>AI应用网页设计</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>&amp;lt;strong style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;一、百度网址：&amp;lt;a href=&amp;quot;https://chat.baidu.com/&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;https://chat.baidu.com/&amp;lt;/a&amp;gt;&amp;lt;br /&amp;gt;
+&amp;lt;/strong&amp;gt;&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;strong style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;二、提示词&amp;lt;/strong&amp;gt;&amp;lt;span style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;：&amp;lt;/span&amp;gt;&amp;lt;span style=&amp;quot;text-wrap-mode:wrap;color:#337FE5;font-family:arial;caret-color:#335BFF;background-color:#FFFFFF;&amp;quot;&amp;gt;创建一个播放一首歌的音乐播放器单个网页&amp;lt;/span&amp;gt;&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;span style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;设计步骤：&amp;lt;/span&amp;gt;&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;span style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;1、点击AI编程&amp;lt;/span&amp;gt;&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;span style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;2、输入AI提示词&amp;lt;/span&amp;gt;&amp;lt;br style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot; /&amp;gt;
+&amp;lt;span style=&amp;quot;font-family:Arial;text-wrap-mode:wrap;&amp;quot;&amp;gt;3、生成并优化改进：界面更美观、简洁、现代等词语。&amp;lt;br /&amp;gt;
+&amp;lt;img src=&amp;quot;http://10.136.37.3/store/122/aiaudio.png&amp;quot; alt=&amp;quot;&amp;quot; /&amp;gt;&amp;lt;br /&amp;gt;
+&amp;lt;strong&amp;gt;三、将代码粘贴到网页编辑器里&amp;lt;br /&amp;gt;
+&amp;lt;/strong&amp;gt;&amp;lt;br /&amp;gt;
+1、将桌面上的“我的中國心.mp3”歌曲上传到空间里&amp;lt;br /&amp;gt;
+2、在网页代码里找到mp3位置，将原来的歌曲改为“&amp;lt;span style=&amp;quot;background-color:#DFC5A4;&amp;quot;&amp;gt;我的中國心.mp3&amp;lt;/span&amp;gt;”&amp;lt;/span&amp;gt;</Mcontent>
+    <Mdate>2026-01-14T13:21:32.85+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>html</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>2</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>12</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback>a5.html</Mback>
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>2</Mid>
+    <Mtitle>温州旅游</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>温州旅游</Mcontent>
+    <Mdate>2026-01-14T12:30:38.847+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>html</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>3</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>12</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback>w1.html</Mback>
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>9</Mid>
+    <Mtitle>11</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>11</Mcontent>
+    <Mdate>2026-01-16T09:47:38.783+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>mp4</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>4</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>0</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>10</Mid>
+    <Mtitle>44</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>44</Mcontent>
+    <Mdate>2026-01-16T09:47:58.093+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>sb3</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>7</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample>~/scratch/project.sb3</Mexample>
+    <Mcategory>2</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>11</Mid>
+    <Mtitle>55</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>55</Mcontent>
+    <Mdate>2026-01-16T09:48:04.067+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>py</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>8</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>8</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>12</Mid>
+    <Mtitle>77</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>77</Mcontent>
+    <Mdate>2026-01-16T09:48:16.02+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>xml</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>10</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>10</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>13</Mid>
+    <Mtitle>88</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>88</Mcontent>
+    <Mdate>2026-01-16T09:48:40.473+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>excalidraw</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>11</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>25</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>14</Mid>
+    <Mtitle>99</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>99</Mcontent>
+    <Mdate>2026-01-16T09:48:50.653+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>html</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>12</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>12</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback>index.html</Mback>
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>15</Mid>
+    <Mtitle>10</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>10</Mcontent>
+    <Mdate>2026-01-16T09:48:57.557+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>km</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>13</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>15</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>16</Mid>
+    <Mtitle>11</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>11</Mcontent>
+    <Mdate>2026-01-16T09:49:03.837+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>sheet</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>14</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>16</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback />
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <Mission>
+    <Mid>17</Mid>
+    <Mtitle>12</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent />
+    <Mdate>2026-01-16T09:50:01.043+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mfiletype>ware</Mfiletype>
+    <Mupload>true</Mupload>
+    <Msort>15</Msort>
+    <Mpublish>true</Mpublish>
+    <Mgroup>false</Mgroup>
+    <Mgid>0</Mgid>
+    <Mdelete>false</Mdelete>
+    <Mexample />
+    <Mcategory>38</Mcategory>
+    <Microworld>false</Microworld>
+    <Mback>../store/1/index.html</Mback>
+    <Mhelp>false</Mhelp>
+  </Mission>
+  <TopicDiscuss>
+    <Tid>1</Tid>
+    <Tcid>1</Tcid>
+    <Ttitle>22</Ttitle>
+    <Tcontent>22</Tcontent>
+    <Tcount>0</Tcount>
+    <Tteacher>2</Tteacher>
+    <Tdate>2026-01-16T09:47:47.34+08:00</Tdate>
+    <Tclose>false</Tclose>
+  </TopicDiscuss>
+  <Exams>
+    <Eid>1</Eid>
+    <Etitle>信息科技期中练习</Etitle>
+    <Edescription>请仔细阅读题目并作答</Edescription>
+    <Cid>1</Cid>
+    <Hid>2</Hid>
+    <Etime>2026-01-13T09:00:32.573+08:00</Etime>
+    <Eclose>true</Eclose>
+    <Escore>28</Escore>
+    <Ecount>10</Ecount>
+    <Edata>JTdCJTIydGl0bGUlMjIlM0ElMjIlRTQlQkYlQTElRTYlODElQUYlRTclQTclOTElRTYlOEElODAlRTYlOUMlOUYlRTQlQjglQUQlRTclQkIlODMlRTQlQjklQTAlMjIlMkMlMjJkZXNjcmlwdGlvbiUyMiUzQSUyMiVFOCVBRiVCNyVFNCVCQiU5NCVFNyVCQiU4NiVFOSU5OCU4NSVFOCVBRiVCQiVFOSVBMiU5OCVFNyU5QiVBRSVFNSVCOSVCNiVFNCVCRCU5QyVFNyVBRCU5NCUyMiUyQyUyMnF1ZXN0aW9ucyUyMiUzQSU1QiU3QiUyMmlkJTIyJTNBJTIycV8xNzY4MTI4MzUwMjAwZjN0YWZsNXZ2JTIyJTJDJTIydHlwZSUyMiUzQSUyMnNpbmdsZV9jaG9pY2UlMjIlMkMlMjJ0aXRsZSUyMiUzQSUyMiUzQ3AlM0UlRTUlQjAlOEYlRTYlOTglOEUlRTUlOUMlQTglRTQlQkQlQkYlRTclOTQlQTglRTYlOTAlOUMlRTclQjQlQTIlRTUlQkMlOTUlRTYlOTMlOEUlRTYlOUYlQTUlRTYlODklQkUlRTIlODAlOUMlRTUlQTYlODIlRTQlQkQlOTUlRTQlQkYlOUQlRTYlOEElQTQlRTQlQjglQUElRTQlQkElQkElRTQlQkYlQTElRTYlODElQUYlRUYlQkMlOEMlRTUlOEYlOTElRTclOEUlQjAlRTYlOTAlOUMlRTclQjQlQTIlRTclQkIlOTMlRTYlOUUlOUMlRTQlQjglQUQlRTUlQTQlQjklRTYlOUQlODIlRTclOUQlODAlRTUlQTQlQTclRTklODclOEYlRTUlQjklQkYlRTUlOTElOEElRTUlOTIlOEMlRTglOTklOUElRTUlODElODclRTklOTMlQkUlRTYlOEUlQTUlRTMlODAlODIlRTQlQjglQkElRTYlOEYlOTAlRTklQUIlOTglRTYlOTAlOUMlRTclQjQlQTIlRTYlOTUlODglRTclOEUlODclRTUlQjklQjYlRTclQTElQUUlRTQlQkYlOUQlRTQlQkYlQTElRTYlODElQUYlRTUlOEYlQUYlRTklOUQlQTAlRUYlQkMlOEMlRTQlQkIlOTYlRTUlQkElOTQlRTglQUYlQTUlRTklODclODclRTUlOEYlOTYlRTclOUElODQlRTYlOUMlODAlRTQlQkQlQjMlRTUlODElOUElRTYlQjMlOTUlRTYlOTglQUYlRUYlQkMlOUElM0NpbWclMjBzcmMlM0QlNUMlMjIuLiUyRndlYmZvcm0lMkZ1cGxvYWRzJTJGMjAyNjAxMDMyMTAxNDNfNjQzOS5wbmclNUMlMjIlMjBhbHQlM0QlNUMlMjIlRTQlQjglOEElRTQlQkMlQTAlRTclOUElODQlRTUlOUIlQkUlRTclODklODclNUMlMjIlMjBzdHlsZSUzRCU1QyUyMm1heC13aWR0aCUzQSUyMDEwMCUyNSUzQiU1QyUyMiUzRSUzQyUyRnAlM0UlMjIlMkMlMjJzY29yZSUyMiUzQTIlMkMlMjJvcHRpb25zJTIyJTNBJTVCJTIyJTdDJTdDSU1HJTNBMjAyNjAxMDIxODQ3MDNfOTkzNS5naWYlMjIlMkMlMjIlN0MlN0NJTUclM0EyMDI2MDEwMzE3NTA1M185MTI3LmdpZiUyMiUyQyUyMiVFNCVCRCVCRiVFNyU5NCVBOCVFNSVBRSU5OCVFNiU5NiVCOSVFNiU5QyVCQSVFNiU5RSU4NCVFNiU4OCU5NiVFNiU5NSU5OSVFOCU4MiVCMiVFNyVCRCU5MSVFNyVBQiU5OSVFRiVCQyU4OCVFNSVBNiU4MiUyMC5nb3YlRTMlODAlODEuZWR1JUVGJUJDJTg5JUU3JTlBJTg0JUU2JTkwJTlDJUU3JUI0JUEyJUU3JUJCJTkzJUU2JTlFJTlDJTdDJTdDSU1HJTNBMjAyNjAxMDIxOTEwMjFfMTI1My5naWYlMjIlMkMlMjIlRTUlQTQlOEQlRTUlODglQjYlRTYlOTAlOUMlRTclQjQlQTIlRTglQUYlOEQlRTUlODglQjAlRTUlQTQlOUElRTQlQjglQUElRTYlOTAlOUMlRTclQjQlQTIlRTUlQkMlOTUlRTYlOTMlOEUlRTklODclOEQlRTUlQTQlOEQlRTYlOUYlQTUlRTYlODklQkUlN0MlN0NJTUclM0EyMDI2MDEwMzIxMDEyN182NzUxLnBuZyUyMiU1RCUyQyUyMmFuc3dlciUyMiUzQTIlN0QlMkMlN0IlMjJpZCUyMiUzQSUyMnFfMTc2ODEyODM1MDIwMDgybWdvMXBsbiUyMiUyQyUyMnR5cGUlMjIlM0ElMjJmaWxsX2JsYW5rJTIyJTJDJTIydGl0bGUlMjIlM0ElMjIlM0NwJTNFJUU2JUEwJUI5JUU2JThEJUFFJUU1JTg2JUFGJUMyJUI3JUU4JUFGJUJBJUU0JUJFJTlEJUU2JTlCJUJDJUU0JUJEJTkzJUU3JUIzJUJCJUU3JUJCJTkzJUU2JTlFJTg0JTJDJUU4JUFFJUExJUU3JUFFJTk3JUU2JTlDJUJBJUU3JTk0JUIxX19fJUUzJTgwJTgxJUU2JThFJUE3JUU1JTg4JUI2JUU1JTk5JUE4JUUzJTgwJTgxX19fJUUzJTgwJTgxJUU4JUJFJTkzJUU1JTg1JUE1JUU4JUFFJUJFJUU1JUE0JTg3JUU1JTkyJThDJUU4JUJFJTkzJUU1JTg3JUJBJUU4JUFFJUJFJUU1JUE0JTg3JUU0JUJBJTk0JUU1JUE0JUE3JUU5JTgzJUE4JUU1JTg4JTg2JUU3JUJCJTg0JUU2JTg4JTkwJUUzJTgwJTgyJTNDJTJGcCUzRSUyMiUyQyUyMnNjb3JlJTIyJTNBMiUyQyUyMmJsYW5rcyUyMiUzQSU1QiU3QiUyMmFuc3dlciUyMiUzQSUyMiVFOCVCRiU5MCVFNyVBRSU5NyVFNSU5OSVBOCUyMiU3RCUyQyU3QiUyMmFuc3dlciUyMiUzQSUyMiVFNSVBRCU5OCVFNSU4MiVBOCVFNSU5OSVBOCUyMiU3RCU1RCU3RCUyQyU3QiUyMmlkJTIyJTNBJTIycV8xNzY4MTI4MzUwMjAwM2V5cjc3YndpJTIyJTJDJTIydHlwZSUyMiUzQSUyMnRydWVfZmFsc2UlMjIlMkMlMjJ0aXRsZSUyMiUzQSUyMiVFNCVCRCVCRiVFNyU5NCVBOCVFNSU4NSVBQyVFNSU4NSVCMVdpLUZpJUU3JTk5JUJCJUU1JUJEJTk1JUU5JTkzJUI2JUU4JUExJThDJUU4JUI0JUE2JUU2JTg4JUI3JUU2JTk3JUI2JUVGJUJDJThDJUU1JThGJUFBJUU4JUE2JTgxJUU4JUJFJTkzJUU1JTg1JUE1JUU2JUFEJUEzJUU3JUExJUFFJUU3JTlBJTg0JUU1JUFGJTg2JUU3JUEwJTgxJUVGJUJDJThDJUU1JUIwJUIxJUU0JUI4JThEJUU3JTk0JUE4JUU2JThCJTg1JUU1JUJGJTgzJUU0JUI4JUFBJUU0JUJBJUJBJUU0JUJGJUExJUU2JTgxJUFGJUU4JUEyJUFCJUU3JUFBJTgzJUU1JThGJTk2JUUzJTgwJTgyJTVDbiUzQ3ByZSUyMGNsYXNzJTNEJTVDJTIyY29kZS1ibG9jayU1QyUyMiUyMGRhdGEtbGFuZ3VhZ2UlM0QlNUMlMjJweXRob24lNUMlMjIlM0UlM0Njb2RlJTIwY2xhc3MlM0QlNUMlMjJsYW5ndWFnZS1weXRob24lMjBobGpzJTVDJTIyJTIwZGF0YS1oaWdobGlnaHRlZCUzRCU1QyUyMnllcyU1QyUyMiUzRSUzQ3NwYW4lMjBjbGFzcyUzRCU1QyUyMmhsanMta2V5d29yZCU1QyUyMiUzRWltcG9ydCUzQyUyRnNwYW4lM0UlMjB0dXJ0bGUlMjAlMjAlMjAlMjAlMjAlMjAlMjAlMjAlM0NzcGFuJTIwY2xhc3MlM0QlNUMlMjJobGpzLWNvbW1lbnQlNUMlMjIlM0UlMjMlMjAlRTUlQUYlQkMlRTUlODUlQTUlRTYlQjUlQjclRTklQkUlOUYlRTclQkIlOTglRTUlOUIlQkUlRTUlQkElOTMlM0MlMkZzcGFuJTNFJTVDbiU1Q24lM0NzcGFuJTIwY2xhc3MlM0QlNUMlMjJobGpzLWtleXdvcmQlNUMlMjIlM0Vmb3IlM0MlMkZzcGFuJTNFJTIwciUyMCUzQ3NwYW4lMjBjbGFzcyUzRCU1QyUyMmhsanMta2V5d29yZCU1QyUyMiUzRWluJTNDJTJGc3BhbiUzRSUyMCUzQ3NwYW4lMjBjbGFzcyUzRCU1QyUyMmhsanMtYnVpbHRfaW4lNUMlMjIlM0VyYW5nZSUzQyUyRnNwYW4lM0UoJTNDc3BhbiUyMGNsYXNzJTNEJTVDJTIyaGxqcy1udW1iZXIlNUMlMjIlM0UyMCUzQyUyRnNwYW4lM0UlMkMlM0NzcGFuJTIwY2xhc3MlM0QlNUMlMjJobGpzLW51bWJlciU1QyUyMiUzRTEyMCUzQyUyRnNwYW4lM0UlMkMlM0NzcGFuJTIwY2xhc3MlM0QlNUMlMjJobGpzLW51bWJlciU1QyUyMiUzRTIwJTNDJTJGc3BhbiUzRSklM0ElNUNuJTIwJTIwJTIwJTIwdHVydGxlLmNpcmNsZShyKSUyMCUyMCUyMCUzQ3NwYW4lMjBjbGFzcyUzRCU1QyUyMmhsanMtY29tbWVudCU1QyUyMiUzRSUyMyVFNiVCNSVCNyVFOSVCRSU5RiUyMCUyMCVFNSU5QyU4NiUyMCVFNSU4RCU4QSVFNSVCRSU4NCUzQyUyRnNwYW4lM0UlM0MlMkZjb2RlJTNFJTNDJTJGcHJlJTNFJTVDbiUyMiUyQyUyMnNjb3JlJTIyJTNBMiUyQyUyMmFuc3dlciUyMiUzQWZhbHNlJTdEJTJDJTdCJTIyaWQlMjIlM0ElMjJxXzE3NjgxMjgzNTAyMDBzamkyYjljeHAlMjIlMkMlMjJ0eXBlJTIyJTNBJTIybWF0Y2hpbmclMjIlMkMlMjJ0aXRsZSUyMiUzQSUyMiUzQ3AlM0UlRTUlQjAlODYlRTglQkQlQUYlRTQlQkIlQjYlRTQlQjglOEUlRTclOUIlQjglRTUlQkElOTQlRTclOUElODQlRTUlQkElOTQlRTclOTQlQTglRTUlOEElOUYlRTglODMlQkQlRTglQkYlOUUlRTclQkElQkYlRTMlODAlODIlM0MlMkZwJTNFJTIyJTJDJTIyc2NvcmUlMjIlM0EzJTJDJTIyYW5zd2VyJTIyJTNBJTdCJTIyMCUyMiUzQTAlMkMlMjIxJTIyJTNBMSUyQyUyMjIlMjIlM0EyJTdEJTJDJTIybGVmdEl0ZW1zJTIyJTNBJTVCJTIyV29yZCU3QyU3Q0lNRyUzQTIwMjYwMTAyMTgxNDI0XzI3NjQucG5nJTIyJTJDJTIyRXhjZWwlN0MlN0NJTUclM0EyMDI2MDEwMjE4MTQyOV84NzMxLnBuZyUyMiUyQyUyMlBvd2VycG9pbnQlN0MlN0NJTUclM0EyMDI2MDEwMzIxMDIyNV83NDM1LmdpZiUyMiU1RCUyQyUyMnJpZ2h0SXRlbXMlMjIlM0ElNUIlMjIlRTclOTQlQTglRTQlQkElOEUlRTclQkMlOTYlRTglQkUlOTElRTUlOTIlOEMlRTYlOEUlOTIlRTclODklODglRTYlOTYlODclRTUlQUQlOTclRTYlOTYlODclRTYlQTElQTMlMjIlMkMlMjIlRTclOTQlQTglRTQlQkElOEUlRTglQkYlOUIlRTglQTElOEMlRTYlOTUlQjAlRTYlOEQlQUUlRTglQUUlQTElRTclQUUlOTclRTQlQjglOEUlRTUlOUIlQkUlRTglQTElQTglRTUlODglODYlRTYlOUUlOTAlMjIlMkMlMjIlRTclOTQlQTglRTQlQkElOEUlRTUlODglQjYlRTQlQkQlOUMlRTUlOEElQTglRTYlODAlODElRTYlQkMlOTQlRTclQTQlQkElRTYlOTYlODclRTclQTglQkYlMjIlNUQlN0QlMkMlN0IlMjJpZCUyMiUzQSUyMnFfMTc2ODEyODM1MDIwMDA4NGd1OHc1cyUyMiUyQyUyMnR5cGUlMjIlM0ElMjJzb3J0X3F1ZXN0aW9uJTIyJTJDJTIydGl0bGUlMjIlM0ElMjIlM0NwJTNFJUU4JUFGJUI3JUU1JUIwJTg2JUUyJTgwJTlDJUU3JTk0JUE4JUU3JUFFJTk3JUU2JUIzJTk1JUU4JUE3JUEzJUU1JTg2JUIzJUUyJTgwJTk4JUU2JTg5JUJFJUU1JTg3JUJBJUU3JThGJUFEJUU3JUJBJUE3JUU2JTlDJTgwJUU5JUFCJTk4JUU1JTg4JTg2JUUyJTgwJTk5JUUyJTgwJTlEJUU3JTlBJTg0JUU2JUFEJUE1JUU5JUFBJUE0JUU2JThDJTg5JUU2JUFEJUEzJUU3JUExJUFFJUU5JTgwJUJCJUU4JUJFJTkxJUU5JUExJUJBJUU1JUJBJThGJUU2JThFJTkyJUU1JTg4JTk3JUVGJUJDJTlBJTNDJTJGcCUzRSUyMiUyQyUyMnNjb3JlJTIyJTNBNCUyQyUyMmFuc3dlciUyMiUzQSU1QjAlMkMxJTJDMiUyQzMlNUQlMkMlMjJpdGVtcyUyMiUzQSU1QiUyMiVFOCVBRiVCQiVFNSU4RiU5NiVFNyVBQyVBQyVFNCVCOCU4MCVFNCVCOCVBQSVFNSVBRCVBNiVFNyU5NCU5RiVFNyU5QSU4NCVFNSU4OCU4NiVFNiU5NSVCMCVFRiVCQyU4QyVFOCVBRSVCRSVFNCVCOCVCQSVFNSVCRCU5MyVFNSU4OSU4RCVFNiU5QyU4MCVFOSVBQiU5OCVFNSU4OCU4NiUyMiUyQyUyMiVFNiVBRiU5NCVFOCVCRSU4MyVFNSVCRCU5MyVFNSU4OSU4RCVFNSU4OCU4NiVFNiU5NSVCMCVFNCVCOCU4RSVFNiU5QyU4MCVFOSVBQiU5OCVFNSU4OCU4NiVFRiVCQyU4QyVFOCU4QiVBNSVFNiU5QiVCNCVFNSVBNCVBNyVFNSU4OCU5OSVFNiU5QiVCNCVFNiU5NiVCMCVFNiU5QyU4MCVFOSVBQiU5OCVFNSU4OCU4NiUyMiUyQyUyMiVFOSU4MSU4RCVFNSU4RSU4NiVFNyU4RiVBRCVFNyVCQSVBNyVFNiU4OSU4MCVFNiU5QyU4OSVFNSVBRCVBNiVFNyU5NCU5RiVFNyU5QSU4NCVFNSU4OCU4NiVFNiU5NSVCMCVFNSU4OCU5NyVFOCVBMSVBOCUyMiUyQyUyMiVFOSU4NyU4RCVFNSVBNCU4RCVFNiVBRCVBNSVFOSVBQSVBNCVFMiU5MSVBMCVFRiVCQyU4QyVFNyU5QiVCNCVFNSU4OCVCMCVFNiU4OSU4MCVFNiU5QyU4OSVFNSVBRCVBNiVFNyU5NCU5RiVFNiU4OCU5MCVFNyVCQiVBOSVFNSVBNCU4NCVFNyU5MCU4NiVFNSVBRSU4QyVFNiVBRiU5NSUyMiU1RCU3RCUyQyU3QiUyMmlkJTIyJTNBJTIycV8xNzY4MTI4MzUwMjAwbzN4MmpiNWxpJTIyJTJDJTIydHlwZSUyMiUzQSUyMnRhYmxlX3F1ZXN0aW9uJTIyJTJDJTIydGl0bGUlMjIlM0ElMjIlM0NwJTNFJUU0JUI4JThCJUU4JUExJUE4JUU2JTk4JUFGJUU0JUI4JTg5JUU3JUE3JThEJUU1JUI4JUI4JUU4JUE3JTgxJUU2JTk2JTg3JUU0JUJCJUI2JUU2JUEwJUJDJUU1JUJDJThGJUU3JTlBJTg0JUU2JTg5JUE5JUU1JUIxJTk1JUU1JTkwJThEJUU1JThGJThBJUU1JTg1JUI2JUU0JUI4JUJCJUU4JUE2JTgxJUU3JTk0JUE4JUU5JTgwJTk0JUVGJUJDJThDJUU4JUFGJUI3JUU2JUEwJUI5JUU2JThEJUFFJUU2JUEwJTg3JUU1JTg3JTg2JUU1JUFFJTlBJUU0JUI5JTg5JUVGJUJDJThDJUU1JUIwJTg2JUUyJTgwJTlDJUU2JTk2JTg3JUU0JUJCJUI2JUU3JUIxJUJCJUU1JTlFJThCJUUyJTgwJTlEJUU0JUI4JThFJUUyJTgwJTlDJUU2JTg5JUE5JUU1JUIxJTk1JUU1JTkwJThEJUUyJTgwJTlEJUU2JUFEJUEzJUU3JUExJUFFJUU1JThDJUI5JUU5JTg1JThEJUVGJUJDJTg4JUU1JUExJUFCJUU1JTg2JTk5JUU1JUFGJUI5JUU1JUJBJTk0JUU1JUFEJTk3JUU2JUFGJThEJUVGJUJDJTg5JUUzJTgwJTgyQS4lMjAudHh0JTI2bmJzcCUzQiUyMCUyNm5ic3AlM0IlMjAlMjZuYnNwJTNCQi4lMjAueGxzeCUyNm5ic3AlM0IlMjAlMjZuYnNwJTNCJTI2bmJzcCUzQkMuJTIwLnBwdHglMjZuYnNwJTNCJTIwJTI2bmJzcCUzQiUyNm5ic3AlM0JELiUyMC5qcGclMjZuYnNwJTNCJTIwJTI2bmJzcCUzQiUyNm5ic3AlM0JFLiUyMC5tcDMlM0MlMkZwJTNFJTIyJTJDJTIyc2NvcmUlMjIlM0EzJTJDJTIyYW5zd2VyJTIyJTNBJTdCJTIyMSUyQzElMjIlM0ElMjJCJTIyJTJDJTIyMCUyQzElMjIlM0ElMjJBJTIyJTJDJTIyMiUyQzElMjIlM0ElMjJDJTIyJTdEJTJDJTIydGFibGVEYXRhJTIyJTNBJTdCJTIyaGVhZGVycyUyMiUzQSU1QiUyMiVFOSVBMSVCOSVFNyU5QiVBRSUyMiUyQyUyMiVFNiU5NSVCMCVFNSU4MCVCQ0IlMjIlNUQlMkMlMjJyb3dzJTIyJTNBJTVCJTVCJTIyJUU2JTk2JTg3JUU2JTlDJUFDJUU2JTk2JTg3JUU2JUExJUEzJTIyJTJDJTIyQSUyMiU1RCUyQyU1QiUyMiVFNyU5NCVCNSVFNSVBRCU5MCVFOCVBMSVBOCVFNiVBMCVCQyUyMiUyQyUyMkIlMjIlNUQlMkMlNUIlMjIlRTYlQkMlOTQlRTclQTQlQkElRTYlOTYlODclRTclQTglQkYlMjIlMkMlMjJDJTIyJTVEJTVEJTdEJTdEJTJDJTdCJTIyaWQlMjIlM0ElMjJxXzE3NjgxMjgzNTAyMDB4ZTR4MXd4OGklMjIlMkMlMjJ0eXBlJTIyJTNBJTIyc2luZ2xlX2Nob2ljZSUyMiUyQyUyMnRpdGxlJTIyJTNBJTIyJTNDcCUzRSUzQ3NwYW4lMjBzdHlsZSUzRCU1QyUyMmZvbnQtc2l6ZSUzQSUyMDAuOTVyZW0lM0IlNUMlMjIlM0UlRTglQjUlQjAlRTglQkYlOUIlRTUlQkElOTclRTUlODYlODUlRUYlQkMlOEMlRTklQTYlOTYlRTUlODUlODglRTYlOTglQTAlRTUlODUlQTUlRTclOUMlQkMlRTUlQjglOTglRTclOUElODQlRTYlOTglQUYlRTQlQjglODAlRTYlQTElOEMlRTYlOUQlQUYlRTUlODUlQjclRTMlODAlODElRTQlQjglODAlRTYlOUUlQjYlRTUlQUQlOTAlRTQlQjklQTYlRUYlQkMlOEMlRTQlQkIlQTUlRTUlOEYlOEElRTUlQTIlOTklRTQlQjglOEElRTklODYlOTIlRTclOUIlQUUlRTclOUElODQlRTYlQTAlODclRTglQUYlQUQlRUYlQkMlOUElRTIlODAlOUMlRTYlOUMlQUMlRTUlQkElOTclRTYlODklODAlRTYlOUMlODklRTUlOTUlODYlRTUlOTMlODElRTYlQTYlODIlRTQlQjglOEQlRTglQkYlOTglRTQlQkIlQjclRUYlQkMlOEMlRTYlOTQlQUYlRTYlOEMlODElRTQlQkIlQTUlRTclODklQTklRTYlOEQlQTIlRTclODklQTklRTIlODAlOUQlRTMlODAlODIlM0MlMkZzcGFuJTNFJTNDc3BhbiUyMHN0eWxlJTNEJTVDJTIyZm9udC1zaXplJTNBJTIwMC45NXJlbSUzQiU1QyUyMiUzRSVFNCVCOCVBNCVFNSVCMSU4MiVFNyVBOSVCQSVFOSU5NyVCNCVFOSU4NyU4QyVFRiVCQyU4QyVFNCVCQiU4RSVFNiU5NyVBNSVFNyU5NCVBOCVFNiU5RCU4MiVFOCVCNCVBNyVFOSVBNSVCMCVFNSU5MyU4MSVFNSU4OCVCMCVFNSVBRSVCNiVFNyU5NCVCNSVFNSVBRSVCNiVFNSU4NSVCNyVFRiVCQyU4QyVFNSU4RiVBRiVFOCVCMCU5MyVFNSU4QyU4NSVFNyVCRCU5NyVFNCVCOCU4NyVFOCVCMSVBMSVFMyU4MCU4MiVFNCVCOCU4MCVFNSU4RiVCMCVFNCVCQSU4QyVFNiU4OSU4QiVFNSVCRSVBRSVFNiVCMyVBMiVFNyU4MiU4OSVFNiVBMCU4NyVFNCVCQiVCNzEzMCVFNSU4NSU4MyVFRiVCQyU4QyVFOCU4MCU4MSVFNSVCQyU4RiVFNSVBRCU5OCVFOSU5MiVCMSVFNyVCRCU5MDQwJUU1JTg1JTgzJUVGJUJDJThDJUU3JThFJUJCJUU3JTkyJTgzJUU2JTlEJUFGNSVFNSU4NSU4MyVFMyU4MCU4MiUzQyUyRnNwYW4lM0UlM0MlMkZwJTNFJTIyJTJDJTIyc2NvcmUlMjIlM0EyJTJDJTIyb3B0aW9ucyUyMiUzQSU1QiUyMiVFNSVCRSVBRSVFNiVCMyVBMiVFNyU4MiU4OSVFNiVBMCU4NyVFNCVCQiVCNzEzMCVFNSU4NSU4MyU3QyU3Q0lNRyUzQTIwMjYwMTAyMTkxMjE4XzI2ODEucG5nJTIyJTJDJTIyJUU4JTgwJTgxJUU1JUJDJThGJUU1JUFEJTk4JUU5JTkyJUIxJUU3JUJEJTkwNDAlRTUlODUlODMlMjIlMkMlMjIlRTclOEUlQkIlRTclOTIlODMlRTYlOUQlQUY1JUU1JTg1JTgzJTIyJTVEJTJDJTIyYW5zd2VyJTIyJTNBMCU3RCUyQyU3QiUyMmlkJTIyJTNBJTIycV8xNzY4MTI4MzUwMjAwa2VvNDk3cjI2JTIyJTJDJTIydHlwZSUyMiUzQSUyMnNob3J0X2Fuc3dlciUyMiUyQyUyMnRpdGxlJTIyJTNBJTIyJTNDcCUzRSUzQ3NwYW4lMjBzdHlsZSUzRCU1QyUyMmZvbnQtc2l6ZSUzQSUyMDAuOTVyZW0lM0IlNUMlMjIlM0UlRTglQUYlQjclRTclQUUlODAlRTglQkYlQjAlRTIlODAlOUMlRTclQUUlOTclRTYlQjMlOTUlRTIlODAlOUQlRTUlOUMlQTglRTglQTclQTMlRTUlODYlQjMlRTUlQUUlOUUlRTklOTklODUlRTklOTclQUUlM0MlMkZzcGFuJTNFJTNDc3BhbiUyMHN0eWxlJTNEJTVDJTIyZm9udC1zaXplJTNBJTIwMC45NXJlbSUzQiU1QyUyMiUzRSVFOSVBMiU5OCVFNCVCOCVBRCVFNyU5QSU4NCVFNCVCRCU5QyVFNyU5NCVBOCVFMyU4MCU4MiUzQyUyRnNwYW4lM0UlM0MlMkZwJTNFJTIyJTJDJTIyc2NvcmUlMjIlM0E1JTJDJTIyYW5zd2VyJTIyJTNBJTIyJUU3JUFFJTk3JUU2JUIzJTk1JUU2JTk4JUFGJUU4JUE3JUEzJUU1JTg2JUIzJUU5JTk3JUFFJUU5JUEyJTk4JUU3JTlBJTg0JUU0JUI4JTgwJUU3JUIzJUJCJUU1JTg4JTk3JUU2JUI4JTg1JUU2JTk5JUIwJUU2JUFEJUE1JUU5JUFBJUE0JUUzJTgwJTgyJUU1JUFFJTgzJUU4JTgzJUJEJUU1JUI4JUFFJUU1JThBJUE5JUU2JTg4JTkxJUU0JUJCJUFDJUU1JUIwJTg2JUU1JUE0JThEJUU2JTlEJTgyJUU0JUJCJUJCJUU1JThBJUExJUU1JTg4JTg2JUU4JUE3JUEzJUU0JUI4JUJBJUU1JThGJUFGJUU2JTg5JUE3JUU4JUExJThDJUU3JTlBJTg0JUU2JTkzJThEJUU0JUJEJTlDJUVGJUJDJThDJUU2JThGJTkwJUU5JUFCJTk4JUU2JTk1JTg4JUU3JThFJTg3JUVGJUJDJThDJUU5JTgxJUJGJUU1JTg1JThEJUU0JUJBJUJBJUU0JUI4JUJBJUU5JTk0JTk5JUU4JUFGJUFGJUUzJTgwJTgyJUU0JUJFJThCJUU1JUE2JTgyJUVGJUJDJThDJUU3JTk0JUE4JUU3JUFFJTk3JUU2JUIzJTk1JUU4JUFFJUJFJUU4JUFFJUExJUU0JUI4JTgwJUU0JUI4JUFBJUUyJTgwJTlDJUU4JTg3JUFBJUU1JThBJUE4JUU2JTk1JUI0JUU3JTkwJTg2JUU2JTk2JTg3JUU0JUJCJUI2JUU1JUE0JUI5JUUyJTgwJTlEJUU3JTlBJTg0JUU3JUE4JThCJUU1JUJBJThGJUVGJUJDJThDJUU1JThGJUFGJUU0JUJCJUE1JUU2JThDJTg5JUU2JTk2JTg3JUU0JUJCJUI2JUU3JUIxJUJCJUU1JTlFJThCJUU4JTg3JUFBJUU1JThBJUE4JUU1JTg4JTg2JUU3JUIxJUJCJUVGJUJDJThDJUU4JThBJTgyJUU3JTlDJTgxJUU0JUJBJUJBJUU1JUI3JUE1JUU2JTkzJThEJUU0JUJEJTlDJUU2JTk3JUI2JUU5JTk3JUI0JUUzJTgwJTgyJTIyJTJDJTIya2V5d29yZHMlMjIlM0ElNUIlMjIlRTclQUUlOTclRTYlQjMlOTUlMjIlMkMlMjIlRTglQTclQTMlRTUlODYlQjMlMjIlMkMlMjIlRTYlQUQlQTUlRTklQUElQTQlMjIlMkMlMjIlRTUlODglODYlRTglQTclQTMlMjIlMkMlMjIlRTclQTglOEIlRTUlQkElOEYlMjIlNUQlMkMlMjJrZXl3b3JkVGhyZXNob2xkJTIyJTNBNjAlN0QlMkMlN0IlMjJpZCUyMiUzQSUyMnFfMTc2ODEyODM1MDIwMG92Y2dpZ2diMSUyMiUyQyUyMnR5cGUlMjIlM0ElMjJtdWx0aXBsZV9jaG9pY2UlMjIlMkMlMjJ0aXRsZSUyMiUzQSUyMiUzQ3AlM0UlRTQlQkIlQTUlRTQlQjglOEIlRTUlOTMlQUElRTQlQkElOUIlRTYlOTglQUYlRTclODklQTklRTglODElOTQlRTclQkQlOTElRTUlOUMlQTglRTYlOTclQTUlRTUlQjglQjglRTclOTQlOUYlRTYlQjQlQkIlRTQlQjglQUQlRTclOUElODQlRTUlQUUlOUUlRTklOTklODUlRTUlQkElOTQlRTclOTQlQTglRUYlQkMlOUYlM0MlMkZwJTNFJTIyJTJDJTIyc2NvcmUlMjIlM0EzJTJDJTIyb3B0aW9ucyUyMiUzQSU1QiUyMiVFNiU5OSVCQSVFOCU4MyVCRCVFOSU5NyVBOCVFOSU5NCU4MSVFOSU4MCU5QSVFOCVCRiU4NyVFNiU4QyU4NyVFNyVCQSVCOSVFOCVBRiU4NiVFNSU4OCVBQiVFOCU4NyVBQSVFNSU4QSVBOCVFNSVCQyU4MCVFOSU5NCU4MSVFNSVCOSVCNiVFNSU4RiU5MSVFOSU4MCU4MSVFNSVCQyU4MCVFOSU5NCU4MSVFOCVBRSVCMCVFNSVCRCU5NSVFNSU4OCVCMCVFNiU4OSU4QiVFNiU5QyVCQSUyMiUyQyUyMiVFNSU4NSVCMSVFNCVCQSVBQiVFNSU4RCU5NSVFOCVCRCVBNiVFOSU4MCU5QSVFOCVCRiU4NyVFNSU4NiU4NSVFNyVCRCVBRUdQUyVFNSU5MiU4Q1NJTSVFNSU4RCVBMSVFNSVBRSU5RSVFNyU4RSVCMCVFNSVBRSU5QSVFNCVCRCU4RCVFNCVCOCU4RSVFOCVCRiU5QyVFNyVBOCU4QiVFOSU5NCU4MSVFOCVCRCVBNiUyMiUyQyUyMiVFNyU5NCVCNSVFNSVBRCU5MCVFNyVBNyVBNCVFNSVCMCU4NiVFNyVBNyVCMCVFOSU4NyU4RCVFNiU5NSVCMCVFNiU4RCVBRSVFOCU4NyVBQSVFNSU4QSVBOCVFNCVCOCU4QSVFNCVCQyVBMCVFOCU4NyVCMyVFNSU4MSVBNSVFNSVCQSVCNyVFNyVBRSVBMSVFNyU5MCU4NkFwcCU3QyU3Q0lNRyUzQTIwMjYwMTA1MjAzNjAxXzcwMTIuZ2lmJTIyJTJDJTIyJUU0JUJEJUJGJUU3JTk0JUE4JUU1JUJFJUFFJUU0JUJGJUExJUU2JTg5JUFCJUU3JUEwJTgxJUU2JTk0JUFGJUU0JUJCJTk4JUU1JUE1JUI2JUU4JThDJUI2JUU4JUI0JUI5JUU3JTk0JUE4JTIyJTJDJTIyJUU3JTk0JUI1JUU4JUE3JTg2JUU5JTgwJTlBJUU4JUJGJTg3JUU5JTgxJUE1JUU2JThFJUE3JUU1JTk5JUE4JUU1JTg4JTg3JUU2JThEJUEyJUU5JUEyJTkxJUU5JTgxJTkzJTIyJTVEJTJDJTIyYW5zd2VyJTIyJTNBJTVCMCUyQzElMkMyJTVEJTdEJTJDJTdCJTIyaWQlMjIlM0ElMjJxXzE3NjgyMTczMzUwMzYlMjIlMkMlMjJ0eXBlJTIyJTNBJTIydHJ1ZV9mYWxzZSUyMiUyQyUyMnRpdGxlJTIyJTNBJTIyJTNDcCUzRSVFOCVCRiU5OSVFNCVCOCVBQSVFNyVBRSU5NyVFNSVCQyU4RjElMkIxJTNEMiVFNiU5OCVBRiVFNSU5MCVBNiVFNiVBRCVBMyVFNyVBMSVBRSVFRiVCQyU5RiUzQyUyRnAlM0UlMjIlMkMlMjJzY29yZSUyMiUzQTIlMkMlMjJhbnN3ZXIlMjIlM0F0cnVlJTdEJTVEJTJDJTIydGltZXN0YW1wJTIyJTNBMTc2ODI2NjAyOSUyQyUyMmVpZCUyMiUzQSUyMjElMjIlMkMlMjJjaWQlMjIlM0ElMjIxJTIyJTdE</Edata>
+  </Exams>
+  <TxtForm>
+    <Mid>1</Mid>
+    <Mtitle>33</Mtitle>
+    <Mcid>1</Mcid>
+    <Mcontent>33</Mcontent>
+    <Mdate>2026-01-16T09:47:52.46+08:00</Mdate>
+    <Mhit>0</Mhit>
+    <Mpublish>true</Mpublish>
+    <Mdelete>false</Mdelete>
+    <Mcollabo>true</Mcollabo>
+  </TxtForm>
+  <ListMenu>
+    <Lid>1</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>1</Lsort>
+    <Ltype>39</Ltype>
+    <Lxid>1</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>信息科技期中练习</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>3</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>2</Lsort>
+    <Ltype>12</Ltype>
+    <Lxid>1</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>AI应用网页设计</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>4</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>3</Lsort>
+    <Ltype>12</Ltype>
+    <Lxid>2</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>温州旅游</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>13</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>4</Lsort>
+    <Ltype>1</Ltype>
+    <Lxid>9</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>11</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>14</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>5</Lsort>
+    <Ltype>3</Ltype>
+    <Lxid>1</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>22</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>15</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>6</Lsort>
+    <Ltype>4</Ltype>
+    <Lxid>1</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>33</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>16</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>7</Lsort>
+    <Ltype>5</Ltype>
+    <Lxid>10</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>44</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>17</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>8</Lsort>
+    <Ltype>8</Ltype>
+    <Lxid>11</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>55</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>18</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>9</Lsort>
+    <Ltype>9</Ltype>
+    <Lxid>1</Lxid>
+    <Lshow>false</Lshow>
+    <Ltitle>66</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>19</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>10</Lsort>
+    <Ltype>10</Ltype>
+    <Lxid>12</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>77</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>20</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>11</Lsort>
+    <Ltype>25</Ltype>
+    <Lxid>13</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>88</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>21</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>12</Lsort>
+    <Ltype>12</Ltype>
+    <Lxid>14</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>99</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>22</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>13</Lsort>
+    <Ltype>15</Ltype>
+    <Lxid>15</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>10</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>23</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>14</Lsort>
+    <Ltype>16</Ltype>
+    <Lxid>16</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>11</Ltitle>
+  </ListMenu>
+  <ListMenu>
+    <Lid>24</Lid>
+    <Lcid>1</Lcid>
+    <Lsort>15</Lsort>
+    <Ltype>38</Ltype>
+    <Lxid>17</Lxid>
+    <Lshow>true</Lshow>
+    <Ltitle>12</Ltitle>
+  </ListMenu>
+  <Console>
+    <Nid>1</Nid>
+    <Nhid>2</Nhid>
+    <Ncid>1</Ncid>
+    <Ntitle>66</Ntitle>
+    <Ncontent>66</Ncontent>
+    <Npublish>false</Npublish>
+    <Ndate>2026-01-16T09:48:09.053+08:00</Ndate>
+    <Nbegin>false</Nbegin>
+  </Console>
+</LearnSite>

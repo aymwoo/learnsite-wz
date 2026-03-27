@@ -1,4 +1,4 @@
-﻿先在服务里关闭iis admin service服务 
+先在服务里关闭iis admin service服务 
 
     找到windows/system32/inesrv下的metabase.xml, 
 

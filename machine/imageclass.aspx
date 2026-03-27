@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="imageclass.aspx.cs" Inherits="machine_imageclass" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="imageclass.aspx.cs" Inherits="machine_imageclass" %>
 
 <!DOCTYPE html>
 <html lang="en">

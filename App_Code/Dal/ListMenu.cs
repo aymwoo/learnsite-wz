@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Text;
 using System.Data.SqlClient;
@@ -698,11 +698,6 @@ namespace LearnSite.DAL
                     if (mcategory == 0) lmode.Ltype = 1;//活动,有提交作品
                     if (mcategory == 1) lmode.Ltype = 6;//活动,无提交作品,阅读
                     if (mcategory == 2) lmode.Ltype = 5;//积木编程
-                    if (mcategory == 8) lmode.Ltype = 8;//Python编程
-                    if (mcategory == 10) lmode.Ltype = 10;//流程图
-                    if (mcategory == 11) lmode.Ltype = 11;//像素画
-                    if (mcategory == 12) lmode.Ltype = 12;//网页设计
-                    if (mcategory == 13) lmode.Ltype = 13;//拼图编程
 
                     lmode.Lxid = mid;
                     lmode.Lshow = mpublish;
@@ -711,24 +706,24 @@ namespace LearnSite.DAL
                 }
             }
 
-            string sqltwo = "select * from Survey where Vcid="+Cid;
+            string sqltwo = "select * from Exams where Cid="+Cid;
             DataTable sdt = DbHelperSQL.Query(sqltwo).Tables[0];
             int scount = sdt.Rows.Count;
             if (scount > 0)
             {
                 for (int i = 0; i < scount; i++)
                 {
-                    int vid = Int32.Parse(sdt.Rows[i]["Vid"].ToString());
-                    string vtitle = sdt.Rows[i]["Vtitle"].ToString();
-                    int vcid = Int32.Parse(sdt.Rows[i]["Vcid"].ToString());
-                    bool vclose = bool.Parse(sdt.Rows[i]["Vclose"].ToString());
-                    lmode.Lcid = vcid;
+                    int eid = Int32.Parse(sdt.Rows[i]["Eid"].ToString());
+                    string etitle = sdt.Rows[i]["Etitle"].ToString();
+                    int cid = Int32.Parse(sdt.Rows[i]["Cid"].ToString());
+                    bool eclose = bool.Parse(sdt.Rows[i]["Eclose"].ToString());
+                    lmode.Lcid = cid;
                     lmode.Lsort = 6;
-                    lmode.Ltype = 2;
-                    lmode.Lxid = vid;
-                    lmode.Lshow = !vclose;
-                    lmode.Ltitle = vtitle;
-                    lbll.Add(lmode);//将所有调查都添加到导航中
+                    lmode.Ltype = 39;
+                    lmode.Lxid = eid;
+                    lmode.Lshow = !eclose;
+                    lmode.Ltitle = etitle;
+                    lbll.Add(lmode);//将所有测试都添加到导航中
                 }
             }
 

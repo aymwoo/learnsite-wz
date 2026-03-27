@@ -2,7 +2,7 @@ using System;
 namespace LearnSite.Model
 {
 	/// <summary>
-	/// ÊµÌåÀàNotSign ¡£
+	/// å®ä½“ç±»NotSign ã€‚
 	/// </summary>
 	[Serializable]
 	public class NotSign

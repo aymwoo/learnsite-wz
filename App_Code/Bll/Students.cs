@@ -5,25 +5,25 @@ using LearnSite.Model;
 namespace LearnSite.BLL
 {
 	/// <summary>
-	/// ÒµÎñÂß¼­ÀàStudents µÄÕªÒªËµÃ÷¡£
+	/// ä¸šåŠ¡é€»è¾‘ç±»Students çš„æ‘˜è¦è¯´æ˜ã€‚
 	/// </summary>
 	public class Students
 	{
 		private readonly LearnSite.DAL.Students dal=new LearnSite.DAL.Students();
 		public Students()
 		{}
-		#region  ³ÉÔ±·½·¨
+		#region  æˆå‘˜æ–¹æ³•
         
                 
         /// <summary>
-        /// ³õÊ¼»¯ztype´ò×Ö³É¼¨
+        /// åˆå§‹åŒ–ztypeæ‰“å­—æˆç»©
         /// </summary>
         public void initSztype()
         {
             dal.initSztype();
         }
         /// <summary>
-        /// ¸üĞÂztype´ò×Ö³É¼¨
+        /// æ›´æ–°ztypeæ‰“å­—æˆç»©
         /// </summary>
         /// <param name="Sztype"></param>
         public void updateSztype(int Sztype)
@@ -31,7 +31,7 @@ namespace LearnSite.BLL
             dal.updateSztype(Sztype);
         }
         /// <summary>
-        /// ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñÔÊĞí¸öÈËÄ£Ê½µÇÂ¼
+        /// åˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å…è®¸ä¸ªäººæ¨¡å¼ç™»å½•
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -41,7 +41,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ³õÊ¼»¯×÷Òµ¼Ó·Ö×Ü¼Æ
+        /// åˆå§‹åŒ–ä½œä¸šåŠ åˆ†æ€»è®¡
         /// </summary>
         public void initSwdscore()
         {
@@ -49,21 +49,21 @@ namespace LearnSite.BLL
         }
                
         /// <summary>
-        /// ³õÊ¼»¯ÖĞÎÄÆ´Òô·ÖÊı×Ü¼Æ
+        /// åˆå§‹åŒ–ä¸­æ–‡æ‹¼éŸ³åˆ†æ•°æ€»è®¡
         /// </summary>
         public void initSchinese()
         {
             dal.initSchinese();
         }
         /// <summary>
-        /// ³õÊ¼»¯±íµ¥·ÖÊı×Ü¼Æ
+        /// åˆå§‹åŒ–è¡¨å•åˆ†æ•°æ€»è®¡
         /// </summary>
         public void initStxtform()
         {
             dal.initStxtform();
         }
 		/// <summary>
-		/// µÃµ½×î´óID
+		/// å¾—åˆ°æœ€å¤§ID
 		/// </summary>
 		public int GetMaxId()
 		{
@@ -71,7 +71,7 @@ namespace LearnSite.BLL
 		}
 
                 /// <summary>
-        /// µÃµ½×î´óÖµÑ§ºÅSnum£¨ÏÈÅĞ¶Ï°à¼¶£¬ÔÙÄê¼¶£¬ÔÙÈ«Ğ££©
+        /// å¾—åˆ°æœ€å¤§å€¼å­¦å·Snumï¼ˆå…ˆåˆ¤æ–­ç­çº§ï¼Œå†å¹´çº§ï¼Œå†å…¨æ ¡ï¼‰
         /// </summary>
         public long GetMaxSnum(int Sgrade,int Sclass)
         {
@@ -79,14 +79,14 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÊÇ·ñ´æÔÚ¸ÃÑ§ºÅ
+        /// æ˜¯å¦å­˜åœ¨è¯¥å­¦å·
         /// </summary>
         public bool ExistsSnum(string Snum)
         {
             return dal.ExistsSnum(Snum);
         }
 		/// <summary>
-		/// ÊÇ·ñ´æÔÚ¸Ã¼ÇÂ¼
+		/// æ˜¯å¦å­˜åœ¨è¯¥è®°å½•
 		/// </summary>
 		public bool Exists(int Sid)
 		{
@@ -94,14 +94,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// °à¼¶²âÆÀÇé¿ö
+        /// ç­çº§æµ‹è¯„æƒ…å†µ
         /// </summary>
         public DataTable SolveAll(int Sgrade, int Sclass, int Nid)
         {
             return dal.SolveAll(Sgrade, Sclass, Nid);
         }
 		/// <summary>
-		/// Ôö¼ÓÒ»ÌõÊı¾İ
+		/// å¢åŠ ä¸€æ¡æ•°æ®
 		/// </summary>
 		public int  Add(LearnSite.Model.Students model)
 		{
@@ -109,7 +109,7 @@ namespace LearnSite.BLL
 		}
 
                 /// <summary>
-        /// Ôö¼ÓÒ»Î»Ñ§Éú
+        /// å¢åŠ ä¸€ä½å­¦ç”Ÿ
         /// </summary>
         public int AddStudent(LearnSite.Model.Students model)
         {
@@ -120,7 +120,7 @@ namespace LearnSite.BLL
             dal.UpdateMyClassPwd(Sgrade, Sclass,Spwd);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄÃÜÂë
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„å¯†ç 
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Spwd"></param>
@@ -129,7 +129,7 @@ namespace LearnSite.BLL
             dal.UpdatePwd(Snum, Spwd);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃSidÑ§ÉúµÄÃÜÂë
+        /// æ›´æ–°è¯¥Sidå­¦ç”Ÿçš„å¯†ç 
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="Spwd"></param>
@@ -138,7 +138,7 @@ namespace LearnSite.BLL
             dal.UpdateSidPwd(Sid, Spwd);
         }        
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄĞÔ±ğ
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„æ€§åˆ«
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sex"></param>
@@ -147,7 +147,7 @@ namespace LearnSite.BLL
             dal.UpdateSex(Snum, Sex);
         }                
         /// <summary>
-        /// ¶Ô¸ÃÉú»»°à
+        /// å¯¹è¯¥ç”Ÿæ¢ç­
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -158,7 +158,7 @@ namespace LearnSite.BLL
             return dal.UpdateDivide(Sgrade, Sclass, Sname);
         }
 		/// <summary>
-		/// ¸üĞÂÒ»ÌõÊı¾İ
+		/// æ›´æ–°ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Update(LearnSite.Model.Students model)
 		{
@@ -166,7 +166,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// É¾³ıÒ»ÌõÊı¾İ
+		/// åˆ é™¤ä¸€æ¡æ•°æ®
 		/// </summary>
 		public void Delete(int Sid)
 		{
@@ -175,14 +175,14 @@ namespace LearnSite.BLL
 		}
                 
         /// <summary>
-        /// ¸ù¾İÄê¼¶ºÍ°à¼¶ Ëæ»úµÃµ½¸Ã°àÄ³¸öÑ§ÉúÒ»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®å¹´çº§å’Œç­çº§ éšæœºå¾—åˆ°è¯¥ç­æŸä¸ªå­¦ç”Ÿä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Students GetRndModel(int Sgrade, int Sclass)
         {
             return dal.GetRndModel(Sgrade, Sclass);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍÃÜÂë µÃµ½Ñ§ÉúÒ»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®å­¦å·å’Œå¯†ç  å¾—åˆ°å­¦ç”Ÿä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Students GetStudentModel(string Snum, string Spwd)
         {
@@ -190,7 +190,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+        /// æ ¹æ®å­¦å·ï¼Œå¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
         /// </summary>
         public LearnSite.Model.Students SnumGetModel(string Snum)
         {
@@ -198,7 +198,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İ×Ô¶¯±àºÅ·µ»ØĞÕÃû
+        /// æ ¹æ®è‡ªåŠ¨ç¼–å·è¿”å›å§“å
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -208,7 +208,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ·µ»ØĞÕÃû
+        /// æ ¹æ®å­¦å·è¿”å›å§“å
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -217,7 +217,7 @@ namespace LearnSite.BLL
             return dal.GetSnameBySnum(Snum);
         }
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“
 		/// </summary>
 		public LearnSite.Model.Students GetModel(int Sid)
 		{
@@ -226,7 +226,7 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
-		/// µÃµ½Ò»¸ö¶ÔÏóÊµÌå£¬´Ó»º´æÖĞ¡£
+		/// å¾—åˆ°ä¸€ä¸ªå¯¹è±¡å®ä½“ï¼Œä»ç¼“å­˜ä¸­ã€‚
 		/// </summary>
 		public LearnSite.Model.Students GetModelByCache(int Sid)
 		{
@@ -250,7 +250,7 @@ namespace LearnSite.BLL
 		}
 
         /// <summary>
-        /// »ñµÃ×÷Æ·×ÜÆÀÊı¾İÁĞ±í
+        /// è·å¾—ä½œå“æ€»è¯„æ•°æ®åˆ—è¡¨
 		/// </summary>
         public DataSet GetListTerm(int Sgrade, int Sclass)
         {
@@ -258,28 +258,28 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetList(string strWhere)
 		{
 			return dal.GetList(strWhere);
 		}
                 /// <summary>
-        /// »ñµÃÌõ¼şÊı¾İÁĞ±í
+        /// è·å¾—æ¡ä»¶æ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetSqlList(string strSql)
         {
            return dal.GetSqlList(strSql);
         }
 		/// <summary>
-		/// »ñµÃÇ°¼¸ĞĞÊı¾İ
+		/// è·å¾—å‰å‡ è¡Œæ•°æ®
 		/// </summary>
 		public DataSet GetList(int Top,string strWhere,string filedOrder)
 		{
 			return dal.GetList(Top,strWhere,filedOrder);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Students> GetModelList(string strWhere)
 		{
@@ -287,7 +287,7 @@ namespace LearnSite.BLL
 			return DataTableToList(ds.Tables[0]);
 		}
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public List<LearnSite.Model.Students> DataTableToList(DataTable dt)
 		{
@@ -382,7 +382,7 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		public DataSet GetAllList()
 		{
@@ -390,7 +390,7 @@ namespace LearnSite.BLL
 		}
         
         /// <summary>
-        /// »ñµÃµ±Ç°°à¼¶Ñ§Éú±íÏÖÊı¾İÁĞ±í
+        /// è·å¾—å½“å‰ç­çº§å­¦ç”Ÿè¡¨ç°æ•°æ®åˆ—è¡¨
         /// </summary>
         /// <param name="Syear"></param>
         /// <param name="Sgrade"></param>
@@ -401,7 +401,7 @@ namespace LearnSite.BLL
             return dal.GetListSattitude(Syear, Sgrade, Sclass);
         }
         /// <summary>
-        /// »ñµÃµ¥¸öÑ§ÉúÊı¾İ
+        /// è·å¾—å•ä¸ªå­¦ç”Ÿæ•°æ®
         /// </summary>
         public DataSet GetOneStudent(int Sid)
         {
@@ -409,7 +409,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËùÓĞÑ§ÆÚ×Ü»ı·Ö
+        /// æ‰¹é‡æ›´æ–°æ‰€æœ‰å­¦æœŸæ€»ç§¯åˆ†
         /// </summary>
         public void TeamScores()
         {
@@ -420,21 +420,21 @@ namespace LearnSite.BLL
             dal.TotalSgscore(gstudnets, Cobj, Cterm);
         }
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËù½Ì°à¼¶µ±Ç°Ñ§ÆÚĞ¡×éºÏ×÷·Ö
+        /// æ‰¹é‡æ›´æ–°æ‰€æ•™ç­çº§å½“å‰å­¦æœŸå°ç»„åˆä½œåˆ†
         /// </summary>
         public void ThisTeamGroupScores(int Rhid)
         {
             dal.ThisTeamGroupScores(Rhid);
         }      
         /// <summary>
-        /// ÅúÁ¿¸üĞÂËù½Ì°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·ÖºÍ±íÏÖ×Ü»ı·Ö¡¢µ÷²é²âÑé·Ö//ISNULL  COALESCE
+        /// æ‰¹é‡æ›´æ–°æ‰€æ•™ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ã€è°ƒæŸ¥æµ‹éªŒåˆ†//ISNULL  COALESCE
         /// </summary>
         public void ThisTeamScoresNew(int Rhid)
         {
             dal.ThisTeamScoresNew(Rhid);
         }
         /// <summary>
-        /// ÅúÁ¿¸üĞÂ¸Ã°à¼¶µ±Ç°Ñ§ÆÚ×÷Æ·×Ü»ı·ÖºÍ±íÏÖ×Ü»ı·Ö£¨ÅúÁ¿group·½·¨£©
+        /// æ‰¹é‡æ›´æ–°è¯¥ç­çº§å½“å‰å­¦æœŸä½œå“æ€»ç§¯åˆ†å’Œè¡¨ç°æ€»ç§¯åˆ†ï¼ˆæ‰¹é‡groupæ–¹æ³•ï¼‰
         /// </summary>
         public void ThisClassTeamScoresNew(int Sgrade, int Sclass)
         {
@@ -442,7 +442,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ÖÕ½áĞÔÆÀ¶¨
+        /// ç»ˆç»“æ€§è¯„å®š
         /// </summary>
         /// <param name="perA"></param>
         /// <param name="perE"></param>
@@ -453,7 +453,7 @@ namespace LearnSite.BLL
 
                 
         /// <summary>
-        /// ÖÕ½áĞÔÆÀ¶¨
+        /// ç»ˆç»“æ€§è¯„å®š
         /// </summary>
         public void TermABCD()
         {
@@ -461,49 +461,49 @@ namespace LearnSite.BLL
         }
       
         /// <summary>
-        /// ×îÖÕ³É¼¨ÆÀ¶¨µ¼³öExcel±í
+        /// æœ€ç»ˆæˆç»©è¯„å®šå¯¼å‡ºExcelè¡¨
         /// </summary>
         public void TermExcel(int hid)
         {
             dal.TermExcel(hid);
         }
                 /// <summary>
-        /// Ñ§Éú±í»ù±¾Êı¾İµ¼³öExcel
+        /// å­¦ç”Ÿè¡¨åŸºæœ¬æ•°æ®å¯¼å‡ºExcel
         /// </summary>
         public void StudentsToExcel()
         {
             dal.StudentsToExcel();
         }
                 /// <summary>
-        /// »ñµÃÑ§Éú¹ÜÀíÒ³Êı¾İÁĞ±í
+        /// è·å¾—å­¦ç”Ÿç®¡ç†é¡µæ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetListStudents(int Sgrade, int Sclass)
         {
             return dal.GetListStudents(Sgrade, Sclass);
         }        
         /// <summary>
-        /// »ñµÃ±¾°àÑ§ÉúÑ§ºÅºÍĞÕÃûÊı¾İÁĞ±í
+        /// è·å¾—æœ¬ç­å­¦ç”Ÿå­¦å·å’Œå§“åæ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetStudentsSnumSname(int Sgrade, int Sclass)
         {
             return dal.GetStudentsSnumSname(Sgrade, Sclass);
         }
                 /// <summary>
-        /// »ñµÃ±¾°àÑ§ÉúSidÑ§ºÅºÍĞÕÃûÊı¾İÁĞ±í
+        /// è·å¾—æœ¬ç­å­¦ç”ŸSidå­¦å·å’Œå§“åæ•°æ®åˆ—è¡¨
         /// </summary>
         public DataSet GetStudentsSnumSidSname(int Sgrade, int Sclass)
         {
             return dal.GetStudentsSnumSidSname(Sgrade, Sclass);
         }
         /// <summary>
-        /// »ñµÃ±¾Äê¼¶ËùÓĞÑ§ÉúÁĞ±íSnum,Sclass,Sname
+        /// è·å¾—æœ¬å¹´çº§æ‰€æœ‰å­¦ç”Ÿåˆ—è¡¨Snum,Sclass,Sname
         /// </summary>
         public DataTable GetStudentsSnumSname(int Sgrade)
         {
             return dal.GetStudentsSnumSname(Sgrade);
         }
         /// <summary>
-        /// »ñµÃÈ«ÌåÑ§ÉúµÄÑ§ÄêÁĞ±í
+        /// è·å¾—å…¨ä½“å­¦ç”Ÿçš„å­¦å¹´åˆ—è¡¨
         /// </summary>
         public DataSet GetAllYears()
         {
@@ -511,7 +511,7 @@ namespace LearnSite.BLL
         }
 
                 /// <summary>
-        /// ´ÓÑ§Éú±íµÃµ½¸ÃÄê·İµÄ¼ÇÂ¼Êı
+        /// ä»å­¦ç”Ÿè¡¨å¾—åˆ°è¯¥å¹´ä»½çš„è®°å½•æ•°
         /// </summary>
         /// <param name="Syear"></param>
         /// <returns></returns>
@@ -521,7 +521,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// Ñ§Éú±íËùÓĞÑ§ÉúÄê¼¶¶¼ÉıÒ»¼¶£¬²¢É¾³ı°à¼¶±íÖĞ²»´æÔÚ°à¼¶µÄÑ§Éú
+        /// å­¦ç”Ÿè¡¨æ‰€æœ‰å­¦ç”Ÿå¹´çº§éƒ½å‡ä¸€çº§ï¼Œå¹¶åˆ é™¤ç­çº§è¡¨ä¸­ä¸å­˜åœ¨ç­çº§çš„å­¦ç”Ÿ
         /// </summary>
         public void Upgrade()
         {
@@ -529,7 +529,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñµÃ¸ÃÄê¼¶µÄÈëÑ§Äê·İ
+        /// è·å¾—è¯¥å¹´çº§çš„å…¥å­¦å¹´ä»½
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <returns></returns>
@@ -538,7 +538,7 @@ namespace LearnSite.BLL
             return dal.GetYear(Sgrade);
         }
         /// <summary>
-        /// »ñµÃ¸ÃÄê¼¶µÄÈëÑ§Äê·İ
+        /// è·å¾—è¯¥å¹´çº§çš„å…¥å­¦å¹´ä»½
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -549,7 +549,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ù¾İÄê¼¶¡¢°à¼¶»ñµÃĞÕÃûºÍÑ§ºÅ
+        /// æ ¹æ®å¹´çº§ã€ç­çº§è·å¾—å§“åå’Œå­¦å·
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -560,7 +560,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ÏÔÊ¾±¾Äê¼¶»ı·Ö×î¸ßµÄ20Ìõ¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬å¹´çº§ç§¯åˆ†æœ€é«˜çš„20æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="GridViewscore"></param>
@@ -570,7 +570,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÏÔÊ¾±¾°à¼¶20Ìõ¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬ç­çº§20æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -580,7 +580,7 @@ namespace LearnSite.BLL
             return dal.ShowTopScore(Sgrade, Sclass);
         }
         /// <summary>
-        /// ÏÔÊ¾±¾°à¼¶ËùÓĞ»ı·Ö¼ÇÂ¼
+        /// æ˜¾ç¤ºæœ¬ç­çº§æ‰€æœ‰ç§¯åˆ†è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -591,7 +591,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ²éÑ¯Ñ§Éú±íµÄ¼ÇÂ¼×ÜÊı
+        /// æŸ¥è¯¢å­¦ç”Ÿè¡¨çš„è®°å½•æ€»æ•°
         /// </summary>
         /// <returns></returns>
         public int GetCounts()
@@ -600,7 +600,7 @@ namespace LearnSite.BLL
         }
 
                 /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅÑ§ÉúµÄ²âÑé³É¼¨
+        /// æ›´æ–°è¯¥å­¦å·å­¦ç”Ÿçš„æµ‹éªŒæˆç»©
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Squiz"></param>
@@ -610,14 +610,14 @@ namespace LearnSite.BLL
         }
                
         /// <summary>
-        /// ½«ËùÓĞÑ§ÉúµÄ²âÑéÍ³¼Æ³É¼¨¸üĞÂÎªÆä²âÑé×î¸ß·Ö
+        /// å°†æ‰€æœ‰å­¦ç”Ÿçš„æµ‹éªŒç»Ÿè®¡æˆç»©æ›´æ–°ä¸ºå…¶æµ‹éªŒæœ€é«˜åˆ†
         /// </summary>
         public void UpdateBestSquiz()
         {
             dal.UpdateBestSquiz();
         }
         /// <summary>
-        /// »ñµÃ±¾Äê¼¶²âÑé³É¼¨×î¸ßµÄ50Ìõ¼ÇÂ¼
+        /// è·å¾—æœ¬å¹´çº§æµ‹éªŒæˆç»©æœ€é«˜çš„50æ¡è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <returns></returns>
@@ -626,7 +626,7 @@ namespace LearnSite.BLL
             return dal.TopGradeQuiz(Sgrade);
         }
         /// <summary>
-        /// »ñµÃ±¾°à¼¶²âÑé³É¼¨ËùÓĞ¼ÇÂ¼
+        /// è·å¾—æœ¬ç­çº§æµ‹éªŒæˆç»©æ‰€æœ‰è®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -637,7 +637,7 @@ namespace LearnSite.BLL
         }
 
                 /// <summary>
-        /// »ñµÃÎÒµÄ²âÑéÆ½¾ù³É¼¨
+        /// è·å¾—æˆ‘çš„æµ‹éªŒå¹³å‡æˆç»©
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -646,7 +646,7 @@ namespace LearnSite.BLL
             return dal.MySquiz(Snum);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍ°à¼¶ÃÜÂë£¬ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñ´æÔÚ
+        /// æ ¹æ®å­¦å·å’Œç­çº§å¯†ç ï¼Œåˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Rpwd"></param>
@@ -656,7 +656,7 @@ namespace LearnSite.BLL
             return dal.ExistsLogin(Snum, Rpwd);
         }       
         /// <summary>
-        /// ¸ù¾İÑ§ºÅºÍ¸öÈËÃÜÂë£¬ÅĞ¶Ï¸ÃÑ§ºÅÊÇ·ñ´æÔÚ
+        /// æ ¹æ®å­¦å·å’Œä¸ªäººå¯†ç ï¼Œåˆ¤æ–­è¯¥å­¦å·æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Spwd"></param>
@@ -667,7 +667,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸üĞÂÑ§Éú±íÖĞÍøÒ³ÖÆ×÷³É¼¨
+        /// æ›´æ–°å­¦ç”Ÿè¡¨ä¸­ç½‘é¡µåˆ¶ä½œæˆç»©
         /// </summary>
         public void UpdateWebScore()
         {
@@ -675,18 +675,18 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// µÇÂ¼ÕËºÅ½ÌÊ¦Ëù½Ì°à¼¶°´Éè¶¨°Ù·Ö±È¼ÆËã×Ü·Ö
+        /// ç™»å½•è´¦å·æ•™å¸ˆæ‰€æ•™ç­çº§æŒ‰è®¾å®šç™¾åˆ†æ¯”è®¡ç®—æ€»åˆ†
         /// </summary>
         /// <param name="persscore"></param>
         /// <param name="persquiz"></param>
         /// <param name="perswscore"></param>
         /// <param name="perstscore"></param>
-        public void UpdateAllScore(int persscore, int persquiz, int perstscore, int perattitude, int persurvey, int Rhid)
+        public void UpdateAllScore(int persscore, int persexam, int perstscore, int perattitude, int Rhid)
         {
-            dal.UpdateAllScore(persscore, persquiz,perstscore,perattitude,persurvey,Rhid);
+            dal.UpdateAllScore(persscore, persexam, perstscore, perattitude, Rhid);
         }        
         /// <summary>
-        /// ¸üĞÂÑ§Éú±íµÄ´ò×Ö³É¼¨
+        /// æ›´æ–°å­¦ç”Ÿè¡¨çš„æ‰“å­—æˆç»©
         /// </summary>
         public void UpdateStscore()
         {
@@ -694,7 +694,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬¸üĞÂ°à¼¶
+        /// æ ¹æ®å­¦å·ï¼Œæ›´æ–°ç­çº§
         /// </summary>
         /// <param name="Sclass"></param>
         /// <param name="Snum"></param>
@@ -704,7 +704,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İ½ÌÊ¦×Ô¶¯±àºÅHid£¬·µ»ØËù½Ì°à¼¶µÄSyear,SclassÊı¾İ¼¯
+        /// æ ¹æ®æ•™å¸ˆè‡ªåŠ¨ç¼–å·Hidï¼Œè¿”å›æ‰€æ•™ç­çº§çš„Syear,Sclassæ•°æ®é›†
         /// </summary>
         /// <param name="Rhid"></param>
         /// <returns></returns>
@@ -713,8 +713,8 @@ namespace LearnSite.BLL
             return dal.TeacherSyearSclass(hid);
         }                
         /// <summary>
-        /// ½«Ëù½Ì°à¼¶µÄÑ§ÉúÃÜÂëÈç¹ûÎªÔ­³õÊ¼»¯ÃÜÂëÔò¸üĞÂ×ª»»ÎªĞÕÃûÆ´ÒôËõĞ´£¨Èç¹û×ª»»µÄ²»ÊÇ×ÖÄ¸»òÊı×Ö£¬Ôò²»¸üĞÂÃÜÂë£©
-        /// ·µ»ØËù½ÌÑ§Éú×ÜÊıºÍ×ª»»³É¹¦µÄ×ÜÊı
+        /// å°†æ‰€æ•™ç­çº§çš„å­¦ç”Ÿå¯†ç å¦‚æœä¸ºåŸåˆå§‹åŒ–å¯†ç åˆ™æ›´æ–°è½¬æ¢ä¸ºå§“åæ‹¼éŸ³ç¼©å†™ï¼ˆå¦‚æœè½¬æ¢çš„ä¸æ˜¯å­—æ¯æˆ–æ•°å­—ï¼Œåˆ™ä¸æ›´æ–°å¯†ç ï¼‰
+        /// è¿”å›æ‰€æ•™å­¦ç”Ÿæ€»æ•°å’Œè½¬æ¢æˆåŠŸçš„æ€»æ•°
         /// </summary>
         /// <param name="hid"></param>
         /// <param name="Spwd"></param>
@@ -724,7 +724,7 @@ namespace LearnSite.BLL
         }
                
         /// <summary>
-        /// ³õÊ¼»¯SleaderÖµ£¬Êı¾İ¿âÉı¼¶Ê±ÓÃ
+        /// åˆå§‹åŒ–Sleaderå€¼ï¼Œæ•°æ®åº“å‡çº§æ—¶ç”¨
         /// </summary>
         public void InitSleader()
         {
@@ -732,14 +732,14 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// ×Ô¶¯·ÖÅäĞ¡×é
+        /// è‡ªåŠ¨åˆ†é…å°ç»„
         /// </summary>
         public void AutoSleader(int Sgrade, int Sclass, int Leadnum, int groupmax)
         {
             dal.AutoSleader(Sgrade, Sclass, Leadnum, groupmax);
         }
         /// <summary>
-        /// ÈÎÃü»òĞ¶ÈÎ×é³¤
+        /// ä»»å‘½æˆ–å¸ä»»ç»„é•¿
         /// </summary>
         /// <param name="Snum"></param>
         public void ChangeSleader(int Sid)
@@ -747,7 +747,7 @@ namespace LearnSite.BLL
             dal.ChangeSleader(Sid);
         }       
         /// <summary>
-        /// »ñÈ¡°à¼¶ËùÓĞĞ¡×é¶Ó³¤ĞÅÏ¢
+        /// è·å–ç­çº§æ‰€æœ‰å°ç»„é˜Ÿé•¿ä¿¡æ¯
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -757,7 +757,7 @@ namespace LearnSite.BLL
             return dal.ClassGroup(Sgrade, Sclass);
         }        
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±Ãûµ¥
+        /// è·å–æœ¬å°ç»„æˆå‘˜åå•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -770,7 +770,7 @@ namespace LearnSite.BLL
        
                 
         /// <summary>
-        /// »ñÈ¡±¾°àÎ´²Î¼ÓĞ¡×éÃûµ¥
+        /// è·å–æœ¬ç­æœªå‚åŠ å°ç»„åå•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -780,8 +780,8 @@ namespace LearnSite.BLL
             return dal.FreeMember(Sgrade, Sclass);
         }
         /// <summary>
-        /// ¸üĞÂ¸ÃÑ§ºÅµÄĞ¡×éºÅ
-        /// Èç¹ûÔ­×é³¤ÒÑĞ¶ÈÎÔò¼ÓÈëĞÂĞ¡×é
+        /// æ›´æ–°è¯¥å­¦å·çš„å°ç»„å·
+        /// å¦‚æœåŸç»„é•¿å·²å¸ä»»åˆ™åŠ å…¥æ–°å°ç»„
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sgroup"></param>
@@ -789,7 +789,7 @@ namespace LearnSite.BLL
         {
             return  dal.AddThisGroup(Snum, Sgroup);
         }        
-        /// ÍË×é
+        /// é€€ç»„
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sgroup"></param>
@@ -802,7 +802,7 @@ namespace LearnSite.BLL
             dal.AddThisGroup(Sid, Sgroup);
         }
         /// <summary>
-        /// »ñÈ¡±¾°à±¾Ğ¡×éÈËÊı
+        /// è·å–æœ¬ç­æœ¬å°ç»„äººæ•°
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -814,7 +814,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        ///  ½«¸ÃÑ§ºÅ·Ç×é³¤Í¬Ñ§ÍË×é
+        ///  å°†è¯¥å­¦å·éç»„é•¿åŒå­¦é€€ç»„
         /// </summary>
         /// <param name="Snum"></param>
         public void QuitThitGroup(string Snum)
@@ -822,7 +822,7 @@ namespace LearnSite.BLL
             dal.QuitThitGroup(Snum);
         }   
            /// <summary>
-        /// ½«¸ÃÑ§ºÅ·Ç×é³¤Í¬Ñ§ÍË×é
+        /// å°†è¯¥å­¦å·éç»„é•¿åŒå­¦é€€ç»„
         /// </summary>
         /// <param name="Sid"></param>
         public void QuitThitGroup(int Sid)
@@ -830,7 +830,7 @@ namespace LearnSite.BLL
             dal.QuitThitGroup(Sid);
         }
         /// <summary>
-        /// ÊÇ·ñ×é³¤
+        /// æ˜¯å¦ç»„é•¿
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -840,7 +840,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÊÇ·ñ×é³¤
+        /// æ˜¯å¦ç»„é•¿
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -850,7 +850,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡Ğ¡×éÃû³Æ
+        /// è·å–å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -860,7 +860,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸üĞÂĞ¡×éÃû³Æ
+        /// æ›´æ–°å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <param name="Sgtitle"></param>
@@ -870,7 +870,7 @@ namespace LearnSite.BLL
             return dal.UpdateSgtitle(Sid, Sgtitle);
         }
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ»ñÈ¡Í¬×é³ÉÔ±µÄËùÓĞÑ§ºÅ
+        /// æ ¹æ®å­¦å·è·å–åŒç»„æˆå‘˜çš„æ‰€æœ‰å­¦å·
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -880,7 +880,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡¸ÃÑ§ºÅÄê¼¶
+        /// è·å–è¯¥å­¦å·å¹´çº§
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -890,7 +890,7 @@ namespace LearnSite.BLL
         }
                         
         /// <summary>
-        /// ¸ù¾İÑ§ºÅ£¬ĞŞ¸ÄĞÕÃû
+        /// æ ¹æ®å­¦å·ï¼Œä¿®æ”¹å§“å
         /// </summary>
         /// <param name="Snum"></param>
         /// <param name="Sname"></param>
@@ -900,7 +900,7 @@ namespace LearnSite.BLL
             return dal.ChangeSname(Snum, Sname);
         }
         /// <summary>
-        /// ³õÊ¼»¯Ö¸·¨³É¼¨×Ö¶Î
+        /// åˆå§‹åŒ–æŒ‡æ³•æˆç»©å­—æ®µ
         /// </summary>
         /// <returns></returns>
         public int InitSfscore()
@@ -908,7 +908,7 @@ namespace LearnSite.BLL
             return dal.InitSfscore();
         }
         /// <summary>
-        /// ³õÊ¼»¯¿ÎÌÃµ÷²é²âÑé³É¼¨
+        /// åˆå§‹åŒ–è¯¾å ‚è°ƒæŸ¥æµ‹éªŒæˆç»©
         /// </summary>
         /// <returns></returns>
         public int InitSvscore()
@@ -921,7 +921,7 @@ namespace LearnSite.BLL
             return dal.InitSidle();
         }
         /// <summary>
-        /// ¸üĞÂÖ¸·¨³É¼¨
+        /// æ›´æ–°æŒ‡æ³•æˆç»©
         /// </summary>
         /// <returns></returns>
         public int UpdateSfscore()
@@ -930,7 +930,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸üĞÂÖĞÎÄÆ´Òô³É¼¨
+        /// æ›´æ–°ä¸­æ–‡æ‹¼éŸ³æˆç»©
         /// </summary>
         /// <returns></returns>
         public int UpdateSchinese()
@@ -938,14 +938,14 @@ namespace LearnSite.BLL
             return dal.UpdateSchinese();
         }
         /// <summary>
-        /// Í³¼ÆÇ°£¬ÏÈÇå¿ÕÑ§Éú³É¼¨
+        /// ç»Ÿè®¡å‰ï¼Œå…ˆæ¸…ç©ºå­¦ç”Ÿæˆç»©
         /// </summary>
         public void ClearAllScores(int hid)
         {
             dal.ClearAllScores(hid);
         }
         /// <summary>
-        /// ·µ»Ø¶Ó³¤ĞÕÃû
+        /// è¿”å›é˜Ÿé•¿å§“å
         /// </summary>
         /// <param name="Snum"></param>
         /// <returns></returns>
@@ -955,7 +955,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ·µ»ØĞ¡×éÃû³Æ
+        /// è¿”å›å°ç»„åç§°
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -968,7 +968,7 @@ namespace LearnSite.BLL
             return dal.GetLeaderByGroup(Sgroup);
         }
         /// <summary>
-        /// ½â³ı·Ö×é
+        /// è§£é™¤åˆ†ç»„
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -979,7 +979,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡µ±Ç°°à¼¶Ñ§ºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰ç­çº§å­¦å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -990,7 +990,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡µ±Ç°°à¼¶Ñ§Éú±àºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰ç­çº§å­¦ç”Ÿç¼–å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1000,7 +1000,7 @@ namespace LearnSite.BLL
             return dal.ShowClassSids(Sgrade, Sclass);
         }                
         /// <summary>
-        /// »ñÈ¡µ±Ç°Äê¼¶Ñ§Éú±àºÅ¼¯ºÏÓÃ,·Ö¸ô
+        /// è·å–å½“å‰å¹´çº§å­¦ç”Ÿç¼–å·é›†åˆç”¨,åˆ†éš”
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <returns></returns>
@@ -1009,7 +1009,7 @@ namespace LearnSite.BLL
             return dal.ShowGradeSids(Sgrade);
         }
         /// <summary>
-        /// »ñÈ¡¸Ã°à¼¶µÄÈËÊı
+        /// è·å–è¯¥ç­çº§çš„äººæ•°
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1019,7 +1019,7 @@ namespace LearnSite.BLL
             return dal.CountClassMate(Sgrade, Sclass);
         }
         /// <summary>
-        /// Çå³ı¸Ã°à¼¶µÄËùÓĞÑ§Éú¼ÇÂ¼
+        /// æ¸…é™¤è¯¥ç­çº§çš„æ‰€æœ‰å­¦ç”Ÿè®°å½•
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1030,7 +1030,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ã×Ü±íĞ¡×éÍ³¼Æ
+        /// æ±‡æ€»è¡¨å°ç»„ç»Ÿè®¡
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1042,7 +1042,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡Î´²Î×é°à¼¶ÄÚÑ§Éú
+        /// è·å–æœªå‚ç»„ç­çº§å†…å­¦ç”Ÿ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1053,7 +1053,7 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±ĞÕÃûºÍÑ§ºÅ Snum as Head, Sname,Sex
+        /// è·å–æœ¬å°ç»„æˆå‘˜å§“åå’Œå­¦å· Snum as Head, Sname,Sex
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1066,7 +1066,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ÁÄÌì±íÇéÍ¼±ê
+        /// èŠå¤©è¡¨æƒ…å›¾æ ‡
         /// </summary>
         /// <returns></returns>
         public DataTable Emo()
@@ -1074,7 +1074,7 @@ namespace LearnSite.BLL
             return dal.Emo();
         }
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±ĞÕÃû×Ö·û´®£¬ÒÔ¶ÙºÅÎª·Ö¸ô·û
+        /// è·å–æœ¬å°ç»„æˆå‘˜å§“åå­—ç¬¦ä¸²ï¼Œä»¥é¡¿å·ä¸ºåˆ†éš”ç¬¦
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1087,7 +1087,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±×Ö·û´®£¬ÒÔ¶ººÅÎª·Ö¸ô·û
+        /// è·å–æœ¬å°ç»„æˆå‘˜å­—ç¬¦ä¸²ï¼Œä»¥é€—å·ä¸ºåˆ†éš”ç¬¦
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1099,7 +1099,7 @@ namespace LearnSite.BLL
         }
         
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×é³ÉÔ±
+        /// è·å–æœ¬å°ç»„æˆå‘˜
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1110,7 +1110,7 @@ namespace LearnSite.BLL
             return dal.GroupMembers(Sgrade, Sclass, Sgroup);
         }                   
         /// <summary>
-        /// »ñÈ¡±¾Ğ¡×éÍøÅÌ³ÉÔ±£¨°üÀ¨×é³¤£©Sid,Snum,Sname
+        /// è·å–æœ¬å°ç»„ç½‘ç›˜æˆå‘˜ï¼ˆåŒ…æ‹¬ç»„é•¿ï¼‰Sid,Snum,Sname
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1121,7 +1121,7 @@ namespace LearnSite.BLL
             return dal.GroupDiskMembers(Sgrade, Sclass, Sgroup);
         }
         /// <summary>
-        /// »ñÈ¡±¾×éÄÚµÄ¸öÈË×÷Æ·Æ½¾ù·Ö
+        /// è·å–æœ¬ç»„å†…çš„ä¸ªäººä½œå“å¹³å‡åˆ†
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Sclass"></param>
@@ -1133,7 +1133,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ³õÊ¼»¯Ğ¡×éÃû³ÆÎª×é³¤ĞÕÃû£¨Ìõ¼ş£ºĞ¡×éÃû³ÆÎª¿Õ£©
+        /// åˆå§‹åŒ–å°ç»„åç§°ä¸ºç»„é•¿å§“åï¼ˆæ¡ä»¶ï¼šå°ç»„åç§°ä¸ºç©ºï¼‰
         /// </summary>
         /// <returns></returns>
         public int InitSgtitle()
@@ -1142,7 +1142,7 @@ namespace LearnSite.BLL
         }
                 
         /// <summary>
-        /// ¸ù¾İSid»ñÈ¡×éºÅ
+        /// æ ¹æ®Sidè·å–ç»„å·
         /// </summary>
         /// <param name="Sid"></param>
         /// <returns></returns>
@@ -1155,7 +1155,7 @@ namespace LearnSite.BLL
             dal.UpdateKaoxu(kaoxu, Sname);
         }
         /// <summary>
-        /// ¸üĞÂÖ¸¶¨°à¼¶µÄ±êÖ¾ÎªÕæ
+        /// æ›´æ–°æŒ‡å®šç­çº§çš„æ ‡å¿—ä¸ºçœŸ
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Classone"></param>
@@ -1166,7 +1166,7 @@ namespace LearnSite.BLL
             return dal.UpdateStat(Sgrade, Classone, Classtwo, Wdate);
         }
         /// <summary>
-        /// ¸üĞÂ±êÖ¾ÎªÕæµÄ°à¼¶ÎªÖ¸¶¨°à¼¶ºÅ
+        /// æ›´æ–°æ ‡å¿—ä¸ºçœŸçš„ç­çº§ä¸ºæŒ‡å®šç­çº§å·
         /// </summary>
         /// <param name="Sgrade"></param>
         /// <param name="Classone"></param>
@@ -1184,7 +1184,7 @@ namespace LearnSite.BLL
 
 
         /// <summary>
-        /// »ñµÃ×é³¤ÍÆ¼öÁĞ±í
+        /// è·å¾—ç»„é•¿æ¨èåˆ—è¡¨
         /// </summary>
         public DataTable GetListTeam(int Sgrade, int Sclass)
         {
@@ -1193,23 +1193,23 @@ namespace LearnSite.BLL
 
 
         /// <summary>
-        /// ¸üĞÂ¸ÃSidÑ§ÉúµÄ×é³¤ÍÆ¼ö
+        /// æ›´æ–°è¯¥Sidå­¦ç”Ÿçš„ç»„é•¿æ¨è
         /// </summary>
-        /// <param name="Sid">×Ô¼ºID</param>
-        /// <param name="Steam">×é³¤ID</param>
+        /// <param name="Sid">è‡ªå·±ID</param>
+        /// <param name="Steam">ç»„é•¿ID</param>
         public void UpdateSidSteam(int Sid, int Steam)
         {
             dal.UpdateSidSteam(Sid, Steam);
         }
 		/// <summary>
-		/// »ñµÃÊı¾İÁĞ±í
+		/// è·å¾—æ•°æ®åˆ—è¡¨
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
 
-		#endregion  ³ÉÔ±·½·¨
+		#endregion  æˆå‘˜æ–¹æ³•
 	}
 }
 

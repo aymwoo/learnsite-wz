@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -18,7 +18,6 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             {
                 BtnEdit.Enabled = false;
                 LinkBtnAdd.Enabled = false;
-                LinkBtnAddSurvey.Enabled = false;
                 LinkBtnAddTopic.Enabled = false;
                 LinkBtnAddTxtForm.Enabled = false;
             }
@@ -87,15 +86,6 @@ public partial class Teacher_courseshow : System.Web.UI.Page
         {
             string Mcid = Request.QueryString["cid"].ToString();
             string url = "~/teacher/topicadd.aspx?mcid=" + Mcid;
-            Response.Redirect(url, true);
-        }
-    }
-    protected void LinkBtnAddSurvey_Click(object sender, EventArgs e)
-    {
-        if (Request.QueryString["cid"] != null)
-        {
-            string Vcid = Request.QueryString["cid"].ToString();
-            string url = "~/survey/surveyadd.aspx?cid=" + Vcid;
             Response.Redirect(url, true);
         }
     }
@@ -177,23 +167,15 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                 case "36"://素材库
                 case "37"://网站设计
                 case "38"://网页课件
+                case "39"://课堂测验
                     LearnSite.BLL.Mission mbll = new LearnSite.BLL.Mission();
                     mbll.DeleteMission(lxid);//假删除任务
                     lbll.Delete(Lid);//删除导航
                     break;
                 case "2"://调查
                     LearnSite.BLL.Survey vbll = new LearnSite.BLL.Survey();
-                    LearnSite.BLL.SurveyQuestion qbll = new LearnSite.BLL.SurveyQuestion();
-                    if (!qbll.ExistsByQvid(lxid))
-                    {
-                        vbll.Delete(lxid);//删除调查
-                        lbll.Delete(Lid);//删除导航
-                    }
-                    else
-                    {
-                        string msg = "该调查卷存在试题，请先删除试题！";
-                        LearnSite.Common.WordProcess.Alert(msg, this.Page);
-                    }
+                    vbll.Delete(lxid);//删除调查
+                    lbll.Delete(Lid);//删除导航
                     break;
                 case "3"://讨论
                     LearnSite.BLL.TopicDiscuss tbll = new LearnSite.BLL.TopicDiscuss();
@@ -270,11 +252,6 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/description.png";
                     ((Label)e.Row.FindControl("Label4")).Text = "阅读";
                     hl.NavigateUrl = "missionshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
-                    break;
-                case "2":
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/survey.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "调查";
-                    hl.NavigateUrl = "~/survey/survey.aspx?cid=" + Cid + "&Vid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "3":
                     ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/topic.png";
@@ -446,6 +423,11 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     ((Label)e.Row.FindControl("Label4")).Text = "网页";
                     hl.NavigateUrl = "wareshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
+                case "39"://课堂测验
+                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/wvote.png";
+                    ((Label)e.Row.FindControl("Label4")).Text = "测验";
+                    hl.NavigateUrl = "~/webform/exam.aspx?cid=" + Cid + "&eid=" + lxid + "&lid=" + lid + Cold;
+                    break;
             }
 
             string strjs = "if(confirm('您确定要删除吗?'))return true;else return false; ";
@@ -543,5 +525,15 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             string url = "~/teacher/wareadd.aspx?mcid=" + Vcid;
             Response.Redirect(url, true);
         }
+    }
+    protected void LinkBtnAddExam_Click(object sender, EventArgs e)
+    {
+        if (Request.QueryString["cid"] != null)
+        {
+            string Vcid = Request.QueryString["cid"].ToString();
+            string url = "~/webform/exam.aspx?cid=" + Vcid;
+            Response.Redirect(url, true);
+        }
+
     }
 }

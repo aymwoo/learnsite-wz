@@ -1,4 +1,4 @@
-﻿body
+body
 {
     margin: 0 auto; 
 }
@@ -461,10 +461,7 @@ li.return {background:url(../../images/return.png) top left no-repeat;}
     line-height:1.5;
     padding: 20px;
 }
-div.placeauto img:hover
-{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
-}
+
 .ccontent
 {
     margin: auto;
@@ -776,7 +773,7 @@ div.placeauto img:hover
     font-size: 8pt;
     width: 40px;
 }
-.timg { border: 1px solid #ddd;width:220px; height:180px;border-radius: 24px;  } a:hover img{filter:alpha(Opacity=60);-moz-opacity:0.6;opacity: 0.6}
+.timg { border: 1px solid #ddd;width:220px; height:180px;border-radius: 24px;  }
 .divindex{margin: auto;overflow: hidden;}
 .thumbbox{width:24.9%;float:left;}
 .text-center{font-size: 10pt;color: #666;font-family: Arial;}
