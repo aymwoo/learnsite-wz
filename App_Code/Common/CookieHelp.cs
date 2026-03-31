@@ -160,44 +160,125 @@ namespace LearnSite.Common
         }
 
         /// <summary>
-        /// 清除教师的cookie值
+        /// 清除管理员的cookie值 - 优化版本，增强安全性和异常处理
         /// </summary>
         public static void ClearManagerCookies()
         {
-            if (HttpContext.Current.Request.Cookies[mngCookieNname] != null)
+            try
             {
-                HttpCookie mOldCookie = HttpContext.Current.Request.Cookies[mngCookieNname];
-                mOldCookie.Expires = DateTime.Now.AddYears(-20);//将这个Cookie过期掉
-                HttpContext.Current.Response.AppendCookie(mOldCookie);
-                HttpContext.Current.Session.RemoveAll();
-                HttpContext.Current.Request.Cookies.Clear();
+                ClearCookieByName(mngCookieNname);
+                
+                string[] systemCookies = { "ASP.NET_SessionId" };
+                foreach (string cookieName in systemCookies)
+                {
+                    ClearCookieByName(cookieName);
+                }
+                
+                if (HttpContext.Current.Session != null)
+                {
+                    HttpContext.Current.Session.RemoveAll();
+                    HttpContext.Current.Session.Abandon();
+                }
+                
+                if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
+                {
+                    HttpContext.Current.Request.Cookies.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("清除管理员Cookie失败: " + ex.Message);
             }
         }
+        
         /// <summary>
-        /// 清除教师的cookie值
+        /// 清除教师的cookie值 - 优化版本，增强安全性和异常处理
         /// </summary>
         public static void ClearTeacherCookies()
         {
-            if (HttpContext.Current.Request.Cookies[teaCookieNname] != null)
+            try
             {
-                HttpCookie tOldCookie = HttpContext.Current.Request.Cookies[teaCookieNname];
-                tOldCookie.Expires = DateTime.Now.AddYears(-20);//将这个Cookie过期掉
-                HttpContext.Current.Response.AppendCookie(tOldCookie);
-                HttpContext.Current.Session.RemoveAll();
-                HttpContext.Current.Request.Cookies.Clear();
+                ClearCookieByName(teaCookieNname);
+                
+                string[] systemCookies = { "ASP.NET_SessionId" };
+                foreach (string cookieName in systemCookies)
+                {
+                    ClearCookieByName(cookieName);
+                }
+                
+                if (HttpContext.Current.Session != null)
+                {
+                    HttpContext.Current.Session.RemoveAll();
+                    HttpContext.Current.Session.Abandon();
+                }
+                
+                if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
+                {
+                    HttpContext.Current.Request.Cookies.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("清除教师Cookie失败: " + ex.Message);
             }
         }
+        
         /// <summary>
-        /// 清除学生的cookie值
+        /// 清除学生的cookie值 - 优化版本，增强安全性和异常处理
         /// </summary>
         public static void ClearStudentCookies()
         {
-            if (HttpContext.Current.Request.Cookies[stuCookieNname] != null)
+            try
             {
-                HttpCookie sOldCookie = HttpContext.Current.Request.Cookies[stuCookieNname];
-                sOldCookie.Expires = DateTime.Now.AddYears(-1);//将这个Cookie过期掉
-                HttpContext.Current.Response.AppendCookie(sOldCookie);
-                HttpContext.Current.Request.Cookies.Clear();
+                ClearCookieByName(stuCookieNname);
+                
+                string[] systemCookies = { "ASP.NET_SessionId" };
+                foreach (string cookieName in systemCookies)
+                {
+                    ClearCookieByName(cookieName);
+                }
+                
+                if (HttpContext.Current.Session != null)
+                {
+                    HttpContext.Current.Session.RemoveAll();
+                    HttpContext.Current.Session.Abandon();
+                }
+                
+                if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
+                {
+                    HttpContext.Current.Request.Cookies.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("清除学生Cookie失败: " + ex.Message);
+            }
+        }
+        
+        /// <summary>
+        /// 统一的Cookie清除方法，增强安全性
+        /// </summary>
+        /// <param name="cookieName">要清除的Cookie名称</param>
+        private static void ClearCookieByName(string cookieName)
+        {
+            try
+            {
+                if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies[cookieName] != null)
+                {
+                    HttpCookie clearCookie = new HttpCookie(cookieName, "");
+                    clearCookie.Expires = DateTime.Now.AddYears(-1);
+                    clearCookie.Path = "/";
+                    clearCookie.HttpOnly = true;
+                    
+                    if (HttpContext.Current.Response != null)
+                    {
+                        HttpContext.Current.Response.Cookies.Add(clearCookie);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("清除Cookie " + cookieName + " 失败: " + ex.Message);
             }
         }
 
@@ -345,24 +426,34 @@ namespace LearnSite.Common
         /// </summary>
         public static void JudgeIsAdmin()
         {
-            if (HttpContext.Current.Request.Cookies[mngCookieNname] == null)//没登录跳出
+            try
             {
-                HttpContext.Current.Response.Redirect("~/teacher/index.aspx", true);
-            }
-            else
-            {
-                Model.MngCook mncook = new Model.MngCook();
-                if (HttpContext.Current.Session.SessionID == mncook.SessionId && mncook.Hpermiss)
+                if (HttpContext.Current.Request.Cookies[mngCookieNname] == null)//没登录跳出
                 {
-                    //正确
+                    HttpContext.Current.Response.Redirect("~/teacher/index.aspx", true);
                 }
                 else
                 {
-                    ClearManagerCookies();//非法cookies，清除再跳转
-                    Others.ClearClientPageCache();
-                    System.Threading.Thread.Sleep(500);
-                    HttpContext.Current.Response.Redirect("~/teacher/index.aspx", true);
+                    Model.MngCook mncook = new Model.MngCook();
+                    if (mncook.IsExist() && mncook.Hpermiss)
+                    {
+                        // 只检查cookie是否存在和权限是否正确，不检查SessionID
+                        // 这样即使Session过期，只要cookie有效，就能访问管理页面
+                    }
+                    else
+                    {
+                        ClearManagerCookies();//非法cookies，清除再跳转
+                        Others.ClearClientPageCache();
+                        System.Threading.Thread.Sleep(500);
+                        HttpContext.Current.Response.Redirect("~/teacher/index.aspx", true);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine("JudgeIsAdmin失败: " + ex.Message);
+                ClearManagerCookies();
+                HttpContext.Current.Response.Redirect("~/teacher/index.aspx", true);
             }
         }
         /// <summary>
