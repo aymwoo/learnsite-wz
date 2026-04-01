@@ -144,7 +144,7 @@ namespace LearnSite.DBUtility
             }
             if (File.Exists(sqlpath))
             {
-                sqlarr = ExecuteSqlFile(sqlpath);
+                sqlarr = SqlHelper.ExecuteSqlFile(sqlpath);
             }
             return sqlarr;
         }
