@@ -1,2 +1,4 @@
 CompileTest/
 perftest/
+Tests/**/bin/
+Tests/**/obj/
