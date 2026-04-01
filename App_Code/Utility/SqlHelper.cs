@@ -658,9 +658,8 @@ namespace LearnSite.DBUtility
         /// </summary>
         /// <param name="varFileName">物理路径</param>
         /// <returns></returns>
-        private static ArrayList ExecuteSqlFile(string varFileName)
+        public static ArrayList ExecuteSqlFile(string varFileName)
         {
-            // TODO:读取.sql脚本文件
             StreamReader sr = File.OpenText(varFileName);//传入的是文件路径及完整的文件名
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
             StringBuilder str = new StringBuilder();

@@ -144,7 +144,7 @@ namespace LearnSite.DBUtility
             }
             if (File.Exists(sqlpath))
             {
-                sqlarr = ExecuteSqlFile(sqlpath);
+                sqlarr = SqlHelper.ExecuteSqlFile(sqlpath);
             }
             return sqlarr;
         }
@@ -170,52 +170,6 @@ namespace LearnSite.DBUtility
                     }
             }
             return isok;
-        }
-
-        /// <summary>
-        /// 被网上复制过来的这个读脚本害的好惨。（原代码读取时漏掉脚本中的最后一段，所以正常的脚本最后要加一句GO）
-        /// </summary>
-        /// <param name="varFileName"></param>
-        /// <returns></returns>
-        private static ArrayList ExecuteSqlFile(string varFileName)
-        {
-            //
-            // TODO:读取.sql脚本文件
-            //
-            StreamReader sr = File.OpenText(varFileName);//传入的是文件路径及完整的文件名
-            ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
-            StringBuilder str = new StringBuilder();
-
-            //string commandText = "";
-            string varLine = "";
-            while (sr.Peek() > -1)
-            {
-                varLine = sr.ReadLine();
-                if (varLine == "")
-                {
-                    continue;
-                }
-                if (varLine != "GO")
-                {                    
-                    str.Append(varLine);
-                    str.Append(" ");
-                    //commandText += varLine;
-                   // commandText += " ";// "\r\n";
-                }
-                else
-                {
-                    alSql.Add(str.ToString());
-                    str.Length = 0;
-                    //alSql.Add(commandText);
-                   // commandText = "";
-                }
-            }
-            if (str.Length > 0)
-            {
-                alSql.Add(str.ToString());//修订（2011-10-30温州水乡）
-            }
-            sr.Close();
-            return alSql;
         }
 
     }
