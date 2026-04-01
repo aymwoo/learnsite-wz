@@ -484,17 +484,18 @@ namespace LearnSite.DAL
             int n = dt.Rows.Count;
             if (n > 0)
             {
-                string strtemp = "";
+                StringBuilder strtemp = new StringBuilder();
                 string cidstr = "";
                 for (int i = 0; i < n; i++)
                 {
                     cidstr = dt.Rows[i]["Mcid"].ToString();
                     if (!string.IsNullOrEmpty(cidstr))
                     {
-                        strtemp = strtemp + cidstr + ",";
+                        strtemp.Append(cidstr);
+                        strtemp.Append(",");
                     }
                 }
-                return strtemp;
+                return strtemp.ToString();
             }
             else
             {
@@ -515,17 +516,18 @@ namespace LearnSite.DAL
             int n = dt.Rows.Count;
             if (n > 0)
             {
-                string strtemp = "";
+                StringBuilder strtemp = new StringBuilder();
                 string cidstr = "";
                 for (int i = 0; i < n; i++)
                 {
                     cidstr = dt.Rows[i]["Mcid"].ToString();
                     if (!string.IsNullOrEmpty(cidstr))
                     {
-                        strtemp = strtemp + cidstr + ",";
+                        strtemp.Append(cidstr);
+                        strtemp.Append(",");
                     }
                 }
-                return strtemp;
+                return strtemp.ToString();
             }
             else
             {
