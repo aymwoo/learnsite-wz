@@ -565,8 +565,17 @@ namespace LearnSite.DAL
         /// <returns></returns>
         public DataTable GetClassScore(int Fvid, int Fgrade, int Fclass)
         {
-            string mysql = "select Fnum as Snum,Fscore as Score FROM SurveyFeedback  where Fvid=" + Fvid + " and Fgrade=" + Fgrade + " and Fclass=" + Fclass + " order by Fnum";
-            return DbHelperSQL.Query(mysql).Tables[0];
+            string mysql = "select Fnum as Snum,Fscore as Score FROM SurveyFeedback where Fvid=@Fvid and Fgrade=@Fgrade and Fclass=@Fclass order by Fnum";
+            SqlParameter[] parameters = {
+                    new SqlParameter("@Fvid", SqlDbType.Int, 4),
+                    new SqlParameter("@Fgrade", SqlDbType.Int, 4),
+                    new SqlParameter("@Fclass", SqlDbType.Int, 4)
+            };
+            parameters[0].Value = Fvid;
+            parameters[1].Value = Fgrade;
+            parameters[2].Value = Fclass;
+
+            return DbHelperSQL.Query(mysql, parameters).Tables[0];
         }
 		/// <summary>
 		/// 获得前几行数据

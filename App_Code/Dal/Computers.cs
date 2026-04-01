@@ -49,18 +49,23 @@ namespace LearnSite.DAL
             DataTable pt = DbHelperSQL.Query(sqlstr).Tables[0];
             int pcount = pt.Rows.Count;
             if (dcount > 0 && pcount > 0) {
+                StringBuilder batchSql = new StringBuilder();
+                int updates = 0;
                 for (int i = 0; i < pcount; i++)
                 {
                     string pip = pt.Rows[i]["Pip"].ToString();
                     if (i < dcount)
                     {
                         string snum = dt.Rows[i]["Snum"].ToString();
-                        string sql = "update Computers set Pon=0, Pnum='" + snum + "' where Pip='" + pip + "'";
-                        DbHelperSQL.ExecuteSql(sql);
+                        batchSql.Append("update Computers set Pon=0, Pnum='" + snum + "' where Pip='" + pip + "';");
+                        updates++;
                     }
                     else {
                         break;                    
                     }
+                }
+                if (updates > 0) {
+                    DbHelperSQL.ExecuteSql(batchSql.ToString());
                 }
             }
         }
