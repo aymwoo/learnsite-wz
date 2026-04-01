@@ -8,13 +8,6 @@ namespace LearnSite.Common
     /// </summary>
     public class Flatform
     {
-        public Flatform()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
-        
        public static bool isUnix {
            get
            {
