@@ -762,16 +762,13 @@ namespace LearnSite.DAL
             string[] CidsStr = Cids.Split(',');
             if (CidsStr.Length > 0)
             {
+                System.Collections.Generic.HashSet<string> cidSet = new System.Collections.Generic.HashSet<string>(CidsStr);
                 for (int i = 0; i < dtcount; i++)
                 {
                     string Cid = dt.Rows[i]["Cid"].ToString();
-                    foreach (string ch in CidsStr)
+                    if (cidSet.Contains(Cid))
                     {
-                        if (ch == Cid)
-                        {
-                            dt.Rows[i]["Checker"] = "1";//如果符合就标志，说明已学过
-                            break;
-                        }
+                        dt.Rows[i]["Checker"] = "1";//如果符合就标志，说明已学过
                     }
                 }
                 for (int i = 0; i < dtcount; i++)
