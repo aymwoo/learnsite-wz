@@ -1,6 +1,7 @@
 
 using System;
 using System.Data;
+using System.Text;
 using System.Collections.Generic;
 using LearnSite.Common;
 using LearnSite.Model;
@@ -130,19 +131,19 @@ namespace LearnSite.BLL
 
         public string GetUndoStus(int Rgrade, int Rclass, int Rmid)
         {
-            string stus = "未填写同学：";
+            StringBuilder stus = new StringBuilder("未填写同学：");
             DataTable dt = dal.GetUndo(Rgrade, Rclass, Rmid);
             int count = dt.Rows.Count;
             if (count > 0)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    stus = stus + dt.Rows[i][0].ToString();
+                    stus.Append(dt.Rows[i][0].ToString());
                     if (i < count - 1)
-                        stus += "，";
+                        stus.Append("，");
                 }
             }
-            return stus;
+            return stus.ToString();
         }
 		/// <summary>
 		/// 获得数据列表
