@@ -13,9 +13,6 @@ namespace LearnSite.Model
     {
         public MngCook()
         {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
             if (HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.mngCookieNname] != null)
             {
                 string mcook = HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.mngCookieNname].Value;
