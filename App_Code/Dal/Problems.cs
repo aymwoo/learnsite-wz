@@ -84,12 +84,16 @@ namespace LearnSite.DAL
             int cn = dt.Rows.Count;
             if (cn > 0)
             {
+                StringBuilder strSql = new StringBuilder();
                 for (int i = 0; i < cn; i++)
                 {
                     string Pid = dt.Rows[i][0].ToString();
                     int ps = i + 1;
-                    string sql = "update Problems set Psort= " + ps + " where Pid=" + Pid;
-                    DbHelperSQL.ExecuteSql(sql);
+                    strSql.AppendFormat("update Problems set Psort={0} where Pid={1};", ps, Pid);
+                }
+                if (strSql.Length > 0)
+                {
+                    DbHelperSQL.ExecuteSql(strSql.ToString());
                 }
             }
         }
