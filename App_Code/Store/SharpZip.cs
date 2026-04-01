@@ -13,14 +13,6 @@ namespace LearnSite.Store
     /// </summary>
     public class SharpZip
     {
-        public SharpZip()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
-
-
         /// <summary>
         /// Create a Zip archive.压缩
         /// </summary>        /// 
