@@ -269,8 +269,12 @@ namespace LearnSite.DAL
         /// <param name="Fid"></param>
         public void UpdateFhide(int Fid)
         {
-            string strsql = "update Soft set Fhide=Fhide^1 where Fid="+Fid;
-            DbHelperSQL.ExecuteSql(strsql);
+            string strsql = "update Soft set Fhide=Fhide^1 where Fid=@Fid";
+            SqlParameter[] parameters = {
+					new SqlParameter("@Fid", SqlDbType.Int,4)};
+            parameters[0].Value = Fid;
+
+            DbHelperSQL.ExecuteSql(strsql, parameters);
         }
 		/// <summary>
 		/// 获得前几行数据
@@ -299,8 +303,11 @@ namespace LearnSite.DAL
         /// <returns></returns>
         public DataTable GetListnomic(int Fyid)
         {
-            string mysql = "select Fid,Ftitle from Soft where Fup=1 and Fyid="+Fyid+" order by Fyid asc";
-            return DbHelperSQL.Query(mysql).Tables[0];
+            string mysql = "select Fid,Ftitle from Soft where Fup=1 and Fyid=@Fyid order by Fyid asc";
+            SqlParameter[] parameters = {
+					new SqlParameter("@Fyid", SqlDbType.Int,4)};
+            parameters[0].Value = Fyid;
+            return DbHelperSQL.Query(mysql, parameters).Tables[0];
         }
         /// <summary>
         /// 获得有作品提交的分类项数据列表，按序号和编号排序
