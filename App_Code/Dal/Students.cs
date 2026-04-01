@@ -950,19 +950,8 @@ namespace LearnSite.DAL
         /// </summary>
         public void TeamScores()
         {
-            string strSql = "SELECT Snum From Students ";
-            DataSet ds = DbHelperSQL.GetDataSet(strSql);
-            DataTable dt = ds.Tables[0];
-            int counts = dt.Rows.Count;
-            if (counts > 0)
-            {
-                for (int i = 0; i < counts; i++)
-                {
-                    string Snum = dt.Rows[i]["Snum"].ToString();
-                    string mysql = " UPDATE Students SET Sscore=(SELECT SUM(Wscore) FROM Works WHERE Wnum='" + Snum + "'" + ") FROM Students WHERE Snum='" + Snum + "'";
-                    DbHelperSQL.ExecuteSql(mysql);
-                }
-            }
+            string mysql = "UPDATE Students SET Sscore=(SELECT SUM(Wscore) FROM Works WHERE Wnum=Students.Snum)";
+            DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
         /// 批量更新所教班级当前学期小组合作分
