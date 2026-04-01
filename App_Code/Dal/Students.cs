@@ -1049,11 +1049,12 @@ namespace LearnSite.DAL
             int gcount = gstu.Length;
             if (gcount > 0)
             {
+                StringBuilder sqlgw = new StringBuilder();
                 foreach (string stu in gstu)
                 {
-                    string sqlgw = "update Students set Sgscore=(select ISNULL(sum(Gscore),0) from GroupWork where Gterm=" + Cterm + " and Ggrade=" + Cobj + " and Gstudents like '%" + stu + "%' ) where Snum='" + stu + "'";
-                    DbHelperSQL.ExecuteSql(sqlgw);//统计单个学生小组合作得分
+                    sqlgw.Append("update Students set Sgscore=(select ISNULL(sum(Gscore),0) from GroupWork where Gterm=" + Cterm + " and Ggrade=" + Cobj + " and Gstudents like '%" + stu + "%' ) where Snum='" + stu + "';");
                 }
+                DbHelperSQL.ExecuteSql(sqlgw.ToString());//批量更新小组成员得分，避免N+1查询
             }
         }
         /// <summary>
