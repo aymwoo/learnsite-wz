@@ -660,38 +660,37 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         public static ArrayList ExecuteSqlFile(string varFileName)
         {
-            StreamReader sr = File.OpenText(varFileName);//传入的是文件路径及完整的文件名
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
             StringBuilder str = new StringBuilder();
-            //string commandText = "";
-            string varLine = "";
-            while (sr.Peek() > -1)
+
+            //读取.sql脚本文件
+            using (StreamReader sr = new StreamReader(varFileName, System.Text.Encoding.GetEncoding("gb2312")))
             {
-                varLine = sr.ReadLine();
-                if (varLine == "")
+                string varLine = "";
+                while ((varLine = sr.ReadLine()) != null)
                 {
-                    continue;
-                }
-                if (varLine != "GO")
-                {
-                    str.Append(varLine);
-                    str.Append(" ");
-                    //commandText += varLine;
-                    // commandText += " ";// "\r\n";
-                }
-                else
-                {
-                    alSql.Add(str.ToString());
-                    str.Length = 0;
-                    //alSql.Add(commandText);
-                    // commandText = "";
+                    if (varLine == "")
+                    {
+                        continue;
+                    }
+                    if (!varLine.Trim().Equals("GO", StringComparison.OrdinalIgnoreCase))
+                    {
+                        str.Append(varLine);
+                        str.Append(" ");
+                    }
+                    else
+                    {
+                        alSql.Add(str.ToString());
+                        str.Length = 0;
+                    }
                 }
             }
+
             if (str.Length > 0)
             {
                 alSql.Add(str.ToString());//修订（2011-10-30温州水乡）
             }
-            sr.Close();
+
             return alSql;
         }
 

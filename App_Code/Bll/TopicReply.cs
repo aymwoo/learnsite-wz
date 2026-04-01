@@ -316,19 +316,19 @@ namespace LearnSite.BLL
         /// <returns></returns>
         public string GetNoReplay(int Sgrade, int Sclass, int Rtid)
         {
-            string stus = "未发表同学：";
-             DataTable dt=dal.GetNoReplay(Sgrade, Sclass, Rtid);
+            System.Text.StringBuilder stus = new System.Text.StringBuilder("未发表同学：");
+            DataTable dt=dal.GetNoReplay(Sgrade, Sclass, Rtid);
             int count=dt.Rows.Count;
-             if ( count> 0)
-             {
-                 for (int i = 0; i < count; i++)
-                 {
-                     stus = stus + dt.Rows[i][0].ToString();
-                     if (i < count - 1)
-                         stus += "，";
-                 }             
-             }
-             return stus;
+            if ( count> 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    stus.Append(dt.Rows[i][0].ToString());
+                    if (i < count - 1)
+                        stus.Append("，");
+                }
+            }
+            return stus.ToString();
         }
         /// <summary>
         /// 获得该主题本班回复数据列表

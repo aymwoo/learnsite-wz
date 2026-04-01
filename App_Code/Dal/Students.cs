@@ -950,19 +950,8 @@ namespace LearnSite.DAL
         /// </summary>
         public void TeamScores()
         {
-            string strSql = "SELECT Snum From Students ";
-            DataSet ds = DbHelperSQL.GetDataSet(strSql);
-            DataTable dt = ds.Tables[0];
-            int counts = dt.Rows.Count;
-            if (counts > 0)
-            {
-                for (int i = 0; i < counts; i++)
-                {
-                    string Snum = dt.Rows[i]["Snum"].ToString();
-                    string mysql = " UPDATE Students SET Sscore=(SELECT SUM(Wscore) FROM Works WHERE Wnum='" + Snum + "'" + ") FROM Students WHERE Snum='" + Snum + "'";
-                    DbHelperSQL.ExecuteSql(mysql);
-                }
-            }
+            string mysql = "UPDATE Students SET Sscore=ISNULL((SELECT SUM(Wscore) FROM Works WHERE Wnum=Students.Snum), 0)";
+            DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
         /// 批量更新所教班级当前学期小组合作分
@@ -1049,11 +1038,12 @@ namespace LearnSite.DAL
             int gcount = gstu.Length;
             if (gcount > 0)
             {
+                StringBuilder sqlgw = new StringBuilder();
                 foreach (string stu in gstu)
                 {
-                    string sqlgw = "update Students set Sgscore=(select ISNULL(sum(Gscore),0) from GroupWork where Gterm=" + Cterm + " and Ggrade=" + Cobj + " and Gstudents like '%" + stu + "%' ) where Snum='" + stu + "'";
-                    DbHelperSQL.ExecuteSql(sqlgw);//统计单个学生小组合作得分
+                    sqlgw.Append("update Students set Sgscore=(select ISNULL(sum(Gscore),0) from GroupWork where Gterm=" + Cterm + " and Ggrade=" + Cobj + " and Gstudents like '%" + stu + "%' ) where Snum='" + stu + "';");
                 }
+                DbHelperSQL.ExecuteSql(sqlgw.ToString());//批量更新小组成员得分，避免N+1查询
             }
         }
         /// <summary>
@@ -1402,44 +1392,42 @@ namespace LearnSite.DAL
             int SgradeMax = rm.GetMaxRgrade();
             int SclassMin = rm.GetMinRclass();
             int SclassMax = rm.GetMaxRclass();
-            for (int i = SgradeMin; i < SgradeMax + 1; i++)
-            {
-                for (int j = SclassMin; j < SclassMax + 1; j++)
-                {
-                    int Sgrade = i;
-                    int Sclass = j;
-                    string mysql = "SELECT MAX(Sallscore) From Students WHERE Sgrade=" + Sgrade + " AND Sclass=" + Sclass;
-                    int Smaxscore = DbHelperSQL.FindNum(mysql);
 
-                    if (Smaxscore > 0)
-                    {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("UPDATE s SET Stenscore = s.Sallscore * 10 / max_scores.Smaxscore ");
+            strSql.Append("FROM Students s ");
+            strSql.Append("INNER JOIN (");
+            strSql.Append("    SELECT Sgrade, Sclass, MAX(Sallscore) as Smaxscore ");
+            strSql.Append("    FROM Students ");
+            strSql.Append("    WHERE Sgrade >= @SgradeMin AND Sgrade <= @SgradeMax ");
+            strSql.Append("      AND Sclass >= @SclassMin AND Sclass <= @SclassMax ");
+            strSql.Append("    GROUP BY Sgrade, Sclass ");
+            strSql.Append("    HAVING MAX(Sallscore) > 0");
+            strSql.Append(") max_scores ON s.Sgrade = max_scores.Sgrade AND s.Sclass = max_scores.Sclass ");
 
-                        StringBuilder strSql = new StringBuilder();
-                        strSql.Append("UPDATE Students SET Stenscore= Sallscore*10/@Smaxscore   WHERE Sgrade=@Sgrade  AND Sclass=@Sclass ");
-                        SqlParameter[] parameters = {
-                            new SqlParameter("@Smaxscore", SqlDbType.Int,4),
-					        new SqlParameter("@Sgrade", SqlDbType.Int,4),
-                            new SqlParameter("@Sclass", SqlDbType.Int,4)};
+            SqlParameter[] parameters = {
+                new SqlParameter("@SgradeMin", SqlDbType.Int, 4),
+                new SqlParameter("@SgradeMax", SqlDbType.Int, 4),
+                new SqlParameter("@SclassMin", SqlDbType.Int, 4),
+                new SqlParameter("@SclassMax", SqlDbType.Int, 4)};
 
-                        parameters[0].Value = Smaxscore;
-                        parameters[1].Value = Sgrade;
-                        parameters[2].Value = Sclass;
+            parameters[0].Value = SgradeMin;
+            parameters[1].Value = SgradeMax;
+            parameters[2].Value = SclassMin;
+            parameters[3].Value = SclassMax;
 
-                        DbHelperSQL.Query(strSql.ToString(), parameters);
+            DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
 
-                        string sqla = "UPDATE Students SET Sape='A' WHERE  Sgrade=" + Sgrade + " AND Sclass=" + Sclass + " AND Stenscore>8";
-                        DbHelperSQL.ExecuteSql(sqla);
-                        string sqlb = "UPDATE Students SET Sape='B' WHERE  Sgrade=" + Sgrade + " AND Sclass=" + Sclass + " AND Stenscore>6 AND Stenscore<9 ";
-                        DbHelperSQL.ExecuteSql(sqlb);
-                        string sqlc = "UPDATE Students SET Sape='C' WHERE  Sgrade=" + Sgrade + " AND Sclass=" + Sclass + "  AND Stenscore>4 AND Stenscore<7 ";
-                        DbHelperSQL.ExecuteSql(sqlc);
-                        string sqld = "UPDATE Students SET Sape='D' WHERE  Sgrade=" + Sgrade + " AND Sclass=" + Sclass + "  AND Stenscore>2 AND Stenscore<5 ";
-                        DbHelperSQL.ExecuteSql(sqld);
-                        string sqle = "UPDATE Students SET Sape='E' WHERE  Sgrade=" + Sgrade + " AND Sclass=" + Sclass + "  AND Stenscore>0 AND Stenscore<3 ";
-                        DbHelperSQL.ExecuteSql(sqle);
-                    }
-                }
-            }
+            string sqla = "UPDATE Students SET Sape='A' WHERE Sgrade >= " + SgradeMin + " AND Sgrade <= " + SgradeMax + " AND Sclass >= " + SclassMin + " AND Sclass <= " + SclassMax + " AND Stenscore>8";
+            DbHelperSQL.ExecuteSql(sqla);
+            string sqlb = "UPDATE Students SET Sape='B' WHERE Sgrade >= " + SgradeMin + " AND Sgrade <= " + SgradeMax + " AND Sclass >= " + SclassMin + " AND Sclass <= " + SclassMax + " AND Stenscore>6 AND Stenscore<9 ";
+            DbHelperSQL.ExecuteSql(sqlb);
+            string sqlc = "UPDATE Students SET Sape='C' WHERE Sgrade >= " + SgradeMin + " AND Sgrade <= " + SgradeMax + " AND Sclass >= " + SclassMin + " AND Sclass <= " + SclassMax + " AND Stenscore>4 AND Stenscore<7 ";
+            DbHelperSQL.ExecuteSql(sqlc);
+            string sqld = "UPDATE Students SET Sape='D' WHERE Sgrade >= " + SgradeMin + " AND Sgrade <= " + SgradeMax + " AND Sclass >= " + SclassMin + " AND Sclass <= " + SclassMax + " AND Stenscore>2 AND Stenscore<5 ";
+            DbHelperSQL.ExecuteSql(sqld);
+            string sqle = "UPDATE Students SET Sape='E' WHERE Sgrade >= " + SgradeMin + " AND Sgrade <= " + SgradeMax + " AND Sclass >= " + SclassMin + " AND Sclass <= " + SclassMax + " AND Stenscore>0 AND Stenscore<3 ";
+            DbHelperSQL.ExecuteSql(sqle);
         }
 
         /// <summary>
