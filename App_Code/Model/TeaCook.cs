@@ -13,9 +13,6 @@ namespace LearnSite.Model
     {
         public TeaCook()
         {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
             if (HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
             {
                 string tcook = HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname].Value;
