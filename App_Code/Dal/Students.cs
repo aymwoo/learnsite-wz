@@ -1950,14 +1950,17 @@ namespace LearnSite.DAL
                 DataTable dtlead = DbHelperSQL.Query(sqllead).Tables[0];
                 int count = dt.Rows.Count;//9
 
+                StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < count; i++)
                 {
                     string sid = dt.Rows[i]["Sid"].ToString();
                     string leadsid = dtlead.Rows[i % Leadnum]["Sid"].ToString();//依次分配学生
-                    string sqlgroup = "update Students set Sgroup=" + leadsid + " where   Sid=" + sid;
-                    DbHelperSQL.ExecuteSql(sqlgroup);
+                    sb.Append("update Students set Sgroup=").Append(leadsid).Append(" where   Sid=").Append(sid).Append(";");
                 }
-
+                if (sb.Length > 0)
+                {
+                    DbHelperSQL.ExecuteSql(sb.ToString());
+                }
             }
         }
 
