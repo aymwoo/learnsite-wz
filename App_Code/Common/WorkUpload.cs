@@ -10,12 +10,6 @@ namespace LearnSite.Common
     /// </summary>
     public class WorkUpload
     {
-        public WorkUpload()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
         private static  string AutonomicSavePath = "~/nomicwork/";
         private static void CreateNomicDir(string Sid )
         {
