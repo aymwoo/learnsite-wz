@@ -253,13 +253,18 @@ namespace LearnSite.DAL
             int cn = dt.Rows.Count;
             if (cn > 0)
             {
+                StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < cn; i++)
                 {
                     string Yid = dt.Rows[i][0].ToString();
                     int ls = i + 1;
-                    string sql = "update SoftCategory set Ysort= " + ls + " where Yid=" + Yid;
-                    DbHelperSQL.ExecuteSql(sql);
+                    sb.Append("update SoftCategory set Ysort=");
+                    sb.Append(ls);
+                    sb.Append(" where Yid=");
+                    sb.Append(Yid);
+                    sb.Append(";");
                 }
+                DbHelperSQL.ExecuteSql(sb.ToString());
             }        
         }
         /// <summary>

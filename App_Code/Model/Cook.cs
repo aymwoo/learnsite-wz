@@ -13,9 +13,6 @@ namespace LearnSite.Model
     {
         public Cook()
         {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
             if (HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.stuCookieNname] != null)
             {
                 string scook = HttpContext.Current.Request.Cookies[LearnSite.Common.CookieHelp.stuCookieNname].Value;

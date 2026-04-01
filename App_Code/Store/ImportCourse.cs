@@ -12,13 +12,6 @@ namespace LearnSite.Store
     /// </summary>
     public class ImportCourse
     {
-        public ImportCourse()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
-
         /// <summary>
         /// 保存上传学案包，获得保存文件名及物理路径
         /// </summary>

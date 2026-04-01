@@ -180,19 +180,19 @@ namespace LearnSite.DBUtility
         private static ArrayList ExecuteSqlFile(string varFileName)
         {
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
-            StringBuilder str = new StringBuilder();
-
-            //读取.sql脚本文件
-            using (StreamReader sr = new StreamReader(varFileName, System.Text.Encoding.GetEncoding("gb2312")))
+            using (StreamReader sr = File.OpenText(varFileName)) //传入的是文件路径及完整的文件名
             {
+                StringBuilder str = new StringBuilder();
+
                 string varLine = "";
-                while ((varLine = sr.ReadLine()) != null)
+                while (sr.Peek() > -1)
                 {
+                    varLine = sr.ReadLine();
                     if (varLine == "")
                     {
                         continue;
                     }
-                    if (!varLine.Trim().Equals("GO", StringComparison.OrdinalIgnoreCase))
+                    if (varLine != "GO")
                     {
                         str.Append(varLine);
                         str.Append(" ");
@@ -203,13 +203,11 @@ namespace LearnSite.DBUtility
                         str.Length = 0;
                     }
                 }
+                if (str.Length > 0)
+                {
+                    alSql.Add(str.ToString());//修订（2011-10-30温州水乡）
+                }
             }
-
-            if (str.Length > 0)
-            {
-                alSql.Add(str.ToString());//修订（2011-10-30温州水乡）
-            }
-
             return alSql;
         }
 

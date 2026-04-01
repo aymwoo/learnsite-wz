@@ -12,12 +12,6 @@ namespace LearnSite.Common
 {
     public class ExcelHelper
     {
-        public ExcelHelper()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
         /// <summary>      
         /// DataTable导出到Excel文件      
         /// </summary>      
