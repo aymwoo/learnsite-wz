@@ -1,18 +1,18 @@
-# Changelog
+# 更新日志
 
-## Recent Changes
+## 近期更新
 
-### ✨ Features & Enhancements
+### ✨ 功能与增强
 - Add start_dev.sh to start dev environment on Arch Linux with Chinese Docker mirrors (c39e89d)
 - Add unit tests for EnDeCode Encrypt/Decrypt methods (c7a9351)
 - Add xUnit tests for ImageCheck.CheckImageType (13f14c8)
 
-### 🐛 Bug Fixes
+### 🐛 问题修复
 - fix: 使用国内MCR镜像替代不可用的自定义MSSQL镜像，修复Mono下Socket异常 (e0a3f63)
 - Fix SQL injection vulnerability in SurveyFeedback.GetClassScore (0bfd6a6)
 - 🔒 fix: SQL Injection in Soft.cs (59a89fa)
 
-### 🚀 Performance Improvements
+### 🚀 性能优化
 - perf: Use StringBuilder for TopicReply student list compilation (87a8657)
 - perf: batch problem sorting updates to fix N+1 query issue (f6b5b32)
 - Fix N+1 query issue in Students.cs TotalSgscore (ddd5e3e)
@@ -25,7 +25,7 @@
 - Performance optimization: Batch UPDATE queries in SoftCategory.initYsort (fc688df)
 - ⚡ Optimize string concatenation in `App_Code/Bll/TxtFormBack.cs` and `App_Code/Dal/TxtFormBack.cs` (eefa72a)
 
-### ♻️ Refactoring & Code Health
+### ♻️ 代码重构与代码健康
 - Refactor: Remove redundant catch blocks in SharpZip.cs (8aa3091)
 - Refactor: remove redundant try-catch blocks in SharpZip (cda0d5f)
 - Refactor: Remove commented out code from UpdateStscore method (31954b9)
@@ -46,7 +46,7 @@
 - Remove empty constructor and TODO comment in WorkUpload.cs (ec9bd6e)
 - 🧹 chore: remove commented-out code in profile/mychange.aspx.cs and profile/myclass.aspx.cs (53c5e15)
 
-### 🔀 Merges
+### 🔀 分支合并
 - Merge PR #20: Remove unused constructor TODO from MngCook (c75ea2f)
 - Merge branch 'master' into jules-code-health-sqlhelper-15805562428917896229 (c584d66)
 - Merge branch 'master' into perf/fix-n-plus-1-teamscores-5521746855745945154 (cca9807)
