@@ -660,10 +660,10 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         private static ArrayList ExecuteSqlFile(string varFileName)
         {
-            // TODO:读取.sql脚本文件
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
             StringBuilder str = new StringBuilder();
 
+            //读取.sql脚本文件
             using (StreamReader sr = new StreamReader(varFileName, System.Text.Encoding.GetEncoding("gb2312")))
             {
                 string varLine = "";
@@ -673,7 +673,7 @@ namespace LearnSite.DBUtility
                     {
                         continue;
                     }
-                    if (varLine != "GO")
+                    if (!varLine.Trim().Equals("GO", StringComparison.OrdinalIgnoreCase))
                     {
                         str.Append(varLine);
                         str.Append(" ");
@@ -685,10 +685,12 @@ namespace LearnSite.DBUtility
                     }
                 }
             }
+
             if (str.Length > 0)
             {
                 alSql.Add(str.ToString());//修订（2011-10-30温州水乡）
             }
+
             return alSql;
         }
 
