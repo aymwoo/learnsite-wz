@@ -335,16 +335,28 @@ namespace LearnSite.DAL
             int n = dt.Rows.Count;
             string qjson = "";
             if (n > 0) {
+                StringBuilder sbQids = new StringBuilder();
                 for (int i = 0; i < n; i++) {
-                    string qid = dt.Rows[i]["Qid"].ToString();
+                    if (i > 0) sbQids.Append(",");
+                    sbQids.Append(dt.Rows[i]["Qid"].ToString());
+                }
 
-                    string strItem = "select Mid,Mitem,Mscore FROM SurveyItem where  Mqid=" + qid;
-                    DataTable dtItem =  DbHelperSQL.Query(strItem).Tables[0];
-                    int m = dtItem.Rows.Count;
-                    if (m > 0) {
-                        string mjson = JsonConvert.SerializeObject(dtItem);
-                        dt.Rows[i]["Qitem"] = mjson;
-                    }                    
+                string strItem = "select Mid,Mitem,Mscore,Mqid FROM SurveyItem where Mqid in (" + sbQids.ToString() + ")";
+                DataTable dtAllItems = DbHelperSQL.Query(strItem).Tables[0];
+
+                if (dtAllItems.Rows.Count > 0) {
+                    DataView dvItems = new DataView(dtAllItems);
+                    for (int i = 0; i < n; i++) {
+                        string qid = dt.Rows[i]["Qid"].ToString();
+                        dvItems.RowFilter = "Mqid=" + qid;
+                        DataTable dtItem = dvItems.ToTable(false, "Mid", "Mitem", "Mscore");
+
+                        int m = dtItem.Rows.Count;
+                        if (m > 0) {
+                            string mjson = JsonConvert.SerializeObject(dtItem);
+                            dt.Rows[i]["Qitem"] = mjson;
+                        }
+                    }
                 }
                 qjson = JsonConvert.SerializeObject(dt);
 
