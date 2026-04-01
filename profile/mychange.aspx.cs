@@ -64,8 +64,6 @@ public partial class Profile_mychange : System.Web.UI.Page
             string vpath = "~/images/gcard.gif";
             ImageButton mbtn = (ImageButton)e.Item.FindControl("ImageBtnGroup");
             string sleader = ((Label)e.Item.FindControl("LabelSleader")).Text.ToLower();
-            //string snum = ((Label)e.Item.FindControl("LabelSnum")).Text.ToLower();
-            //string sid = mbtn.CommandArgument.ToString();
             string sname = ((HyperLink)e.Item.FindControl("HyperQname")).Text;
             if (cook.IsSimiStu())
             {

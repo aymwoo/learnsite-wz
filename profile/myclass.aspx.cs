@@ -34,7 +34,6 @@ public partial class Profile_myclass : System.Web.UI.Page
             LearnSite.Common.CookieHelp.ClearStudentCookies();
             string msg = "转班成功，请重新登录！";
             LearnSite.Common.WordProcess.Alert(msg, this.Page);
-           // this.Response.Write(" <script language=javascript>alert('修改成功！');window.window.location.href='myinfo.aspx';</script> ");
         }
         else
         {
