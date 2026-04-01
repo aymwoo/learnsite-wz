@@ -58,13 +58,14 @@ namespace LearnSite.DAL
             int cn = dt.Rows.Count;
             if (cn > 0)
             {
+                StringBuilder sbSql = new StringBuilder();
                 for (int i = 0; i < cn; i++)
                 {
                     string Qid = dt.Rows[i][0].ToString();
                     int ps = i + 1;
-                    string sql = "update TurtleQuestion set Qsort= " + ps + " where Qid=" + Qid;
-                    DbHelperSQL.ExecuteSql(sql);
+                    sbSql.AppendFormat("update TurtleQuestion set Qsort={0} where Qid={1};", ps, Qid);
                 }
+                DbHelperSQL.ExecuteSql(sbSql.ToString());
             }
         }
 
