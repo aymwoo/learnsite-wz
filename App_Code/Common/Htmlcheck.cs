@@ -9,12 +9,6 @@ namespace LearnSite.Common
     /// </summary>
     public class Htmlcheck
     {
-        public Htmlcheck()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
         /// <summary>
         /// 检测html文件是否更新
         /// </summary>
