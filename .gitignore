@@ -2,3 +2,5 @@ CompileTest/
 perftest/
 Tests/**/bin/
 Tests/**/obj/
+node_modules/
+obj/
