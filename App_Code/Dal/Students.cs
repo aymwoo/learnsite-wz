@@ -1840,8 +1840,6 @@ namespace LearnSite.DAL
         /// </summary>
         public void UpdateStscore()
         {
-            //string sqlstr = "update Students set Stscore=0";
-            //DbHelperSQL.ExecuteSql(sqlstr);//先清空
             string nowterm = LearnSite.Common.XmlHelp.GetTerm();
             string mysql = "update Students set Stscore=Pdegree from Students,Ptyper where Snum=Psnum and Sgrade=Pgrade and Pterm=" + nowterm;
             DbHelperSQL.ExecuteSql(mysql);
