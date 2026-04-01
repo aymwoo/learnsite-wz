@@ -20,17 +20,10 @@ namespace LearnSite.Store
         /// <param name="directory">The directory to Zip.待压缩的文件夹（包含物理路径）</param>
         public static void PackFiles(string filename, string directory)
         {
-            try
-            {
-                FastZip fz = new FastZip();
-                fz.CreateEmptyDirectories = true;
-                fz.CreateZip(filename, directory, true, "");
-                fz = null;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            FastZip fz = new FastZip();
+            fz.CreateEmptyDirectories = true;
+            fz.CreateZip(filename, directory, true, "");
+            fz = null;
         }
 
         /// <summary>
@@ -41,52 +34,45 @@ namespace LearnSite.Store
         /// <returns>if succeed return true,otherwise false.</returns>
         public static bool UnpackFiles(string file, string dir)
         {
-            try
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            ZipInputStream s = new ZipInputStream(File.OpenRead(file));
+
+            ZipEntry theEntry;
+            while ((theEntry = s.GetNextEntry()) != null)
             {
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
 
-                ZipInputStream s = new ZipInputStream(File.OpenRead(file));
+                string directoryName = Path.GetDirectoryName(theEntry.Name);
+                string fileName = Path.GetFileName(theEntry.Name);
+                string fType = Path.GetExtension(fileName).ToLower();//获取后缀名
+                if (directoryName != String.Empty)
+                    Directory.CreateDirectory(dir + directoryName);
 
-                ZipEntry theEntry;
-                while ((theEntry = s.GetNextEntry()) != null)
+                if (fileName != String.Empty && fType != ".aspx" && fileName != "Course.xml")
                 {
+                    FileStream streamWriter = File.Create(dir + theEntry.Name);
 
-                    string directoryName = Path.GetDirectoryName(theEntry.Name);
-                    string fileName = Path.GetFileName(theEntry.Name);
-                    string fType = Path.GetExtension(fileName).ToLower();//获取后缀名
-                    if (directoryName != String.Empty)
-                        Directory.CreateDirectory(dir + directoryName);
-
-                    if (fileName != String.Empty && fType != ".aspx" && fileName != "Course.xml")
+                    int size = 2048;
+                    byte[] data = new byte[2048];
+                    while (true)
                     {
-                        FileStream streamWriter = File.Create(dir + theEntry.Name);
-
-                        int size = 2048;
-                        byte[] data = new byte[2048];
-                        while (true)
+                        size = s.Read(data, 0, data.Length);
+                        if (size > 0)
                         {
-                            size = s.Read(data, 0, data.Length);
-                            if (size > 0)
-                            {
-                                streamWriter.Write(data, 0, size);
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            streamWriter.Write(data, 0, size);
                         }
-
-                        streamWriter.Close();
+                        else
+                        {
+                            break;
+                        }
                     }
+
+                    streamWriter.Close();
                 }
-                s.Close();
-                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            s.Close();
+            return true;
         }
 
         /// <summary>
@@ -97,52 +83,45 @@ namespace LearnSite.Store
         /// <returns>if succeed return true,otherwise false.</returns>
         public static bool UnpackQuizFiles(string file, string dir)
         {
-            try
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
+
+            ZipInputStream s = new ZipInputStream(File.OpenRead(file));
+
+            ZipEntry theEntry;
+            while ((theEntry = s.GetNextEntry()) != null)
             {
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
 
-                ZipInputStream s = new ZipInputStream(File.OpenRead(file));
+                string directoryName = Path.GetDirectoryName(theEntry.Name);
+                string fileName = Path.GetFileName(theEntry.Name);
+                string fType = Path.GetExtension(fileName).ToLower();//获取后缀名
+                if (directoryName != String.Empty)
+                    Directory.CreateDirectory(dir + directoryName);
 
-                ZipEntry theEntry;
-                while ((theEntry = s.GetNextEntry()) != null)
+                if (fileName != String.Empty && fType != ".db" )
                 {
+                    FileStream streamWriter = File.Create(dir + theEntry.Name);
 
-                    string directoryName = Path.GetDirectoryName(theEntry.Name);
-                    string fileName = Path.GetFileName(theEntry.Name);
-                    string fType = Path.GetExtension(fileName).ToLower();//获取后缀名
-                    if (directoryName != String.Empty)
-                        Directory.CreateDirectory(dir + directoryName);
-
-                    if (fileName != String.Empty && fType != ".db" )
+                    int size = 2048;
+                    byte[] data = new byte[2048];
+                    while (true)
                     {
-                        FileStream streamWriter = File.Create(dir + theEntry.Name);
-
-                        int size = 2048;
-                        byte[] data = new byte[2048];
-                        while (true)
+                        size = s.Read(data, 0, data.Length);
+                        if (size > 0)
                         {
-                            size = s.Read(data, 0, data.Length);
-                            if (size > 0)
-                            {
-                                streamWriter.Write(data, 0, size);
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            streamWriter.Write(data, 0, size);
                         }
-
-                        streamWriter.Close();
+                        else
+                        {
+                            break;
+                        }
                     }
+
+                    streamWriter.Close();
                 }
-                s.Close();
-                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            s.Close();
+            return true;
         }
         /// <summary>
         /// Unpacks the files.解压缩其中中xml文件
