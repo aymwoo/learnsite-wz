@@ -15,9 +15,6 @@ namespace LearnSite.Store
     {
         public XmlCourse()
         {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
         }
         private static string CourseSavePath = "~/store/";
         /// <summary>
