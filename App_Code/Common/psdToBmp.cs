@@ -10,12 +10,6 @@ namespace LearnSite.Common
     /// </summary>
     public class psdToBmp
     {
-        public psdToBmp()
-        {
-            //
-            //TODO: 在此处添加构造函数逻辑
-            //
-        }
         public static Bitmap myImg(string fpath)
         {
             CPSD psd = new CPSD();//新取一个变量
