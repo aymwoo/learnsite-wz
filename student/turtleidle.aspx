@@ -33,7 +33,7 @@
 		</div>	
 	</div>
 	<div id="editor" class="ace-gruvbox ace_editor" > </div>
-	<div class="right">
+	<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
 		<div id="cv" class="cvdiv"></div>
 	</div>
 </div>

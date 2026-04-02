@@ -5,7 +5,7 @@
 			<asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
             <asp:Label ID="LabelNid" runat="server" Visible="False"></asp:Label> 
     <div  id="showcontent">
-<div class="left" >
+<div class="left w-4/5 float-left pr-4">
 <br />
     <div   class="missiontitle">
     <asp:Label ID="LabelMtitle"  runat="server" ></asp:Label><br />
@@ -17,7 +17,7 @@
 		<br />
 		<br />
 </div>
-<div class="right"><br />
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md"><br />
 <center>    
     <link href="../kindeditor/themes/me/me.css" rel="stylesheet" type="text/css" />
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>

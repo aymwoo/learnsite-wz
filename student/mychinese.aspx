@@ -4,7 +4,7 @@
  <link href="../images/fingering/finger.css" rel="stylesheet" type="text/css" />
  <script src="../js/jquery.cookie.js" type="text/javascript"></script>
 <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
 <center>
     <div id="inputdiv">
         <div>
@@ -74,7 +74,7 @@
     <br />
 </center>
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
     <div>
     <asp:HyperLink ID="HChinese" runat="server" 
         ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink> 

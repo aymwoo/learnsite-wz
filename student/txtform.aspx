@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" runat="Server">
     <div id="showcontent">
-        <div class="left">
+        <div class="left w-4/5 float-left pr-4">
             <br />
             <div class="missiontitle">
                 <asp:Label ID="LabelMtitle" runat="server"></asp:Label>
@@ -21,7 +21,7 @@
         </div>
         <br />
     </div>
-    <div class="right">
+    <div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
         <center>
             &nbsp;<br />
             <br />

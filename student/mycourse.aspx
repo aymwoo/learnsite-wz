@@ -1,7 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="mycourse.aspx.cs" Inherits="Student_mycourse" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
 <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
 <div class="ccontent">
     <asp:GridView ID="GridViewnewkc" runat="server" Width="100%" 
         SkinID="GridViewInfo" onrowdatabound="GridViewnewkc_RowDataBound" 
@@ -118,7 +118,7 @@
        </asp:GridView>
     </div>
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
  <div>    
     <asp:Image ID="Imageface" runat="server" Height="80px" Width="80px" />
     <div id="DivRank" class="divinfo" >

@@ -27,8 +27,8 @@
 		  <br /><br /> <br><br />
 		</div>	
 	</div>
-	<div class="left" id="editor"></div>
-	<div class="right">
+	<div class="left w-4/5 float-left pr-4" id="editor"></div>
+	<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
 		<div id="result">
 		<pre id="output" ></pre>
 		 <div class="fullimg"><img src="<%=MidurlFull %>" /></div> 

@@ -23,7 +23,7 @@
        <div  class="banner" ></div>
        <div class="path"></div>
       <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
     <asp:DataList ID="DLCategory" runat="server" RepeatColumns="1" 
         RepeatDirection="Horizontal" 
         Width="100%" CellPadding="3" CellSpacing="3" 
@@ -42,7 +42,7 @@
     </asp:DataList>
     <br />
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
     我的作品<br />
     <br />
     <div style="width: 98%">

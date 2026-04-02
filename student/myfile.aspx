@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
     <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
       <asp:GridView ID="GVSoft" runat="server" AllowPaging="True" 
           AutoGenerateColumns="False" 
           OnPageIndexChanging="GVSoft_PageIndexChanging" 
@@ -49,7 +49,7 @@
           <RowStyle Height="30px" />
       </asp:GridView><br /><br />        
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
     <div >
         <asp:GridView ID="GVcategory" runat="server" AutoGenerateColumns="False" 
             CellPadding="6" CellSpacing="3" EnableModelValidation="True" 

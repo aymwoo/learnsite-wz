@@ -3,7 +3,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" runat="Server">
     <div id="student">
-        <div class="left">
+        <div class="left w-4/5 float-left pr-4">
             <br />
             <asp:Label ID="Labeltitle" runat="server" SkinID="LabelLightBlue" Width="98%" CssClass="txts24center"
                 Height="24px"></asp:Label>
@@ -41,7 +41,7 @@
             <asp:HyperLink ID="HLurl" runat="server" Visible="false" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
             <br />
         </div>
-        <div class="right">
+        <div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
             <div style="width: 170px">
                 <br />
                 <asp:GridView ID="GVSoft" runat="server" AllowPaging="True" AutoGenerateColumns="False"

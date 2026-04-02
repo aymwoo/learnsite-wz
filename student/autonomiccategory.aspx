@@ -22,7 +22,7 @@
             <div  class="banner" > <img alt="" src="../images/autonomic.gif" /></div>
              <div class="path"></div>
       <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         Caption="资源分类" EnableModelValidation="True" Width="98%" AllowPaging="True" 
         CellPadding="3" onrowdatabound="GridView1_RowDataBound" PageSize="20" 
@@ -84,7 +84,7 @@
     </asp:GridView>
     &nbsp;<br />
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
     <br />优秀作品榜<br />
     <div style="width: 98%">
     <ul>

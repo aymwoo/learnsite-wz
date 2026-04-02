@@ -12,10 +12,10 @@
 
 <div id="main">
   <div id="pick">
-	  <div class="left">  
+	  <div class="left w-4/5 float-left pr-4">
 		<img id="logo" src="../pixelartmaker/logo.png"  alt="像素蘑菇小兵！"/>  
 	  </div>
-	  <div class="right">
+	  <div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
 		<h1 > 
 		Pixel Art Maker 像素画 <input type="color" id="colorPicker"/>&nbsp;&nbsp;&nbsp;&nbsp;	
 		<button id="savebtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >保存</button>&nbsp;	&nbsp;&nbsp;

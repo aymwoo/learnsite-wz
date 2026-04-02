@@ -2,12 +2,12 @@
     AutoEventWireup="true" CodeFile="ware.aspx.cs" Inherits="Student_ware" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" runat="Server">
-    <div class="left">
+    <div class="left w-4/5 float-left pr-4">
         <div id="previewArea">
             <iframe id="wareframe" src="<%=WareUrl %>" style="width:100%;min-height:80vh; border: none;"></iframe>
         </div>
     </div>
-    <div class="right">
+    <div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
         <center>
             <asp:Image ID="Thumbnail" runat="server"  style=" max-width:240px; "/>
             <br />
