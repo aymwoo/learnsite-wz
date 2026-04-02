@@ -21,6 +21,9 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                 LinkBtnAdd.Enabled = false;
                 LinkBtnAddTopic.Enabled = false;
                 LinkBtnAddTxtForm.Enabled = false;
+                HeroEditLink.Attributes["aria-disabled"] = "true";
+                HeroEditLink.Attributes["class"] += " is-disabled";
+                HeroEditLink.Attributes.Remove("href");
                 ReadonlyNote.Attributes.Remove("hidden");
             }
         }
@@ -37,6 +40,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             if (model != null)
             {
                 LabelCtitle.Text = model.Ctitle;
+                LabelBannerPreviewTitle.Text = model.Ctitle;
                 LabelCdate.Text = model.Cdate.ToString();
                 LabelCclass.Text = model.Cclass;
                 LabelCobj.Text = model.Cobj.ToString();
@@ -46,10 +50,16 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                 if (model.Cbanner != "")
                 {
                     Imagebanner.ImageUrl = model.Cbanner;
+                    HiddenBannerUrl.Value = ResolveUrl(model.Cbanner);
+                    HeroSection.Attributes["class"] += " has-banner";
+                    HeroSection.Style["background-image"] = "url('" + ResolveUrl(model.Cbanner) + "')";
                     BannerEmpty.Visible = false;
                 }
                 else
                 {
+                    HiddenBannerUrl.Value = "";
+                    HeroSection.Attributes["class"] = HeroSection.Attributes["class"].Replace(" has-banner", "");
+                    HeroSection.Style.Remove("background-image");
                     Imagebanner.Visible = false;
                     BannerEmpty.Visible = true;
                 }

@@ -22,17 +22,11 @@
             gap: 1.25rem;
         }
 
-        .course-show-summary {
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
-            gap: 1rem;
-        }
-
         .course-show-meta {
             display: flex;
             flex-wrap: wrap;
             gap: 0.75rem;
-            margin-top: 1rem;
+            margin-top: 0;
         }
 
         .course-show-meta-chip {
@@ -48,61 +42,589 @@
             font-size: 0.92rem;
         }
 
-        .course-show-sidecard {
+        .course-show-hero {
+            position: relative;
+            isolation: isolate;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .course-show-hero.has-banner {
+            box-shadow: 0 24px 52px -30px rgba(15, 23, 42, 0.7);
+        }
+
+        .course-show-hero.has-banner:before,
+        .course-show-hero.has-banner:after {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .course-show-hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.62) 0%, rgba(49, 46, 129, 0.5) 45%, rgba(30, 41, 59, 0.68) 100%);
+            transition: opacity 0.35s ease;
+        }
+
+        .course-show-hero.is-refreshing {
+            animation: course-show-hero-refresh 0.45s ease;
+        }
+
+        .course-show-hero.is-refreshing .course-show-hero-overlay {
+            opacity: 0.84;
+        }
+
+        .course-show-hero-content {
             position: relative;
             z-index: 1;
             display: flex;
             flex-direction: column;
-            gap: 0.9rem;
-            padding: 1rem;
-            border-radius: 1.25rem;
+            gap: 1.5rem;
+        }
+
+        .course-show-hero-top {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 22rem);
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .course-show-hero-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            min-width: 0;
+            padding: 0.25rem 0;
+        }
+
+        .course-show-hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            gap: 0.45rem;
+            min-height: 2rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(15, 23, 42, 0.22);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .course-show-hero-kicker:before {
+            content: "";
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 9999px;
+            background: #c4b5fd;
+            box-shadow: 0 0 0 4px rgba(196, 181, 253, 0.14);
+        }
+
+        .course-show-back-link {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            min-height: 2.2rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(15, 23, 42, 0.18);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.84rem;
+            font-weight: 700;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
         }
 
-        .course-show-sidecard-label {
-            margin: 0;
-            color: rgba(255, 255, 255, 0.72);
-            font-size: 0.82rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }
-
-        .course-show-sidecard-value {
-            margin: 0;
-            font-size: 1rem;
-            line-height: 1.7;
+        .course-show-back-link:hover {
+            background: rgba(15, 23, 42, 0.3);
+            border-color: rgba(255, 255, 255, 0.24);
             color: #ffffff;
         }
 
-        .course-show-banner-shell {
+        .course-show-hero-edit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3.1rem;
+            height: 3.1rem;
+            padding: 0;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(15, 23, 42, 0.22);
+            color: #ffffff;
+            box-shadow: 0 14px 28px -20px rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .course-show-hero-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-start;
+            min-width: 0;
+        }
+
+        .course-show-hero-edit svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.9;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .course-show-hero-edit:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+        }
+
+        .course-show-hero-edit.is-disabled,
+        .course-show-hero-edit[aria-disabled="true"] {
+            opacity: 0.52;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .course-show-banner-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10020;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(8px);
+        }
+
+        .course-show-banner-modal.is-open {
+            display: flex;
+        }
+
+        .course-show-banner-dialog {
+            width: min(100%, 62rem);
+            max-height: calc(100vh - 3rem);
+            overflow: auto;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: #ffffff;
+            box-shadow: 0 32px 80px -36px rgba(15, 23, 42, 0.55);
+        }
+
+        .course-show-banner-dialog-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.2rem 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .course-show-banner-dialog-title {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .course-show-banner-dialog-desc {
+            margin: 0.35rem 0 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .course-show-banner-close {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border: 1px solid #dbe4ff;
+            border-radius: 9999px;
+            background: #f8faff;
+            color: #475569;
+        }
+
+        .course-show-banner-close:hover {
+            border-color: #a5b4fc;
+            background: #eef2ff;
+            color: #4338ca;
+        }
+
+        .course-show-banner-close svg {
+            width: 1rem;
+            height: 1rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .course-show-banner-dialog-body {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+            gap: 1.25rem;
+            padding: 1.25rem;
+        }
+
+        .course-show-banner-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .course-show-banner-dropzone {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.85rem;
+            min-height: 17rem;
+            padding: 1.5rem;
+            border: 1.5px dashed #a5b4fc;
+            border-radius: 1.25rem;
+            background: linear-gradient(180deg, #f8faff 0%, #eef2ff 100%);
+            text-align: center;
+            transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+        }
+
+        .course-show-banner-dropzone.is-dragover {
+            border-color: #4f46e5;
+            background: linear-gradient(180deg, #eef2ff 0%, #e0e7ff 100%);
+            transform: scale(0.995);
+        }
+
+        .course-show-banner-dropzone svg {
+            width: 2.4rem;
+            height: 2.4rem;
+            stroke: #4338ca;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .course-show-banner-drop-title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .course-show-banner-drop-desc {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .course-show-banner-browse {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.6rem;
+            padding: 0.55rem 1rem;
+            border-radius: 0.9rem;
+            border: 1px solid #c7d2fe;
+            background: #ffffff;
+            color: #4338ca;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .course-show-banner-browse:hover {
+            background: #eef2ff;
+            border-color: #a5b4fc;
+        }
+
+        .course-show-banner-file {
+            display: none;
+        }
+
+        .course-show-banner-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .course-show-banner-chip {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 9999px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .course-show-banner-preview-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            min-width: 0;
+        }
+
+        .course-show-banner-preview-head {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .course-show-banner-current {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            min-height: 2rem;
+            padding: 0.32rem 0.68rem;
+            border-radius: 9999px;
+            background: #eef2ff;
+            border: 1px solid #c7d2fe;
+            color: #4338ca;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .course-show-banner-preview-title {
+            margin: 0;
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .course-show-banner-preview-desc {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.86rem;
+            line-height: 1.6;
+        }
+
+        .course-show-banner-stage {
+            position: relative;
+            min-height: 18rem;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            border: 1px solid #dbe4ff;
+            background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 52%, #7c3aed 100%);
+        }
+
+        .course-show-banner-stage.is-refreshing {
+            animation: course-show-banner-stage-refresh 0.45s ease;
+        }
+
+        .course-show-banner-stage.has-image {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .course-show-banner-stage:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.38) 0%, rgba(49, 46, 129, 0.28) 45%, rgba(30, 41, 59, 0.46) 100%);
+        }
+
+        .course-show-banner-stage-copy {
+            position: absolute;
+            left: 1.2rem;
+            right: 1.2rem;
+            bottom: 1.2rem;
+            z-index: 1;
+            color: #ffffff;
+        }
+
+        .course-show-banner-stage-copy strong {
+            display: block;
+            font-size: 1.15rem;
+            line-height: 1.3;
+        }
+
+        .course-show-banner-stage-copy span {
+            display: block;
+            margin-top: 0.3rem;
+            font-size: 0.84rem;
+            color: rgba(255, 255, 255, 0.86);
+        }
+
+        .course-show-banner-stage-empty {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 10rem;
-            border-radius: 1rem;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .course-show-banner-status {
+            min-height: 1.35rem;
+            color: #475569;
+            font-size: 0.84rem;
+            font-weight: 600;
+        }
+
+        .course-show-banner-progress {
+            position: relative;
+            height: 0.55rem;
+            border-radius: 9999px;
+            background: #e2e8f0;
             overflow: hidden;
-            border: 1px dashed #cbd5e1;
-            background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
         }
 
-        .course-show-banner-image {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-height: 18rem;
-            object-fit: cover;
+        .course-show-banner-progress[hidden] {
+            display: none;
         }
 
-        .course-show-banner-empty {
+        .course-show-banner-progress-bar {
+            width: 0;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+            transition: width 0.2s ease;
+        }
+
+        .course-show-banner-status.is-success {
+            color: #15803d;
+        }
+
+        .course-show-banner-status.is-error {
+            color: #b91c1c;
+        }
+
+        .course-show-banner-dialog-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem 1.25rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .course-show-banner-foot-note {
             color: #64748b;
-            font-size: 0.94rem;
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+
+        .course-show-banner-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+
+        .course-show-banner-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.6rem;
+            padding: 0.55rem 1rem;
+            border-radius: 0.9rem;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            color: #334155;
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .course-show-banner-btn:hover {
+            border-color: #a5b4fc;
+            background: #f8faff;
+        }
+
+        .course-show-banner-btn.primary {
+            border-color: #4f46e5;
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            color: #ffffff;
+            box-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
+        }
+
+        .course-show-banner-btn.primary:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
+        }
+
+        .course-show-banner-btn[disabled] {
+            opacity: 0.55;
+            cursor: wait;
+        }
+
+        @keyframes course-show-hero-refresh {
+            0% {
+                transform: scale(0.992);
+                filter: brightness(0.94);
+            }
+            100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+        }
+
+        @keyframes course-show-banner-stage-refresh {
+            0% {
+                transform: scale(0.992);
+                filter: saturate(0.92);
+            }
+            100% {
+                transform: scale(1);
+                filter: saturate(1);
+            }
+        }
+
+        .course-show-preview-panel {
+            position: relative;
+            z-index: 1;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(226, 232, 240, 0.7);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 18px 40px -28px rgba(15, 23, 42, 0.45);
+            overflow: hidden;
+        }
+
+        .course-show-preview-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+            background: linear-gradient(180deg, rgba(248, 250, 252, 0.98) 0%, rgba(255, 255, 255, 0.92) 100%);
+        }
+
+        .course-show-preview-title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .course-show-preview-desc {
+            margin: 0.25rem 0 0;
+            color: #64748b;
+            font-size: 0.84rem;
+        }
+
+        .course-show-preview-content {
+            padding: 1.25rem;
         }
 
         .course-show-tools-head,
-        .course-show-menu-head,
-        .course-show-content-head {
+        .course-show-menu-head {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -163,7 +685,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.45rem;
-            margin-top: 0.75rem;
+            align-self: flex-start;
             padding: 0.55rem 0.75rem;
             border-radius: 0.85rem;
             background: rgba(255, 255, 255, 0.12);
@@ -465,6 +987,18 @@
             width: 14rem;
         }
 
+        .course-show-compact-cell {
+            width: 6.5rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .course-show-action-cell {
+            width: 5.5rem;
+            text-align: center;
+            white-space: nowrap;
+        }
+
         .course-show-type-badge {
             display: inline-flex;
             align-items: center;
@@ -511,39 +1045,26 @@
             flex-shrink: 0;
         }
 
-        .course-show-action-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
         .course-show-menu-wrap {
             overflow-x: auto;
         }
 
-        .course-show-mini-btn,
         .course-show-state-btn,
         .course-show-danger-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 2.2rem;
-            min-height: 2.2rem;
-            padding: 0.4rem 0.75rem;
-            border-radius: 0.75rem;
+            min-width: 2rem;
+            min-height: 2rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.7rem;
             border: 1px solid #dbe4ff;
             background: #ffffff;
             color: #334155;
-            font-size: 0.86rem;
+            font-size: 0.82rem;
             font-weight: 700;
         }
 
-        .course-show-mini-btn {
-            min-width: 3.1rem;
-            background: #f8faff;
-        }
-
-        .course-show-mini-btn:hover,
         .course-show-state-btn:hover,
         .course-show-danger-btn:hover {
             border-color: #a5b4fc;
@@ -551,7 +1072,7 @@
         }
 
         .course-show-state-btn {
-            min-width: 4.8rem;
+            min-width: 4.3rem;
             color: #166534;
             background: #ecfdf5;
             border-color: #bbf7d0;
@@ -564,6 +1085,7 @@
         }
 
         .course-show-danger-btn {
+            min-width: 3.5rem;
             color: #b91c1c;
             background: #fff1f2;
             border-color: #fecdd3;
@@ -572,6 +1094,10 @@
         .course-show-content {
             line-height: 1.8;
             color: #1e293b;
+        }
+
+        .course-show-content.course-show-preview-content {
+            background: transparent;
         }
 
         .course-show-content img,
@@ -592,12 +1118,21 @@
         }
 
         @media (max-width: 980px) {
-            .course-show-summary {
+            .course-show-tool-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .course-show-hero-top {
                 grid-template-columns: 1fr;
             }
 
-            .course-show-tool-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+            .course-show-hero-actions {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .course-show-banner-dialog-body {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -606,8 +1141,60 @@
                 grid-template-columns: 1fr;
             }
 
-            .course-show-order-wrap,
-            .course-show-action-group {
+            .course-show-hero {
+                padding: 1.2rem;
+            }
+
+            .course-show-back-link,
+            .course-show-hero-kicker {
+                font-size: 0.78rem;
+            }
+
+            .course-show-title {
+                font-size: 1.65rem;
+            }
+
+            .course-show-meta-chip {
+                min-height: 2.2rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.86rem;
+            }
+
+            .course-show-preview-head,
+            .course-show-preview-content {
+                padding: 1rem;
+            }
+
+            .course-show-tool-readonly-note {
+                font-size: 0.82rem;
+            }
+
+            .course-show-banner-modal {
+                padding: 0.75rem;
+            }
+
+            .course-show-banner-dialog-head,
+            .course-show-banner-dialog-body,
+            .course-show-banner-dialog-foot {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .course-show-banner-dialog-foot {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .course-show-banner-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+
+            .course-show-banner-btn {
+                flex: 1 1 auto;
+            }
+
+            .course-show-order-wrap {
                 flex-wrap: wrap;
             }
 
@@ -632,66 +1219,111 @@
                 font-size: 0.92rem;
             }
 
-            .course-show-mini-btn,
             .course-show-state-btn,
             .course-show-danger-btn {
-                min-height: 2rem;
-                padding: 0.36rem 0.65rem;
-                font-size: 0.82rem;
+                min-height: 1.9rem;
+                padding: 0.32rem 0.58rem;
+                font-size: 0.8rem;
             }
         }
     </style>
 
     <div class="course-show-page">
         <div class="course-show-shell">
-            <section class="course-show-hero">
+            <section id="HeroSection" runat="server" class="course-show-hero">
+                <div class="course-show-hero-overlay" aria-hidden="true"></div>
                 <div class="course-show-hero-content">
-                    <div>
-                        <span class="course-show-eyebrow">Course Workspace</span>
-                        <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title"></asp:Label>
-                        <div class="course-show-meta">
-                            <span class="course-show-meta-chip">日期 <asp:Label ID="LabelCdate" runat="server"></asp:Label></span>
-                            <span class="course-show-meta-chip">分类 <asp:Label ID="LabelCclass" runat="server"></asp:Label></span>
-                            <span class="course-show-meta-chip">年级 <asp:Label ID="LabelCobj" runat="server"></asp:Label></span>
-                            <span class="course-show-meta-chip">学期 第 <asp:Label ID="LabelCterm" runat="server"></asp:Label> 学期</span>
-                            <span class="course-show-meta-chip">课节 第 <asp:Label ID="LabelCks" runat="server"></asp:Label> 课</span>
+                    <div class="course-show-hero-top">
+                        <div class="course-show-hero-copy">
+                            <asp:LinkButton ID="LinkBtnReturn" runat="server" OnClick="LinkBtnReturn_Click" CssClass="course-show-back-link" title="返回列表">返回列表</asp:LinkButton>
+                            <span class="course-show-hero-kicker">课程封面</span>
+                            <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title"></asp:Label>
+                            <div class="course-show-meta">
+                                <span class="course-show-meta-chip">日期 <asp:Label ID="LabelCdate" runat="server"></asp:Label></span>
+                                <span class="course-show-meta-chip">分类 <asp:Label ID="LabelCclass" runat="server"></asp:Label></span>
+                                <span class="course-show-meta-chip">年级 <asp:Label ID="LabelCobj" runat="server"></asp:Label></span>
+                                <span class="course-show-meta-chip">学期 第 <asp:Label ID="LabelCterm" runat="server"></asp:Label> 学期</span>
+                                <span class="course-show-meta-chip">课节 第 <asp:Label ID="LabelCks" runat="server"></asp:Label> 课</span>
+                            </div>
+                            <span id="ReadonlyNote" class="course-show-tool-readonly-note" runat="server" hidden="hidden">当前为旧版学案视图，部分新增与编辑入口已按原逻辑禁用</span>
+                        </div>
+                        <div class="course-show-hero-actions">
+                            <a id="HeroEditLink" runat="server" class="course-show-hero-edit" title="编辑横幅" aria-label="编辑横幅">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
+                            </a>
+                            <asp:ImageButton ID="BtnEdit" runat="server" ImageUrl="~/images/edit.gif" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-show-hidden course-show-edit-btn" AlternateText="编辑学案" />
                         </div>
                     </div>
-                    <div class="course-show-sidecard">
-                        <p class="course-show-sidecard-label">页面操作</p>
-                        <p class="course-show-sidecard-value">保留原有学案编辑、返回、栏目管理与发布逻辑，当前页面仅重构为更清晰的教师工作台布局。</p>
-                        <span id="ReadonlyNote" class="course-show-tool-readonly-note" runat="server" hidden="hidden">当前为旧版学案视图，部分新增与编辑入口已按原逻辑禁用</span>
-                        <div class="course-show-action-group">
-                            <asp:ImageButton ID="BtnEdit" runat="server" ImageUrl="~/images/edit.gif" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-primary-btn course-show-edit-btn" AlternateText="编辑学案" />
-                            <asp:LinkButton ID="LinkBtnReturn" runat="server" OnClick="LinkBtnReturn_Click" CssClass="course-secondary-btn course-show-return-btn" title="返回">返回列表</asp:LinkButton>
+                    <section class="course-show-preview-panel">
+                        <div class="course-show-preview-head">
+                            <div>
+                                <h2 class="course-show-preview-title">学案预览</h2>
+                                <p class="course-show-preview-desc">下方内容继续沿用原有学案正文输出，只优化首屏阅读层次。</p>
+                            </div>
                         </div>
+                        <div id="Ccontent" class="course-show-content course-show-preview-content" runat="server"></div>
+                    </section>
+                    <div class="course-show-hidden" aria-hidden="true">
+                        <asp:Image ID="Imagebanner" runat="server" ToolTip="横幅图片" />
+                        <span id="BannerEmpty" runat="server">当前学案未设置横幅图片</span>
                     </div>
                 </div>
             </section>
 
-            <div class="course-show-summary">
-                <section class="course-show-banner">
-                    <div class="course-show-content-head">
+            <div id="BannerModal" class="course-show-banner-modal" aria-hidden="true">
+                <div class="course-show-banner-dialog" role="dialog" aria-modal="true" aria-labelledby="BannerModalTitle">
+                    <div class="course-show-banner-dialog-head">
                         <div>
-                            <h2 class="course-show-section-title">课程横幅</h2>
-                            <p class="course-show-section-desc">沿用原有课程横幅数据展示，未配置时显示默认占位。</p>
+                            <h2 id="BannerModalTitle" class="course-show-banner-dialog-title">编辑课程横幅</h2>
+                            <p class="course-show-banner-dialog-desc">拖入图片或从本地选择新封面，预览确认后直接更新当前学案横幅。</p>
+                        </div>
+                        <button id="BannerModalClose" type="button" class="course-show-banner-close" aria-label="关闭弹窗">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6l-12 12"></path></svg>
+                        </button>
+                    </div>
+                    <div class="course-show-banner-dialog-body">
+                        <div class="course-show-banner-upload">
+                            <div id="BannerDropzone" class="course-show-banner-dropzone">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"></path><rect x="3" y="3" width="18" height="18" rx="3"></rect></svg>
+                                <p class="course-show-banner-drop-title">拖动图片到这里上传横幅</p>
+                                <p class="course-show-banner-drop-desc">支持 png、jpg、jpeg、gif、webp，建议使用横向大图，大小不超过 5MB。</p>
+                                <label for="BannerFileInput" class="course-show-banner-browse">选择图片</label>
+                                <input id="BannerFileInput" type="file" class="course-show-banner-file" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" />
+                            </div>
+                            <div class="course-show-banner-meta">
+                                <span class="course-show-banner-chip">拖拽上传</span>
+                                <span class="course-show-banner-chip">粘贴图片</span>
+                                <span class="course-show-banner-chip">实时预览</span>
+                                <span class="course-show-banner-chip">无刷新保存</span>
+                            </div>
+                            <div id="BannerUploadProgress" class="course-show-banner-progress" hidden="hidden">
+                                <div id="BannerUploadProgressBar" class="course-show-banner-progress-bar"></div>
+                            </div>
+                            <div id="BannerUploadStatus" class="course-show-banner-status"></div>
+                        </div>
+                        <div class="course-show-banner-preview-card">
+                            <div class="course-show-banner-preview-head">
+                                <span id="BannerCurrentState" class="course-show-banner-current">当前封面：默认样式</span>
+                                <p class="course-show-banner-preview-title">封面预览</p>
+                                <p class="course-show-banner-preview-desc">保存后将立即替换顶部课程封面，并保持当前页面停留。</p>
+                            </div>
+                            <div id="BannerPreviewStage" class="course-show-banner-stage">
+                                <div id="BannerPreviewEmpty" class="course-show-banner-stage-empty">当前还没有选择新的横幅图片</div>
+                                <div class="course-show-banner-stage-copy">
+                                    <strong><asp:Label ID="LabelBannerPreviewTitle" runat="server"></asp:Label></strong>
+                                    <span>新的课程横幅将应用到当前学案首页封面</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="course-show-banner-shell">
-                        <asp:Image ID="Imagebanner" runat="server" CssClass="course-show-banner-image" ToolTip="横幅图片" />
-                        <span id="BannerEmpty" class="course-show-banner-empty" runat="server">当前学案未设置横幅图片</span>
-                    </div>
-                </section>
-
-                <section class="course-show-content-panel">
-                    <div class="course-show-content-head">
-                        <div>
-                            <h2 class="course-show-section-title">学案概览</h2>
-                            <p class="course-show-section-desc">正文内容继续使用原有富文本输出，只调整外部容器与阅读节奏。</p>
+                    <div class="course-show-banner-dialog-foot">
+                        <div class="course-show-banner-foot-note">上传成功后会立即更新课程横幅，并同步刷新当前页面顶部封面背景。</div>
+                        <div class="course-show-banner-actions">
+                            <button id="BannerModalCancel" type="button" class="course-show-banner-btn">取消</button>
+                            <button id="BannerUploadButton" type="button" class="course-show-banner-btn primary">保存横幅</button>
                         </div>
                     </div>
-                    <div id="Ccontent" class="course-show-content" runat="server"></div>
-                </section>
+                </div>
             </div>
 
             <section class="course-show-tools">
@@ -762,7 +1394,7 @@
                 <div class="course-show-menu-head">
                     <div>
                         <h2 class="course-show-section-title">导航栏目</h2>
-                        <p class="course-show-section-desc">保留原有跳转、上移、下移、发布与删除逻辑，并新增拖拽排序能力。</p>
+                        <p class="course-show-section-desc">保留原有跳转、发布与删除逻辑，并新增拖拽排序能力。</p>
                     </div>
                     <div class="course-show-menu-toolbar">
                         <span class="course-show-menu-hint">可拖动左侧手柄调整顺序</span>
@@ -772,6 +1404,7 @@
 
                 <asp:HiddenField ID="HiddenSortOrder" runat="server" />
                 <asp:HiddenField ID="HiddenCourseId" runat="server" />
+                <asp:HiddenField ID="HiddenBannerUrl" runat="server" />
                 <asp:Button ID="BtnApplySort" runat="server" Text="apply sort" CssClass="course-show-hidden" OnClick="BtnApplySort_Click" />
                 <div id="MenuSortStatus" class="course-show-save-status"></div>
 
@@ -814,20 +1447,12 @@
                                     <asp:HyperLink ID="HlLtitle" runat="server" NavigateUrl="" Text='<%# Eval("Ltitle") %>' CssClass="course-show-link"></asp:HyperLink>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="位置">
-                                <ItemTemplate>
-                                    <div class="course-show-action-group">
-                                        <asp:LinkButton ID="ImageBtnTop" runat="server" CausesValidation="False" CommandName="Top" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="上" ToolTip="向上移" Font-Underline="False" CssClass="course-show-mini-btn"></asp:LinkButton>
-                                        <asp:LinkButton ID="ImageBtnBottom" runat="server" CausesValidation="False" CommandName="Bottom" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="下" ToolTip="向下移" Font-Underline="False" CssClass="course-show-mini-btn"></asp:LinkButton>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="发布">
+                            <asp:TemplateField HeaderText="发布" ItemStyle-CssClass="course-show-compact-cell">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LinkBtnShow" runat="server" CausesValidation="false" CommandName="P" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text='<%# Eval("lshow") %>' ToolTip="True显示，False隐藏" CssClass="course-show-state-btn"></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="操作">
+                            <asp:TemplateField HeaderText="操作" ItemStyle-CssClass="course-show-action-cell">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LinkBtnDel" runat="server" CausesValidation="false" CommandName="D" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="删除" ToolTip="请认真确定是否删除，不可恢复！" CssClass="course-show-danger-btn"></asp:LinkButton>
                                 </ItemTemplate>
@@ -841,6 +1466,423 @@
 
     <script type="text/javascript">
         (function () {
+            function initBannerModal() {
+                var trigger = document.getElementById('<%= HeroEditLink.ClientID %>');
+                var modal = document.getElementById('BannerModal');
+                var closeButton = document.getElementById('BannerModalClose');
+                var cancelButton = document.getElementById('BannerModalCancel');
+                var uploadButton = document.getElementById('BannerUploadButton');
+                var dropzone = document.getElementById('BannerDropzone');
+                var fileInput = document.getElementById('BannerFileInput');
+                var stage = document.getElementById('BannerPreviewStage');
+                var empty = document.getElementById('BannerPreviewEmpty');
+                var status = document.getElementById('BannerUploadStatus');
+                var progress = document.getElementById('BannerUploadProgress');
+                var progressBar = document.getElementById('BannerUploadProgressBar');
+                var currentState = document.getElementById('BannerCurrentState');
+                var hero = document.getElementById('<%= HeroSection.ClientID %>');
+                var hiddenBannerUrl = document.getElementById('<%= HiddenBannerUrl.ClientID %>');
+                var courseIdField = document.getElementById('<%= HiddenCourseId.ClientID %>');
+                var selectedFile = null;
+                var localPreviewUrl = '';
+                var previewUrl = hiddenBannerUrl ? hiddenBannerUrl.value : '';
+                var originalUrl = previewUrl;
+                var isUploading = false;
+
+                if (!trigger || !modal || !dropzone || !fileInput || !stage || !uploadButton) {
+                    return;
+                }
+
+                function setStatus(message, cls) {
+                    if (!status) {
+                        return;
+                    }
+
+                    status.className = 'course-show-banner-status';
+                    if (cls) {
+                        status.className += ' ' + cls;
+                    }
+                    status.innerHTML = message || '';
+                }
+
+                function setCurrentState(hasBanner, pending) {
+                    if (!currentState) {
+                        return;
+                    }
+
+                    if (pending) {
+                        currentState.innerHTML = '当前封面：待上传新图片';
+                        return;
+                    }
+
+                    currentState.innerHTML = hasBanner ? '当前封面：已设置课程横幅' : '当前封面：默认样式';
+                }
+
+                function setProgress(value, visible) {
+                    if (!progress || !progressBar) {
+                        return;
+                    }
+
+                    if (visible) {
+                        progress.removeAttribute('hidden');
+                    } else {
+                        progress.setAttribute('hidden', 'hidden');
+                    }
+
+                    progressBar.style.width = Math.max(0, Math.min(100, value || 0)) + '%';
+                }
+
+                function setUploadingState(uploading) {
+                    isUploading = uploading;
+                    uploadButton.disabled = uploading;
+                    uploadButton.innerHTML = uploading ? '正在上传...' : '重新上传';
+                    if (!uploading) {
+                        setProgress(0, false);
+                    }
+                }
+
+                function pulsePreviewStage() {
+                    stage.className = stage.className.replace(/\s?is-refreshing/g, '');
+                    stage.offsetWidth;
+                    stage.className += ' is-refreshing';
+                    window.setTimeout(function () {
+                        stage.className = stage.className.replace(/\s?is-refreshing/g, '');
+                    }, 460);
+                }
+
+                function pulseHero() {
+                    if (!hero) {
+                        return;
+                    }
+
+                    hero.className = hero.className.replace(/\s?is-refreshing/g, '');
+                    hero.offsetWidth;
+                    hero.className += ' is-refreshing';
+                    window.setTimeout(function () {
+                        hero.className = hero.className.replace(/\s?is-refreshing/g, '');
+                    }, 460);
+                }
+
+                function applyStage(url) {
+                    previewUrl = url || '';
+                    stage.style.backgroundImage = previewUrl ? "url('" + previewUrl.replace(/'/g, "%27") + "')" : '';
+                    if (previewUrl) {
+                        if (stage.className.indexOf('has-image') === -1) {
+                            stage.className += ' has-image';
+                        }
+                        if (empty) {
+                            empty.style.display = 'none';
+                        }
+                    } else {
+                        stage.className = stage.className.replace(/\s?has-image/g, '');
+                        if (empty) {
+                            empty.style.display = 'flex';
+                        }
+                    }
+                }
+
+                function clearLocalPreview() {
+                    if (localPreviewUrl && window.URL && window.URL.revokeObjectURL) {
+                        window.URL.revokeObjectURL(localPreviewUrl);
+                    }
+                    localPreviewUrl = '';
+                }
+
+                function applyHero(url) {
+                    if (!hero) {
+                        return;
+                    }
+
+                    if (url) {
+                        if (hero.className.indexOf('has-banner') === -1) {
+                            hero.className += ' has-banner';
+                        }
+                        hero.style.backgroundImage = "url('" + url.replace(/'/g, "%27") + "')";
+                    } else {
+                        hero.className = hero.className.replace(/\s?has-banner/g, '');
+                        hero.style.backgroundImage = '';
+                    }
+
+                    pulseHero();
+                }
+
+                function uploadSelectedBanner() {
+                    var cid = courseIdField ? courseIdField.value : '';
+                    var formData;
+
+                    if (isUploading) {
+                        return false;
+                    }
+
+                    if (!selectedFile) {
+                        setStatus('请先选择一张新的横幅图片', 'is-error');
+                        return false;
+                    }
+
+                    if (!cid) {
+                        setStatus('缺少课程编号，无法上传横幅', 'is-error');
+                        return false;
+                    }
+
+                    if (!window.FormData || !window.jQuery || !jQuery.ajax) {
+                        setStatus('当前页面缺少上传能力支持', 'is-error');
+                        return false;
+                    }
+
+                    formData = new FormData();
+                    formData.append('action', 'upload');
+                    formData.append('cid', cid);
+                    formData.append('banner', selectedFile);
+
+                    setUploadingState(true);
+                    setProgress(8, true);
+                    setStatus('正在上传并更新横幅...', '');
+
+                    jQuery.ajax({
+                        url: 'coursebanner.ashx',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        dataType: 'json',
+                        xhr: function () {
+                            var xhr = jQuery.ajaxSettings.xhr();
+                            if (xhr && xhr.upload) {
+                                xhr.upload.onprogress = function (ev) {
+                                    if (ev.lengthComputable) {
+                                        setProgress(Math.round((ev.loaded / ev.total) * 100), true);
+                                    }
+                                };
+                            }
+                            return xhr;
+                        },
+                        success: function (response) {
+                            setUploadingState(false);
+                            if (!response || response.success !== true || !response.bannerUrl) {
+                                setStatus(response && response.message ? response.message : '横幅更新失败，请重试', 'is-error');
+                                return;
+                            }
+
+                            originalUrl = response.bannerUrl;
+                            selectedFile = null;
+                            clearLocalPreview();
+                            if (hiddenBannerUrl) {
+                                hiddenBannerUrl.value = response.bannerUrl;
+                            }
+                            fileInput.value = '';
+                            applyStage(response.bannerUrl);
+                            applyHero(response.bannerUrl);
+                            setCurrentState(true, false);
+                            setStatus(response.message || '横幅已更新', 'is-success');
+                            window.setTimeout(function () {
+                                closeModal();
+                            }, 700);
+                        },
+                        error: function () {
+                            setUploadingState(false);
+                            setStatus('上传失败，请检查网络后重试', 'is-error');
+                        }
+                    });
+
+                    return false;
+                }
+
+                function validateAndPreview(file) {
+                    var type = (file.type || '').toLowerCase();
+                    var objectUrl;
+                    var img;
+
+                    if (type.indexOf('image/') !== 0) {
+                        setStatus('请选择图片文件', 'is-error');
+                        return;
+                    }
+
+                    if (file.size > 5 * 1024 * 1024) {
+                        setStatus('图片大小不能超过 5MB', 'is-error');
+                        return;
+                    }
+
+                    if (!window.URL || !window.URL.createObjectURL) {
+                        selectedFile = file;
+                        setStatus('已选择新图片，正在上传横幅...', '');
+                        uploadSelectedBanner();
+                        return;
+                    }
+
+                    clearLocalPreview();
+                    objectUrl = window.URL.createObjectURL(file);
+                    localPreviewUrl = objectUrl;
+                    img = new Image();
+                    img.onload = function () {
+                        var width = img.width || 0;
+                        var height = img.height || 0;
+                        var ratio = height ? (width / height) : 0;
+                        var tips = [];
+
+                        if (width < 960 || height < 320) {
+                            clearLocalPreview();
+                            setStatus('建议上传更大的横幅图片，至少 960 x 320', 'is-error');
+                            return;
+                        }
+
+                        if (ratio < 2.1) {
+                            tips.push('当前图片偏窄，建议使用更宽的横向封面');
+                        }
+
+                        if (ratio > 4.6) {
+                            tips.push('当前图片过宽，封面展示时可能被裁切');
+                        }
+
+                        selectedFile = file;
+                        applyStage(objectUrl);
+                        pulsePreviewStage();
+                        setCurrentState(true, true);
+                        setStatus(tips.length ? tips.join('；') + '，正在上传横幅...' : '图片校验通过，正在上传横幅...', tips.length ? '' : '');
+                        uploadSelectedBanner();
+                    };
+
+                    img.onerror = function () {
+                        clearLocalPreview();
+                        setStatus('图片读取失败，请重新选择', 'is-error');
+                    };
+
+                    img.src = objectUrl;
+                }
+
+                function openModal() {
+                    selectedFile = null;
+                    fileInput.value = '';
+                    modal.className += modal.className.indexOf('is-open') === -1 ? ' is-open' : '';
+                    modal.setAttribute('aria-hidden', 'false');
+                    setStatus('', '');
+                    setCurrentState(!!originalUrl, false);
+                    applyStage(originalUrl);
+                }
+
+                function closeModal() {
+                    modal.className = modal.className.replace(/\s?is-open/g, '');
+                    modal.setAttribute('aria-hidden', 'true');
+                    dropzone.className = dropzone.className.replace(/\s?is-dragover/g, '');
+                    clearLocalPreview();
+                    selectedFile = null;
+                    if (!selectedFile) {
+                        applyStage(originalUrl);
+                    }
+                }
+
+                function pickFile(file) {
+                    if (!file) {
+                        return;
+                    }
+
+                    validateAndPreview(file);
+                }
+
+                trigger.onclick = function () {
+                    if (trigger.getAttribute('aria-disabled') === 'true') {
+                        return false;
+                    }
+                    openModal();
+                    return false;
+                };
+
+                if (closeButton) {
+                    closeButton.onclick = function () {
+                        closeModal();
+                        return false;
+                    };
+                }
+
+                if (cancelButton) {
+                    cancelButton.onclick = function () {
+                        closeModal();
+                        return false;
+                    };
+                }
+
+                modal.onclick = function (ev) {
+                    ev = ev || window.event;
+                    if (ev.target === modal) {
+                        closeModal();
+                    }
+                };
+
+                if (document.addEventListener) {
+                    document.addEventListener('keydown', function (ev) {
+                        ev = ev || window.event;
+                        if ((ev.key === 'Escape' || ev.keyCode === 27) && modal.className.indexOf('is-open') > -1) {
+                            closeModal();
+                        }
+                    }, false);
+                }
+
+                fileInput.onchange = function () {
+                    if (fileInput.files && fileInput.files.length) {
+                        pickFile(fileInput.files[0]);
+                    }
+                };
+
+                if (modal.addEventListener) {
+                    modal.addEventListener('paste', function (ev) {
+                        var items = ev.clipboardData && ev.clipboardData.items ? ev.clipboardData.items : null;
+                        var i;
+                        if (!items) {
+                            return;
+                        }
+
+                        for (i = 0; i < items.length; i++) {
+                            if (items[i].kind === 'file' && items[i].type.indexOf('image/') === 0) {
+                                pickFile(items[i].getAsFile());
+                                if (ev.preventDefault) {
+                                    ev.preventDefault();
+                                }
+                                return;
+                            }
+                        }
+                    }, false);
+                }
+
+                function stopEvent(ev) {
+                    if (ev.preventDefault) {
+                        ev.preventDefault();
+                    }
+                    if (ev.stopPropagation) {
+                        ev.stopPropagation();
+                    }
+                }
+
+                dropzone.ondragenter = dropzone.ondragover = function (ev) {
+                    stopEvent(ev);
+                    if (dropzone.className.indexOf('is-dragover') === -1) {
+                        dropzone.className += ' is-dragover';
+                    }
+                    return false;
+                };
+
+                dropzone.ondragleave = function (ev) {
+                    stopEvent(ev);
+                    dropzone.className = dropzone.className.replace(/\s?is-dragover/g, '');
+                    return false;
+                };
+
+                dropzone.ondrop = function (ev) {
+                    stopEvent(ev);
+                    dropzone.className = dropzone.className.replace(/\s?is-dragover/g, '');
+                    var files = ev.dataTransfer ? ev.dataTransfer.files : null;
+                    if (files && files.length) {
+                        pickFile(files[0]);
+                    }
+                    return false;
+                };
+
+                uploadButton.onclick = function () {
+                    return uploadSelectedBanner();
+                };
+
+                applyStage(originalUrl);
+                setCurrentState(!!originalUrl, false);
+            }
+
             function initDragSort() {
                 var table = document.getElementById('<%= GVlistmenu.ClientID %>');
                 if (!table || !table.tBodies || !table.tBodies.length) {
@@ -1340,8 +2382,10 @@
             }
 
             if (window.addEventListener) {
+                window.addEventListener('load', initBannerModal, false);
                 window.addEventListener('load', initDragSort, false);
             } else if (window.attachEvent) {
+                window.attachEvent('onload', initBannerModal);
                 window.attachEvent('onload', initDragSort);
             }
         })();
