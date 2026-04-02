@@ -32,9 +32,12 @@
     <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
 
     <div style="margin-bottom: 10px; margin-left: 10px;">
-        <label style="margin-right: 15px;"><input type="radio" name="editorType" value="kindeditor" checked onclick="switchEditor('kindeditor')"> 原生编辑器 (KindEditor)</label>
-        <label style="margin-right: 15px;"><input type="radio" name="editorType" value="wangeditor" onclick="switchEditor('wangeditor')"> 富文本编辑器 (WangEditor)</label>
-        <label><input type="radio" name="editorType" value="vditor" onclick="switchEditor('vditor')"> Markdown编辑器 (Vditor)</label>
+        <label>编辑器：</label>
+        <select id="editorSelector" onchange="switchEditor(this.value)" style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
+            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+            <option value="wangeditor">富文本编辑器 (WangEditor)</option>
+            <option value="vditor">Markdown编辑器 (Vditor)</option>
+        </select>
     </div>
 
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
@@ -95,6 +98,19 @@
             }
 
             let pendingVditorHtml = null;
+            let vditorReady = false;
+
+            function safeHtml2Md(html) {
+                try {
+                    if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) {
+                        return vditorObj.vditor.lute.HTML2Md(html);
+                    }
+                    var l = Lute.New();
+                    return l.HTML2Md(html);
+                } catch(e) {
+                    return html;
+                }
+            }
 
             function initVditor() {
                 if (vditorObj) return;
@@ -104,7 +120,7 @@
                 vditorObj = new Vditor('vditor-container', {
                     height: 400,
                     width: '780px',
-                    mode: 'sv',
+                    mode: 'ir',
                     preview: {
                         mode: 'both'
                     },
@@ -112,8 +128,11 @@
                         enable: false
                     },
                     after: () => {
+                        vditorReady = true;
                         let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                        vditorObj.setValue(vditorObj.html2md(contentToSet));
+                        if (contentToSet) {
+                            vditorObj.setValue(safeHtml2Md(contentToSet));
+                        }
                         pendingVditorHtml = null;
                     }
                 });
@@ -159,10 +178,12 @@
                     if (!vditorObj) {
                         pendingVditorHtml = currentHtml;
                         initVditor();
-                    } else {
+                    } else if (vditorReady) {
                         if (currentHtml) {
-                            vditorObj.setValue(vditorObj.html2md(currentHtml));
+                            vditorObj.setValue(safeHtml2Md(currentHtml));
                         }
+                    } else {
+                        pendingVditorHtml = currentHtml;
                     }
                 }
             }
