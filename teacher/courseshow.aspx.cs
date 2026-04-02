@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,6 +21,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                 LinkBtnAdd.Enabled = false;
                 LinkBtnAddTopic.Enabled = false;
                 LinkBtnAddTxtForm.Enabled = false;
+                ReadonlyNote.Attributes.Remove("hidden");
             }
         }
     }
@@ -44,9 +46,13 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                 if (model.Cbanner != "")
                 {
                     Imagebanner.ImageUrl = model.Cbanner;
+                    BannerEmpty.Visible = false;
                 }
                 else
+                {
                     Imagebanner.Visible = false;
+                    BannerEmpty.Visible = true;
+                }
             }
         }
     }
@@ -55,6 +61,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
         if (Request.QueryString["cid"] != null)
         {
             string Cid = Request.QueryString["cid"].ToString();
+            HiddenCourseId.Value = Cid;
             LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
             GVlistmenu.DataSource = lbll.GetMenu(Int32.Parse(Cid));
             GVlistmenu.DataBind();
@@ -237,6 +244,9 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             string lid = ((Label)e.Row.FindControl("LabelLid")).Text;
             string Cid = Request.QueryString["cid"].ToString();
             string Cold = "";
+            LinkButton showButton = (LinkButton)e.Row.FindControl("LinkBtnShow");
+            e.Row.Attributes["data-lid"] = lid;
+            e.Row.Attributes["class"] = "course-show-menu-row";
             if (Request.QueryString["cold"] != null)
             {
                 Cold = "&cold=T";
@@ -430,17 +440,21 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     break;
             }
 
+            bool isPublished = false;
+            Boolean.TryParse(showButton.Text, out isPublished);
+            showButton.Text = isPublished ? "已发布" : "未发布";
+            if (!isPublished)
+            {
+                showButton.CssClass += " is-off";
+                e.Row.Attributes["class"] += " is-hidden";
+            }
+
             string strjs = "if(confirm('您确定要删除吗?'))return true;else return false; ";
             ((LinkButton)e.Row.FindControl("LinkBtnDel")).OnClientClick = strjs;
         }
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
-            //当鼠标放上去的时候 先保存当前行的背景颜色 并给附一颜色 
-            e.Row.Attributes.Add("onmouseover", "currentcolor=this.style.backgroundColor;this.style.backgroundColor='#E1E8E1',this.style.fontWeight='';");
-            //当鼠标离开的时候 将背景颜色还原的以前的颜色 
-            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=currentcolor,this.style.fontWeight='';");
-            //单击行改变行背景颜色 
-            e.Row.Attributes.Add("onclick", "this.style.backgroundColor='#D8E0D8'; this.style.color='buttontext';this.style.cursor='default';");
+            e.Row.Attributes.Add("style", "cursor:default;");
         }
     }
     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -535,5 +549,73 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             Response.Redirect(url, true);
         }
 
+    }
+
+    protected void BtnApplySort_Click(object sender, EventArgs e)
+    {
+        int cid;
+        if (Request.QueryString["cid"] != null && Int32.TryParse(Request.QueryString["cid"], out cid))
+        {
+            ApplyCustomSort(HiddenSortOrder.Value, cid);
+        }
+        showmenu();
+    }
+
+    [WebMethod]
+    public static bool SaveSort(string cid, string order)
+    {
+        int courseId;
+        if (!Int32.TryParse(cid, out courseId))
+        {
+            return false;
+        }
+
+        return ApplyCustomSort(order, courseId);
+    }
+
+    private static bool ApplyCustomSort(string orderValue, int cid)
+    {
+        if (string.IsNullOrEmpty(orderValue))
+        {
+            return false;
+        }
+
+        string[] orderItems = orderValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+        if (orderItems.Length == 0)
+        {
+            return false;
+        }
+
+        LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
+        int sortIndex = 1;
+        bool updated = false;
+
+        foreach (string item in orderItems)
+        {
+            int lid;
+            if (!Int32.TryParse(item, out lid))
+            {
+                continue;
+            }
+
+            LearnSite.Model.ListMenu model = lbll.GetModel(lid);
+            if (model == null || model.Lcid != cid)
+            {
+                continue;
+            }
+
+            model.Lsort = sortIndex;
+            lbll.Update(model);
+            sortIndex++;
+            updated = true;
+        }
+
+        if (!updated)
+        {
+            return false;
+        }
+
+        lbll.Lsortsncy(cid);
+        return true;
     }
 }
