@@ -16,97 +16,25 @@
             <asp:HyperLink ID="HkaddStu" runat="server" SkinID="HyperLinkBtn" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">添加学生</asp:HyperLink>
                 &nbsp;
                     </div>
-                    <div class="centerdiv">
-            <asp:GridView ID="GVStudent" runat="server" AutoGenerateColumns="False" Width="100%" 
-                            CellPadding="3" PageSize="15" 
-             OnRowDataBound="GVStudent_RowDataBound" EnableModelValidation="True" DataKeyNames="Sid" onrowcommand="GVStudent_RowCommand"
-              ForeColor="#111111" GridLines="None" AllowPaging="True" 
-                            onpageindexchanging="GVStudent_PageIndexChanging" Font-Names="Arial" 
-                            Font-Size="11pt" >
-            <AlternatingRowStyle BackColor="White" />
-            <Columns>
-                <asp:BoundField HeaderText="序号" />
-                <asp:BoundField DataField="Snum" HeaderText="学号">
-                    <ControlStyle Width="30px" />
-                </asp:BoundField>
-                <asp:TemplateField HeaderText="密码">
-                    <ItemTemplate>
-                        <asp:Label ID="Labelpwd" runat="server" Text='******' ToolTip='<%# Bind("Spwd") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField ShowHeader="False">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False" 
-                            CommandArgument='<%# Eval("Sid") %>' CommandName="ChangePwd" 
-                            ImageUrl="~/images/refresh.gif" Text="更新" ToolTip="自动更新密码" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:BoundField DataField="Sgrade" HeaderText="年级" />
-                <asp:BoundField DataField="Sclass" HeaderText="班级" />
-                <asp:TemplateField HeaderText="姓名">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="Hlname" runat="server"  
-                            Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Sid") %>' ForeColor="Blue"></asp:HyperLink>
-                    </ItemTemplate>
-                    <ItemStyle HorizontalAlign="Left" />
-                </asp:TemplateField>
-                <asp:BoundField DataField="Sex" HeaderText="性别" />
-                <asp:TemplateField ShowHeader="False" HeaderText="小组">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False" 
-                            CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup" 
-                            ImageUrl="~/images/gcard.gif"  />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="组号" ShowHeader="False">
-                    <ItemTemplate>
-                        <asp:LinkButton ID="LinkBtnQuit" runat="server" CausesValidation="false" 
-                            CommandArgument='<%# Eval("Sid") %>'  CommandName="QuitGroup" Text='<%# Eval("Sgroup") %>'></asp:LinkButton>
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:HyperLinkField DataNavigateUrlFields="Snum" 
-                    DataNavigateUrlFormatString="studentwork.aspx?snum={0}" DataTextField="Sscore" 
-                    HeaderText="成绩" Target="_blank" />
-                <asp:HyperLinkField DataNavigateUrlFields="Snum" 
-                    DataNavigateUrlFormatString="studentworks.aspx?snum={0}"  Text="浏览"
-                    HeaderText="作品" Target="_blank" />
-                <asp:BoundField DataField="Sattitude" HeaderText="表现" />
-                <asp:HyperLinkField DataNavigateUrlFields="Sid,Sgrade,Sclass" DataNavigateUrlFormatString="studentdel.aspx?sid={0}&amp;sgrade={1}&amp;sclass={2}"
-                    Text="删除" />
-                <asp:TemplateField Visible="False">
-                    <ItemTemplate>
-                        <asp:Label ID="LabelSleader" runat="server" Text='<%# Bind("Sleader") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <PagerStyle BackColor="#EFEFEF" ForeColor="#111111" HorizontalAlign="Center" />
-                            <pagertemplate>
-                                <div style="width:100%; height:13px; text-align:right">
-                                    第<asp:Label ID="lblPageIndex" runat="server" 
-                                        text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" />
-                                    页 共<asp:Label ID="lblPageCount" runat="server" 
-                                        text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" />
-                                    页 
-                                    <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" 
-                                        commandargument="First" commandname="Page" Font-Underline="False" 
-                                        ForeColor="Black" text="首页" />
-                                    <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" 
-                                        commandargument="Prev" commandname="Page" Font-Underline="False" 
-                                        ForeColor="Black" text="上一页" />
-                                    <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" 
-                                        commandargument="Next" commandname="Page" Font-Underline="False" 
-                                        ForeColor="Black" text="下一页" />
-                                    <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" 
-                                        commandargument="Last" commandname="Page" Font-Underline="False" 
-                                        ForeColor="Black" text="尾页" />
-                                </div>
-                            </pagertemplate>
-                            <FooterStyle BackColor="#E7E7E7" Font-Bold="True" ForeColor="White" />
-                            <HeaderStyle BackColor="#9EA9B1" Font-Bold="True" ForeColor="#111111" />
-                            <PagerStyle BackColor="#EFEFEF" ForeColor="#111111" HorizontalAlign="Center" />
-                            <RowStyle BackColor="#E7E7E7" />
-                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />            
-        </asp:GridView>
+                </pagertemplate>
+                <SelectedRowStyle BackColor="#e0e7ff" Font-Bold="True" ForeColor="#3730a3" />
+            </asp:GridView>
+            </div>
+        </div>
+
+        <!-- Management Toolbars -->
+        <div class="flex flex-col gap-4">
+
+            <!-- Quick Actions Bar -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200/60 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl p-1 shadow-sm">
+                        <asp:Button ID="BtnSpwdInit" runat="server" OnClick="BtnSpwdInit_Click"
+                            Text="初始化密码" ToolTip="将本班所有学生的密码初始为右侧自定义密码"
+                            CssClass="bg-white text-slate-700 hover:text-indigo-600 text-xs font-medium py-1.5 px-3 rounded-lg border border-slate-200 shadow-sm transition-colors cursor-pointer" />
+                        <div class="px-2 text-xs text-slate-400">为</div>
+                        <asp:TextBox ID="TextBoxPwd" runat="server"
+                            CssClass="bg-amber-50 border border-amber-200 text-amber-700 font-mono font-bold px-2 py-1 rounded-lg text-center w-16 text-xs focus:outline-none focus:ring-1 focus:ring-amber-400">12345</asp:TextBox>
                     </div>
                     <br />
             <asp:Button ID="BtnSpwdInit" runat="server"  OnClick="BtnSpwdInit_Click" 
@@ -164,10 +92,8 @@
             <asp:CheckBox ID="Ckname" runat="server" Text="姓名修改" ToolTip="允许学生修改个人资料中的姓名" 
                 oncheckedchanged="Ckname_CheckedChanged" AutoPostBack="True" />
         </div>
-        <br />
-        <asp:Label ID="Labelmsg" runat="server"></asp:Label>
-        <br />
-        <br />        
+
+        <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
         <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
         <script src="../js/tinybox.js" type="text/javascript"></script>
         <script type ="text/javascript" >

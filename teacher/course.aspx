@@ -26,7 +26,7 @@
                             AutoGenerateColumns="False"  DataKeyNames="Cid"  
                             PageSize="20" Width="100%"
                             onpageindexchanging="GVCourse_PageIndexChanging" 
-                            onrowdatabound="GVCourse_RowDataBound" CellPadding="6" 
+                            onrowdatabound="GVCourse_RowDataBound" CellPadding="0"
                             EnableModelValidation="True" 
                             onrowcommand="GVCourse_RowCommand" ForeColor="#111111" GridLines="None" >
                             <AlternatingRowStyle BackColor="White" />
@@ -80,7 +80,7 @@
                                     <ControlStyle Width="70px" />
                                     <ItemStyle HorizontalAlign="Center" />
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="入库" ShowHeader="False">
+                                <asp:TemplateField HeaderText="管理" ShowHeader="False">
                                     <ItemTemplate>
                                         <asp:LinkButton ID="LbtnCold" runat="server" CausesValidation="false" 
                                           CommandArgument='<%# Bind("Cid") %>'  ToolTip="转移到学案仓库中保留" CommandName="Cu" Text="转移"></asp:LinkButton>

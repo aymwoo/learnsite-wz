@@ -61,8 +61,11 @@
                             </PagerTemplate>
                         </asp:GridView>
                         </div>
-                        <br />
-                    </div>
+                    </PagerTemplate>
+                </asp:GridView>
+            </div>
+        </div>
+
     </div>
 </asp:Content>
 
