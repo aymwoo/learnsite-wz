@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
     <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
     <asp:GridView ID="GridViewnewkc" runat="server" Width="100%" 
         SkinID="GridViewInfo" onrowdatabound="GridViewnewkc_RowDataBound" 
         AutoGenerateColumns="False" 
@@ -137,32 +137,32 @@
         </div>        
         <br />
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md flex flex-col items-center space-y-4">
 <div>    
     <asp:Image ID="Imageface" runat="server" style=" max-width:160px; max-height:160px;border-width:0px;"  />    
     <div id="DivRank" class="divrank" >
     <asp:Label ID="LabelRank" runat="server"></asp:Label>
     </div>
     </div> 
-    <div class="divinfo">
-    <div class="divinfo1">学号</div>
-    <div class="divinfo2"><asp:Label ID="snum" runat="server" ></asp:Label></div>
+    <div class="divinfo flex items-center justify-between w-full text-sm">
+    <div class="divinfo1 font-bold">学号</div>
+    <div class="divinfo2 text-right"><asp:Label ID="snum" runat="server" ></asp:Label></div>
     </div>
-    <div class="divinfo">
-    <div class="divinfo1">班级</div>
-    <div class="divinfo2"><asp:Label ID="sclass" runat="server" ></asp:Label></div>
+    <div class="divinfo flex items-center justify-between w-full text-sm">
+    <div class="divinfo1 font-bold">班级</div>
+    <div class="divinfo2 text-right"><asp:Label ID="sclass" runat="server" ></asp:Label></div>
     </div>
-    <div class="divinfo">
-    <div class="divinfo1">姓名</div>
-    <div class="divinfo2"><asp:Label ID="sname" runat="server" ></asp:Label></div>
+    <div class="divinfo flex items-center justify-between w-full text-sm">
+    <div class="divinfo1 font-bold">姓名</div>
+    <div class="divinfo2 text-right"><asp:Label ID="sname" runat="server" ></asp:Label></div>
     </div>  
-    <div class="divinfo">
-    <div class="divinfo1">小组</div>
-    <div class="divinfo2"><asp:HyperLink ID="HLgroup" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HLgroup]</asp:HyperLink></div>
+    <div class="divinfo flex items-center justify-between w-full text-sm">
+    <div class="divinfo1 font-bold">小组</div>
+    <div class="divinfo2 text-right"><asp:HyperLink ID="HLgroup" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HLgroup]</asp:HyperLink></div>
     </div> 
-    <div class="divinfo">
-    <div class="divinfo1">成员</div>
-    <div class="divinfo2"></div>
+    <div class="divinfo flex items-center justify-between w-full text-sm">
+    <div class="divinfo1 font-bold">成员</div>
+    <div class="divinfo2 text-right"></div>
         <asp:Label ID="Labelteam" runat="server" ></asp:Label>
     </div><br /><br />
     <div class="divnull">
