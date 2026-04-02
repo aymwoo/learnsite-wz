@@ -877,3 +877,26 @@ li.return {background:url(../../images/return.png) top left no-repeat;}
   background-color: #0068D1; 
   cursor:pointer;
 }
+
+/* ======================================================================
+   MODERN RESPONSIVE OVERRIDES
+   These rules override hardcoded fixed widths (e.g. 1200px, 800px) in 
+   legacy elements to allow them to flow nicely inside Tailwind cards.
+   ====================================================================== */
+.menu, #showcontent, .leftmaster, .rightmaster, .formtext, .ccontent, 
+.downcontent, .downcontentbd, .downfilebd, .topicleft, .topicright, 
+.divscoreheight, .divscore, .quizscoreheight, .quizresult, .vcontent, 
+.quizarea, .pfdiv {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+table {
+    max-width: 100% !important;
+}
