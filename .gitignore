@@ -21,3 +21,4 @@ docker-compose.dev.yaml
 web.config.local
 web.config.docker.local
 /mssql/data
+store/
