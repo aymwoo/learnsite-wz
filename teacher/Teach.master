@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>信息科技教师网站</title>
     <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
     <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/course-workspace.css" />
@@ -105,6 +106,10 @@
             </div>
         </div>
         <style>
+            html, body, #form1 {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
             .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
             .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
             .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
