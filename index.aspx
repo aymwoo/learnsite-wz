@@ -1,6 +1,8 @@
 <%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="index" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
+    <meta charset="UTF-8" />
     <title>信息科技学习网站</title>   
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />
     

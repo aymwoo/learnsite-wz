@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
+    <meta charset="UTF-8" />
     <title></title>
     <link href="../js/css/font-awesome.min.css" rel="stylesheet" type="text/css" />   
     <link href="../App_Themes/Student/StyleSheet.css?ver=621" rel="stylesheet" type="text/css" />
