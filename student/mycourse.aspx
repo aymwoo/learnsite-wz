@@ -8,12 +8,13 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-orange-400 rounded-full inline-block"></span> 未学学案
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
     <asp:GridView ID="GridViewnewkc" runat="server" Width="100%" 
         SkinID="GridViewInfo" onrowdatabound="GridViewnewkc_RowDataBound" 
         AutoGenerateColumns="False" 
         EnableModelValidation="True" PageSize="5" AllowPaging="True" 
         onpageindexchanging="GridViewnewkc_PageIndexChanging" 
-        CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+        CssClass="w-full text-slate-600 bg-white min-w-[500px]">
         <Columns>
             <asp:BoundField DataField="cid"  Visible="false">
             <ItemStyle Width="30px" ForeColor="White" />
@@ -62,6 +63,7 @@
         </PagerTemplate>
         <RowStyle Height="40px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
     </asp:GridView>
+</div>
             </div>
 
             <!-- Done Courses -->
@@ -69,13 +71,14 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-green-500 rounded-full inline-block"></span> 已学学案
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
        <asp:GridView ID="GridViewdonekc" runat="server" AllowPaging="True" 
            AutoGenerateColumns="False" 
            EnableModelValidation="True" 
            OnPageIndexChanging="GridViewdonekc_PageIndexChanging" 
            onrowdatabound="GridViewdonekc_RowDataBound" SkinID="GridViewInfo" 
            Width="100%" PageSize="5"
-           CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+           CssClass="w-full text-slate-600 bg-white min-w-[500px]">
            <Columns>
                <asp:BoundField DataField="cid" Visible="false">
                <ItemStyle ForeColor="White" Width="30px" />
@@ -128,6 +131,7 @@
             </PagerTemplate>
            <RowStyle Height="40px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
        </asp:GridView>
+</div>
             </div>
         </div>
 
