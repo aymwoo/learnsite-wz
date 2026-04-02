@@ -11,6 +11,8 @@
 			margin:10px;
 		}
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,16 +31,16 @@
        <div style=" text-align:center;" >
             <br />
             <br />
-                比赛名称：<asp:TextBox ID="Texttitle" runat="server" Width="580px"  SkinID="TextBoxNormal"></asp:TextBox>
+                比赛名称：<asp:TextBox ID="Texttitle" runat="server" Width="580px"  SkinID="TextBoxNormal" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             &nbsp;<asp:CheckBox ID="Checkcpublish" runat="server" Text="是否发布"  Checked="True" />
             <br />
             <br />
             <br />
             <br />
             <br />
-            <asp:Button ID="BtnCreate" runat="server"  Text="确定"  onclick="BtnCreate_Click"  SkinID="BtnNormal"/>
+            <asp:Button ID="BtnCreate" runat="server"  Text="确定"  onclick="BtnCreate_Click"  SkinID="BtnNormal" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
-            <asp:Button ID="Btnreturn" runat="server"  Text="返回" onclick="Btnreturn_Click" SkinID="BtnNormal" />
+            <asp:Button ID="Btnreturn" runat="server"  Text="返回" onclick="Btnreturn_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
         </div>

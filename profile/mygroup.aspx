@@ -46,10 +46,10 @@
         </asp:Panel>
         <asp:Panel ID="PanelSgtitle" runat="server">
         <div>我的小组名称：<asp:TextBox ID="TextBox1" runat="server" BorderColor="#CCCCCC" 
-                BorderStyle="Dashed" BorderWidth="1px"></asp:TextBox>
+                BorderStyle="Dashed" BorderWidth="1px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             &nbsp;
             <asp:Button ID="BtnSgtitle" runat="server" onclick="BtnSgtitle_Click" 
-                SkinID="buttonSkin" Text="修改" />
+                SkinID="buttonSkin" Text="修改"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             </div>
         </asp:Panel>
         <br />

@@ -9,6 +9,8 @@
   <link href="../code/turtle.css" rel="stylesheet" type="text/css" />
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
     <link href="../kindeditor/plugins/code/prettify.css?ver=621" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body  onload="prettyPrint(); ">
@@ -41,7 +43,7 @@
 <div id="codexample">
 	<div id="codeplace"></div>
 	<div id="codebutton">
-	<button class="btncode" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode"  id="next">下一页</button>
+	<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  id="next">下一页</button>
 	</div>
 </div>
 <div class="tooltip"></div>
@@ -51,22 +53,22 @@
 <div  id="sideby">
 
 
-<button  onclick="fullide()" class="button"  >
+<button  onclick="fullide()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-expand" aria-hidden="true"></i>全屏</button>&nbsp;&nbsp;
 <span class="sp"></span>
 
-<button  onclick="remember()" class="button"  >
+<button  onclick="remember()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-video-camera" aria-hidden="true"></i>回忆</button>&nbsp;&nbsp;
 <span class="sp"></span>
 
-<button  onclick="runit()" class="button"  >
+<button  onclick="runit()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-play-circle" aria-hidden="true"></i>运行</button>&nbsp;&nbsp;
 <span class="sp"></span>
 
-<button  onclick="checkright()" class="button"  >
+<button  onclick="checkright()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-save" aria-hidden="true"></i>保存</button>&nbsp;&nbsp;
 <span class="sp"></span>
-<button  onclick="returnurl()" class="button">
+<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
 <i class="fa fa-reply" aria-hidden="true"></i>返回</button>
 </div>
 

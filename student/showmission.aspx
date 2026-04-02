@@ -27,18 +27,18 @@
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
         <div ><br /></div><br />
-        <input type="button" class="sharedisk" id="share" value="我的网盘" onclick="showShare()" />
+        <input type="button" class="sharedisk px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="share" value="我的网盘" onclick="showShare()" />
         <br />
         <br />
             <asp:HyperLink  ID ="VoteLink" runat="server" Target="_blank" 
-                CssClass="txtszcenter" SkinID="HyperLinkPink">作品互评</asp:HyperLink>        
+                CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" SkinID="HyperLinkPink">作品互评</asp:HyperLink>        
         <br />
      <asp:Panel ID="Panelworks" runat="server" >
         <div>
 <br />
             <asp:Image runat="server" ID="upFileType" Visible="False" />
             <asp:HyperLink ID="upFileUrl" runat="server" Height="16px" Visible="False" 
-                Target="_blank">[upFileUrl]</asp:HyperLink>
+                Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[upFileUrl]</asp:HyperLink>
         <br /> 
             <br />
             <asp:Panel ID="Panelswfupload" runat="server">
@@ -74,7 +74,7 @@
                 //自动保存成绩
 
 	        </script>
-				<input type="button" id="uploadButton" value="作品提交" />
+				<input type="button" id="uploadButton" value="作品提交"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 		    </center>
 	    </div>
             </asp:Panel>
@@ -139,7 +139,7 @@
         <br />
         <asp:Image ID="upFileTypeGroup" runat="server" Visible="False" />
         <asp:HyperLink ID="upFileUrlGroup" runat="server" Height="16px" Target="_blank" 
-            Visible="False">[upFileUrlGroup]</asp:HyperLink>
+            Visible="False" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[upFileUrlGroup]</asp:HyperLink>
         <br /><br />
          <asp:Panel ID="PanelGroupUp" runat="server">
         <div id="swfu_containerTwo" style="margin: 0px 10px;">
@@ -169,7 +169,7 @@
                     });
                 });
 	        </script>
-				<input type="button" id="uploadgroupButton" value="小组合作" />
+				<input type="button" id="uploadgroupButton" value="小组合作"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 		    </center>
 	    </div>
         </asp:Panel>

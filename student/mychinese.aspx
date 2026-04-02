@@ -29,7 +29,7 @@
             </div>
         <br />
         <br />
-            <input id="InputWord" class="typewd" type="text" onpaste="return   false; " ondragenter="return   false;" ondrop= "return   false;" tabindex="0" autocomplete="off" />
+            <input id="InputWord" class="typewd px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" onpaste="return   false; " ondragenter="return   false;" ondrop= "return   false;" tabindex="0" autocomplete="off" />
             <br />
         <br />
     </div>     
@@ -77,11 +77,11 @@
 <div class="right">
     <div>
     <asp:HyperLink ID="HChinese" runat="server" 
-        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx" ></asp:HyperLink> 
+        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink> 
     <asp:HyperLink ID="HkFinger" runat="server" 
-        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx"></asp:HyperLink>        
+        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>        
     <asp:HyperLink ID="HTyper" runat="server" 
-        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx" ></asp:HyperLink>       
+        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>       
     </div>
     <br />
     <div id="oldspd" class="letter">
@@ -94,7 +94,7 @@
     <br />
     <asp:HyperLink ID="HLfinger" runat="server" 
         NavigateUrl="~/student/allchinese.aspx" Target="_blank" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="18px">拼音输入英雄榜</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px">拼音输入英雄榜</asp:HyperLink>
     <br /> <br />     
     <div id="debug">
     </div>

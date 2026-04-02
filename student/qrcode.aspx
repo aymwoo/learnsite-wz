@@ -12,6 +12,8 @@
 <script src="../plugins/qrcode/qrcanvas@3"></script>
 <script src="../plugins/qrcode/jsQR.js"></script>
 <script src="../code/jquery.min.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
 <div id="app" class="container" style="display:none" v-show="true">
@@ -36,7 +38,7 @@
         </div>
         <div class="column">
           <div class="text-right">
-            <button class="btn btn-link btn-sm mr-1" v-for="theme in themes" v-text="theme" @click.prevent="loadTheme(theme)"></button>
+            <button class="btn btn-link btn-sm mr-1 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" v-for="theme in themes" v-text="theme" @click.prevent="loadTheme(theme)"></button>
           </div>
         </div>
       </div>
@@ -121,8 +123,8 @@
 		<center>
 		<qr-canvas :options="options"></qr-canvas>		
         <br><br>  
-			<button id="savebtn"  class="savetext" >保存</button>&nbsp;	&nbsp;&nbsp;
-	        <button id="returnbtn"  class="savetext" >返回</button>
+			<button id="savebtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >保存</button>&nbsp;	&nbsp;&nbsp;
+	        <button id="returnbtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >返回</button>
 		</center>
     </div>
 	

@@ -12,9 +12,9 @@
 			<asp:Label ID="LabelMfiletype" runat="server" ></asp:Label>
             &nbsp;<asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" 
             Enabled="False" />
-            &nbsp;实例:<asp:HyperLink ID="Hlexample" runat="server"></asp:HyperLink>
+            &nbsp;实例:<asp:HyperLink ID="Hlexample" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
             &nbsp;<asp:HyperLink 
-            ID="HLMgid" runat="server">评价标准</asp:HyperLink>
+            ID="HLMgid" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">评价标准</asp:HyperLink>
             <asp:ImageButton ID="BtnEdit" runat="server" ToolTip="点击修改" 
             ImageUrl="~/images/edit.gif" onclick="BtnEdit_Click" 
            style="width: 16px" />
@@ -22,7 +22,7 @@
             ImageUrl="~/images/return.gif" onclick="BtnReturnSmall_Click" 
            style="width: 16px" />
    &nbsp;<asp:HyperLink ID="HyperLink1" runat="server" 
-            NavigateUrl="~/luckysheetbottle/index.html" Target="_blank" ToolTip="协作表格静态网址">协作表格</asp:HyperLink>
+            NavigateUrl="~/luckysheetbottle/index.html" Target="_blank" ToolTip="协作表格静态网址" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">协作表格</asp:HyperLink>
    </div>
         <div   id="Mcontent"  class="coursecontent" runat="server">	
 		</div>

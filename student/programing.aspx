@@ -61,6 +61,8 @@
         html, body { height:100%; overflow:hidden;}
         body{margin: 0;}
     </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div style="text-align: right; position: absolute; right: 50px; top: 3px; font-size: 11pt;
@@ -70,10 +72,10 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <img id="bill" src="../images/bill.png" alt="学习单" />
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <button id="savebtn">
+            <button id="savebtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
                 立即保存</button>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <button id="returnbtn">
+            <button id="returnbtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
                 返回学案</button>
         </div>
     </div>

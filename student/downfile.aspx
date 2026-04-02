@@ -38,7 +38,7 @@
                 Font-Underline="False" BorderColor="#7DBF80" BorderStyle="Dashed" BorderWidth="1px"
                 CssClass="txtszcenter" Height="18px" BackColor="#E2F3E3" Width="80px">点击下载</asp:LinkButton>
             <br />
-            <asp:HyperLink ID="HLurl" runat="server" Visible="false"></asp:HyperLink>
+            <asp:HyperLink ID="HLurl" runat="server" Visible="false" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
             <br />
         </div>
         <div class="right">
@@ -79,7 +79,7 @@
                 </asp:GridView>
                 <br />
                 <asp:Image runat="server" ID="upFileType" Visible="False" />
-                <asp:HyperLink ID="upFileUrl" runat="server" Height="16px" Visible="False" Target="_blank">[upFileUrl]</asp:HyperLink>
+                <asp:HyperLink ID="upFileUrl" runat="server" Height="16px" Visible="False" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[upFileUrl]</asp:HyperLink>
                 <br />
                 <br />
                 <asp:Panel ID="Panelswfupload" runat="server">
@@ -111,7 +111,7 @@
                                     });
                                 });
                             </script>                            
-                                <input type="button" id="uploadButton" value="作品保存" />                   
+                                <input type="button" id="uploadButton" value="作品保存"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                   
                         </div>
                     </div>
                 </asp:Panel>
@@ -120,7 +120,7 @@
                 <br />
                 <br />
                 <asp:HyperLink ID="Hltonomic" runat="server" ImageUrl="~/images/nomic.gif" NavigateUrl="~/student/autonomic.aspx"
-                    Target="_blank" BorderStyle="None">作品园</asp:HyperLink>
+                    Target="_blank" BorderStyle="None" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">作品园</asp:HyperLink>
                 <br />
                 <br />
             </div>

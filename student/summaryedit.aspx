@@ -46,7 +46,7 @@
                 <tr>
                     <td  colspan="3" style="width: 660px;text-align: center">
                         <asp:Button ID="ButtonEdit" runat="server" onclick="ButtonEdit_Click" 
-                            Text="添加总结" SkinID="buttonSkinPink" Enabled="False" />
+                            Text="添加总结" SkinID="buttonSkinPink" Enabled="False"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     </td>
                 </tr>
             </table>

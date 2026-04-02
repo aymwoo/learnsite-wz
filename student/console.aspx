@@ -46,7 +46,7 @@
         </asp:GridView>
             <br />
             <asp:Button ID="BtnIdle" runat="server" Font-Bold="True" 
-                 SkinID="buttonSkinPink" Text="开始测评" onclick="BtnIdle_Click" />
+                 SkinID="buttonSkinPink" Text="开始测评" onclick="BtnIdle_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br /><br />
                     <asp:ImageButton ID="Btnclock" runat="server" ImageUrl="~/images/clock.gif" 
             onclick="Btnclock_Click"  />
@@ -56,7 +56,7 @@
             <br />
             <br />
             <asp:HyperLink ID="Hlsolve" runat="server" Target="_blank" Font-Size="11pt" 
-            CssClass="btncopy" Width="120px" >班级测评报告</asp:HyperLink>
+            CssClass="btncopy px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Width="120px" >班级测评报告</asp:HyperLink>
             <br />
             <br />
     </div>       

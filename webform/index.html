@@ -13,6 +13,8 @@
     <script src="summernote-zh-CN.min.js"></script>   
     <script src="highlight.min.js"></script>    
     <link href="paper.css" rel="stylesheet">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -22,23 +24,23 @@
         
         <!-- 右侧悬浮按钮栏 -->
         <div class="floating-action-bar">
-            <button class="floating-btn floating-btn-preview-modal" id="previewModalBtn" title="模态预览">
+            <button class="floating-btn floating-btn-preview-modal px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="previewModalBtn" title="模态预览">
                 <span class="btn-icon">👁</span>
                 <span class="btn-text">模态预览</span>
             </button>
-            <button class="floating-btn floating-btn-preview-page" id="previewPageBtn" title="独立预览页面">
+            <button class="floating-btn floating-btn-preview-page px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="previewPageBtn" title="独立预览页面">
                 <span class="btn-icon">📄</span>
                 <span class="btn-text">独立预览</span>
             </button>
-            <button class="floating-btn floating-btn-save" id="saveExamBtn" title="保存为JSON文件">
+            <button class="floating-btn floating-btn-save px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="saveExamBtn" title="保存为JSON文件">
                 <span class="btn-icon">💾</span>
                 <span class="btn-text">保存</span>
             </button>
-            <button class="floating-btn floating-btn-import" id="importBtn" title="导入JSON文件">
+            <button class="floating-btn floating-btn-import px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="importBtn" title="导入JSON文件">
                 <span class="btn-icon">📁</span>
                 <span class="btn-text">导入</span>
             </button>
-            <button class="floating-btn floating-btn-clear" id="clearExamBtn" title="清空所有试题">
+            <button class="floating-btn floating-btn-clear px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="clearExamBtn" title="清空所有试题">
                 <span class="btn-icon">🗑️</span>
                 <span class="btn-text">清空</span>
             </button>

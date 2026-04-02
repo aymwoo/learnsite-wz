@@ -25,10 +25,10 @@
                     </asp:DataList>
                      <div style="margin: auto; padding: 2px">
                     <asp:Button ID="BtnSelect" runat="server" Text="提交选择" onclick="BtnSelect_Click" 
-                        SkinID="BtnNormal" />
+                        SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                         &nbsp;&nbsp;&nbsp;
                     <asp:Button ID="BtnReturn" runat="server" Text="返回" onclick="BtnReturn_Click" 
-                        SkinID="BtnNormal" />
+                        SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     </div>
                     </div>
                     <asp:Label ID="LabelTids" runat="server" Visible="False"></asp:Label>             

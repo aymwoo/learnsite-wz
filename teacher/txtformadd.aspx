@@ -4,7 +4,7 @@
 <div  class="cplace">
     <div  class="cleft">
         &nbsp;表格名称：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="200px" ></asp:TextBox>
+            Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
         <asp:CheckBox ID="CheckCollabo" runat="server" Text="是否协同"  Checked="True" />
         </div>
@@ -39,8 +39,8 @@
                <br />
                <br />
          <br />
-              <asp:Button ID="Btnadd" runat="server"  Text="添加表单" OnClick="Btnadd_Click"  SkinID="BtnNormal" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal" /><br />
+              <asp:Button ID="Btnadd" runat="server"  Text="添加表单" OnClick="Btnadd_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
+              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
          <br />
          </div>
            

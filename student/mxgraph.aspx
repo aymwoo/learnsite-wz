@@ -89,11 +89,13 @@
 		}
 		::-webkit-scrollbar {  display: none; /* Chrome Safari */  }
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body class="geEditor">
-<button class="savetext"  onclick="savetoxml()" type="button"  >保存流程图</button>
-<button  onclick="showcontent()" type="button" class="contentbtn" > 查看学案</button>
-<button  onclick="returnurl()" type="button" class="returnbtn" > 返回</button>
+<button class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="savetoxml()" type="button"  >保存流程图</button>
+<button  onclick="showcontent()" type="button" class="contentbtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" > 查看学案</button>
+<button  onclick="returnurl()" type="button" class="returnbtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" > 返回</button>
     <form id="form1" runat="server">
        <div id="mcontext" style="display: none; background: #fffdea; overflow-y: auto; overflow-x: hidden;
             position: absolute;  width: 500px; height: 50%; z-index: 999;opacity:0.9; font-size: 16px;

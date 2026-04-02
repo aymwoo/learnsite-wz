@@ -17,7 +17,7 @@
                     <br />
             <br />
                     <asp:Button ID="Btnsex" runat="server"  OnClick="Btnsex_Click" 
-                Text="确定"   TabIndex="2"  SkinID="buttonSkin" Height="20px" Width="80px" />
+                Text="确定"   TabIndex="2"  SkinID="buttonSkin" Height="20px" Width="80px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
         <asp:Label ID="Labelstr" runat="server" SkinID="LabelMsgRed"></asp:Label>

@@ -9,6 +9,8 @@
     .phold{margin: auto; width:360px; text-align: center;font-size: 11pt;font-family: Arial;}
     .hearder{ background-color: #939CA2;height: 18px;text-align: center;line-height: 18px;}
     </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body class="by">
     <form id="form1" runat="server">
@@ -38,13 +40,13 @@
         <br />
         <asp:TextBox ID="TextBox2" runat="server" BackColor="#FFE7CE" Height="60px" 
             TextMode="MultiLine" ToolTip="填写好自定义评语后，请手动上面您的评分！" 
-            Width="240px"></asp:TextBox>
+            Width="240px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <br />
     <asp:Label ID="Labelmsg" runat="server"></asp:Label>
         <br />
     <br />
     <asp:Button ID="Btnattitude" runat="server"  Text="确定"  
-        onclick="Btnattitude_Click"  SkinID="BtnNormal"  />
+        onclick="Btnattitude_Click"  SkinID="BtnNormal"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 </div>
     </form>
 </body>

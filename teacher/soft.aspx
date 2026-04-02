@@ -7,13 +7,13 @@
                     onselectedindexchanged="ddlcategory_SelectedIndexChanged">
         </asp:DropDownList>
                     <asp:Label ID="Label1" runat="server" Width="400px"></asp:Label>
-                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="HyperlinkNormal" 
+                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
                     NavigateUrl="~/teacher/softadd.aspx" Target="_self">资源添加</asp:HyperLink>
 &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="HyperlinkNormal" 
+                <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
                     NavigateUrl="~/teacher/softcategory.aspx" Target="_self">分类设置</asp:HyperLink>
                     &nbsp;&nbsp;&nbsp;
-                <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="HyperlinkNormal" 
+                <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
                     NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">自学评价</asp:HyperLink>
                     </div>
             <div class="softdiv">

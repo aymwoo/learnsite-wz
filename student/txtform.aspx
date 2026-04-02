@@ -30,7 +30,7 @@
             <br />
             <br />
             <input id="Btnform" type="button" value="提交填写" onclick="SaveForm();" style="border-width: 0px;
-                background-color: #3399FF; width: 80px; height: 24px;" />
+                background-color: #3399FF; width: 80px; height: 24px;"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <br />
@@ -41,7 +41,7 @@
             <br />
             <br />
             <br />
-            <asp:HyperLink ID="Hlresult" runat="server" CssClass="txts20center" Height="20px"
+            <asp:HyperLink ID="Hlresult" runat="server" CssClass="txts20center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="20px"
                 SkinID="HyperLink" Target="_blank" Width="80px">查看结果</asp:HyperLink>
             <br />
             <span class="namebox" style="position: absolute; display: none; color: #fff; background-color: #3399FF; opacity: 0.8; padding: 4px;">TextName</span>

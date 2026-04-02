@@ -45,9 +45,9 @@
                         作品类型：<asp:DropDownList ID="DDLtype" runat="server"  Font-Size="9pt">
             </asp:DropDownList>
                     &nbsp;量规标题：<asp:TextBox ID="TextBoxGtitle" runat="server" SkinID="TextBoxNormal" 
-                        Width="300px"></asp:TextBox>
+                        Width="300px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                     &nbsp;
-       <asp:Button ID="Btnadd" runat="server"  Text="添加量规"  onclick="Btnadd_Click" SkinID="BtnNormal" />                    
+       <asp:Button ID="Btnadd" runat="server"  Text="添加量规"  onclick="Btnadd_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     <br />
                     </div>
                     <br />

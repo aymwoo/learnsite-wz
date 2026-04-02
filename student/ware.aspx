@@ -16,7 +16,7 @@
             <br />
             <br />
             <br />
-            <input id="Btnform" type="button" value="保存" onclick="SaveIframe();" />
+            <input id="Btnform" type="button" value="保存" onclick="SaveIframe();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <div id="msg" style="color: #FF0000">
             </div>

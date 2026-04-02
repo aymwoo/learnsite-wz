@@ -11,19 +11,19 @@
             </asp:DropDownList>&nbsp;第<asp:Label ID="Lbterm" runat="server"></asp:Label>
             学期&nbsp;
             <asp:Button   ID="BtnScoresNo" runat="server"  OnClick="BtnScoresNo_Click" 
-                Text=" 未评设置C"  SkinID="BtnNormal" ToolTip="所教班级未评作品全部设置为C，即分值6" />
+                Text=" 未评设置C"  SkinID="BtnNormal" ToolTip="所教班级未评作品全部设置为C，即分值6"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             &nbsp;&nbsp;
             <asp:Button   ID="BtnScores" runat="server"  OnClick="BtnScore_Click" 
-                Text="总分折算"  SkinID="BtnNormal" ToolTip="先统计总分，再得出折算总分" />
+                Text="总分折算"  SkinID="BtnNormal" ToolTip="先统计总分，再得出折算总分"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             &nbsp;&nbsp; 
             <asp:Button ID="Btnape" runat="server"  onclick="Btnape_Click" Text="期末总评" 
-                SkinID="BtnNormal" />
+                SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 &nbsp;&nbsp;
             <asp:Button ID="BtnExcel" runat="server"  OnClick="BtnExcel_Click" 
-                Text="导出Excel"  SkinID="BtnNormal" ToolTip="将学生期末成绩以Excel表格导出" />&nbsp;&nbsp;<asp:Button 
+                Text="导出Excel"  SkinID="BtnNormal" ToolTip="将学生期末成绩以Excel表格导出"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;<asp:Button 
                 ID="Btntermview" runat="server"  Text="学期查询"  OnClick="Btntermview_Click" 
-                SkinID="BtnNormal" />
-            &nbsp;&nbsp;<asp:Button ID="Btnback" runat="server"  Text="返回"  OnClick="Btnback_Click" SkinID="BtnNormal" />
+                SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            &nbsp;&nbsp;<asp:Button ID="Btnback" runat="server"  Text="返回"  OnClick="Btnback_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             总分折算设置== 作品+小组+讨论+表单+测评 ：<asp:DropDownList ID="DDLwork" runat="server" Font-Size="9pt" 

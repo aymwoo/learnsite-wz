@@ -111,15 +111,17 @@
 		}
 		
 		</style>
-	</head>
+	
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 	<body onkeydown="doKeyDown(event)"><!--身体-->
 	<div id="main" >
 		<div class="banner">
 			<div id="msg"></div>
 			<div id="btntool">
-				<input id="btnmove" type="button" class="button" value="历史记录" onclick="automove()">
-				<input type="button" class="button" value="重新开始" onclick="NextLevel(0)">
-				<input type="button" class="button"  value="撤消一步" onclick="showBack()">		
+				<input id="btnmove" type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" value="历史记录" onclick="automove()">
+				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" value="重新开始" onclick="NextLevel(0)">
+				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  value="撤消一步" onclick="showBack()">		
 			</div>
 		</div>
 		<div  class="game" >

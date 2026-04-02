@@ -4,7 +4,7 @@
     <div  class="cplace">
     <div class="cleft">
         &nbsp;学案名称：<asp:TextBox ID="Texttitle" runat="server"  Width="436px"  
-            SkinID="TextBoxNormal"></asp:TextBox>
+            SkinID="TextBoxNormal" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         </div>
     <div  class="cleft">
         &nbsp;学案分类：<asp:DropDownList ID="DDLclass" runat="server" Width="100px" 
@@ -22,7 +22,7 @@
         学期&nbsp;&nbsp; 第<asp:DropDownList ID="DDLCks" runat="server" Font-Size="8pt"
             Width="40px" Font-Names="Arial">       
         </asp:DropDownList>课节&nbsp;&nbsp;<asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
-        &nbsp; <asp:HyperLink ID="HLbanner" runat="server" Target="_blank">学案横幅</asp:HyperLink><asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+        &nbsp; <asp:HyperLink ID="HLbanner" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">学案横幅</asp:HyperLink><asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
         </div>
     <div >
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
@@ -50,10 +50,10 @@
      <div  class="placehold">
                <asp:Label ID="Labelmsg" runat="server" ></asp:Label>
          <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="确定" onclick="Btnedit_Click"  SkinID="BtnNormal"  />
+              <asp:Button ID="Btnedit" runat="server"  Text="确定" onclick="Btnedit_Click"  SkinID="BtnNormal"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <asp:Button ID="Btnreturn" runat="server"  Text="返回" onclick="Btnreturn_Click"  
-                   SkinID="BtnNormal"  />
+                   SkinID="BtnNormal"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                <br />
                <br />
          </div>

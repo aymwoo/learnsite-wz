@@ -56,11 +56,11 @@
         </table>
         <br />
        &nbsp;<asp:HyperLink ID="HLcomputer" runat="server" 
-            NavigateUrl="~/teacher/computers.aspx" CssClass="HyperlinkLong" 
+            NavigateUrl="~/teacher/computers.aspx" CssClass="HyperlinkLong px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
             EnableTheming="False" EnableViewState="False">机器名IP对应表</asp:HyperLink>
         &nbsp;&nbsp;
         <asp:HyperLink ID="HLmythware" runat="server" 
-            NavigateUrl="~/teacher/mythware.aspx" CssClass="HyperlinkLong" 
+            NavigateUrl="~/teacher/mythware.aspx" CssClass="HyperlinkLong px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
             EnableTheming="False" EnableViewState="False">极域班级模型</asp:HyperLink>
         <br />
         <br />
@@ -181,7 +181,7 @@
         <asp:HyperLink ID="HLsitelog" runat="server" 
             NavigateUrl="~/teacher/sitelog.aspx" BorderStyle="None" EnableTheming="False" 
                         EnableViewState="False"  Font-Underline="False" 
-                        ForeColor="Black" Target="_blank" ToolTip="请及时向温州水乡回复修正！">查询</asp:HyperLink>
+                        ForeColor="Black" Target="_blank" ToolTip="请及时向温州水乡回复修正！" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">查询</asp:HyperLink>
                 </td>
             </tr>
             </table>

@@ -29,11 +29,11 @@
     <link href="../kindeditor/themes/me/me.css" rel="stylesheet" type="text/css" />
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js" type="text/javascript"></script>
-        <input type="button" class="sharedisk" id="share" value="我的网盘" onclick="showShare()" />
+        <input type="button" class="sharedisk px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="share" value="我的网盘" onclick="showShare()" />
         <br />
         <br />
             <asp:HyperLink  ID ="VoteLink" runat="server" Target="_blank" 
-                CssClass="txtszcenter" SkinID="HyperLinkPink">作品互评</asp:HyperLink>        
+                CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" SkinID="HyperLinkPink">作品互评</asp:HyperLink>        
         <br />
         <br />
      
@@ -44,19 +44,19 @@
             <br />
             <br /> 
             <asp:Button ID="BtnScratch" runat="server" Font-Bold="True" 
-                onclick="BtnScratch_Click" SkinID="buttonSkinPink" Text="开始创作" />
+                onclick="BtnScratch_Click" SkinID="buttonSkinPink" Text="开始创作"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <asp:Label ID="Labelscratch" runat="server" ForeColor="#0066FF"></asp:Label>
             <br />
             <br />
             <asp:Button ID="BtnBegin" runat="server" Font-Bold="True" 
-                onclick="BtnBegin_Click" SkinID="buttonSkinPink" Text="开关指令" />
+                onclick="BtnBegin_Click" SkinID="buttonSkinPink" Text="开关指令"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <asp:Button ID="ButtonClear" runat="server" Font-Bold="True" 
                  SkinID="buttonSkinPink" Text="清除提交" ToolTip="清除模拟学生提交的本项作品" 
-                onclick="ButtonClear_Click" />
+                onclick="ButtonClear_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
     <asp:Label ID="Labelmsg" runat="server"  SkinID="LabelMsgRed"></asp:Label>

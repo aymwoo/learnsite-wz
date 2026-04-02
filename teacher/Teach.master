@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Teach.master.cs" Inherits="Teach" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Teach.master.cs" Inherits="Teach" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -17,6 +17,8 @@
 			"autoplay": "on",
 	}
 	</script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body onload="prettyPrint();" class="bg-gray-50 font-sans text-gray-800">
     <form id="form1" runat="server">

@@ -51,17 +51,19 @@
 	}
 	
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>				
 	<div id="footbar">
 	
-		<button onclick="homeland()"><i class="fa fa-home" aria-hidden="true" /></i> 首页</button>
-		<button onclick="backward()"><i class="fa fa-arrow-left" aria-hidden="true" /></i> 后退</button>
-		<button onclick="forward()"><i class="fa fa-arrow-right" aria-hidden="true" /></i> 前进</button>		
+		<button onclick="homeland()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-home" aria-hidden="true" /></i> 首页</button>
+		<button onclick="backward()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-arrow-left" aria-hidden="true" /></i> 后退</button>
+		<button onclick="forward()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-arrow-right" aria-hidden="true" /></i> 前进</button>		
 		<span class="sp">             </span>
-		<button id="savebtn" type = "button" class="button"  title="将PSD格式图片上传到服务器上" >
+		<button id="savebtn" type = "button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="将PSD格式图片上传到服务器上" >
 		<i class="fa fa-upload" aria-hidden="true"></i> 提交作品</button>
-		<button  onclick="returnurl()" class="button" title="返回到学案页面">
+		<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" title="返回到学案页面">
 		<i class="fa fa-reply" aria-hidden="true"></i> 返回</button>  
 		
 	</div>	

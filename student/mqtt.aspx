@@ -10,6 +10,8 @@
     <script src="../code/jquery.min.js"></script>
     <link href="../code/mqtt/mqtt.css" rel="stylesheet" type="text/css" />
 	<script src="../code/chart.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -19,19 +21,19 @@
 		<tr>
 			<td>
 		<img id="broker" src="../code/mqtt/ready.png" title="Mqtt状态" />
-		MQTT地址：<input id ="txtIp" type="text"  readonly/>
-		MQTT端口：<input id ="txtPort" type="text" readonly/>			
+		MQTT地址：<input id ="txtIp" type="text"  readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
+		MQTT端口：<input id ="txtPort" type="text" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />			
 			</td>
 			<td>
-		客户端ID：<input id ="txtId" type="text" readonly/>
-		用户：<input id ="txtUser" type="text"  readonly/>
-		密码：<input id ="txtPwd" type="text"  readonly/>
+		客户端ID：<input id ="txtId" type="text" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
+		用户：<input id ="txtUser" type="text"  readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
+		密码：<input id ="txtPwd" type="text"  readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
 			
 			</td>
 			<td>
-		<button id="btnConnect" >点击连接</button>&nbsp;&nbsp;&nbsp;
-		<button id="savebtn"  onclick="savework();" >保存</button>&nbsp;
-		<button id="returnbtn" onclick="returnurl();" >返回</button>			
+		<button id="btnConnect"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">点击连接</button>&nbsp;&nbsp;&nbsp;
+		<button id="savebtn"  onclick="savework();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">保存</button>&nbsp;
+		<button id="returnbtn" onclick="returnurl();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">返回</button>			
 			</td>
 		</tr>
 		<tr>
@@ -46,11 +48,11 @@
 				<img id="pump" class="device " src="../code/mqtt/pump.png" title="水泵控制 pump" />
 				
 				<br>
-				主题：<input id ="txtTopic" type="text" readonly/><br><br>
-				消息：<input id="txtPayload" type="text" value="off" readonly/><br><br>
+				主题：<input id ="txtTopic" type="text" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /><br><br>
+				消息：<input id="txtPayload" type="text" value="off" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /><br><br>
 				<div >				
-				<button id="btnPublish" disabled="true">发布</button>&nbsp;&nbsp;&nbsp;
-				<button id="btnSub"  disabled="true">订阅</button><br>		
+				<button id="btnPublish" disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">发布</button>&nbsp;&nbsp;&nbsp;
+				<button id="btnSub"  disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">订阅</button><br>		
 				</div>
 				<div class="sesor">
 				<table>
@@ -92,7 +94,7 @@
 					<select class="subtopics">
 					</select>
 					&nbsp;
-				<button id="btnUnSub" disabled="true">取消订阅</button>
+				<button id="btnUnSub" disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">取消订阅</button>
 				</div>
 			</td>
 		</tr>
@@ -103,7 +105,7 @@
 	  <div>
 	  <span id="msg" style="float:right;"></span>
 	  <img class="volume" src="../code/mqtt/volume.png" title="声音警报" />	
-	  <input class ="alert" type="text"  value="16000"/>
+	  <input class ="alert px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text"  value="16000"/>
 	  </div>
 	  <audio id="audio" controls="controls"  hidden="true" ></audio>
 	</div>

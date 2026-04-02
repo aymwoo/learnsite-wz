@@ -44,10 +44,10 @@
     </div>
     <br />
         <asp:Button ID="Btnok" runat="server"  Text="提交答卷" 
-        BorderStyle="None" CssClass="buttonimg" />
+        BorderStyle="None" CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     &nbsp;
         <asp:Button ID="Btnshow" runat="server"  Text="查看结果" 
-        BorderStyle="None" CssClass="buttonimg" />
+        BorderStyle="None" CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
         <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script type="text/javascript" >

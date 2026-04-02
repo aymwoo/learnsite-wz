@@ -97,11 +97,13 @@
     <link rel="stylesheet" crossorigin href="../Plugins/excalidraw/assets/index.css">
     <link rel="manifest" href="../Plugins/excalidraw/manifest.webmanifest">
     <script src="../code/jquery.min.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div>
-    <button class="mybtn" style="right:120px;" onclick="savework();" >保存</button>&nbsp;
-    <button class="mybtn" style="right:20px;" onclick="returnurl();" >返回</button>
+    <button class="mybtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" style="right:120px;" onclick="savework();" >保存</button>&nbsp;
+    <button class="mybtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" style="right:20px;" onclick="returnurl();" >返回</button>
     </div>
     <div id="drawUrl" class="hide"><%=Wurl %></div>
     <div id="root">

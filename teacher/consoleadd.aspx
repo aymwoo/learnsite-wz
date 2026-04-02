@@ -4,7 +4,7 @@
  <div  class="cplace">
     <div  class="cleft">
         &nbsp;测评名称：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="240px" ></asp:TextBox>
+            Width="240px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         &nbsp;<asp:CheckBox ID="Publish" runat="server" Text="是否发布" />
         </div>
     <div  >
@@ -33,9 +33,9 @@
                <asp:Label ID="Labelmsg" runat="server" ></asp:Label>
          <br />
               <asp:Button ID="Btnadd" runat="server"  Text="添加测评" 
-                   SkinID="BtnNormal" onclick="Btnadd_Click" />&nbsp;&nbsp;&nbsp;
+                   SkinID="BtnNormal" onclick="Btnadd_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
               <asp:Button ID="BtnCourse" runat="server"  Text="返回"   SkinID="BtnNormal" 
-                   onclick="BtnCourse_Click" /><br />
+                   onclick="BtnCourse_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
          <br />
          </div>
            

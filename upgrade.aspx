@@ -24,6 +24,8 @@
             color: #0033CC;
         }
     </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
        <form id="form1" runat="server" > 
@@ -50,11 +52,11 @@
             <br />
             <br />
             <asp:Button ID="Btnupgrade" runat="server" Font-Size="9pt" Text="执行更新" 
-                onclick="Btnupgrade_Click" Height="24px" Width="100px" />
+                onclick="Btnupgrade_Click" Height="24px" Width="100px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <asp:Button ID="BtnCreateTable" runat="server" onclick="BtnCreateTable_Click" 
-                Text="创建数据表" />
+                Text="创建数据表"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <asp:Label ID="Labelmsg" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
@@ -65,26 +67,26 @@
                     Visible="False">
                 <br />
                 数据库服务器名称：<asp:TextBox ID="TextBoxSqlServer" runat="server" 
-                    BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" Height="20px"></asp:TextBox>                
+                    BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" Height="20px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>                
                 <br />
             <br />
                 你的数据库名称&nbsp; ：<asp:TextBox ID="TextBoxDbName" runat="server" BorderColor="Silver" 
-                    BorderStyle="Solid" BorderWidth="1px" Height="20px"></asp:TextBox>
+                    BorderStyle="Solid" BorderWidth="1px" Height="20px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                 <br />
                 <br />
                 你的数据库用户&nbsp; ：<asp:TextBox 
                     ID="TextBoxDbUser" runat="server" BorderColor="Silver" BorderStyle="Solid" 
-                    BorderWidth="1px" Height="20px" ToolTip="默认为sa，以便管理员后台备份数据库，否则备份不了！">sa</asp:TextBox>                
+                    BorderWidth="1px" Height="20px" ToolTip="默认为sa，以便管理员后台备份数据库，否则备份不了！" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">sa</asp:TextBox>                
                 <br />
                 <br />
                 你的数据库密码&nbsp; ：<asp:TextBox 
                     ID="TextBoxDbPwd" runat="server" BorderColor="Silver" BorderStyle="Solid" 
-                    BorderWidth="1px" Height="20px" ToolTip="默认为sa"></asp:TextBox>
+                    BorderWidth="1px" Height="20px" ToolTip="默认为sa" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                
                 <br />
                 <br />
                 <asp:Button ID="Buttonedit" runat="server" Font-Size="9pt" Height="24px" 
-                    onclick="Buttonedit_Click" Text="修改" Width="100px" Visible="False" />
+                    onclick="Buttonedit_Click" Text="修改" Width="100px" Visible="False"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <br />
             <br />

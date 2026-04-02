@@ -4,10 +4,10 @@
 <div   class="placehold">        
         <div  class="cheadright">
               <asp:Button ID="BtnTypeSet" runat="server"  Text="打字设置"  
-                  onclick="BtnTypeSet_Click" SkinID="BtnNormal" />
+                  onclick="BtnTypeSet_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;
               <asp:Button ID="BtnAdd" runat="server"  Text="词语添加"  onclick="BtnAdd_Click" 
-                  SkinID="BtnNormal" />
+                  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         </div>
             <div  class="softdiv">
                 <asp:GridView ID="GVType" runat="server" AllowPaging="True" 

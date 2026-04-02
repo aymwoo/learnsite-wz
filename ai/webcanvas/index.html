@@ -7,15 +7,17 @@
         <script src="Chart.min.js"></script>
         <link href="mui.min.css" rel="stylesheet" type="text/css" />
         <script src='./model.js'></script>
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
     <body >
         <h1>手写数字识别</h1>
         <div id='container' >
             <canvas width="140" height="140" id="canvas" class="canvas"></canvas>
             <!-- <canvas width="28" height="28" id="canvas_mini" class="canvas"></canvas> -->
             <div class='button-container'>
-                <button class="mui-btn mui-btn--primary btn" onclick="recognize()">自动识别</button>
-                <button class="mui-btn mui-btn--danger btn" onclick="clear_canvas()">清空画布</button>
+                <button class="mui-btn mui-btn--primary btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="recognize()">自动识别</button>
+                <button class="mui-btn mui-btn--danger btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="clear_canvas()">清空画布</button>
             </div>
             <canvas width="140" id="chart_box"></canvas>
         </div>

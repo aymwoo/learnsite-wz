@@ -16,9 +16,9 @@
             确定删除该学案吗？<br />
             <br />
             <br />
-            <asp:Button ID="ButtonDel" runat="server" Text="确定" EnableViewState="False"  OnClick="ButtonDel_Click"  SkinID="BtnNormal" />
+            <asp:Button ID="ButtonDel" runat="server" Text="确定" EnableViewState="False"  OnClick="ButtonDel_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             &nbsp; &nbsp;
-            <asp:Button ID="ButtonCancle" runat="server"  Text="取消"  OnClick="ButtonCancle_Click" SkinID="BtnNormal" />
+            <asp:Button ID="ButtonCancle" runat="server"  Text="取消"  OnClick="ButtonCancle_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                         <br />
             <br />
                         </div>

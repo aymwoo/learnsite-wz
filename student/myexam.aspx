@@ -19,7 +19,7 @@
             <asp:Label ID="LabelVid" runat="server" Visible="False"></asp:Label> 
             <asp:Label ID="LabelVtotal" runat="server" Visible="False"></asp:Label>
         <asp:HyperLink ID="Hkscore" runat="server" Target="_blank" Visible="False" 
-            CssClass="buttonimg" ImageUrl="~/images/vote.png" ToolTip="成绩分析"></asp:HyperLink>
+            CssClass="buttonimg px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" ImageUrl="~/images/vote.png" ToolTip="成绩分析"></asp:HyperLink>
     </div>
     <br />
     <div id="vcontent" runat="server" class="vcontent" ></div>
@@ -28,7 +28,7 @@
             <div id="questionPage">
             </div>
 	        <div class="btnsubmit">
-	        <input id="btnupload" class="btnwidth" type="submit" value="提交" /> 
+	        <input id="btnupload" class="btnwidth px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="submit" value="提交" /> 
 	        </div>   
     </div>
 </div>

@@ -7,12 +7,14 @@
   <link href="../code/site.css" rel="stylesheet" type="text/css" />
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
     <link href="../kindeditor/plugins/code/prettify.css?ver=621" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body  onload="prettyPrint(); ">
 
 <div class="banner">
-	<i class="fa fa-codepen" ></i> <input id="title"  type="text"  value="Python 绘画编程"/>
+	<i class="fa fa-codepen" ></i> <input id="title"  type="text"  value="Python 绘画编程" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
 </div>
 <div class="main" >
 	<div class="left" id="editor"></div>
@@ -50,13 +52,13 @@
 <div id="savemsg"></div>
 
 <div  id="sideby">
-<button  onclick="runit()" class="button"  >
+<button  onclick="runit()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-caret-right" aria-hidden="true"></i>运行</button>&nbsp;&nbsp;
 <span class="sp"></span>
-<button  onclick="savecode()" class="button">
+<button  onclick="savecode()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
 <i class="fa fa-save" aria-hidden="true"></i>保存</button>
 <span class="sp"></span>
-<button  onclick="returnurl()" class="button">
+<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
 <i class="fa fa-reply" aria-hidden="true"></i>返回</button>
 </div>
 </div>

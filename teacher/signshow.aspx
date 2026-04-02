@@ -59,7 +59,7 @@
         </asp:RadioButtonList>
         <br />
     <br />
-    <asp:Button ID="ButtonReturn" runat="server" onclick="ButtonReturn_Click" Text="返回" SkinID="BtnNormal" />
+    <asp:Button ID="ButtonReturn" runat="server" onclick="ButtonReturn_Click" Text="返回" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
     <br />
 </div> 

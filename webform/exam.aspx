@@ -22,19 +22,19 @@
                 <span class="btn-icon">💰</span>
                 <span id="examScore" class="btn-text">00 分</span>
             </label>
-            <button type="button" class="floating-btn floating-btn-preview-modal" id="previewModalBtn" title="模态预览">
+            <button type="button" class="floating-btn floating-btn-preview-modal px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="previewModalBtn" title="模态预览">
                 <span class="btn-icon">👁</span>
                 <span class="btn-text">模态预览</span>
             </button>
-            <button type="button" class="floating-btn floating-btn-save" id="saveExamBtn" title="保存为JSON文件">
+            <button type="button" class="floating-btn floating-btn-save px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="saveExamBtn" title="保存为JSON文件">
                 <span class="btn-icon">💾</span>
                 <span class="btn-text">保存</span>
             </button>
-            <button type="button" class="floating-btn floating-btn-import" id="importBtn" title="导入JSON文件">
+            <button type="button" class="floating-btn floating-btn-import px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="importBtn" title="导入JSON文件">
                 <span class="btn-icon">📁</span>
                 <span class="btn-text">导入</span>
             </button>
-            <button type="button" class="floating-btn floating-btn-clear" id="clearExamBtn" title="清空所有试题">
+            <button type="button" class="floating-btn floating-btn-clear px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="clearExamBtn" title="清空所有试题">
                 <span class="btn-icon">🗑️</span>
                 <span class="btn-text">清空</span>
             </button>

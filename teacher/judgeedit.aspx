@@ -74,22 +74,22 @@
 <div id="divright">
 <div id="title">
 <h2 style="text-align:center;"> <asp:Label ID="LabelTitle" runat="server" Text="标题"></asp:Label></h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnRun" type="button" value="运行" style=" width:100px;" onclick="passcheck()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnSave" type="button" value="保存" style=" width:100px;" onclick="save()" title="有代码保存会实现自动批改，无代码保存则删除自动批改" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnReturn" type="button" value="返回" style=" width:100px;" onclick="back()" />
+<input id="BtnRun" type="button" value="运行" style=" width:100px;" onclick="passcheck()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="BtnSave" type="button" value="保存" style=" width:100px;" onclick="save()" title="有代码保存会实现自动批改，无代码保存则删除自动批改"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="BtnReturn" type="button" value="返回" style=" width:100px;" onclick="back()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 </div>
 <p>
-输入：<input id="input1" type="text" class="input"  value=""/>
+输入：<input id="input1" type="text" class="input px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"  value=""/>
 <pre id="output1" class="output" ></pre>
 </p>
 
 <p>
-输入：<input id="input2" type="text"  class="input"  value=""/>
+输入：<input id="input2" type="text"  class="input px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"  value=""/>
 <pre id="output2" class="output" ></pre>
 </p>
 
 <p>
-输入：<input id="input3" type="text"  class="input"  value=""/>
+输入：<input id="input3" type="text"  class="input px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"  value=""/>
 <pre id="output3" class="output" ></pre>
 </p>
 <p><strong>特别注意</strong>：<br>如果是while循环，记得只放第一个跳出循环的条件输入参数，将其它两个参数要留空，否则检验无效。检验只判断跳出循环的条件情况。</p>

@@ -22,6 +22,8 @@
              text-align:center;
         }
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -45,10 +47,10 @@
     <div style="margin: auto; width: 90%; ">
          <p style="text-align:right;">
              <asp:Button ID="Buttonrank" runat="server"
-             SkinID="BtnNormal" Text="排行" onclick="Buttonrank_Click" />             
+             SkinID="BtnNormal" Text="排行" onclick="Buttonrank_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />             
              &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; 
              <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" 
-             SkinID="BtnNormal" Text="返回" />
+             SkinID="BtnNormal" Text="返回"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 		 </p>
     </div>
     <div>
@@ -74,7 +76,7 @@
                                 </asp:TemplateField>                                
                                 <asp:TemplateField HeaderText="编写代码" HeaderStyle-CssClass="txtcenter">
                                     <ItemTemplate>
-                                        <asp:HyperLink ID="HyperLinkPid" runat="server"  Text="开始"></asp:HyperLink>
+                                        <asp:HyperLink ID="HyperLinkPid" runat="server"  Text="开始" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                                     </ItemTemplate>
                                     <ItemStyle Width="100px" />
                                 </asp:TemplateField>

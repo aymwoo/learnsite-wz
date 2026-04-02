@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -26,7 +28,7 @@
           </asp:DropDownList>
           &nbsp;
           <asp:Button ID="Button1" runat="server" Text="作品打包" onclick="Button1_Click" 
-              SkinID="BtnNormal" />
+              SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
           <br />
           <br />
           <asp:Label ID="Labelyear" runat="server" Visible="False"></asp:Label>
@@ -34,7 +36,7 @@
           <div style="border: 1px dashed #CCCCCC; width: 300px; margin: auto; background-color: #FFFFFF;">
               <br />
           <br />
-          <asp:HyperLink ID="HyperLink1" runat="server">本学案作品包下载</asp:HyperLink>
+          <asp:HyperLink ID="HyperLink1" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">本学案作品包下载</asp:HyperLink>
           <br />
           <br />
           <asp:Label ID="Labelmsg" runat="server">打包时请耐心等待几秒！</asp:Label>

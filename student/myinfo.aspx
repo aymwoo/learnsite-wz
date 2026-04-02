@@ -158,7 +158,7 @@
     </div>  
     <div class="divinfo">
     <div class="divinfo1">小组</div>
-    <div class="divinfo2"><asp:HyperLink ID="HLgroup" runat="server">[HLgroup]</asp:HyperLink></div>
+    <div class="divinfo2"><asp:HyperLink ID="HLgroup" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HLgroup]</asp:HyperLink></div>
     </div> 
     <div class="divinfo">
     <div class="divinfo1">成员</div>
@@ -170,17 +170,17 @@
         <br />
         <div style="padding: 4px; width: 90%; border: 1px dashed #ABC1EB; margin:auto;">
         <asp:Label ID="LabelWself" runat="server" ></asp:Label><br />
-        <asp:HyperLink ID="Hlwork" runat="server" ForeColor="#3399FF" Target="_blank" >查看</asp:HyperLink>
+        <asp:HyperLink ID="Hlwork" runat="server" ForeColor="#3399FF" Target="_blank"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">查看</asp:HyperLink>
         </div>
         <br />
         <br />
                 <asp:Button ID="BtnProfile" runat="server" OnClick="BtnProfile_Click"
                     Text="我的资料" Width="80px" CausesValidation="False" 
-            CssClass="buttonimg" BorderStyle="None"/>
+            CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" BorderStyle="None"/>
         <br />
         <br />
         <asp:Button ID="BtnExit" runat="server"  onclick="BtnExit_Click" 
-            Width="80px" Enabled="False"  Text="" CssClass="buttonnone"  />
+            Width="80px" Enabled="False"  Text="" CssClass="buttonnone px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  />
         <br />
         <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
         <br />

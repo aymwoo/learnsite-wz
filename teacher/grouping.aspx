@@ -98,7 +98,7 @@
     <asp:CheckBox ID="CkQuit" runat="server" Checked="True" Text="锁定成员退组" 
         ToolTip="默认选中锁定，无法退组；如果要退组请取消" />&nbsp;&nbsp;
      <asp:Button ID="Btnauto" runat="server" SkinID="BtnNormal"  Text="自动分组"  
-        ToolTip="根据小组限制人数自动分组，积分最高为组长，如果小组限制人数为0则自动默认为4人" onclick="Btnauto_Click"  />
+        ToolTip="根据小组限制人数自动分组，积分最高为组长，如果小组限制人数为0则自动默认为4人" onclick="Btnauto_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
     <br />
 </div>

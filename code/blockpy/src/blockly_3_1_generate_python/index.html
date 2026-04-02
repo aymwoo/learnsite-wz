@@ -17,6 +17,8 @@
       font-size: 140%;
     }
   </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
   <h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt;
@@ -27,7 +29,7 @@
   <p>&rarr; More info on <a href="https://developers.google.com/blockly/guides/configure-blockly/web/fixed-size">injecting fixed-sized Blockly</a>&hellip;</p>
 
   <p>
-    <button onclick="showCode()">Show Python</button>
+    <button onclick="showCode()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">Show Python</button>
   </p>
 
   <div id="blocklyDiv" style="height: 480px; width: 600px;"></div>

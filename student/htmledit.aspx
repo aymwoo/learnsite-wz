@@ -154,6 +154,8 @@
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 <script src="../code/build/src/ace.js" type="text/javascript"></script>
 <script src="../code/build/src/ext-language_tools.js" type="text/javascript"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div>
@@ -161,7 +163,7 @@
 	    <span class="icon">网页
         </span>	 
         <span class="spl"></span>
-		<input type="text" id="html_page" name="pagename" readonly title="网页文件名称">
+		<input type="text" id="html_page" name="pagename" readonly title="网页文件名称" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">
     </div>
 <div id="tooltip">
 	<span class="keyword" title="样式">style</span>
@@ -198,13 +200,13 @@
 </div>
 
 <div  id="sideby">
-<button  onclick="showMission()" class="buttonshow"  title="查看学案">
+<button  onclick="showMission()" class="buttonshow px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="查看学案">
 <i class="fa fa-book" aria-hidden="true"></i> 学案</button>
 <span class="sp"></span>
-<button  type = "button" onclick="savehtml()" class="buttonsave"  title="立即保存到服务器上" >
+<button  type = "button" onclick="savehtml()" class="buttonsave px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="立即保存到服务器上" >
 <i class="fa fa-save" aria-hidden="true"></i> 保存</button>
 <span class="sp"></span>
-<button  onclick="closePage()" class="buttonshow"  title="离开页面">
+<button  onclick="closePage()" class="buttonshow px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="离开页面">
 <i class="fa fa-close" aria-hidden="true"></i> 离开</button>
 <span class="sp"></span>
 </div>
@@ -624,16 +626,16 @@
                     cmdstr = '\r\n\t<br>';
                     break;
                 case "input":
-                    cmdstr = '\r\n\t\t<input type="text" name="userinput" >';
+                    cmdstr = '\r\n\t\t<input type="text" name="userinput"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">';
                     break;
                 case "username":
-                    cmdstr = '\r\n\t\t<input type="text" name="username" >';
+                    cmdstr = '\r\n\t\t<input type="text" name="username"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">';
                     break;
                 case "content":
-                    cmdstr = '\r\n\t\t<input type="text" name="content" >';
+                    cmdstr = '\r\n\t\t<input type="text" name="content"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">';
                     break;
                 case "submit":
-                    cmdstr = '\r\n\t\t<input type="submit" value="提交" >';
+                    cmdstr = '\r\n\t\t<input type="submit" value="提交"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">';
                     break;
                 default:
                     break;

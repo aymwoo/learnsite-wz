@@ -30,12 +30,12 @@
                 <div id="Tcontent"  class="typecontent"><asp:Literal ID="Literal1" runat="server"></asp:Literal>
                 </div>
     <div style="text-align: center; font-size:20px;background-color: #999;">    
-        正确<input id="Text4" class="text7" 
+        正确<input id="Text4" class="text7 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
                  type="text" hidefocus="hideFocus" maxlength="30" readonly="readOnly" 
                  unselectable="on" value="0" name="TypeText4" />&nbsp;速度<input 
-                 id="Text6" class="text7"
+                 id="Text6" class="text7 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
                  type="text" hidefocus="hideFocus" maxlength="30" readonly="readOnly" 
-                 unselectable="on" name="Typeresult" value="0"  />&nbsp;拼音<input id="Textpy"  class="text3" 
+                 unselectable="on" name="Typeresult" value="0"  />&nbsp;拼音<input id="Textpy"  class="text3 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" 
                  type="text" hidefocus="hideFocus" maxlength="30" readonly="readOnly" 
                  unselectable="on" /></div>
     <textarea id="InputText"  class="textareacss" cols="6" onpaste="return   false; " ondragenter= "return   false; "  ondrop= "return   false;" rows="6" ></textarea>
@@ -53,11 +53,11 @@
 <center>
     <div>
     <asp:HyperLink ID="HChinese" runat="server" 
-        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx" ></asp:HyperLink> 
+        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink> 
     <asp:HyperLink ID="HkFinger" runat="server" 
-        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx"></asp:HyperLink>        
+        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>        
     <asp:HyperLink ID="HTyper" runat="server" 
-        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx" ></asp:HyperLink>       
+        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>       
     </div>
     <br />
 <div>
@@ -98,12 +98,12 @@
     <br />
     
     <asp:HyperLink ID="HyperLink1" runat="server"  Width="120px" SkinID="HyperLink" 
-        Height="18px" NavigateUrl="~/student/alltyper.aspx" CssClass="txtszcenter" 
+        Height="18px" NavigateUrl="~/student/alltyper.aspx" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
         Target="_self">中文输入英雄榜</asp:HyperLink>   
     <br />
     <br />
     <asp:HyperLink ID="HyperLink2" runat="server"  Width="120px" SkinID="HyperLink" 
-        Height="18px" CssClass="txtszcenter" 
+        Height="18px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
         Target="_self">本篇班内英雄榜</asp:HyperLink>   
     <br />
     </center>

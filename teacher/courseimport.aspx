@@ -12,9 +12,9 @@
             <br />
             <asp:FileUpload ID="FudPackage" runat="server" Font-Size="9pt" />
 &nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="导入" SkinID="BtnNormal" />
+            <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="导入" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回"  SkinID="BtnNormal" />
+            <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
         <asp:Label ID="Labelmsg" runat="server" Font-Size="9pt" ForeColor="Red" 
