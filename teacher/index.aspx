@@ -165,7 +165,12 @@
                 </div>
                 <div class="teacher-login-divider">安全登录</div>
                 <div>
-                    <asp:Button ID="Btnlogin" runat="server" Text="登 录" SkinID="BtnNormal" onclick="Btnlogin_Click" CssClass="teacher-login-btn" />
+                    <asp:LinkButton ID="Btnlogin" runat="server" onclick="Btnlogin_Click" CssClass="teacher-login-btn">
+                        登 录
+                        <span class="teacher-login-btn-icon">
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                        </span>
+                    </asp:LinkButton>
                 </div>
             </div>
         </div>
