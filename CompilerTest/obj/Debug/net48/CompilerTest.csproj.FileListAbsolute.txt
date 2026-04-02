@@ -1,5 +1,0 @@
-/app/CompilerTest/obj/Debug/net48/CompilerTest.GeneratedMSBuildEditorConfig.editorconfig
-/app/CompilerTest/obj/Debug/net48/CompilerTest.AssemblyInfoInputs.cache
-/app/CompilerTest/obj/Debug/net48/CompilerTest.AssemblyInfo.cs
-/app/CompilerTest/obj/Debug/net48/CompilerTest.csproj.CoreCompileInputs.cache
-/app/CompilerTest/obj/Debug/net48/CompilerTest.sourcelink.json
