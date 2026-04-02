@@ -106,12 +106,25 @@
             background: #ffffff;
             padding: 2.5rem;
             border-radius: 1.25rem;
-            width: 100%;
-            max-width: 26rem;
+            width: clamp(20rem, 90vw, 28rem);
             border: 1px solid rgba(148, 163, 184, 0.18);
             box-shadow:
                 0 20px 60px -20px rgba(15, 23, 42, 0.15),
                 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+        }
+
+        .teacher-login-card input[type="text"],
+        .teacher-login-card input[type="password"] {
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 480px) {
+            .teacher-login-card {
+                padding: 1.5rem;
+                border-radius: 1rem;
+                width: calc(100vw - 2rem);
+            }
         }
 
         .teacher-login-divider {
