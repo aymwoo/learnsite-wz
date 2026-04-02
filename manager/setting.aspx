@@ -8,10 +8,10 @@
             <div  class="setting" >
             <br />
                     &nbsp;网站名称设置：<asp:TextBox ID="TextBoxsite" runat="server" BorderColor="#CCCCCC" 
-                BorderStyle="Solid" BorderWidth="1px" Width="200px"></asp:TextBox>
+                BorderStyle="Solid" BorderWidth="1px" Width="200px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
 &nbsp;<asp:Button ID="Buttonsite" runat="server" Font-Size="9pt" Height="20px" Text="修改" 
                BorderColor="Silver" BorderStyle="Solid"  BorderWidth="1px"   BackColor="#E8E8E8"  
-               onclick="Buttonsite_Click" />
+               onclick="Buttonsite_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <br />
                 &nbsp;学生登录方式：<asp:DropDownList ID="DDLLoginMode" runat="server" Font-Size="9pt" 
@@ -90,7 +90,7 @@
                     Height="20px" Text="一键收回" 
                BorderColor="Silver" BorderStyle="Solid"  BorderWidth="1px"   BackColor="#E8E8E8" 
                     onclick="Btnpublish_Click" ToolTip="收回的学案只是在学生界面不显示，教师界面仍显示并可再设置成发布状态" 
-                    Width="80px" />
+                    Width="80px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <br />
                 &nbsp;作品上传控件选择：<asp:DropDownList ID="DDLUploadMode" runat="server" 

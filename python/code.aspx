@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python绘图编程</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -52,7 +54,7 @@
 
 <form id="form1" runat="server"> 
 
-<input id="title"  type="text"  value="未命名" disabled="disabled" />	
+<input id="title"  type="text"  value="未命名" disabled="disabled"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />	
 <span id="btnerase"  onclick="clearcv();" >
 <i class="fa fa-eraser" aria-hidden="true"></i> 整理</span>
 <span id="btnupload"  onclick="savecode();" >

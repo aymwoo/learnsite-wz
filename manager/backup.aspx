@@ -24,7 +24,7 @@
                     <asp:Button ID="Btnbackup" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="11pt" Text="开始备份" Width="80px" Height="20px" 
-                onclick="Btnbackup_Click" />
+                onclick="Btnbackup_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     <br />
             <br />
         <asp:DataList ID="DlDbBackup" runat="server" 
@@ -50,7 +50,7 @@
             <br />
             <div id="Loading" style=" display:none ;text-align: center; font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; color: #FF0000;">
             <asp:Image ID="Image2" runat="server" ImageUrl="~/images/load2.gif" />
-            <input id="Textcmd" style="border-style: none" type="text" /></div>
+            <input id="Textcmd" style="border-style: none" type="text"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /></div>
             <br />
         </div>
         <br />

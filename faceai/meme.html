@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <script type="application/x-javascript" src="face-api.js"></script>
   <link rel="stylesheet" href="index.css">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -52,8 +54,8 @@
             </div>
             <div class="half">
                 <div id="landmarks" title="68个特征点坐标(x,y)"></div>
-                <button class="start-btn" onclick="faceDetector()">人脸检测</button>
-                <button class="save-btn" onclick="faceSave()">保存表情</button>
+                <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="faceDetector()">人脸检测</button>
+                <button class="save-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="faceSave()">保存表情</button>
             </div>
         </div>
         <div>          

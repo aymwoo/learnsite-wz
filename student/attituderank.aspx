@@ -12,6 +12,8 @@
 }
     </style>
     <title>课堂小测验班级排行</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
 <form id="form1" runat="server">
@@ -45,7 +47,7 @@
                 <br />
         <asp:Button ID="Btnreturn" runat="server"  Text="关闭" Height="20px" 
                     Width="80px" BackColor="#8EB5F4" BorderStyle="Solid" Font-Size="9pt" 
-                        ForeColor="Black" BorderColor="#336699" BorderWidth="1px"/>
+                        ForeColor="Black" BorderColor="#336699" BorderWidth="1px" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <br />
         <br />

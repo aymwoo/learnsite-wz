@@ -55,7 +55,7 @@
                     <div >
                             <br />
                         评价描述：<asp:TextBox ID="TextBoxMitem" runat="server" SkinID="TextBoxNormal" 
-                        Width="180px"></asp:TextBox>
+                        Width="180px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                         分值<asp:DropDownList ID="DDLscore" runat="server"  Font-Size="9pt">
                             <asp:ListItem>1</asp:ListItem>
                             <asp:ListItem Selected="True">2</asp:ListItem>
@@ -83,9 +83,9 @@
                             <asp:ListItem>12</asp:ListItem>
             </asp:DropDownList>
                         &nbsp;<asp:Button ID="Btnadd" runat="server"  Text="添加"  onclick="Btnadd_Click" 
-                            SkinID="BtnSmall" />                    
+                            SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     &nbsp;<asp:Button ID="Btnreturn" runat="server"  Text="返回"  onclick="Btnreturn_Click" 
-                            SkinID="BtnSmall" Width="60px" />                    
+                            SkinID="BtnSmall" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     <br />
                     </div>
                         </div>

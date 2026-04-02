@@ -16,7 +16,7 @@
         的数据<br />
             <br />
             <asp:Button ID="ButtonClear" runat="server" SkinID="BtnNormal" Text="执行清理" 
-                ToolTip="提示：将指定年前的作品记录、签到记录、讨论记录删除！" onclick="ButtonClear_Click" />
+                ToolTip="提示：将指定年前的作品记录、签到记录、讨论记录删除！" onclick="ButtonClear_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             (指作品记录、签到记录和测验记录)<br />
@@ -26,11 +26,11 @@
         <div style="border: 1px solid #CCCCCC; margin: auto; width: 322px; text-align:center; background-color: #EFFDE8;">
             <br />
             <asp:Button ID="ButtonClearTyper" runat="server" SkinID="BtnLong" Text="清除全校中文打字成绩" 
-                ToolTip="提示：将清除全校中文打字成绩！" onclick="ButtonClearTyper_Click"  />
+                ToolTip="提示：将清除全校中文打字成绩！" onclick="ButtonClearTyper_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />           
             <asp:Button ID="ButtonClearFinger" runat="server" SkinID="BtnLong" Text="清除全校指法练习成绩" 
-                ToolTip="提示：将清除全校指法练习成绩！" onclick="ButtonClearFinger_Click"  />
+                ToolTip="提示：将清除全校指法练习成绩！" onclick="ButtonClearFinger_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
         
             <br />
@@ -47,12 +47,12 @@
         </asp:DropDownList>
             班级<br />
             <br />
-            当前学生数：<asp:TextBox ID="TextBoxcount" runat="server" SkinID="TextBoxaa"></asp:TextBox>
+            当前学生数：<asp:TextBox ID="TextBoxcount" runat="server" SkinID="TextBoxaa" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             &nbsp;<asp:CheckBox ID="CheckBoxDel" runat="server" Text="确认操作" />
             <br />
             <br />
             <asp:Button ID="ButtonClearStudent" runat="server" SkinID="BtnLong" Text="清空该班级所有学生" 
-                ToolTip="提示：将清空该班级的所有学生及其作品、签到、调查、讨论等记录，无法恢复！" onclick="ButtonClearStudent_Click"  />
+                ToolTip="提示：将清空该班级的所有学生及其作品、签到、调查、讨论等记录，无法恢复！" onclick="ButtonClearStudent_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
         </div>

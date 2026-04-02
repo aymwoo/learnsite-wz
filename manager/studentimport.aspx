@@ -18,19 +18,19 @@
             <br />
             <asp:Button ID="ButtonInsert" runat="server" BorderColor="Silver" BorderStyle="None"
                 BorderWidth="1px" Font-Names="Arial" Font-Size="9pt" Height="20px" OnClick="ButtonInsert_Click"
-                TabIndex="1" Text="1 上传Excel" Width="100px" ToolTip="上传并导入临时学生表" />            
+                TabIndex="1" Text="1 上传Excel" Width="100px" ToolTip="上传并导入临时学生表"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />            
             <br />
             <br />
             <br />
             <asp:Button ID="ButtonAppend" runat="server" BorderColor="Silver"
                 BorderStyle="None" BorderWidth="1px" Font-Names="Arial" Font-Size="9pt" Height="20px"
                 OnClick="ButtonAppend_Click" TabIndex="1" Text="2 导入数据" Width="100px" 
-                ToolTip="将上传的学生临时表数据导入平台学生表中" Enabled="False" />
+                ToolTip="将上传的学生临时表数据导入平台学生表中" Enabled="False"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <br />
             <div id="Loading" style=" display:none ;text-align: center; font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; color: #FF0000;">
             <asp:Image ID="Image2" runat="server" ImageUrl="~/images/load2.gif" />
-            <input id="Textcmd" style="border-style: none" type="text" /></div>  
+            <input id="Textcmd" style="border-style: none" type="text"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /></div>  
             <br />
             <br />
         </div>
@@ -40,7 +40,7 @@
            <br />
            <br />
            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/说明必读/学生导入模板.xls" 
-               Target="_blank">请参考网站目录下的说明必读目录中的学生信息Excel模板</asp:HyperLink>
+               Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">请参考网站目录下的说明必读目录中的学生信息Excel模板</asp:HyperLink>
            <br />
         <br />
             <asp:Button ID="ButtonClear" runat="server" BorderColor="#CCCCCC"
@@ -48,7 +48,7 @@
             Font-Size="9pt" Height="20px"
                 OnClick="ButtonClear_Click" TabIndex="1" Text="清除最近导入数据" Width="120px" 
             BackColor="#DDDDDD" ToolTip="只删除刚才导入的数据，以方便重新导入！" Font-Bold="False" 
-               ForeColor="Red" />
+               ForeColor="Red"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
            <br />
         <br />
            <asp:GridView ID="GVrepeat" runat="server" BorderColor="#E1E1E1"

@@ -12,6 +12,8 @@
   <script src="../ai/styleml5/libraries/p5.dom.min.js"></script>
   <script src="../ai/styleml5/libraries/ml5.min.js"></script>
 
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -32,11 +34,11 @@
     <div class="style-container">
 	  
       <input id="uploader" name="inputImgFile" type="file" accept="image/*">
-	  <button class="start-btn" onclick="uploadImg()">上传图片</button>
+	  <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="uploadImg()">上传图片</button>
       <div class="hideme" onclick="useWebcam()" >使用我的网络摄像头</div>
     </div>
     <div class="hideme">
-      <button class="start-btn" onclick="onPredictClick()">传输我的图像</button>
+      <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="onPredictClick()">传输我的图像</button>
     </div>
   </div>
 
@@ -110,10 +112,10 @@
       </div>
     </div>
     <div class="style-container">
-      <button id="savebtn" class="start-btn" onclick="onProduct()">保存图像</button>
+      <button id="savebtn" class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="onProduct()">保存图像</button>
     </div>
     <div class="style-container">
-      <button class="start-btn" onclick="returnurl()">返回</button>
+      <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="returnurl()">返回</button>
     </div>
   </div>
 

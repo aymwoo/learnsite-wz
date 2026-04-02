@@ -37,10 +37,10 @@
                 <br />
                 <br />
         机房名称：<asp:TextBox ID="TextBoxHname" runat="server" BorderColor="#CCCCCC" 
-            BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
+            BorderStyle="Solid" BorderWidth="1px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
 &nbsp;<asp:Button ID="Buttonadd" runat="server" BackColor="#E6E6E6" 
         BorderColor="#D4D4D4" BorderWidth="1px" Font-Size="9pt" Text="添加" 
-            onclick="Buttonadd_Click" Width="60px" />
+            onclick="Buttonadd_Click" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />
         <br />

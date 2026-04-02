@@ -39,11 +39,11 @@
         BorderColor="#7DBF80" BorderStyle="Dashed" BorderWidth="1px" 
         CssClass="txtszcenter" Height="18px" BackColor="#E2F3E3" Width="80px">点击下载</asp:LinkButton>
         <br />
-    <asp:HyperLink ID="HLurl" runat="server" Visible="false" ></asp:HyperLink>
+    <asp:HyperLink ID="HLurl" runat="server" Visible="false"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
         <br />
         <br />
               <asp:Button ID="Btnreturn" runat="server"  Text="返回" OnClick="Btnreturn_Click"  
-                  SkinID="BtnNormal" />
+                  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />
         <br />

@@ -6,7 +6,7 @@
         <div  class="teachermg">
                     <asp:Button ID="Btnadd" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
-                Font-Size="11pt" Text="教师添加" Width="80px" Height="24px" onclick="Btnadd_Click" />
+                Font-Size="11pt" Text="教师添加" Width="80px" Height="24px" onclick="Btnadd_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     </div>
                  <div class="teacherdiv">
                 <asp:GridView ID="GVTeacher" runat="server" 

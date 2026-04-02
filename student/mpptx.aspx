@@ -92,6 +92,8 @@
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/ant-design-vue.css">
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/index.css">
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/animate.css">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app"></div>

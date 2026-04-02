@@ -20,7 +20,7 @@
             &nbsp;
                     <asp:Label ID="Labelspace" runat="server" Width="120px" Height="16px"></asp:Label>
                     <asp:Button ID="Btnreturn" runat="server"  Text="返回"  
-                onclick="Btnreturn_Click" SkinID="BtnNormal" BackColor="#A9BCAB" />                    
+                onclick="Btnreturn_Click" SkinID="BtnNormal" BackColor="#A9BCAB"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     </div>
                     <div >
                     <div class="centerdiv">

@@ -49,7 +49,7 @@
 <br />
     <asp:Button ID="Btnread" runat="server" onclick="Btnread_Click" Text="确定" 
         ToolTip="选择后评价"  Enabled="False" BackColor="#3399FF" 
-        BorderStyle="None" Height="24px" Width="80px"  />
+        BorderStyle="None" Height="24px" Width="80px"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 		<br />
 		<br />
     <input id="TextBoxStar" name="TextBoxStar" type="hidden"  value="0"/>

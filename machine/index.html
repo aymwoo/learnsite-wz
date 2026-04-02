@@ -8,7 +8,9 @@
     <!-- Import the webpage's stylesheet -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="font-awesome.css">
-  </head>
+  
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
   <body>
     <h1>
 		<i id="logo" class="fa fa-cog" aria-hidden="true"></i> 机器学习—图像分类
@@ -28,8 +30,8 @@
 		</div>
 		<div>
 			<span class="counter" id="collector1">0个图像样本</span>
-			<button class="dataCollector" data-1hot="0" data-name="分类1"><i class="fa fa-camera"></i>采集视频</button>
-			<button class="dataup" data-up="0"><i class="fa fa-picture-o" aria-hidden="true" ></i>上传图像</button>
+			<button class="dataCollector px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-1hot="0" data-name="分类1"><i class="fa fa-camera"></i>采集视频</button>
+			<button class="dataup px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-up="0"><i class="fa fa-picture-o" aria-hidden="true" ></i>上传图像</button>
 		</div>
 		<div id="output1" class="outpic"></div>
 	</div>
@@ -41,8 +43,8 @@
 		</div>
 		<div>
 			<span class="counter"  id="collector2">0个图像样本</span>
-			<button class="dataCollector" data-1hot="1" data-name="分类2"><i class="fa fa-camera"></i>采集视频</button>
-			<button class="dataup" data-up="1"><i class="fa fa-picture-o" aria-hidden="true" ></i>上传图像</button>
+			<button class="dataCollector px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-1hot="1" data-name="分类2"><i class="fa fa-camera"></i>采集视频</button>
+			<button class="dataup px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-up="1"><i class="fa fa-picture-o" aria-hidden="true" ></i>上传图像</button>
 		</div>
 		<div id="output2" class="outpic"></div>
 	</div>
@@ -65,9 +67,9 @@
 		  <div class="box" id="div_box"><div class="load" id="load"></div></div>
 		  <span id='result'></span>
 		</div> 
-		<button id="train"><i class="fa fa-android" aria-hidden="true"></i> 训练模型</button>
-		<button id="reset"><i class="fa fa-trash-o" aria-hidden="true"></i> 清除模型</button>
-		<button id="save"><i class="fa fa-save" aria-hidden="true" /></i> 保存模型</button>
+		<button id="train" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-android" aria-hidden="true"></i> 训练模型</button>
+		<button id="reset" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-trash-o" aria-hidden="true"></i> 清除模型</button>
+		<button id="save" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"><i class="fa fa-save" aria-hidden="true" /></i> 保存模型</button>
 	</div>
 	<div class="right" >
 		<div class="status">			

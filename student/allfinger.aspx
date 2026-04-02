@@ -65,7 +65,7 @@
                         <br />
                         <asp:HyperLink ID="HLtyperank" runat="server" Font-Bold="True" 
                             Font-Size="Larger" ForeColor="Black" NavigateUrl="~/student/typerank.aspx" 
-                            Target="_blank">打字擂台榜</asp:HyperLink>
+                            Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">打字擂台榜</asp:HyperLink>
                         <br />
                         <br />
                 </div>        

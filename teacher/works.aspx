@@ -46,68 +46,70 @@
                 TINY.box.show({ iframe: urlpg, boxid: 'frameless', width: 360, height: 240, fixed: false, maskopacity: 40, closejs: function () { closeJS() } })
             }
         </script>
-
-        <!-- Works List DataGrid -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-            <div class="overflow-x-auto">
-                <asp:GridView ID="GVCourse" runat="server" AllowPaging="True"
-                    AutoGenerateColumns="False" CellPadding="0" DataKeyNames="Cid"
-                    PageSize="20" Width="100%"
-                    onpageindexchanging="GVCourse_PageIndexChanging"
-                    onrowdatabound="GVCourse_RowDataBound" EnableModelValidation="True" GridLines="None">
-                    <AlternatingRowStyle BackColor="#f8fafc" />
-                    <Columns>
-                        <asp:BoundField DataField="Cid" HeaderText="序号" InsertVisible="False" ReadOnly="True" SortExpression="Cid" >
-                            <HeaderStyle HorizontalAlign="Left" CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle Width="50px" HorizontalAlign="Left" CssClass="py-4 px-4 font-medium text-slate-400" />
-                        </asp:BoundField>
-                        <asp:HyperLinkField DataTextField="Ctitle" HeaderText="学案" >
-                            <HeaderStyle HorizontalAlign="Left" CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Left" CssClass="py-4 px-4 font-bold text-indigo-600 hover:text-indigo-800 transition-colors" />
-                        </asp:HyperLinkField>
-                        <asp:BoundField DataField="Cclass" HeaderText="类型" SortExpression="Cclass" >
-                            <HeaderStyle HorizontalAlign="Left" CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Left" Width="80px" CssClass="py-4 px-4 text-slate-500 text-sm font-medium" />
-                        </asp:BoundField>
-                        <asp:TemplateField HeaderText="未评数">
-                            <ItemTemplate>
-                                <div class="bg-amber-50 text-amber-600 px-2.5 py-1 rounded-md text-xs font-bold inline-block border border-amber-200/60">
-                                    <asp:HyperLink ID="HlNoCheck" runat="server" CssClass="hover:text-amber-800 transition-colors"></asp:HyperLink>
-                                </div>
-                            </ItemTemplate>
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle Width="80px" HorizontalAlign="Center" CssClass="py-4" />
-                        </asp:TemplateField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Cid,Cobj"
-                            DataNavigateUrlFormatString="workcheck.aspx?cid={0}&amp;grade={1}"
-                            Text="批改" HeaderText="评价" Target="_blank">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle Width="80px" HorizontalAlign="Center" CssClass="text-emerald-600 hover:text-emerald-800 font-semibold text-sm transition-colors py-4" />
-                        </asp:HyperLinkField>
-                        <asp:BoundField DataField="Cdate" HeaderText="日期" SortExpression="Cdate" >
-                            <HeaderStyle HorizontalAlign="Left" CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Left" Width="160px" CssClass="text-slate-400 text-xs font-medium py-4 px-4" />
-                        </asp:BoundField>
-                    </Columns>
-                    <HeaderStyle BackColor="#f8fafc" CssClass="border-b border-slate-200" />
-                    <RowStyle BackColor="#FFFFFF" CssClass="border-b border-slate-100 hover:bg-slate-50/80 transition-colors" />
-                    <PagerStyle BackColor="#f8fafc" ForeColor="#475569" HorizontalAlign="Center" CssClass="border-t border-slate-200" />
-                    <pagertemplate>
-                        <div class="w-full flex justify-between items-center px-6 py-3">
-                            <span class="text-sm text-slate-500 font-medium">
-                                第 <asp:Label ID="lblPageIndex" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" CssClass="font-bold text-slate-700" /> 页
-                                共 <asp:Label ID="lblPageCount" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" CssClass="font-bold text-slate-700" /> 页
-                            </span>
-                            <div class="flex gap-2">
-                                <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" commandargument="First" commandname="Page" text="首页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" commandargument="Prev" commandname="Page" text="上一页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" commandargument="Next" commandname="Page" text="下一页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" commandargument="Last" commandname="Page" text="尾页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                            </div>
-                        </div>
-                    </pagertemplate>
-                    <SelectedRowStyle BackColor="#e0e7ff" Font-Bold="True" ForeColor="#3730a3" />
-                </asp:GridView>
+                    <asp:Button ID="Btnterm" runat="server" Text="学期总评"  SkinID="BtnNormal" 
+                onclick="Btnterm_Click" ToolTip="跳转到学期总评页面"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+        </div>
+        <div>
+        <div class="centerdiv">
+            <asp:GridView ID="GVCourse" runat="server" AllowPaging="True" 
+                AutoGenerateColumns="False"  CellPadding="6" DataKeyNames="Cid"  SkinID="GridViewInfo"
+                PageSize="20" Width="100%" 
+                onpageindexchanging="GVCourse_PageIndexChanging" 
+                onrowdatabound="GVCourse_RowDataBound" EnableModelValidation="True">
+                <Columns>
+                    <asp:BoundField DataField="Cid" HeaderText="序号" InsertVisible="False" 
+                        ReadOnly="True" SortExpression="Cid" >
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="50px" HorizontalAlign="Left" />
+                    </asp:BoundField>
+                    <asp:HyperLinkField 
+                        DataTextField="Ctitle" HeaderText="学案" >
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Left" />
+                    </asp:HyperLinkField>
+                    <asp:BoundField DataField="Cclass" HeaderText="类型" SortExpression="Cclass" >
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Left" />
+                    <ItemStyle Width="60px" />
+                    </asp:BoundField>
+                    <asp:TemplateField HeaderText="未评数">
+                        <ItemTemplate>
+                            <asp:HyperLink ID="HlNoCheck" runat="server"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+                        </ItemTemplate>
+                        <ItemStyle Font-Bold="True" Width="60px" />
+                    </asp:TemplateField>
+                    <asp:HyperLinkField DataNavigateUrlFields="Cid,Cobj" 
+                        DataNavigateUrlFormatString="workcheck.aspx?cid={0}&amp;grade={1}" 
+                        Text="查看" HeaderText="评价" Target="_blank">
+                    <ItemStyle Width="60px" />
+                    </asp:HyperLinkField>
+                    <asp:BoundField DataField="Cdate" HeaderText="日期" SortExpression="Cdate" >
+                    <HeaderStyle HorizontalAlign="Left" />
+                    <ItemStyle HorizontalAlign="Left" Width="160px" />
+                    </asp:BoundField>
+                </Columns>
+                <pagertemplate>
+                    <div  class="pagediv">
+                        第<asp:Label ID="lblPageIndex" runat="server" 
+                            text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" />
+                        页  共<asp:Label ID="lblPageCount" runat="server" 
+                            text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" />
+                        页 
+                        <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" 
+                            commandargument="First" commandname="Page" Font-Underline="False" 
+                            ForeColor="Black" text="首页" />
+                        <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" 
+                            commandargument="Prev" commandname="Page" Font-Underline="False" 
+                            ForeColor="Black" text="上一页" />
+                        <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" 
+                            commandargument="Next" commandname="Page" Font-Underline="False" 
+                            ForeColor="Black" text="下一页" />
+                        <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" 
+                            commandargument="Last" commandname="Page" Font-Underline="False" 
+                            ForeColor="Black" text="尾页" />
+                    </div>
+                </pagertemplate>
+            </asp:GridView>
             </div>
         </div>
     </div>

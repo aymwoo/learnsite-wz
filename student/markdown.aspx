@@ -8,14 +8,16 @@
         <title>Markdown写作</title>
         <link rel="stylesheet" href="../markdown/css/editormd.css" />
         <link rel="shortcut icon" href="../markdown/favicon.ico" type="image/x-icon" />
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
     <body>
         <div id="layout">
             <div style="display:flex;padding-bottom:6px;">
 				<img src="../markdown/favicon.png" />
 				<div id="mdTitle" contenteditable="true"><%=Mytitle%></div>
-				<button style="margin-left: auto;width:60px;" onclick="savemd()" title="保存写作">保存</button>
-				<button style="margin-left:20px;width:60px;" onclick="returnurl()" title="返回学案">返回</button>
+				<button style="margin-left: auto;width:60px;" onclick="savemd()" title="保存写作" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">保存</button>
+				<button style="margin-left:20px;width:60px;" onclick="returnurl()" title="返回学案" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">返回</button>
             </div>
 			<div >
 				<div id="editormd" >

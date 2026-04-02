@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>自学园作品评价与展示</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -24,13 +26,13 @@
         <br /></div>
     <div style="font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 9pt">    
         <asp:Button ID="Btnflash" runat="server" Text="刷新" onclick="Btnflash_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
         <asp:Button ID="Btnrestart" runat="server" Text="重新" onclick="Btnrestart_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
         <asp:Button ID="Btnstop" runat="server" Text="继续" onclick="Btnstop_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;<asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
             onclick="ImgBtnLeft_Click" Width="16px" />
     <asp:DropDownList ID="DDLstore" runat="server" 
@@ -47,7 +49,7 @@
          <div>
         教师评语：<asp:TextBox ID="TextBoxWself" runat="server" Width="350px" 
                 BorderColor="Silver" BorderStyle="Dashed" BorderWidth="1px" 
-                 BackColor="#FFF9E1"></asp:TextBox> 
+                 BackColor="#FFF9E1" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox> 
         <asp:RadioButtonList ID="RBLselect" runat="server"   RepeatDirection="Horizontal" Visible="True" 
             Font-Size="9pt" AutoPostBack="True" onselectedindexchanged="RBLselect_SelectedIndexChanged" RepeatLayout="Flow" 
               CellPadding="3" CellSpacing="3">
@@ -65,7 +67,7 @@
                  oncheckedchanged="CkFlash_CheckedChanged" Text="FlashLoop" 
                  ToolTip="Flash播放循环设置" AutoPostBack="True" />
         &nbsp;&nbsp;&nbsp; <asp:Button ID="Btndel" runat="server" Text="删除" onclick="Btndel_Click" 
-            SkinID="BtnSmall" ToolTip="删除该作品，不可恢复！" Width="40px" />
+            SkinID="BtnSmall" ToolTip="删除该作品，不可恢复！" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         </div>   
         </div>        
         <div style=" font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; margin: 2px; " >

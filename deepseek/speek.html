@@ -6,6 +6,8 @@
     <title>人工智能 - 语音合成技术</title>
     <link rel="stylesheet" href="deepseek.css">
 	
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">		
@@ -30,7 +32,7 @@
 			<div class="input-container">
 				<textarea id="userInput" placeholder="输入你的问题..." rows="3"  maxlength="1000" ></textarea>
 				<div>
-				<button id="btnmsg" onclick="sendText()" title="合成语音">合成语音</button>
+				<button id="btnmsg" onclick="sendText()" title="合成语音" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">合成语音</button>
 				<div style="margin-top:10px;">
 				<select id="voiceSelect" title="选择发音人">
 					<option value="zh-CN-XiaoxiaoNeural">晓晓 温暖 女</option>

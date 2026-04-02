@@ -293,6 +293,8 @@
             });
         }
     </script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -315,14 +317,14 @@
                     <asp:ListItem>12</asp:ListItem>
                 </asp:DropDownList>
                 电脑总数
-                <asp:TextBox ID="TextBoxall" runat="server" Width="30px" Wrap="False">30</asp:TextBox>
+                <asp:TextBox ID="TextBoxall" runat="server" Width="30px" Wrap="False" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">30</asp:TextBox>
                 <asp:RadioButtonList ID="RadioBtnSelect" runat="server" RepeatDirection="Horizontal"
                     RepeatLayout="Flow" ToolTip="电脑编号次序按纵向或横向">
                     <asp:ListItem Selected="True" Value="0">纵向</asp:ListItem>
                     <asp:ListItem Value="1">横向</asp:ListItem>
                 </asp:RadioButtonList>
                 <asp:Button ID="Buttoninit" runat="server" Font-Size="9pt" OnClick="Buttoninit_Click"
-                    Text="初始化布置" ToolTip="初始化当前机房布置！" Width="80px" />&nbsp;&nbsp; 
+                    Text="初始化布置" ToolTip="初始化当前机房布置！" Width="80px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp; 
                     <a onclick="$(save);return false" href="#" title="保存当前布置">保存</a>
                     &nbsp; <a onclick="$(reshow);return false" href="#" title="恢复到上次保存的布置">恢复</a>
                      &nbsp; <a onclick="$(uploadseat);return false" href="#" title="将当前布置提交给平台数据库">提交</a>

@@ -11,6 +11,8 @@
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 	
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container" id="maincontainer">		
@@ -43,10 +45,10 @@
 			<!-- 输入框区域 -->
 			<div class="input-container">
 				<textarea id="userInput" placeholder="一只可爱的小狗在草地上玩耍，旁边有蝴蝶在飞舞" rows="1"></textarea>
-				<button id="btnphoto"   onclick="aiPhoto()" title="文本生成图片">生成图片</button>
-				<button  type = "button" onclick="savechat()" class="buttonsave"  title="保存到服务器上" >
+				<button id="btnphoto"   onclick="aiPhoto()" title="文本生成图片" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">生成图片</button>
+				<button  type = "button" onclick="savechat()" class="buttonsave px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="保存到服务器上" >
 				<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
-				<button  onclick="returnurl()" class="button" title="返回到学案页面">
+				<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" title="返回到学案页面">
 				<i class="fa fa-reply" aria-hidden="true"></i> 返回</button> 
 			</div>
 			

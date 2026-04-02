@@ -12,7 +12,9 @@
         .licss1{font-size: 11pt; height:24px; width:98%; text-align: left; border-width: 1px; border-bottom-style: dashed; border-color: #CCCCCC}
         .licss2{font-size: 11pt; height:24px; width:98%; text-align: left; border-width: 1px; border-bottom-style: dashed; border-color: #CCCCCC; background-color:#eeeeee}
     </style>
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 <body>
     <form id="form1" runat="server">
     <center>
@@ -97,7 +99,7 @@
     </ul>
     </div>
     <br />
-    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="txts20center" 
+    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="txts20center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
         Height="20px" NavigateUrl="~/student/autonomic.aspx" SkinID="HyperLinkGray" 
         Width="80px" Target="_self">在线资源</asp:HyperLink>
     <br />

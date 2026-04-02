@@ -12,6 +12,8 @@
   <link rel="modulepreload" href="../plugins/canvas-editor/assets/vendor.6929ec82.js">
   <link rel="stylesheet" href="../plugins/canvas-editor/assets/index.9f94c3a2.css">
 <script src="../code/jquery.min.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -322,7 +324,7 @@
         </div>
         <div class="menu-item__search__collapse" data-menu="search">
           <div class="menu-item__search__collapse__search">
-            <input type="text" />
+            <input type="text"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
             <label class="search-result"></label>
             <div class="arrow-left">
               <i></i>
@@ -333,16 +335,16 @@
             <span>×</span>
           </div>
           <div class="menu-item__search__collapse__replace">
-            <input type="text">
-            <button>替换</button>
+            <input type="text" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">替换</button>
           </div>
         </div>
         <div class="menu-item__print" data-menu="print" style=" display:none;">
           <i></i>
         </div>
       </div>
-	    <button id="savebtn" style="width:40px;" onclick="savework();" >保存</button>&nbsp;&nbsp;
-	    <button id="returnbtn" style="width:40px;" onclick="returnurl();" >返回</button>
+	    <button id="savebtn" style="width:40px;" onclick="savework();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">保存</button>&nbsp;&nbsp;
+	    <button id="returnbtn" style="width:40px;" onclick="returnurl();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">返回</button>
     </div>
     <div class="catalog" editor-component="catalog" style=" display:none;">
       <div class="catalog__header">

@@ -5,6 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -20,10 +22,10 @@
     </p>
     <center>
         <p>
-        <asp:Button ID="Btnpackage" runat="server" Text="导出作品" onclick="Btnpackage_Click" />
+        <asp:Button ID="Btnpackage" runat="server" Text="导出作品" onclick="Btnpackage_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     &nbsp;&nbsp;&nbsp;
-        <asp:HyperLink ID="Hlurl" runat="server">下载地址</asp:HyperLink>
-    &nbsp;&nbsp;&nbsp; <asp:Button ID="Btnimport" runat="server" Text="导入作品" onclick="Btnimport_Click" />
+        <asp:HyperLink ID="Hlurl" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">下载地址</asp:HyperLink>
+    &nbsp;&nbsp;&nbsp; <asp:Button ID="Btnimport" runat="server" Text="导入作品" onclick="Btnimport_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
     </p>
         <p>
@@ -39,11 +41,11 @@
             </asp:DropDownList>
 &nbsp;&nbsp;
         <asp:Button ID="Buttonmatch" runat="server" Text="导出比赛" 
-                onclick="Buttonmatch_Click"  />
+                onclick="Buttonmatch_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     &nbsp;&nbsp;&nbsp;
-        <asp:HyperLink ID="Hlmatch" runat="server">下载地址</asp:HyperLink>
+        <asp:HyperLink ID="Hlmatch" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">下载地址</asp:HyperLink>
     &nbsp;&nbsp;&nbsp; <asp:Button ID="Buttonimport" runat="server" Text="导入比赛" 
-                onclick="Buttonimport_Click" />
+                onclick="Buttonimport_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
     </p>
 

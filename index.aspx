@@ -3,7 +3,9 @@
 <head id="Head1" runat="server">
     <title>信息科技学习网站</title>   
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 <body class="ground">
     <form id="form1" runat="server">
     <center>
@@ -27,15 +29,15 @@
             学号：<asp:TextBox 
                         ID="TextBoxuser" runat="server"  
                         Width="120px" SkinID="TextBox" class="textbox"
-                        EnableViewState="False"></asp:TextBox>
+                        EnableViewState="False" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                     <br />
             <br />
             密码：<asp:TextBox ID="TextBoxpwd" runat="server"  Width="120px" 
-                        TextMode="Password" SkinID="TextBox" class="textbox" EnableViewState="False" AutoCompleteType="Disabled"></asp:TextBox>
+                        TextMode="Password" SkinID="TextBox" class="textbox" EnableViewState="False" AutoCompleteType="Disabled" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                     <br />
             <br /> 
                     <asp:Button ID="Btnlogin" runat="server"  OnClick="Btnlogin_Click" Text="登录" 
-                        BorderStyle="None" CssClass="buttonimg" />
+                        BorderStyle="None" CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br /> 
         </div>
         <asp:Label ID="Labelmsg" runat="server"  SkinID="LabelMsgRed" ></asp:Label>
@@ -45,15 +47,15 @@
         <div  class="indexsql">        
                     <asp:HyperLink ID="HyperLinkReg" runat="server" 
                         NavigateUrl="~/student/register.aspx" SkinID="HyperLink" Target="_self" 
-                        CssClass="buttonimg" Width="80px" Height="24px" >学员注册</asp:HyperLink>
+                        CssClass="buttonimg px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Width="80px" Height="24px" >学员注册</asp:HyperLink>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:HyperLink ID="HyperLinkSnum" runat="server" 
                         NavigateUrl="~/student/mynum.aspx" SkinID="HyperLink" Target="_self" 
-                        CssClass="buttonimg" Width="80px" Height="24px" >学号查询</asp:HyperLink>
+                        CssClass="buttonimg px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Width="80px" Height="24px" >学号查询</asp:HyperLink>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:HyperLink ID="HyperLinkrule" runat="server" 
                         NavigateUrl="~/student/myrule.aspx" SkinID="HyperLink" 
-                        CssClass="buttonimg" Width="80px" Height="24px" >课堂守则</asp:HyperLink>
+                        CssClass="buttonimg px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Width="80px" Height="24px" >课堂守则</asp:HyperLink>
                 </div>
         <br />       
         <br />
@@ -62,7 +64,7 @@
         &nbsp;<asp:Label ID="Labelversion" runat="server"  Font-Size="9pt"></asp:Label>
             <asp:HyperLink ID="HLTeacher" runat="server" 
                 NavigateUrl="~/teacher/index.aspx"  Target="_blank" EnableTheming="True" 
-                ForeColor="Black" >教师平台</asp:HyperLink>
+                ForeColor="Black"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">教师平台</asp:HyperLink>
 &nbsp;当前IP:<asp:Label ID="Labelip" runat="server" Font-Names="Arial" Font-Size="9pt"></asp:Label>
             &nbsp; 计算机名:<asp:Label ID="Labelhostname" runat="server" Font-Names="Arial" 
                 Font-Size="9pt"></asp:Label>

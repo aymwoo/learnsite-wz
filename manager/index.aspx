@@ -32,22 +32,22 @@
                     <asp:Button ID="Btnlogout" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                         Font-Size="11pt" Text="系统退出" Width="120px" 
-            onclick="Btnlogout_Click" />
+            onclick="Btnlogout_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
        
     <br />
        
     <br />
        
     <br />
-    <asp:TextBox ID="TextBox1" runat="server"  SkinID="TextBoxindex" ReadOnly="true" Width="80px">操作流程图：</asp:TextBox>
+    <asp:TextBox ID="TextBox1" runat="server"  SkinID="TextBoxindex" ReadOnly="true" Width="80px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">操作流程图：</asp:TextBox>
     <asp:TextBox ID="TextBox3" runat="server"  SkinId="TextBoxaa"
-        ReadOnly="True" Width="56px">班级设置</asp:TextBox>
-    <asp:TextBox ID="TextBox7" runat="server"  SkinId="TextBoxbb"  ReadOnly="True" Width="22px">→</asp:TextBox>
-    <asp:TextBox ID="TextBox2" runat="server"  SkinId="TextBoxaa" ReadOnly="True" Width="56px">教师管理</asp:TextBox>
-    <asp:TextBox ID="TextBox8" runat="server"  SkinId="TextBoxbb"  ReadOnly="True" Width="22px">→</asp:TextBox>
-    <asp:TextBox ID="TextBox4" runat="server"  SkinId="TextBoxaa" ReadOnly="True" Width="56px">新生导入</asp:TextBox>
-    <asp:TextBox ID="TextBox9" runat="server" SkinId="TextBoxbb"  ReadOnly="True" Width="22px">→</asp:TextBox>
-    <asp:TextBox ID="TextBox5" runat="server"  SkinId="TextBoxaa"  ReadOnly="True" Width="56px">空间生成</asp:TextBox>
+        ReadOnly="True" Width="56px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">班级设置</asp:TextBox>
+    <asp:TextBox ID="TextBox7" runat="server"  SkinId="TextBoxbb"  ReadOnly="True" Width="22px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">→</asp:TextBox>
+    <asp:TextBox ID="TextBox2" runat="server"  SkinId="TextBoxaa" ReadOnly="True" Width="56px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">教师管理</asp:TextBox>
+    <asp:TextBox ID="TextBox8" runat="server"  SkinId="TextBoxbb"  ReadOnly="True" Width="22px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">→</asp:TextBox>
+    <asp:TextBox ID="TextBox4" runat="server"  SkinId="TextBoxaa" ReadOnly="True" Width="56px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">新生导入</asp:TextBox>
+    <asp:TextBox ID="TextBox9" runat="server" SkinId="TextBoxbb"  ReadOnly="True" Width="22px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">→</asp:TextBox>
+    <asp:TextBox ID="TextBox5" runat="server"  SkinId="TextBoxaa"  ReadOnly="True" Width="56px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">空间生成</asp:TextBox>
     <br />
     <br />
     <b>管理员</b>：创建全校完整班级列表-&gt;添加教师并给教师选择指定的班级-&gt;使用学生excel模板导入新生<br />

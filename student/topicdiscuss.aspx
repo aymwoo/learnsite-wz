@@ -232,7 +232,7 @@
     您当前输入了 <span class="word_count">0</span> 个文字（不少于2个汉字，最多为300汉字）
     <br /><br />
             <asp:Button ID="Btnword" runat="server" Text="发表讨论" 
-                onclick="Btnword_Click" BorderStyle="None" CssClass="buttonimg" 
+                onclick="Btnword_Click" BorderStyle="None" CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" 
             Width="80px" />
     <br />
     <anthem:Label ID="Labeldiscuss" runat="server"  SkinID="LabelMsgRed"></anthem:Label>

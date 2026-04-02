@@ -30,10 +30,12 @@
 		}
 
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body> 
-<button  onclick="save()" class="save"  > 立即保存</button> 
-<button  onclick="returnurl()" class="returnurl"  > 返回学案</button> 
+<button  onclick="save()" class="save px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  > 立即保存</button> 
+<button  onclick="returnurl()" class="returnurl px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  > 返回学案</button> 
 <div id="lucky" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px; font-size:16px;"></div>
 </body>
 

@@ -4,7 +4,9 @@
 <head id="Head1" runat="server">
     <title></title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 <body class="ground">
     <form id="form1" runat="server">
     <center>
@@ -93,7 +95,7 @@
         <br /></center>
         <br />
         <asp:Button ID="Btnreturn" runat="server"  Text="关闭" BorderStyle="None" 
-                 CssClass="buttonimg" Width="80px"/>
+                 CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" Width="80px"/>
         </div>
         </div>
         </center>        

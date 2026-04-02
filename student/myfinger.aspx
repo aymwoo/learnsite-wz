@@ -12,7 +12,7 @@
         <div id="Meanword" class="meandiv" >
         </div>
         <br />
-        <input id="InputWord" type="text"  class="inputtxt"  onpaste= "return   false; "   ondragenter= "return   false;"   ondrop= "return   false;" tabindex="0"  autocomplete="off" />
+        <input id="InputWord" type="text"  class="inputtxt px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"  onpaste= "return   false; "   ondragenter= "return   false;"   ondrop= "return   false;" tabindex="0"  autocomplete="off" />
         <br /><br />
     </div> 
 	<div id="keyhand"></div>
@@ -59,11 +59,11 @@
 <div class="right">
     <div>
     <asp:HyperLink ID="HChinese" runat="server" 
-        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx" ></asp:HyperLink> 
+        ImageUrl="~/images/py.png" NavigateUrl="~/student/mychinese.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink> 
     <asp:HyperLink ID="HkFinger" runat="server" 
-        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx"></asp:HyperLink>        
+        ImageUrl="~/images/en.png" NavigateUrl="~/student/myfinger.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>        
     <asp:HyperLink ID="HTyper" runat="server" 
-        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx" ></asp:HyperLink>       
+        ImageUrl="~/images/cn.png" NavigateUrl="~/student/mytype.aspx"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>       
     </div>
     <br />选择级别：
     <select name="ls" id="levelselect"  onchange="changelevel()" 
@@ -93,23 +93,23 @@
     <br />
     <asp:HyperLink ID="HLfinger" runat="server" 
         NavigateUrl="~/student/allfinger.aspx" Target="_self" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="18px">英文输入英雄榜</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px">英文输入英雄榜</asp:HyperLink>
     <br />  
     <div >
     <br />
     <asp:HyperLink ID="Hlztype" runat="server" 
         NavigateUrl="~/ztype/index.html" Target="_blank" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="18px" >太空打字游戏</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px" >太空打字游戏</asp:HyperLink>
     <br />  
     <br />
     <asp:HyperLink ID="Hlbox" runat="server" 
         NavigateUrl="~/sokoban/index.aspx" Target="_blank" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="18px" >推箱子游戏</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px" >推箱子游戏</asp:HyperLink>
     <br /> 
     <br />
     <asp:HyperLink ID="Hlwuziqi" runat="server" 
         NavigateUrl="~/wuziqi/index.aspx" Target="_blank" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="18px" >AI 五子棋</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px" >AI 五子棋</asp:HyperLink>
     <br />  
     </div>  
     <div id="victory" style=" display:none">

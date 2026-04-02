@@ -171,9 +171,9 @@
 <div  class="cplace">
     <div  class="cleft">
         课件主题：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="220px" ></asp:TextBox>
+            Width="220px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
-            &nbsp; 课件首页<asp:TextBox ID="TextBoxHtml" runat="server" Width="300px"></asp:TextBox>
+            &nbsp; 课件首页<asp:TextBox ID="TextBoxHtml" runat="server" Width="300px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <br /><br />
     </div>
      <div class="main-content">
@@ -183,7 +183,7 @@
                     <i class="file-icon" style="font-size: 48px; color: #007bff;">📄</i>
                     <h3>拖放文件到此处上传</h3>
                     <input type="file" id="fileInput" multiple style="display: none;">                    
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">选择文件</button>
+                    <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="document.getElementById('fileInput').click()">选择文件</button>
                     <p style="font-size: 13px; ">支持图片、文档、音频、视频文件</p>
                         <!-- 新增：上传进度条 -->
                     <div id="uploadProgressContainer" style="display: none; width: 100%; margin-top: 15px;">
@@ -211,8 +211,8 @@
         </div>
      <div  class="placehold">
          <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal" /><br />
+              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
+              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
          <br />
          </div>
            
@@ -285,8 +285,8 @@
                                 </div>
                             </div>
                             <div class="file-actions">
-                                ${isHtml ? `<button type="button" class="btn-success"  onclick="selectFile('${file.name}','${fileUrl}')" title="设置为首页">设置</button>` : ""}
-                                <button type="button" class="btn-danger" onclick="deleteFile('${filedel}')" title="删除">✖</button>
+                                ${isHtml ? `<button type="button" class="btn-success px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="selectFile('${file.name}','${fileUrl}')" title="设置为首页">设置</button>` : ""}
+                                <button type="button" class="btn-danger px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteFile('${filedel}')" title="删除">✖</button>
                             </div>
                         </div>`;
                     

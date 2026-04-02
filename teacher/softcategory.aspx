@@ -75,11 +75,11 @@
                 <br />
                 <br />
                 类别描述：<asp:TextBox ID="TextBoxNewYtitle" runat="server" SkinID="TextBoxNormal" Width="180px"
-                    MaxLength="30"></asp:TextBox>
+                    MaxLength="30" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click" SkinID="BtnSmall" />
+                <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click" SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click"
-                    SkinID="BtnSmall" Width="60px" />
+                    SkinID="BtnSmall" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
             </div>
         </div>

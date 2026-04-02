@@ -5,6 +5,8 @@
 <head runat="server">
     <title>学生文档作品自动展示</title>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <center>
@@ -14,13 +16,13 @@
     <div style="font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt">
     <asp:Label  ID="LabeMtitle" runat="server" Font-Bold="True"></asp:Label>&nbsp;
         <asp:Button ID="Btnflash" runat="server" Text="刷新" onclick="Btnflash_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
         <asp:Button ID="Btnrestart" runat="server" Text="重新" onclick="Btnrestart_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
         <asp:Button ID="Btnstop" runat="server" Text="继续" onclick="Btnstop_Click" 
-            SkinID="BtnSmall" Width="40px" />
+            SkinID="BtnSmall" Width="40px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;<asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
             onclick="ImgBtnLeft_Click" Width="16px" />
     <asp:DropDownList ID="DDLstore" runat="server" 
@@ -43,10 +45,10 @@
                  ImageUrl="~/images/peer_review.png" onclick="ImgBtnTextbox_Click" />
              教师评语：<asp:TextBox ID="TextBoxWself" 
                  runat="server" BorderColor="Silver" BorderStyle="Dashed" BorderWidth="1px" 
-                 BackColor="#FDF5E3" ></asp:TextBox> 
+                 BackColor="#FDF5E3"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox> 
              <asp:Image ID="Image2" runat="server" ImageUrl="~/images/token.png" />
              加分：<asp:TextBox ID="TextBoxWdsocre" runat="server" MaxLength="2" Width="40px" 
-                 BackColor="#FDF5E3" SkinID="TextBoxNum" Height="19px">0</asp:TextBox>
+                 BackColor="#FDF5E3" SkinID="TextBoxNum" Height="19px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">0</asp:TextBox>
              <asp:RadioButtonList 
                  ID="RBLselect" runat="server"   RepeatDirection="Horizontal" Visible="True" 
             Font-Size="16pt" AutoPostBack="True" 
@@ -95,7 +97,7 @@
         <div>
         <br />
         <asp:HyperLink ID="Hlcode" runat="server" Font-Size="11pt" Target="_blank" 
-            Visible="False" CssClass="HyperlinkNormal" >查看脚本</asp:HyperLink> 
+            Visible="False" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" >查看脚本</asp:HyperLink> 
         </div>
     </form> 
         <script type ="text/javascript" >

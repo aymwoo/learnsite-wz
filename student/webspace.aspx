@@ -42,6 +42,8 @@
     <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/dropzone/dropzone-min.js" type="text/javascript"></script>
     <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body  class="by">
     <form id="form1" class="dropzone" runat="server">
@@ -73,7 +75,7 @@
                 </asp:DataList>        
         </div>
 		<div id="up_area" style="padding-top:10px;">
-		  <button type="button" id="btnupload" class="btnup"> <i class="fa fa-upload" aria-hidden="true"></i> 文件上传</button>
+		  <button type="button" id="btnupload" class="btnup px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"> <i class="fa fa-upload" aria-hidden="true"></i> 文件上传</button>
           <span id="message"></span>
 		<div>
      </div>    

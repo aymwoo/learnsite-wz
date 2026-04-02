@@ -48,6 +48,8 @@
 			cursor:pointer;
 		}
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <body ng-app="kityminderDemo" >

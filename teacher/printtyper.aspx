@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>    
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,10 +41,10 @@
         </asp:DropDownList>
 &nbsp;<asp:Button ID="Btnbrowse" runat="server" BackColor="#ECF5FF" 
             BorderColor="#E0E0E0" BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" 
-            Text="显示效果" ToolTip="点击显示" onclick="Btnbrowse_Click" Height="18px" />
+            Text="显示效果" ToolTip="点击显示" onclick="Btnbrowse_Click" Height="18px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 &nbsp;&nbsp;
         <input id="BtnPrintView" style="border: 1px solid #E0E0E0; font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; background-color: #ECF5FF; width: 68px; height: 18px;" 
-            type="button" value="打印" onclick="preview()" /></div>
+            type="button" value="打印" onclick="preview()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /></div>
     <div style="margin: auto; width: 600px">
     <!--startprint-->
     <div style="text-align: center">

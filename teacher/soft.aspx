@@ -1,54 +1,22 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="soft.aspx.cs" Inherits="Teacher_soft" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <div class="w-full flex flex-col gap-6 p-4">
-
-        <!-- Header & Action Bar -->
-        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200/60 flex flex-wrap items-center justify-between gap-4 relative overflow-hidden">
-            <div class="absolute -right-20 -top-20 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
-
-            <div class="flex items-center gap-3 text-sm text-slate-700 relative z-10">
-                <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
-                </div>
-                <span class="font-bold text-slate-800 text-base ml-1">资源管理</span>
-
-                <div class="h-6 w-px bg-slate-200 mx-2"></div>
-
-                <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 shadow-sm">
-                    <span class="text-slate-500 font-medium">分类</span>
-                    <asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True"
-                            onselectedindexchanged="ddlcategory_SelectedIndexChanged"
-                            CssClass="bg-white border border-slate-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-indigo-500 outline-none ml-1">
-                    </asp:DropDownList>
-                </div>
-
-                <asp:Label ID="Label1" runat="server" CssClass="hidden"></asp:Label>
-            </div>
-
-            <div class="flex items-center gap-3 relative z-10">
-                <asp:HyperLink ID="Hlkadd" runat="server" NavigateUrl="~/teacher/softadd.aspx" Target="_self"
-                    CssClass="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-xl transition-all cursor-pointer text-sm shadow-md shadow-indigo-200 active:scale-95 flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    资源添加
-                </asp:HyperLink>
-                <div class="h-6 w-px bg-slate-200 mx-1"></div>
-                <asp:HyperLink ID="Hlkcategory" runat="server" NavigateUrl="~/teacher/softcategory.aspx" Target="_self"
-                    CssClass="bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 hover:text-indigo-600 font-medium py-2 px-4 rounded-xl transition-all cursor-pointer text-sm shadow-sm active:scale-95 flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
-                    分类设置
-                </asp:HyperLink>
-                <asp:HyperLink ID="Hlkcgscore" runat="server" NavigateUrl="~/teacher/softnomic.aspx" Target="_blank"
-                    CssClass="bg-emerald-50 border border-emerald-200 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-700 font-medium py-2 px-4 rounded-xl transition-all cursor-pointer text-sm shadow-sm active:scale-95 flex items-center gap-1">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    自学评价
-                </asp:HyperLink>
-            </div>
-        </div>
-
-        <!-- Data Grid -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
-            <div class="overflow-x-auto w-full">
+<div  class="placehold">        
+            <div>
+            资源分类：<asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True" 
+                    onselectedindexchanged="ddlcategory_SelectedIndexChanged">
+        </asp:DropDownList>
+                    <asp:Label ID="Label1" runat="server" Width="400px"></asp:Label>
+                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
+                    NavigateUrl="~/teacher/softadd.aspx" Target="_self">资源添加</asp:HyperLink>
+&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
+                    NavigateUrl="~/teacher/softcategory.aspx" Target="_self">分类设置</asp:HyperLink>
+                    &nbsp;&nbsp;&nbsp;
+                <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
+                    NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">自学评价</asp:HyperLink>
+                    </div>
+            <div class="softdiv">
                 <asp:GridView ID="GVSource" runat="server" AllowPaging="True" 
                     AutoGenerateColumns="False" PageSize="20" Width="100%"
                     onpageindexchanging="GVSource_PageIndexChanging" 

@@ -17,6 +17,8 @@
     </style>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/dropzone/dropzone-min.js" type="text/javascript"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body  class="by">
     <form id="form1" class="dropzone" runat="server">
@@ -56,11 +58,11 @@
         <div id="dright" class="rightcss">   
         <div style="text-align: left">
          <asp:Button ID="BtnTea" runat="server" BackColor="#CFE4D0" BorderStyle="None" 
-             Font-Bold="False" Font-Size="9pt" onclick="BtnTea_Click" Text="公共资源" />&nbsp;
+             Font-Bold="False" Font-Size="9pt" onclick="BtnTea_Click" Text="公共资源"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;
          <asp:Button ID="BtnStu" runat="server" BackColor="#CFE4D0" BorderStyle="None" 
-             Font-Bold="False" Font-Size="9pt" onclick="BtnStu_Click" Text="我的网盘" />&nbsp;
+             Font-Bold="False" Font-Size="9pt" onclick="BtnStu_Click" Text="我的网盘"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;
              <asp:Button ID="BtnGroup" runat="server" BackColor="#CFE4D0" BorderStyle="None" 
-             Font-Bold="False" Font-Size="9pt" onclick="BtnGroup_Click" Text="小组网盘" />
+             Font-Bold="False" Font-Size="9pt" onclick="BtnGroup_Click" Text="小组网盘"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
          <asp:CheckBox ID="CkIsGroup" runat="server" Enabled="False" Visible="False" />&nbsp;
           <asp:Label ID="Labeldisk" runat="server" Font-Size="9pt" ForeColor="#3F6159"></asp:Label>
         </div>

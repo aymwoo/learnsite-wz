@@ -14,16 +14,16 @@
             <br />
             <br />
             <br />
-                    账号：<asp:TextBox ID="Textname" runat="server"  Width="120px"  SkinID="TextBoxNormal"></asp:TextBox>
+                    账号：<asp:TextBox ID="Textname" runat="server"  Width="120px"  SkinID="TextBoxNormal" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                     <br />
                     <br />
-                    密码：<asp:TextBox ID="Textpwd" runat="server"  TextMode="Password" Width="120px" SkinID="TextBoxNormal"></asp:TextBox>
+                    密码：<asp:TextBox ID="Textpwd" runat="server"  TextMode="Password" Width="120px" SkinID="TextBoxNormal" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
                     <br />
                     <br />
                     <asp:Label ID="Labelmsg" runat="server" SkinID="LabelMsgRed" Width="178px"></asp:Label>
                     <br />
                     <br />
-                    <asp:Button ID="Btnlogin" runat="server"  Text="登录"  SkinID="BtnNormal" onclick="Btnlogin_Click" />
+                    <asp:Button ID="Btnlogin" runat="server"  Text="登录"  SkinID="BtnNormal" onclick="Btnlogin_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     </div>
         <br />
 <script type="text/javascript">

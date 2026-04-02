@@ -24,6 +24,8 @@ limitations under the License.
     <!-- Bootstrap core CSS -->
     <link href="../../ai/bootstrap.min.css" rel="stylesheet">
 <script src="../../ai/bundle.js"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <style>
@@ -114,10 +116,10 @@ limitations under the License.
         </div>
         <div class="row my-4">
           <div class="col-md-5 offset-md-3">
-              <button disabled id="style-button" type="button" class="btn btn-primary btn-block">加载风格模型，请稍等...</button>
+              <button disabled id="style-button" type="button" class="btn btn-primary btn-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">加载风格模型，请稍等...</button>
           </div>
           <div class="col-md-1">
-              <button type="button" id="randomize" class="btn btn-light btn-block">
+              <button type="button" id="randomize" class="btn btn-light btn-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
                 <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
                 title="Randomize parameters"></i>
               </button>
@@ -213,10 +215,10 @@ limitations under the License.
       </div>
       <div class="row my-4">
         <div class="col-md-5 offset-md-3">
-            <button disabled id="combine-button" type="button" class="btn btn-primary btn-block">加载风格模型，请稍等...</button>
+            <button disabled id="combine-button" type="button" class="btn btn-primary btn-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">加载风格模型，请稍等...</button>
         </div>
         <div class="col-md-1">
-            <button type="button" id="c-randomize" class="btn btn-light btn-block">
+            <button type="button" id="c-randomize" class="btn btn-light btn-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
               <i class="fas fa-random" data-toggle="tooltip" data-placement="top" 
               title="Randomize parameters"></i>
             </button>
@@ -249,7 +251,7 @@ limitations under the License.
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Take a snapshot!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -257,8 +259,8 @@ limitations under the License.
         <video id="webcam-video" class="centered" width="500" height="375"></video>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="snap-button">Snap!</button>
+        <button type="button" class="btn btn-secondary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="snap-button">Snap!</button>
       </div>
     </div>
   </div>

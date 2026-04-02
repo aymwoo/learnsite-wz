@@ -16,10 +16,10 @@
             <br />
             <br />
           <asp:Button ID="BtnExcel" runat="server"  OnClick="BtnExcel_Click" 
-                Text="导出Excel"  SkinID="BtnSmall" ToolTip="将学生期末成绩以Excel表格导出" />&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                Text="导出Excel"  SkinID="BtnSmall" ToolTip="将学生期末成绩以Excel表格导出"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
             <asp:Button ID="Btnshow" runat="server"  OnClick="Btnshow_Click" Text="成绩浏览"  
-                SkinID="BtnSmall" />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <asp:Button ID="Btnback" runat="server"  Text="返回"  OnClick="Btnback_Click" SkinID="BtnSmall" />
+                SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <asp:Button ID="Btnback" runat="server"  Text="返回"  OnClick="Btnback_Click" SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             <br />
             <asp:Label ID="Labelmsg" runat="server"  SkinID="LabelMsgRed" 
                 ></asp:Label>
