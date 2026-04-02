@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
     <div id="student">
-<div class="left">
+<div class="left w-4/5 float-left pr-4">
     <asp:GridView ID="GridViewworks" runat="server" AllowPaging="True" OnPageIndexChanging="GridViewworks_PageIndexChanging" 
         PageSize="15" Width="100%" SkinID="GridViewInfo" 
         onrowdatabound="GridViewworks_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True">
@@ -69,7 +69,7 @@
     </asp:GridView>
     <br />
 </div>
-<div class="right">
+<div class="right w-1/5 float-right bg-white p-4 rounded-lg shadow-md">
                 <asp:GridView ID="Topwork" runat="server" AllowPaging="True" Width="100%" 
         SkinID="GridViewInfo" AutoGenerateColumns="False" Caption="最新优秀作品" 
                     EnableModelValidation="True" EmptyDataText=" " 

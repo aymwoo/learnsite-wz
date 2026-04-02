@@ -40,17 +40,17 @@
       <div  class="studmasterhead">
             <div  class="banner" > 
             </div>
-            <div  class="menu">
-            <ul class="nav">
-            <li ><a href="../student/myinfo.aspx">我的学案</a></li>
+            <div  class="menu flex items-center justify-center bg-blue-100 shadow-md h-12 min-w-[1200px]">
+            <ul class="nav flex space-x-2 text-lg font-bold items-center">
+            <li ><a href="../student/myinfo.aspx" class="hover:text-blue-500 hover:bg-blue-200 transition px-3 py-1 rounded">我的学案</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a href="../student/mywork.aspx">我的作品</a></li>
+            <li ><a href="../student/mywork.aspx" class="hover:text-blue-500 hover:bg-blue-200 transition px-3 py-1 rounded">我的作品</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a href="../student/myfinger.aspx">打字宝典</a></li>
+            <li ><a href="../student/myfinger.aspx" class="hover:text-blue-500 hover:bg-blue-200 transition px-3 py-1 rounded">打字宝典</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a href="../student/myfile.aspx">在线资源</a></li>
+            <li ><a href="../student/myfile.aspx" class="hover:text-blue-500 hover:bg-blue-200 transition px-3 py-1 rounded">在线资源</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a onclick="showShare()">我的网盘</a> </li>
+            <li ><a onclick="showShare()" class="hover:text-blue-500 hover:bg-blue-200 transition px-3 py-1 rounded cursor-pointer">我的网盘</a> </li>
             </ul>             
             </div>
       <div class="st">
