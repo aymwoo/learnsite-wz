@@ -38,12 +38,10 @@
             </div>
         </div>
 
-        <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
-        <script src="../js/tinybox.js" type="text/javascript"></script>
         <script type ="text/javascript" >
             function package() {
                 var urlpg = "../teacher/workpackage.aspx" ;
-                TINY.box.show({ iframe: urlpg, boxid: 'frameless', width: 360, height: 240, fixed: false, maskopacity: 40, closejs: function () { closeJS() } })
+                openLessonModal(urlpg, "作品打包", 300);
             }
         </script>
                     <asp:Button ID="Btnterm" runat="server" Text="学期总评"  SkinID="BtnNormal" 
@@ -112,6 +110,6 @@
             </asp:GridView>
             </div>
         </div>
+
     </div>
 </asp:Content>
-

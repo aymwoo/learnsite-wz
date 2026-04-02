@@ -93,21 +93,17 @@
                 oncheckedchanged="Ckname_CheckedChanged" AutoPostBack="True" />
         </div>
 
-        <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
-        <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
-        <script src="../js/tinybox.js" type="text/javascript"></script>
         <script type ="text/javascript" >
             function stuShow(d, g, c) {
                 var urlat = "../teacher/studentshow.aspx?sid=" + d + "&sgrade=" + g + "&sclass=" + c;
-                TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 700, height: 240, fixed: false, maskopacity: 40, closejs: function () { closeJS() } })
+                openLessonModal(urlat, "学生详情", 300);
             }
             function stuAdd(g, c) {
                 var urlad = "../teacher/studentadd.aspx?sgrade=" + g + "&sclass=" + c;
-                TINY.box.show({ iframe: urlad, boxid: 'frameless', width: 700, height: 240, fixed: false, maskopacity: 40, closejs: function () { closeJS() } })
+                openLessonModal(urlad, "添加学生", 320);
             }
         </script>
         <br />
         <br />
     </div>
 </asp:Content>
-

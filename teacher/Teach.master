@@ -95,13 +95,239 @@
                     </div>
                 </main>
             </div>
+
+            <div id="lessonModal" class="lesson-modal" aria-hidden="true">
+                <div class="lesson-modal__backdrop" onclick="closeLessonModal()"></div>
+                <div class="lesson-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="lessonModalTitle">
+                    <div class="lesson-modal__header">
+                        <h3 id="lessonModalTitle" class="lesson-modal__title">课堂操作</h3>
+                        <button type="button" class="lesson-modal__close" onclick="closeLessonModal()">×</button>
+                    </div>
+                    <div class="lesson-modal__frame-wrap">
+                        <iframe id="lessonModalFrame" class="lesson-modal__frame" title="课堂操作窗口" src="about:blank"></iframe>
+                    </div>
+                </div>
+            </div>
         </div>
         <style>
             .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
             .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
             .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
             .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+            .lesson-modal {
+                position: fixed;
+                inset: 0;
+                z-index: 1200;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 24px;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.22s ease, visibility 0.22s ease;
+            }
+
+            .lesson-modal.is-open {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+            }
+
+            .lesson-modal__backdrop {
+                position: absolute;
+                inset: 0;
+                background: rgba(15, 23, 42, 0.58);
+                backdrop-filter: blur(4px);
+                opacity: 0;
+                transition: opacity 0.22s ease;
+            }
+
+            .lesson-modal.is-open .lesson-modal__backdrop {
+                opacity: 1;
+            }
+
+            .lesson-modal__dialog {
+                position: relative;
+                z-index: 1;
+                width: min(92vw, 760px);
+                max-height: calc(100vh - 48px);
+                border-radius: 24px;
+                overflow: hidden;
+                border: 1px solid rgba(148, 163, 184, 0.28);
+                background: #ffffff;
+                box-shadow: 0 24px 80px rgba(15, 23, 42, 0.35);
+                transform: translateY(18px) scale(0.98);
+                opacity: 0;
+                transition: transform 0.22s ease, opacity 0.22s ease;
+            }
+
+            .lesson-modal.is-open .lesson-modal__dialog {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            .lesson-modal__header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 16px 18px;
+                border-bottom: 1px solid #e2e8f0;
+                background: linear-gradient(180deg, #f8fbff 0%, #eff6ff 100%);
+            }
+
+            .lesson-modal__title {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 800;
+                color: #0f172a;
+            }
+
+            .lesson-modal__close {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                border: 0;
+                border-radius: 999px;
+                background: #e2e8f0;
+                color: #0f172a;
+                font-size: 18px;
+                font-weight: 700;
+                cursor: pointer;
+            }
+
+            .lesson-modal__close:hover {
+                background: #cbd5e1;
+            }
+
+            .lesson-modal__frame-wrap {
+                background: #ffffff;
+                max-height: calc(100vh - 120px);
+                overflow: auto;
+            }
+
+            .lesson-modal__frame {
+                display: block;
+                width: 100%;
+                border: 0;
+                background: #ffffff;
+            }
         </style>
+        <script type="text/javascript">
+            var lessonModalState = {
+                modal: null,
+                frame: null,
+                title: null,
+                scrollTop: 0,
+                defaultHeight: 320,
+                resizeTimer: null
+            };
+
+            function ensureLessonModal() {
+                if (!lessonModalState.modal) {
+                    lessonModalState.modal = document.getElementById("lessonModal");
+                    lessonModalState.frame = document.getElementById("lessonModalFrame");
+                    lessonModalState.title = document.getElementById("lessonModalTitle");
+                }
+            }
+
+            function resizeLessonModalFrame(height) {
+                ensureLessonModal();
+                var nextHeight = parseInt(height, 10);
+                if (isNaN(nextHeight) || nextHeight < 180) {
+                    nextHeight = lessonModalState.defaultHeight || 320;
+                }
+                var maxHeight = Math.max(220, window.innerHeight - 140);
+                lessonModalState.frame.style.height = Math.min(nextHeight, maxHeight) + "px";
+            }
+
+            function syncLessonModalHeight() {
+                ensureLessonModal();
+                if (!lessonModalState.frame || lessonModalState.frame.src === "about:blank") {
+                    return;
+                }
+                try {
+                    var doc = lessonModalState.frame.contentWindow.document;
+                    var body = doc.body;
+                    var html = doc.documentElement;
+                    var nextHeight = Math.max(
+                        body ? body.scrollHeight : 0,
+                        body ? body.offsetHeight : 0,
+                        html ? html.clientHeight : 0,
+                        html ? html.scrollHeight : 0,
+                        html ? html.offsetHeight : 0
+                    );
+                    resizeLessonModalFrame(nextHeight + 4);
+                } catch (err) {
+                }
+            }
+
+            function bindLessonModalFrame() {
+                ensureLessonModal();
+                lessonModalState.frame.onload = function () {
+                    syncLessonModalHeight();
+                    if (lessonModalState.resizeTimer) {
+                        clearInterval(lessonModalState.resizeTimer);
+                    }
+                    lessonModalState.resizeTimer = setInterval(syncLessonModalHeight, 300);
+                };
+            }
+
+            function openLessonModal(url, title, height) {
+                ensureLessonModal();
+                lessonModalState.scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                lessonModalState.title.innerHTML = title || "课堂操作";
+                lessonModalState.defaultHeight = height || 320;
+                lessonModalState.frame.style.height = lessonModalState.defaultHeight + "px";
+                lessonModalState.frame.src = url;
+                lessonModalState.modal.className = "lesson-modal is-open";
+                lessonModalState.modal.setAttribute("aria-hidden", "false");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLessonModal() {
+                ensureLessonModal();
+                if (lessonModalState.resizeTimer) {
+                    clearInterval(lessonModalState.resizeTimer);
+                    lessonModalState.resizeTimer = null;
+                }
+                lessonModalState.modal.className = "lesson-modal";
+                lessonModalState.modal.setAttribute("aria-hidden", "true");
+                lessonModalState.frame.src = "about:blank";
+                lessonModalState.frame.style.height = lessonModalState.defaultHeight + "px";
+                document.body.style.overflow = "";
+                window.scrollTo(0, lessonModalState.scrollTop || 0);
+            }
+
+            function closeJS() {
+                closeLessonModal();
+            }
+
+            function notifyLessonModalSuccess(shouldRefresh) {
+                closeLessonModal();
+                if (shouldRefresh) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 120);
+                }
+            }
+
+            bindLessonModalFrame();
+
+            document.addEventListener("keydown", function (evt) {
+                if (evt.key === "Escape" || evt.keyCode === 27) {
+                    closeLessonModal();
+                }
+            });
+
+            window.addEventListener("resize", function () {
+                syncLessonModalHeight();
+            });
+        </script>
     </form>
 </body>
 </html>

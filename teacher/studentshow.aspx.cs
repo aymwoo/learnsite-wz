@@ -22,7 +22,7 @@ public partial class Teacher_studentshow : System.Web.UI.Page
     protected void LinkEdit_Click(object sender, EventArgs e)
     {
         int Sid =Int32.Parse( Request.QueryString["sid"].ToString());
-        string url = "~/teacher/studentedit.aspx?sid=" + Sid ; 
+        string url = "~/teacher/studentedit.aspx?sid=" + Sid + "&modal=1"; 
         Response.Redirect(url, false);
     }
 

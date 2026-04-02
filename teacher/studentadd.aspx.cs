@@ -49,7 +49,7 @@ public partial class Teacher_studentadd : System.Web.UI.Page
                 int NewSid = stubll.AddStudent(student);
 
                 System.Threading.Thread.Sleep(500);
-                string url = "~/teacher/studentshow.aspx?sid=" + NewSid.ToString();
+                string url = "~/teacher/studentshow.aspx?sid=" + NewSid.ToString() + "&modal=1";
                 Response.Redirect(url, false);
             }
             else

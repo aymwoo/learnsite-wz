@@ -40,8 +40,15 @@ public partial class Lessons_thinkedit : System.Web.UI.Page
             LearnSite.BLL.Flection flectionbll = new LearnSite.BLL.Flection();
             flectionbll.Update(flection);
             System.Threading.Thread.Sleep(500);
-            string url = "~/lessons/thinkshow.aspx?cid=" + Int32.Parse(Fcid);
-            Response.Redirect(url, false);
+            if (Request.QueryString["modal"] == "1")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
+            }
+            else
+            {
+                string url = "~/lessons/thinkshow.aspx?cid=" + Int32.Parse(Fcid);
+                Response.Redirect(url, false);
+            }
         }
     }
 
@@ -63,8 +70,15 @@ public partial class Lessons_thinkedit : System.Web.UI.Page
         if (Request.QueryString["cid"] != null)
         {
             string Cid = Request.QueryString["cid"].ToString();
-            string url = "~/lessons/thinkshow.aspx?cid=" + Cid;
-            Response.Redirect(url, false);
+            if (Request.QueryString["modal"] == "1")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.closeLessonModal();", true);
+            }
+            else
+            {
+                string url = "~/lessons/thinkshow.aspx?cid=" + Cid;
+                Response.Redirect(url, false);
+            }
         }
         else
         {

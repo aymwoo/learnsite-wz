@@ -125,15 +125,13 @@
                             SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     &nbsp;                    
                     &nbsp;                    
-        <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
-        <script src="../js/tinybox.js" type="text/javascript"></script>
         <script type ="text/javascript" >
             function tshow(c) {
                 var urlat = "../lessons/thinkshow.aspx?cid=" + c;
-                TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 800, height: 500, fixed: false, maskopacity: 40, closejs: function () { closeJS() } })
+                openLessonModal(urlat, "课后思考", 560);
             }
         </script>               
                     </div>
+
     </div>
 </asp:Content>
-

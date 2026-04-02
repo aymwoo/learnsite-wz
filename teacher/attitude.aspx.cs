@@ -67,6 +67,7 @@ public partial class Teacher_attitude : System.Web.UI.Page
                     LearnSite.BLL.Signin sg = new LearnSite.BLL.Signin();
                     sg.UpdateAttitude(Qid, Qattitude, Qnote,Qcid);//表现评价时记录学案编号cid
                     Labelmsg.Text = "对" + Labelname.Text + "学习表现评价成功！";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
                 }
             }
             catch
