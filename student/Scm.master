@@ -33,10 +33,10 @@
       <div  class="studmasterhead">
 		<div  class="canner" > 
             </div>
-            <div  class="menu">
-            <asp:Menu ID="Menuact" runat="server"   Orientation="Horizontal"  CssClass="nav">
-                <StaticSelectedStyle BackColor="#79A0FD" />
-                <StaticHoverStyle BackColor="#79A0FD" />
+            <div class="menu w-full bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg flex items-center justify-center h-14 min-w-[1200px]">
+            <asp:Menu ID="Menuact" runat="server" Orientation="Horizontal" CssClass="nav" ForeColor="White">
+                <StaticSelectedStyle BackColor="#1e40af" ForeColor="White" />
+                <StaticHoverStyle BackColor="#1e3a8a" ForeColor="White" />
             </asp:Menu>
             </div>
       <div class="stu">

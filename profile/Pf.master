@@ -23,11 +23,11 @@
       <div  class="studmasterhead">
             <div  class="banner" > 
                 </div>
-            <div  class="menu">
-            <asp:Menu ID="Menu1" runat="server" CssClass="nav"
+            <div class="menu w-full bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg flex items-center justify-center h-14 min-w-[1200px]">
+            <asp:Menu ID="Menu1" runat="server" CssClass="nav" ForeColor="White"
                 MaximumDynamicDisplayLevels="1" Orientation="Horizontal" 
                     Width="880px" SkipLinkText="" >
-                <StaticHoverStyle BackColor="#91B1FD" ForeColor="White" />
+                <StaticHoverStyle BackColor="#1e3a8a" ForeColor="White" />
                 <Items>
                     <asp:MenuItem  NavigateUrl="~/profile/mygroup.aspx"
                          Text="小组" Value="小组合作" >

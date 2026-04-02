@@ -21,17 +21,17 @@
             </script> 
                 </div>
                 <center>
-            <div  class="menu">
+            <div class="menu w-full bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg flex items-center justify-center h-14 min-w-[1200px]">
             <asp:Menu ID="Menuact" runat="server" DynamicHorizontalOffset="2"  
-                    ForeColor="Black" Orientation="Horizontal" Height="24px"  Font-Size="9pt" 
+                    ForeColor="White" Orientation="Horizontal" Height="24px"  Font-Size="9pt" 
                     SkipLinkText="">
                 <StaticMenuItemStyle HorizontalPadding="2px" VerticalPadding="2px" />
-                <DynamicHoverStyle BackColor="#79A0FD" ForeColor="White" />
+                <DynamicHoverStyle BackColor="#1e3a8a" ForeColor="White" />
                 <DynamicMenuStyle BackColor="#E3EAEB" />
-                <StaticSelectedStyle BackColor="#6A96FD" ForeColor="White" />
-                <DynamicSelectedStyle BackColor="#FFE0C0" />
+                <StaticSelectedStyle BackColor="#1e40af" ForeColor="White" />
+                <DynamicSelectedStyle BackColor="#1e40af" ForeColor="White" />
                 <DynamicMenuItemStyle HorizontalPadding="2px" VerticalPadding="2px" />
-                <StaticHoverStyle BackColor="#79A0FD" ForeColor="#F7F7F7" />
+                <StaticHoverStyle BackColor="#1e3a8a" ForeColor="White" />
             </asp:Menu>
             </div>
             </center>
