@@ -4,7 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
     <title>作品下载</title> 
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 <body ondragstart="return false" onselectstart ="return false" >
      <form id="form1" runat="server">
     <div  class="studmasterhead"> 
@@ -16,7 +18,7 @@
     〖<asp:Label ID="Labelmission" runat="server"></asp:Label>〗
         <strong>作品下载</strong>：<asp:Image ID ="ImageType" runat="server" />
 <asp:HyperLink ID="HLfile" runat="server"  Visible="False" BorderStyle="None" 
-        CssClass="txtszcenter" Height="18px" Target="_blank" Font-Underline="True">作品</asp:HyperLink>
+        CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="18px" Target="_blank" Font-Underline="True">作品</asp:HyperLink>
         <asp:Label ID="Labelsize" runat="server"></asp:Label>
         <asp:Label ID="Labelmsg" runat="server" Font-Bold="False"></asp:Label>
     <asp:Image ID="Imagegood" runat="server"  ImageUrl="~/images/good16.png" Width="16px" />

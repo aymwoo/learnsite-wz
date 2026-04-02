@@ -14,6 +14,8 @@
              text-align:center;
         }
 	</style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -27,7 +29,7 @@
         </div>
         <div class="col-md-4">
             <p style=" text-align:right;">
-                <asp:HyperLink ID="Hlmatch" class="btn btn-default" runat="server" NavigateUrl="~/python/matchnew.aspx">创建比赛</asp:HyperLink>
+                <asp:HyperLink ID="Hlmatch" class="btn btn-default" runat="server" NavigateUrl="~/python/matchnew.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">创建比赛</asp:HyperLink>
             </p>  
         </div>
     </div>

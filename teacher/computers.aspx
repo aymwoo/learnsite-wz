@@ -56,23 +56,23 @@
             </div>
             <br />
         <asp:Button ID="BtnDelAll" runat="server" onclick="BtnDelAll_Click" 
-            SkinID="BtnNormal" Text="全体删除" />
+            SkinID="BtnNormal" Text="全体删除"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="BtnUnlock" runat="server" onclick="BtnUnlock_Click" 
-            SkinID="BtnNormal" Text="全体解绑" />
+            SkinID="BtnNormal" Text="全体解绑"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="BtnOnlock" runat="server" 
-            SkinID="BtnNormal" Text="全体绑定" onclick="BtnOnlock_Click"  />
+            SkinID="BtnNormal" Text="全体绑定" onclick="BtnOnlock_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="BtnAssign" runat="server" 
             SkinID="BtnNormal" Text="自动分配" onclick="BtnAssign_Click" 
-            ToolTip="培训时用，先获取所有学生机IP，然后点自动分配学号" Visible="False"  />
+            ToolTip="培训时用，先获取所有学生机IP，然后点自动分配学号" Visible="False"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="BtnClear" runat="server" SkinID="BtnNormal" Text="清除分配"  
-            ToolTip="清除分配的学号" onclick="BtnClear_Click" Visible="False"  />
+            ToolTip="清除分配的学号" onclick="BtnClear_Click" Visible="False"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="BtnRefresh" runat="server" 
-            SkinID="BtnNormal" Text="刷新" onclick="BtnRefresh_Click"  />
+            SkinID="BtnNormal" Text="刷新" onclick="BtnRefresh_Click"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;
         <br />
         <br />
@@ -87,7 +87,7 @@
             <asp:FileUpload ID="FuHostnameIp" runat="server" Font-Size="9pt" />
 &nbsp;
         <asp:Button ID="BtnImport" runat="server" onclick="BtnImport_Click" 
-            SkinID="BtnNormal" Text="导入Excel" />
+            SkinID="BtnNormal" Text="导入Excel"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
             <asp:Label ID="Labelmsg" runat="server" ForeColor="#000099"></asp:Label>
         <br />

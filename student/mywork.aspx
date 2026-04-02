@@ -87,7 +87,7 @@
     <br />
     <asp:HyperLink ID="HLworks" runat="server" 
         NavigateUrl="~/student/masterwork.aspx" Target="_blank" SkinID="HyperLink" 
-        Width="120px" CssClass="txtszcenter" Height="20px">作品收藏</asp:HyperLink>
+        Width="120px" CssClass="txtszcenter px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="20px">作品收藏</asp:HyperLink>
     <br />
     <br />
     </div>

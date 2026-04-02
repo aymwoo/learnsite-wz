@@ -9,15 +9,15 @@
             <br />
             <br />
             姓名：<asp:TextBox ID="Texthname" runat="server" BorderColor="#DDDDDD" 
-                BorderStyle="Solid" BorderWidth="1px" Width="120px"></asp:TextBox>
+                BorderStyle="Solid" BorderWidth="1px" Width="120px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             <br />
             <br />
             昵称：<asp:TextBox ID="Texthnick" runat="server" BorderColor="#DDDDDD" 
-                BorderStyle="Solid" BorderWidth="1px" Width="120px"></asp:TextBox>
+                BorderStyle="Solid" BorderWidth="1px" Width="120px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             <br />
             <br />
             密码：<asp:TextBox ID="Texthpwd" runat="server" BorderColor="#DDDDDD" 
-                BorderStyle="Solid" BorderWidth="1px" Width="120px"></asp:TextBox>
+                BorderStyle="Solid" BorderWidth="1px" Width="120px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             <br />
             <br />
             权限： <asp:CheckBox ID="Ckhpermiss" runat="server" Text="是否设置为管理员" />
@@ -25,19 +25,19 @@
             <br />
             备注：<asp:TextBox ID="Texthnote" runat="server" BorderColor="#DDDDDD"  
                 BorderStyle="Solid" BorderWidth="1px" Height="60px" TextMode="MultiLine" 
-                Width="120px"></asp:TextBox>
+                Width="120px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
             <br />
             <br />
             <br />
                     <asp:Button ID="Btnedit" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="9pt" Text="修改" Width="60px" Height="20px" 
-                onclick="Btnedit_Click" />
+                onclick="Btnedit_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     &nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Btnreturn" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="9pt" Text="返回" Width="60px" Height="20px" 
-                onclick="Btnreturn_Click" />
+                onclick="Btnreturn_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     <br />
             <br />
             <br />

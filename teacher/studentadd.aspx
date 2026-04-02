@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -16,11 +18,11 @@
                     &nbsp;学号
                     <asp:TextBox ID="Tsnum" runat="server" BorderColor="Gainsboro"
                         BorderStyle="Solid" BorderWidth="1px" Width="110px"  
-                        ToolTip="自动生成！" ></asp:TextBox></td>
+                        ToolTip="自动生成！"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox></td>
                 <td style="width: 180px; height: 22px ">
                     &nbsp;姓名
                     <asp:TextBox ID="Tsname" runat="server" BackColor="Cornsilk" BorderColor="#E0E0E0"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px"></asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox></td>
                 <td style="width: 180px; height: 22px ">
                     &nbsp;入学
                     <asp:DropDownList ID="DDLyear" runat="server" Font-Size="9pt" Width="60px" 
@@ -41,13 +43,13 @@
                 <td style="width: 180px; height: 22px">
                     &nbsp;主任
                     <asp:TextBox ID="Tsheadtheacher" runat="server" BackColor="Cornsilk" BorderColor="#E0E0E0"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px"></asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox></td>
             </tr>
             <tr>
                 <td style="width: 180px; height: 22px">
                     &nbsp;密码
                     <asp:TextBox ID="Tspwd" runat="server" BackColor="White" BorderColor="Gainsboro"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px" ReadOnly="True" ToolTip="密码不可修改！">12345</asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" ReadOnly="True" ToolTip="密码不可修改！" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">12345</asp:TextBox></td>
                 <td style="width: 180px; height: 22px">
                     &nbsp;性别
                     <asp:DropDownList ID="DDLsex" runat="server" Font-Size="9pt" Width="60px" 
@@ -55,31 +57,31 @@
     </asp:DropDownList></td>
                 <td style="width: 180px; height: 22px">
                     &nbsp;父母 <asp:TextBox ID="Tsparents" runat="server" BackColor="Cornsilk" BorderColor="#E0E0E0"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px"></asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox></td>
             </tr>
             <tr>
                 <td style="width: 180px; height: 22px">
                     &nbsp;表现 <asp:TextBox ID="Tsattitude" runat="server" BackColor="White" BorderColor="Gainsboro"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px"   ReadOnly="True" ToolTip="表现不可修改！">0</asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px"   ReadOnly="True" ToolTip="表现不可修改！" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">0</asp:TextBox></td>
                 <td style="width: 180px; height: 22px">
                     &nbsp;成绩
                     <asp:TextBox ID="Tsscore" runat="server" BackColor="White" BorderColor="Gainsboro"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px" ReadOnly="True" ToolTip="成绩不可修改！">0</asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" ReadOnly="True" ToolTip="成绩不可修改！" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">0</asp:TextBox></td>
                 <td style="width: 180px; height: 22px">
                     &nbsp;电话 <asp:TextBox ID="Tsphone" runat="server" BackColor="Cornsilk" BorderColor="#E0E0E0"
-                        BorderStyle="Solid" BorderWidth="1px" Width="110px"></asp:TextBox></td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="110px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox></td>
             </tr>
             <tr>
                 <td style="height: 22px" colspan="3">
                     &nbsp;地址 
                     <asp:TextBox ID="Tsaddress" runat="server" BackColor="Cornsilk" BorderColor="#E0E0E0"
-                        BorderStyle="Solid" BorderWidth="1px" Width="508px"></asp:TextBox>&nbsp;</td>
+                        BorderStyle="Solid" BorderWidth="1px" Width="508px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>&nbsp;</td>
             </tr>
         </table>       			
 </div>
     <asp:Label ID="Labelmsg" runat="server"></asp:Label>
     <br />
-    <asp:Button ID="Btnadd" runat="server"  OnClick="Btnadd_Click" Text="添加" SkinID="BtnNormal" />
+    <asp:Button ID="Btnadd" runat="server"  OnClick="Btnadd_Click" Text="添加" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
     </div> 
     </form>

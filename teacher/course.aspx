@@ -18,7 +18,7 @@
         </asp:DropDownList>
             &nbsp;
                     <asp:Label ID="Labelspace" runat="server" Width="120px" Height="16px"></asp:Label>
-                    <asp:Button ID="Btnadd" runat="server"  Text="添加学案"  onclick="Btnadd_Click" SkinID="BtnNormal" />                    
+                    <asp:Button ID="Btnadd" runat="server"  Text="添加学案"  onclick="Btnadd_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     </div>
                     <div >
                     <div class="centerdiv">
@@ -58,7 +58,7 @@
                                     Text="分析" HeaderText="作品" />
                                 <asp:TemplateField HeaderText="探讨">
                                     <ItemTemplate>                                    
-                                        <asp:HyperLink ID="Hl" runat="server" Text="反思" ForeColor="Blue"></asp:HyperLink>
+                                        <asp:HyperLink ID="Hl" runat="server" Text="反思" ForeColor="Blue" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                                     </ItemTemplate>
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="推荐" ShowHeader="False">
@@ -119,10 +119,10 @@
                     </div>
                     <div style="height: 10px" ></div>
                     <div style="text-align: right; ">
-                    <asp:Button ID="Btnimport"  runat="server"  Text="导入学案"  onclick="Btnimport_Click" SkinID="BtnNormal" />                    
+                    <asp:Button ID="Btnimport"  runat="server"  Text="导入学案"  onclick="Btnimport_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Btnold"  runat="server"  Text="学案仓库"  onclick="Btnold_Click" 
-                            SkinID="BtnNormal" />                    
+                            SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
                     &nbsp;                    
                     &nbsp;                    
         <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />

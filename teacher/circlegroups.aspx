@@ -3,6 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>小组作品展示</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body style="margin: 0 auto;">
     <form id="form1" runat="server">
@@ -57,7 +59,7 @@
         <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
             onclick="ImgBtnLeft_Click" Width="16px" />
             &nbsp;<asp:Button ID="BtnCicle" runat="server" onclick="BtnCicle_Click" 
-            SkinID="BtnSmall" Text="播放" />
+            SkinID="BtnSmall" Text="播放"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             &nbsp;<asp:ImageButton ID="ImgBtnright" runat="server" 
             ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
 

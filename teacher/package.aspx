@@ -22,16 +22,16 @@
                 <br />
                 <br />
                 <asp:Button ID="Btndown" runat="server" onclick="Btndown_Click" 
-                    SkinID="BtnSmall" Text="这里下载" ToolTip="点击下载" />
+                    SkinID="BtnSmall" Text="这里下载" ToolTip="点击下载"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <br />
                 <br />            
             </asp:Panel>
             </div>
             <br />
-                <asp:Button ID="BtnZip" runat="server"  Text="打包" onclick="BtnZip_Click"  ToolTip="点击开始学案打包" SkinID="BtnNormal" />
+                <asp:Button ID="BtnZip" runat="server"  Text="打包" onclick="BtnZip_Click"  ToolTip="点击开始学案打包" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Btnreturn" runat="server"  Text="返回" onclick="Btnreturn_Click"  SkinID="BtnNormal" />
+                <asp:Button ID="Btnreturn" runat="server"  Text="返回" onclick="Btnreturn_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
             <br />
         <asp:Label ID="Labelmsg" runat="server"   SkinID="LabelMsgRed"></asp:Label>

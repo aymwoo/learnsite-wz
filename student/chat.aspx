@@ -11,6 +11,8 @@
 <script type="text/javascript" src="../code/imgchat/fcup.min.js"></script>
 <script type="text/javascript" src="../code/imgchat/jquery.lineProgressbar.js"></script>
     <link rel="stylesheet" type="text/css" href="../code/imgchat/jquery.lineProgressbar.css" />
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>	
     <div class="imgBox" ></div>	
@@ -82,7 +84,7 @@
                             <li style="left: 4px; ">
 								<div id="progress"></div>
 							</li>
-                            <li style="right: 30px;"><button></button> </li>
+                            <li style="right: 30px;"><button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"></button> </li>
                         </ul>
                     </div>
 								<audio id="audio" hidden="true" ></audio>

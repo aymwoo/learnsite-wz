@@ -31,7 +31,7 @@
                     <asp:Button ID="Btndivide" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                         Font-Size="9pt" Text="重新分班" Width="80px" 
-            onclick="Btndivide_Click" />
+            onclick="Btndivide_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
        
     <br />
     <asp:Label ID="Labelmsg" runat="server"></asp:Label>

@@ -6,6 +6,8 @@
     <title>人工智能 - 文字识别技术</title>
     <link rel="stylesheet" href="deepseek.css">
 	
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">		
@@ -30,8 +32,8 @@
 			<div class="input-container">
 				<div class="other">
 					<input type="file" name="file" id="userfile" accept="image/*" hidden>
-					<button id="uploadbtn" >上传图片</button>
-					<button id="btnmsg" onclick="sendText()" title="文字识别">文字识别</button>
+					<button id="uploadbtn"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">上传图片</button>
+					<button id="btnmsg" onclick="sendText()" title="文字识别" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">文字识别</button>
 				</div>
 				
 			</div>

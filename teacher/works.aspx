@@ -19,7 +19,7 @@
             }
         </script>
                     <asp:Button ID="Btnterm" runat="server" Text="学期总评"  SkinID="BtnNormal" 
-                onclick="Btnterm_Click" ToolTip="跳转到学期总评页面" />
+                onclick="Btnterm_Click" ToolTip="跳转到学期总评页面"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         </div>
         <div>
         <div class="centerdiv">
@@ -46,7 +46,7 @@
                     </asp:BoundField>
                     <asp:TemplateField HeaderText="未评数">
                         <ItemTemplate>
-                            <asp:HyperLink ID="HlNoCheck" runat="server" ></asp:HyperLink>
+                            <asp:HyperLink ID="HlNoCheck" runat="server"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                         </ItemTemplate>
                         <ItemStyle Font-Bold="True" Width="60px" />
                     </asp:TemplateField>

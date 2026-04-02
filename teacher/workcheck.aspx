@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>作品展示</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -45,20 +47,20 @@
           <asp:ImageButton ID="BtnCheck" runat="server" onclick="BtnCheck_Click" 
               ImageUrl="~/images/check.png" ToolTip="将本班自动得分作品全部设置为已评" />
           &nbsp;<asp:Button ID="BtnA" runat="server"  Text="一键评A"  SkinID="BtnSmall" 
-              onclick="BtnA_Click" ToolTip="将本班该活动未评的作品，全部评为A"  />
+              onclick="BtnA_Click" ToolTip="将本班该活动未评的作品，全部评为A"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
           &nbsp;
     <asp:Button ID="BtnB" runat="server"  Text="一键评B"  SkinID="BtnSmall" 
-              onclick="BtnB_Click" ToolTip="将本班该活动未评的作品，全部评为B"  />  
+              onclick="BtnB_Click" ToolTip="将本班该活动未评的作品，全部评为B"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />  
          &nbsp;
     <asp:Button ID="BtnCk" runat="server"  Text="一键已评"  SkinID="BtnSmall" 
-              onclick="BtnCk_Click" ToolTip="不用给分的作品，一健全评为０"  /> 
+              onclick="BtnCk_Click" ToolTip="不用给分的作品，一健全评为０"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /> 
          &nbsp;
     <asp:Button ID="BtnWp" runat="server"  Text="一键未评"  SkinID="BtnSmall" 
-              onclick="BtnWp_Click" ToolTip="所有作品一键未评"  />   
+              onclick="BtnWp_Click" ToolTip="所有作品一键未评"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />   
           &nbsp;<asp:HyperLink ID="HLautoplay" runat="server"  Target="_blank" 
-              ToolTip="个人作品自动展播" >[HLautoplay]</asp:HyperLink>                        
+              ToolTip="个人作品自动展播"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HLautoplay]</asp:HyperLink>                        
           &nbsp;<asp:HyperLink ID="HLgroupplay" runat="server"  Target="_blank" 
-              ToolTip="小组作品自动展播" >[HLgroupplay]</asp:HyperLink>                        
+              ToolTip="小组作品自动展播"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HLgroupplay]</asp:HyperLink>                        
           <br />
           <br />
       <asp:Image ID="ImageType" runat="server" />
@@ -101,7 +103,7 @@
                             <asp:Label ID="Wv" runat="server" Text='<%# Eval("Wvote") %>' ToolTip="票数" ></asp:Label>&nbsp;
                             <asp:Label ID="Wf" runat="server" Text='<%# Eval("Wfscore") %>' ToolTip="互评" ></asp:Label>&nbsp;
                             <asp:Label ID="Wl" runat="server" Text='<%# Eval("Wlscore") %>' ToolTip="组评" ForeColor="#0066FF"></asp:Label>
-                            <asp:HyperLink ID="Hlflash" runat="server" Height="12px" Target="_blank" ImageUrl="~/images/flashview.png" ToolTip="Flash格式预览" Visible="False"></asp:HyperLink>
+                            <asp:HyperLink ID="Hlflash" runat="server" Height="12px" Target="_blank" ImageUrl="~/images/flashview.png" ToolTip="Flash格式预览" Visible="False" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                             </div>
                             <div >
                                 <asp:LinkButton ID="LG" runat="server"
@@ -182,7 +184,7 @@
         ImageUrl="~/images/refresh.gif"   onclick="Btnreflash_Click" />
     <br />
     <br />
-    <asp:Button ID="Btnreturn" runat="server"  Text="关闭"  SkinID="BtnSmall"  />
+    <asp:Button ID="Btnreturn" runat="server"  Text="关闭"  SkinID="BtnSmall"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
     <script type ="text/javascript" >
         function myrefresh() {

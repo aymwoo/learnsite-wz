@@ -16,22 +16,22 @@
             AutoPostBack="True" onselectedindexchanged="DDLCid_SelectedIndexChanged">
         </asp:DropDownList>
         &nbsp; <asp:Button ID="Btnset" runat="server" Text="开始上课"  SkinID="BtnNormal"
-            onclick="Btnset_Click" ToolTip="设置上课班级登录密码" BackColor="#9BCBFF"  />
+            onclick="Btnset_Click" ToolTip="设置上课班级登录密码" BackColor="#9BCBFF"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
             &nbsp;&nbsp; <asp:Button ID="Btnstudent" runat="server" Text="模拟学生"  
             SkinID="BtnNormal" ToolTip="模拟本班级学生角色登录学生平台" 
-            onclick="Btnstudent_Click" Enabled="False" BackColor="#9BCBFF" />
+            onclick="Btnstudent_Click" Enabled="False" BackColor="#9BCBFF"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     &nbsp;&nbsp;
                     <asp:TextBox ID="TBpwd" runat="server"  ReadOnly="True" Width="60px" 
-             SkinID="TextBoxNum"  BackColor="#E1FCE0" Height="20px" ></asp:TextBox>
+             SkinID="TextBoxNum"  BackColor="#E1FCE0" Height="20px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         &nbsp;&nbsp;<asp:HyperLink ID="HLrate" runat="server" BorderStyle="None" 
-            CssClass="textcenter20" Font-Underline="False" Target="_blank" 
+            CssClass="textcenter20 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Font-Underline="False" Target="_blank" 
             Height="20px">学习进度</asp:HyperLink>
         &nbsp;&nbsp;<asp:HyperLink ID="HLworkshow" runat="server" BorderStyle="None" 
-            CssClass="textcenter20" Font-Underline="False" Target="_blank" 
+            CssClass="textcenter20 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Font-Underline="False" Target="_blank" 
             Height="20px">作品展示</asp:HyperLink>
                     &nbsp;
                     &nbsp;<asp:HyperLink ID="HLtotal" runat="server" BorderStyle="None" 
-            CssClass="textcenter20" Font-Underline="False" Target="_blank" 
+            CssClass="textcenter20 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Font-Underline="False" Target="_blank" 
             Height="20px">学习汇总</asp:HyperLink>
     </div>     
     <div  class="startdiv">
@@ -81,7 +81,7 @@
                             </div> 
                             <div><asp:Label ID="LabelQmachine" runat="server"  Text='<%# Eval("QmachineShort") %>'  Font-Size="8pt"  Visible="false" ></asp:Label>
                             </div>                            
-                            <div><asp:HyperLink ID="Groupflag" runat="server" >g</asp:HyperLink>
+                            <div><asp:HyperLink ID="Groupflag" runat="server"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">g</asp:HyperLink>
                             <asp:Label ID="Labelcolor" runat="server" Text='<%# Eval("Qgscore") %>' ToolTip='<%# "组评语："+Eval("Qgroup") %>'   CssClass="groupscore"></asp:Label>
                             <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="单击执行：让该学生重新登录！" CssClass="lockbtn"></asp:LinkButton>
                             <div>                            
@@ -161,7 +161,7 @@
         <asp:DropDownList ID="DDLhouse" runat="server" Font-Size="9pt" Width="100px" 
             AutoPostBack="True" onselectedindexchanged="DDLhouse_SelectedIndexChanged">
         </asp:DropDownList>
-        <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank" >座位表</asp:HyperLink>
+        <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">座位表</asp:HyperLink>
         &nbsp;
         &nbsp;&nbsp; <asp:ImageButton ID="Btnrefresh" runat="server" onclick="Btnrefresh_Click" Enabled="False"
             ImageUrl="~/images/refresh.gif" />
@@ -175,9 +175,9 @@
             ToolTip="提示：选中表示小组网盘启用（前提为前面的网盘开关启用），未选表示小组网盘禁用！" />
         &nbsp;&nbsp; <asp:HyperLink ID="HylkDiskstu" runat="server" 
             ImageUrl="~/images/disksmallstu.gif" Target="_blank" 
-            ToolTip="查看学生网盘存档情况"></asp:HyperLink>
+            ToolTip="查看学生网盘存档情况" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
         &nbsp;&nbsp; <asp:HyperLink ID="HylkDiskGroup" runat="server" 
-            ImageUrl="~/images/disksmall.gif" Target="_blank" ToolTip="查看小组网盘存档情况"></asp:HyperLink>
+            ImageUrl="~/images/disksmall.gif" Target="_blank" ToolTip="查看小组网盘存档情况" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
         <br />     
         <div  class="startdiv">
         <div style="margin:auto; text-align:left; position: relative;">           
@@ -217,7 +217,7 @@
         <div class="startdiv">
          <br />
         <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线"  SkinID="BtnSmall"
-            onclick="BtnaAllQuit_Click" Visible="False" EnableViewState="False" />
+            onclick="BtnaAllQuit_Click" Visible="False" EnableViewState="False"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <asp:Label ID="LabelToday" runat="server" Font-Size="9pt" 
             ToolTip="*服务器日期校准：作品、签到日期以此为准*" Font-Bold="False"  ></asp:Label>

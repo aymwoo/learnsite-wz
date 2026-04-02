@@ -10,7 +10,7 @@
         <asp:FileUpload ID="PhotoFileUpload" runat="server" Font-Size="9pt" 
             Width="200px" />
         &nbsp;<asp:Button ID="Btnphoto" runat="server" Enabled="False" Height="20px" 
-            onclick="Btnphoto_Click" SkinID="buttonSkin" Text="相片提交" Width="80px" />
+            onclick="Btnphoto_Click" SkinID="buttonSkin" Text="相片提交" Width="80px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />
         <asp:Label ID="Labelstr" runat="server" SkinID="LabelMsgRed"></asp:Label>

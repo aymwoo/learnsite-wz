@@ -9,6 +9,8 @@
     <!-- 引入KindEditor富文本编辑器 -->
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- 移除了表单标签，避免按钮点击导致表单提交 -->
@@ -18,8 +20,8 @@
                 <sp class="banner">
                     <img src="../images/weblogo.png" /> <asp:Label ID="Labelname" runat="server" ></asp:Label> 在线网站设计
                 </sp> 
-                <button class="btn return-button"  onclick="returnurl();" >返回</button>
-                <button class="btn save-button" onclick="savework();" >保存</button>
+                <button class="btn return-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="returnurl();" >返回</button>
+                <button class="btn save-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="savework();" >保存</button>
             </div>
         </div>
         <hr class ="hrclass"/>
@@ -28,7 +30,7 @@
             <div class="sidebar">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 class="root-title" onclick="goToRoot()">📁 网页目录</h3>                    
-                    <button type="button" class="btn btn-success" onclick="showCreateFolderModal()" style="display:none">新建目录</button>
+                    <button type="button" class="btn btn-success px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="showCreateFolderModal()" style="display:none">新建目录</button>
                 </div>
 
                 <div class="folder-tree" id="folderTree">
@@ -41,7 +43,7 @@
                     <i class="file-icon" style="font-size: 48px; color: #007bff;">📄</i>
                     <h3>拖放文件到此处上传</h3>
                     <input type="file" id="fileInput" multiple style="display: none;">                    
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click()">选择文件</button>
+                    <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="document.getElementById('fileInput').click()">选择文件</button>
                     <p style="font-size: 13px; ">支持图片、文档、音频、视频文件</p>
                         <!-- 新增：上传进度条 -->
                     <div id="uploadProgressContainer" style="display: none; width: 100%; margin-top: 15px;">
@@ -64,7 +66,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
                     <h3 id="currentFolderTitle" contenteditable="true" onblur="renameFolderOnBlur(this)" ></h3>
                     <div>                      
-                    <button type="button" class="btn btn-primary" onclick="showCreateDocModal()">新建网页</button>  
+                    <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="showCreateDocModal()">新建网页</button>  
                     </div>
                 </div>
                 
@@ -84,14 +86,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>新建文件夹</h3>
-                <button type="button" class="modal-close" onclick="closeCreateFolderModal()">&times;</button>
+                <button type="button" class="modal-close px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateFolderModal()">&times;</button>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="newFolderName" placeholder="请输入文件夹名称">
+                <input type="text" class="form-control px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" id="newFolderName" placeholder="请输入文件夹名称">
             </div>
             <div style="text-align: right;">
-                <button type="button" class="btn" onclick="closeCreateFolderModal()" style="margin-right: 10px;">取消</button>
-                <button type="button" class="btn btn-primary" onclick="createFolder()">创建</button>
+                <button type="button" class="btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateFolderModal()" style="margin-right: 10px;">取消</button>
+                <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="createFolder()">创建</button>
             </div>
         </div>
     </div>
@@ -101,10 +103,10 @@
         <div class="modal-content" style="width: 600px; height: 200px; ">
             <div class="modal-header">
                 <h3>新建网页</h3>
-                <button type="button" class="modal-close" onclick="closeCreateDocModal()">&times;</button>
+                <button type="button" class="modal-close px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateDocModal()">&times;</button>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="docTitle" placeholder="请输入网页文件名">
+                <input type="text" class="form-control px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" id="docTitle" placeholder="请输入网页文件名">
                 <label class="docname">示例：
                     <span class="spname" title="首页">index</span>
                     <span class="spname" title="图片">photo</span>
@@ -114,8 +116,8 @@
                 </label>
             </div>
             <div style="text-align: right;">
-                <button type="button" class="btn" onclick="closeCreateDocModal()" style="margin-right: 10px;">取消</button>
-                <button type="button" class="btn btn-primary" onclick="saveDocument()">创建网页</button>
+                <button type="button" class="btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateDocModal()" style="margin-right: 10px;">取消</button>
+                <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="saveDocument()">创建网页</button>
             </div>
         </div>
     </div>
@@ -443,8 +445,8 @@ document.addEventListener('keydown', function(e) {
                                 </div>
                             </div>
                             <div class="file-actions">
-                                ${isHtml ? `<button type="button" class="btn-info" onclick="editDocument('${fileUrl}', event)">✍设计网页</button>` : `<button type="button" class="btn-info" onclick="copyFileLink('${filecopy}', event)">❐复制链接</button>`}
-                                <button type="button" class="btn-danger" onclick="deleteFile('${filedel}')" title="删除">✖</button>
+                                ${isHtml ? `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="editDocument('${fileUrl}', event)">✍设计网页</button>` : `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="copyFileLink('${filecopy}', event)">❐复制链接</button>`}
+                                <button type="button" class="btn-danger px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteFile('${filedel}')" title="删除">✖</button>
                             </div>
                         </div>`;
                     

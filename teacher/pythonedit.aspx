@@ -4,14 +4,14 @@
 <div  class="cplace">
     <div  class="cleft">
         Python主题：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="200px" ></asp:TextBox>
+            Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="发布"  Checked="True" />
         <asp:CheckBox ID="CheckBack" runat="server" Text="分步" ToolTip="命令行和编辑器模式切换"  />
         <asp:CheckBox ID="Checkhelp" runat="server" Text="绘图" ToolTip="编程与绘图帮助切换、显示与隐藏效果图"  />
         <asp:CheckBox ID="Checkblock" runat="server" Text="拼图" ToolTip="拼图编程模式"  />
         <asp:CheckBox ID="Checkblockpy" runat="server" Text="积木" ToolTip="积木编程模式（优先）"  />
         &nbsp;<img src="../images/python.png" style="width: 18px; height: 18px" />
-        <asp:HyperLink ID="HlExample" runat="server" Target="_blank">练习</asp:HyperLink>
+        <asp:HyperLink ID="HlExample" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">练习</asp:HyperLink>
         <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
         </div>
     <asp:Label ID="LabelLtype" runat="server"  Text="8" Visible="false"></asp:Label>
@@ -48,8 +48,8 @@
         </asp:DropDownList>
                <br />
          <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal" /><br />
+              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
+              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
          <br />
          </div>
            

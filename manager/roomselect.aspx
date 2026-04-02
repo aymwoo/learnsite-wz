@@ -29,7 +29,7 @@
                             <asp:HyperLink ID="Rgradeclass" runat="server" Font-Size="9pt" Font-Underline="False"
                                 Height="16px"  BackColor="WhiteSmoke" 
                                 Width="40px" BorderColor="#E4E4E4" BorderWidth="1px"  ForeColor="Black" BorderStyle="Solid" 
-                                Font-Names="Arial" Font-Bold="False" ></asp:HyperLink>
+                                Font-Names="Arial" Font-Bold="False"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                              <br /> 
                             <asp:CheckBox ID="CheckRoom" runat="server"/>
                             <br />
@@ -60,12 +60,12 @@
 <br />
                     <asp:Button ID="Btnselect" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
-                Font-Size="9pt" Text="确定" Width="70px" Height="20px" onclick="Btnselect_Click" />
+                Font-Size="9pt" Text="确定" Width="70px" Height="20px" onclick="Btnselect_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Btnreturn" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="9pt" Text="返回" Width="70px" Height="20px" 
-            onclick="Btnreturn_Click" />
+            onclick="Btnreturn_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
 </div>
 

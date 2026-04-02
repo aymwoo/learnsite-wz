@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python绘图编程</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -43,7 +45,7 @@
 <div id="codexample">
 	<div id="codeplace"></div>
 	<div id="codebutton">
-	<button class="btncode" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode"  id="next">下一页</button>
+	<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  id="next">下一页</button>
 	</div>
 </div>
 

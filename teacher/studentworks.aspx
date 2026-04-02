@@ -9,6 +9,8 @@
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../js/flot/excanvas.min.js" type="text/javascript"></script> 
     <script src="../js/flot/jquery.flot.min.js" type="text/javascript"></script>    
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,7 +48,7 @@
             </asp:TemplateField>            
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:HyperLink ID="HyperLinkView" runat="server" NavigateUrl="" Text="预览" Target="_blank"></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLinkView" runat="server" NavigateUrl="" Text="预览" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="日期">
@@ -65,7 +67,7 @@
     </div>
      <asp:Button ID="Btnclose" runat="server"   Text="关闭" BackColor="WhiteSmoke" 
             BorderColor="#CCCCCC" BorderStyle="None" Font-Size="9pt" Height="20px" 
-            Width="60px" />
+            Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
     </div>
     </form>

@@ -35,7 +35,7 @@
         &nbsp;<br />
         <br />
                     <br />
-                    <asp:Button ID="Btnlogout" runat="server" Text="系统退出"  SkinID="BtnNormal" onclick="Btnlogout_Click" />
+                    <asp:Button ID="Btnlogout" runat="server" Text="系统退出"  SkinID="BtnNormal" onclick="Btnlogout_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     <br />
         <br />
         <br />

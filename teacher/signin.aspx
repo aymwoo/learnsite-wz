@@ -15,11 +15,11 @@
             班级&nbsp;
             <asp:Button ID="BtnExcel" runat="server"  OnClick="BtnExcel_Click" 
                 Text="导出签到Excel"  SkinID="BtnLong" ToolTip="将本学期本班签到以Excel表格导出" 
-                Width="120px" />
+                Width="120px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     &nbsp;&nbsp;
             <asp:Button ID="BtnExcelNoSign" runat="server"  OnClick="BtnExcelNoSign_Click" 
                 Text="导出缺席Excel"  SkinID="BtnLong" ToolTip="将本学期本班缺席以Excel表格导出" 
-                Width="120px" />
+                Width="120px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     </div>
                     <div>
                     <div class="centerdiv">

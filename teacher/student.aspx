@@ -13,7 +13,7 @@
         </asp:DropDownList>
             班级
             <asp:Label ID="Label1" runat="server" Width="360px" Height="16px"></asp:Label>
-            <asp:HyperLink ID="HkaddStu" runat="server" SkinID="HyperLinkBtn">添加学生</asp:HyperLink>
+            <asp:HyperLink ID="HkaddStu" runat="server" SkinID="HyperLinkBtn" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">添加学生</asp:HyperLink>
                 &nbsp;
                     </div>
                     <div class="centerdiv">
@@ -111,12 +111,12 @@
                     <br />
             <asp:Button ID="BtnSpwdInit" runat="server"  OnClick="BtnSpwdInit_Click" 
             Text="初始化密码"  SkinID="BtnNormal" ToolTip="将本班所有学生的密码初始为12345(或右侧自定义密码)" 
-            Width="90px" />&nbsp;将学生密码设置为<asp:TextBox 
+            Width="90px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;将学生密码设置为<asp:TextBox 
             ID="TextBoxPwd" runat="server" SkinID="TextBoxNum" 
-            BackColor="#FFFFCC" Width="80px">12345</asp:TextBox>
+            BackColor="#FFFFCC" Width="80px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">12345</asp:TextBox>
             &nbsp;<asp:Button ID="BtnSpell" runat="server"  OnClick="BtnSpell_Click" 
             Text="转拼音缩写"  SkinID="BtnNormal" ToolTip="将当前为原初始化密码的学生密码转换为其姓名拼音缩写" 
-            Width="90px" />
+            Width="90px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;小组上限：<asp:DropDownList ID="DDLgroupMax" runat="server" 
             Width="40px" EnableTheming="True" AutoPostBack="True" 
                 onselectedindexchanged="DDLgroupMax_SelectedIndexChanged">
@@ -133,17 +133,17 @@
         </asp:DropDownList>
             &nbsp;<asp:Button ID="BtnNoGroup" runat="server"  OnClick="BtnNoGroup_Click" 
             Text="解除分组"  SkinID="BtnNormal" ToolTip="一键将本班所有学生解除分组" 
-             />
+              CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
                     <asp:Button ID="Btngroups" runat="server" SkinID="BtnNormal" 
-                Text="分组管理"  onclick="Btngroups_Click" />
+                Text="分组管理"  onclick="Btngroups_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
             <asp:Button ID="BtnExcel" runat="server"  OnClick="BtnExcel_Click" 
             Text="导出学生"  SkinID="BtnNormal" ToolTip="将所有学生的基本信息导出Excel" 
-             />
+              CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;
                     <asp:Button ID="BtnRevive" runat="server" SkinID="BtnNormal"
-                Text="恢复学生"  onclick="BtnRevive_Click" />
+                Text="恢复学生"  onclick="BtnRevive_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />
         <div style="margin: auto; width: 920px; background-color: #DDDDDD; text-align: center;">

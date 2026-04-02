@@ -4,6 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -11,7 +13,7 @@
     <div style="width: 780px; font-size: 11pt;text-align: left; margin:auto;">
         &nbsp;学案名称：<asp:TextBox 
             ID="Texttitle" runat="server" BorderStyle="Solid" Width="360px" Font-Size="9pt" 
-            ReadOnly="True" BackColor="#FFFFE6" BorderWidth="1px" BorderColor="#E0E0E0"></asp:TextBox>
+            ReadOnly="True" BackColor="#FFFFE6" BorderWidth="1px" BorderColor="#E0E0E0" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         </div>
     <div style="width: 780px; border-right: gainsboro 1px solid; border-top: gainsboro 1px solid; font-size: 11pt; border-bottom-width: 1px; border-bottom-color: gainsboro; border-left: gainsboro 1px solid; text-align: left; margin:auto;">
            <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
@@ -41,7 +43,7 @@
          <br />
               <asp:Button ID="Btnadd" runat="server" Font-Size="9pt" Height="20px" Text="添加"
                 Width="89px" OnClick="Btnadd_Click" BackColor="WhiteSmoke" 
-                   BorderColor="Gainsboro" BorderStyle="Solid" BorderWidth="1px"  />
+                   BorderColor="Gainsboro" BorderStyle="Solid" BorderWidth="1px"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
          </div>           
         </div>
     </form>

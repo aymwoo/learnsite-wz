@@ -36,10 +36,10 @@
                  ToolTip="少于80个汉字，超过自动裁剪。" />
         教师评语：<asp:TextBox ID="TextBoxWself" runat="server" Width="200px" 
                 BorderColor="Silver" BorderStyle="Dashed" BorderWidth="1px" 
-                 BackColor="#FFF9E1"></asp:TextBox> 
+                 BackColor="#FFF9E1" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox> 
         &nbsp;<asp:Image ID="Image2" runat="server" ImageUrl="~/images/token.png" />
              加分：<asp:TextBox ID="TextBoxWdsocre" runat="server" MaxLength="2" Width="40px" 
-                 BackColor="#FDF5E3" SkinID="TextBoxNum">0</asp:TextBox>
+                 BackColor="#FDF5E3" SkinID="TextBoxNum" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">0</asp:TextBox>
         <asp:RadioButtonList ID="RBLselect" runat="server"   RepeatDirection="Horizontal" Visible="True" 
             Font-Size="16pt" AutoPostBack="True" 
                  onselectedindexchanged="RBLselect_SelectedIndexChanged" RepeatLayout="Flow" 
@@ -67,12 +67,12 @@
         
         <br />
         <asp:HyperLink ID="Hlcode" runat="server" Font-Size="11pt" Target="_blank" 
-            Visible="False" CssClass="HyperlinkNormal" >查看脚本</asp:HyperLink> 
+            Visible="False" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" >查看脚本</asp:HyperLink> 
         </div>
         </center>
         <br />
     <asp:Button ID="Btnback" runat="server" BorderWidth="1px" Height="20px" Text="返回" 
-                Width="60px" OnClick="Btnback_Click" SkinID="BtnSmall" />
+                Width="60px" OnClick="Btnback_Click" SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
     </div>
 </asp:Content>

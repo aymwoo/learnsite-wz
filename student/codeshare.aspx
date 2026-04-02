@@ -6,6 +6,8 @@
     <style type="text/css">
         body{margin: 0;text-align: center;}
     </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
 <div style="text-align: center;">

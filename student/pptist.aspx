@@ -49,7 +49,9 @@
         display: none;
       }
     </style>
-  </head>
+  
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
   <body>
       <div id="pptId" class="hide"><%=Id %></div>
       <div id="pptUrl" class="hide"><%=Ppturl %></div>

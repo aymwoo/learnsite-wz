@@ -18,6 +18,8 @@
       font-size: 140%;
     }
   </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
   <h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt;
@@ -39,7 +41,7 @@
     <block type="text_print"></block>
   </xml>
   <textarea id="yourcode" cols="40" rows="10"></textarea>
-<button onclick="TogetherJS(this); return false;">Start TogetherJS</button>
+<button onclick="TogetherJS(this); return false;" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">Start TogetherJS</button>
 
   <script>
     var demoWorkspace = Blockly.inject('blocklyDiv',

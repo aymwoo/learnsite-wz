@@ -8,6 +8,8 @@
     <link href="../js/tooltip.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
 
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body class="ground">
     <form id="form1" runat="server">
@@ -36,8 +38,8 @@
                                 </asp:DropDownList>
                                 &nbsp;
                                 <asp:Button ID="BtnSearch" runat="server" OnClick="BtnSearch_Click" Text="查询" BorderStyle="None"
-                                    CssClass="buttonimg" Font-Size="Larger" Height="28px" />
-                                &nbsp;密码：<asp:TextBox ID="TextBoxPwd" runat="server" ReadOnly="True" CssClass="textboxcenter"
+                                    CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" Font-Size="Larger" Height="28px" />
+                                &nbsp;密码：<asp:TextBox ID="TextBoxPwd" runat="server" ReadOnly="True" CssClass="textboxcenter px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
                                     Width="80px" BorderColor="#999999" BorderStyle="Dashed" BorderWidth="1px" 
                                     onClick="copy()" Font-Bold="True" Font-Size="X-Large" ForeColor="#FF6666">123</asp:TextBox>
                             </div>

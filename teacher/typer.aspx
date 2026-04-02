@@ -4,9 +4,9 @@
     <div   class="placehold">        
         <div  class="cheadright">
               <asp:Button ID="BtnTypeSet" runat="server"  Text="打字设置"  
-                  onclick="BtnTypeSet_Click" SkinID="BtnNormal" />
+                  onclick="BtnTypeSet_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         &nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnAdd" runat="server"  Text="文章添加"  onclick="BtnAdd_Click" SkinID="BtnNormal" />
+              <asp:Button ID="BtnAdd" runat="server"  Text="文章添加"  onclick="BtnAdd_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         </div>
             <div  class="softdiv">
                 <asp:GridView ID="GVType" runat="server" AllowPaging="True" 
@@ -66,19 +66,19 @@
                     <asp:ListItem>500</asp:ListItem>
                 </asp:DropDownList>
                 以上速度<asp:Button ID="ButtonClearThis" runat="server"  Text="清除"   SkinID="BtnSmall" 
-                    onclick="ButtonClearThis_Click" ToolTip="清除超过指定速度的中文打字成绩" />
+                    onclick="ButtonClearThis_Click" ToolTip="清除超过指定速度的中文打字成绩"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <asp:Button ID="ButtonClearType" runat="server"  Text="清除中文打字成绩"   SkinID="BtnLong" 
-                    onclick="ButtonClearType_Click" Width="140px" />
+                    onclick="ButtonClearType_Click" Width="140px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;
               <asp:Button ID="ButtonClearFinger" runat="server"  Text="清除指法打字成绩"   SkinID="BtnLong" 
-                    onclick="ButtonClearFinger_Click" Width="140px" />
+                    onclick="ButtonClearFinger_Click" Width="140px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 &nbsp;&nbsp;&nbsp;
                 <asp:HyperLink ID="HLprint" runat="server" 
-                    NavigateUrl="~/teacher/printtyper.aspx" Target="_blank" Height="18px">排行榜打印</asp:HyperLink>
+                    NavigateUrl="~/teacher/printtyper.aspx" Target="_blank" Height="18px" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">排行榜打印</asp:HyperLink>
                 &nbsp;&nbsp;
                 <asp:HyperLink ID="HLfinger" runat="server" 
-                    NavigateUrl="~/en.aspx" Target="_blank" Height="18px">指法英文字典</asp:HyperLink>
+                    NavigateUrl="~/en.aspx" Target="_blank" Height="18px" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">指法英文字典</asp:HyperLink>
                 <br />
                 <br />
         </div>

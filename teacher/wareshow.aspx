@@ -13,7 +13,7 @@
             &nbsp;<asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" 
             Enabled="False" /> 
              &nbsp;&nbsp; 
-            <asp:HyperLink ID="HyperLinkHtml" runat="server" Target="_blank">课件首页</asp:HyperLink>    
+            <asp:HyperLink ID="HyperLinkHtml" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">课件首页</asp:HyperLink>    
             &nbsp;&nbsp; 
             <asp:ImageButton ID="BtnEdit" runat="server" ToolTip="点击修改" 
             ImageUrl="~/images/edit.gif" onclick="BtnEdit_Click" 

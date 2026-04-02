@@ -17,7 +17,7 @@
                     <asp:Button ID="Btnbackup" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="9pt" Text="备份优秀作品" Width="100px" Height="20px" 
-                onclick="Btnbackup_Click" />
+                onclick="Btnbackup_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />
         <br />

@@ -16,9 +16,9 @@
         <div class="floating-buttons">
             <img id="submitImg" src="../images/passed.png" alt="提交状态" style="display: none;" />
             <span  id="submitScore" class="score-submit" style="display: none;"> 💰 <%=Score %>分</span>
-            <asp:HyperLink ID="HyperLinkAnalysis"  class="score-analysis" runat="server" Target="_blank">查看统计</asp:HyperLink>
+            <asp:HyperLink ID="HyperLinkAnalysis"  class="score-analysis" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">查看统计</asp:HyperLink>
 
-            <button type="button"  class="floating-btn btn-submit" id="submitBtn" title="提交试卷">
+            <button type="button"  class="floating-btn btn-submit px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="submitBtn" title="提交试卷">
                 <span class="btn-icon">✔</span>
                 <span class="btn-text">提交</span>
             </button>

@@ -2,3 +2,10 @@ CompileTest/
 perftest/
 Tests/**/bin/
 Tests/**/obj/
+node_modules/
+obj/
+TestResults/
+test-results/
+playwright-report/
+package-lock.json
+log/

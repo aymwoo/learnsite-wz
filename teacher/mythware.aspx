@@ -53,15 +53,15 @@
          <br />
          <br />
          <asp:HyperLink ID="Hlkroom" runat="server" ImageUrl="~/images/zoom.gif" 
-             NavigateUrl="~/teacher/myseat.aspx" Target="_blank" ToolTip="机房视图预览">HyperLink</asp:HyperLink>
+             NavigateUrl="~/teacher/myseat.aspx" Target="_blank" ToolTip="机房视图预览" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">HyperLink</asp:HyperLink>
          电脑室名称：<asp:TextBox ID="TextBoxRoom" runat="server" 
-             Width="60px"></asp:TextBox>
+             Width="60px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
          <br />
          <br />
          <br />
          <br />
         <asp:Button ID="BtnBuild" runat="server" onclick="BtnBuild_Click" 
-            SkinID="BtnLong" Text="生成任教班级模型" />
+            SkinID="BtnLong" Text="生成任教班级模型"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
          <br />
          <br />
          <asp:Label ID="Labelmsg" runat="server" SkinID="LabelMsgRed" Width="98%"></asp:Label>

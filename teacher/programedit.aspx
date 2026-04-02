@@ -4,10 +4,10 @@
 <div  class="cplace">
     <div  class="cleft">
         编程主题：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="200px" ></asp:TextBox>
+            Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
         &nbsp;
-        实例：<asp:HyperLink ID="HlExample" runat="server" Target="_blank">[HlExample]</asp:HyperLink>
+        实例：<asp:HyperLink ID="HlExample" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HlExample]</asp:HyperLink>
         <asp:FileUpload ID="Fupload" runat="server" Font-Size="9pt" />        
         <asp:CheckBox ID="CheckMicoWorld" runat="server" Text="作品继承"  Checked="False" 
             ToolTip="加载最近的积木编程作品，适合项目学习"  />
@@ -45,8 +45,8 @@
         </asp:DropDownList>
                <br />
          <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal" /><br />
+              <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
+              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
          <br />
          </div>
            

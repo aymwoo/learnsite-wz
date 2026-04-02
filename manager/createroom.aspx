@@ -49,7 +49,7 @@
                     <asp:Button ID="Btncreate" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="11pt" Text="批量创建" Width="70px" Height="20px" 
-                onclick="Btncreate_Click" />
+                onclick="Btncreate_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 <br />
                 <asp:GridView ID="GVclass" runat="server" AllowPaging="True" 
                     AutoGenerateColumns="False" BorderColor="#E7E7E7" BorderStyle="Solid" 
@@ -95,13 +95,13 @@
                 <br />
                 <div>
                     <strong>手动添加单个班级：</strong> 年级 
-                    <asp:TextBox ID="TextBoxGrade" runat="server" Width="30px"></asp:TextBox>
-&nbsp;班级<asp:TextBox ID="TextBoxClass" runat="server" Width="30px"></asp:TextBox>
+                    <asp:TextBox ID="TextBoxGrade" runat="server" Width="30px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
+&nbsp;班级<asp:TextBox ID="TextBoxClass" runat="server" Width="30px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
 &nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="BtncreateOne" runat="server" BackColor="#E6E6E6" 
                         BorderColor="#D4D4D4" BorderWidth="1px" Font-Names="Arial" 
                 Font-Size="11pt" Text="添加该班级" Width="70px" Height="20px" 
-                onclick="BtncreateOne_Click" />
+                onclick="BtncreateOne_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                 </div>                 
                     </div>
                    

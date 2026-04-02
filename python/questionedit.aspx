@@ -69,6 +69,8 @@
     }
 
     </style>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -83,11 +85,11 @@
 <div id="divright">
 <div id="title">
 <h2 style="text-align:center;"> 
-    题目：<asp:TextBox ID="TextBoxTitle" runat="server" Width="80%"></asp:TextBox>
+    题目：<asp:TextBox ID="TextBoxTitle" runat="server" Width="80%" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
     </h2>&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnRun" type="button" value="运行" style=" width:100px;" onclick="passcheck()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnSave" type="button" value="保存" style=" width:100px;" onclick="save()" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnReturn" type="button" value="返回" style=" width:100px;" onclick="back()" onclick="return BtnReturn_onclick()" />
+<input id="BtnRun" type="button" value="运行" style=" width:100px;" onclick="passcheck()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="BtnSave" type="button" value="保存" style=" width:100px;" onclick="save()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="BtnReturn" type="button" value="返回" style=" width:100px;" onclick="back()" onclick="return BtnReturn_onclick()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
 <div id="savemsg"></div>
 </div>

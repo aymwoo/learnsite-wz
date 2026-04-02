@@ -8,7 +8,9 @@
         document.oncontextmenu = new Function('event.returnValue=false;');
         document.onselectstart = new Function('event.returnValue=false;');
     </script> 
-    </head>
+    
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+</head>
 <body>
 <form id="form1" runat="server">
 <center >
@@ -90,7 +92,7 @@
                     <asp:CheckBox ID="CheckBoxGood" runat="server" Text="推荐" />
                     &nbsp;&nbsp;&nbsp;
                     &nbsp;<asp:Button ID="BtnVote" runat="server" onclick="BtnVote_Click" 
-                        SkinID="buttonSkinPink" Text="请投我一票" Width="100px" />
+                        SkinID="buttonSkinPink" Text="请投我一票" Width="100px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                         <br />
 </div>
 </div>

@@ -21,6 +21,8 @@
     <script src="../code/blockpy/msg/en.js"></script>
   <script src="../code/blockpy/storage.js"></script>
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -53,16 +55,16 @@
 <div id="cv" ></div>
 <audio id="audio" controls="controls"  hidden="true" ></audio>
 <div  id="sideby">
-<button  onclick="helper()" class="button"  >
+<button  onclick="helper()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-book" aria-hidden="true"></i>学案</button>&nbsp;&nbsp;
 <span class="sp"></span>
-<button  onclick="runit()" class="button"  >
+<button  onclick="runit()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-play-circle" aria-hidden="true"></i> 运行</button>&nbsp;&nbsp;
 <span class="sp"></span>
-<button  onclick="savecode()" class="button"  >
+<button  onclick="savecode()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
 <i class="fa fa-save" aria-hidden="true"></i> 保存</button>&nbsp;&nbsp;
 <span class="sp"></span>
-<button  onclick="returnurl()" class="button">
+<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
 <i class="fa fa-reply" aria-hidden="true"></i> 返回</button>
 </div>
 
