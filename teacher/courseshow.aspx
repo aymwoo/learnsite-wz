@@ -25,21 +25,61 @@
         .course-show-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-top: 0;
+            gap: 0.6rem;
+            margin-top: 0.25rem;
         }
 
         .course-show-meta-chip {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            min-height: 2.5rem;
-            padding: 0.55rem 0.9rem;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            color: rgba(255, 255, 255, 0.96);
-            font-size: 0.92rem;
+            gap: 0.45rem;
+            min-height: 2.25rem;
+            padding: 0.42rem 0.85rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.84rem;
+            font-weight: 500;
+            backdrop-filter: blur(6px);
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .course-show-meta-chip:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.22);
+            transform: translateY(-1px);
+        }
+
+        .course-show-meta-chip-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.15rem;
+            height: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .course-show-meta-chip-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: rgba(196, 181, 253, 0.9);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .course-show-meta-chip-label {
+            color: rgba(196, 181, 253, 0.85);
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 0.02em;
+        }
+
+        .course-show-meta-chip-value {
+            color: #ffffff;
+            font-weight: 600;
         }
 
         .course-show-hero {
@@ -83,19 +123,46 @@
             gap: 1.5rem;
         }
 
+        .course-show-hero-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .course-show-hero-header::after {
+            content: "";
+            display: block;
+            height: 2px;
+            border-radius: 2px;
+            background: linear-gradient(90deg, rgba(196, 181, 253, 0.5) 0%, rgba(99, 102, 241, 0.35) 40%, rgba(139, 92, 246, 0.2) 70%, transparent 100%);
+            animation: course-show-accent-shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes course-show-accent-shimmer {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
         .course-show-hero-top {
             display: grid;
-            grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 22rem);
-            gap: 1rem;
-            align-items: stretch;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1.5rem;
+            align-items: flex-start;
         }
 
         .course-show-hero-copy {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.85rem;
             min-width: 0;
-            padding: 0.25rem 0;
+        }
+
+        .course-show-hero-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
 
         .course-show-hero-kicker {
@@ -103,45 +170,75 @@
             align-items: center;
             align-self: flex-start;
             gap: 0.45rem;
-            min-height: 2rem;
-            padding: 0.35rem 0.75rem;
+            min-height: 1.85rem;
+            padding: 0.3rem 0.75rem;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            background: rgba(15, 23, 42, 0.22);
-            color: rgba(255, 255, 255, 0.92);
-            font-size: 0.8rem;
+            border: 1px solid rgba(196, 181, 253, 0.25);
+            background: rgba(139, 92, 246, 0.18);
+            color: #c4b5fd;
+            font-size: 0.76rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
         .course-show-hero-kicker:before {
             content: "";
-            width: 0.5rem;
-            height: 0.5rem;
+            width: 0.42rem;
+            height: 0.42rem;
             border-radius: 9999px;
-            background: #c4b5fd;
-            box-shadow: 0 0 0 4px rgba(196, 181, 253, 0.14);
+            background: #a78bfa;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
+            animation: course-show-kicker-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes course-show-kicker-pulse {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2); }
+            50% { box-shadow: 0 0 0 6px rgba(167, 139, 250, 0.08); }
+        }
+
+        .course-show-title-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
         }
 
         .course-show-back-link {
             display: inline-flex;
             align-items: center;
             align-self: flex-start;
-            min-height: 2.2rem;
-            padding: 0.4rem 0.85rem;
+            gap: 0.35rem;
+            min-height: 2rem;
+            padding: 0.35rem 0.8rem;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(15, 23, 42, 0.18);
-            color: #ffffff;
-            font-size: 0.84rem;
-            font-weight: 700;
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
         .course-show-back-link:hover {
-            background: rgba(15, 23, 42, 0.3);
-            border-color: rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.28);
             color: #ffffff;
+            transform: translateX(-2px);
+        }
+
+        .course-show-back-link svg {
+            width: 0.9rem;
+            height: 0.9rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s ease;
+        }
+
+        .course-show-back-link:hover svg {
+            transform: translateX(-2px);
         }
 
         .course-show-hero-edit {
@@ -1145,19 +1242,44 @@
                 padding: 1.2rem;
             }
 
+            .course-show-hero-header {
+                padding-bottom: 1.15rem;
+            }
+
+            .course-show-hero-top {
+                grid-template-columns: 1fr;
+            }
+
+            .course-show-hero-nav {
+                gap: 0.5rem;
+            }
+
             .course-show-back-link,
             .course-show-hero-kicker {
-                font-size: 0.78rem;
+                font-size: 0.76rem;
             }
 
             .course-show-title {
-                font-size: 1.65rem;
+                font-size: 1.55rem;
+            }
+
+            .course-show-meta {
+                gap: 0.45rem;
             }
 
             .course-show-meta-chip {
-                min-height: 2.2rem;
-                padding: 0.5rem 0.8rem;
-                font-size: 0.86rem;
+                min-height: 2rem;
+                padding: 0.38rem 0.7rem;
+                font-size: 0.8rem;
+            }
+
+            .course-show-meta-chip-icon {
+                width: 1rem;
+                height: 1rem;
+            }
+
+            .course-show-hero-actions {
+                justify-content: flex-start;
             }
 
             .course-show-preview-head,
@@ -1233,25 +1355,51 @@
             <section id="HeroSection" runat="server" class="course-show-hero">
                 <div class="course-show-hero-overlay" aria-hidden="true"></div>
                 <div class="course-show-hero-content">
-                    <div class="course-show-hero-top">
-                        <div class="course-show-hero-copy">
-                            <asp:LinkButton ID="LinkBtnReturn" runat="server" OnClick="LinkBtnReturn_Click" CssClass="course-show-back-link" title="返回列表">返回列表</asp:LinkButton>
-                            <span class="course-show-hero-kicker">课程封面</span>
-                            <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title"></asp:Label>
-                            <div class="course-show-meta">
-                                <span class="course-show-meta-chip">日期 <asp:Label ID="LabelCdate" runat="server"></asp:Label></span>
-                                <span class="course-show-meta-chip">分类 <asp:Label ID="LabelCclass" runat="server"></asp:Label></span>
-                                <span class="course-show-meta-chip">年级 <asp:Label ID="LabelCobj" runat="server"></asp:Label></span>
-                                <span class="course-show-meta-chip">学期 第 <asp:Label ID="LabelCterm" runat="server"></asp:Label> 学期</span>
-                                <span class="course-show-meta-chip">课节 第 <asp:Label ID="LabelCks" runat="server"></asp:Label> 课</span>
+                    <div class="course-show-hero-header">
+                        <div class="course-show-hero-top">
+                            <div class="course-show-hero-copy">
+                                <div class="course-show-hero-nav">
+                                    <asp:LinkButton ID="LinkBtnReturn" runat="server" OnClick="LinkBtnReturn_Click" CssClass="course-show-back-link" title="返回列表"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>返回列表</asp:LinkButton>
+                                    <span class="course-show-hero-kicker">学案详情</span>
+                                </div>
+                                <div class="course-show-title-wrap">
+                                    <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title"></asp:Label>
+                                </div>
+                                <div class="course-show-meta">
+                                    <span class="course-show-meta-chip">
+                                        <span class="course-show-meta-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg></span>
+                                        <span class="course-show-meta-chip-label">日期</span>
+                                        <span class="course-show-meta-chip-value"><asp:Label ID="LabelCdate" runat="server"></asp:Label></span>
+                                    </span>
+                                    <span class="course-show-meta-chip">
+                                        <span class="course-show-meta-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2z"></path></svg></span>
+                                        <span class="course-show-meta-chip-label">分类</span>
+                                        <span class="course-show-meta-chip-value"><asp:Label ID="LabelCclass" runat="server"></asp:Label></span>
+                                    </span>
+                                    <span class="course-show-meta-chip">
+                                        <span class="course-show-meta-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg></span>
+                                        <span class="course-show-meta-chip-label">年级</span>
+                                        <span class="course-show-meta-chip-value"><asp:Label ID="LabelCobj" runat="server"></asp:Label></span>
+                                    </span>
+                                    <span class="course-show-meta-chip">
+                                        <span class="course-show-meta-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg></span>
+                                        <span class="course-show-meta-chip-label">学期</span>
+                                        <span class="course-show-meta-chip-value">第 <asp:Label ID="LabelCterm" runat="server"></asp:Label> 学期</span>
+                                    </span>
+                                    <span class="course-show-meta-chip">
+                                        <span class="course-show-meta-chip-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span>
+                                        <span class="course-show-meta-chip-label">课节</span>
+                                        <span class="course-show-meta-chip-value">第 <asp:Label ID="LabelCks" runat="server"></asp:Label> 课</span>
+                                    </span>
+                                </div>
+                                <span id="ReadonlyNote" class="course-show-tool-readonly-note" runat="server" hidden="hidden">当前为旧版学案视图，部分新增与编辑入口已按原逻辑禁用</span>
                             </div>
-                            <span id="ReadonlyNote" class="course-show-tool-readonly-note" runat="server" hidden="hidden">当前为旧版学案视图，部分新增与编辑入口已按原逻辑禁用</span>
-                        </div>
-                        <div class="course-show-hero-actions">
-                            <a id="HeroEditLink" runat="server" class="course-show-hero-edit" title="编辑横幅" aria-label="编辑横幅">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
-                            </a>
-                            <asp:ImageButton ID="BtnEdit" runat="server" ImageUrl="~/images/edit.gif" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-show-hidden course-show-edit-btn" AlternateText="编辑学案" />
+                            <div class="course-show-hero-actions">
+                                <a id="HeroEditLink" runat="server" class="course-show-hero-edit" title="编辑横幅" aria-label="编辑横幅">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
+                                </a>
+                                <asp:ImageButton ID="BtnEdit" runat="server" ImageUrl="~/images/edit.gif" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-show-hidden course-show-edit-btn" AlternateText="编辑学案" />
+                            </div>
                         </div>
                     </div>
                     <section class="course-show-preview-panel">

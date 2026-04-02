@@ -137,8 +137,10 @@
 
 .course-show-title {
     display: block;
-    font-size: 2rem;
+    font-size: 2.15rem;
     color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+    letter-spacing: -0.01em;
 }
 
 .course-subtitle,
