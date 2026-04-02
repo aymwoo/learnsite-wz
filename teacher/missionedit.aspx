@@ -15,10 +15,10 @@
         </div>
     <div >
     <!-- 引入编辑器CDN -->
-    <link href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/vditor/dist/index.css" />
-    <script src="https://unpkg.com/vditor/dist/index.min.js"></script>
-    <script src="https://unpkg.com/@wangeditor/editor@latest/dist/index.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
 
     <div style="margin-bottom: 10px; margin-left: 10px;">
         <label>编辑器：</label>
