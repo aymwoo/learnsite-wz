@@ -79,27 +79,9 @@
             50% { left: 120%; }
         }
 
-        .teacher-login-btn-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 1.15rem;
-            height: 1.15rem;
-            transition: transform 0.3s ease;
-        }
-
-        .teacher-login-btn-icon svg {
-            width: 100%;
-            height: 100%;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .teacher-login-btn:hover .teacher-login-btn-icon {
-            transform: translateX(3px);
+        @keyframes teacher-btn-shine {
+            0%, 100% { left: -100%; }
+            50% { left: 120%; }
         }
 
         .teacher-login-card {
@@ -165,12 +147,7 @@
                 </div>
                 <div class="teacher-login-divider">安全登录</div>
                 <div>
-                    <asp:LinkButton ID="Btnlogin" runat="server" onclick="Btnlogin_Click" CssClass="teacher-login-btn">
-                        登 录
-                        <span class="teacher-login-btn-icon">
-                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-                        </span>
-                    </asp:LinkButton>
+                    <asp:Button ID="Btnlogin" runat="server" onclick="Btnlogin_Click" CssClass="teacher-login-btn" Text="安全登录" />
                 </div>
             </div>
         </div>

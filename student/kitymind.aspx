@@ -19,34 +19,6 @@
 		div.minder-editor-container {
 			top: 0px;
 		}
-		.export{
-            position: absolute;
-            z-index: 999;
-            top: 0px;
-			height: 30px;
-			line-height: 30px;
-			margin: 2px;
-			float: right;
-			right:160px;
-			color: #333;
-			overflow: hidden;
-			position: relative;
-			cursor:pointer;
-		}
-		.return{
-            position: absolute;
-            z-index: 999;
-            top: 0px;
-			height: 30px;
-			line-height: 30px;
-			margin: 2px;
-			float: right;
-			right:30px;
-			color: #333;
-			overflow: hidden;
-			position: relative;
-			cursor:pointer;
-		}
 	</style>
 
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
@@ -63,13 +35,15 @@
             </div>
         </div>
     </form>
-<div>
-<a class="export" href="#" onclick="return downfile(this);">
-   保存
-</a>
-<a class="return" href="#" onclick="returnurl();">
-   返回
-</a>
+<div class="fixed top-3 right-6 z-[9999] flex items-center gap-3">
+    <a href="#" onclick="return downfile(this);" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-bold rounded-lg shadow-md hover:from-emerald-600 hover:to-teal-600 hover:shadow-lg transition-all duration-300 flex items-center gap-2 border border-emerald-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+        保存作品
+    </a>
+    <a href="#" onclick="returnurl();" class="px-5 py-2 bg-gradient-to-r from-slate-600 to-slate-700 text-white text-sm font-bold rounded-lg shadow-md hover:from-slate-700 hover:to-slate-800 hover:shadow-lg transition-all duration-300 flex items-center gap-2 border border-slate-500">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+        返回
+    </a>
 </div>
 <kityminder-editor on-init="initEditor(editor, minder)" data-theme="fresh-green"></kityminder-editor>
 

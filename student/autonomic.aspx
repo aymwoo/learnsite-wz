@@ -23,43 +23,55 @@
        <div  class="banner" ></div>
        <div class="path"></div>
       <div id="student">
-<div class="left">
-    <asp:DataList ID="DLCategory" runat="server" RepeatColumns="1" 
-        RepeatDirection="Horizontal" 
-        Width="100%" CellPadding="3" CellSpacing="3" 
-        DataKeyField="yid" onitemdatabound="DLCategory_ItemDataBound">
-        <ItemTemplate>
-        <div>
-        <div  class="divcate">
-            <img alt="" src="../images/filetype/read.gif" />
-            <asp:HyperLink ID="HLYtitle" runat="server" Text ='<%# Eval("Ytitle") %>'></asp:HyperLink>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full text-left p-4">
+    <!-- Main Content -->
+    <div class="lg:col-span-3 space-y-6 overflow-hidden min-w-0">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6">
+            <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2 mb-4">
+                <span class="w-1.5 h-5 bg-blue-500 rounded-full inline-block"></span> 资源分类
+            </h3>
+            <asp:DataList ID="DLCategory" runat="server" RepeatColumns="1" 
+                RepeatDirection="Horizontal" Width="100%" CellPadding="0" CellSpacing="0" 
+                DataKeyField="yid" onitemdatabound="DLCategory_ItemDataBound"
+                CssClass="w-full">
+                <ItemTemplate>
+                    <div class="mb-4 border border-slate-200 rounded-xl overflow-hidden hover:shadow-md transition">
+                        <div class="bg-blue-50 px-4 py-3 flex items-center gap-2 border-b border-slate-200">
+                            <img alt="" src="../images/filetype/read.gif" class="w-4 h-4" />
+                            <asp:HyperLink ID="HLYtitle" runat="server" Text='<%# Eval("Ytitle") %>' CssClass="font-bold text-slate-700 hover:text-blue-600 transition"></asp:HyperLink>
+                        </div>
+                        <div class="p-4 bg-white">
+                            <%#ListNews(Eval("yid"),5, "text-slate-600 border-b border-slate-100 py-2 hover:bg-slate-50 transition block px-2 truncate",30)%>    
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:DataList>
         </div>
-        <div style="text-align: left">
-        <%#ListNews(Eval("yid"),5, "licss",30)%>    
-        </div>
-        </div>
-        </ItemTemplate>
-    </asp:DataList>
-    <br />
-</div>
-<div class="right">
-    我的作品<br />
-    <br />
-    <div style="width: 98%">
-    <ul>
-    <asp:Repeater ID="RepMy" runat="server" >
-    <ItemTemplate>
-    <li class="licss1"><a href="<%#GetdownUrl(Eval("Aurl").ToString())%>" target="_blank"><%#strcut( Eval("Ftitle").ToString())%></a></li>
-    </ItemTemplate>
-    <AlternatingItemTemplate>
-    <li class="licss2"><a href="<%#GetdownUrl(Eval("Aurl").ToString())%>"  target="_blank"><%#strcut( Eval("Ftitle").ToString())%></a></li>
-    </AlternatingItemTemplate>
-    </asp:Repeater>
-    </ul>
     </div>
-    <br />
-    <br />
-    <br />
+    
+    <!-- Sidebar -->
+    <div class="lg:col-span-1 space-y-6 self-start">
+        <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 shadow-sm">
+            <h4 class="text-indigo-800 font-bold mb-4 flex items-center gap-2 border-b border-indigo-200/60 pb-2">
+                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                我的作品
+            </h4>
+            
+            <ul class="space-y-2">
+                <asp:Repeater ID="RepMy" runat="server" >
+                    <ItemTemplate>
+                        <li class="border-b border-slate-200/60 pb-2">
+                            <a href="<%#GetdownUrl(Eval("Aurl").ToString())%>" target="_blank" class="text-slate-600 hover:text-indigo-600 transition font-medium text-sm block truncate"><%#strcut( Eval("Ftitle").ToString())%></a>
+                        </li>
+                    </ItemTemplate>
+                    <AlternatingItemTemplate>
+                        <li class="border-b border-slate-200/60 pb-2">
+                            <a href="<%#GetdownUrl(Eval("Aurl").ToString())%>" target="_blank" class="text-slate-600 hover:text-indigo-600 transition font-medium text-sm block truncate"><%#strcut( Eval("Ftitle").ToString())%></a>
+                        </li>
+                    </AlternatingItemTemplate>
+                </asp:Repeater>
+            </ul>
+        </div>
     </div>
 </div>      
         </div>

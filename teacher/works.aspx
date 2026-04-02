@@ -44,11 +44,9 @@
                 openLessonModal(urlpg, "作品打包", 300);
             }
         </script>
-                    <asp:Button ID="Btnterm" runat="server" Text="学期总评"  SkinID="BtnNormal" 
-                onclick="Btnterm_Click" ToolTip="跳转到学期总评页面"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         </div>
-        <div>
-        <div class="centerdiv">
+        <div class="mt-6">
+        <div class="overflow-x-auto w-full custom-scrollbar rounded-xl border border-slate-200 shadow-sm bg-white">
             <asp:GridView ID="GVCourse" runat="server" AllowPaging="True" 
                 AutoGenerateColumns="False"  CellPadding="6" DataKeyNames="Cid"  SkinID="GridViewInfo"
                 PageSize="20" Width="100%" 

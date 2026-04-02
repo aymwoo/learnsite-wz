@@ -6,6 +6,8 @@
 - **AI 模型提供商管理**：新增 `aiprovider.aspx` 页面，支持添加、编辑、删除、测试连接、批量 JSON 导入 AI 提供商配置（通义千问/DeepSeek/智谱GLM 等），数据库自动建表及默认数据填充
 - **多编辑器切换**：课程编辑、活动添加/编辑页面（`courseedit`/`missionadd`/`missionedit`）支持 KindEditor、WangEditor、Vditor 三种编辑器切换，使用下拉菜单选择
 - **教师模块 UI 现代化**：教师后台全面采用 Tailwind CSS 重构为现代 SaaS 风格界面
+- **核心控制台解构升级**：`teacher/systeminfo.aspx`，`teacher/works.aspx` 及 `teacher/student.aspx` 彻底淘汰了拥有十余年历史的定宽表格排版，运用 3列现代网格交互仪表盘和悬浮卡片包装组件进行深层结构重铸
+- **周边工具弹性化适配**：`student/chat.aspx`，`student/kitymind.aspx` 及各类细节子模块从 612固定宽度的 float 浮动布局改为自适应宽高 Flexbox/Grid，引入现代化专属交互反馈动画
 - **学生页面 UI 重构**：学生端页面使用 Tailwind CSS 重构，统一视觉风格
 - **测试基础设施**：引入 xUnit 测试框架，添加 EnDeCode 加解密、ImageCheck 图片类型检测等单元测试
 - **开发环境启动脚本**：新增 `start_dev.sh`，支持 Arch Linux 下使用国内 Docker 镜像快速搭建开发环境
@@ -13,6 +15,9 @@
 ### 问题修复
 - 修复 AI 提供商 API（`aiprovider_api.ashx`）编译错误：`JudgeTeacherCookies()` 返回 `void` 不可对其取反，改用 Cookie 存在性检查
 - 修复 Vditor Markdown 编辑器 `html2md` 调用时 lute WASM 未就绪导致的报错
+- 修复 `teacher/works.aspx` 顶部控制菜单多重嵌套和重复 ID 导致的 ASP.NET 编译器致命错误
+- 修复 `teacher/student.aspx` 数据表格 DOM 原生结构在之前编辑中缺失 <GridView> 主标签的问题并补全弹模绑定
+- 修复 `teacher/index.aspx` (登录按钮) 和 `teacher/Teach.master` (Header) 文字溢出及超出屏幕边缘产生横向滚动轴的兼容性 bug
 - 编辑器 CDN 从不可达的 `unpkg.com` 切换至 `cdn.jsdelivr.net`（WangEditor 固定版本 5.1.23）
 - 使用国内 MCR 镜像替代不可用的自定义 MSSQL Docker 镜像，修复 Mono 下 Socket 异常
 - 统一教师模块 TinyBox 弹窗为 `Teach.master` 共享 Modal 组件，消除各页面重复代码

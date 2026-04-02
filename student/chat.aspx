@@ -13,6 +13,65 @@
     <link rel="stylesheet" type="text/css" href="../code/imgchat/jquery.lineProgressbar.css" />
 
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <style>
+        /* Modern Responsive Flexbox Overrides */
+        html, body { height: 100%; margin: 0; background: #f1f5f9; overflow: hidden; }
+        body { padding: 1.5rem; box-sizing: border-box; }
+        .content { height: 100%; display: flex; justify-content: center; align-items: center; }
+        .chatBox {
+            width: 100% !important;
+            max-width: 1000px;
+            height: clamp(500px, 90vh, 800px) !important;
+            display: flex !important;
+            flex-direction: row;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            margin: 0 auto;
+        }
+        .chatLeft {
+            width: 100% !important;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e2e8f0;
+            float: none !important;
+        }
+        .chatRight {
+            width: 250px !important;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            background: #f8fafc;
+            float: none !important;
+        }
+        .chat01 { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow: hidden; }
+        .chat01_title, .chat02_title, .chat02_bar, .chat03_title { background: #f8fafc !important; border-bottom: 1px solid #e2e8f0; }
+        .chat02_bar { border-bottom: none; border-top: 1px solid #e2e8f0; background: #ffffff !important;}
+        .talkTo li { background: none !important; margin: 0 !important; padding: 0.5rem 1rem !important; }
+        .talkTo li a { background: none !important; color: #1e293b !important; font-size: 0.95rem !important; padding: 0 !important; display: flex; align-items: center; gap: 0.5rem;}
+        .talkTo li a::before { content: ""; display: block; width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; }
+        .chat01_content { height: auto !important; flex: 1; overflow-y: auto; overflow-x: hidden; padding: 1rem; }
+        .chat02 { height: 180px; flex-shrink: 0; border-top: 1px solid #e2e8f0; display: flex; flex-direction: column;}
+        .chat02_content { flex: 1; overflow-y: auto; display: flex; padding: 0.5rem 1rem;}
+        .textarea { height: 100% !important; font-size: 1rem !important; box-sizing: border-box; }
+        .chat03 { display: flex; flex-direction: column; flex: 1; min-height: 0; border-bottom: 1px solid #e2e8f0;}
+        .chat03_content ul, .chat03_file ul { height: auto !important; flex: 1; overflow-y: auto; }
+        .chat03_name { left: 45px !important; top: 15px !important; font-weight: 500; font-size: 0.9rem;}
+        .chat03_content ul li { height: auto !important; padding: 10px 15px !important; display: flex; align-items: center; gap: 12px; }
+        .chat03_content ul img { width: 36px !important; height: 36px !important; border-radius: 50%; border: 2px solid #e2e8f0;}
+        .chat03_content li label { position: static !important; width: 10px !important; height: 10px !important; margin: 0 !important; }
+        .online, .offline { bottom: auto !important; margin-left: -20px; margin-top: 24px; z-index: 10; border: 2px solid #fff;}
+        .chat02_bar ul li button { border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer; border: none; outline: none; }
+        
+        @media (max-width: 768px) {
+            body { padding: 0; }
+            .chatBox { height: 100% !important; max-width: 100%; border-radius: 0; box-shadow: none; border: none; }
+            .chatRight { display: none !important; }
+        }
+    </style>
 </head>
 <body>	
     <div class="imgBox" ></div>	

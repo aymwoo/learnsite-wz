@@ -8,10 +8,11 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-blue-500 rounded-full inline-block"></span> 我的作品
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
     <asp:GridView ID="GridViewworks" runat="server" AllowPaging="True" OnPageIndexChanging="GridViewworks_PageIndexChanging" 
         PageSize="15" Width="100%" SkinID="GridViewInfo" 
         onrowdatabound="GridViewworks_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True"
-        CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+        CssClass="w-full text-slate-600 bg-white min-w-[700px]">
         <Columns>            
             <asp:TemplateField>
             <ItemTemplate>
@@ -77,12 +78,13 @@
         </PagerTemplate>
         <RowStyle Height="44px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
     </asp:GridView>
+</div>
             </div>
         </div>
 
         <!-- Sidebar (Right Column) -->
         <div class="lg:col-span-1 space-y-6 self-start top-24 sticky">
-            <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 shadow-sm overflow-hidden">
+            <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-5 shadow-sm overflow-hidden w-full overflow-x-auto min-w-0">
                 <h4 class="text-indigo-800 font-bold mb-4 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                     优秀作品推荐
@@ -91,7 +93,7 @@
                     SkinID="GridViewInfo" AutoGenerateColumns="False" 
                                 EnableModelValidation="True" EmptyDataText="暂无数据" 
                                 onrowdatabound="Topwork_RowDataBound"
-                                CssClass="w-full text-xs text-slate-700 min-w-min">
+                                CssClass="w-full text-xs text-slate-700 min-w-max">
                                 <Columns>
                                     <asp:BoundField HeaderText="序号">
                                         <HeaderStyle CssClass="py-2 text-left text-indigo-900 border-b border-indigo-200" />

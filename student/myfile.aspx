@@ -8,12 +8,13 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-indigo-500 rounded-full inline-block"></span> 资源下载
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
       <asp:GridView ID="GVSoft" runat="server" AllowPaging="True" 
           AutoGenerateColumns="False" 
           OnPageIndexChanging="GVSoft_PageIndexChanging" 
           OnRowDataBound="GVSoft_RowDataBound" Width="100%" SkinID="GridViewInfo" 
           PageSize="20" EnableModelValidation="True" CellPadding="3"
-          CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+          CssClass="w-full text-slate-600 bg-white min-w-[600px]">
           <AlternatingRowStyle BorderStyle="None" />
           <Columns>
               <asp:BoundField HeaderText="序号">
@@ -66,6 +67,7 @@
           </pagertemplate>
           <RowStyle Height="40px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
       </asp:GridView>
+</div>
             </div>
         </div>
 
