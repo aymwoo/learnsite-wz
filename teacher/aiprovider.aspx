@@ -153,12 +153,12 @@
                     html += '<div class="flex justify-between items-center pt-4 border-t border-gray-100">';
                     html += '<div>';
                     if (!item.IsDefault) {
-                        html += '<button onclick="setDefault(' + item.Id + ')" class="text-sm text-green-600 hover:text-green-800 mr-3">设为默认</button>';
+                        html += '<button type="button" onclick="setDefault(' + item.Id + ')" class="text-sm text-green-600 hover:text-green-800 mr-3">设为默认</button>';
                     }
                     html += '</div>';
                     html += '<div class="space-x-2">';
-                    html += '<button onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="text-sm text-blue-600 hover:text-blue-800 px-2 py-1 bg-blue-50 rounded">编辑</button>';
-                    html += '<button onclick="deleteProvider(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-2 py-1 bg-red-50 rounded">删除</button>';
+                    html += '<button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="text-sm text-blue-600 hover:text-blue-800 px-2 py-1 bg-blue-50 rounded">编辑</button>';
+                    html += '<button type="button" onclick="deleteProvider(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-2 py-1 bg-red-50 rounded">删除</button>';
                     html += '</div>';
                     html += '</div>';
                     html += '</div></div>';
