@@ -1,14 +1,12 @@
-<%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myrule.aspx.cs" Inherits="Student_myrule" %>
-    
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
+<head id="Head1" >
     <title></title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
     
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
-</head>
+<style>.ground { background-color: #f0f0f0; }</style></head>
 <body class="ground">
-    <form id="form1" runat="server">
+    <div>
     <center>
       <div  class="studmasterhead">
             <div  class="banner" > 
@@ -56,12 +54,11 @@
             </div>
         </div>
         <br />
-        <asp:Button ID="Btnreturn" runat="server"  Text="关闭" BorderStyle="None" 
-                 CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" Width="80px"/>
+        <button id="Btnreturn" class="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" style="width: 80px;">关闭</button>
         </div>
         </div>
         </center>        
         </div>
-    </form>
+    </div>
 </body>
 </html>

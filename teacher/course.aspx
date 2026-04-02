@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"   StylesheetTheme="Teacher" AutoEventWireup="true"  CodeFile="course.aspx.cs" Inherits="Teacher_course" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link rel="stylesheet" type="text/css" href="../webform/bootstrap-icons.min.css" />
     <style type="text/css">
         .course-page {
             --workspace-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
@@ -69,79 +70,49 @@
             font-weight: 600;
         }
 
-        .course-grid td:nth-child(4) a,
-        .course-grid td:nth-child(6) a,
-        .course-grid td:nth-child(9) a,
-        .course-grid td:nth-child(11) a,
-        .course-grid td:nth-child(12) a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 3.5rem;
-            padding: 0.42rem 0.78rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 9999px;
-            background: #ffffff;
-            color: #334155;
-            font-size: 0.84rem;
-            font-weight: 600;
-        }
-
-        .course-grid td:nth-child(4) a:hover,
-        .course-grid td:nth-child(6) a:hover,
-        .course-grid td:nth-child(9) a:hover,
-        .course-grid td:nth-child(11) a:hover,
-        .course-grid td:nth-child(12) a:hover {
-            background: #eef2ff;
-            border-color: #c7d2fe;
-            color: #3730a3;
-        }
-
-        .course-grid td:nth-child(5) a,
-        .course-grid td:nth-child(8) a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 3.9rem;
-            padding: 0.42rem 0.82rem;
-            border-radius: 9999px;
-            background: #f8fafc;
-            border: 1px solid #dbeafe;
-            color: #1d4ed8;
-            font-size: 0.84rem;
-            font-weight: 700;
-        }
-
-        .course-grid td:nth-child(5) a:hover,
-        .course-grid td:nth-child(8) a:hover {
-            background: #dbeafe;
-            color: #1e3a8a;
-        }
-
         .course-grid td:nth-child(3),
         .course-grid td:nth-child(10) {
             color: #475569;
             white-space: nowrap;
         }
 
-        .course-link-btn {
+        .course-icon-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 3.9rem;
-            padding: 0.42rem 0.82rem;
-            border-radius: 9999px;
-            background: #ecfdf5;
-            border: 1px solid #bbf7d0;
-            color: #166534;
-            font-size: 0.84rem;
-            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
         }
 
-        .course-link-btn:hover {
-            background: #dcfce7;
-            color: #14532d;
+        .course-icon-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+
+        .course-icon-primary { color: #3b82f6; border-color: #bfdbfe; background: #eff6ff; }
+        .course-icon-primary:hover { color: #1d4ed8; background: #dbeafe; }
+
+        .course-icon-success { color: #10b981; border-color: #a7f3d0; background: #ecfdf5; }
+        .course-icon-success:hover { color: #047857; background: #d1fae5; }
+
+        .course-icon-warning { color: #f59e0b; border-color: #fde68a; background: #fffbeb; }
+        .course-icon-warning:hover { color: #b45309; background: #fef3c7; }
+
+        .course-icon-danger { color: #ef4444; border-color: #fecaca; background: #fef2f2; }
+        .course-icon-danger:hover { color: #b91c1c; background: #fee2e2; }
+
+        .course-icon-info { color: #8b5cf6; border-color: #ddd6fe; background: #f5f3ff; }
+        .course-icon-info:hover { color: #6d28d9; background: #ede9fe; }
+
+        .course-icon-secondary { color: #64748b; border-color: #e2e8f0; background: #f8fafc; }
+        .course-icon-secondary:hover { color: #334155; background: #f1f5f9; }
 
         .course-grid .course-pager-row,
         .course-grid td.course-pager-row {
@@ -279,11 +250,6 @@
                 align-items: flex-start;
             }
 
-            .course-grid td:nth-child(2) a {
-                text-align: left;
-                max-width: 70%;
-            }
-
             .course-grid td.course-pager-row {
                 display: block;
                 padding: 0.9rem 1rem;
@@ -373,21 +339,25 @@
                                 <HeaderStyle HorizontalAlign="Left" />
                                 <ItemStyle HorizontalAlign="Left" />
                             </asp:BoundField>
-                            <asp:HyperLinkField DataNavigateUrlFields="Cid"
-                                DataNavigateUrlFormatString="~/teacher/package.aspx?cid={0}" HeaderText="打包"
-                                Text="下载" />
+                            <asp:TemplateField HeaderText="打包">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HlPackage" runat="server" NavigateUrl='<%# "~/teacher/package.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-download"></i>' ToolTip="打包下载" CssClass="course-icon-btn course-icon-primary"></asp:HyperLink>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="发布" ShowHeader="False">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LbtnCpublish" runat="server" CausesValidation="false"
                                         CommandArgument='<%# Bind("Cid") %>' CommandName="Cp" Text='<%# Eval("Cpublish") %>'></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:HyperLinkField DataNavigateUrlFields="Cid"
-                                DataNavigateUrlFormatString="~/teacher/courseanalyse.aspx?cid={0}"
-                                Text="分析" HeaderText="作品" />
+                            <asp:TemplateField HeaderText="作品">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HlAnalyse" runat="server" NavigateUrl='<%# "~/teacher/courseanalyse.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-bar-chart-line"></i>' ToolTip="作品分析" CssClass="course-icon-btn course-icon-info"></asp:HyperLink>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="探讨">
                                 <ItemTemplate>
-                                    <asp:HyperLink ID="Hl" runat="server" Text="反思" ForeColor="Blue" CssClass="course-link-btn"></asp:HyperLink>
+                                    <asp:HyperLink ID="Hl" runat="server" Text='<i class="bi bi-chat-dots"></i>' ToolTip="探讨反思" CssClass="course-icon-btn course-icon-info"></asp:HyperLink>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="推荐" ShowHeader="False">
@@ -396,11 +366,12 @@
                                         CommandArgument='<%# Bind("Cid") %>' CommandName="Cg" ToolTip="默认为True，学生平台作品收藏学案列表中显示；False则不显示!" Text='<%# Eval("Cgood") %>'></asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:HyperLinkField DataNavigateUrlFields="Cid"
-                                DataNavigateUrlFormatString="~/teacher/courseedit.aspx?cid={0}" Text="编辑"
-                                HeaderText="内容">
+                            <asp:TemplateField HeaderText="内容">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HlEdit" runat="server" NavigateUrl='<%# "~/teacher/courseedit.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-pencil-square"></i>' ToolTip="编辑内容" CssClass="course-icon-btn course-icon-warning"></asp:HyperLink>
+                                </ItemTemplate>
                                 <ItemStyle Width="40px" />
-                            </asp:HyperLinkField>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="日期" SortExpression="Cdate">
                                 <ItemTemplate>
                                     <asp:Label ID="Label2" runat="server"
@@ -412,7 +383,7 @@
                             <asp:TemplateField HeaderText="管理" ShowHeader="False">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LbtnCold" runat="server" CausesValidation="false"
-                                        CommandArgument='<%# Bind("Cid") %>' ToolTip="转移到学案仓库中保留" CommandName="Cu" Text="转移"></asp:LinkButton>
+                                        CommandArgument='<%# Bind("Cid") %>' ToolTip="转移到学案仓库中保留" CommandName="Cu" Text='<i class="bi bi-archive"></i>' CssClass="course-icon-btn course-icon-danger"></asp:LinkButton>
                                 </ItemTemplate>
                                 <ControlStyle Width="40px" />
                             </asp:TemplateField>

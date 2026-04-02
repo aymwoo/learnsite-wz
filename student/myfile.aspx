@@ -1,79 +1,107 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myfile.aspx.cs" Inherits="Student_myfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
-    <div id="student">
-<div class="left">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full">
+        <!-- Main Content (Left Column) -->
+        <div class="lg:col-span-3 space-y-8 overflow-hidden min-w-0">
+            <div class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
+                    <span class="w-1.5 h-5 bg-indigo-500 rounded-full inline-block"></span> 资源下载
+                </h3>
       <asp:GridView ID="GVSoft" runat="server" AllowPaging="True" 
           AutoGenerateColumns="False" 
           OnPageIndexChanging="GVSoft_PageIndexChanging" 
           OnRowDataBound="GVSoft_RowDataBound" Width="100%" SkinID="GridViewInfo" 
-          PageSize="20" EnableModelValidation="True" CellPadding="3">
+          PageSize="20" EnableModelValidation="True" CellPadding="3"
+          CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
           <AlternatingRowStyle BorderStyle="None" />
           <Columns>
-              <asp:BoundField HeaderText="序号" />
-              <asp:BoundField DataField="Fclass" HeaderText="属性" />
+              <asp:BoundField HeaderText="序号">
+                  <HeaderStyle CssClass="bg-slate-50 font-semibold px-4 py-3 w-16" />
+                  <ItemStyle CssClass="text-center font-medium text-slate-500" />
+              </asp:BoundField>
+              <asp:BoundField DataField="Fclass" HeaderText="属性">
+                  <HeaderStyle CssClass="bg-slate-50 font-semibold px-4 py-3" />
+                  <ItemStyle CssClass="text-center" />
+              </asp:BoundField>
               <asp:HyperLinkField DataNavigateUrlFields="fid" 
-                  DataNavigateUrlFormatString="downfile.aspx?fid={0}" HeaderText="标题" 
+                  DataNavigateUrlFormatString="downfile.aspx?fid={0}" HeaderText="资源标题" 
                   DataTextField="Ftitle">
-                  <HeaderStyle HorizontalAlign="Left" />
-              <ItemStyle Width="280px" HorizontalAlign="Left" />
+                  <HeaderStyle HorizontalAlign="Left" CssClass="bg-slate-50 font-semibold px-4 py-3" />
+              <ItemStyle HorizontalAlign="Left" CssClass="px-4 py-2 font-medium text-slate-800 hover:text-indigo-600 transition" />
               </asp:HyperLinkField>
-              <asp:BoundField DataField="Ffiletype" HeaderText="格式" />
-              <asp:BoundField DataField="Fhit" HeaderText="次数" />
-              <asp:BoundField DataField="Fdate" HeaderText="日期">
-              <ItemStyle Width="120px" />
+              <asp:BoundField DataField="Ffiletype" HeaderText="格式">
+                  <HeaderStyle CssClass="bg-slate-50 font-semibold px-4 py-3" />
+                  <ItemStyle CssClass="text-center text-xs font-mono text-slate-500 bg-slate-100 rounded px-1 py-0.5 max-w-[60px] mx-auto block w-max mt-1" />
+              </asp:BoundField>
+              <asp:BoundField DataField="Fhit" HeaderText="下载次数">
+                  <HeaderStyle CssClass="bg-slate-50 font-semibold px-4 py-3" />
+                  <ItemStyle CssClass="text-center text-emerald-600 font-medium" />
+              </asp:BoundField>
+              <asp:BoundField DataField="Fdate" HeaderText="更新日期">
+                  <HeaderStyle CssClass="bg-slate-50 font-semibold px-4 py-3 hidden sm:table-cell" />
+                  <ItemStyle Width="120px" CssClass="text-center text-sm text-slate-400 hidden sm:table-cell" />
               </asp:BoundField>
           </Columns>
-          <HeaderStyle Height="30px" />
           <pagertemplate>
-              <div  class="pagediv">
-                  第<asp:Label ID="lblPageIndex" runat="server" 
-                      text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" />
-                  页 共页 共<asp:Label ID="lblPageCount" runat="server" 
-                      text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" />
-                  页 
-                  <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" 
-                      commandargument="First" commandname="Page" Font-Underline="False" 
-                      ForeColor="Black" text="首页" />
-                  <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" 
-                      commandargument="Prev" commandname="Page" Font-Underline="False" 
-                      ForeColor="Black" text="上一页" />
-                  <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" 
-                      commandargument="Next" commandname="Page" Font-Underline="False" 
-                      ForeColor="Black" text="下一页" />
-                  <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" 
-                      commandargument="Last" commandname="Page" Font-Underline="False" 
-                      ForeColor="Black" text="尾页" />
-              </div>
+            <div class="flex items-center justify-between px-4 py-3 bg-slate-50 border-t border-slate-200 sm:px-6">
+                <div class="text-sm text-slate-500">
+                第<asp:Label ID="lblPageIndex" runat="server" CssClass="font-medium text-slate-900 mx-1" 
+                    text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" />
+                页 / 共<asp:Label ID="lblPageCount" runat="server" CssClass="font-medium text-slate-900 mx-1" 
+                    text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" />
+                页 
+                </div>
+                <div class="flex gap-2">
+                <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" 
+                    commandargument="First" commandname="Page" CssClass="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 transition text-slate-600" text="首页" />
+                <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" 
+                    commandargument="Prev" commandname="Page" CssClass="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 transition text-slate-600" text="上一页" />
+                <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" 
+                    commandargument="Next" commandname="Page" CssClass="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 transition text-slate-600" text="下一页" />
+                <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" 
+                    commandargument="Last" commandname="Page" CssClass="px-3 py-1 text-sm border border-slate-300 rounded-md hover:bg-slate-100 transition text-slate-600" text="尾页" />
+                </div>
+            </div>
           </pagertemplate>
-          <RowStyle Height="30px" />
-      </asp:GridView><br /><br />        
-</div>
-<div class="right">
-    <div >
-        <asp:GridView ID="GVcategory" runat="server" AutoGenerateColumns="False" 
-            CellPadding="6" CellSpacing="3" EnableModelValidation="True" 
-            HorizontalAlign="Center" ShowHeader="False" 
-            SkinID="GridViewMission" Width="100%" DataKeyNames="yid" 
-            onrowdatabound="GVcategory_RowDataBound">
-            <Columns>
-                <asp:TemplateField>
-                    <ItemTemplate>
-                        <img src="../images/book.gif" />
-                    </ItemTemplate>
-                </asp:TemplateField>
-                <asp:HyperLinkField DataNavigateUrlFields="yid" 
-                    DataNavigateUrlFormatString="~/student/myfile.aspx?yid={0}" 
-                    DataTextField="Ytitle" Target="_self" >
-                <ItemStyle HorizontalAlign="Left" />
-                </asp:HyperLinkField>
-            </Columns>
-            <RowStyle BackColor="#CEDFEA" Height="30px" />
-        </asp:GridView>
-        <img src="../images/soft.png" style="width: 160px; height: 80px; text-align:center;" /><br />
-        <br /></div>
-</div>   
-<br />
-</div>
+          <RowStyle Height="40px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
+      </asp:GridView>
+            </div>
+        </div>
+
+        <!-- Sidebar (Right Column) -->
+        <div class="lg:col-span-1 space-y-6 self-start top-24 sticky">
+            <div class="bg-indigo-50/50 border border-indigo-100 rounded-2xl p-5 shadow-sm overflow-hidden flex flex-col items-center">
+                <img src="../images/soft.png" class="h-20 w-auto object-contain opacity-80 mb-4" />
+                <h4 class="w-full text-indigo-800 font-bold mb-3 flex items-center gap-2 border-b border-indigo-200/60 pb-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    资源类别
+                </h4>
+                <asp:GridView ID="GVcategory" runat="server" AutoGenerateColumns="False" 
+                    EnableModelValidation="True" 
+                    ShowHeader="False" 
+                    SkinID="GridViewMission" Width="100%" DataKeyNames="yid" 
+                    onrowdatabound="GVcategory_RowDataBound"
+                    CssClass="w-full text-slate-700">
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <div class="flex justify-center text-indigo-400">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
+                                </div>
+                            </ItemTemplate>
+                            <ItemStyle Width="40px" CssClass="py-2.5 border-b border-slate-200/50" />
+                        </asp:TemplateField>
+                        <asp:HyperLinkField DataNavigateUrlFields="yid" 
+                            DataNavigateUrlFormatString="~/student/myfile.aspx?yid={0}" 
+                            DataTextField="Ytitle" Target="_self" >
+                        <ItemStyle HorizontalAlign="Left" CssClass="py-2.5 font-medium hover:text-indigo-600 transition block border-b border-slate-200/50" />
+                        </asp:HyperLinkField>
+                    </Columns>
+                    <RowStyle CssClass="hover:bg-white/60 transition" />
+                </asp:GridView>
+            </div>
+        </div>   
+    </div>
 </asp:Content>
 
