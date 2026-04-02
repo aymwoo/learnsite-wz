@@ -272,7 +272,7 @@ public partial class Student_myinfo : System.Web.UI.Page
         if (mywid != "" && myself != "")
         {
             LabelWself.Text = HttpUtility.HtmlDecode(myself);
-            Hlwork.NavigateUrl = "~/student/downwork.aspx?Wid=" + mywid;
+            Hlwork.NavigateUrl = "javascript:showWorkModal('" + mywid + "');";
             Hlwork.Visible = true;
         }
         else
@@ -287,11 +287,12 @@ public partial class Student_myinfo : System.Web.UI.Page
         if (Sgtitle != "")
         {
             HLgroup.Text = Server.UrlDecode(Sgtitle);
+            HLgroup.NavigateUrl = "javascript:showGroupModal();";
         }
         else
         {
             HLgroup.Text = "申请组队";
-            HLgroup.NavigateUrl = "~/profile/mygroup.aspx";
+            HLgroup.NavigateUrl = "javascript:showGroupModal();";
         }
         string murl = LearnSite.Common.Photo.GetStudentPhotoUrl(snum.Text, ssex);
         Imageface.ImageUrl = murl + "?temp=" + DateTime.Now.Millisecond.ToString();
@@ -323,8 +324,9 @@ public partial class Student_myinfo : System.Web.UI.Page
     }
     protected void BtnProfile_Click(object sender, EventArgs e)
     {
-        string url = "~/profile/mygroup.aspx";
-        Response.Redirect(url, false);
+        // Now handled by client-side javascript Modal
+        // string url = "~/profile/mygroup.aspx";
+        // Response.Redirect(url, false);
     }
     protected void DataListonline_ItemDataBound(object sender, DataListItemEventArgs e)
     {
@@ -332,7 +334,7 @@ public partial class Student_myinfo : System.Web.UI.Page
         string sgroup = ((Label)e.Item.FindControl("LabelSgroup")).Text;
         string qnum = ((Label)e.Item.FindControl("LabelQnum")).Text;
         HyperLink hl = (HyperLink)e.Item.FindControl("HyperQname");
-        hl.NavigateUrl = "~/student/myportfolio.aspx?Snum=" + qnum;//本学期作品浏览 myportfolio.aspx
+        hl.NavigateUrl = "javascript:showPortfolioModal('" + qnum + "');"; //本学期作品浏览 Modal 
         string vpath = "~/images/gcard.gif";
         Image imga = new Image();
         imga = (Image)e.Item.FindControl("Imageflag");

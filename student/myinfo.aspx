@@ -9,12 +9,13 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-orange-400 rounded-full inline-block"></span> 未学学案
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
     <asp:GridView ID="GridViewnewkc" runat="server" Width="100%" 
         SkinID="GridViewInfo" onrowdatabound="GridViewnewkc_RowDataBound" 
         AutoGenerateColumns="False" 
         EnableModelValidation="True" PageSize="5" AllowPaging="True" 
         onpageindexchanging="GridViewnewkc_PageIndexChanging" 
-        CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+        CssClass="w-full text-slate-600 bg-white min-w-[500px]">
         <Columns>
             <asp:BoundField DataField="cid"  Visible="false">
             <ItemStyle Width="30px" ForeColor="White" />
@@ -59,6 +60,7 @@
         </PagerTemplate>
         <RowStyle Height="40px" CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
     </asp:GridView>
+</div>
             </div>
 
             <!-- Done Courses -->
@@ -66,13 +68,14 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
                     <span class="w-1.5 h-5 bg-green-500 rounded-full inline-block"></span> 已学学案
                 </h3>
+<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
        <asp:GridView ID="GridViewdonekc" runat="server" AllowPaging="True" 
            AutoGenerateColumns="False" 
            EnableModelValidation="True" 
            OnPageIndexChanging="GridViewdonekc_PageIndexChanging" 
            onrowdatabound="GridViewdonekc_RowDataBound" SkinID="GridViewInfo" 
            Width="100%" PageSize="5" DataKeyNames="Cid"
-           CssClass="w-full text-slate-600 bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+           CssClass="w-full text-slate-600 bg-white min-w-[500px]">
            <Columns>
                <asp:BoundField DataField="Cid" Visible="false">
                <ItemStyle ForeColor="White" Width="30px" />
@@ -124,6 +127,7 @@
             </PagerTemplate>
            <RowStyle Height="40px"  CssClass="border-b border-slate-100 hover:bg-slate-50 transition" />
        </asp:GridView>
+</div>
             </div>
 
             <!-- Active Students Board -->
@@ -131,15 +135,15 @@
                 <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2 mt-4">
                     <span class="w-1.5 h-5 bg-blue-500 rounded-full inline-block"></span> 今天签到的同学
                 </h3>
-                <div class="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100/60 max-w-full overflow-hidden">
+                <div class="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100/60 w-full overflow-x-auto min-w-0">
                     <asp:DataList ID="DataListonline" runat="server" DataKeyField="Qid"
-                                RepeatColumns="8" RepeatDirection="Horizontal" Width="100%"
-                        onitemdatabound="DataListonline_ItemDataBound">
+                                RepeatLayout="Flow"
+                        onitemdatabound="DataListonline_ItemDataBound" CssClass="flex flex-nowrap md:flex-wrap gap-3">
                         <ItemTemplate>
-                            <div class="m-1 rounded-lg border border-white bg-white/70 shadow-sm overflow-hidden flex flex-col items-center p-1.5 hover:shadow-md hover:scale-105 transition-all w-24">
+                            <div class="rounded-lg border border-white bg-white/70 shadow-sm overflow-hidden flex flex-col items-center p-1.5 hover:shadow-md hover:scale-105 transition-all w-24 shrink-0">
                                 <div class="w-full text-center py-1 bg-blue-50/80 rounded mb-1">
-                                    <asp:HyperLink ID="HyperQname" runat="server" CssClass="text-sm font-semibold text-slate-800 hover:text-blue-600 transition block truncate"
-                                        Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Qip") %>' Target="_blank" ></asp:HyperLink>
+                                    <asp:HyperLink ID="HyperQname" runat="server" CssClass="text-sm font-semibold text-slate-800 hover:text-blue-600 transition block truncate cursor-pointer"
+                                        Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Qip") %>' ></asp:HyperLink>
                                 </div>
                                 <div class="flex flex-col items-center justify-center">
                                     <asp:Image ID="Imageflag" runat="server" CssClass="my-1 rounded-sm shadow-sm opacity-90" />
@@ -214,7 +218,7 @@
                     <asp:Label ID="LabelWself" runat="server" ></asp:Label>
                 </div>
                 <div class="mt-3 text-right">
-                    <asp:HyperLink ID="Hlwork" runat="server" Target="_blank" CssClass="text-xs inline-flex items-center gap-1 text-orange-500 hover:text-orange-700 font-bold transition">
+                    <asp:HyperLink ID="Hlwork" runat="server" CssClass="text-xs inline-flex items-center gap-1 text-orange-500 hover:text-orange-700 font-bold transition cursor-pointer">
                         查看作品 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </asp:HyperLink>
                 </div>
@@ -222,7 +226,7 @@
             
             <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full mt-2 pt-4 border-t border-slate-200/60">
                 <asp:Button ID="BtnProfile" runat="server" OnClick="BtnProfile_Click"
-                    Text="我的资料" CausesValidation="False" 
+                    Text="我的资料" CausesValidation="False" OnClientClick="showGroupModal(); return false;"
                     CssClass="flex-1 w-full flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all duration-300 shadow-sm cursor-pointer" />
                 <asp:Button ID="BtnExit" runat="server" onclick="BtnExit_Click" 
                     Enabled="False" Text="" 
@@ -232,6 +236,22 @@
             <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
             
             <script type="text/javascript">
+                // Modal popup scripts using TINY.box
+                function showPortfolioModal(snum) {
+                    var url = "../student/myportfolio.aspx?Snum=" + snum;
+                    TINY.box.show({ iframe: url, boxid: 'frameless', width: 800, height: 600, fixed: false, maskopacity: 60, close: true });
+                }
+                
+                function showWorkModal(wid) {
+                    var url = "../student/downwork.aspx?Wid=" + wid;
+                    TINY.box.show({ iframe: url, boxid: 'frameless', width: 600, height: 400, fixed: false, maskopacity: 60, close: true });
+                }
+                
+                function showGroupModal() {
+                    var url = "../profile/mygroup.aspx";
+                    TINY.box.show({ iframe: url, boxid: 'frameless', width: 700, height: 500, fixed: false, maskopacity: 60, close: true });
+                }
+
                 var i = 2;
                 function setbar() {
                     i--;
