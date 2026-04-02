@@ -1369,6 +1369,8 @@ CREATE TABLE [dbo].[WorksDiscuss](
 	[Did] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+
 GO
 ALTER TABLE [dbo].[Autonomic] ADD  DEFAULT ((0)) FOR [Ascore]
 GO
@@ -1732,6 +1734,35 @@ ALTER TABLE [dbo].[Works] ADD  DEFAULT ((0)) FOR [Wpass]
 GO
 ALTER TABLE [dbo].[WorksDiscuss] ADD  DEFAULT ((0)) FOR [Dsid]
 GO
+CREATE TABLE [dbo].[AIProvider](
+
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+
+	[DisplayName] [nvarchar](50) NULL,
+
+	[ProviderName] [nvarchar](50) NULL,
+
+	[ModelName] [nvarchar](50) NULL,
+
+	[ApiKey] [nvarchar](200) NULL,
+
+	[BaseUrl] [nvarchar](200) NULL,
+
+	[IsDefault] [bit] DEFAULT ((0)) NULL,
+
+PRIMARY KEY CLUSTERED 
+
+(
+
+	[Id] ASC
+
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+) ON [PRIMARY]
+
+GO
+
+
 
 BEGIN
 insert into Teacher(Hname,Hpwd,Hpermiss,Hnote) values ('admin','12345','1','管理员')

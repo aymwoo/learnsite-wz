@@ -2503,5 +2503,32 @@ namespace LearnSite.DBUtility
                 DbHelperSQL.ExecuteSql(answerStr.ToString());
             }
         }
+
+        public static void UpdateTable1700()
+        {
+            if (!DbHelperSQL.TabExists("AIProvider"))
+            {
+                StringBuilder aiStr = new StringBuilder();
+                aiStr.Append(" CREATE TABLE [dbo].[AIProvider] (");
+                aiStr.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                aiStr.Append(" [DisplayName] NVARCHAR(50) NULL, ");
+                aiStr.Append(" [ProviderName] NVARCHAR(50) NULL, ");
+                aiStr.Append(" [ModelName] NVARCHAR(50) NULL, ");
+                aiStr.Append(" [ApiKey] NVARCHAR(200) NULL, ");
+                aiStr.Append(" [BaseUrl] NVARCHAR(200) NULL, ");
+                aiStr.Append(" [IsDefault] BIT DEFAULT 0 ");
+                aiStr.Append(" )");
+
+                DbHelperSQL.ExecuteSql(aiStr.ToString());
+
+                // Insert default models
+                StringBuilder defaultStr = new StringBuilder();
+                defaultStr.Append(" INSERT INTO [dbo].[AIProvider] (DisplayName, ProviderName, ModelName, ApiKey, BaseUrl, IsDefault) VALUES ");
+                defaultStr.Append(" ('通义千问', 'Aliyun', 'qwen-max', '', 'https://dashscope.aliyuncs.com/compatible-mode/v1', 0),");
+                defaultStr.Append(" ('DeepSeek', 'DeepSeek', 'deepseek-chat', '', 'https://api.deepseek.com/v1', 1),");
+                defaultStr.Append(" ('智谱GLM', 'ZhipuAI', 'glm-4', '', 'https://open.bigmodel.cn/api/paas/v4', 0);");
+                DbHelperSQL.ExecuteSql(defaultStr.ToString());
+            }
+        }
     }
 }
