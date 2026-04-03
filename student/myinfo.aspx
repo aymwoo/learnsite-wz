@@ -226,7 +226,7 @@
             
             <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full mt-2 pt-4 border-t border-slate-200/60">
                 <asp:Button ID="BtnProfile" runat="server" OnClick="BtnProfile_Click"
-                    Text="我的资料" CausesValidation="False" OnClientClick="showGroupModal(); return false;"
+                    Text="我的资料" CausesValidation="False" OnClientClick="openModernGroupModal(); return false;"
                     CssClass="flex-1 w-full flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all duration-300 shadow-sm cursor-pointer" />
                 <asp:Button ID="BtnExit" runat="server" onclick="BtnExit_Click" 
                     Enabled="False" Text="" 
@@ -235,8 +235,83 @@
             
             <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
             
+            <!-- Modern Tailwind CSS Modal for '我的资料' -->
+            <div id="modernGroupModal" class="fixed inset-0 z-[9999] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <!-- Background backdrop -->
+                <div id="modernGroupModalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true"></div>
+
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                        <!-- Modal panel -->
+                        <div id="modernGroupModalPanel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100">
+                            <!-- Header -->
+                            <div class="bg-gradient-to-r from-indigo-50 to-white px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
+                                <h3 class="text-lg font-extrabold text-indigo-900 flex items-center gap-2" id="modal-title">
+                                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    我的资料
+                                </h3>
+                                <button type="button" onclick="closeModernGroupModal()" class="text-slate-400 hover:text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                </button>
+                            </div>
+                            <!-- Content (Iframe) -->
+                            <div class="bg-white px-0 py-0">
+                                <iframe id="modernGroupModalIframe" src="" class="w-full border-0" style="height: 500px;" title="我的资料"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <script type="text/javascript">
-                // Modal popup scripts using TINY.box
+                // Modern Modal functions
+                function openModernGroupModal() {
+                    const modal = document.getElementById('modernGroupModal');
+                    const backdrop = document.getElementById('modernGroupModalBackdrop');
+                    const panel = document.getElementById('modernGroupModalPanel');
+                    const iframe = document.getElementById('modernGroupModalIframe');
+                    
+                    // Set iframe source if empty
+                    if(!iframe.src || iframe.src === window.location.href || iframe.src === '') {
+                        iframe.src = "../profile/mygroup.aspx";
+                    }
+
+                    // Show modal
+                    modal.classList.remove('hidden');
+                    
+                    // Trigger animations
+                    setTimeout(() => {
+                        backdrop.classList.remove('opacity-0');
+                        backdrop.classList.add('opacity-100');
+                        
+                        panel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+                        panel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+                    }, 10);
+                }
+
+                function closeModernGroupModal() {
+                    const modal = document.getElementById('modernGroupModal');
+                    const backdrop = document.getElementById('modernGroupModalBackdrop');
+                    const panel = document.getElementById('modernGroupModalPanel');
+                    
+                    // Trigger reverse animations
+                    backdrop.classList.remove('opacity-100');
+                    backdrop.classList.add('opacity-0');
+                    
+                    panel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+                    panel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
+                    
+                    // Hide modal after animation completes
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 300);
+                }
+
+                // Close modal on backdrop click
+                document.getElementById('modernGroupModalBackdrop').addEventListener('click', closeModernGroupModal);
+
+                // Legacy Modal popup scripts using TINY.box (kept for other buttons if they exist)
                 function showPortfolioModal(snum) {
                     var url = "../student/myportfolio.aspx?Snum=" + snum;
                     TINY.box.show({ iframe: url, boxid: 'frameless', width: 800, height: 600, fixed: false, maskopacity: 60, close: true });
@@ -247,9 +322,9 @@
                     TINY.box.show({ iframe: url, boxid: 'frameless', width: 600, height: 400, fixed: false, maskopacity: 60, close: true });
                 }
                 
+                // Original showGroupModal replaced by openModernGroupModal
                 function showGroupModal() {
-                    var url = "../profile/mygroup.aspx";
-                    TINY.box.show({ iframe: url, boxid: 'frameless', width: 700, height: 500, fixed: false, maskopacity: 60, close: true });
+                    openModernGroupModal();
                 }
 
                 var i = 2;
