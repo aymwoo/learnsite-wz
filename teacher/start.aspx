@@ -33,7 +33,7 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--ls-border);
-            border-radius: 28px;
+            border-radius: 1rem;
             padding: 28px;
             background:
                 radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 38%),
@@ -81,7 +81,7 @@
             align-items: center;
             min-height: 34px;
             padding: 0 14px;
-            border-radius: 999px;
+            border-radius: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(255, 255, 255, 0.12);
             color: #eff6ff;
@@ -94,7 +94,7 @@
             min-width: 280px;
             max-width: 360px;
             padding: 18px 20px;
-            border-radius: 22px;
+            border-radius: 1rem;
             background: rgba(255, 255, 255, 0.14);
             border: 1px solid rgba(255, 255, 255, 0.16);
             backdrop-filter: blur(14px);
@@ -125,7 +125,7 @@
         .lesson-card {
             min-width: 0;
             border: 1px solid var(--ls-border);
-            border-radius: 24px;
+            border-radius: 1rem;
             background: var(--ls-card);
             box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
         }
@@ -138,31 +138,31 @@
         .lesson-card--span-4 { grid-column: span 4; }
         /* Module Theme Colors & Associated Dark Blocks (Alerts/Prompts) */
         .lesson-theme--blue { background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%); }
-        .lesson-theme--blue .lesson-prompt, .lesson-theme--blue .lesson-alert { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; }
+        .lesson-theme--blue .lesson-prompt, .lesson-theme--blue .lesson-alert { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; border-radius: 1rem; }
 
         .lesson-theme--purple { background: linear-gradient(160deg, #ffffff 0%, #f5f3ff 100%); }
-        .lesson-theme--purple .lesson-prompt, .lesson-theme--purple .lesson-alert { background: #ede9fe; color: #4c1d95; border: 1px solid #ddd6fe; }
+        .lesson-theme--purple .lesson-prompt, .lesson-theme--purple .lesson-alert { background: #ede9fe; color: #4c1d95; border: 1px solid #ddd6fe; border-radius: 1rem; }
 
         .lesson-theme--orange { background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%); }
-        .lesson-theme--orange .lesson-prompt, .lesson-theme--orange .lesson-alert { background: #ffedd5; color: #7c2d12; border: 1px solid #fed7aa; }
+        .lesson-theme--orange .lesson-prompt, .lesson-theme--orange .lesson-alert { background: #ffedd5; color: #7c2d12; border: 1px solid #fed7aa; border-radius: 1rem; }
 
         .lesson-theme--teal { background: linear-gradient(160deg, #ffffff 0%, #f0fdfa 100%); }
-        .lesson-theme--teal .lesson-prompt, .lesson-theme--teal .lesson-alert { background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; }
+        .lesson-theme--teal .lesson-prompt, .lesson-theme--teal .lesson-alert { background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; border-radius: 1rem; }
 
         .lesson-theme--green { background: linear-gradient(160deg, #ffffff 0%, #f0fdf4 100%); }
-        .lesson-theme--green .lesson-prompt, .lesson-theme--green .lesson-alert { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; }
+        .lesson-theme--green .lesson-prompt, .lesson-theme--green .lesson-alert { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; border-radius: 1rem; }
 
         .lesson-theme--red { background: linear-gradient(160deg, #ffffff 0%, #fff1f2 100%); }
-        .lesson-theme--red .lesson-prompt, .lesson-theme--red .lesson-alert { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; }
+        .lesson-theme--red .lesson-prompt, .lesson-theme--red .lesson-alert { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; border-radius: 1rem; }
 
         .lesson-theme--indigo { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
-        .lesson-theme--indigo .lesson-prompt, .lesson-theme--indigo .lesson-alert { background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; }
+        .lesson-theme--indigo .lesson-prompt, .lesson-theme--indigo .lesson-alert { background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; border-radius: 1rem; }
 
         .lesson-theme--slate { background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%); }
-        .lesson-theme--slate .lesson-prompt, .lesson-theme--slate .lesson-alert { background: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; }
+        .lesson-theme--slate .lesson-prompt, .lesson-theme--slate .lesson-alert { background: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 1rem; }
 
         .lesson-theme--cyan { background: linear-gradient(160deg, #ffffff 0%, #ecfeff 100%); }
-        .lesson-theme--cyan .lesson-prompt, .lesson-theme--cyan .lesson-alert { background: #cffafe; color: #164e63; border: 1px solid #a5f3fc; }
+        .lesson-theme--cyan .lesson-prompt, .lesson-theme--cyan .lesson-alert { background: #cffafe; color: #164e63; border: 1px solid #a5f3fc; border-radius: 1rem; }
 
         .lesson-alert .lesson-inline-note { color: inherit !important; }
         .lesson-alert [ForeColor="White"] { color: inherit !important; }
@@ -205,7 +205,7 @@
         .lesson-flow__step {
             padding: 18px;
             border: 1px solid #e2e8f0;
-            border-radius: 20px;
+            border-radius: 1rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
         }
 
@@ -215,7 +215,7 @@
             justify-content: center;
             width: 30px;
             height: 30px;
-            border-radius: 999px;
+            border-radius:  0.5rem;
             background: #dbeafe;
             color: #1d4ed8;
             font-weight: 800;
@@ -263,7 +263,7 @@
             min-height: 48px;
             padding: 0 14px;
             border: 1px solid #cbd5e1;
-            border-radius: 16px;
+            border-radius: 1rem;
             background: #f8fafc;
             color: #0f172a;
             font-size: 14px;
@@ -278,11 +278,50 @@
             box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
         }
 
-        .lesson-input {
-            text-align: center;
+        .lesson-input { text-align: center;
             font-weight: 700;
             letter-spacing: 0.08em;
-            background: #ecfeff;
+            background: #ecfeff; border-radius: 1rem; }
+
+        .lesson-input-group { display: inline-flex;
+            align-items: stretch;
+            min-height: 44px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease; border-radius: 1rem; }
+
+        .lesson-input-group:focus-within {
+            border-color: #60a5fa;
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+        }
+
+        .lesson-input-group__label {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 16px;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 700;
+            border-right: 1px solid #cbd5e1;
+            white-space: nowrap;
+        }
+
+        .lesson-input-group__input {
+            flex: 1;
+            min-width: 0;
+            border: none;
+            padding: 0 14px;
+            background: transparent;
+            font-weight: 800;
+            text-align: center;
+            color: #0f172a;
+            font-size: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        .lesson-input-group__input:focus {
+            outline: none;
         }
 
         .lesson-actions,
@@ -311,7 +350,7 @@
             justify-content: center;
             min-height: 44px;
             padding: 0 18px;
-            border-radius: 14px;
+            border-radius: 1rem;
             border: 1px solid transparent;
             text-decoration: none;
             font-size: 14px;
@@ -327,12 +366,10 @@
             transform: translateY(-1px);
         }
 
-        .lesson-btn {
-            border: 0;
+        .lesson-btn { border: 0;
             color: #ffffff;
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2);
-        }
+            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2); border-radius: 1rem; }
 
         .lesson-btn--secondary {
             color: #1d4ed8;
@@ -341,25 +378,19 @@
             box-shadow: none;
         }
 
-        .lesson-link {
-            color: #14532d;
+        .lesson-link { color: #14532d;
             background: #f0fdf4;
-            border-color: #bbf7d0;
-        }
+            border-color: #bbf7d0; border-radius: 1rem; }
 
-        .lesson-icon-link {
-            width: 48px;
+        .lesson-icon-link { width: 48px;
             padding: 0;
             background: #eff6ff;
-            border-color: #bfdbfe;
-        }
+            border-color: #bfdbfe; border-radius: 1rem; }
 
-        .lesson-refresh {
-            width: 48px;
+        .lesson-refresh { width: 48px;
             padding: 0;
             background: #f8fafc;
-            border-color: #cbd5e1;
-        }
+            border-color: #cbd5e1; border-radius: 1rem; }
 
         .lesson-btn[disabled],
         .lesson-refresh[disabled],
@@ -379,7 +410,7 @@
 
         .lesson-stat {
             padding: 18px;
-            border-radius: 20px;
+            border-radius: 1rem;
             border: 1px solid #e2e8f0;
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         }
@@ -411,7 +442,7 @@
             display: block;
             margin-top: 10px;
             padding: 12px 14px;
-            border-radius: 14px;
+            border-radius: 1rem;
             background: #f1f5f9;
             color: #334155;
             font-size: 12px;
@@ -431,7 +462,7 @@
             margin: 0 12px 12px 0;
             padding: 16px 12px;
             border: 1px solid #e2e8f0;
-            border-radius: 20px;
+            border-radius: 1rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
             vertical-align: top;
         }
@@ -440,7 +471,7 @@
             width: 54px;
             height: 54px;
             padding: 8px;
-            border-radius: 16px;
+            border-radius: 1rem;
             border: 1px solid #dbeafe;
             background: #eff6ff;
         }
@@ -449,6 +480,40 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        .lesson-switch {
+            position: relative;
+            display: inline-flex;
+            width: 44px;
+            height: 24px;
+            background-color: #cbd5e1;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: none;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            align-items: center;
+        }
+        
+        .lesson-switch--on {
+            background-color: #f97316;
+        }
+        
+        .lesson-switch-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .lesson-switch--on .lesson-switch-slider {
+            transform: translateX(20px);
         }
 
         .lesson-menu-title {
@@ -477,7 +542,7 @@
             display: inline-block;
             width: 14px;
             height: 14px;
-            border-radius: 999px;
+            border-radius:  0.25rem;
             border: 1px solid rgba(15, 23, 42, 0.08);
             vertical-align: middle;
         }
@@ -501,7 +566,7 @@
             margin: 0 10px 12px 0;
             padding: 14px 12px;
             border: 1px solid #e2e8f0;
-            border-radius: 18px;
+            border-radius: 1rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
         }
@@ -531,7 +596,7 @@
             color: #0f172a;
             background-color: #f8fafc;
             border: 1px solid #dbe4f0;
-            border-radius: 12px;
+            border-radius: 1rem;
             font-size: 13px;
             line-height: 1.4;
             cursor: pointer;
@@ -549,7 +614,7 @@
             min-width: 32px;
             min-height: 32px;
             padding: 0 8px;
-            border-radius: 10px;
+            border-radius: 1rem;
             border: 1px solid #bfdbfe;
             background: #eff6ff;
             color: transparent;
@@ -579,7 +644,7 @@
             justify-content: center;
             width: 30px;
             height: 30px;
-            border-radius: 10px;
+            border-radius: 1rem;
             background: #fee2e2;
             color: #b91c1c;
             font-size: 0;
@@ -597,7 +662,7 @@
         .lesson-toggle-group {
             padding: 16px;
             border: 1px solid #e2e8f0;
-            border-radius: 20px;
+            border-radius: 1rem;
             background: #f8fbff;
         }
 
@@ -617,7 +682,7 @@
             gap: 12px;
             padding: 16px;
             border: 1px solid #e2e8f0;
-            border-radius: 20px;
+            border-radius: 1rem;
             background: #ffffff;
         }
 
@@ -627,7 +692,7 @@
             align-items: center;
             gap: 12px;
             padding: 14px 16px;
-            border-radius: 18px;
+            border-radius: 1rem;
             background: #f1f5f9;
             color: #334155;
         }
@@ -660,7 +725,7 @@
             margin: 0 10px 10px 0;
             padding: 10px 6px;
             border: 1px solid #e2e8f0;
-            border-radius: 16px;
+            border-radius: 1rem;
             background: #ffffff;
             float: none;
             vertical-align: top;
@@ -674,23 +739,19 @@
             min-width: 36px;
             min-height: 32px;
             padding: 0 8px;
-            border-radius: 12px;
+            border-radius: 1rem;
             font-weight: 800;
             text-decoration: none;
             border: 1px solid transparent;
         }
 
-        .donekc {
-            color: #166534;
+        .donekc { color: #166534;
             background: #dcfce7;
-            border-color: #bbf7d0;
-        }
+            border-color: #bbf7d0; border-radius: 1rem; }
 
-        .newkc {
-            color: #9a3412;
+        .newkc { color: #9a3412;
             background: #ffedd5;
-            border-color: #fed7aa;
-        }
+            border-color: #fed7aa; border-radius: 1rem; }
 
         .lesson-course-note {
             margin-top: 6px;
@@ -761,9 +822,7 @@
             .lesson-menu-item,
             .student-card,
             .student-card--offline,
-            .doneksdiv {
-                margin-right: 8px;
-            }
+            .doneksdiv { margin-right: 8px; border-radius: 1rem; }
         }
     </style>
 
@@ -837,9 +896,9 @@
                                 <div class="lesson-actions">
                                     <asp:Button ID="Btnset" runat="server" Text="开始上课" SkinID="BtnNormal" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
                                     <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" SkinID="BtnNormal" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
-                                    <div class="lesson-field" style="min-width: 180px; max-width: 220px; margin-bottom: 0;">
-                                        <span class="lesson-label">班级口令</span>
-                                        <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" SkinID="TextBoxNum" CssClass="lesson-input"></asp:TextBox>
+                                    <div class="lesson-input-group" style="min-width: 220px; max-width: 260px;">
+                                        <span class="lesson-input-group__label">班级口令</span>
+                                        <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" CssClass="lesson-input-group__input"></asp:TextBox>
                                     </div>
                                 </div>
                                 <span class="lesson-prompt">提示：开课后页面会自动保留当前班级状态，学生端可按当前模式进入对应课堂。</span>
@@ -900,6 +959,9 @@
                                     <asp:ImageButton ID="imgBtn" runat="server" CssClass="lesson-menu-button" ImageUrl='<%# Eval("Limgurl") %>' CommandArgument="Lid" CommandName="P" />
                                     <asp:Label ID="lableTitle" runat="server" CssClass="lesson-menu-title" Text='<%# Eval("Ltitle") %>'></asp:Label>
                                     <asp:CheckBox ID="CheckBoxShow" Checked='<%# Eval("Lshow") %>' runat="server" Visible="false" />
+                                    <asp:LinkButton ID="BtnSwitchToggle" runat="server" CommandName="P" CommandArgument='<%# Eval("Lid") %>' CssClass='<%# Convert.ToBoolean(Eval("Lshow")) ? "lesson-switch lesson-switch--on" : "lesson-switch" %>'>
+                                        <span class="lesson-switch-slider"></span>
+                                    </asp:LinkButton>
                                 </div>
                             </ItemTemplate>
                         </asp:DataList>

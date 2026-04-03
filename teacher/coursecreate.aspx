@@ -32,6 +32,51 @@
             color: #b91c1c;
         }
 
+        .course-create-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px dashed #cbd5e1;
+        }
+
+        .course-create-primary-btn {
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--workspace-primary-bg) 0%, var(--workspace-primary-hover) 100%);
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-create-primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.35);
+        }
+
+        .course-create-secondary-btn {
+            padding: 14px 36px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-create-secondary-btn:hover {
+            background: #f8fafc;
+            color: #0f172a;
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
         @media (max-width: 768px) {
             .course-create-grid {
                 grid-template-columns: 1fr;
@@ -91,8 +136,8 @@
             </section>
 
             <section class="course-create-actions">
-                <asp:Button ID="BtnCreate" runat="server" Text="创建学案" onclick="BtnCreate_Click" SkinID="BtnNormal" CssClass="course-create-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="学案返回" onclick="Btnreturn_Click" SkinID="BtnNormal" CssClass="course-create-secondary-btn" />
+                <asp:Button ID="BtnCreate" runat="server" Text="创建学案" onclick="BtnCreate_Click" CssClass="course-create-primary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="学案返回" onclick="Btnreturn_Click" CssClass="course-create-secondary-btn" />
             </section>
 
             <section class="course-create-feedback">

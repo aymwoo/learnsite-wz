@@ -26,15 +26,99 @@
             align-items: end;
         }
 
-        .course-import-upload input[type="file"] {
+        .course-import-upload-zone {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            border: 2px dashed #94a3b8;
+            border-radius: 16px;
+            background: #f8fafc;
+            color: #64748b;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .course-import-upload-zone:hover {
+            border-color: var(--workspace-primary-bg);
+            background: var(--workspace-secondary-hover);
+            color: var(--workspace-primary-hover);
+        }
+
+        .course-import-upload-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .course-import-upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .course-import-upload-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .course-import-upload-subtext {
+            font-size: 0.85rem;
+            margin-top: 0.35rem;
+            opacity: 0.7;
+        }
+
+        .course-import-primary-btn {
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--workspace-primary-bg) 0%, var(--workspace-primary-hover) 100%);
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-import-primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        .course-import-secondary-btn {
+            padding: 14px 36px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-import-secondary-btn:hover {
+            background: #f8fafc;
+            color: #0f172a;
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
         .course-import-action-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 1rem;
             justify-content: flex-end;
+            margin-top: 1rem;
         }
 
         .course-import-gridview {
@@ -154,16 +238,19 @@
                         </div>
                     </div>
 
-                    <div class="course-import-action-group">
-                        <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="导入" SkinID="BtnNormal" CssClass="course-import-primary-btn" />
-                        <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回" SkinID="BtnNormal" CssClass="course-import-secondary-btn" />
+                    <div class="course-import-field" style="grid-column: 1 / -1; margin-top: 1rem;">
+                        <span class="course-import-label" style="display:block; margin-bottom: 0.75rem; font-weight:700; color:#334155; font-size:14px;">选择学案包文件</span>
+                        <div class="course-import-upload-zone">
+                            <i class="course-import-upload-icon bi bi-cloud-arrow-up"></i>
+                            <div class="course-import-upload-text">点击浏览或将文件拖拽到此区域</div>
+                            <div class="course-import-upload-subtext">仅支持包含学案数据的 .zip 压缩包文件</div>
+                            <asp:FileUpload ID="FudPackage" runat="server" />
+                        </div>
                     </div>
 
-                    <div class="course-import-field" style="grid-column: 1 / -1;">
-                        <label class="course-import-label" for="<%= FudPackage.ClientID %>">选择学案包文件</label>
-                        <div class="course-import-upload">
-                            <asp:FileUpload ID="FudPackage" runat="server" Font-Size="9pt" />
-                        </div>
+                    <div class="course-import-action-group" style="grid-column: 1 / -1;">
+                        <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="立刻导入" CssClass="course-import-primary-btn" />
+                        <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回列表" CssClass="course-import-secondary-btn" />
                     </div>
                 </div>
             </section>

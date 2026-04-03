@@ -146,6 +146,35 @@
 
         .course-old-note-box { text-align: center; }
 
+        .course-old-secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.7rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #475569;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.05);
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
+
+        .course-old-secondary-btn:hover {
+            color: #0891b2;
+            border-color: #0891b2;
+            background: #ecfeff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -4px rgba(8, 145, 178, 0.2);
+        }
+
+        .course-old-secondary-btn:active {
+            transform: translateY(0);
+        }
+
         @media (max-width: 768px) {
             .course-old-hero-action {
                 width: 100%;
@@ -262,7 +291,7 @@
                         <p class="course-old-subtitle">集中查看已转入仓库的学案，保留原有启用、删除与筛选流程，仅优化布局层次、视觉表现与移动端浏览体验。</p>
                     </div>
                     <div class="course-old-hero-action">
-                        <asp:Button ID="Btnreturn" runat="server" Text="返回学案列表" onclick="Btnreturn_Click" SkinID="BtnNormal" BackColor="#A9BCAB" CssClass="course-old-primary-btn" />
+                        <asp:Button ID="Btnreturn" runat="server" Text="返回学案列表" onclick="Btnreturn_Click" CssClass="course-old-secondary-btn" />
                     </div>
                 </div>
             </section>
