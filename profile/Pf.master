@@ -21,34 +21,6 @@
 <body>
     <form id="form1" runat="server">
 
-      <div  class="studmasterhead">
-            <div  class="banner" > 
-                </div>
-            <div class="menu w-full bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg flex items-center justify-center h-14 min-w-[1200px]">
-            <asp:Menu ID="Menu1" runat="server" CssClass="nav" ForeColor="White"
-                MaximumDynamicDisplayLevels="1" Orientation="Horizontal" 
-                    Width="880px" SkipLinkText="" >
-                <StaticHoverStyle BackColor="#1e3a8a" ForeColor="White" />
-                <Items>
-                    <asp:MenuItem  NavigateUrl="~/profile/mygroup.aspx"
-                         Text="小组" Value="小组合作" >
-                    </asp:MenuItem>
-                    <asp:MenuItem  NavigateUrl="~/profile/mysign.aspx" 
-                        Text="签到" Value="签到记录"  ></asp:MenuItem>
-                    <asp:MenuItem Text="密码" Value="密码修改" 
-                         NavigateUrl="~/profile/mypwd.aspx"  ></asp:MenuItem>
-                    <asp:MenuItem Text="班级" Value="班级修改" 
-                        NavigateUrl="~/profile/myclass.aspx"  ></asp:MenuItem>
-                    <asp:MenuItem Text="相片" Value="相片修改"
-                      NavigateUrl="~/profile/myphoto.aspx"  ></asp:MenuItem>
-                    <asp:MenuItem Text="性别" Value="性别修改"
-                       NavigateUrl="~/profile/mysex.aspx"  ></asp:MenuItem>
-                    <asp:MenuItem Text="返回" Value="返回首页"
-                       NavigateUrl="~/student/myinfo.aspx" ImageUrl="~/images/separate2.png"></asp:MenuItem>
-                </Items>
-            </asp:Menu>
-            </div>
-            
       <div class="stu">
             <div  class="path"> 
             &nbsp;
@@ -90,8 +62,7 @@
     <br />
     </div>
 </div>
-        <br />        
-        </div>
+        <br />
         </div>
     </form>
 		<div class="chatimg"  onclick="showChat()"  title="小组讨论" ></div>
