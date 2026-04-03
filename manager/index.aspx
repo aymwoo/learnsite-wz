@@ -7,7 +7,7 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { position: relative; overflow: hidden; border: 1px solid #c7d2fe; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#eef2ff 0%,#e0e7ff 100%); color: #312e81; box-shadow: 0 4px 16px rgba(99,102,241,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(238,242,255,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(238,242,255,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
@@ -15,12 +15,12 @@
         .mgr-prose { font-size: 14px; line-height: 1.9; color: #334155; }
         .mgr-prose b { color: #0f172a; }
         .mgr-flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
-        .mgr-flow__step { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; border-radius: 1rem; background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3; font-size: 13px; font-weight: 700; }
+        .mgr-flow__step { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; border-radius: 1rem; background: #eef2ff; border: 1px solid #c7d2fe; color: #3730a3; font-size: 14px; font-weight: 700; }
         .mgr-flow__arrow { color: #94a3b8; font-size: 16px; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--danger { background: linear-gradient(135deg,#dc2626 0%,#b91c1c 100%); color: #fff; box-shadow: 0 8px 16px rgba(220,38,38,.2); }
         .mgr-btn--danger:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(220,38,38,.3); }
-        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fefce8; border: 1px solid #fde68a; font-size: 13px; color: #78350f; line-height: 1.7; }
+        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fefce8; border: 1px solid #fde68a; font-size: 14px; color: #78350f; line-height: 1.7; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">

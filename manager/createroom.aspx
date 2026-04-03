@@ -7,30 +7,30 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { border: 1px solid #fed7aa; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%); color: #78350f; box-shadow: 0 4px 16px rgba(217,119,6,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(255,251,235,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(255,251,235,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-card__body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
         .mgr-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-        .mgr-label { font-size: 13px; font-weight: 700; color: #334155; }
+        .mgr-label { font-size: 14px; font-weight: 700; color: #334155; }
         .mgr-select { min-height: 40px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: .75rem; background: #f8fafc; color: #0f172a; font-size: 14px; font-weight: 700; }
         .mgr-input { min-height: 40px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: .75rem; background: #f8fafc; color: #0f172a; font-size: 14px; width: 70px; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#d97706 0%,#b45309 100%); color: #fff; box-shadow: 0 8px 16px rgba(217,119,6,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
         .mgr-btn--blue { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
         .mgr-btn--blue:hover { transform: translateY(-1px); }
         .mgr-grid { width: 100%; border-collapse: collapse; }
-        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 13px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
+        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 14px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
         .mgr-grid td { padding: 12px 16px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
         .mgr-grid tbody tr:hover { background-color: #f1f5f9; }
         .mgr-grid tbody tr:hover td { background-color: transparent; }
-        .pager-container { padding: 14px 20px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; color: #64748b; }
+        .pager-container { padding: 14px 20px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: #64748b; }
         .pager-buttons { display: flex; gap: 8px; }
         .pager-btn { padding: 5px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; transition: all .2s; }
         .pager-btn:hover { background: #f1f5f9; }
-        .mgr-msg { font-size: 13px; font-weight: 700; color: #dc2626; }
+        .mgr-msg { font-size: 14px; font-weight: 700; color: #dc2626; }
         .mgr-divider { height: 1px; background: #f1f5f9; }
     </style>
     <div class="mgr-page">
@@ -59,9 +59,9 @@
                     <div class="mgr-divider"></div>
                     <div class="mgr-toolbar">
                         <span class="mgr-label">手动添加单个班级</span>
-                        <span style="font-size:13px;color:#64748b;">年级</span>
+                        <span style="font-size:14px;color:#64748b;">年级</span>
                         <asp:TextBox ID="TextBoxGrade" runat="server" CssClass="mgr-input"></asp:TextBox>
-                        <span style="font-size:13px;color:#64748b;">班级</span>
+                        <span style="font-size:14px;color:#64748b;">班级</span>
                         <asp:TextBox ID="TextBoxClass" runat="server" CssClass="mgr-input"></asp:TextBox>
                         <asp:Button ID="BtncreateOne" runat="server" Text="添加该班级" onclick="BtncreateOne_Click" CssClass="mgr-btn mgr-btn--blue" />
                     </div>

@@ -20,7 +20,7 @@
         margin-bottom: 24px;
     }
     .hs-hero h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
-    .hs-hero p  { margin: 8px 0 0; font-size: 13px; line-height: 1.8; color: #1e40af; }
+    .hs-hero p  { margin: 8px 0 0; font-size: 14px; line-height: 1.8; color: #1e40af; }
 
     .hs-card {
         border-radius: 1rem;
@@ -37,7 +37,7 @@
 
     .hs-table { width: 100%; border-collapse: collapse; font-size: 14px; }
     .hs-table th {
-        padding: 12px 16px; background: #f8fafc; font-size: 13px; font-weight: 700;
+        padding: 12px 16px; background: #f8fafc; font-size: 14px; font-weight: 700;
         color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9;
     }
     .hs-table td {
@@ -48,7 +48,7 @@
     .hs-link {
         display: inline-flex; align-items: center; justify-content: center;
         min-height: 32px; padding: 0 14px; border-radius: 1rem;
-        font-size: 13px; font-weight: 700; text-decoration: none;
+        font-size: 14px; font-weight: 700; text-decoration: none;
         background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;
         transition: transform .15s;
     }
@@ -56,7 +56,7 @@
     .hs-link--danger { background: #fff1f2; color: #b91c1c; border-color: #fecaca; }
 
     .hs-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 4px; }
-    .hs-label { font-size: 13px; font-weight: 700; color: #334155; }
+    .hs-label { font-size: 14px; font-weight: 700; color: #334155; }
     .hs-input {
         min-height: 42px; padding: 0 14px; border: 1px solid #cbd5e1;
         border-radius: 1rem; background: #f8fafc; color: #0f172a; font-size: 14px;

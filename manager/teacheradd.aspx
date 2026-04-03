@@ -12,17 +12,17 @@
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-card__body { padding: 24px; display: flex; flex-direction: column; gap: 18px; }
         .mgr-field { display: flex; flex-direction: column; gap: 6px; }
-        .mgr-label { font-size: 13px; font-weight: 700; color: #334155; }
+        .mgr-label { font-size: 14px; font-weight: 700; color: #334155; }
         .mgr-input { min-height: 44px; padding: 0 14px; border: 1px solid #cbd5e1; border-radius: .75rem; background: #f8fafc; color: #0f172a; font-size: 14px; width: 100%; transition: border-color .2s, box-shadow .2s; }
         .mgr-input:focus { border-color: #60a5fa; outline: none; background: #fff; box-shadow: 0 0 0 4px rgba(96,165,250,.18); }
         .mgr-textarea { min-height: 80px; padding: 10px 14px; resize: vertical; }
         .mgr-actions { display: flex; gap: 10px; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#4f46e5 0%,#4338ca 100%); color: #fff; box-shadow: 0 8px 16px rgba(79,70,229,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
         .mgr-btn--outline { background: #fff; color: #475569; border: 1px solid #e2e8f0; }
         .mgr-btn--outline:hover { background: #f8fafc; }
-        .mgr-msg { font-size: 13px; font-weight: 700; color: #dc2626; }
+        .mgr-msg { font-size: 14px; font-weight: 700; color: #dc2626; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">

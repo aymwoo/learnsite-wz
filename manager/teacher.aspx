@@ -8,12 +8,12 @@
         .mgr-hero { position: relative; overflow: hidden; border: 1px solid #bfdbfe; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%); color: #1e3a8a; box-shadow: 0 4px 16px rgba(37,99,235,.08); }
         .mgr-hero__content { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(239,246,255,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(239,246,255,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-grid { width: 100%; border-collapse: collapse; }
-        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 13px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
+        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 14px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
         .mgr-grid td { padding: 12px 16px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
         .mgr-grid tbody tr:hover { background-color: #f1f5f9; }
         .mgr-grid tbody tr:hover td { background-color: transparent; }
@@ -21,7 +21,7 @@
         .mgr-link:hover { color: #3730a3; text-decoration: underline; }
         .mgr-del-btn { color: #b91c1c; font-weight: 700; text-decoration: none; cursor: pointer; background: none; border: none; font-size: 14px; }
         .mgr-del-btn:hover { text-decoration: underline; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; text-decoration: none; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; text-decoration: none; }
         .mgr-btn--primary { background: linear-gradient(135deg,#4f46e5 0%,#4338ca 100%); color: #fff; box-shadow: 0 8px 16px rgba(79,70,229,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); color: #fff; }
     </style>

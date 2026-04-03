@@ -7,7 +7,7 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { border: 1px solid #bbf7d0; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%); color: #14532d; box-shadow: 0 4px 16px rgba(5,150,105,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(236,253,245,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(236,253,245,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
@@ -16,7 +16,7 @@
         .mgr-step { display: flex; align-items: center; gap: 14px; padding: 16px; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; }
         .mgr-step__num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: .5rem; background: #dbeafe; color: #1d4ed8; font-weight: 800; font-size: 14px; flex-shrink: 0; }
         .mgr-step__body { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-        .mgr-step__label { font-size: 13px; font-weight: 700; color: #334155; }
+        .mgr-step__label { font-size: 14px; font-weight: 700; color: #334155; }
         
         .mgr-upload-zone { border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 32px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; overflow: hidden; }
         .mgr-upload-zone:hover, .mgr-upload-zone.dragover { border-color: #3b82f6; background: #eff6ff; }
@@ -25,11 +25,11 @@
         .mgr-upload-zone__text { font-size: 14px; font-weight: 600; color: #475569; margin: 0; }
         .mgr-upload-zone__sub { font-size: 12px; color: #94a3b8; margin: 0; }
         .mgr-upload-zone__file { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-        .mgr-upload-zone__selected { display: none; align-items: center; gap: 8px; background: #e0f2fe; color: #0369a1; padding: 8px 16px; border-radius: 2rem; font-size: 13px; font-weight: 600; }
+        .mgr-upload-zone__selected { display: none; align-items: center; gap: 8px; background: #e0f2fe; color: #0369a1; padding: 8px 16px; border-radius: 2rem; font-size: 14px; font-weight: 600; }
         .mgr-upload-zone.has-file .mgr-upload-zone__selected { display: inline-flex; }
         .mgr-upload-zone.has-file .mgr-upload-zone__text, .mgr-upload-zone.has-file .mgr-upload-zone__sub { display: none; }
         
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
         .mgr-btn--green { background: linear-gradient(135deg,#16a34a 0%,#15803d 100%); color: #fff; box-shadow: 0 8px 16px rgba(22,163,74,.2); }
@@ -38,11 +38,11 @@
         .mgr-btn--danger:hover { background: #fecaca; }
         .mgr-btn--link { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; text-decoration: none; }
         .mgr-btn--link:hover { background: #dcfce7; color: #15803d; }
-        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fefce8; border: 1px solid #fde68a; font-size: 13px; color: #78350f; line-height: 1.7; }
-        .mgr-msg { font-size: 13px; color: #dc2626; line-height: 1.7; }
+        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fefce8; border: 1px solid #fde68a; font-size: 14px; color: #78350f; line-height: 1.7; }
+        .mgr-msg { font-size: 14px; color: #dc2626; line-height: 1.7; }
         .mgr-grid { width: 100%; border-collapse: collapse; }
-        .mgr-grid th { background: #f8fafc; padding: 12px 14px; font-size: 13px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
-        .mgr-grid td { padding: 10px 14px; font-size: 13px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
+        .mgr-grid th { background: #f8fafc; padding: 12px 14px; font-size: 14px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
+        .mgr-grid td { padding: 10px 14px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">
@@ -86,7 +86,7 @@
                         </div>
                     </div>
 
-                    <div id="Loading" style="display:none;text-align:center;color:#dc2626;font-size:13px;">
+                    <div id="Loading" style="display:none;text-align:center;color:#dc2626;font-size:14px;">
                         <asp:Image ID="Image2" runat="server" ImageUrl="~/images/load2.gif" />
                         <input id="Textcmd" style="border:none;background:transparent;" type="text" />
                     </div>

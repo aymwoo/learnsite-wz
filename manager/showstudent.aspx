@@ -9,18 +9,18 @@
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-grid { width: 100%; border-collapse: collapse; }
-        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 13px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
-        .mgr-grid td { padding: 12px 16px; font-size: 13px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
+        .mgr-grid th { background: #f8fafc; padding: 14px 16px; font-size: 14px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
+        .mgr-grid td { padding: 12px 16px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
         .mgr-grid tbody tr:hover { background-color: #f1f5f9; }
         .mgr-grid tbody tr:hover td { background-color: transparent; }
-        .pager-container { padding: 14px 20px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; color: #64748b; }
+        .pager-container { padding: 14px 20px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 14px; font-weight: 600; color: #64748b; }
         .pager-buttons { display: flex; gap: 8px; }
         .pager-btn { padding: 5px 12px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; transition: all .2s; }
         .pager-btn:hover { background: #f1f5f9; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; }
         .mgr-btn--outline { background: #fff; color: #475569; border: 1px solid #e2e8f0; }
         .mgr-btn--outline:hover { background: #f8fafc; }
-        .mgr-meta { font-size: 13px; color: #64748b; }
+        .mgr-meta { font-size: 14px; color: #64748b; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">

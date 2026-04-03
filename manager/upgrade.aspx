@@ -7,19 +7,19 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { border: 1px solid #fecaca; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#fff1f2 0%,#fee2e2 100%); color: #7f1d1d; box-shadow: 0 4px 16px rgba(220,38,38,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(255,241,242,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(255,241,242,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-card__body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
         .mgr-prose { font-size: 14px; line-height: 1.9; color: #334155; }
         .mgr-prose b { color: #0f172a; }
-        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fef2f2; border: 1px solid #fecaca; font-size: 13px; color: #7f1d1d; line-height: 1.7; font-weight: 600; text-align: center; }
+        .mgr-alert { padding: 14px 18px; border-radius: 1rem; background: #fef2f2; border: 1px solid #fecaca; font-size: 14px; color: #7f1d1d; line-height: 1.7; font-weight: 600; text-align: center; }
         .mgr-input-readonly { min-height: 40px; padding: 0 14px; border: 1px solid #e2e8f0; border-radius: .75rem; background: #f8fafc; color: #64748b; font-size: 14px; display: inline-flex; align-items: center; }
         .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 24px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--danger { background: linear-gradient(135deg,#dc2626 0%,#b91c1c 100%); color: #fff; box-shadow: 0 8px 16px rgba(220,38,38,.2); }
         .mgr-btn--danger:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(220,38,38,.3); }
-        .mgr-msg { font-size: 13px; font-weight: 700; color: #dc2626; }
+        .mgr-msg { font-size: 14px; font-weight: 700; color: #dc2626; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">
@@ -45,7 +45,7 @@
                 <div class="mgr-card__body">
                     <asp:TextBox ID="Textthisyear" runat="server" BorderStyle="None" ReadOnly="True" CssClass="mgr-input-readonly" style="width:fit-content;"></asp:TextBox>
                     <asp:Button ID="Btnupgrade" runat="server" Text="执行学年升班" onclick="Btnupgrade_Click" CssClass="mgr-btn mgr-btn--danger" style="width:fit-content;" />
-                    <div id="Loading" style="display:none;color:#dc2626;font-size:13px;">
+                    <div id="Loading" style="display:none;color:#dc2626;font-size:14px;">
                         <asp:Image ID="Image2" runat="server" ImageUrl="~/images/load2.gif" />
                         <input id="Textcmd" style="border:none;background:transparent;" type="text" />
                     </div>

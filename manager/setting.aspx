@@ -7,21 +7,21 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { position: relative; overflow: hidden; border: 1px solid #99f6e4; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#f0fdfa 0%,#ccfbf1 100%); color: #134e4a; box-shadow: 0 4px 16px rgba(13,148,136,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: -.02em; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(240,253,250,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(240,253,250,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-card__body { padding: 20px 24px; display: flex; flex-direction: column; gap: 18px; }
         .mgr-field { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .mgr-label { font-size: 13px; font-weight: 700; color: #334155; min-width: 120px; }
+        .mgr-label { font-size: 14px; font-weight: 700; color: #334155; min-width: 120px; }
         .mgr-select, .mgr-input { min-height: 40px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: .75rem; background: #f8fafc; color: #0f172a; font-size: 14px; transition: border-color .2s, box-shadow .2s; }
         .mgr-select:focus, .mgr-input:focus { border-color: #60a5fa; outline: none; background: #fff; box-shadow: 0 0 0 4px rgba(96,165,250,.18); }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 16px; border-radius: .75rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 16px; border-radius: .75rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
         .mgr-btn--amber { background: #f59e0b; color: #fff; }
         .mgr-divider { height: 1px; background: #f1f5f9; }
-        .mgr-msg { font-size: 13px; font-weight: 700; color: #dc2626; }
+        .mgr-msg { font-size: 14px; font-weight: 700; color: #dc2626; }
     </style>
     <div class="mgr-page">
         <div class="mgr-shell">
@@ -72,14 +72,14 @@
                             <asp:ListItem Value="50">50分钟</asp:ListItem>
                             <asp:ListItem Value="60">60分钟</asp:ListItem>
                         </asp:DropDownList>
-                        <span style="font-size:13px;color:#64748b;">之后可下载</span>
+                        <span style="font-size:14px;color:#64748b;">之后可下载</span>
                     </div>
                     <div class="mgr-field">
                         <span class="mgr-label">作品查看时间</span>
                         <asp:DropDownList ID="DDLworkdowntime" runat="server" CssClass="mgr-select" AutoPostBack="True" onselectedindexchanged="DDLworkdowntime_SelectedIndexChanged">
                             <asp:ListItem>0</asp:ListItem><asp:ListItem>1</asp:ListItem><asp:ListItem>2</asp:ListItem><asp:ListItem>3</asp:ListItem><asp:ListItem>4</asp:ListItem><asp:ListItem>5</asp:ListItem><asp:ListItem>6</asp:ListItem><asp:ListItem>7</asp:ListItem><asp:ListItem>8</asp:ListItem><asp:ListItem>9</asp:ListItem><asp:ListItem>10</asp:ListItem><asp:ListItem>11</asp:ListItem><asp:ListItem>12</asp:ListItem>
                         </asp:DropDownList>
-                        <span style="font-size:13px;color:#64748b;">天后可以查看</span>
+                        <span style="font-size:14px;color:#64748b;">天后可以查看</span>
                     </div>
                     <div class="mgr-field">
                         <span class="mgr-label">作品提交限制</span>

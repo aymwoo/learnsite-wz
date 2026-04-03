@@ -67,7 +67,7 @@
     .co-card--red    { background: linear-gradient(160deg,#fff 0%,#fff8f8 100%); border-color: #fddede; }
 
     .co-field { display: flex; flex-direction: column; gap: 6px; }
-    .co-label { font-size: 13px; font-weight: 700; color: #334155; }
+    .co-label { font-size: 14px; font-weight: 700; color: #334155; }
 
     .co-select {
         width: 100%;
@@ -117,7 +117,7 @@
     .co-alert {
         padding: 12px 14px;
         border-radius: 1rem;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.7;
         font-weight: 600;
     }

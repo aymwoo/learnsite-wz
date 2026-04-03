@@ -7,18 +7,18 @@
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { border: 1px solid #bfdbfe; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%); color: #1e3a8a; box-shadow: 0 4px 16px rgba(37,99,235,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(239,246,255,.85); }
+        .mgr-hero__subtitle { margin: 6px 0 0; font-size: 14px; color: rgba(239,246,255,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }
         .mgr-card__body { padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
-        .mgr-legend { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: #475569; }
+        .mgr-legend { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: #475569; }
         .mgr-legend__item { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
         .mgr-legend__swatch { display: inline-block; width: 14px; height: 14px; border-radius: .25rem; border: 1px solid #e2e8f0; }
         .mgr-room-grid { display: flex; flex-wrap: wrap; gap: 10px; }
         .mgr-room-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 8px; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; width: 80px; }
         .mgr-actions { display: flex; gap: 10px; }
-        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+        .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
         .mgr-btn--outline { background: #fff; color: #475569; border: 1px solid #e2e8f0; }
@@ -55,7 +55,7 @@
                             <div class="mgr-room-item">
                                 <asp:HyperLink ID="Rgradeclass" runat="server" Font-Size="13px" Font-Underline="False"
                                     BackColor="WhiteSmoke" ForeColor="Black" BorderColor="#E4E4E4" BorderWidth="1px" BorderStyle="Solid"
-                                    style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:28px;border-radius:.5rem;font-weight:700;text-decoration:none;font-size:13px;"></asp:HyperLink>
+                                    style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:28px;border-radius:.5rem;font-weight:700;text-decoration:none;font-size:14px;"></asp:HyperLink>
                                 <asp:CheckBox ID="CheckRoom" runat="server" />
                                 <asp:Label ID="LabelRid" runat="server" Text='<%# Eval("Rid") %>' Visible="False"></asp:Label>
                                 <asp:Label ID="LabelRhid" runat="server" Text='<%# Eval("Rhid") %>' Visible="False"></asp:Label>
