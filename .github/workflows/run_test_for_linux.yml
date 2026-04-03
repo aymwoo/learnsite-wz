@@ -54,12 +54,24 @@ jobs:
         run: |
           chmod +x start_web.sh run_tests.sh
 
+      - name: Update web.config for Linux test
+        run: |
+          sed -i 's/Data Source=127.0.0.1;/Data Source=localhost;/g' web.config
+
       - name: Start Web Service
         run: |
           nohup bash start_web.sh 8080 > web.log 2>&1 &
           sleep 10
 
+      - name: Check Web Service Status
+        run: |
+          curl -s http://localhost:8080 || echo "Web service not ready yet"
+
       - name: Run Tests
         run: ./run_tests.sh
         env:
           BASE_URL: http://localhost:8080
+
+      - name: Cleanup
+        run: |
+          sudo systemctl stop mssql-server || true

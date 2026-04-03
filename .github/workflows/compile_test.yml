@@ -24,7 +24,8 @@ jobs:
     - name: Install dependencies (Node)
       run: npm install
 
-    - name: Run all tests
-      run: |
-        chmod +x run_tests.sh
-        ./run_tests.sh --no-e2e
+    - name: Make run_tests.sh executable
+      run: chmod +x run_tests.sh
+
+    - name: Run unit tests
+      run: ./run_tests.sh --no-e2e

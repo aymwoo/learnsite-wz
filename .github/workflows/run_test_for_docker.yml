@@ -29,6 +29,7 @@ jobs:
 
       - name: Install Mono and XSP4
         run: |
+          sudo apt-get update
           sudo apt-get install -y ca-certificates gnupg
           sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
           echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
@@ -45,12 +46,25 @@ jobs:
         run: |
           chmod +x start_web.sh run_tests.sh
 
+      - name: Update web.config for Docker test
+        run: |
+          sed -i 's/Data Source=127.0.0.1;/Data Source=localhost;/g' web.config
+
       - name: Start Web Service
         run: |
           nohup bash start_web.sh 8080 > web.log 2>&1 &
           sleep 10
 
+      - name: Check Web Service Status
+        run: |
+          curl -s http://localhost:8080 || echo "Web service not ready yet"
+
       - name: Run Tests
         run: ./run_tests.sh
         env:
           BASE_URL: http://localhost:8080
+
+      - name: Cleanup
+        run: |
+          docker stop learnsite-mssql || true
+          docker rm learnsite-mssql || true

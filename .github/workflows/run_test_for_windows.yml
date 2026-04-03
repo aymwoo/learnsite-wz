@@ -47,6 +47,11 @@ jobs:
           Start-Sleep -Seconds 10
         shell: powershell
 
+      - name: Check Web Service Status
+        run: |
+          curl http://localhost:8080 || echo "Web service not ready yet"
+        shell: bash
+
       - name: Run Tests
         run: bash ./run_tests.sh
         env:
