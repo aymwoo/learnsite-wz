@@ -136,6 +136,36 @@
         .lesson-card--span-6 { grid-column: span 6; }
         .lesson-card--span-5 { grid-column: span 5; }
         .lesson-card--span-4 { grid-column: span 4; }
+        /* Module Theme Colors & Associated Dark Blocks (Alerts/Prompts) */
+        .lesson-theme--blue { background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%); }
+        .lesson-theme--blue .lesson-prompt, .lesson-theme--blue .lesson-alert { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; }
+
+        .lesson-theme--purple { background: linear-gradient(160deg, #ffffff 0%, #f5f3ff 100%); }
+        .lesson-theme--purple .lesson-prompt, .lesson-theme--purple .lesson-alert { background: #ede9fe; color: #4c1d95; border: 1px solid #ddd6fe; }
+
+        .lesson-theme--orange { background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%); }
+        .lesson-theme--orange .lesson-prompt, .lesson-theme--orange .lesson-alert { background: #ffedd5; color: #7c2d12; border: 1px solid #fed7aa; }
+
+        .lesson-theme--teal { background: linear-gradient(160deg, #ffffff 0%, #f0fdfa 100%); }
+        .lesson-theme--teal .lesson-prompt, .lesson-theme--teal .lesson-alert { background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; }
+
+        .lesson-theme--green { background: linear-gradient(160deg, #ffffff 0%, #f0fdf4 100%); }
+        .lesson-theme--green .lesson-prompt, .lesson-theme--green .lesson-alert { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; }
+
+        .lesson-theme--red { background: linear-gradient(160deg, #ffffff 0%, #fff1f2 100%); }
+        .lesson-theme--red .lesson-prompt, .lesson-theme--red .lesson-alert { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; }
+
+        .lesson-theme--indigo { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
+        .lesson-theme--indigo .lesson-prompt, .lesson-theme--indigo .lesson-alert { background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; }
+
+        .lesson-theme--slate { background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%); }
+        .lesson-theme--slate .lesson-prompt, .lesson-theme--slate .lesson-alert { background: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; }
+
+        .lesson-theme--cyan { background: linear-gradient(160deg, #ffffff 0%, #ecfeff 100%); }
+        .lesson-theme--cyan .lesson-prompt, .lesson-theme--cyan .lesson-alert { background: #cffafe; color: #164e63; border: 1px solid #a5f3fc; }
+
+        .lesson-alert .lesson-inline-note { color: inherit !important; }
+        .lesson-alert [ForeColor="White"] { color: inherit !important; }
 
         .lesson-card__head {
             display: flex;
@@ -382,8 +412,8 @@
             margin-top: 10px;
             padding: 12px 14px;
             border-radius: 14px;
-            background: #0f172a;
-            color: #f8fafc;
+            background: #f1f5f9;
+            color: #334155;
             font-size: 12px;
             line-height: 1.7;
         }
@@ -598,8 +628,8 @@
             gap: 12px;
             padding: 14px 16px;
             border-radius: 18px;
-            background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
+            background: #f1f5f9;
+            color: #334155;
         }
 
         .lesson-alert__title {
@@ -610,7 +640,7 @@
         .lesson-alert__count {
             font-size: 18px;
             font-weight: 800;
-            color: #f8fafc;
+            color: inherit;
         }
 
         .lesson-room-meta {
@@ -744,8 +774,7 @@
                     <div>
                         <h1 class="lesson-hero__title">课堂启动中心</h1>
                         <p class="lesson-hero__subtitle">
-                            将班级选择、课堂启动、学习进度查看、签到巡检和功能开关集中在同一页面，减少来回切换。
-                            所有原有业务逻辑保持不变，只优化视觉层级和操作路径。
+                            在此选择上课班级与发布学案，启动课堂后即可实时查看学生进度、签到情况及各项功能控制。
                         </p>
                         <div class="lesson-hero__tips">
                             <span class="lesson-chip">1. 选择年级、班级与学案</span>
@@ -754,20 +783,22 @@
                         </div>
                     </div>
                     <div class="lesson-hero__panel">
-                        <p class="lesson-hero__panel-title">当前操作建议</p>
+                        <p class="lesson-hero__panel-title">操作指引</p>
                         <p class="lesson-hero__panel-text">
-                            先确认学案，再点击“开始上课”；开课后可直接查看进度、作品展示和汇总，并在下方控制课堂模式与学生状态。
+                            1. 选择班级并确认本节课的学案<br/>
+                            2. 点击“开始上课”生成课堂密码<br/>
+                            3. 巡查学生签到及在线学习状态
                         </p>
                     </div>
                 </div>
             </div>
 
             <div class="lesson-grid">
-                <section class="lesson-card lesson-card--span-8">
+                <section class="lesson-card lesson-card--span-8 lesson-theme--blue">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂准备</h2>
-                            <p class="lesson-card__desc">把原本横向堆叠的控件改为分组表单，先选班级与学案，再执行开课动作，路径更清晰。</p>
+                            <p class="lesson-card__desc">请按照以下三个步骤选择对象并启动课堂，开课后各项学习数据将实时同步。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -817,11 +848,11 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-4">
+                <section class="lesson-card lesson-card--span-4 lesson-theme--purple">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂速览</h2>
-                            <p class="lesson-card__desc">保留原有统计控件，用更清晰的卡片形式展示班级状态和入口。</p>
+                            <p class="lesson-card__desc">实时展示当前班级的签到情况，并提供各项学习数据维度的快捷入口。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -855,11 +886,11 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-12">
+                <section class="lesson-card lesson-card--span-12 lesson-theme--orange">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">学案活动开关</h2>
-                            <p class="lesson-card__desc">保留原有发布逻辑，用卡片展示当前学案中的活动入口，便于快速查看哪些内容对学生开放。</p>
+                            <p class="lesson-card__desc">独立控制本节课各项具体活动的开放状态，决定学生实际可见的学习内容。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -875,11 +906,11 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-8">
+                <section class="lesson-card lesson-card--span-8 lesson-theme--teal">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">在线学生与课堂动态</h2>
-                            <p class="lesson-card__desc">把作品颜色说明、签到统计和学生状态整合到同一区域，教师巡课时更容易聚焦异常学生。</p>
+                            <p class="lesson-card__desc">集中展示全班学生的在线状态，通过不同的背景颜色快速辨别作品提交情况，方便教师巡堂跟踪。</p>
                         </div>
                         <div class="lesson-inline-note">点击学生姓名可评价学习表现，点击“退”可让该生重新登录。</div>
                     </div>
@@ -895,7 +926,7 @@
 
                         <div class="lesson-alert" style="margin-top: 18px;">
                             <span class="lesson-alert__title">巡课提示</span>
-                            <span class="lesson-inline-note" style="color: rgba(226,232,240,0.88);">学生卡片会按当前排序方式刷新，颜色表示作品提交数量，点击姓名可直接评价学习表现。</span>
+                            <span class="lesson-inline-note">学生卡片会按当前排序方式刷新，颜色表示作品提交数量，点击姓名可直接评价学习表现。</span>
                         </div>
 
                         <div style="margin-top: 18px; overflow-x: auto;">
@@ -925,7 +956,7 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-4">
+                <section class="lesson-card lesson-card--span-4 lesson-theme--indigo">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂控制面板</h2>
@@ -959,7 +990,7 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-12">
+                <section class="lesson-card lesson-card--span-12 lesson-theme--slate">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">未签到学生</h2>
@@ -969,8 +1000,8 @@
                     <div class="lesson-card__body">
                         <div class="lesson-alert">
                             <span class="lesson-alert__title">备注提醒</span>
-                            <span class="lesson-inline-note" style="color: rgba(226,232,240,0.88);">点击未签到学生姓名可以补充未签到备注，便于课后追踪。</span>
-                            <asp:Label ID="Label2" runat="server" ForeColor="White"></asp:Label>
+                            <span class="lesson-inline-note">点击未签到学生姓名可以补充未签到备注，便于课后追踪。</span>
+                            <asp:Label ID="Label2" runat="server"></asp:Label>
                         </div>
 
                         <div style="margin-top: 18px; overflow-x: auto;">
@@ -987,7 +1018,7 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-6">
+                <section class="lesson-card lesson-card--span-6 lesson-theme--cyan">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">机房与资源入口</h2>
@@ -1015,11 +1046,11 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-6">
+                <section class="lesson-card lesson-card--span-6 lesson-theme--green">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">学案进度面板</h2>
-                            <p class="lesson-card__desc">已学与未学学案拆分显示，并保留发布控制，减少教师判断成本。</p>
+                            <p class="lesson-card__desc">直观展示全学期学案的学习进度，可一键切换学案对当前班级的发布状态。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -1056,11 +1087,11 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-12">
+                <section class="lesson-card lesson-card--span-12 lesson-theme--red">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂收尾与安全操作</h2>
-                            <p class="lesson-card__desc">保留全班下线与时间校准信息，放到页面底部作为高风险操作区，避免误触。</p>
+                            <p class="lesson-card__desc">提供本节课安全注销及强制下线等高风险操作，执行后部分状态无法撤回，请谨慎使用。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
