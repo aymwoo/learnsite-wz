@@ -128,48 +128,9 @@ parse_coverage() {
 
     echo -e "  ${BOLD}$label - 覆盖率:${NC}"
     echo "  $THIN"
-    printf "  ${BOLD}%-40s %10s %10s${NC}\n" "文件" "行覆盖率" "分支覆盖"
-    echo "  $THIN"
-
-    local has_data=false
-
-    # 直接输出覆盖率数据，避免复杂的计算
-    grep -o '<class[^>]*>' "$cov_file" 2>/dev/null | while IFS= read -r class_line; do
-        local filename class_lr class_br
-        filename=$(echo "$class_line" | grep -oP 'filename="\K[^"]+')
-        class_lr=$(echo "$class_line" | grep -oP 'line-rate="\K[^"]+')
-        class_br=$(echo "$class_line" | grep -oP 'branch-rate="\K[^"]+')
-
-        # 只保留 App_Code 下的被测源码
-        [[ "$filename" == *"App_Code/"* ]] || continue
-
-        has_data=true
-
-        local short_file="${filename#*App_Code/}"
-
-        local lr_pct br_pct
-        lr_pct=$(echo "$class_lr" | awk '{printf "%.1f%%", $1*100}')
-        br_pct=$(echo "${class_br:-0}" | awk '{printf "%.1f%%", $1*100}')
-
-        # 颜色：<50 红 <80 黄 >=80 绿
-        local lr_color="$GREEN"
-        local lr_val
-        lr_val=$(echo "$class_lr" | awk '{printf "%.0f", $1*100}')
-        [ "$lr_val" -lt 80 ] && lr_color="$YELLOW"
-        [ "$lr_val" -lt 50 ] && lr_color="$RED"
-
-        printf "  %-40s ${lr_color}%10s${NC} %10s\n" "$short_file" "$lr_pct" "$br_pct"
-    done
-
-    if [ "$has_data" = false ]; then
-        echo -e "  ${DIM}(无被测源码覆盖率数据)${NC}"
-        echo ""
-        return
-    fi
-
-    echo "  $THIN"
-    echo -e "  ${BOLD}%-40s %10s %10s${NC}\n" "合计" "N/A" "N/A"
+    echo -e "  ${DIM}(覆盖率报告已生成在文件中)${NC}"
     echo ""
+    return
 }
 
 # ============================================================
