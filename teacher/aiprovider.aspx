@@ -5,10 +5,10 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">AI 模型提供商设置</h2>
             <div class="space-x-2">
-                <button type="button" onclick="openImportModal()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md">
+                <button type="button" onclick="openImportModal()" class="px-4 py-2 bg-green-500 text-white rounded border-0 hover:bg-green-600 transition duration-300 shadow-md">
                     导入 JSON 配置
                 </button>
-                <button type="button" onclick="openModal()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md">
+                <button type="button" onclick="openModal()" class="px-4 py-2 bg-blue-500 text-white rounded border-0 hover:bg-blue-600 transition duration-300 shadow-md">
                     添加 AI 提供商
                 </button>
             </div>
@@ -165,12 +165,12 @@
                     html += '<div class="flex justify-between items-center pt-4 border-t border-gray-100">';
                     html += '<div>';
                     if (!item.IsDefault) {
-                        html += '<button type="button" onclick="setDefault(' + item.Id + ')" class="text-sm text-green-600 hover:text-green-800 mr-3">设为默认</button>';
+                        html += '<button type="button" onclick="setDefault(' + item.Id + ')" class="text-sm text-green-600 hover:text-green-800 border-0 bg-transparent mr-3">设为默认</button>';
                     }
                     html += '</div>';
                     html += '<div class="space-x-2">';
-                    html += '<button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="text-sm text-blue-600 hover:text-blue-800 px-2 py-1 bg-blue-50 rounded">编辑</button>';
-                    html += '<button type="button" onclick="deleteProvider(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-2 py-1 bg-red-50 rounded">删除</button>';
+                    html += '<button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="text-sm text-blue-600 hover:text-blue-800 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border-0 rounded transition-colors">编辑</button>';
+                    html += '<button type="button" onclick="deleteProvider(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-3 py-1.5 bg-red-50 hover:bg-red-100 border-0 rounded transition-colors">删除</button>';
                     html += '</div>';
                     html += '</div>';
                     html += '</div></div>';
