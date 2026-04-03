@@ -20,49 +20,55 @@
     </div>
 
     <!-- Add/Edit Provider Modal -->
-    <div id="providerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-96 md:w-1/2 lg:w-1/3 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">添加 AI 提供商</h3>
-                <div id="providerForm">
+    <div id="providerModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" onclick="closeModalOnOutsideClick(event, 'providerModalContent')">
+        <div id="providerModalContent" class="relative w-full max-w-lg shadow-2xl rounded-2xl bg-white border border-gray-100 p-6 md:p-8" onclick="event.stopPropagation()">
+            <div>
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800" id="modalTitle">添加 AI 提供商</h3>
+                    <button type="button" onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div id="providerForm" class="space-y-5">
                     <input type="hidden" id="providerId" value="0">
                     
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="displayName">显示名称 <span class="text-red-500">*</span></label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="displayName" type="text" placeholder="例如: 通义千问" required>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="displayName">显示名称 <span class="text-red-500">*</span></label>
+                        <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="displayName" type="text" placeholder="例如: 通义千问" required>
                     </div>
                     
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="providerName">提供商名称 <span class="text-red-500">*</span></label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="providerName" type="text" placeholder="例如: Aliyun" required>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="providerName">提供商名称 <span class="text-red-500">*</span></label>
+                        <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="providerName" type="text" placeholder="例如: Aliyun" required>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="modelName">模型名称 <span class="text-red-500">*</span></label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="modelName" type="text" placeholder="例如: qwen-max" required>
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="modelName">模型名称 <span class="text-red-500">*</span></label>
+                        <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="modelName" type="text" placeholder="例如: qwen-max" required>
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="apiKey">API Key</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="apiKey" type="password" placeholder="填写对应的 API Key">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="apiKey">API Key</label>
+                        <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="apiKey" type="password" placeholder="填写对应的 API Key">
                     </div>
 
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="baseUrl">Base URL</label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="baseUrl" type="text" placeholder="https://api.openai.com/v1">
+                    <div>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="baseUrl">Base URL</label>
+                        <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="baseUrl" type="text" placeholder="https://api.openai.com/v1">
                     </div>
 
-                    <div class="flex items-center justify-between mt-6">
-                        <div>
-                            <button type="button" onclick="testConnection(event)" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm mr-2">
-                                测试连接
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 mt-8 pt-6 border-t border-gray-100">
+                        <div class="w-full sm:w-auto">
+                            <button type="button" onclick="testConnection(event)" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white border-0 border-transparent font-semibold py-2.5 px-5 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+                                <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <span>测试连接</span>
                             </button>
                         </div>
-                        <div>
-                            <button type="button" onclick="closeModal()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
+                        <div class="flex gap-3 w-full sm:w-auto">
+                            <button type="button" onclick="closeModal()" class="flex-1 sm:flex-none bg-white border border-gray-300 hover:bg-gray-50 hover:border-gray-400 text-gray-700 font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-200 focus:ring-offset-1">
                                 取消
                             </button>
-                            <button type="button" onclick="saveProvider(event)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            <button type="button" onclick="saveProvider(event)" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white border-0 border-transparent font-semibold py-2.5 px-8 rounded-lg shadow-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-1">
                                 保存
                             </button>
                         </div>
@@ -73,13 +79,18 @@
     </div>
 
     <!-- Import JSON Modal -->
-    <div id="importModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
-        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-2/3 lg:w-1/2 shadow-lg rounded-md bg-white">
-            <div class="mt-3">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">导入 JSON 配置</h3>
-                <div class="mb-4">
-                    <p class="text-sm text-gray-600 mb-2">格式示例:</p>
-                    <pre class="bg-gray-100 p-2 rounded text-xs text-gray-800 mb-2 overflow-x-auto">
+    <div id="importModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" onclick="closeModalOnOutsideClick(event, 'importModalContent')">
+        <div id="importModalContent" class="relative w-full max-w-2xl shadow-2xl rounded-2xl bg-white border border-gray-100 p-6 md:p-8" onclick="event.stopPropagation()">
+            <div>
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-gray-800">导入 JSON 配置</h3>
+                    <button type="button" onclick="closeImportModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-gray-700 mb-3">格式示例:</p>
+                    <pre class="bg-gray-50 border border-gray-200 p-4 rounded-lg text-xs font-mono text-gray-700 mb-4 overflow-x-auto shadow-inner">
 [
   {
     "DisplayName": "通义千问",
@@ -90,13 +101,14 @@
   }
 ]
                     </pre>
-                    <textarea id="jsonConfigInput" rows="10" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="粘贴 JSON 配置..."></textarea>
+                    <textarea id="jsonConfigInput" rows="10" class="box-border w-full max-w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none font-mono text-sm" placeholder="粘贴 JSON 配置..."></textarea>
                 </div>
-                <div class="flex items-center justify-end mt-4">
-                    <button type="button" onclick="closeImportModal()" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2">
+                <div class="flex flex-col-reverse sm:flex-row items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
+                    <button type="button" onclick="closeImportModal()" class="w-full sm:w-auto bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-2.5 px-6 rounded-lg transition-colors duration-200">
                         取消
                     </button>
-                    <button type="button" onclick="importJsonConfig()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="importJsonConfig()" class="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-lg shadow-sm transition-colors duration-200 flex items-center justify-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                         导入
                     </button>
                 </div>
@@ -175,7 +187,7 @@
             $('#modelName').val('');
             $('#apiKey').val('');
             $('#baseUrl').val('https://api.openai.com/v1');
-            $('#providerModal').removeClass('hidden');
+            $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
         function editProvider(item) {
@@ -186,20 +198,20 @@
             $('#modelName').val(item.ModelName);
             $('#apiKey').val(item.ApiKey);
             $('#baseUrl').val(item.BaseUrl);
-            $('#providerModal').removeClass('hidden');
+            $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
         function closeModal() {
-            $('#providerModal').addClass('hidden');
+            $('#providerModal').addClass('hidden').removeClass('flex');
         }
 
         function openImportModal() {
             $('#jsonConfigInput').val('');
-            $('#importModal').removeClass('hidden');
+            $('#importModal').removeClass('hidden').addClass('flex');
         }
 
         function closeImportModal() {
-            $('#importModal').addClass('hidden');
+            $('#importModal').addClass('hidden').removeClass('flex');
         }
 
         function saveProvider(e) {
@@ -271,9 +283,11 @@
         }
 
         function testConnection(e) {
-            var btn = $(e.target);
-            var originalText = btn.text();
-            btn.text('测试中...').prop('disabled', true);
+            var btn = $(e.currentTarget);
+            var span = btn.find('span');
+            var originalText = span.text();
+            span.text('测试中...');
+            btn.prop('disabled', true);
             
             var data = {
                 action: 'test',
@@ -284,7 +298,8 @@
 
             if (!data.baseUrl || !data.modelName) {
                 alert("请至少填写 Base URL 和 模型名称");
-                btn.text(originalText).prop('disabled', false);
+                span.text(originalText);
+                btn.prop('disabled', false);
                 return;
             }
 
@@ -303,7 +318,8 @@
                     alert("网络错误，测试请求发送失败。");
                 },
                 complete: function() {
-                    btn.text(originalText).prop('disabled', false);
+                    span.text(originalText);
+                    btn.prop('disabled', false);
                 }
             });
         }
@@ -341,5 +357,29 @@
                 }
             });
         }
+        
+        // Handle clicking outside the modal content to close
+        function closeModalOnOutsideClick(event, contentId) {
+            var modalContent = document.getElementById(contentId);
+            if (modalContent && !modalContent.contains(event.target)) {
+                if (contentId === 'providerModalContent') {
+                    closeModal();
+                } else if (contentId === 'importModalContent') {
+                    closeImportModal();
+                }
+            }
+        }
+        
+        // Handle ESC key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (!$('#providerModal').hasClass('hidden')) {
+                    closeModal();
+                }
+                if (!$('#importModal').hasClass('hidden')) {
+                    closeImportModal();
+                }
+            }
+        });
     </script>
 </asp:Content>
