@@ -100,7 +100,7 @@
 
                 <!-- Content Area -->
                 <main class="flex-1 overflow-y-auto bg-slate-50/50 p-4 md:p-6 lg:p-8 relative custom-scrollbar">
-                    <div class="max-w-[1400px] mx-auto min-h-full">
+                    <div class="mx-auto min-h-full">
                         <div class="bg-white shadow-sm ring-1 ring-slate-200/50 rounded-2xl min-h-[calc(100vh-8rem)] overflow-hidden">
                             <asp:ContentPlaceHolder id="Content" runat="server">
                             </asp:ContentPlaceHolder>

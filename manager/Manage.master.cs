@@ -14,4 +14,15 @@ public partial class Manage : System.Web.UI.MasterPage
             LabelVer.ToolTip = LearnSite.Common.WordProcess.SysVerUpdate();
         }
     }
+
+    protected void BtnHeaderLogout_Click(object sender, EventArgs e)
+    {
+        if (Request.Cookies[LearnSite.Common.CookieHelp.mngCookieNname] != null)
+        {
+            LearnSite.Common.CookieHelp.ClearManagerCookies();
+            LearnSite.Common.Others.ClearClientPageCache();
+        }
+        System.Threading.Thread.Sleep(300);
+        Response.Redirect("~/teacher/index.aspx", false);
+    }
 }

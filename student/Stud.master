@@ -44,7 +44,7 @@
 
             <!-- Solid Blue Modern Nav -->
             <header class="sticky top-0 z-50 w-full bg-blue-600 shadow-[0_4px_20px_rgba(37,99,235,0.3)] border-b border-blue-500/30 transition-all duration-300">
-                <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-20">
                         <div class="flex items-center gap-4">
                             <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md shadow-inner flex items-center justify-center text-white ring-1 ring-white/50">
@@ -67,7 +67,7 @@
             </header>
 
             <!-- Main Content Area -->
-            <main class="flex-1 w-full max-w-[1400px] mx-auto p-4 sm:p-6 lg:p-8 z-10 w-full">
+            <main class="flex-1 w-full mx-auto p-4 sm:p-6 lg:p-8 z-10 w-full">
                 <div class="path mb-2 text-sm text-slate-500 hidden">
                     &nbsp;
                 </div>

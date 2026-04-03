@@ -153,6 +153,17 @@
             color: #3730a3;
         }
 
+        .course-select {
+            min-width: 120px;
+            min-height: 38px;
+            padding: 0 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: .75rem;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 14px;
+        }
+
         .course-footer {
             display: flex;
             flex-wrap: wrap;
@@ -338,7 +349,7 @@
                 <div class="course-toolbar-grid">
                     <div class="course-field">
                         <span class="course-field-label">选择年级</span>
-                        <asp:DropDownList ID="DDLgrade" runat="server" Width="60px" EnableTheming="True" AutoPostBack="True" onselectedindexchanged="DDLgrade_SelectedIndexChanged" CssClass="course-select"></asp:DropDownList>
+                        <asp:DropDownList ID="DDLgrade" runat="server" EnableTheming="True" AutoPostBack="True" onselectedindexchanged="DDLgrade_SelectedIndexChanged" CssClass="course-select"></asp:DropDownList>
                     </div>
                     <div class="course-field">
                         <span class="course-field-label">选择学期</span>

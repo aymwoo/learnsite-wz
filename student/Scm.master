@@ -36,7 +36,7 @@
 
             <!-- Solid Blue Modern Nav -->
             <header class="sticky top-0 z-50 w-full bg-blue-600 shadow-[0_4px_20px_rgba(37,99,235,0.3)] border-b border-blue-500/30 transition-all duration-300">
-                <div class="max-w-[1400px] mx-auto px-2 sm:px-6 lg:px-8">
+                <div class="mx-auto px-2 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-center sm:justify-between h-16 sm:h-20 w-full custom-menu-wrapper">
                         <div class="hidden sm:flex items-center gap-4 flex-shrink-0">
                             <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md shadow-inner flex items-center justify-center text-white ring-1 ring-white/50">
@@ -57,7 +57,7 @@
             </header>
 
             <!-- Main Content Area -->
-            <main class="flex-1 w-full max-w-[1400px] mx-auto p-3 sm:p-6 lg:p-8 z-10 box-border">
+            <main class="flex-1 w-full mx-auto p-3 sm:p-6 lg:p-8 z-10 box-border">
                 <div class="path mb-2 text-sm text-slate-500 hidden"></div>
                 <div class="bg-white rounded-[1.25rem] shadow-sm border border-slate-200/60 p-4 sm:p-8 min-h-[calc(100vh-10rem)] relative w-full overflow-hidden">
                     <asp:contentplaceholder id="Cpcm" runat="server"></asp:contentplaceholder>
