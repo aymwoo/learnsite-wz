@@ -1,19 +1,27 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" enableViewStateMac="false" CodeFile="systeminfo.aspx.cs" Inherits="Teacher_systeminfo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <div class="p-6 max-w-[1200px] mx-auto w-full">
+    <div class="w-full mx-auto p-4 sm:p-6 space-y-6 font-sans text-slate-800">
         <!-- Dashboard Header -->
-        <div class="mb-8">
-            <h1 class="text-2xl font-bold text-slate-800">系统信息与统计</h1>
-            <p class="text-slate-500 text-sm mt-1">查看服务器实时状态、资源统计及异常日志记录</p>
+        <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200 overflow-hidden border-t-4 border-t-indigo-500">
+            <div class="px-6 py-5 bg-gradient-to-r from-slate-50 to-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-[16px] font-extrabold text-slate-800 flex items-center gap-2">
+                        <i class="bi bi-server text-indigo-600"></i> 系统信息与统计
+                    </h1>
+                    <p class="text-[13px] text-slate-500 mt-1.5">查看服务器实时状态、资源统计及异常日志记录</p>
+                </div>
+            </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- 网站分析统计 (Left Column) -->
             <div class="col-span-1 flex flex-col gap-6">
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200 overflow-hidden">
                     <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50">
-                        <h2 class="font-bold text-slate-700">网站分析统计</h2>
+                        <h2 class="font-bold text-slate-700 flex items-center gap-2">
+                            <i class="bi bi-bar-chart-line-fill text-indigo-500"></i> 网站分析统计
+                        </h2>
                     </div>
                     <div class="p-5 flex flex-col gap-4">
                         <div class="flex justify-between items-center pb-2 border-b border-slate-50">
@@ -57,10 +65,10 @@
 
             <!-- 服务器状态 (Right Column) -->
             <div class="col-span-1 lg:col-span-2">
-                <div class="bg-white rounded-2xl border border-slate-200/60 shadow-sm overflow-hidden h-full">
+                <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200 overflow-hidden h-full">
                     <div class="px-5 py-4 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
-                        <h2 class="font-bold text-slate-700">
-                            <asp:Label ID="Labelcomputer" runat="server"></asp:Label> 服务器状态
+                        <h2 class="font-bold text-slate-700 flex items-center gap-2">
+                            <i class="bi bi-activity text-emerald-500"></i> <span><asp:Label ID="Labelcomputer" runat="server"></asp:Label> 服务器状态</span>
                         </h2>
                         <span class="flex h-3 w-3 relative">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

@@ -91,6 +91,12 @@
             color: #64748b;
         }
 
+        .course-icon-btn-sm {
+            width: 28px;
+            height: 28px;
+            font-size: 0.9rem;
+        }
+
         .course-icon-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -404,11 +410,16 @@
                                 </ItemTemplate>
                                 <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
-                            <asp:HyperLinkField DataNavigateUrlFields="Cid,Cobj"
-                                DataNavigateUrlFormatString="workcheck.aspx?cid={0}&amp;grade={1}"
-                                Text="&lt;i class=&quot;bi bi-eye&quot;&gt;&lt;/i&gt;" HeaderText="评价" Target="_blank">
-                                <ItemStyle HorizontalAlign="Center" CssClass="course-icon-btn course-icon-info" style="display:inline-flex; margin-top: 0.5rem; margin-bottom: 0.5rem;" />
-                            </asp:HyperLinkField>
+                            <asp:TemplateField HeaderText="评价">
+                                <ItemTemplate>
+                                    <asp:HyperLink ID="HLCheck" runat="server" Target="_blank"
+                                        NavigateUrl='<%# "workcheck.aspx?cid=" + Eval("Cid") + "&grade=" + Eval("Cobj") %>'
+                                        CssClass="course-icon-btn course-icon-btn-sm course-icon-info mx-auto">
+                                        <i class="bi bi-eye"></i>
+                                    </asp:HyperLink>
+                                </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
+                            </asp:TemplateField>
                             <asp:BoundField DataField="Cdate" HeaderText="日期" SortExpression="Cdate" >
                                 <HeaderStyle HorizontalAlign="Left" />
                                 <ItemStyle HorizontalAlign="Left" Width="160px" />

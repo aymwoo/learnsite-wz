@@ -1,13 +1,14 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="signin.aspx.cs" Inherits="Teacher_signin" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div class="w-full max-w-6xl mx-auto p-4 sm:p-6 space-y-6 font-sans text-slate-800">
+<div class="w-full mx-auto p-4 sm:p-6 space-y-6 font-sans text-slate-800">
     <!-- Header -->
-    <div class="bg-slate-100 rounded-xl shadow-sm border border-slate-200 p-6 flex flex-col lg:flex-row items-center justify-between gap-6 border-l-8 border-l-indigo-600">
-        <div class="flex flex-col sm:flex-row items-center gap-4">
-            <h1 class="text-2xl font-extrabold text-slate-900 flex items-center gap-2 whitespace-nowrap">
-                <i class="bi bi-person-check-fill text-indigo-700"></i> 学生签到记录
-            </h1>
+    <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200 overflow-hidden border-t-4 border-t-teal-500">
+        <div class="px-6 py-5 bg-gradient-to-r from-slate-50 to-white flex flex-col lg:flex-row items-center justify-between gap-6">
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <h1 class="text-[16px] font-extrabold text-slate-800 flex items-center gap-2 whitespace-nowrap">
+                    <i class="bi bi-person-check-fill text-teal-600"></i> 学生签到记录
+                </h1>
             <div class="flex items-center gap-3 bg-white px-4 py-2 border border-slate-200 shadow-sm rounded-xl">
                 <div class="flex items-center gap-1">
                     <span class="text-xs font-bold text-slate-500">年级</span>
@@ -30,16 +31,17 @@
         <div class="flex flex-wrap gap-3">
             <asp:Button ID="BtnExcel" runat="server" OnClick="BtnExcel_Click" 
                 Text="导出签到表" ToolTip="将本学期本班签到以Excel表格导出" 
-                CssClass="px-5 py-2.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition duration-200 shadow-sm border-0 cursor-pointer text-sm" />
+                CssClass="px-6 py-2.5 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white font-bold rounded-xl hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 shadow-sm border-0 cursor-pointer text-[13px]" />
             
             <asp:Button ID="BtnExcelNoSign" runat="server" OnClick="BtnExcelNoSign_Click" 
                 Text="导出缺席表" ToolTip="将本学期本班缺席以Excel表格导出" 
-                CssClass="px-5 py-2.5 bg-slate-600 text-white font-bold rounded-xl hover:bg-slate-700 transition duration-200 shadow-sm border-0 cursor-pointer text-sm" />
+                CssClass="px-6 py-2.5 bg-white text-slate-600 border border-slate-200 font-bold rounded-xl hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-lg transition-all duration-300 shadow-sm cursor-pointer text-[13px]" />
+        </div>
         </div>
     </div>
 
     <!-- Data Table -->
-    <div class="bg-white shadow-sm border border-slate-200 overflow-hidden rounded-xl">
+    <div class="bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.03)] border border-slate-200 overflow-hidden">
         <asp:GridView ID="GVSignin" runat="server" AllowPaging="True" 
             AutoGenerateColumns="False" PageSize="20" Width="100%" 
             onpageindexchanging="GVSignin_PageIndexChanging" 
