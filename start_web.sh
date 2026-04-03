@@ -12,7 +12,7 @@ PORT="${1:-9080}"
 export MONO_THREADS_PER_CPU=50
 export MONO_TLS_PROVIDER=btls
 # 禁用 IO 层的异步优化，强制使用阻塞模式
-export MONO_MANAGED_WATCHER=disabled
+# export MONO_MANAGED_WATCHER=disabled
 export MONO_DISABLE_AIO=1
 
 echo "Starting LearnSite on http://localhost:$PORT"
