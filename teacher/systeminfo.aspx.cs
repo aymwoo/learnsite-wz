@@ -34,7 +34,6 @@ public partial class Teacher_systeminfo : System.Web.UI.Page
         Label12.Text = LearnSite.Common.Computer.GetServerAspNetWorkingSet() + "MB";
         Label13.Text = LearnSite.Common.Computer.GetServerAspNetCpuTime() + "分钟";
         Label14.Text = LearnSite.Common.Computer.GetServerCurrentThreadsNum() + "个";
-        Label21.Text = LearnSite.Common.Computer.GetServerLanguage();
         Label22.Text = LearnSite.Common.Computer.GetSessionCount()+"个";
         Label23.Text = LearnSite.Common.App.AppCounts().ToString();
         Labelcomputer.Text = Environment.OSVersion.Platform.ToString();
