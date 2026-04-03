@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LearnSite>
   <website>
     <add key="Term" value="1" />
@@ -7,7 +7,7 @@
     <add key="WebVote_Limit" value="False" />
     <add key="AllowFileType" value="jpg|png|txt|html|gif" />
     <add key="AllowDir" value="images|_private" />
-    <add key="SiteTitle" value="信息科技学习网站" />
+    <add key="SiteTitle" value="Learnsite" />
     <add key="LoginMode" value="1" />
     <add key="CourseType" value="Word|Powerpoint|Excel|Python|Scratch|Sketchup|Office|Html|Photo|Flash|Email|RoBot|Computer|Internet|Program|Supple|Movie|Music" />
     <add key="CoursePeriod" value="100" />

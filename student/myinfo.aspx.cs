@@ -9,6 +9,21 @@ public partial class Student_myinfo : System.Web.UI.Page
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Handle logout action
+        if (Request.QueryString["action"] == "logout")
+        {
+            if (LearnSite.Common.CookieHelp.IsStudentLogin())
+            {
+                string mysnum = cook.Snum;
+                LearnSite.Common.App.AppUserRemove(mysnum);
+            }
+            LearnSite.Common.CookieHelp.ClearStudentCookies();
+            Session.Abandon();
+            Session.Clear();
+            Response.Redirect("~/index.aspx", false);
+            return;
+        }
+
         if (LearnSite.Common.CookieHelp.IsStudentLogin())
         {
             LearnSite.Common.CookieHelp.KickStudent();

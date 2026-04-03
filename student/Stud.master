@@ -60,7 +60,7 @@
                             <a href="../student/myfile.aspx" class="px-5 py-2.5 rounded-2xl text-[15px] font-bold text-blue-50 hover:text-white hover:bg-white/15 hover:shadow-sm hover:-translate-y-0.5 hover:underline hover:decoration-white/70 hover:decoration-2 hover:underline-offset-4 transition-all duration-300 ease-out active:scale-95">在线资源</a>
                             <a onclick="showShare()" class="px-5 py-2.5 rounded-2xl text-[15px] font-bold text-blue-50 hover:text-white hover:bg-white/15 hover:shadow-sm hover:-translate-y-0.5 hover:underline hover:decoration-white/70 hover:decoration-2 hover:underline-offset-4 transition-all duration-300 ease-out active:scale-95 cursor-pointer">我的网盘</a>
                             <div class="h-6 w-px bg-blue-300/40 mx-2"></div>
-                            <a href="../index.aspx" class="ml-2 px-5 py-2.5 rounded-2xl text-[14px] font-bold text-blue-600 bg-white hover:bg-blue-50 hover:text-blue-700 shadow-md hover:shadow-lg hover:shadow-white/20 hover:-translate-y-0.5 transition-all duration-300 ease-out active:scale-95 border-0">退出登录</a>
+                            <a href="../student/myinfo.aspx?action=logout" class="ml-2 px-5 py-2.5 rounded-2xl text-[14px] font-bold text-blue-600 bg-white hover:bg-blue-50 hover:text-blue-700 shadow-md hover:shadow-lg hover:shadow-white/20 hover:-translate-y-0.5 transition-all duration-300 ease-out active:scale-95 border-0">退出登录</a>
                         </nav>
                     </div>
                 </div>
