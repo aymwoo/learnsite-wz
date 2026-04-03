@@ -20,3 +20,5 @@ docker-compose.dev.yaml
 web.config.local
 web.config.docker.local
 /mssql/data
+Tests/SharpZipTests/bin/
+Tests/SharpZipTests/obj/
