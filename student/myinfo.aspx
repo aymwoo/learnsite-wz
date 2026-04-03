@@ -235,7 +235,7 @@
             
             <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
             
-            <!-- Modern Tailwind CSS Modal for '我的资料' -->
+            <!-- Modern Tailwind CSS Modal for '我的资料'（多标签页整合版） -->
             <div id="modernGroupModal" class="fixed inset-0 z-[9999] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
                 <!-- Background backdrop -->
                 <div id="modernGroupModalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true"></div>
@@ -243,7 +243,7 @@
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <!-- Modal panel -->
-                        <div id="modernGroupModalPanel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-3xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100">
+                        <div id="modernGroupModalPanel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100">
                             <!-- Header -->
                             <div class="bg-gradient-to-r from-indigo-50 to-white px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
                                 <h3 class="text-lg font-extrabold text-indigo-900 flex items-center gap-2" id="modal-title">
@@ -255,9 +255,59 @@
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </div>
+                            <!-- Tab Navigation -->
+                            <div class="bg-slate-50 border-b border-slate-200 px-3 overflow-x-auto">
+                                <nav class="flex gap-0.5 min-w-max" aria-label="资料导航">
+                                    <button id="tab-group" type="button" onclick="switchProfileTab('../profile/mygroup.aspx', 'tab-group')"
+                                        class="profile-tab profile-tab-active px-3 py-2.5 text-xs font-semibold rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                        小组合作
+                                    </button>
+                                    <button id="tab-sign" type="button" onclick="switchProfileTab('../profile/mysign.aspx', 'tab-sign')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                        我的签到
+                                    </button>
+                                    <button id="tab-term" type="button" onclick="switchProfileTab('../profile/myterm.aspx', 'tab-term')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                                        学习成果
+                                    </button>
+                                    <button id="tab-photo" type="button" onclick="switchProfileTab('../profile/myphoto.aspx', 'tab-photo')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        修改相片
+                                    </button>
+                                    <button id="tab-name" type="button" onclick="switchProfileTab('../profile/myname.aspx', 'tab-name')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                        修改姓名
+                                    </button>
+                                    <button id="tab-sex" type="button" onclick="switchProfileTab('../profile/mysex.aspx', 'tab-sex')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        修改性别
+                                    </button>
+                                    <button id="tab-pwd" type="button" onclick="switchProfileTab('../profile/mypwd.aspx', 'tab-pwd')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                        修改密码
+                                    </button>
+                                    <button id="tab-class" type="button" onclick="switchProfileTab('../profile/myclass.aspx', 'tab-class')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                        修改班级
+                                    </button>
+                                    <button id="tab-change" type="button" onclick="switchProfileTab('../profile/mychange.aspx', 'tab-change')"
+                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                                        推荐组长
+                                    </button>
+                                </nav>
+                            </div>
                             <!-- Content (Iframe) -->
-                            <div class="bg-white px-0 py-0">
-                                <iframe id="modernGroupModalIframe" src="" class="w-full border-0" style="height: 500px;" title="我的资料"></iframe>
+                            <div class="bg-white">
+                                <iframe id="modernGroupModalIframe" src="" class="w-full border-0" style="height: 520px;" title="我的资料"></iframe>
                             </div>
                         </div>
                     </div>
@@ -265,64 +315,88 @@
             </div>
 
             <script type="text/javascript">
-                // Modern Modal functions
+                // Tab style classes
+                var TAB_ACTIVE = ['profile-tab-active', 'text-indigo-600', 'border-b-2', 'border-indigo-500', 'bg-white'];
+                var TAB_INACTIVE = ['profile-tab-inactive', 'text-slate-500', 'border-b-2', 'border-transparent', 'hover:text-slate-700', 'hover:border-slate-300'];
+
+                function switchProfileTab(url, tabId) {
+                    // Update iframe source
+                    document.getElementById('modernGroupModalIframe').src = url;
+                    // Reset all tabs to inactive style
+                    document.querySelectorAll('.profile-tab').forEach(function(tab) {
+                        TAB_ACTIVE.forEach(function(c) { tab.classList.remove(c); });
+                        tab.classList.add('profile-tab-inactive', 'text-slate-500', 'border-b-2', 'border-transparent');
+                    });
+                    // Set clicked tab to active style
+                    var activeTab = document.getElementById(tabId);
+                    if (activeTab) {
+                        activeTab.classList.remove('profile-tab-inactive', 'text-slate-500', 'border-transparent');
+                        activeTab.classList.add('profile-tab-active', 'text-indigo-600', 'border-b-2', 'border-indigo-500', 'bg-white');
+                    }
+                }
+
                 function openModernGroupModal() {
-                    const modal = document.getElementById('modernGroupModal');
-                    const backdrop = document.getElementById('modernGroupModalBackdrop');
-                    const panel = document.getElementById('modernGroupModalPanel');
-                    const iframe = document.getElementById('modernGroupModalIframe');
-                    
-                    // Set iframe source if empty
-                    if(!iframe.src || iframe.src === window.location.href || iframe.src === '') {
-                        iframe.src = "../profile/mygroup.aspx";
+                    var modal = document.getElementById('modernGroupModal');
+                    var backdrop = document.getElementById('modernGroupModalBackdrop');
+                    var panel = document.getElementById('modernGroupModalPanel');
+                    var iframe = document.getElementById('modernGroupModalIframe');
+
+                    // Load default tab (小组合作) if no page is loaded yet
+                    if (!iframe.src || iframe.src === window.location.href || iframe.src === '') {
+                        switchProfileTab('../profile/mygroup.aspx', 'tab-group');
                     }
 
                     // Show modal
                     modal.classList.remove('hidden');
-                    
-                    // Trigger animations
-                    setTimeout(() => {
+
+                    // Trigger entrance animations
+                    setTimeout(function() {
                         backdrop.classList.remove('opacity-0');
                         backdrop.classList.add('opacity-100');
-                        
                         panel.classList.remove('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
                         panel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
                     }, 10);
                 }
 
                 function closeModernGroupModal() {
-                    const modal = document.getElementById('modernGroupModal');
-                    const backdrop = document.getElementById('modernGroupModalBackdrop');
-                    const panel = document.getElementById('modernGroupModalPanel');
-                    
-                    // Trigger reverse animations
+                    var modal = document.getElementById('modernGroupModal');
+                    var backdrop = document.getElementById('modernGroupModalBackdrop');
+                    var panel = document.getElementById('modernGroupModalPanel');
+
+                    // Trigger exit animations
                     backdrop.classList.remove('opacity-100');
                     backdrop.classList.add('opacity-0');
-                    
                     panel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
                     panel.classList.add('opacity-0', 'translate-y-4', 'sm:translate-y-0', 'sm:scale-95');
-                    
+
                     // Hide modal after animation completes
-                    setTimeout(() => {
+                    setTimeout(function() {
                         modal.classList.add('hidden');
                     }, 300);
                 }
 
-                // Close modal on backdrop click
+                // Close modal when clicking the backdrop
                 document.getElementById('modernGroupModalBackdrop').addEventListener('click', closeModernGroupModal);
 
-                // Legacy Modal popup scripts using TINY.box (kept for other buttons if they exist)
+                // Close modal with Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && !document.getElementById('modernGroupModal').classList.contains('hidden')) {
+                        closeModernGroupModal();
+                    }
+                });
+
+                // Legacy Modal popup scripts using TINY.box
                 function showPortfolioModal(snum) {
                     var url = "../student/myportfolio.aspx?Snum=" + snum;
                     TINY.box.show({ iframe: url, boxid: 'frameless', width: 800, height: 600, fixed: false, maskopacity: 60, close: true });
                 }
-                
+
                 function showWorkModal(wid) {
                     var url = "../student/downwork.aspx?Wid=" + wid;
                     TINY.box.show({ iframe: url, boxid: 'frameless', width: 600, height: 400, fixed: false, maskopacity: 60, close: true });
                 }
-                
-                // Original showGroupModal replaced by openModernGroupModal
+
+                // showGroupModal kept for backward compatibility
                 function showGroupModal() {
                     openModernGroupModal();
                 }

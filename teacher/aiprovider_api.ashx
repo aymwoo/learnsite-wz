@@ -136,7 +136,7 @@ public class aiprovider_api : IHttpHandler {
                 }
                 else
                 {
-                    model.ApiKey = apiKey;
+                    model.ApiKey = apiKey; // Save the new explicit API key
                 }
                 
                 model.Id = id;
@@ -206,11 +206,25 @@ public class aiprovider_api : IHttpHandler {
         string apiKey = context.Request["apiKey"];
         string baseUrl = context.Request["baseUrl"];
         string modelName = context.Request["modelName"];
+        string idStr = context.Request["id"];
         
         if (string.IsNullOrEmpty(baseUrl))
         {
             context.Response.Write("{\"success\":false,\"msg\":\"Base URL is required for testing.\"}");
             return;
+        }
+
+        // If the apiKey contains asterisks, it means it's masked from the frontend.
+        // We need to fetch the real apiKey from the database using the ID to test it.
+        if (!string.IsNullOrEmpty(apiKey) && apiKey.StartsWith("********") && !string.IsNullOrEmpty(idStr) && idStr != "0")
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+            LearnSite.Model.AIProvider existingModel = bll.GetModel(id);
+            if (existingModel != null)
+            {
+                apiKey = existingModel.ApiKey;
+            }
         }
 
         try
@@ -247,8 +261,8 @@ public class aiprovider_api : IHttpHandler {
                         {
                             string responseFromServer = reader.ReadToEnd();
                             // Parse response just to check if it's valid JSON from OpenAI format
-                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
-                            if (jsonResp != null && jsonResp.choices != null)
+                            Newtonsoft.Json.Linq.JObject jsonResp = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JObject>(responseFromServer);
+                            if (jsonResp != null && jsonResp["choices"] != null)
                             {
                                 context.Response.Write("{\"success\":true,\"msg\":\"Connection successful!\"}");
                             }

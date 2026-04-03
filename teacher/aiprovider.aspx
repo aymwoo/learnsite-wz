@@ -58,7 +58,8 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 mt-8 pt-6 border-t border-gray-100">
-                        <div class="w-full sm:w-auto">
+                        <div class="w-full sm:w-auto flex flex-col items-start gap-1">
+                            <div id="testResultMsg" class="text-sm font-medium hidden"></div>
                             <button type="button" onclick="testConnection(event)" class="w-full sm:w-auto bg-green-500 hover:bg-green-600 text-white border-0 border-transparent font-semibold py-2.5 px-5 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
                                 <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                                 <span>测试连接</span>
@@ -184,6 +185,7 @@
             $('#modelName').val('');
             $('#apiKey').val('');
             $('#baseUrl').val('https://api.openai.com/v1');
+            $('#testResultMsg').addClass('hidden').text('');
             $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
@@ -195,6 +197,7 @@
             $('#modelName').val(item.ModelName);
             $('#apiKey').val(item.ApiKey);
             $('#baseUrl').val(item.BaseUrl);
+            $('#testResultMsg').addClass('hidden').text('');
             $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
@@ -283,18 +286,24 @@
             var btn = $(e.currentTarget);
             var span = btn.find('span');
             var originalText = span.text();
+            var resultMsg = $('#testResultMsg');
+            
+            resultMsg.removeClass('hidden text-green-600 text-red-600').addClass('text-gray-500').text('正在测试中，请稍候...');
             span.text('测试中...');
             btn.prop('disabled', true);
             
+            var apiKeyToTest = $('#apiKey').val();
+
             var data = {
                 action: 'test',
+                id: $('#providerId').val(),
                 modelName: $('#modelName').val(),
-                apiKey: $('#apiKey').val(),
+                apiKey: apiKeyToTest,
                 baseUrl: $('#baseUrl').val()
             };
 
             if (!data.baseUrl || !data.modelName) {
-                alert("请至少填写 Base URL 和 模型名称");
+                resultMsg.removeClass('text-gray-500').addClass('text-red-600').text('请至少填写 Base URL 和 模型名称');
                 span.text(originalText);
                 btn.prop('disabled', false);
                 return;
@@ -306,13 +315,13 @@
                 data: data,
                 success: function(res) {
                     if (res.success) {
-                        alert("测试成功！\n" + res.msg);
+                        resultMsg.removeClass('text-gray-500 text-red-600').addClass('text-green-600').text('测试成功！' + res.msg);
                     } else {
-                        alert("测试失败:\n" + res.msg);
+                        resultMsg.removeClass('text-gray-500 text-green-600').addClass('text-red-600').text('测试失败: ' + res.msg);
                     }
                 },
                 error: function() {
-                    alert("网络错误，测试请求发送失败。");
+                    resultMsg.removeClass('text-gray-500 text-green-600').addClass('text-red-600').text('网络错误，测试请求发送失败。');
                 },
                 complete: function() {
                     span.text(originalText);
