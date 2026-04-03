@@ -266,6 +266,7 @@ if [ "$RUN_CSHARP" = true ]; then
     TEST_PROJECTS=(
         "Tests/EnDeCodeTests/EnDeCodeTests.csproj"
         "Tests/ImageCheckTests/ImageCheckTests.csproj"
+        "Tests/SharpZipTests/SharpZipTests.csproj"
     )
 
     for PROJECT in "${TEST_PROJECTS[@]}"; do
