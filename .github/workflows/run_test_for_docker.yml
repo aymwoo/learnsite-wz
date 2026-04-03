@@ -2,7 +2,15 @@ name: Docker Environment Tests
 
 on:
   push:
+    paths-ignore:
+      - '.github/workflows/compile_test.yml'
+      - '.github/workflows/run_test_for_windows.yml'
+      - '.github/workflows/run_test_for_linux.yml'
   pull_request:
+    paths-ignore:
+      - '.github/workflows/compile_test.yml'
+      - '.github/workflows/run_test_for_windows.yml'
+      - '.github/workflows/run_test_for_linux.yml'
 
 jobs:
   test:
