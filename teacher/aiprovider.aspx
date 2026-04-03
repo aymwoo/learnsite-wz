@@ -146,7 +146,6 @@
             } else {
                 $.each(data, function(i, item) {
                     var defaultBadge = item.IsDefault ? '<span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full font-semibold border border-green-200">默认</span>' : '';
-                    var hiddenKey = item.ApiKey ? '********' + item.ApiKey.substring(item.ApiKey.length - 4) : '未设置';
                     
                     html += '<div class="bg-white rounded-xl shadow-sm border ' + (item.IsDefault ? 'border-green-400 ring-1 ring-green-400' : 'border-gray-200') + ' overflow-hidden hover:shadow-md transition-shadow relative">';
                     html += '<div class="p-5">';
@@ -156,10 +155,8 @@
                     html += '<div>' + defaultBadge + '</div>';
                     html += '</div>';
                     
-                    html += '<div class="space-y-2 mb-6">';
+                    html += '<div class="space-y-2 mb-4">';
                     html += '<div class="flex items-center text-sm"><span class="text-gray-500 w-20">模型:</span><span class="font-medium text-gray-800">' + item.ModelName + '</span></div>';
-                    html += '<div class="flex items-center text-sm"><span class="text-gray-500 w-20">API Key:</span><span class="font-mono text-gray-600 truncate">' + hiddenKey + '</span></div>';
-                    html += '<div class="flex items-center text-sm"><span class="text-gray-500 w-20">Base URL:</span><span class="text-gray-600 truncate" title="' + item.BaseUrl + '">' + item.BaseUrl + '</span></div>';
                     html += '</div>';
                     
                     html += '<div class="flex justify-between items-center pt-4 border-t border-gray-100">';
