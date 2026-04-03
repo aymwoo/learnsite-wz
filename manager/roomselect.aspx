@@ -15,8 +15,23 @@
         .mgr-legend { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: #475569; }
         .mgr-legend__item { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
         .mgr-legend__swatch { display: inline-block; width: 14px; height: 14px; border-radius: .25rem; border: 1px solid #e2e8f0; }
-        .mgr-room-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        .mgr-room-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 8px; border: 1px solid #e2e8f0; border-radius: 1rem; background: #f8fafc; width: 80px; }
+        .mgr-room-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .mgr-room-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px 12px; border: 2px solid #e2e8f0; border-radius: 1rem;
+            background: #f8fafc; width: 96px; min-height: 80px; cursor: pointer;
+            transition: border-color .15s, background .15s, box-shadow .15s;
+            user-select: none; flex-shrink: 0;
+        }
+        .mgr-room-item:hover { border-color: #93c5fd; background: #eff6ff; box-shadow: 0 4px 12px rgba(37,99,235,.1); }
+        .mgr-room-item.selected { border-color: #22c55e; background: #f0fdf4; }
+        .mgr-room-item.disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+        .mgr-room-indicator {
+            width: 16px; height: 16px; border-radius: 50%;
+            border: 2px solid #cbd5e1; background: #fff;
+            transition: all .15s; flex-shrink: 0;
+        }
+        .mgr-room-item.selected .mgr-room-indicator { background: #22c55e; border-color: #22c55e; }
         .mgr-actions { display: flex; gap: 10px; }
         .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 20px; border-radius: 1rem; border: none; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
@@ -49,14 +64,15 @@
                         </span>
                     </div>
 
+                    <div id="room-grid" class="mgr-room-grid"></div>
                     <asp:DataList ID="DLroom" runat="server" RepeatColumns="8" RepeatDirection="Horizontal"
-                        onitemdatabound="DLroom_ItemDataBound" DataKeyField="Rid" CellPadding="0" CellSpacing="6">
+                        onitemdatabound="DLroom_ItemDataBound" DataKeyField="Rid" CellPadding="0" CellSpacing="0" style="display:none;">
                         <ItemTemplate>
-                            <div class="mgr-room-item">
-                                <asp:HyperLink ID="Rgradeclass" runat="server" Font-Size="13px" Font-Underline="False"
-                                    BackColor="WhiteSmoke" ForeColor="Black" BorderColor="#E4E4E4" BorderWidth="1px" BorderStyle="Solid"
-                                    style="display:inline-flex;align-items:center;justify-content:center;width:52px;height:28px;border-radius:.5rem;font-weight:700;text-decoration:none;font-size:14px;"></asp:HyperLink>
-                                <asp:CheckBox ID="CheckRoom" runat="server" />
+                            <div class="mgr-room-item" onclick="toggleRoom(this)">
+                                <asp:HyperLink ID="Rgradeclass" runat="server" Font-Underline="False"
+                                    ForeColor="Black" style="text-decoration:none;font-weight:800;font-size:16px;color:#0f172a;pointer-events:none;"></asp:HyperLink>
+                                <asp:CheckBox ID="CheckRoom" runat="server" style="display:none;" />
+                                <span class="mgr-room-indicator"></span>
                                 <asp:Label ID="LabelRid" runat="server" Text='<%# Eval("Rid") %>' Visible="False"></asp:Label>
                                 <asp:Label ID="LabelRhid" runat="server" Text='<%# Eval("Rhid") %>' Visible="False"></asp:Label>
                                 <asp:Label ID="LabelRgrade" runat="server" Text='<%# Eval("Rgrade") %>' Visible="False"></asp:Label>
@@ -73,4 +89,21 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+    function toggleRoom(div) {
+        var cb = div.querySelector('input[type=checkbox]');
+        if (!cb || cb.disabled) return;
+        cb.checked = !cb.checked;
+        div.classList.toggle('selected', cb.checked);
+    }
+    (function(){
+        var grid = document.getElementById('room-grid');
+        document.querySelectorAll('.mgr-room-item').forEach(function(item){
+            var cb = item.querySelector('input[type=checkbox]');
+            if (cb && cb.disabled) item.classList.add('disabled');
+            else if (cb && cb.checked) item.classList.add('selected');
+            grid.appendChild(item);
+        });
+    })();
+    </script>
 </asp:Content>
