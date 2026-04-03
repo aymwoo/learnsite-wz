@@ -1,22 +1,163 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="soft.aspx.cs" Inherits="Teacher_soft" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div  class="placehold">        
-            <div>
-            资源分类：<asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True" 
-                    onselectedindexchanged="ddlcategory_SelectedIndexChanged">
-        </asp:DropDownList>
-                    <asp:Label ID="Label1" runat="server" Width="400px"></asp:Label>
-                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
-                    NavigateUrl="~/teacher/softadd.aspx" Target="_self">资源添加</asp:HyperLink>
-&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
-                    NavigateUrl="~/teacher/softcategory.aspx" Target="_self">分类设置</asp:HyperLink>
-                    &nbsp;&nbsp;&nbsp;
-                <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="HyperlinkNormal px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" 
-                    NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">自学评价</asp:HyperLink>
-                    </div>
-            <div class="softdiv">
+    <style type="text/css">
+        .soft-manage {
+            --ls-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
+            --ls-card: rgba(255, 255, 255, 0.96);
+            --ls-border: #dbe6f5;
+            --ls-text: #0f172a;
+            --ls-muted: #64748b;
+            --ls-primary: #2563eb;
+            --ls-primary-soft: #dbeafe;
+            --ls-success: #16a34a;
+            --ls-success-soft: #dcfce7;
+            padding: 28px;
+            background: var(--ls-bg);
+            color: var(--ls-text);
+            min-height: calc(100vh - 8rem);
+        }
+
+        .soft-manage * {
+            box-sizing: border-box;
+        }
+
+        .lesson-card {
+            border: 1px solid var(--ls-border);
+            border-radius: 1rem;
+            background: var(--ls-card);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .soft-header {
+            padding: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .soft-filter {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .soft-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .soft-select {
+            min-width: 160px;
+            height: 44px;
+            padding: 0 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.85rem;
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .soft-select:focus {
+            border-color: var(--ls-primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .soft-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .soft-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            padding: 0 20px;
+            border-radius: 0.85rem;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .soft-btn--success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+        }
+
+        .soft-btn--success:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .soft-btn--primary {
+            background: #f0fdfa;
+            color: #059669;
+            border: 1px solid #bbf7d0;
+        }
+
+        .soft-btn--primary:hover {
+            background: #dcfce7;
+            transform: translateY(-1px);
+        }
+
+        .soft-grid-container {
+            padding: 0;
+            background: #ffffff;
+        }
+        
+        @media (max-width: 768px) {
+            .soft-manage { padding: 16px; }
+            .soft-header { padding: 16px; flex-direction: column; align-items: stretch; }
+            .soft-select { width: 100%; }
+            .soft-actions { flex-direction: column; }
+        }
+    </style>
+
+    <div class="soft-manage">
+        <div class="lesson-card">
+            <div class="soft-header">
+                <div class="soft-filter">
+                    <span class="soft-label">资源分类</span>
+                    <asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True" 
+                        onselectedindexchanged="ddlcategory_SelectedIndexChanged" CssClass="soft-select">
+                    </asp:DropDownList>
+                    <asp:Label ID="Label1" runat="server" CssClass="hidden md:inline-block ml-2 text-slate-400 text-sm"></asp:Label>
+                </div>
+                
+                <div class="soft-actions">
+                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="soft-btn soft-btn--success" 
+                        NavigateUrl="~/teacher/softadd.aspx" Target="_self">
+                        <i class="bi bi-plus-lg mr-1.5"></i> 资源添加
+                    </asp:HyperLink>
+                    
+                    <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="soft-btn soft-btn--primary" 
+                        NavigateUrl="~/teacher/softcategory.aspx" Target="_self">
+                        <i class="bi bi-gear mr-1.5"></i> 分类设置
+                    </asp:HyperLink>
+                    
+                    <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="soft-btn soft-btn--primary" 
+                        NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">
+                        <i class="bi bi-patch-check mr-1.5"></i> 自学评价
+                    </asp:HyperLink>
+                </div>
+            </div>
+
+            <div class="soft-grid-container">
                 <asp:GridView ID="GVSource" runat="server" AllowPaging="True" 
                     AutoGenerateColumns="False" PageSize="20" Width="100%"
                     onpageindexchanging="GVSource_PageIndexChanging" 
