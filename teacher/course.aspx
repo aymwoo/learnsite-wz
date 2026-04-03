@@ -159,6 +159,56 @@
             justify-content: flex-end;
             gap: 0.8rem;
         }
+        .course-primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px -3px rgba(16, 185, 129, 0.4);
+            transition: all 0.25s ease;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px -4px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+        }
+
+        .course-primary-btn:active {
+            transform: translateY(0);
+        }
+
+        .course-secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 1.4rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #475569;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .course-secondary-btn:hover {
+            color: #3b82f6;
+            border-color: #93c5fd;
+            background: #eff6ff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+        }
 
         @media (max-width: 768px) {
             .course-hero-action {
@@ -279,7 +329,7 @@
                         <p class="course-subtitle">集中查看、筛选与维护当前年级学案，保留原有业务流程与数据操作，只优化页面布局、视觉层次和交互反馈。</p>
                     </div>
                     <div class="course-hero-action">
-                        <asp:Button ID="Btnadd" runat="server" Text="添加学案" onclick="Btnadd_Click" SkinID="BtnNormal" CssClass="course-primary-btn" />
+                        <asp:Button ID="Btnadd" runat="server" Text="添加学案" onclick="Btnadd_Click" CssClass="course-primary-btn" />
                     </div>
                 </div>
             </section>
@@ -343,34 +393,39 @@
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HlPackage" runat="server" NavigateUrl='<%# "~/teacher/package.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-download"></i>' ToolTip="打包下载" CssClass="course-icon-btn course-icon-primary"></asp:HyperLink>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="发布" ShowHeader="False">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LbtnCpublish" runat="server" CausesValidation="false"
                                         CommandArgument='<%# Bind("Cid") %>' CommandName="Cp" Text='<%# Eval("Cpublish") %>'></asp:LinkButton>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="作品">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HlAnalyse" runat="server" NavigateUrl='<%# "~/teacher/courseanalyse.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-bar-chart-line"></i>' ToolTip="作品分析" CssClass="course-icon-btn course-icon-info"></asp:HyperLink>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="探讨">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="Hl" runat="server" Text='<i class="bi bi-chat-dots"></i>' ToolTip="探讨反思" CssClass="course-icon-btn course-icon-info"></asp:HyperLink>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="推荐" ShowHeader="False">
                                 <ItemTemplate>
                                     <asp:LinkButton ID="LbtnCgood" runat="server" CausesValidation="false"
                                         CommandArgument='<%# Bind("Cid") %>' CommandName="Cg" ToolTip="默认为True，学生平台作品收藏学案列表中显示；False则不显示!" Text='<%# Eval("Cgood") %>'></asp:LinkButton>
                                 </ItemTemplate>
+                                <ItemStyle HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="内容">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="HlEdit" runat="server" NavigateUrl='<%# "~/teacher/courseedit.aspx?cid=" + Eval("Cid") %>' Text='<i class="bi bi-pencil-square"></i>' ToolTip="编辑内容" CssClass="course-icon-btn course-icon-warning"></asp:HyperLink>
                                 </ItemTemplate>
-                                <ItemStyle Width="40px" />
+                                <ItemStyle Width="40px" HorizontalAlign="Center" />
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="日期" SortExpression="Cdate">
                                 <ItemTemplate>
@@ -385,7 +440,7 @@
                                     <asp:LinkButton ID="LbtnCold" runat="server" CausesValidation="false"
                                         CommandArgument='<%# Bind("Cid") %>' ToolTip="转移到学案仓库中保留" CommandName="Cu" Text='<i class="bi bi-archive"></i>' CssClass="course-icon-btn course-icon-danger"></asp:LinkButton>
                                 </ItemTemplate>
-                                <ControlStyle Width="40px" />
+                                <ItemStyle Width="40px" HorizontalAlign="Center" />
                             </asp:TemplateField>
                         </Columns>
                         <FooterStyle BackColor="#F8FAFC" Font-Bold="True" ForeColor="#0F172A" />
@@ -416,8 +471,8 @@
             </section>
 
             <section class="course-footer">
-                <asp:Button ID="Btnimport" runat="server" Text="导入学案" onclick="Btnimport_Click" SkinID="BtnNormal" CssClass="course-secondary-btn" />
-                <asp:Button ID="Btnold" runat="server" Text="学案仓库" onclick="Btnold_Click" SkinID="BtnNormal" CssClass="course-secondary-btn" />
+                <asp:Button ID="Btnimport" runat="server" Text="导入学案" onclick="Btnimport_Click" CssClass="course-secondary-btn" />
+                <asp:Button ID="Btnold" runat="server" Text="学案仓库" onclick="Btnold_Click" CssClass="course-secondary-btn" />
             </section>
         </div>
 
