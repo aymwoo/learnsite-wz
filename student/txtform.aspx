@@ -2,49 +2,36 @@
     AutoEventWireup="true" CodeFile="txtform.aspx.cs" Inherits="Student_txtform" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" runat="Server">
-    <div id="showcontent">
-        <div class="left">
-            <br />
-            <div class="missiontitle">
-                <asp:Label ID="LabelMtitle" runat="server"></asp:Label>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full">
+    <!-- Main Content -->
+    <div class="lg:col-span-3 space-y-6">
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10">
+            <div class="text-center pb-6 border-b border-slate-100 flex items-center justify-center gap-3">
+                <asp:Label ID="LabelMtitle" runat="server" CssClass="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
                 <img id="connected" alt="" src="../images/topictitle.png" style="display: none;"
-                    title="小组协作填表已开启" />
+                    title="小组协作填表已开启" class="w-6 h-6" />
             </div>
-            <br />
-            <div class="courseother">
-            </div>
-            <div id="Mcontent" class="coursecontent" runat="server">
-            </div>
-            <br />
-            <div id="Mtable" class="coursetable" runat="server">
-            </div>
+            <div id="Mcontent" class="coursecontent mt-6" runat="server"></div>
+            <div id="Mtable" class="mt-4" runat="server"></div>
         </div>
-        <br />
     </div>
-    <div class="right">
-        <center>
-            &nbsp;<br />
-            <br />
-            <img id="sucessed" alt="" src="../images/sucessed.png" style="width: 120px; height: 120px;
-                display: none;" /><br />
-            <br />
-            <br />
-            <input id="Btnform" type="button" value="提交填写" onclick="SaveForm();" style="border-width: 0px;
-                background-color: #3399FF; width: 80px; height: 24px;"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <div id="msg" style="color: #FF0000">
-            </div>
-            <br />
-            <br />
-            <br />
-            <asp:HyperLink ID="Hlresult" runat="server" CssClass="txts20center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" Height="20px"
-                SkinID="HyperLink" Target="_blank" Width="80px">查看结果</asp:HyperLink>
-            <br />
-            <span class="namebox" style="position: absolute; display: none; color: #fff; background-color: #3399FF; opacity: 0.8; padding: 4px;">TextName</span>
+
+    <!-- Right Sidebar -->
+    <div class="lg:col-span-1 flex flex-col gap-6">
+        <div class="bg-slate-50/80 rounded-2xl border border-slate-200/60 p-5 shadow-sm sticky top-24 flex flex-col items-center gap-4">
+            <img id="sucessed" alt="" src="../images/sucessed.png" 
+                class="w-24 h-24 object-contain hidden" />
+            
+            <input id="Btnform" type="button" value="提交填写" onclick="SaveForm();"
+                class="w-full py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" />
+            
+            <div id="msg" class="text-red-500 font-bold text-sm min-h-[1.5rem]"></div>
+            
+            <asp:HyperLink ID="Hlresult" runat="server" SkinID="HyperLink" Target="_blank"
+                CssClass="w-full flex justify-center py-2.5 text-sm bg-white border-2 border-emerald-500 text-emerald-600 font-bold rounded-xl hover:bg-emerald-500 hover:text-white transition duration-300 shadow-sm">查看结果</asp:HyperLink>
+            
+            <span class="namebox" style="position: absolute; display: none; color: #fff; background-color: #4f46e5; opacity: 0.9; padding: 4px 8px; border-radius: 6px; font-size: 12px; white-space: nowrap;">TextName</span>
+            
             <script type="text/javascript">
 
                 var snum = "<%=Snum %>";
@@ -264,8 +251,6 @@
                 var isdone = "<%=Done %>";
                 if (isdone == "true") {
                     $("#sucessed").show();
-
-                    //$("div.coursecontent table").innerHTML = $("div.coursetable table").innerHTML;
                 }
                 else {
                     $("#sucessed").hide();
@@ -281,12 +266,8 @@
                 } 
 
             </script>
-            <br />
-            <br />
-            <br />
-            <br />
-        </center>
+        </div>
     </div>
-    <br />
-    <asp:HiddenField ID="hiddencount" runat="server" />
+</div>
+<asp:HiddenField ID="hiddencount" runat="server" />
 </asp:Content>

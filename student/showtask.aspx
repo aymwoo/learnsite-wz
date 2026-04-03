@@ -1,7 +1,6 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true"  StylesheetTheme="Student"  CodeFile="showtask.aspx.cs" Inherits="Student_showtask" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
-<asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div id="showcontent" class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full">
     
     <!-- Main Task Content -->
@@ -30,7 +29,6 @@
     <!-- Right Action Sidebar -->
     <div class="lg:col-span-1 flex flex-col gap-6">
         <div class="bg-slate-50/80 rounded-2xl border border-slate-200/60 p-5 shadow-sm sticky top-24">
-<center>    
             <script src="../Plupload/plupload.full.min.js" type="text/javascript"></script>
             
             <div class="space-y-4">

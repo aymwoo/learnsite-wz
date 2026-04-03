@@ -29,7 +29,7 @@
     <!-- Right Action Sidebar -->
     <div class="lg:col-span-1 flex flex-col gap-6">
         <div class="bg-slate-50/80 rounded-2xl border border-slate-200/60 p-5 shadow-sm sticky top-24">
-<center>    
+
             <link href="../kindeditor/themes/me/me.css" rel="stylesheet" type="text/css" />
             <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
             <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>

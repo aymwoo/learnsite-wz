@@ -18,11 +18,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <center>
-      <div  class="studmasterhead">
-       <div  class="banner" ></div>
+      <div class="studmasterhead">
+       <div class="banner"></div>
        <div class="path"></div>
-      <div id="student">
+      <div class="w-full max-w-6xl mx-auto">
 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full text-left p-4">
     <!-- Main Content -->
     <div class="lg:col-span-3 space-y-6 overflow-hidden min-w-0">
@@ -75,8 +74,7 @@
     </div>
 </div>      
         </div>
-       </center>
-        <br />
+       </div>
     </form>
 </body>
 </html>

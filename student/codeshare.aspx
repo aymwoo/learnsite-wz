@@ -4,14 +4,12 @@
 <head>
     <title></title>
     <style type="text/css">
-        body{margin: 0;text-align: center;}
+        body { margin: 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; background: #f0f2f5; }
     </style>
-
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body>
-<div style="text-align: center;">
-
+<div class="flex flex-col items-center p-4">
   <script type="text/javascript">
     window.scratchConfig = {
       
@@ -32,18 +30,12 @@
           })
       },
     }
-
-
   </script>
 
-<center>
-  <div id="scratchplayer" style=" width:482px; height:400px; border-color:Gray; border-width:thin;">    
-  </div>
-</center>
+  <div id="scratchplayer" class="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" style="width:482px; height:400px;"></div>
+
 <script type="text/javascript" src="../scratch/lib.min.js"></script>
 <script type="text/javascript" src="../scratch/chunks/player.js"></script>
-
-  </div>
+</div>
 </body>
 </html>
-

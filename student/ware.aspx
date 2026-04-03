@@ -2,31 +2,26 @@
     AutoEventWireup="true" CodeFile="ware.aspx.cs" Inherits="Student_ware" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" runat="Server">
-    <div class="left">
-        <div id="previewArea">
-            <iframe id="wareframe" src="<%=WareUrl %>" style="width:100%;min-height:80vh; border: none;"></iframe>
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 w-full max-w-full">
+    <!-- Main Content (Iframe Preview) -->
+    <div class="lg:col-span-4">
+        <div id="previewArea" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <iframe id="wareframe" src="<%=WareUrl %>" style="width:100%;min-height:80vh; border: none; border-radius: 1rem;"></iframe>
         </div>
     </div>
-    <div class="right">
-        <center>
-            <asp:Image ID="Thumbnail" runat="server"  style=" max-width:240px; "/>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <input id="Btnform" type="button" value="保存" onclick="SaveIframe();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-            <br />
-            <div id="msg" style="color: #FF0000">
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-        </center>
+
+    <!-- Right Sidebar -->
+    <div class="lg:col-span-1 flex flex-col gap-6">
+        <div class="bg-slate-50/80 rounded-2xl border border-slate-200/60 p-5 shadow-sm sticky top-24 flex flex-col items-center gap-4">
+            <asp:Image ID="Thumbnail" runat="server" CssClass="max-w-full rounded-xl shadow-sm border border-slate-200" />
+            
+            <input id="Btnform" type="button" value="保存" onclick="SaveIframe();"
+                class="w-full py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" />
+            
+            <div id="msg" class="text-red-500 font-bold text-sm min-h-[1.5rem]"></div>
+        </div>
     </div>
-    <br />
+</div>
 
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -114,13 +109,6 @@
         quizvalue = data.value;
         //console.log("接收到的数据：", data);
     }
-
-    /*
-    // 假设你想发送一个消息
-    const message = { name: "示例", value: "数据" };
-    // 向父页面发送消息
-    window.parent.postMessage(JSON.stringify(message), "*");
-    */
 
 </script>
 </asp:Content>
