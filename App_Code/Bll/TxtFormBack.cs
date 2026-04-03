@@ -261,8 +261,8 @@ namespace LearnSite.BLL
                 lmodel = lbll.GetModel(Int32.Parse(Lid));
                 string Mid = lmodel.Lxid.ToString();
 
-                string word = HttpContext.Current.Request.Form["Word"];
-                string content = HttpContext.Current.Request.Form["Content"];
+                string word = HttpUtility.HtmlEncode(HttpContext.Current.Request.Form["Word"]);
+                string content = HttpUtility.HtmlEncode(HttpContext.Current.Request.Form["Content"]);
                 if (HttpContext.Current.Request.Cookies[Common.CookieHelp.stuCookieNname] != null)
                 {
                     if (Common.WordProcess.IsNum(Mid))
@@ -291,10 +291,10 @@ namespace LearnSite.BLL
                         rmodel.Rsnum = Snum;
                         rmodel.Rterm = Wterm;
                         rmodel.Rtime = Wdate;
-                        rmodel.Rwords = HttpUtility.HtmlEncode(word);
+                        rmodel.Rwords = word;
                         rmodel.Ryear = Syear;
                         rmodel.Rlid = Int32.Parse(Lid);
-                        rmodel.Rcontent = HttpUtility.HtmlEncode(content);
+                        rmodel.Rcontent = content;
 
                         int Rid = rbll.GetRid(Wsid.ToString(), Mid);
                         rmodel.Rid = Rid;
