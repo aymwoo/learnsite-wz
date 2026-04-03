@@ -78,6 +78,7 @@ sudo docker run -d \
   -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" \
   -p 1433:1433 \
   --restart unless-stopped \
+  -v "$SCRIPT_DIR/backupdb:$SCRIPT_DIR/backupdb" \
   $MSSQL_IMAGE
 
 # 7. Wait for SQL Server to be ready

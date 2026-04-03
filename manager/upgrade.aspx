@@ -5,7 +5,7 @@
         .mgr-page { --ls-bg: linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%); --ls-border: #dbe6f5; --ls-text: #0f172a; padding: 28px; background: var(--ls-bg); min-height: calc(100vh - 8rem); }
         .mgr-page * { box-sizing: border-box; }
         .mgr-shell { display: flex; flex-direction: column; gap: 20px; max-width: 700px; margin: 0 auto; }
-        .mgr-hero { border: 1px solid var(--ls-border); border-radius: 1rem; padding: 24px 28px; background: radial-gradient(circle at top left,rgba(239,68,68,.18),transparent 38%), linear-gradient(135deg,#450a0a 0%,#dc2626 52%,#f87171 100%); color: #fff1f2; box-shadow: 0 20px 40px rgba(220,38,38,.15); }
+        .mgr-hero { border: 1px solid #fecaca; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#fff1f2 0%,#fee2e2 100%); color: #7f1d1d; box-shadow: 0 4px 16px rgba(220,38,38,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(255,241,242,.85); }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
