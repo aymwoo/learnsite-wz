@@ -4,7 +4,7 @@
     <style type="text/css">
         .mgr-page { --ls-bg: linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%); --ls-border: #dbe6f5; --ls-text: #0f172a; padding: 28px; background: var(--ls-bg); min-height: calc(100vh - 8rem); }
         .mgr-page * { box-sizing: border-box; }
-        .mgr-shell { display: flex; flex-direction: column; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-card { border: 1px solid var(--ls-border); border-radius: 1rem; background: rgba(255,255,255,.96); box-shadow: 0 12px 30px rgba(15,23,42,.05); overflow: hidden; }
         .mgr-card__head { padding: 20px 24px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
         .mgr-card__title { margin: 0; font-size: 16px; font-weight: 800; color: var(--ls-text); }

@@ -4,7 +4,7 @@
     <style type="text/css">
         .mgr-page { --ls-bg: linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%); --ls-border: #dbe6f5; --ls-text: #0f172a; --ls-muted: #64748b; padding: 28px; background: var(--ls-bg); min-height: calc(100vh - 8rem); }
         .mgr-page * { box-sizing: border-box; }
-        .mgr-shell { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+        .mgr-shell { display: flex; flex-direction: column; gap: 20px; }
         .mgr-hero { border: 1px solid #bbf7d0; border-radius: 1rem; padding: 24px 28px; background: linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%); color: #14532d; box-shadow: 0 4px 16px rgba(5,150,105,.08); }
         .mgr-hero__title { margin: 0; font-size: 22px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .mgr-hero__subtitle { margin: 6px 0 0; font-size: 13px; color: rgba(236,253,245,.85); }
