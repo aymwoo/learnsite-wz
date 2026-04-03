@@ -17,6 +17,18 @@
         .mgr-step__num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: .5rem; background: #dbeafe; color: #1d4ed8; font-weight: 800; font-size: 14px; flex-shrink: 0; }
         .mgr-step__body { display: flex; flex-direction: column; gap: 8px; flex: 1; }
         .mgr-step__label { font-size: 13px; font-weight: 700; color: #334155; }
+        
+        .mgr-upload-zone { border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 32px 20px; text-align: center; background: #f8fafc; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 12px; position: relative; overflow: hidden; }
+        .mgr-upload-zone:hover, .mgr-upload-zone.dragover { border-color: #3b82f6; background: #eff6ff; }
+        .mgr-upload-zone__icon { font-size: 32px; color: #94a3b8; transition: color 0.2s ease; }
+        .mgr-upload-zone:hover .mgr-upload-zone__icon, .mgr-upload-zone.dragover .mgr-upload-zone__icon { color: #3b82f6; }
+        .mgr-upload-zone__text { font-size: 14px; font-weight: 600; color: #475569; margin: 0; }
+        .mgr-upload-zone__sub { font-size: 12px; color: #94a3b8; margin: 0; }
+        .mgr-upload-zone__file { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+        .mgr-upload-zone__selected { display: none; align-items: center; gap: 8px; background: #e0f2fe; color: #0369a1; padding: 8px 16px; border-radius: 2rem; font-size: 13px; font-weight: 600; }
+        .mgr-upload-zone.has-file .mgr-upload-zone__selected { display: inline-flex; }
+        .mgr-upload-zone.has-file .mgr-upload-zone__text, .mgr-upload-zone.has-file .mgr-upload-zone__sub { display: none; }
+        
         .mgr-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform .18s, box-shadow .18s; }
         .mgr-btn--primary { background: linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,.2); }
         .mgr-btn--primary:hover { transform: translateY(-1px); }
@@ -47,8 +59,19 @@
                             <span class="mgr-step__num">1</span>
                             <div class="mgr-step__body">
                                 <span class="mgr-step__label">选择Excel文件并上传</span>
-                                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-                                    <asp:FileUpload ID="FileUpExcel" runat="server" style="font-size:13px;" />
+                                
+                                <div class="mgr-upload-zone" id="uploadZone">
+                                    <i class="bi bi-cloud-arrow-up mgr-upload-zone__icon"></i>
+                                    <p class="mgr-upload-zone__text">点击或拖拽 Excel 文件到此处</p>
+                                    <p class="mgr-upload-zone__sub">支持 .xls 格式</p>
+                                    <div class="mgr-upload-zone__selected" id="uploadSelected">
+                                        <i class="bi bi-file-earmark-excel"></i>
+                                        <span id="uploadFileName">未选择文件</span>
+                                    </div>
+                                    <asp:FileUpload ID="FileUpExcel" runat="server" CssClass="mgr-upload-zone__file" />
+                                </div>
+                                
+                                <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:4px;">
                                     <asp:CheckBox ID="CheckBox1" runat="server" Text="密码转换为姓名拼音缩写" ToolTip="是否在获取数据时自动将密码转换为学生姓名拼音缩写" />
                                 </div>
                                 <asp:Button ID="ButtonInsert" runat="server" Text="上传 Excel" OnClick="ButtonInsert_Click" CssClass="mgr-btn mgr-btn--primary" style="width:fit-content;" ToolTip="上传并导入临时学生表" />
@@ -89,4 +112,55 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var zone = document.getElementById('uploadZone');
+            var fileInput = document.getElementById('<%= FileUpExcel.ClientID %>');
+            var fileNameDisplay = document.getElementById('uploadFileName');
+            
+            if(!zone || !fileInput) return;
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                zone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                zone.addEventListener(eventName, () => zone.classList.add('dragover'), false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                zone.addEventListener(eventName, () => zone.classList.remove('dragover'), false);
+            });
+            
+            zone.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                var dt = e.dataTransfer;
+                var files = dt.files;
+                
+                if (files && files.length > 0) {
+                    fileInput.files = files;
+                    updateFileDisplay();
+                }
+            }
+            
+            fileInput.addEventListener('change', updateFileDisplay);
+            
+            function updateFileDisplay() {
+                if (fileInput.files && fileInput.files.length > 0) {
+                    var fileName = fileInput.files[0].name;
+                    fileNameDisplay.textContent = fileName;
+                    zone.classList.add('has-file');
+                } else {
+                    zone.classList.remove('has-file');
+                }
+            }
+        });
+    </script>
 </asp:Content>
