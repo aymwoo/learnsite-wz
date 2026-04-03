@@ -154,8 +154,9 @@ parse_coverage() {
 
         # 从 XML 统计该 class 的行数
         local cls_total cls_covered
-        cls_total=$(awk "/name=\"${class_name//\//\\/}\"/,/<\/class>/" "$cov_file" | grep -c '<line ' 2>/dev/null || echo 0)
-        cls_covered=$(awk "/name=\"${class_name//\//\\/}\"/,/<\/class>/" "$cov_file" | grep '<line ' | grep -cv 'hits="0"' 2>/dev/null || echo 0)
+        # 使用其他分隔符来避免斜杠的问题
+        cls_total=$(awk -v class="$class_name" '$0 ~ "name=\"" class "\"" {flag=1} flag {print} /<\/class>/ {flag=0}' "$cov_file" | grep -c '<line ' 2>/dev/null || echo 0)
+        cls_covered=$(awk -v class="$class_name" '$0 ~ "name=\"" class "\"" {flag=1} flag {print} /<\/class>/ {flag=0}' "$cov_file" | grep '<line ' | grep -cv 'hits="0"' 2>/dev/null || echo 0)
         sum_total=$((sum_total + cls_total))
         sum_covered=$((sum_covered + cls_covered))
 
