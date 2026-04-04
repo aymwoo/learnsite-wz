@@ -161,7 +161,7 @@ sudo yum install -y mono-complete mono-xsp4
     <tr>
       <td align="center">
         <a href="https://github.com/WaterCountry">
-          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <img src="https://github.com/WaterCountry.png" width="100px;" alt="温州水乡"/>
           <br />
           <sub><b>温州水乡</b></sub>
         </a>
@@ -170,7 +170,7 @@ sudo yum install -y mono-complete mono-xsp4
       </td>
       <td align="center">
         <a href="https://github.com/RealKiro">
-          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <img src="https://github.com/RealKiro.png" width="100px;" alt="RealKiro"/>
           <br />
           <sub><b>RealKiro</b></sub>
         </a>
@@ -179,12 +179,21 @@ sudo yum install -y mono-complete mono-xsp4
       </td>
       <td align="center">
         <a href="https://gitee.com/jnschool">
-          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <img src="https://gitee.com/jnschool/avatar" width="100px;" alt="jnschool"/>
           <br />
           <sub><b>jnschool</b></sub>
         </a>
         <br />
         <sub>成都版分支维护</sub>
+      </td>
+      <td align="center">
+        <a href="https://github.com/aymwoo">
+          <img src="https://github.com/aymwoo.png" width="100px;" alt="aymwoo"/>
+          <br />
+          <sub><b>aymwoo</b></sub>
+        </a>
+        <br />
+        <sub>上游贡献者</sub>
       </td>
     </tr>
   </table>
