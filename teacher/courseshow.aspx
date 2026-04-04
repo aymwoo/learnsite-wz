@@ -733,16 +733,16 @@
         .course-show-tool-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 0.9rem;
+            gap: 0.55rem;
         }
 
         .course-show-tool {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
-            min-height: 4.25rem;
-            padding: 0.95rem 1rem;
-            border-radius: 1rem;
+            gap: 0.55rem;
+            min-height: 3rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 0.75rem;
             border: 1px solid #dbe4ff;
             background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
             color: #1e293b;
@@ -799,17 +799,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2.9rem;
-            height: 2.9rem;
-            border-radius: 0.95rem;
+            width: 2.1rem;
+            height: 2.1rem;
+            border-radius: 0.65rem;
             background: #eef2ff;
             color: #4338ca;
             flex-shrink: 0;
         }
 
         .course-show-tool-icon svg {
-            width: 1.35rem;
-            height: 1.35rem;
+            width: 1rem;
+            height: 1rem;
             stroke: currentColor;
             fill: none;
             stroke-width: 1.9;
@@ -890,13 +890,13 @@
         }
 
         .course-show-tool-title {
-            font-size: 0.96rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: #0f172a;
         }
 
         .course-show-tool-subtitle {
-            font-size: 0.82rem;
+            font-size: 0.72rem;
             color: #64748b;
         }
 
@@ -1234,7 +1234,7 @@
 
         @media (max-width: 980px) {
             .course-show-tool-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
 
             .course-show-hero-top {
@@ -1253,7 +1253,7 @@
 
         @media (max-width: 768px) {
             .course-show-tool-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
             .course-show-hero {

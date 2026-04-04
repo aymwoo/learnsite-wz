@@ -7,9 +7,11 @@ using System.Data;
 public partial class Student_Scm : System.Web.UI.MasterPage
 {
     protected string Cbanner = "";
+    protected string SiteTitle = "";
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
     protected void Page_Load(object sender, EventArgs e)
     {
+        SiteTitle = LearnSite.Common.XmlHelp.SiteTitle();
         if (!IsPostBack)
         {
             ShowListMenu();
@@ -48,10 +50,16 @@ public partial class Student_Scm : System.Web.UI.MasterPage
             if (Request.QueryString["lid"] != null)
             {
                 Lidstr = Request.QueryString["lid"].ToString();
-                LearnSite.Model.ListMenu lmodel = new LearnSite.Model.ListMenu();
-                LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
-                lmodel = lbll.GetModel(Int32.Parse(Lidstr));
-                myCid = lmodel.Lcid.ToString();
+                if (LearnSite.Common.WordProcess.IsNum(Lidstr))
+                {
+                    LearnSite.Model.ListMenu lmodel = new LearnSite.Model.ListMenu();
+                    LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
+                    lmodel = lbll.GetModel(Int32.Parse(Lidstr));
+                    if (lmodel != null)
+                    {
+                        myCid = lmodel.Lcid.ToString();
+                    }
+                }
             }
         }
         if (LearnSite.Common.WordProcess.IsNum(myCid))
@@ -283,9 +291,12 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                     {
                         if (i < lcount)
                         {
-                            bool codepass = wbll.WorkPass(cook.Sid, Int32.Parse(Lxidstr));
-                            if(codepass)
-                                ma.ImageUrl = urlfinish;
+                            if (LearnSite.Common.WordProcess.IsNum(Lxidstr))
+                            {
+                                bool codepass = wbll.WorkPass(cook.Sid, Int32.Parse(Lxidstr));
+                                if(codepass)
+                                    ma.ImageUrl = urlfinish;
+                            }
                         }
                         if (i > lcount)
                         {

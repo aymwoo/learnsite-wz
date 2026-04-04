@@ -194,109 +194,118 @@
                 <div id="modernGroupModalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true"></div>
 
                 <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-6">
                         <!-- Modal panel -->
-                        <div id="modernGroupModalPanel" class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100">
+                        <div id="modernGroupModalPanel" class="relative transform rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 w-full opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100" style="overflow:hidden; max-width:min(660px, calc(100vw - 2rem)); box-sizing:border-box;">
                             <!-- Header -->
-                            <div class="bg-gradient-to-r from-indigo-50 to-white px-6 py-4 border-b border-indigo-100 flex items-center justify-between">
-                                <h3 class="text-lg font-extrabold text-indigo-900 flex items-center gap-2" id="modal-title">
-                                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <div style="background:linear-gradient(to right,#eef2ff,#ffffff); padding:1rem 1.25rem; border-bottom:1px solid #e0e7ff; display:flex; align-items:center; justify-content:space-between;">
+                                <h3 style="margin:0; font-size:1.0625rem; font-weight:800; color:#312e81; display:flex; align-items:center; gap:0.5rem;" id="modal-title">
+                                    <svg style="width:1.125rem; height:1.125rem; color:#4f46e5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                     我的资料
                                 </h3>
-                                <button type="button" onclick="closeModernGroupModal()" class="text-slate-400 hover:text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg transition-colors focus:outline-none">
+                                <button type="button" onclick="closeModernGroupModal()" style="color:#94a3b8; background:transparent; border:none; padding:0.375rem; border-radius:0.5rem; cursor:pointer; transition:all 0.2s; line-height:0;" onmouseover="this.style.color='#e11d48';this.style.background='#fff1f2'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">
                                     <span class="sr-only">Close</span>
-                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    <svg style="width:1.25rem; height:1.25rem;" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </div>
                             <!-- Student Info Bar -->
-                            <div class="px-6 py-3 bg-gradient-to-r from-slate-50 to-indigo-50/30 border-b border-slate-100">
-                                <div class="flex items-center gap-4">
+                            <div style="padding:0.625rem 1.25rem; background:linear-gradient(to right,#f8fafc,rgba(238,242,255,0.3)); border-bottom:1px solid #f1f5f9; overflow:hidden;">
+                                <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
                                     <!-- Avatar -->
-                                    <div class="relative shrink-0">
-                                        <asp:Image ID="Imageface" runat="server" CssClass="w-14 h-14 rounded-full object-cover border-2 border-white shadow-md" />
-                                        <div class="absolute -bottom-1 -right-1 bg-gradient-to-r from-orange-400 to-pink-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow border border-white">
+                                    <div style="position:relative; flex-shrink:0;">
+                                        <asp:Image ID="Imageface" runat="server" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
+                                        <div style="position:absolute; bottom:-2px; right:-2px; background:linear-gradient(135deg,#fb923c,#ec4899); color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:9999px; box-shadow:0 1px 3px rgba(0,0,0,0.15); border:1.5px solid #fff; line-height:1.4;">
                                             <asp:Label ID="LabelRank" runat="server"></asp:Label>
                                         </div>
                                     </div>
                                     <!-- Info Chips -->
-                                    <div class="flex flex-wrap items-center gap-2 min-w-0">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-600 shadow-sm">
-                                            <svg class="w-3 h-3 text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                            <asp:Label ID="sname" runat="server" CssClass="font-semibold text-slate-800"></asp:Label>
+                                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.375rem; min-width:0; flex:1;">
+                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
+                                            <svg style="width:0.75rem; height:0.75rem; color:#60a5fa; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                            <asp:Label ID="sname" runat="server" style="font-weight:600; color:#1e293b;"></asp:Label>
                                         </span>
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-600 shadow-sm">
-                                            <svg class="w-3 h-3 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
-                                            <asp:Label ID="snum" runat="server" CssClass="text-slate-700"></asp:Label>
+                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
+                                            <svg style="width:0.75rem; height:0.75rem; color:#818cf8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
+                                            <asp:Label ID="snum" runat="server" style="color:#334155;"></asp:Label>
                                         </span>
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-600 shadow-sm">
-                                            <svg class="w-3 h-3 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                                            <asp:Label ID="sclass" runat="server" CssClass="text-slate-700"></asp:Label>
+                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
+                                            <svg style="width:0.75rem; height:0.75rem; color:#34d399; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                            <asp:Label ID="sclass" runat="server" style="color:#334155;"></asp:Label>
                                         </span>
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-600 shadow-sm">
-                                            <svg class="w-3 h-3 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                            <asp:HyperLink ID="HLgroup" runat="server" CssClass="text-indigo-600 font-bold hover:text-indigo-800 transition">加入小组</asp:HyperLink>
+                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
+                                            <svg style="width:0.75rem; height:0.75rem; color:#fbbf24; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                            <asp:HyperLink ID="HLgroup" runat="server" style="color:#4f46e5; font-weight:700; text-decoration:none;">加入小组</asp:HyperLink>
                                         </span>
                                     </div>
-                                    <!-- Team Members (collapsible on right) -->
-                                    <div class="hidden sm:flex items-center gap-1.5 ml-auto shrink-0 px-2.5 py-1 rounded-lg bg-slate-100/80 border border-slate-200/60 text-xs text-slate-500">
-                                        <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
-                                        <asp:Label ID="Labelteam" runat="server" CssClass="text-slate-600 font-medium"></asp:Label>
+                                    <!-- Team Members -->
+                                    <div style="display:none; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:rgba(241,245,249,0.8); border:1px solid rgba(226,232,240,0.6); font-size:0.6875rem; color:#64748b; flex-shrink:0; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="sm-team-show">
+                                        <svg style="width:0.75rem; height:0.75rem; color:#94a3b8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
+                                        <asp:Label ID="Labelteam" runat="server" style="color:#475569; font-weight:500;"></asp:Label>
                                     </div>
                                 </div>
                             </div>
+                            <style>
+                                @media (min-width: 640px) { .sm-team-show { display: inline-flex !important; } }
+                                .profile-modal-tabs { display:flex; gap:0; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+                                .profile-modal-tabs::-webkit-scrollbar { display:none; }
+                                .profile-tab-btn { display:inline-flex; align-items:center; gap:0.25rem; padding:0.5rem 0.625rem; font-size:0.75rem; font-weight:500; white-space:nowrap; border:none; background:transparent; color:#64748b; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; outline:none; flex-shrink:0; }
+                                .profile-tab-btn:hover { color:#334155; background:rgba(241,245,249,0.6); }
+                                .profile-tab-btn.active { color:#4f46e5; font-weight:600; border-bottom-color:#4f46e5; background:#fff; }
+                                .profile-tab-btn svg { width:0.875rem; height:0.875rem; flex-shrink:0; }
+                            </style>
                             <!-- Tab Navigation -->
-                            <div class="bg-slate-50 border-b border-slate-200 px-3 overflow-x-auto">
-                                <nav class="flex gap-0.5 min-w-max" aria-label="资料导航">
+                            <div style="background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:0 0.75rem; overflow:hidden;">
+                                <nav class="profile-modal-tabs" aria-label="资料导航">
                                     <button id="tab-group" type="button" onclick="switchProfileTab('../profile/mygroup.aspx', 'tab-group')"
-                                        class="profile-tab profile-tab-active px-3 py-2.5 text-xs font-semibold rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                                        小组合作
+                                        class="profile-tab profile-tab-btn active">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                        小组
                                     </button>
                                     <button id="tab-sign" type="button" onclick="switchProfileTab('../profile/mysign.aspx', 'tab-sign')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-                                        我的签到
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                        签到
                                     </button>
                                     <button id="tab-term" type="button" onclick="switchProfileTab('../profile/myterm.aspx', 'tab-term')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-                                        学习成果
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                                        成果
                                     </button>
                                     <button id="tab-photo" type="button" onclick="switchProfileTab('../profile/myphoto.aspx', 'tab-photo')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                                        修改相片
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        相片
                                     </button>
                                     <button id="tab-name" type="button" onclick="switchProfileTab('../profile/myname.aspx', 'tab-name')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                        修改姓名
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                        姓名
                                     </button>
                                     <button id="tab-sex" type="button" onclick="switchProfileTab('../profile/mysex.aspx', 'tab-sex')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                        修改性别
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        性别
                                     </button>
                                     <button id="tab-pwd" type="button" onclick="switchProfileTab('../profile/mypwd.aspx', 'tab-pwd')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                        修改密码
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                        密码
                                     </button>
                                     <button id="tab-class" type="button" onclick="switchProfileTab('../profile/myclass.aspx', 'tab-class')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                                        修改班级
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                        班级
                                     </button>
                                     <button id="tab-change" type="button" onclick="switchProfileTab('../profile/mychange.aspx', 'tab-change')"
-                                        class="profile-tab profile-tab-inactive px-3 py-2.5 text-xs font-medium rounded-t-lg whitespace-nowrap transition-all focus:outline-none flex items-center gap-1">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                                        推荐组长
+                                        class="profile-tab profile-tab-btn">
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                                        组长
                                     </button>
                                 </nav>
                             </div>
                             <!-- Content (Iframe) -->
-                            <div class="bg-white">
-                                <iframe id="modernGroupModalIframe" src="" class="w-full border-0" style="height: 520px;" title="我的资料"></iframe>
+                            <div style="background:#fff; overflow:hidden;">
+                                <iframe id="modernGroupModalIframe" src="" style="width:100%; height:520px; border:none; display:block;" title="我的资料"></iframe>
                             </div>
                         </div>
                     </div>
@@ -304,23 +313,14 @@
             </div>
 
             <script type="text/javascript">
-                // Tab style classes
-                var TAB_ACTIVE = ['profile-tab-active', 'text-indigo-600', 'border-b-2', 'border-indigo-500', 'bg-white'];
-                var TAB_INACTIVE = ['profile-tab-inactive', 'text-slate-500', 'border-b-2', 'border-transparent', 'hover:text-slate-700', 'hover:border-slate-300'];
-
                 function switchProfileTab(url, tabId) {
-                    // Update iframe source
                     document.getElementById('modernGroupModalIframe').src = url;
-                    // Reset all tabs to inactive style
                     document.querySelectorAll('.profile-tab').forEach(function(tab) {
-                        TAB_ACTIVE.forEach(function(c) { tab.classList.remove(c); });
-                        tab.classList.add('profile-tab-inactive', 'text-slate-500', 'border-b-2', 'border-transparent');
+                        tab.classList.remove('active');
                     });
-                    // Set clicked tab to active style
                     var activeTab = document.getElementById(tabId);
                     if (activeTab) {
-                        activeTab.classList.remove('profile-tab-inactive', 'text-slate-500', 'border-transparent');
-                        activeTab.classList.add('profile-tab-active', 'text-indigo-600', 'border-b-2', 'border-indigo-500', 'bg-white');
+                        activeTab.classList.add('active');
                     }
                 }
 

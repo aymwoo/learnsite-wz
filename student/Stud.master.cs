@@ -6,10 +6,12 @@ using System.Web.UI.WebControls;
 
 public partial class Student_Stud : System.Web.UI.MasterPage
 {
+    protected string SiteTitle = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
+            SiteTitle = LearnSite.Common.XmlHelp.SiteTitle();
             LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
             if (cook.IsExist())
             {
