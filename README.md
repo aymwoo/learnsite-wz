@@ -31,7 +31,7 @@
 docker run -d --name learnsite \
   -p 8080:8080 \
   -e MONO_THREADS_PER_CPU=50 \
-  ghcr.io/realkiro/learnsite-wz:latest
+  learnsite-wz:latest
 ```
 
 **配合 MSSQL 数据库**
@@ -48,7 +48,7 @@ docker run -d --name learnsite \
   -p 8080:8080 \
   --link learnsite-mssql:mssql \
   -e MONO_THREADS_PER_CPU=50 \
-  ghcr.io/realkiro/learnsite-wz:latest
+  learnsite-wz:latest
 ```
 
 **配置说明**
