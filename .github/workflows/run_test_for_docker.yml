@@ -1,40 +1,15 @@
 name: Docker Environment Tests
 
 on:
-  push:
-    paths:
-      - '.github/workflows/run_test_for_docker.yml'
-      - 'App_Code/**'
-      - 'App_Data/**'
-      - 'Bin/**'
-      - 'sql/**'
-      - 'web.config'
-      - '**/*.aspx'
-      - '**/*.aspx.cs'
-      - '**/*.master'
-      - '**/*.master.cs'
-      - 'run_tests.sh'
-      - 'start_web.sh'
-      - 'Tests/**'
-  pull_request:
-    paths:
-      - '.github/workflows/run_test_for_docker.yml'
-      - 'App_Code/**'
-      - 'App_Data/**'
-      - 'Bin/**'
-      - 'sql/**'
-      - 'web.config'
-      - '**/*.aspx'
-      - '**/*.aspx.cs'
-      - '**/*.master'
-      - '**/*.master.cs'
-      - 'run_tests.sh'
-      - 'start_web.sh'
-      - 'Tests/**'
+  workflow_run:
+    workflows: ["Release Build and Publish"]
+    types: [completed]
+    branches: [master, main]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
