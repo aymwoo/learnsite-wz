@@ -28,10 +28,11 @@
 
 **快速启动**
 ```bash
+# 使用 GitHub Actions 工作流构建的镜像
 docker run -d --name learnsite \
   -p 8080:8080 \
   -e MONO_THREADS_PER_CPU=50 \
-  learnsite-wz:latest
+  ghcr.io/aymwoo/learnsite-wz:latest
 ```
 
 **配合 MSSQL 数据库**
@@ -43,12 +44,12 @@ docker run -d --name learnsite-mssql \
   -p 1433:1433 \
   mcr.microsoft.com/mssql/server:2022-latest
 
-# 启动 LearnSite 容器
+# 启动 LearnSite 容器（使用工作流构建的镜像）
 docker run -d --name learnsite \
   -p 8080:8080 \
   --link learnsite-mssql:mssql \
   -e MONO_THREADS_PER_CPU=50 \
-  learnsite-wz:latest
+  ghcr.io/aymwoo/learnsite-wz:latest
 ```
 
 **配置说明**

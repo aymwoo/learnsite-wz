@@ -41,14 +41,14 @@ jobs:
       - name: Pull and Run LearnSite Docker Image
         run: |
           # 拉取最新镜像
-          docker pull ghcr.io/${{ github.repository_owner }}/learnsite-wz:latest
+          docker pull ghcr.io/aymwoo/learnsite-wz:latest
           
           # 运行容器
           docker run -d --name learnsite \
             --link learnsite-mssql:mssql \
             -p 8080:8080 \
             -e MONO_THREADS_PER_CPU=50 \
-            ghcr.io/${{ github.repository_owner }}/learnsite-wz:latest
+            ghcr.io/aymwoo/learnsite-wz:latest
           
           echo "Waiting for LearnSite to start..."
           sleep 15

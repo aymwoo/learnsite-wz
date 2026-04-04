@@ -44,7 +44,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/learnsite-wz:latest
-            ghcr.io/${{ github.repository_owner }}/learnsite-wz:${{ steps.version.outputs.version }}
+            ghcr.io/aymwoo/learnsite-wz:latest
+            ghcr.io/aymwoo/learnsite-wz:${{ steps.version.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
