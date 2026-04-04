@@ -128,71 +128,9 @@ parse_coverage() {
 
     echo -e "  ${BOLD}$label - 覆盖率:${NC}"
     echo "  $THIN"
-    printf "  ${BOLD}%-40s %10s %10s${NC}\n" "文件" "行覆盖率" "分支覆盖"
-    echo "  $THIN"
-
-    local has_data=false
-    local sum_covered=0 sum_total=0
-
-    while IFS= read -r class_line; do
-        local filename class_name class_lr class_br
-        filename=$(echo "$class_line" | grep -oP 'filename="\K[^"]+')
-        class_name=$(echo "$class_line" | grep -oP 'name="\K[^"]+')
-        class_lr=$(echo "$class_line" | grep -oP 'line-rate="\K[^"]+')
-        class_br=$(echo "$class_line" | grep -oP 'branch-rate="\K[^"]+')
-
-        # 只保留 App_Code 下的被测源码
-        [[ "$filename" == *"App_Code/"* ]] || continue
-
-        has_data=true
-
-        local short_file="${filename#*App_Code/}"
-
-        local lr_pct br_pct
-        lr_pct=$(echo "$class_lr" | awk '{printf "%.1f%%", $1*100}')
-        br_pct=$(echo "${class_br:-0}" | awk '{printf "%.1f%%", $1*100}')
-
-        # 从 XML 统计该 class 的行数
-        local cls_total cls_covered
-        cls_total=$(awk "/name=\"${class_name//\//\\/}\"/,/<\/class>/" "$cov_file" | grep -c '<line ' 2>/dev/null || echo 0)
-        cls_covered=$(awk "/name=\"${class_name//\//\\/}\"/,/<\/class>/" "$cov_file" | grep '<line ' | grep -cv 'hits="0"' 2>/dev/null || echo 0)
-        sum_total=$((sum_total + cls_total))
-        sum_covered=$((sum_covered + cls_covered))
-
-        # 颜色：<50 红 <80 黄 >=80 绿
-        local lr_color="$GREEN"
-        local lr_val
-        lr_val=$(echo "$class_lr" | awk '{printf "%.0f", $1*100}')
-        [ "$lr_val" -lt 80 ] && lr_color="$YELLOW"
-        [ "$lr_val" -lt 50 ] && lr_color="$RED"
-
-        printf "  %-40s ${lr_color}%10s${NC} %10s\n" "$short_file" "$lr_pct" "$br_pct"
-    done < <(grep -o '<class[^>]*>' "$cov_file" 2>/dev/null)
-
-    if [ "$has_data" = false ]; then
-        echo -e "  ${DIM}(无被测源码覆盖率数据)${NC}"
-        echo ""
-        return
-    fi
-
-    echo "  $THIN"
-
-    # 汇总行
-    local total_pct total_color
-    if [ "$sum_total" -gt 0 ]; then
-        total_pct=$(awk "BEGIN {printf \"%.1f%%\", ($sum_covered/$sum_total)*100}")
-        local total_val
-        total_val=$(awk "BEGIN {printf \"%.0f\", ($sum_covered/$sum_total)*100}")
-        total_color="$GREEN"
-        [ "$total_val" -lt 80 ] && total_color="$YELLOW"
-        [ "$total_val" -lt 50 ] && total_color="$RED"
-    else
-        total_pct="N/A"
-        total_color="$DIM"
-    fi
-
-    printf "  ${BOLD}%-40s ${total_color}%10s${NC}   ${DIM}(%d/%d 行)${NC}\n" "合计" "$total_pct" "$sum_covered" "$sum_total"
+    echo -e "  ${DIM}(覆盖率报告已生成在文件中)${NC}"
     echo ""
+    return
 }
 
 # ============================================================
@@ -266,6 +204,7 @@ if [ "$RUN_CSHARP" = true ]; then
     TEST_PROJECTS=(
         "Tests/EnDeCodeTests/EnDeCodeTests.csproj"
         "Tests/ImageCheckTests/ImageCheckTests.csproj"
+        "Tests/SharpZipTests/SharpZipTests.csproj"
     )
 
     for PROJECT in "${TEST_PROJECTS[@]}"; do
