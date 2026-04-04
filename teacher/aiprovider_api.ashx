@@ -48,6 +48,15 @@ public class aiprovider_api : IHttpHandler {
                 case "chat":
                     Chat(context);
                     break;
+                case "listSkills":
+                    GetSkillList(context);
+                    break;
+                case "saveSkill":
+                    SaveSkill(context);
+                    break;
+                case "deleteSkill":
+                    DeleteSkill(context);
+                    break;
                 default:
                     context.Response.Write("{\"success\":false,\"msg\":\"Unknown action\"}");
                     break;
@@ -456,6 +465,84 @@ public class aiprovider_api : IHttpHandler {
         {
             string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Chat error: " + ex.Message });
             context.Response.Write(respStr);
+        }
+    }
+
+    private void GetSkillList(HttpContext context)
+    {
+        LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+        List<LearnSite.Model.AISkill> list = bll.GetModelList("");
+
+        string json = JsonConvert.SerializeObject(new { success = true, data = list });
+        context.Response.Write(json);
+    }
+
+    private void SaveSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        string skillName = context.Request["skillName"];
+        string promptContent = context.Request["promptContent"];
+        string isActiveStr = context.Request["isActive"];
+
+        if (string.IsNullOrEmpty(skillName) || string.IsNullOrEmpty(promptContent))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Skill Name and Prompt Content are required.\"}");
+            return;
+        }
+
+        LearnSite.Model.AISkill model = new LearnSite.Model.AISkill();
+        model.SkillName = skillName;
+        model.PromptContent = promptContent;
+        model.IsActive = string.IsNullOrEmpty(isActiveStr) ? true : (isActiveStr.ToLower() == "true" || isActiveStr == "1");
+
+        LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+
+        if (string.IsNullOrEmpty(idStr) || idStr == "0")
+        {
+            int id = bll.Add(model);
+            if (id > 0)
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Added successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to add.\"}");
+            }
+        }
+        else
+        {
+            int id = int.Parse(idStr);
+            model.Id = id;
+            if (bll.Update(model))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Updated successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to update.\"}");
+            }
+        }
+    }
+
+    private void DeleteSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+            if (bll.Delete(id))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Deleted successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to delete.\"}");
+            }
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Invalid ID.\"}");
         }
     }
 

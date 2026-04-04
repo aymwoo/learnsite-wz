@@ -53,6 +53,7 @@ namespace LearnSite.DBUtility
                 {
                     try
                     {
+                        if (!DbHelperSQL.TabExists("AISkill")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
                     }
                     catch
@@ -2528,6 +2529,21 @@ namespace LearnSite.DBUtility
                 defaultStr.Append(" ('DeepSeek', 'DeepSeek', 'deepseek-chat', '', 'https://api.deepseek.com/v1', 1),");
                 defaultStr.Append(" ('智谱GLM', 'ZhipuAI', 'glm-4', '', 'https://open.bigmodel.cn/api/paas/v4', 0);");
                 DbHelperSQL.ExecuteSql(defaultStr.ToString());
+            }
+        }
+
+        public static void UpdateTable1800()
+        {
+            if (!DbHelperSQL.TabExists("AISkill"))
+            {
+                StringBuilder aiStr = new StringBuilder();
+                aiStr.Append(" CREATE TABLE [dbo].[AISkill] (");
+                aiStr.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                aiStr.Append(" [SkillName] NVARCHAR(100) NULL, ");
+                aiStr.Append(" [PromptContent] NVARCHAR(MAX) NULL, ");
+                aiStr.Append(" [IsActive] BIT DEFAULT 1 ");
+                aiStr.Append(" )");
+                DbHelperSQL.ExecuteSql(aiStr.ToString());
             }
         }
     }
