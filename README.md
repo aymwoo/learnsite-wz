@@ -152,9 +152,17 @@ sudo yum install -y mono-complete mono-xsp4
 2. 系统会自动重定向到 `upgrade.aspx` 进行初始化
 3. 按照提示完成数据库配置
 
-## 贡献者指南
+## 贡献者
 
-### 如何贡献
+感谢所有为 LearnSite 项目做出贡献的开发者！
+
+### 核心贡献者
+
+- **温州水乡** - 项目创始人
+- **RealKiro** - Docker 部署支持
+- **jnschool** - 成都版分支维护
+
+### 如何参与开发
 
 1. **Fork 仓库**
    - 点击 GitHub 页面右上角的 "Fork" 按钮
@@ -192,37 +200,6 @@ sudo yum install -y mono-complete mono-xsp4
 - **缩进**：使用 4 个空格进行缩进
 - **注释**：为关键代码添加注释
 - **代码风格**：保持与现有代码风格一致
-
-### 开发环境设置
-
-**前提条件**
-- Visual Studio 2019 或更高版本
-- .NET Framework 4.8
-- SQL Server Express
-
-**本地开发**
-1. 打开 `LearnSite.sln` 解决方案
-2. 配置 `web.config` 中的数据库连接字符串
-3. 运行 `sql/learnsite.sql` 创建数据库
-4. 按 F5 启动调试
-
-### 测试指南
-
-**运行单元测试**
-```bash
-./run_tests.sh --no-e2e
-```
-
-**运行集成测试**
-```bash
-./run_tests.sh
-```
-
-### 发布流程
-
-1. **编译发布**：运行 `compile_to_release.yml` 工作流
-2. **构建 Docker 镜像**：运行 `build_and_push_docker.yml` 工作流
-3. **测试**：运行 `run_test_for_docker.yml`、`run_test_for_linux.yml`、`run_test_for_windows.yml` 工作流
 
 ## 相关资源
 
