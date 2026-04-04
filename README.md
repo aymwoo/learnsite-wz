@@ -152,54 +152,43 @@ sudo yum install -y mono-complete mono-xsp4
 2. 系统会自动重定向到 `upgrade.aspx` 进行初始化
 3. 按照提示完成数据库配置
 
-## 贡献者
+## 核心贡献者
 
 感谢所有为 LearnSite 项目做出贡献的开发者！
 
-### 核心贡献者
-
-- **温州水乡** - 项目创始人
-- **RealKiro** - Docker 部署支持
-- **jnschool** - 成都版分支维护
-
-### 如何参与开发
-
-1. **Fork 仓库**
-   - 点击 GitHub 页面右上角的 "Fork" 按钮
-
-2. **克隆仓库**
-   ```bash
-   git clone https://github.com/your-username/learnsite-wz.git
-   cd learnsite-wz
-   ```
-
-3. **创建分支**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-4. **提交代码**
-   ```bash
-   git add .
-   git commit -m "feat: 描述你的功能"
-   ```
-
-5. **推送到 GitHub**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **创建 Pull Request**
-   - 回到 GitHub 页面，点击 "Compare & pull request"
-   - 描述你的更改内容
-   - 提交 PR
-
-### 代码规范
-
-- **命名规范**：使用 PascalCase 命名类和方法，使用 camelCase 命名变量
-- **缩进**：使用 4 个空格进行缩进
-- **注释**：为关键代码添加注释
-- **代码风格**：保持与现有代码风格一致
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/WaterCountry">
+          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <br />
+          <sub><b>温州水乡</b></sub>
+        </a>
+        <br />
+        <sub>项目创始人</sub>
+      </td>
+      <td align="center">
+        <a href="https://github.com/RealKiro">
+          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <br />
+          <sub><b>RealKiro</b></sub>
+        </a>
+        <br />
+        <sub>Docker 部署支持</sub>
+      </td>
+      <td align="center">
+        <a href="https://gitee.com/jnschool">
+          <img src="https://avatars.githubusercontent.com/u/12345678" width="100px;" alt=""/>
+          <br />
+          <sub><b>jnschool</b></sub>
+        </a>
+        <br />
+        <sub>成都版分支维护</sub>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## 相关资源
 
