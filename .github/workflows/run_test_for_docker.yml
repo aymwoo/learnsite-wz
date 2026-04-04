@@ -12,11 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Get Latest Release
+      - name: Get Alpha Release
         id: release
         run: |
-          TAG_NAME=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
-          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          # 优先获取alpha版本
+          ALPHA_RELEASES=$(gh release list --json tagName --jq '.[] | select(.tagName | startswith("alpha-"))' | sort -r)
+          if [ ! -z "$ALPHA_RELEASES" ]; then
+            TAG_NAME=$(echo "$ALPHA_RELEASES" | head -1)
+            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          else
+            # 如果没有alpha版本，获取最新版本
+            TAG_NAME=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
+            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
