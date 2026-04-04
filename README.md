@@ -152,6 +152,34 @@ sudo yum install -y mono-complete mono-xsp4
 2. 系统会自动重定向到 `upgrade.aspx` 进行初始化
 3. 按照提示完成数据库配置
 
+## 相关资源
+
+- **LearnSite 学习平台讨论 QQ 群**：5847120
+- **官方网站**：[OpenLearnSite](https://www.openlearnsite.com/)
+- **原作者**：[温州水乡 Github](https://github.com/WaterCountry/Learnsite)
+- **代码仓库**：
+  - [Gitee：LearnSite 主仓库源码](https://gitee.com/jnschool/learnsite-wz)
+  - [Gitee：LearnSite 成都版分支源码](https://gitee.com/jnschool/game/tree/master/LearnSite_ChengDu)
+  - [Github：learnsite-docker](https://github.com/RealKiro/learnsite-docker)
+  - [Gitee：learnsite-docker (同步 Github 镜像)](https://gitee.com/realiy/learnsite-docker)
+- **Docker 仓库**：
+  - [learnsite-web](https://hub.docker.com/r/orzg/learnsite-web)
+  - [mssql-learnsite](https://hub.docker.com/r/orzg/mssql-learnsite)
+- **编译版**：
+  - [Github：LearnSite 编译版](https://github.com/RealKiro/learnsite)
+  - [Gitee：LearnSite 编译版 (同步 Github 镜像)](https://gitee.com/realiy/learnsite)
+
+## 未来规划
+
+- [ ] learnsite 3.0 + PostgreSQL 支持
+- [ ] 更多 AI 教学工具集成
+- [ ] 移动端适配优化
+- [ ] 云服务部署方案
+
+## 许可证
+
+本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
+
 ## 核心贡献者
 
 感谢所有为 LearnSite 项目做出贡献的开发者！
@@ -198,34 +226,6 @@ sudo yum install -y mono-complete mono-xsp4
     </tr>
   </table>
 </div>
-
-## 相关资源
-
-- **LearnSite 学习平台讨论 QQ 群**：5847120
-- **官方网站**：[OpenLearnSite](https://www.openlearnsite.com/)
-- **原作者**：[温州水乡 Github](https://github.com/WaterCountry/Learnsite)
-- **代码仓库**：
-  - [Gitee：LearnSite 主仓库源码](https://gitee.com/jnschool/learnsite-wz)
-  - [Gitee：LearnSite 成都版分支源码](https://gitee.com/jnschool/game/tree/master/LearnSite_ChengDu)
-  - [Github：learnsite-docker](https://github.com/RealKiro/learnsite-docker)
-  - [Gitee：learnsite-docker (同步 Github 镜像)](https://gitee.com/realiy/learnsite-docker)
-- **Docker 仓库**：
-  - [learnsite-web](https://hub.docker.com/r/orzg/learnsite-web)
-  - [mssql-learnsite](https://hub.docker.com/r/orzg/mssql-learnsite)
-- **编译版**：
-  - [Github：LearnSite 编译版](https://github.com/RealKiro/learnsite)
-  - [Gitee：LearnSite 编译版 (同步 Github 镜像)](https://gitee.com/realiy/learnsite)
-
-## 未来规划
-
-- [ ] learnsite 3.0 + PostgreSQL 支持
-- [ ] 更多 AI 教学工具集成
-- [ ] 移动端适配优化
-- [ ] 云服务部署方案
-
-## 许可证
-
-本项目采用 MIT 许可证，详见 [LICENSE](LICENSE) 文件。
 
 ---
 
