@@ -108,7 +108,7 @@ jobs:
           xsp4 --port 8080 --address 0.0.0.0 --verbose &
           XSP4_PID=$!
           echo "XSP4 PID: $XSP4_PID"
-          sleep 5
+          sleep 10
           echo ""
           echo "=== Process Status ==="
           ps aux | grep xsp4 | grep -v grep
@@ -120,6 +120,24 @@ jobs:
           # 尝试获取XSP4的输出
           wait $XSP4_PID 2>/dev/null || true
           echo "XSP4 process status: $?"
+
+      - name: Test frontend page access
+        run: |
+          echo "=== Testing Frontend Page Access ==="
+          # 重新启动XSP4
+          xsp4 --port 8080 --address 0.0.0.0 > xsp4.log 2>&1 &
+          XSP4_PID=$!
+          echo "XSP4 started with PID: $XSP4_PID"
+          sleep 15
+          
+          echo "Testing main page..."
+          curl -v http://localhost:8080
+          
+          echo "\n=== XSP4 Logs ==="
+          cat xsp4.log || echo "No xsp4.log found"
+          
+          # 停止XSP4
+          kill $XSP4_PID 2>/dev/null || true
 
       - name: Alternative - Use fastcgi-mono-server
         run: |
