@@ -149,9 +149,9 @@ jobs:
           echo "Testing main page..."
           curl -v http://localhost:8080
           
-          # 测试login.aspx页面
-          echo "\nTesting login.aspx..."
-          curl -v http://localhost:8080/login.aspx
+          # 测试index.aspx登录页面
+          echo "\nTesting index.aspx (login page)..."
+          curl -v http://localhost:8080/index.aspx
 
       - name: Cleanup
         run: |
