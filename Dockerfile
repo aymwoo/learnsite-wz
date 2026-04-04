@@ -2,7 +2,7 @@
 # 基于 Mono 运行时和 XSP4 Web 服务器
 # 支持 .NET Framework 4.8
 
-FROM mono:6.12-buster
+FROM mono:6.12
 
 # 使用存档仓库以解决 Buster 仓库不可用的问题
 RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
