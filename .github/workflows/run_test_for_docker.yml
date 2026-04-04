@@ -96,66 +96,73 @@ jobs:
           echo ""
           echo "=== Check for web.config ==="
           find . -name "web.config" | head -5
+          echo ""
+          echo "=== Check for aspx files ==="
+          find . -name "*.aspx" | head -10
 
-      - name: Test XSP4 directly
+      - name: Test XSP4 installation
         run: |
           echo "=== Testing XSP4 Installation ==="
           which xsp4
+          echo "XSP4 path: $(which xsp4)"
+          echo "Mono version: $(mono --version)"
+          echo "XSP4 version:"
           xsp4 --version 2>&1 || echo "xsp4 version check failed"
-          echo ""
-          echo "=== Starting XSP4 in foreground for diagnostics ==="
-          # 在后台启动XSP4，但立即检查日志
-          xsp4 --port 8080 --address 0.0.0.0 --verbose &
-          XSP4_PID=$!
-          echo "XSP4 PID: $XSP4_PID"
-          sleep 10
-          echo ""
-          echo "=== Process Status ==="
-          ps aux | grep xsp4 | grep -v grep
-          echo ""
-          echo "=== Port Status ==="
-          netstat -tuln | grep 8080 || echo "Port 8080 not listening"
-          echo ""
-          echo "=== XSP4 Output (if any) ==="
-          # 尝试获取XSP4的输出
-          wait $XSP4_PID 2>/dev/null || true
-          echo "XSP4 process status: $?"
 
-      - name: Test frontend page access
+      - name: Start XSP4 with detailed logging
         run: |
-          echo "=== Testing Frontend Page Access ==="
-          # 重新启动XSP4
-          xsp4 --port 8080 --address 0.0.0.0 > xsp4.log 2>&1 &
+          echo "=== Starting XSP4 with detailed logging ==="
+          # 直接在前台运行XSP4，捕获所有输出
+          xsp4 --port 8080 --address 0.0.0.0 --verbose 2>&1 > xsp4.log &
           XSP4_PID=$!
           echo "XSP4 started with PID: $XSP4_PID"
           sleep 15
           
-          echo "Testing main page..."
+          echo "=== XSP4 Process Status ==="
+          ps aux | grep xsp4 | grep -v grep
+          
+          echo "=== Port 8080 Status ==="
+          netstat -tuln | grep 8080 || echo "Port 8080 not listening"
+          
+          echo "=== XSP4 Logs ==="
+          cat xsp4.log || echo "No xsp4.log found"
+          
+          # 检查XSP4是否仍在运行
+          if ps -p $XSP4_PID > /dev/null; then
+            echo "XSP4 is still running"
+            kill $XSP4_PID 2>/dev/null || true
+          else
+            echo "XSP4 process has exited"
+          fi
+
+      - name: Test XSP4 with specific document root
+        run: |
+          echo "=== Testing XSP4 with specific document root ==="
+          # 使用明确的文档根目录
+          xsp4 --port 8080 --address 0.0.0.0 --verbose --root . 2>&1 > xsp4_root.log &
+          XSP4_PID=$!
+          echo "XSP4 started with PID: $XSP4_PID"
+          sleep 15
+          
+          echo "=== Testing main page access ==="
           curl -v http://localhost:8080
           
-          echo "\n=== XSP4 Logs ==="
-          cat xsp4.log || echo "No xsp4.log found"
+          echo "=== XSP4 Logs with root ==="
+          cat xsp4_root.log || echo "No xsp4_root.log found"
           
           # 停止XSP4
           kill $XSP4_PID 2>/dev/null || true
 
-      - name: Alternative - Use fastcgi-mono-server
+      - name: Alternative - Use Python HTTP server to test directory
         run: |
-          echo "=== Trying alternative: fastcgi-mono-server ==="
-          # 检查是否有fastcgi-mono-server
-          which fastcgi-mono-server 2>/dev/null || echo "fastcgi-mono-server not found"
-          which fastcgi-mono-server4 2>/dev/null || echo "fastcgi-mono-server4 not found"
-
-      - name: Final Test
-        run: |
-          echo "=== Final Web Service Test ==="
-          # 尝试使用Python启动一个简单的HTTP服务器作为替代
-          echo "Starting Python HTTP server as fallback..."
+          echo "=== Testing with Python HTTP Server ==="
           python3 -m http.server 8080 &
           PYTHON_PID=$!
-          sleep 3
-          echo "Testing Python server..."
-          curl -s http://localhost:8080 > /dev/null && echo "Python server is working" || echo "Python server failed"
+          sleep 5
+          
+          echo "Testing directory listing..."
+          curl -s http://localhost:8080
+          
           kill $PYTHON_PID 2>/dev/null || true
 
       - name: Cleanup
