@@ -16,9 +16,9 @@ jobs:
         id: release
         run: |
           # 优先获取alpha版本
-          ALPHA_RELEASES=$(gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-"))' | sort -r)
-          if [ ! -z "$ALPHA_RELEASES" ]; then
-            TAG_NAME=$(echo "$ALPHA_RELEASES" | head -1)
+          ALPHA_TAGS=$(gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-")) | .tagName' | sort -r)
+          if [ ! -z "$ALPHA_TAGS" ]; then
+            TAG_NAME=$(echo "$ALPHA_TAGS" | head -1)
             echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
           else
             # 如果没有alpha版本，获取最新版本

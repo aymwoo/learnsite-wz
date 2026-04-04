@@ -16,18 +16,14 @@ jobs:
         id: release
         run: |
           # 优先获取alpha版本
-          $alphaReleases = gh release list --repo ${{ github.repository }} --json tagName,name,assets --jq '.[] | select(.tagName | startswith("alpha-"))' | ConvertFrom-Json
-          if ($alphaReleases.Count -gt 0) {
-            $latestAlpha = $alphaReleases | Sort-Object -Property tagName -Descending | Select-Object -First 1
-            echo "tag_name=$($latestAlpha.tagName)" >> $env:GITHUB_OUTPUT
-            echo "asset_name=$($latestAlpha.assets[0].name)" >> $env:GITHUB_OUTPUT
-            echo "download_url=$($latestAlpha.assets[0].url)" >> $env:GITHUB_OUTPUT
+          $alphaTags = gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-")) | .tagName'
+          if ($alphaTags) {
+            $latestAlpha = ($alphaTags -split "`n") | Sort-Object -Descending | Select-Object -First 1
+            echo "tag_name=$latestAlpha" >> $env:GITHUB_OUTPUT
           } else {
             # 如果没有alpha版本，获取最新版本
-            $latestRelease = gh release list --repo ${{ github.repository }} --limit 1 --json tagName,name,assets --jq '.[0]' | ConvertFrom-Json
-            echo "tag_name=$($latestRelease.tagName)" >> $env:GITHUB_OUTPUT
-            echo "asset_name=$($latestRelease.assets[0].name)" >> $env:GITHUB_OUTPUT
-            echo "download_url=$($latestRelease.assets[0].url)" >> $env:GITHUB_OUTPUT
+            $latestTag = gh release list --repo ${{ github.repository }} --limit 1 --json tagName --jq '.[0].tagName'
+            echo "tag_name=$latestTag" >> $env:GITHUB_OUTPUT
           }
         shell: powershell
         env:
