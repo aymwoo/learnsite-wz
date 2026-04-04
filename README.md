@@ -197,6 +197,15 @@ sudo yum install -y mono-complete mono-xsp4
         <sub>项目创始人</sub>
       </td>
       <td align="center">
+        <a href="https://github.com/aymwoo">
+          <img src="https://github.com/aymwoo.png" width="100px;" alt="aymwoo"/>
+          <br />
+          <sub><b>aymwoo</b></sub>
+        </a>
+        <br />
+        <sub>Github 维护支持</sub>
+      </td>
+      <td align="center">
         <a href="https://github.com/RealKiro">
           <img src="https://github.com/RealKiro.png" width="100px;" alt="RealKiro"/>
           <br />
@@ -213,15 +222,6 @@ sudo yum install -y mono-complete mono-xsp4
         </a>
         <br />
         <sub>Gitee 维护支持</sub>
-      </td>
-      <td align="center">
-        <a href="https://github.com/aymwoo">
-          <img src="https://github.com/aymwoo.png" width="100px;" alt="aymwoo"/>
-          <br />
-          <sub><b>aymwoo</b></sub>
-        </a>
-        <br />
-        <sub>上游贡献者</sub>
       </td>
     </tr>
   </table>
