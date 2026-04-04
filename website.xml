@@ -7,7 +7,7 @@
     <add key="WebVote_Limit" value="False" />
     <add key="AllowFileType" value="jpg|png|txt|html|gif" />
     <add key="AllowDir" value="images|_private" />
-    <add key="SiteTitle" value="Learnsite" />
+    <add key="SiteTitle" value="Learnsite1.6.1" />
     <add key="LoginMode" value="1" />
     <add key="CourseType" value="Word|Powerpoint|Excel|Python|Scratch|Sketchup|Office|Html|Photo|Flash|Email|RoBot|Computer|Internet|Program|Supple|Movie|Music" />
     <add key="CoursePeriod" value="100" />

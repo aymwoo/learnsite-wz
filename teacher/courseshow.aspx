@@ -145,10 +145,7 @@
         }
 
         .course-show-hero-top {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            gap: 1.5rem;
-            align-items: flex-start;
+            display: block;
         }
 
         .course-show-hero-copy {
@@ -259,10 +256,10 @@
         }
 
         .course-show-hero-actions {
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-start;
-            min-width: 0;
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 2;
         }
 
         .course-show-hero-edit svg {
@@ -731,8 +728,8 @@
         }
 
         .course-show-tool-grid {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.55rem;
         }
 
@@ -748,6 +745,7 @@
             color: #1e293b;
             box-shadow: 0 12px 24px -24px rgba(30, 41, 59, 0.55);
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            flex: 0 0 auto;
         }
 
         .course-show-tool:hover {
@@ -1227,45 +1225,21 @@
         }
 
         @media (max-width: 1200px) {
-            .course-show-tool-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
         }
 
         @media (max-width: 980px) {
-            .course-show-tool-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-
-            .course-show-hero-top {
-                grid-template-columns: 1fr;
-            }
-
-            .course-show-hero-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-
             .course-show-banner-dialog-body {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
-            .course-show-tool-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
             .course-show-hero {
                 padding: 1.2rem;
             }
 
             .course-show-hero-header {
                 padding-bottom: 1.15rem;
-            }
-
-            .course-show-hero-top {
-                grid-template-columns: 1fr;
             }
 
             .course-show-hero-nav {
@@ -1294,10 +1268,6 @@
             .course-show-meta-chip-icon {
                 width: 1rem;
                 height: 1rem;
-            }
-
-            .course-show-hero-actions {
-                justify-content: flex-start;
             }
 
             .course-show-preview-head,
@@ -1420,21 +1390,22 @@
                             </div>
                         </div>
                     </div>
-                    <section class="course-show-preview-panel">
-                        <div class="course-show-preview-head">
-                            <div>
-                                <h2 class="course-show-preview-title">学案预览</h2>
-                                <p class="course-show-preview-desc">下方内容继续沿用原有学案正文输出，只优化首屏阅读层次。</p>
-                            </div>
-                        </div>
-                        <div id="Ccontent" class="course-show-content course-show-preview-content" runat="server"></div>
-                    </section>
-                    <div class="course-show-hidden" aria-hidden="true">
-                        <asp:Image ID="Imagebanner" runat="server" ToolTip="横幅图片" />
-                        <span id="BannerEmpty" runat="server">当前学案未设置横幅图片</span>
-                    </div>
                 </div>
             </section>
+
+            <section class="course-show-preview-panel">
+                <div class="course-show-preview-head">
+                    <div>
+                        <h2 class="course-show-preview-title">学案预览</h2>
+                        <p class="course-show-preview-desc">下方内容继续沿用原有学案正文输出，只优化首屏阅读层次。</p>
+                    </div>
+                </div>
+                <div id="Ccontent" class="course-show-content course-show-preview-content" runat="server"></div>
+            </section>
+            <div class="course-show-hidden" aria-hidden="true">
+                <asp:Image ID="Imagebanner" runat="server" ToolTip="横幅图片" />
+                <span id="BannerEmpty" runat="server">当前学案未设置横幅图片</span>
+            </div>
 
             <div id="BannerModal" class="course-show-banner-modal" aria-hidden="true">
                 <div class="course-show-banner-dialog" role="dialog" aria-modal="true" aria-labelledby="BannerModalTitle">
