@@ -1,7 +1,12 @@
 # LearnSite Web 应用 Dockerfile
 # 基于 Mono 运行时和 XSP4 Web 服务器
 
-FROM mono:6.12
+FROM mono:6.12.0.182-buster
+
+# 使用存档仓库以解决 Buster 仓库不可用的问题
+RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
+    sed -i 's|security.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
+    sed -i '/buster-updates/d' /etc/apt/sources.list
 
 # 安装依赖
 RUN apt-get update && apt-get install -y \
