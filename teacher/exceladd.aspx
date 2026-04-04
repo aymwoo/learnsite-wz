@@ -1,12 +1,15 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="exceladd.aspx.cs" Inherits="teacher_exceladd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../js/fileupload.css" rel="stylesheet" />
 <div  class="cplace">
     <div  class="cleft">
         &nbsp;&nbsp;&nbsp;&nbsp;表格处理主题：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
             Width="300px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
-        &nbsp;表格处理实例<asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+        <div class="ls-upload" data-accept=".xls,.xlsx" data-label="点击或拖拽上传表格实例" data-hint="支持 xls / xlsx 格式">
+            <asp:FileUpload ID="Fupload" runat="server" />
+        </div>
 </div>
     <div  >
         <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
@@ -48,5 +51,6 @@
            
         </div>
 
+<script src="../js/fileupload.js"></script>
 </asp:Content>
 

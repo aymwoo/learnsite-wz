@@ -33,7 +33,7 @@
         .filter-group {
             display: flex; align-items: center; gap: 12px;
             background: rgba(255,255,255,0.12); padding: 8px 16px;
-            border-radius: 1rem; backdrop-filter: blur(10px);
+            border-radius: 0.5rem; backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
         }
         .filter-item { display: flex; align-items: center; gap: 6px; }
@@ -46,12 +46,33 @@
         .stu-card__title { margin: 0; font-size: 18px; font-weight: 800; color: var(--ls-text); }
         .stu-card__desc { margin: 4px 0 0; font-size: 13px; color: var(--ls-muted); }
 
-        /* Grid */
-        .stu-grid { width: 100%; border-collapse: collapse; }
-        .stu-grid th { background: #f8fafc; padding: 14px 16px; font-size: 13px; font-weight: 700; color: #64748b; text-align: center; border-bottom: 2px solid #f1f5f9; }
-        .stu-grid td { padding: 12px 16px; font-size: 14px; color: #334155; border-bottom: 1px solid #f1f5f9; text-align: center; }
-        .stu-grid tbody tr:hover { background-color: #f1f5f9; }
-        .stu-grid tbody tr:hover td { background-color: transparent; }
+        /* Student List */
+        .stu-list { width: 100%; }
+        .stu-list-header, .stu-list-row {
+            display: grid;
+            grid-template-columns: 50px 70px 70px 28px 50px 50px 80px 44px 28px 36px 60px 50px 60px 50px;
+            align-items: center;
+        }
+        .stu-list-header {
+            background: #f8fafc;
+            border-bottom: 2px solid #f1f5f9;
+            padding: 0;
+        }
+        .stu-list-header-cell {
+            padding: 12px 8px;
+            font-size: 12px; font-weight: 700; color: #64748b;
+            text-align: center;
+        }
+        .stu-list-row {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.15s;
+        }
+        .stu-list-row:hover { background: #f8fafc; }
+        .stu-list-cell {
+            padding: 10px 8px;
+            font-size: 13px; color: #334155;
+            text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
 
         .stu-link { color: #4f46e5; font-weight: 700; text-decoration: none; }
         .stu-link:hover { color: #3730a3; text-decoration: underline; }
@@ -59,9 +80,9 @@
         .stu-name-link:hover { color: #4f46e5; }
 
         /* Pager */
-        .pager-container { padding: 16px 24px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; color: #64748b; }
+        .pager-container { padding: 14px 20px; background: #f8fafc; display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 600; color: #64748b; border-top: 1px solid #f1f5f9; }
         .pager-buttons { display: flex; gap: 8px; }
-        .pager-btn { padding: 6px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; color: #475569; text-decoration: none; transition: all 0.2s; }
+        .pager-btn { padding: 6px 14px; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; color: #475569; text-decoration: none; transition: all 0.2s; cursor: pointer; }
         .pager-btn:hover { background: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
 
         /* Action bar */
@@ -70,7 +91,7 @@
 
         .stu-btn {
             display: inline-flex; align-items: center; justify-content: center;
-            min-height: 40px; padding: 0 18px; border-radius: 1rem; border: none;
+            min-height: 40px; padding: 0 18px; border-radius: 0.5rem; border: none;
             font-size: 13px; font-weight: 700; cursor: pointer;
             transition: transform 0.18s, box-shadow 0.18s;
         }
@@ -95,7 +116,7 @@
         }
         .stu-add-link:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(79,70,229,0.3); color: #fff; }
 
-        .stu-input-group { display: inline-flex; align-items: stretch; min-height: 40px; border: 1px solid #cbd5e1; border-radius: 1rem; background: #fff; overflow: hidden; }
+        .stu-input-group { display: inline-flex; align-items: stretch; min-height: 40px; border: 1px solid #cbd5e1; border-radius: 0.5rem; background: #fff; overflow: hidden; }
         .stu-input-group__label { display: inline-flex; align-items: center; padding: 0 12px; background: #f8fafc; color: #475569; font-size: 12px; font-weight: 700; border-right: 1px solid #cbd5e1; white-space: nowrap; }
         .stu-input-group__input { flex: 1; min-width: 60px; border: none; padding: 0 10px; background: transparent; font-weight: 800; text-align: center; color: #0f172a; font-size: 14px; }
         .stu-input-group__input:focus { outline: none; }
@@ -110,7 +131,7 @@
 
         .stu-msg { text-align: center; font-size: 13px; font-weight: 700; color: #16a34a; padding: 8px 0; }
 
-        .stu-select-sm { min-height: 36px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 0.75rem; background: #f8fafc; color: #0f172a; font-size: 13px; font-weight: 700; }
+        .stu-select-sm { min-height: 36px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 0.4rem; background: #f8fafc; color: #0f172a; font-size: 13px; font-weight: 700; }
 
         @media (max-width: 768px) {
             .stu-page { padding: 16px; }
@@ -157,101 +178,78 @@
                     </asp:HyperLink>
                 </div>
 
-                <asp:GridView ID="GVStudent" runat="server" AutoGenerateColumns="False" Width="100%"
-                    CellPadding="0" PageSize="15" CssClass="stu-grid"
-                    OnRowDataBound="GVStudent_RowDataBound" EnableModelValidation="True" DataKeyNames="Sid"
-                    onrowcommand="GVStudent_RowCommand" GridLines="None" AllowPaging="True"
-                    onpageindexchanging="GVStudent_PageIndexChanging">
-                    <Columns>
-                        <asp:BoundField HeaderText="序号">
-                            <ItemStyle CssClass="font-mono text-slate-400" Width="60px" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Snum" HeaderText="学号">
-                            <ItemStyle CssClass="font-mono font-bold text-indigo-600" Width="80px" />
-                        </asp:BoundField>
-                        <asp:TemplateField HeaderText="密码">
-                            <ItemTemplate>
-                                <asp:Label ID="Labelpwd" runat="server" Text="******" ToolTip='<%# Bind("Spwd") %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle CssClass="text-slate-400" Width="70px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
-                                    CommandArgument='<%# Eval("Sid") %>' CommandName="ChangePwd"
-                                    ImageUrl="~/images/refresh.gif" ToolTip="自动更新密码" />
-                            </ItemTemplate>
-                            <ItemStyle Width="30px" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Sgrade" HeaderText="年级">
-                            <ItemStyle Width="60px" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Sclass" HeaderText="班级">
-                            <ItemStyle CssClass="font-semibold text-slate-700" Width="60px" />
-                        </asp:BoundField>
-                        <asp:TemplateField HeaderText="姓名">
-                            <ItemTemplate>
-                                <asp:HyperLink ID="Hlname" runat="server"
-                                    Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Sid") %>' CssClass="stu-name-link"></asp:HyperLink>
-                            </ItemTemplate>
-                            <ItemStyle HorizontalAlign="Left" Width="80px" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Sex" HeaderText="性别">
-                            <ItemStyle Width="50px" />
-                        </asp:BoundField>
-                        <asp:TemplateField ShowHeader="False" HeaderText="小组">
-                            <ItemTemplate>
-                                <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False"
-                                    CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup"
-                                    ImageUrl="~/images/gcard.gif" />
-                            </ItemTemplate>
-                            <ItemStyle Width="36px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="组号" ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="LinkBtnQuit" runat="server" CausesValidation="false"
-                                    CommandArgument='<%# Eval("Sid") %>' CommandName="QuitGroup"
-                                    Text='<%# Eval("Sgroup") %>'
-                                    style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:0.5rem;background:#f1f5f9;color:#475569;font-size:12px;font-weight:800;text-decoration:none;border:1px solid #e2e8f0;"></asp:LinkButton>
-                            </ItemTemplate>
-                            <ItemStyle Width="40px" />
-                        </asp:TemplateField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Snum"
-                            DataNavigateUrlFormatString="studentwork.aspx?snum={0}" DataTextField="Sscore"
-                            HeaderText="成绩" Target="_blank">
-                            <ItemStyle CssClass="stu-link font-bold text-emerald-600" Width="60px" />
-                        </asp:HyperLinkField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Snum"
-                            DataNavigateUrlFormatString="studentworks.aspx?snum={0}" Text="浏览"
-                            HeaderText="作品" Target="_blank">
-                            <ItemStyle CssClass="stu-link" Width="50px" />
-                        </asp:HyperLinkField>
-                        <asp:BoundField DataField="Sattitude" HeaderText="表现">
-                            <ItemStyle CssClass="text-rose-500 font-bold" Width="60px" />
-                        </asp:BoundField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Sid,Sgrade,Sclass"
-                            DataNavigateUrlFormatString="studentdel.aspx?sid={0}&amp;sgrade={1}&amp;sclass={2}"
-                            Text="删除">
-                            <ItemStyle CssClass="text-rose-500 font-medium" Width="50px" />
-                        </asp:HyperLinkField>
-                        <asp:TemplateField Visible="False">
-                            <ItemTemplate>
-                                <asp:Label ID="LabelSleader" runat="server" Text='<%# Bind("Sleader") %>'></asp:Label>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                    </Columns>
-                    <PagerTemplate>
-                        <div class="pager-container">
-                            <span>第 <asp:Label ID="lblPageIndex" runat="server" Text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1 %>" style="color:#4f46e5;"></asp:Label> / <asp:Label ID="lblPageCount" runat="server" Text="<%# ((GridView)Container.Parent.Parent).PageCount %>"></asp:Label> 页</span>
-                            <div class="pager-buttons">
-                                <asp:LinkButton ID="btnFirst" runat="server" CommandArgument="First" CommandName="Page" CssClass="pager-btn">首页</asp:LinkButton>
-                                <asp:LinkButton ID="btnPrev" runat="server" CommandArgument="Prev" CommandName="Page" CssClass="pager-btn">上一页</asp:LinkButton>
-                                <asp:LinkButton ID="btnNext" runat="server" CommandArgument="Next" CommandName="Page" CssClass="pager-btn">下一页</asp:LinkButton>
-                                <asp:LinkButton ID="btnLast" runat="server" CommandArgument="Last" CommandName="Page" CssClass="pager-btn">尾页</asp:LinkButton>
+                <div class="stu-list">
+                    <div class="stu-list-header">
+                        <div class="stu-list-header-cell">序号</div>
+                        <div class="stu-list-header-cell">学号</div>
+                        <div class="stu-list-header-cell">密码</div>
+                        <div class="stu-list-header-cell"></div>
+                        <div class="stu-list-header-cell">年级</div>
+                        <div class="stu-list-header-cell">班级</div>
+                        <div class="stu-list-header-cell">姓名</div>
+                        <div class="stu-list-header-cell">性别</div>
+                        <div class="stu-list-header-cell"></div>
+                        <div class="stu-list-header-cell">组号</div>
+                        <div class="stu-list-header-cell">成绩</div>
+                        <div class="stu-list-header-cell">作品</div>
+                        <div class="stu-list-header-cell">表现</div>
+                        <div class="stu-list-header-cell">操作</div>
+                    </div>
+                    <asp:Repeater ID="RptStudent" runat="server" OnItemDataBound="RptStudent_ItemDataBound" OnItemCommand="RptStudent_ItemCommand">
+                        <ItemTemplate>
+                            <div class="stu-list-row">
+                                <div class="stu-list-cell" style="color:#94a3b8;font-size:12px;"><asp:Label ID="LabelRowIndex" runat="server"></asp:Label></div>
+                                <div class="stu-list-cell" style="font-weight:700;color:#4f46e5;font-family:monospace;"><%# Eval("Snum") %></div>
+                                <div class="stu-list-cell" style="color:#94a3b8;">
+                                    <asp:Label ID="Labelpwd" runat="server" Text="******" ToolTip='<%# Eval("Spwd") %>'></asp:Label>
+                                </div>
+                                <div class="stu-list-cell">
+                                    <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                        CommandArgument='<%# Eval("Sid") %>' CommandName="ChangePwd"
+                                        ImageUrl="~/images/refresh.gif" ToolTip="自动更新密码" />
+                                </div>
+                                <div class="stu-list-cell"><%# Eval("Sgrade") %></div>
+                                <div class="stu-list-cell" style="font-weight:600;"><%# Eval("Sclass") %></div>
+                                <div class="stu-list-cell" style="text-align:left;">
+                                    <asp:HyperLink ID="Hlname" runat="server" Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Sid") %>' CssClass="stu-name-link"></asp:HyperLink>
+                                </div>
+                                <div class="stu-list-cell"><%# Eval("Sex") %></div>
+                                <div class="stu-list-cell">
+                                    <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False"
+                                        CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup"
+                                        ImageUrl="~/images/gcard.gif" />
+                                </div>
+                                <div class="stu-list-cell">
+                                    <asp:LinkButton ID="LinkBtnQuit" runat="server" CausesValidation="false"
+                                        CommandArgument='<%# Eval("Sid") %>' CommandName="QuitGroup"
+                                        Text='<%# Eval("Sgroup") %>'
+                                        style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:0.4rem;background:#f1f5f9;color:#475569;font-size:12px;font-weight:800;text-decoration:none;border:1px solid #e2e8f0;"></asp:LinkButton>
+                                </div>
+                                <div class="stu-list-cell">
+                                    <a href='<%# "studentwork.aspx?snum=" + Eval("Snum") %>' class="stu-link" target="_blank"><%# Eval("Sscore") %></a>
+                                </div>
+                                <div class="stu-list-cell">
+                                    <a href='<%# "studentworks.aspx?snum=" + Eval("Snum") %>' class="stu-link" target="_blank">浏览</a>
+                                </div>
+                                <div class="stu-list-cell" style="color:#f43f5e;font-weight:700;"><%# Eval("Sattitude") %></div>
+                                <div class="stu-list-cell">
+                                    <a href='<%# "studentdel.aspx?sid=" + Eval("Sid") + "&sgrade=" + Eval("Sgrade") + "&sclass=" + Eval("Sclass") %>' class="stu-link" style="color:#f43f5e;">删除</a>
+                                </div>
+                                <asp:Label ID="LabelSleader" runat="server" Text='<%# Eval("Sleader") %>' style="display:none;"></asp:Label>
+                                <asp:Label ID="LabelSnum" runat="server" Text='<%# Eval("Snum") %>' style="display:none;"></asp:Label>
                             </div>
-                        </div>
-                    </PagerTemplate>
-                </asp:GridView>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </div>
+                <div id="PagerDiv" runat="server" class="pager-container">
+                    <span>第 <asp:Label ID="LblPageIndex" runat="server" style="color:#4f46e5;font-weight:800;"></asp:Label> / <asp:Label ID="LblPageCount" runat="server"></asp:Label> 页</span>
+                    <div class="pager-buttons">
+                        <asp:LinkButton ID="btnFirst" runat="server" CommandName="Page" CommandArgument="First" CssClass="pager-btn" OnClick="Pager_Click">首页</asp:LinkButton>
+                        <asp:LinkButton ID="btnPrev" runat="server" CommandName="Page" CommandArgument="Prev" CssClass="pager-btn" OnClick="Pager_Click">上一页</asp:LinkButton>
+                        <asp:LinkButton ID="btnNext" runat="server" CommandName="Page" CommandArgument="Next" CssClass="pager-btn" OnClick="Pager_Click">下一页</asp:LinkButton>
+                        <asp:LinkButton ID="btnLast" runat="server" CommandName="Page" CommandArgument="Last" CssClass="pager-btn" OnClick="Pager_Click">尾页</asp:LinkButton>
+                    </div>
+                </div>
             </div>
 
             <!-- Operations Card -->

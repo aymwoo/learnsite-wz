@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="programedit.aspx.cs" Inherits="Teacher_programedit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .program-edit-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
@@ -8,10 +9,6 @@
             --content-add-primary-bg: #4f46e5;
             --content-add-primary-hover: #4338ca;
             --content-add-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
-        }
-
-        .program-edit-upload input[type="file"] {
-            width: 100%;
         }
 
         .program-edit-example {
@@ -79,8 +76,8 @@
 
                     <div class="content-add-field">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">替换实例文件</label>
-                        <div class="content-add-static program-edit-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="9pt" />
+                        <div class="ls-upload" data-accept=".sb3" data-label="点击或拖拽上传实例文件" data-hint="支持 sb3 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -128,4 +125,5 @@
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

@@ -1,13 +1,16 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="exceledit.aspx.cs" Inherits="teacher_exceledit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../js/fileupload.css" rel="stylesheet" />
 <div  class="cplace">
     <div  class="cleft">
         表格处理：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
             Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
         实例：<asp:HyperLink ID="HlExample" runat="server" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">[HlExample]</asp:HyperLink>
-        <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+        <div class="ls-upload" data-accept=".xls,.xlsx" data-label="点击或拖拽上传表格实例" data-hint="支持 xls / xlsx 格式">
+            <asp:FileUpload ID="Fupload" runat="server" />
+        </div>
         </div> 
         <div  >
         <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
@@ -48,6 +51,8 @@
          </div>
            
         </div>
+
+<script src="../js/fileupload.js"></script>
 </asp:Content>
 
 

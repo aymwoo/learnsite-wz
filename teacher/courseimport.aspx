@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="courseimport.aspx.cs" Inherits="Teacher_courseimport" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .course-import-page {
             --workspace-page-bg: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
@@ -24,56 +25,6 @@
             grid-template-columns: minmax(0, 1fr) auto;
             gap: 1rem;
             align-items: end;
-        }
-
-        .course-import-upload-zone {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2.5rem 1.5rem;
-            border: 2px dashed #94a3b8;
-            border-radius: 16px;
-            background: #f8fafc;
-            color: #64748b;
-            text-align: center;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .course-import-upload-zone:hover {
-            border-color: var(--workspace-primary-bg);
-            background: var(--workspace-secondary-hover);
-            color: var(--workspace-primary-hover);
-        }
-
-        .course-import-upload-zone input[type="file"] {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .course-import-upload-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
-        }
-
-        .course-import-upload-text {
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-
-        .course-import-upload-subtext {
-            font-size: 0.85rem;
-            margin-top: 0.35rem;
-            opacity: 0.7;
         }
 
         .course-import-primary-btn {
@@ -240,11 +191,7 @@
 
                     <div class="course-import-field" style="grid-column: 1 / -1; margin-top: 1rem;">
                         <span class="course-import-label" style="display:block; margin-bottom: 0.75rem; font-weight:700; color:#334155; font-size:14px;">选择学案包文件</span>
-                        <div class="course-import-upload-zone" id="uploadZone">
-                            <i class="course-import-upload-icon bi bi-cloud-arrow-up"></i>
-                            <div class="course-import-upload-text">点击浏览或将文件拖拽到此区域</div>
-                            <div class="course-import-upload-subtext">仅支持包含学案数据的 .zip 压缩包文件</div>
-                            <div id="uploadFileName" style="display:none;margin-top:8px;padding:6px 14px;border-radius:8px;background:#dbeafe;color:#1d4ed8;font-size:14px;font-weight:700;"></div>
+                        <div class="ls-upload" data-accept=".zip" data-label="点击或拖拽上传学案包" data-hint="仅支持 .zip 压缩包文件">
                             <asp:FileUpload ID="FudPackage" runat="server" />
                         </div>
                     </div>
@@ -294,23 +241,5 @@
         </div>
     </div>
 
-<script type="text/javascript">
-(function(){
-    var input = document.getElementById('<%= FudPackage.ClientID %>');
-    var label = document.getElementById('uploadFileName');
-    function showName(name) {
-        label.textContent = '📄 ' + name;
-        label.style.display = 'block';
-    }
-    input.addEventListener('change', function(){
-        if (this.files && this.files[0]) showName(this.files[0].name);
-    });
-    var zone = document.getElementById('uploadZone');
-    zone.addEventListener('dragover', function(e){ e.preventDefault(); });
-    zone.addEventListener('drop', function(e){
-        e.preventDefault();
-        if (e.dataTransfer.files && e.dataTransfer.files[0]) showName(e.dataTransfer.files[0].name);
-    });
-})();
-</script>
+<script src="../js/fileupload.js"></script>
 </asp:Content>

@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="pythonedit.aspx.cs"  inherits="Teacher_pythonedit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .python-edit-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
@@ -15,10 +16,6 @@
             --content-add-secondary-hover: #dbeafe;
             --content-add-focus: #2563eb;
             --content-add-focus-ring: rgba(37, 99, 235, 0.14);
-        }
-
-        .python-edit-upload input[type="file"] {
-            width: 100%;
         }
 
         .python-edit-example {
@@ -107,8 +104,8 @@
 
                     <div class="content-add-field">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">替换示例文件</label>
-                        <div class="content-add-static python-edit-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+                        <div class="ls-upload" data-accept=".py" data-label="点击或拖拽上传示例文件" data-hint="支持 py 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -157,4 +154,5 @@
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

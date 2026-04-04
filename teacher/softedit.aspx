@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  Validaterequest="false"  AutoEventWireup="true" CodeFile="softedit.aspx.cs" Inherits="Teacher_softedit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+  <link href="../js/fileupload.css" rel="stylesheet" />
   <div   class="placehold">
     <div  class="softdiv">
         &nbsp;&nbsp; 资源名称：<asp:TextBox 
@@ -57,9 +58,10 @@
                   onclick="Linkold_Click"></asp:LinkButton>
               <br />
               <br />
-              更新可限制资源：&nbsp; <asp:FileUpload ID="FUsoft" runat="server" 
-                        BorderColor="#DBDBDB" BorderWidth="1px" Font-Size="9pt" 
-                  BorderStyle="Solid" />
+              更新可限制资源：
+                <div class="ls-upload" data-label="点击或拖拽上传资源文件" data-hint="可上传任意类型文件">
+                    <asp:FileUpload ID="FUsoft" runat="server" />
+                </div>
                <br />
                <asp:Label ID="Labelmsg" runat="server" ></asp:Label>
               <br />
@@ -72,7 +74,8 @@
                <br />
                <br />         
          </div>
-         <br />           
+          <br />           
         </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>
 

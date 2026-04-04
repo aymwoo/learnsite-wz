@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="kitymindadd.aspx.cs" Inherits="teacher_kitymindadd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .mindmap-add-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #f5f3ff 100%);
@@ -15,10 +16,6 @@
             --content-add-secondary-hover: #ede9fe;
             --content-add-focus: #7c3aed;
             --content-add-focus-ring: rgba(124, 58, 237, 0.14);
-        }
-
-        .mindmap-add-upload input[type="file"] {
-            width: 100%;
         }
 
         .mindmap-add-editor-stage textarea {
@@ -60,8 +57,8 @@
 
                     <div class="content-add-field content-add-field-wide">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">思维导图实例文件</label>
-                        <div class="content-add-static mindmap-add-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+                        <div class="ls-upload" data-accept=".km" data-label="点击或拖拽上传实例文件" data-hint="支持 km 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -109,4 +106,5 @@
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  Validaterequest="false" AutoEventWireup="true" CodeFile="softadd.aspx.cs" Inherits="Teacher_softadd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .soft-add-page {
             --ls-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
@@ -302,7 +303,9 @@
                 <div class="form-grid">
                     <div class="form-field form-field--12">
                         <label class="form-label">上传可限制资源（如软件包、配套素材）</label>
-                        <asp:FileUpload ID="FUsoft" runat="server" CssClass="form-input" style="padding-top: 10px; height: auto; border: 1px dashed #cbd5e1; background: #f8fafc;" />
+                        <div class="ls-upload" data-label="点击或拖拽上传资源文件" data-hint="支持任意文件类型">
+                            <asp:FileUpload ID="FUsoft" runat="server" />
+                        </div>
                     </div>
                 </div>
                 
@@ -320,4 +323,5 @@
             </div>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/manager/Manage.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="divide.aspx.cs" Inherits="Manager_divide" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .mgr-page { --ls-bg: linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%); --ls-border: #dbe6f5; --ls-text: #0f172a; padding: 28px; background: var(--ls-bg); min-height: calc(100vh - 8rem); box-sizing: border-box; width: 100%; }
         .mgr-page * { box-sizing: border-box; }
@@ -49,8 +50,10 @@
             <div class="mgr-card">
                 <div class="mgr-card__head"><h2 class="mgr-card__title">上传分班表格</h2></div>
                 <div class="mgr-card__body">
-                    <div class="mgr-toolbar">
-                        <asp:FileUpload ID="FileUpload1" runat="server" style="font-size:14px;" />
+                    <div class="mgr-toolbar" style="flex-direction:column;align-items:stretch;">
+                        <div class="ls-upload" data-accept=".xls,.xlsx" data-label="点击或拖拽上传分班表格" data-hint="支持 xls / xlsx 格式">
+                            <asp:FileUpload ID="FileUpload1" runat="server" />
+                        </div>
                         <asp:Button ID="Btndivide" runat="server" Text="重新分班" onclick="Btndivide_Click" CssClass="mgr-btn mgr-btn--green" />
                     </div>
                     <asp:Label ID="Labelmsg" runat="server" CssClass="mgr-msg"></asp:Label>
@@ -67,4 +70,5 @@
             </div>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

@@ -8,6 +8,9 @@ using System.Data;
 public partial class Teacher_student : System.Web.UI.Page
 {
     LearnSite.Model.TeaCook tcook = new LearnSite.Model.TeaCook();
+    private const int PageSize = 15;
+    private int _currentPage = 0;
+    private int _totalCount = 0;
     protected void Page_Load(object sender, EventArgs e)
     {
         LearnSite.Common.CookieHelp.JudgeTeacherCookies();
@@ -27,59 +30,68 @@ public partial class Teacher_student : System.Web.UI.Page
         }
     }
 
-    protected void GVStudent_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void RptStudent_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (e.Row.RowIndex > -1)
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
+
+        int rowIndex = e.Item.ItemIndex + _currentPage * PageSize;
+        ((Label)e.Item.FindControl("LabelRowIndex")).Text = (rowIndex + 1).ToString();
+
+        HyperLink hl = (HyperLink)e.Item.FindControl("Hlname");
+        string sid = hl.ToolTip;
+        string sgrade = DDLgrade.SelectedValue;
+        string sclass = DDLclass.SelectedValue;
+        hl.Attributes.Add("onclick", "stuShow('" + sid + "', '" + sgrade + "', '" + sclass + "');");
+
+        string snum = ((Label)e.Item.FindControl("LabelSnum")).Text;
+        string strjs = "if(confirm('您确定更新" + snum + "学号的密码吗?'))return true;else return false; ";
+        ((ImageButton)e.Item.FindControl("ImageButton1")).OnClientClick = strjs;
+
+        string sleader = ((Label)e.Item.FindControl("LabelSleader")).Text.ToLower();
+        ImageButton mbtn = (ImageButton)e.Item.FindControl("ImageBtnGroup");
+        if (sleader == "true")
         {
-            e.Row.Cells[0].Text = Convert.ToString(GVStudent.PageIndex * GVStudent.PageSize + e.Row.RowIndex + 1);
-
-            HyperLink hl = (HyperLink)e.Row.FindControl("Hlname");
-            string sid = hl.ToolTip;
-            string sgrade = DDLgrade.SelectedValue;
-            string sclass = DDLclass.SelectedValue;
-
-            string jsstr = "stuShow('" + sid + "', '" + sgrade + "', '" + sclass + "');";
-            hl.Attributes.Add("onclick", jsstr);
-
-            string strjs = "if(confirm('您确定更新" + e.Row.Cells[1].Text + "学号的密码吗?'))return true;else return false; ";
-            ((ImageButton)e.Row.FindControl("ImageButton1")).OnClientClick = strjs;
-
-            string sleader = ((Label)e.Row.FindControl("LabelSleader")).Text.ToLower();
-            string vpath = "~/images/gcard.gif";
-            ImageButton mbtn = (ImageButton)e.Row.FindControl("ImageBtnGroup");
-            if (sleader == "true")
-            {
-                vpath = "~/images/gflag.gif";//如果是组长的话,换图标
-                string gjs = "if(confirm('您确定撤销" + e.Row.Cells[1].Text + "学号的组长任命吗?'))return true;else return false; ";
-                mbtn.OnClientClick = gjs;
-                mbtn.ToolTip = "点击卸任这位组长职位";
-            }
-            else
-            {
-                string sgjs = "if(confirm('您确定任命" + e.Row.Cells[1].Text + "学号的同学为组长吗?'))return true;else return false; ";
-                mbtn.OnClientClick = sgjs;
-                mbtn.ToolTip = "点击任命这位同学为组长";
-
-                LinkButton lbtn = (LinkButton)e.Row.FindControl("LinkBtnQuit");
-                if (lbtn.Text != "")
-                {
-                    string lbjs = "if(confirm('您确定将" + e.Row.Cells[1].Text + "学号的同学退组吗?'))return true;else return false; ";
-                    lbtn.OnClientClick = lbjs;
-                    lbtn.ToolTip = "点击将这位同学退组";
-                }
-            }
-            mbtn.ImageUrl = vpath + "?temp=" + DateTime.Now.Millisecond.ToString();
-
-
+            mbtn.ImageUrl = "~/images/gflag.gif?temp=" + DateTime.Now.Millisecond.ToString();
+            mbtn.OnClientClick = "if(confirm('您确定撤销" + snum + "学号的组长任命吗?'))return true;else return false; ";
+            mbtn.ToolTip = "点击卸任这位组长职位";
         }
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        else
         {
-            //当鼠标放上去的时候 先保存当前行的背景颜色 并给附一颜色 
-            e.Row.Attributes.Add("onmouseover", "currentcolor=this.style.backgroundColor;this.style.backgroundColor='#E1E8E1',this.style.fontWeight='';");
-            //当鼠标离开的时候 将背景颜色还原的以前的颜色 
-            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=currentcolor,this.style.fontWeight='';");
-            //单击行改变行背景颜色 
-            e.Row.Attributes.Add("onclick", "this.style.backgroundColor='#D8E0D8'; this.style.color='buttontext';this.style.cursor='default';");
+            mbtn.ImageUrl = "~/images/gcard.gif?temp=" + DateTime.Now.Millisecond.ToString();
+            mbtn.OnClientClick = "if(confirm('您确定任命" + snum + "学号的同学为组长吗?'))return true;else return false; ";
+            mbtn.ToolTip = "点击任命这位同学为组长";
+
+            LinkButton lbtn = (LinkButton)e.Item.FindControl("LinkBtnQuit");
+            if (lbtn != null && lbtn.Text != "")
+            {
+                lbtn.OnClientClick = "if(confirm('您确定将" + snum + "学号的同学退组吗?'))return true;else return false; ";
+                lbtn.ToolTip = "点击将这位同学退组";
+            }
+        }
+    }
+
+    protected void RptStudent_ItemCommand(object source, RepeaterCommandEventArgs e)
+    {
+        int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+        LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
+        if (e.CommandName == "ChangePwd")
+        {
+            string myPwd = LearnSite.Common.WordProcess.GenerateRandomNum(2);
+            bll.UpdateSidPwd(mySid.ToString(), myPwd);
+            ShowStudents();
+            LearnSite.Common.WordProcess.Alert("你的新密码是：" + myPwd, this.Page);
+        }
+        else if (e.CommandName == "ChangeGroup")
+        {
+            bll.ChangeSleader(mySid);
+            System.Threading.Thread.Sleep(300);
+            ShowStudents();
+        }
+        else if (e.CommandName == "QuitGroup")
+        {
+            bll.QuitThitGroup(mySid);
+            System.Threading.Thread.Sleep(300);
+            ShowStudents();
         }
     }
     private void GradeClass()
@@ -110,11 +122,48 @@ public partial class Teacher_student : System.Web.UI.Page
         int Sgrade = Int32.Parse(DDLgrade.SelectedValue.ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
         LearnSite.BLL.Students stus = new LearnSite.BLL.Students();
-        DataSet ds = stus.GetListStudents(Sgrade, Sclass);
-        Label1.Text = "学生总数" + ds.Tables[0].Rows.Count.ToString() + "位";
-        GVStudent.DataSource = ds;
-        GVStudent.DataBind();
+        System.Data.DataSet ds = stus.GetListStudents(Sgrade, Sclass);
+        System.Data.DataTable dt = ds.Tables[0];
+        _totalCount = dt.Rows.Count;
+        Label1.Text = "学生总数" + _totalCount.ToString() + "位";
+
+        if (ViewState["PageIndex"] != null)
+            _currentPage = (int)ViewState["PageIndex"];
+
+        int pageCount = (_totalCount + PageSize - 1) / PageSize;
+        if (_currentPage >= pageCount) _currentPage = Math.Max(0, pageCount - 1);
+
+        LblPageIndex.Text = (_currentPage + 1).ToString();
+        LblPageCount.Text = pageCount.ToString();
+        btnFirst.Enabled = btnPrev.Enabled = _currentPage > 0;
+        btnNext.Enabled = btnLast.Enabled = _currentPage < pageCount - 1;
+
+        System.Data.DataTable page = dt.Clone();
+        int start = _currentPage * PageSize;
+        int end = Math.Min(start + PageSize, _totalCount);
+        for (int i = start; i < end; i++)
+            page.ImportRow(dt.Rows[i]);
+
+        RptStudent.DataSource = page;
+        RptStudent.DataBind();
         ds.Dispose();
+    }
+
+    protected void Pager_Click(object sender, EventArgs e)
+    {
+        LinkButton btn = (LinkButton)sender;
+        int pageCount = int.Parse(LblPageCount.Text);
+        if (ViewState["PageIndex"] != null)
+            _currentPage = (int)ViewState["PageIndex"];
+        switch (btn.CommandArgument)
+        {
+            case "First": _currentPage = 0; break;
+            case "Prev":  _currentPage = Math.Max(0, _currentPage - 1); break;
+            case "Next":  _currentPage = Math.Min(pageCount - 1, _currentPage + 1); break;
+            case "Last":  _currentPage = pageCount - 1; break;
+        }
+        ViewState["PageIndex"] = _currentPage;
+        ShowStudents();
     }
 
     private void addStuJs(string sgrade, string sclass)
@@ -133,7 +182,7 @@ public partial class Teacher_student : System.Web.UI.Page
             LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
             DDLclass.DataSource = rm.GetLimitClass(Rgrade);
             DDLclass.DataBind();
-            GVStudent.PageIndex = 0;
+            ViewState["PageIndex"] = 0;
             ShowStudents();
             profileSet();
             addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -154,7 +203,7 @@ public partial class Teacher_student : System.Web.UI.Page
             Session[Hid + "grade"] = DDLgrade.SelectedValue;
             Session[Hid + "class"] = DDLclass.SelectedValue;
         }
-        GVStudent.PageIndex = 0;
+        ViewState["PageIndex"] = 0;
         ShowStudents();
         profileSet();
         addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -164,37 +213,6 @@ public partial class Teacher_student : System.Web.UI.Page
     {
         LearnSite.BLL.Students stu = new LearnSite.BLL.Students();
         stu.StudentsToExcel();
-    }
-    protected void GVStudent_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName.Equals("ChangePwd"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            string myPwd = LearnSite.Common.WordProcess.GenerateRandomNum(2);
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.UpdateSidPwd(mySid.ToString(), myPwd);
-            ShowStudents();
-            string ch = "你的新密码是：" + myPwd;
-            LearnSite.Common.WordProcess.Alert(ch, this.Page);
-        }
-        if (e.CommandName.Equals("ChangeGroup"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.ChangeSleader(mySid);
-            System.Threading.Thread.Sleep(300);
-            ShowStudents();
-        }
-
-        if (e.CommandName.Equals("QuitGroup"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.QuitThitGroup(mySid);
-            System.Threading.Thread.Sleep(300);
-            ShowStudents();
-        }
-
     }
     protected void BtnSpell_Click(object sender, EventArgs e)
     {
@@ -286,39 +304,6 @@ public partial class Teacher_student : System.Web.UI.Page
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
         LearnSite.BLL.Room rbll = new LearnSite.BLL.Room();
         rbll.SetRnameedit(Sgrade, Sclass, Ckname.Checked);
-    }
-    protected void GVStudent_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        GridView theGrid = sender as GridView;  // refer to the GridView
-        int newPageIndex = 0;
-
-        if (-2 == e.NewPageIndex)
-        { // when click the "GO" Button
-            TextBox txtNewPageIndex = null;
-
-            GridViewRow pagerRow = theGrid.BottomPagerRow;
-
-            if (null != pagerRow)
-            {
-                txtNewPageIndex = pagerRow.FindControl("txtNewPageIndex") as TextBox;   // refer to the TextBox with the NewPageIndex value
-            }
-
-            if (null != txtNewPageIndex)
-            {
-
-                newPageIndex = int.Parse(txtNewPageIndex.Text) - 1; // get the NewPageIndex
-            }
-        }
-        else
-        {  // when click the first, last, previous and next Button
-            newPageIndex = e.NewPageIndex;
-        }
-
-        // check to prevent form the NewPageIndex out of the range
-        newPageIndex = newPageIndex < 0 ? 0 : newPageIndex;
-        newPageIndex = newPageIndex >= theGrid.PageCount ? theGrid.PageCount - 1 : newPageIndex;
-        theGrid.PageIndex = newPageIndex;
-        ShowStudents();
     }
     protected void Btngroups_Click(object sender, EventArgs e)
     {

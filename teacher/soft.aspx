@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
-        .soft-manage {
+        .soft-page {
             --ls-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
             --ls-card: rgba(255, 255, 255, 0.96);
             --ls-border: #dbe6f5;
@@ -18,228 +18,553 @@
             min-height: calc(100vh - 8rem);
         }
 
-        .soft-manage * {
+        .soft-page * {
             box-sizing: border-box;
         }
 
-        .lesson-card {
-            border: 1px solid var(--ls-border);
-            border-radius: 1rem;
-            background: var(--ls-card);
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
-
-        .soft-header {
-            padding: 24px;
+        .soft-shell {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
+            flex-direction: column;
             gap: 20px;
         }
 
-        .soft-filter {
+        /* Hero banner */
+        .soft-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            padding: 24px 28px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 38%),
+                radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
+                linear-gradient(135deg, #0f172a 0%, #1d4ed8 52%, #38bdf8 100%);
+            color: #eff6ff;
+            box-shadow: 0 28px 60px rgba(37, 99, 235, 0.2);
+        }
+
+        .soft-hero__content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .soft-hero__title {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .soft-hero__subtitle {
+            max-width: 760px;
+            margin: 8px 0 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(239, 246, 255, 0.88);
+        }
+
+        .soft-hero__actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .soft-hero__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 18px;
+            border-radius: 0.375rem;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .soft-hero__btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .soft-hero__btn--add {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1d4ed8;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .soft-hero__btn--category {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .soft-hero__btn--score {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Card */
+        .soft-card {
+            min-width: 0;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            background: var(--ls-card);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .soft-card__head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            padding: 20px 24px 0;
+        }
+
+        .soft-card__title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--ls-text);
+        }
+
+        .soft-card__filter {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .soft-label {
-            font-size: 15px;
+        .soft-card__label {
+            font-size: 13px;
             font-weight: 700;
             color: #334155;
         }
 
+        .soft-card__body {
+            padding: 18px 24px 22px;
+        }
+
         .soft-select {
             min-width: 160px;
-            height: 44px;
+            min-height: 42px;
             padding: 0 14px;
             border: 1px solid #cbd5e1;
-            border-radius: 0.85rem;
-            background: #ffffff;
+            border-radius: 0.375rem;
+            background: #f8fafc;
             color: #0f172a;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
 
         .soft-select:focus {
-            border-color: var(--ls-primary);
+            border-color: #60a5fa;
             outline: none;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
         }
 
-        .soft-actions {
-            display: flex;
-            gap: 10px;
+        .soft-count {
+            font-size: 13px;
+            color: var(--ls-muted);
         }
 
-        .soft-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 44px;
-            padding: 0 20px;
-            border-radius: 0.85rem;
+        /* Table wrapper */
+        .soft-table-wrap {
+            overflow-x: auto;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .soft-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .soft-table-wrap th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .soft-table-wrap th.soft-th--center {
+            text-align: center;
+        }
+
+        .soft-table-wrap td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
             font-size: 14px;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .soft-table-wrap tr:hover td {
+            background: #f8fafc;
+        }
+
+        .soft-table-wrap tr.soft-row--alt td {
+            background: #fafbfd;
+        }
+
+        .soft-table-wrap tr.soft-row--alt:hover td {
+            background: #f1f5f9;
+        }
+
+        /* Cell styles */
+        .soft-cell--seq {
+            text-align: center;
+            font-weight: 600;
+            color: #94a3b8;
+            width: 60px;
+        }
+
+        .soft-cell--attr {
+            text-align: center;
+            font-weight: 600;
+            color: #475569;
+            font-size: 13px;
+        }
+
+        .soft-cell--title a {
+            color: #4338ca;
             font-weight: 700;
             text-decoration: none;
-            transition: all 0.2s;
-            border: none;
+            transition: color 0.15s;
+        }
+
+        .soft-cell--title a:hover {
+            color: #312e81;
+            text-decoration: underline;
+        }
+
+        .soft-cell--type {
+            text-align: center;
+        }
+
+        .soft-cell--type span,
+        .soft-cell--type-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.25rem;
+            font-size: 12px;
+            font-family: monospace;
+            color: #475569;
+        }
+
+        .soft-cell--num {
+            text-align: center;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .soft-cell--credit {
+            text-align: center;
+            font-weight: 700;
+            color: #059669;
+            font-size: 13px;
+        }
+
+        .soft-cell--download {
+            text-align: center;
+        }
+
+        .soft-cell--download a {
+            color: #4338ca;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .soft-cell--download a:hover {
+            color: #312e81;
+            text-decoration: underline;
+        }
+
+        .soft-cell--hide {
+            text-align: center;
+            opacity: 0.75;
+        }
+
+        .soft-cell--toggle {
+            text-align: center;
+        }
+
+        .soft-cell--toggle input[type="image"] {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            transition: opacity 0.15s, transform 0.3s;
             cursor: pointer;
         }
 
-        .soft-btn--success {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+        .soft-cell--toggle input[type="image"]:hover {
+            opacity: 1;
+            transform: rotate(180deg);
         }
 
-        .soft-btn--success:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        .soft-cell--date {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
         }
 
-        .soft-btn--primary {
-            background: #f0fdfa;
-            color: #059669;
-            border: 1px solid #bbf7d0;
+        .soft-cell--action {
+            text-align: center;
         }
 
-        .soft-btn--primary:hover {
-            background: #dcfce7;
-            transform: translateY(-1px);
+        .soft-cell--action a {
+            color: #e11d48;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.15s;
         }
 
-        .soft-grid-container {
-            padding: 0;
+        .soft-cell--action a:hover {
+            color: #9f1239;
+            text-decoration: underline;
+        }
+
+        /* Pager */
+        .soft-pager {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 24px;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .soft-pager__info {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .soft-pager__info-num {
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .soft-pager__btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .soft-pager__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
             background: #ffffff;
+            color: #475569;
+            text-decoration: none;
+            transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+            cursor: pointer;
         }
-        
+
+        .soft-pager__btn:hover {
+            background: #f1f5f9;
+            color: #4338ca;
+            border-color: #c7d2fe;
+        }
+
+        /* Selected row */
+        .soft-row--selected td {
+            background: #e0e7ff;
+            font-weight: 700;
+            color: #3730a3;
+        }
+
+        @media (max-width: 1200px) {
+            .soft-hero__content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
         @media (max-width: 768px) {
-            .soft-manage { padding: 16px; }
-            .soft-header { padding: 16px; flex-direction: column; align-items: stretch; }
-            .soft-select { width: 100%; }
-            .soft-actions { flex-direction: column; }
+            .soft-page {
+                padding: 16px;
+            }
+
+            .soft-hero {
+                padding: 20px 16px;
+            }
+
+            .soft-hero__title {
+                font-size: 22px;
+            }
+
+            .soft-hero__actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .soft-hero__btn {
+                width: 100%;
+            }
+
+            .soft-card__head {
+                padding: 16px 16px 0;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .soft-card__body {
+                padding: 16px;
+            }
+
+            .soft-select {
+                width: 100%;
+            }
+
+            .soft-pager {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
         }
     </style>
 
-    <div class="soft-manage">
-        <div class="lesson-card">
-            <div class="soft-header">
-                <div class="soft-filter">
-                    <span class="soft-label">资源分类</span>
-                    <asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True" 
-                        onselectedindexchanged="ddlcategory_SelectedIndexChanged" CssClass="soft-select">
-                    </asp:DropDownList>
-                    <asp:Label ID="Label1" runat="server" CssClass="hidden md:inline-block ml-2 text-slate-400 text-sm"></asp:Label>
-                </div>
-                
-                <div class="soft-actions">
-                    <asp:HyperLink ID="Hlkadd" runat="server" CssClass="soft-btn soft-btn--success" 
-                        NavigateUrl="~/teacher/softadd.aspx" Target="_self">
-                        <i class="bi bi-plus-lg mr-1.5"></i> 资源添加
-                    </asp:HyperLink>
-                    
-                    <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="soft-btn soft-btn--primary" 
-                        NavigateUrl="~/teacher/softcategory.aspx" Target="_self">
-                        <i class="bi bi-gear mr-1.5"></i> 分类设置
-                    </asp:HyperLink>
-                    
-                    <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="soft-btn soft-btn--primary" 
-                        NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">
-                        <i class="bi bi-patch-check mr-1.5"></i> 自学评价
-                    </asp:HyperLink>
+    <div class="soft-page">
+        <div class="soft-shell">
+            <div class="soft-hero">
+                <div class="soft-hero__content">
+                    <div>
+                        <h1 class="soft-hero__title">资源管理</h1>
+                        <p class="soft-hero__subtitle">浏览、添加和管理教学资源，按分类筛选查看资源列表。</p>
+                    </div>
+                    <div class="soft-hero__actions">
+                        <asp:HyperLink ID="Hlkadd" runat="server" CssClass="soft-hero__btn soft-hero__btn--add"
+                            NavigateUrl="~/teacher/softadd.aspx" Target="_self">资源添加</asp:HyperLink>
+                        <asp:HyperLink ID="Hlkcategory" runat="server" CssClass="soft-hero__btn soft-hero__btn--category"
+                            NavigateUrl="~/teacher/softcategory.aspx" Target="_self">分类设置</asp:HyperLink>
+                        <asp:HyperLink ID="Hlkcgscore" runat="server" CssClass="soft-hero__btn soft-hero__btn--score"
+                            NavigateUrl="~/teacher/softnomic.aspx" Target="_blank">自学评价</asp:HyperLink>
+                    </div>
                 </div>
             </div>
 
-            <div class="soft-grid-container">
-                <asp:GridView ID="GVSource" runat="server" AllowPaging="True" 
-                    AutoGenerateColumns="False" PageSize="20" Width="100%"
-                    onpageindexchanging="GVSource_PageIndexChanging" 
-                    onrowdatabound="GVSource_RowDataBound" EnableModelValidation="True" 
-                    onrowcommand="GVSource_RowCommand" CellPadding="0" GridLines="None">
-                    <AlternatingRowStyle BackColor="#f8fafc" />
-                    <Columns>
-                        <asp:BoundField HeaderText="序号">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" Width="60px" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="font-medium text-slate-400 py-4" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Fclass" HeaderText="属性">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-slate-600 font-medium text-sm py-4" />
-                        </asp:BoundField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Fid" 
-                            DataNavigateUrlFormatString="~/teacher/softview.aspx?fid={0}" 
-                            DataTextField="Ftitle" HeaderText="标题">
-                            <HeaderStyle HorizontalAlign="Left" CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Left" CssClass="text-indigo-600 hover:text-indigo-800 font-bold py-4 px-4 transition-colors" />
-                        </asp:HyperLinkField>
-                        <asp:BoundField DataField="Ffiletype" HeaderText="格式">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-slate-500 text-xs font-mono bg-slate-100 px-2 py-1 rounded inline-block m-2" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Fhit" HeaderText="下载">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-slate-600 text-sm py-4" />
-                        </asp:BoundField>
-                        <asp:BoundField DataField="Fopen" HeaderText="学分">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-emerald-600 font-bold text-sm py-4" />
-                        </asp:BoundField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Furl" HeaderText="下载" Text="获取" Target="_blank">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-indigo-500 hover:text-indigo-700 font-medium py-4 transition-colors text-sm" />
-                        </asp:HyperLinkField>
-                        <asp:CheckBoxField DataField="Fhide" HeaderText="隐藏" ReadOnly="True">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="py-4 opacity-75" />
-                        </asp:CheckBoxField>
-                        <asp:TemplateField ShowHeader="False" HeaderText="状态">
-                            <ItemTemplate>
-                                <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
-                                    CommandArgument='<%# Eval("Fid") %>' CommandName="Change"
-                                    ImageUrl="~/images/refresh.gif" ToolTip="发布：无或隐藏：√" CssClass="w-4 h-4 hover:rotate-180 transition-transform opacity-75 hover:opacity-100" />
-                            </ItemTemplate>
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="py-4" />
-                        </asp:TemplateField>
-                        <asp:BoundField DataField="Fdate" HeaderText="修改日期">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-slate-400 text-xs py-4" />
-                        </asp:BoundField>
-                        <asp:HyperLinkField DataNavigateUrlFields="Fid,Furl" 
-                            DataNavigateUrlFormatString="~/teacher/softdel.aspx?fid={0}&amp;&amp;furl={1}" 
-                            Text="删除" HeaderText="管理">
-                            <HeaderStyle CssClass="py-3 px-4 font-semibold text-slate-500 text-sm" />
-                            <ItemStyle HorizontalAlign="Center" CssClass="text-rose-500 hover:text-rose-700 font-medium py-4 transition-colors text-sm" />
-                        </asp:HyperLinkField>
-                    </Columns>
-                    <HeaderStyle BackColor="#f8fafc" CssClass="border-b border-slate-200" />
-                    <RowStyle BackColor="#FFFFFF" CssClass="border-b border-slate-100 hover:bg-slate-50/80 transition-colors" />
-                    <PagerStyle BackColor="#f8fafc" ForeColor="#475569" HorizontalAlign="Center" CssClass="border-t border-slate-200" />
-                    <PagerTemplate>
-                        <div class="w-full flex justify-between items-center px-6 py-3">
-                            <span class="text-sm text-slate-500 font-medium">
-                                第 <asp:Label ID="lblPageIndex" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" CssClass="font-bold text-slate-700" /> 页
-                                共 <asp:Label ID="lblPageCount" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" CssClass="font-bold text-slate-700" /> 页
-                            </span>
-                            <div class="flex gap-2">
-                                <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" commandargument="First" commandname="Page" text="首页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" commandargument="Prev" commandname="Page" text="上一页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" commandargument="Next" commandname="Page" text="下一页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                                <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" commandargument="Last" commandname="Page" text="尾页" CssClass="px-3 py-1.5 text-xs font-medium rounded-lg border border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-indigo-600 transition-colors shadow-sm" />
-                            </div>
-                        </div>
-                    </PagerTemplate>
-                    <SelectedRowStyle BackColor="#e0e7ff" Font-Bold="True" ForeColor="#3730a3" />
-                </asp:GridView>
+            <div class="soft-card">
+                <div class="soft-card__head">
+                    <h2 class="soft-card__title">资源列表</h2>
+                    <div class="soft-card__filter">
+                        <span class="soft-card__label">分类</span>
+                        <asp:DropDownList ID="ddlcategory" runat="server" AutoPostBack="True"
+                            onselectedindexchanged="ddlcategory_SelectedIndexChanged" CssClass="soft-select">
+                        </asp:DropDownList>
+                        <asp:Label ID="Label1" runat="server" CssClass="soft-count"></asp:Label>
+                    </div>
+                </div>
+                <div class="soft-card__body" style="padding-bottom: 0;">
+                    <div class="soft-table-wrap">
+                        <asp:GridView ID="GVSource" runat="server" AllowPaging="True"
+                            AutoGenerateColumns="False" PageSize="20" Width="100%"
+                            onpageindexchanging="GVSource_PageIndexChanging"
+                            onrowdatabound="GVSource_RowDataBound" EnableModelValidation="True"
+                            onrowcommand="GVSource_RowCommand" CellPadding="0" GridLines="None">
+                            <AlternatingRowStyle CssClass="soft-row--alt" />
+                            <Columns>
+                                <asp:BoundField HeaderText="序号">
+                                    <HeaderStyle CssClass="soft-th--center" Width="60px" />
+                                    <ItemStyle CssClass="soft-cell--seq" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Fclass" HeaderText="属性">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--attr" />
+                                </asp:BoundField>
+                                <asp:HyperLinkField DataNavigateUrlFields="Fid"
+                                    DataNavigateUrlFormatString="~/teacher/softview.aspx?fid={0}"
+                                    DataTextField="Ftitle" HeaderText="标题">
+                                    <ItemStyle CssClass="soft-cell--title" />
+                                </asp:HyperLinkField>
+                                <asp:BoundField DataField="Ffiletype" HeaderText="格式">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--type" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Fhit" HeaderText="下载">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--num" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Fopen" HeaderText="学分">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--credit" />
+                                </asp:BoundField>
+                                <asp:HyperLinkField DataNavigateUrlFields="Furl" HeaderText="下载" Text="获取" Target="_blank">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--download" />
+                                </asp:HyperLinkField>
+                                <asp:CheckBoxField DataField="Fhide" HeaderText="隐藏" ReadOnly="True">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--hide" />
+                                </asp:CheckBoxField>
+                                <asp:TemplateField ShowHeader="False" HeaderText="状态">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                            CommandArgument='<%# Eval("Fid") %>' CommandName="Change"
+                                            ImageUrl="~/images/refresh.gif" ToolTip="发布：无或隐藏：√" />
+                                    </ItemTemplate>
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--toggle" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Fdate" HeaderText="修改日期">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--date" />
+                                </asp:BoundField>
+                                <asp:HyperLinkField DataNavigateUrlFields="Fid,Furl"
+                                    DataNavigateUrlFormatString="~/teacher/softdel.aspx?fid={0}&amp;&amp;furl={1}"
+                                    Text="删除" HeaderText="管理">
+                                    <HeaderStyle CssClass="soft-th--center" />
+                                    <ItemStyle CssClass="soft-cell--action" />
+                                </asp:HyperLinkField>
+                            </Columns>
+                            <HeaderStyle CssClass="" />
+                            <RowStyle CssClass="" />
+                            <PagerStyle CssClass="soft-pager" />
+                            <PagerTemplate>
+                                <span class="soft-pager__info">
+                                    第 <asp:Label ID="lblPageIndex" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageIndex + 1  %>" CssClass="soft-pager__info-num" /> 页
+                                    共 <asp:Label ID="lblPageCount" runat="server" text="<%# ((GridView)Container.Parent.Parent).PageCount  %>" CssClass="soft-pager__info-num" /> 页
+                                </span>
+                                <div class="soft-pager__btns">
+                                    <asp:LinkButton ID="btnFirst" runat="server" causesvalidation="False" commandargument="First" commandname="Page" text="首页" CssClass="soft-pager__btn" />
+                                    <asp:LinkButton ID="btnPrev" runat="server" causesvalidation="False" commandargument="Prev" commandname="Page" text="上一页" CssClass="soft-pager__btn" />
+                                    <asp:LinkButton ID="btnNext" runat="server" causesvalidation="False" commandargument="Next" commandname="Page" text="下一页" CssClass="soft-pager__btn" />
+                                    <asp:LinkButton ID="btnLast" runat="server" causesvalidation="False" commandargument="Last" commandname="Page" text="尾页" CssClass="soft-pager__btn" />
+                                </div>
+                            </PagerTemplate>
+                            <SelectedRowStyle CssClass="soft-row--selected" />
+                        </asp:GridView>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </asp:Content>
-

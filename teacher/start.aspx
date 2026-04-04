@@ -33,8 +33,8 @@
             position: relative;
             overflow: hidden;
             border: 1px solid var(--ls-border);
-            border-radius: 1rem;
-            padding: 28px;
+            border-radius: 0.75rem;
+            padding: 24px 28px;
             background:
                 radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 38%),
                 radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
@@ -49,13 +49,13 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            gap: 20px;
-            align-items: flex-start;
+            gap: 16px;
+            align-items: center;
         }
 
         .lesson-hero__title {
             margin: 0;
-            font-size: 32px;
+            font-size: 28px;
             line-height: 1.15;
             font-weight: 800;
             letter-spacing: -0.03em;
@@ -63,57 +63,10 @@
 
         .lesson-hero__subtitle {
             max-width: 760px;
-            margin: 12px 0 0;
-            font-size: 15px;
-            line-height: 1.8;
-            color: rgba(239, 246, 255, 0.88);
-        }
-
-        .lesson-hero__tips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 18px;
-        }
-
-        .lesson-chip {
-            display: inline-flex;
-            align-items: center;
-            min-height: 34px;
-            padding: 0 14px;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.12);
-            color: #eff6ff;
-            font-size: 13px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-
-        .lesson-hero__panel {
-            min-width: 280px;
-            max-width: 360px;
-            padding: 18px 20px;
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.14);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            backdrop-filter: blur(14px);
-        }
-
-        .lesson-hero__panel-title {
-            margin: 0 0 8px;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: rgba(219, 234, 254, 0.9);
-        }
-
-        .lesson-hero__panel-text {
-            margin: 0;
+            margin: 8px 0 0;
             font-size: 14px;
             line-height: 1.8;
-            color: rgba(239, 246, 255, 0.9);
+            color: rgba(239, 246, 255, 0.88);
         }
 
         .lesson-grid {
@@ -125,7 +78,7 @@
         .lesson-card {
             min-width: 0;
             border: 1px solid var(--ls-border);
-            border-radius: 1rem;
+            border-radius: 0.75rem;
             background: var(--ls-card);
             box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
         }
@@ -136,33 +89,33 @@
         .lesson-card--span-6 { grid-column: span 6; }
         .lesson-card--span-5 { grid-column: span 5; }
         .lesson-card--span-4 { grid-column: span 4; }
-        /* Module Theme Colors & Associated Dark Blocks (Alerts/Prompts) */
+
         .lesson-theme--blue { background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%); }
-        .lesson-theme--blue .lesson-prompt, .lesson-theme--blue .lesson-alert { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; border-radius: 1rem; }
+        .lesson-theme--blue .lesson-prompt, .lesson-theme--blue .lesson-alert { background: #dbeafe; color: #1e3a8a; border: 1px solid #bfdbfe; border-radius: 0.5rem; }
 
         .lesson-theme--purple { background: linear-gradient(160deg, #ffffff 0%, #f5f3ff 100%); }
-        .lesson-theme--purple .lesson-prompt, .lesson-theme--purple .lesson-alert { background: #ede9fe; color: #4c1d95; border: 1px solid #ddd6fe; border-radius: 1rem; }
+        .lesson-theme--purple .lesson-prompt, .lesson-theme--purple .lesson-alert { background: #ede9fe; color: #4c1d95; border: 1px solid #ddd6fe; border-radius: 0.5rem; }
 
         .lesson-theme--orange { background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%); }
-        .lesson-theme--orange .lesson-prompt, .lesson-theme--orange .lesson-alert { background: #ffedd5; color: #7c2d12; border: 1px solid #fed7aa; border-radius: 1rem; }
+        .lesson-theme--orange .lesson-prompt, .lesson-theme--orange .lesson-alert { background: #ffedd5; color: #7c2d12; border: 1px solid #fed7aa; border-radius: 0.5rem; }
 
         .lesson-theme--teal { background: linear-gradient(160deg, #ffffff 0%, #f0fdfa 100%); }
-        .lesson-theme--teal .lesson-prompt, .lesson-theme--teal .lesson-alert { background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; border-radius: 1rem; }
+        .lesson-theme--teal .lesson-prompt, .lesson-theme--teal .lesson-alert { background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; border-radius: 0.5rem; }
 
         .lesson-theme--green { background: linear-gradient(160deg, #ffffff 0%, #f0fdf4 100%); }
-        .lesson-theme--green .lesson-prompt, .lesson-theme--green .lesson-alert { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; border-radius: 1rem; }
+        .lesson-theme--green .lesson-prompt, .lesson-theme--green .lesson-alert { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; border-radius: 0.5rem; }
 
         .lesson-theme--red { background: linear-gradient(160deg, #ffffff 0%, #fff1f2 100%); }
-        .lesson-theme--red .lesson-prompt, .lesson-theme--red .lesson-alert { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; border-radius: 1rem; }
+        .lesson-theme--red .lesson-prompt, .lesson-theme--red .lesson-alert { background: #fee2e2; color: #7f1d1d; border: 1px solid #fecaca; border-radius: 0.5rem; }
 
         .lesson-theme--indigo { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
-        .lesson-theme--indigo .lesson-prompt, .lesson-theme--indigo .lesson-alert { background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; border-radius: 1rem; }
+        .lesson-theme--indigo .lesson-prompt, .lesson-theme--indigo .lesson-alert { background: #e0e7ff; color: #312e81; border: 1px solid #c7d2fe; border-radius: 0.5rem; }
 
         .lesson-theme--slate { background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%); }
-        .lesson-theme--slate .lesson-prompt, .lesson-theme--slate .lesson-alert { background: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 1rem; }
+        .lesson-theme--slate .lesson-prompt, .lesson-theme--slate .lesson-alert { background: #e2e8f0; color: #0f172a; border: 1px solid #cbd5e1; border-radius: 0.5rem; }
 
         .lesson-theme--cyan { background: linear-gradient(160deg, #ffffff 0%, #ecfeff 100%); }
-        .lesson-theme--cyan .lesson-prompt, .lesson-theme--cyan .lesson-alert { background: #cffafe; color: #164e63; border: 1px solid #a5f3fc; border-radius: 1rem; }
+        .lesson-theme--cyan .lesson-prompt, .lesson-theme--cyan .lesson-alert { background: #cffafe; color: #164e63; border: 1px solid #a5f3fc; border-radius: 0.5rem; }
 
         .lesson-alert .lesson-inline-note { color: inherit !important; }
         .lesson-alert [ForeColor="White"] { color: inherit !important; }
@@ -173,12 +126,12 @@
             justify-content: space-between;
             gap: 12px;
             align-items: flex-start;
-            padding: 22px 24px 0;
+            padding: 20px 24px 0;
         }
 
         .lesson-card__title {
             margin: 0;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
             line-height: 1.2;
             letter-spacing: -0.02em;
@@ -186,59 +139,20 @@
         }
 
         .lesson-card__desc {
-            margin: 8px 0 0;
+            margin: 6px 0 0;
             font-size: 13px;
             line-height: 1.7;
             color: var(--ls-muted);
         }
 
         .lesson-card__body {
-            padding: 22px 24px 24px;
-        }
-
-        .lesson-flow {
-            display: grid;
-            gap: 16px;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-
-        .lesson-flow__step {
-            padding: 18px;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
-        }
-
-        .lesson-flow__num {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius:  0.5rem;
-            background: #dbeafe;
-            color: #1d4ed8;
-            font-weight: 800;
-            font-size: 13px;
-        }
-
-        .lesson-flow__title {
-            margin: 12px 0 8px;
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .lesson-flow__text {
-            margin: 0;
-            font-size: 13px;
-            line-height: 1.7;
-            color: var(--ls-muted);
+            padding: 18px 24px 22px;
         }
 
         .lesson-form-grid {
             display: grid;
             gap: 16px;
-            grid-template-columns: 1.1fr 1.1fr 2fr;
+            grid-template-columns: 1fr 1fr 2fr;
         }
 
         .lesson-field {
@@ -260,10 +174,10 @@
         .lesson-select,
         .lesson-input {
             width: 100% !important;
-            min-height: 48px;
+            min-height: 42px;
             padding: 0 14px;
             border: 1px solid #cbd5e1;
-            border-radius: 1rem;
+            border-radius: 0.375rem;
             background: #f8fafc;
             color: #0f172a;
             font-size: 14px;
@@ -275,30 +189,36 @@
             border-color: #60a5fa;
             outline: none;
             background: #ffffff;
-            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
         }
 
-        .lesson-input { text-align: center;
+        .lesson-input {
+            text-align: center;
             font-weight: 700;
             letter-spacing: 0.08em;
-            background: #ecfeff; border-radius: 1rem; }
+            background: #ecfeff;
+            border-radius: 0.375rem;
+        }
 
-        .lesson-input-group { display: inline-flex;
+        .lesson-input-group {
+            display: inline-flex;
             align-items: stretch;
-            min-height: 44px;
+            min-height: 40px;
             border: 1px solid #cbd5e1;
             background: #ffffff;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease; border-radius: 1rem; }
+            border-radius: 0.375rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
 
         .lesson-input-group:focus-within {
             border-color: #60a5fa;
-            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.18);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
         }
 
         .lesson-input-group__label {
             display: inline-flex;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 14px;
             background: #f8fafc;
             color: #475569;
             font-size: 13px;
@@ -333,7 +253,7 @@
         .lesson-footer {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             align-items: center;
         }
 
@@ -348,12 +268,12 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 44px;
-            padding: 0 18px;
-            border-radius: 1rem;
+            min-height: 38px;
+            padding: 0 14px;
+            border-radius: 0.375rem;
             border: 1px solid transparent;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
             cursor: pointer;
@@ -366,10 +286,13 @@
             transform: translateY(-1px);
         }
 
-        .lesson-btn { border: 0;
+        .lesson-btn {
+            border: 0;
             color: #ffffff;
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.2); border-radius: 1rem; }
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+            border-radius: 0.375rem;
+        }
 
         .lesson-btn--secondary {
             color: #1d4ed8;
@@ -378,19 +301,28 @@
             box-shadow: none;
         }
 
-        .lesson-link { color: #14532d;
+        .lesson-link {
+            color: #14532d;
             background: #f0fdf4;
-            border-color: #bbf7d0; border-radius: 1rem; }
+            border-color: #bbf7d0;
+            border-radius: 0.375rem;
+        }
 
-        .lesson-icon-link { width: 48px;
+        .lesson-icon-link {
+            width: 38px;
             padding: 0;
             background: #eff6ff;
-            border-color: #bfdbfe; border-radius: 1rem; }
+            border-color: #bfdbfe;
+            border-radius: 0.375rem;
+        }
 
-        .lesson-refresh { width: 48px;
+        .lesson-refresh {
+            width: 38px;
             padding: 0;
             background: #f8fafc;
-            border-color: #cbd5e1; border-radius: 1rem; }
+            border-color: #cbd5e1;
+            border-radius: 0.375rem;
+        }
 
         .lesson-btn[disabled],
         .lesson-refresh[disabled],
@@ -409,8 +341,8 @@
         }
 
         .lesson-stat {
-            padding: 18px;
-            border-radius: 1rem;
+            padding: 16px;
+            border-radius: 0.5rem;
             border: 1px solid #e2e8f0;
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
         }
@@ -423,7 +355,7 @@
 
         .lesson-stat__value {
             display: block;
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 24px;
             font-weight: 800;
             color: #0f172a;
@@ -432,7 +364,7 @@
 
         .lesson-stat__sub {
             display: block;
-            margin-top: 8px;
+            margin-top: 6px;
             font-size: 12px;
             line-height: 1.6;
             color: var(--ls-muted);
@@ -441,8 +373,8 @@
         .lesson-prompt {
             display: block;
             margin-top: 10px;
-            padding: 12px 14px;
-            border-radius: 1rem;
+            padding: 10px 14px;
+            border-radius: 0.375rem;
             background: #f1f5f9;
             color: #334155;
             font-size: 12px;
@@ -458,20 +390,20 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            width: 128px;
-            margin: 0 12px 12px 0;
-            padding: 16px 12px;
+            width: 120px;
+            margin: 0 10px 10px 0;
+            padding: 14px 10px;
             border: 1px solid #e2e8f0;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
             vertical-align: top;
         }
 
         .lesson-menu-button {
-            width: 54px;
-            height: 54px;
+            width: 48px;
+            height: 48px;
             padding: 8px;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             border: 1px solid #dbeafe;
             background: #eff6ff;
         }
@@ -495,11 +427,11 @@
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
             align-items: center;
         }
-        
+
         .lesson-switch--on {
             background-color: #f97316;
         }
-        
+
         .lesson-switch-slider {
             position: absolute;
             top: 2px;
@@ -511,28 +443,28 @@
             transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             box-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
-        
+
         .lesson-switch--on .lesson-switch-slider {
             transform: translateX(20px);
         }
 
         .lesson-menu-title {
             display: block;
-            min-height: 38px;
-            font-size: 13px;
+            min-height: 36px;
+            font-size: 12px;
             font-weight: 700;
             line-height: 1.45;
             color: #0f172a;
         }
 
         .lesson-legend {
-            row-gap: 10px;
+            row-gap: 8px;
         }
 
         .lesson-legend__item {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #475569;
             font-size: 12px;
             font-weight: 600;
@@ -542,7 +474,7 @@
             display: inline-block;
             width: 14px;
             height: 14px;
-            border-radius:  0.25rem;
+            border-radius: 0.25rem;
             border: 1px solid rgba(15, 23, 42, 0.08);
             vertical-align: middle;
         }
@@ -562,13 +494,13 @@
 
         .student-card,
         .student-card--offline {
-            min-height: 120px;
-            margin: 0 10px 12px 0;
-            padding: 14px 12px;
+            min-height: 110px;
+            margin: 0 8px 10px 0;
+            padding: 12px 10px;
             border: 1px solid #e2e8f0;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
         }
 
         .student-card__num {
@@ -579,7 +511,7 @@
 
         .student-card__machine,
         .student-card__score {
-            margin-top: 8px;
+            margin-top: 6px;
             font-size: 12px;
             color: #64748b;
             line-height: 1.6;
@@ -590,13 +522,13 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            min-height: 34px;
-            margin-top: 10px;
-            padding: 0 10px;
+            min-height: 30px;
+            margin-top: 6px;
+            padding: 0 8px;
             color: #0f172a;
             background-color: #f8fafc;
             border: 1px solid #dbe4f0;
-            border-radius: 1rem;
+            border-radius: 0.375rem;
             font-size: 13px;
             line-height: 1.4;
             cursor: pointer;
@@ -606,15 +538,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 6px;
+            margin-top: 8px;
         }
 
         .lesson-group-flag {
-            min-width: 32px;
-            min-height: 32px;
-            padding: 0 8px;
-            border-radius: 1rem;
+            min-width: 28px;
+            min-height: 28px;
+            padding: 0 6px;
+            border-radius: 0.375rem;
             border: 1px solid #bfdbfe;
             background: #eff6ff;
             color: transparent;
@@ -622,9 +554,9 @@
         }
 
         .lesson-group-flag img {
-            width: 18px;
-            height: 18px;
-            margin-top: 6px;
+            width: 16px;
+            height: 16px;
+            margin-top: 5px;
         }
 
         .groupscore {
@@ -642,9 +574,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
-            height: 30px;
-            border-radius: 1rem;
+            width: 26px;
+            height: 26px;
+            border-radius: 0.25rem;
             background: #fee2e2;
             color: #b91c1c;
             font-size: 0;
@@ -654,15 +586,15 @@
 
         .lockbtn:before {
             content: "退";
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             line-height: 1;
         }
 
         .lesson-toggle-group {
-            padding: 16px;
+            padding: 14px;
             border: 1px solid #e2e8f0;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             background: #f8fbff;
         }
 
@@ -671,7 +603,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin-right: 12px;
+            margin-right: 10px;
             font-size: 13px;
             color: #334155;
         }
@@ -679,10 +611,10 @@
         .lesson-sort {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            padding: 16px;
+            gap: 10px;
+            padding: 14px;
             border: 1px solid #e2e8f0;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             background: #ffffff;
         }
 
@@ -690,9 +622,9 @@
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-            border-radius: 1rem;
+            gap: 10px;
+            padding: 12px 14px;
+            border-radius: 0.5rem;
             background: #f1f5f9;
             color: #334155;
         }
@@ -721,11 +653,11 @@
             align-items: center;
             justify-content: center;
             width: 56px;
-            min-height: 72px;
-            margin: 0 10px 10px 0;
-            padding: 10px 6px;
+            min-height: 68px;
+            margin: 0 8px 8px 0;
+            padding: 8px 6px;
             border: 1px solid #e2e8f0;
-            border-radius: 1rem;
+            border-radius: 0.5rem;
             background: #ffffff;
             float: none;
             vertical-align: top;
@@ -736,32 +668,36 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 36px;
-            min-height: 32px;
-            padding: 0 8px;
-            border-radius: 1rem;
+            min-width: 34px;
+            min-height: 28px;
+            padding: 0 6px;
+            border-radius: 0.25rem;
             font-weight: 800;
             text-decoration: none;
             border: 1px solid transparent;
         }
 
-        .donekc { color: #166534;
+        .donekc {
+            color: #166534;
             background: #dcfce7;
-            border-color: #bbf7d0; border-radius: 1rem; }
+            border-color: #bbf7d0;
+        }
 
-        .newkc { color: #9a3412;
+        .newkc {
+            color: #9a3412;
             background: #ffedd5;
-            border-color: #fed7aa; border-radius: 1rem; }
+            border-color: #fed7aa;
+        }
 
         .lesson-course-note {
-            margin-top: 6px;
+            margin-top: 4px;
             font-size: 12px;
             color: var(--ls-muted);
         }
 
         .lesson-publish-toggle img {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
 
         .lesson-footer {
@@ -792,7 +728,6 @@
             }
 
             .lesson-status-grid,
-            .lesson-flow,
             .lesson-form-grid,
             .lesson-room-meta {
                 grid-template-columns: 1fr;
@@ -811,18 +746,20 @@
             .lesson-hero,
             .lesson-card__head,
             .lesson-card__body {
-                padding-left: 18px;
-                padding-right: 18px;
+                padding-left: 16px;
+                padding-right: 16px;
             }
 
             .lesson-hero__title {
-                font-size: 26px;
+                font-size: 22px;
             }
 
             .lesson-menu-item,
             .student-card,
             .student-card--offline,
-            .doneksdiv { margin-right: 8px; border-radius: 1rem; }
+            .doneksdiv {
+                margin-right: 6px;
+            }
         }
     </style>
 
@@ -832,22 +769,7 @@
                 <div class="lesson-hero__content">
                     <div>
                         <h1 class="lesson-hero__title">课堂启动中心</h1>
-                        <p class="lesson-hero__subtitle">
-                            在此选择上课班级与发布学案，启动课堂后即可实时查看学生进度、签到情况及各项功能控制。
-                        </p>
-                        <div class="lesson-hero__tips">
-                            <span class="lesson-chip">1. 选择年级、班级与学案</span>
-                            <span class="lesson-chip">2. 开始上课并生成密码</span>
-                            <span class="lesson-chip">3. 观察在线状态与课堂开关</span>
-                        </div>
-                    </div>
-                    <div class="lesson-hero__panel">
-                        <p class="lesson-hero__panel-title">操作指引</p>
-                        <p class="lesson-hero__panel-text">
-                            1. 选择班级并确认本节课的学案<br/>
-                            2. 点击“开始上课”生成课堂密码<br/>
-                            3. 巡查学生签到及在线学习状态
-                        </p>
+                        <p class="lesson-hero__subtitle">选择班级与学案，启动课堂后实时查看学生进度与各项功能控制。</p>
                     </div>
                 </div>
             </div>
@@ -857,29 +779,10 @@
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂准备</h2>
-                            <p class="lesson-card__desc">请按照以下三个步骤选择对象并启动课堂，开课后各项学习数据将实时同步。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div class="lesson-flow">
-                            <div class="lesson-flow__step">
-                                <span class="lesson-flow__num">1</span>
-                                <h3 class="lesson-flow__title">选择对象</h3>
-                                <p class="lesson-flow__text">先确认年级、班级和本节课要使用的学案，后续所有状态统计会同步刷新。</p>
-                            </div>
-                            <div class="lesson-flow__step">
-                                <span class="lesson-flow__num">2</span>
-                                <h3 class="lesson-flow__title">启动课堂</h3>
-                                <p class="lesson-flow__text">点击开始上课后，页面会锁定关键信息并生成登录密码，避免误改课堂对象。</p>
-                            </div>
-                            <div class="lesson-flow__step">
-                                <span class="lesson-flow__num">3</span>
-                                <h3 class="lesson-flow__title">巡检与控制</h3>
-                                <p class="lesson-flow__text">开课后重点查看签到、在线学生、作品提交和课堂模式开关，快速处理异常。</p>
-                            </div>
-                        </div>
-
-                        <div class="lesson-form-grid" style="margin-top: 20px;">
+                        <div class="lesson-form-grid">
                             <div class="lesson-field">
                                 <span class="lesson-label">年级</span>
                                 <asp:DropDownList ID="DDLgrade" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLgrade_SelectedIndexChanged"></asp:DropDownList>
@@ -896,12 +799,11 @@
                                 <div class="lesson-actions">
                                     <asp:Button ID="Btnset" runat="server" Text="开始上课" SkinID="BtnNormal" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
                                     <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" SkinID="BtnNormal" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
-                                    <div class="lesson-input-group" style="min-width: 220px; max-width: 260px;">
+                                    <div class="lesson-input-group" style="min-width: 200px; max-width: 240px;">
                                         <span class="lesson-input-group__label">班级口令</span>
                                         <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" CssClass="lesson-input-group__input"></asp:TextBox>
                                     </div>
                                 </div>
-                                <span class="lesson-prompt">提示：开课后页面会自动保留当前班级状态，学生端可按当前模式进入对应课堂。</span>
                             </div>
                         </div>
                     </div>
@@ -911,33 +813,30 @@
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂速览</h2>
-                            <p class="lesson-card__desc">实时展示当前班级的签到情况，并提供各项学习数据维度的快捷入口。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
                         <div class="lesson-status-grid">
                             <div class="lesson-stat">
-                                <p class="lesson-stat__label">今日已签到</p>
+                                <p class="lesson-stat__label">已签到</p>
                                 <span class="lesson-stat__value"><asp:Label ID="Labelsigin" runat="server"></asp:Label></span>
-                                <span class="lesson-stat__sub">到课学生数</span>
                             </div>
                             <div class="lesson-stat">
-                                <p class="lesson-stat__label">今日未签到</p>
+                                <p class="lesson-stat__label">未签到</p>
                                 <span class="lesson-stat__value"><asp:Label ID="Labelsigno" runat="server"></asp:Label></span>
-                                <span class="lesson-stat__sub">待跟进人数</span>
                             </div>
                             <div class="lesson-stat">
                                 <p class="lesson-stat__label">作品提交</p>
-                                <span class="lesson-stat__sub" style="margin-top: 12px;"><asp:Label ID="Labelcount" runat="server"></asp:Label></span>
+                                <span class="lesson-stat__sub" style="margin-top: 10px;"><asp:Label ID="Labelcount" runat="server"></asp:Label></span>
                             </div>
                             <div class="lesson-stat">
                                 <p class="lesson-stat__label">课堂时钟</p>
-                                <span class="lesson-stat__sub" style="margin-top: 12px;"><asp:Label ID="Labelfresh" runat="server"></asp:Label></span>
-                                <span class="lesson-stat__sub"><asp:Label ID="LabelToday" runat="server" ToolTip="*服务器日期校准：作品、签到日期以此为准*"></asp:Label></span>
+                                <span class="lesson-stat__sub" style="margin-top: 10px;"><asp:Label ID="Labelfresh" runat="server"></asp:Label></span>
+                                <span class="lesson-stat__sub"><asp:Label ID="LabelToday" runat="server" ToolTip="服务器日期校准：作品、签到日期以此为准"></asp:Label></span>
                             </div>
                         </div>
 
-                        <div class="lesson-links" style="margin-top: 18px;">
+                        <div class="lesson-links" style="margin-top: 14px;">
                             <asp:HyperLink ID="HLrate" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">学习进度</asp:HyperLink>
                             <asp:HyperLink ID="HLworkshow" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">作品展示</asp:HyperLink>
                             <asp:HyperLink ID="HLtotal" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">学习汇总</asp:HyperLink>
@@ -949,7 +848,6 @@
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">学案活动开关</h2>
-                            <p class="lesson-card__desc">独立控制本节课各项具体活动的开放状态，决定学生实际可见的学习内容。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -971,28 +869,21 @@
                 <section class="lesson-card lesson-card--span-8 lesson-theme--teal">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">在线学生与课堂动态</h2>
-                            <p class="lesson-card__desc">集中展示全班学生的在线状态，通过不同的背景颜色快速辨别作品提交情况，方便教师巡堂跟踪。</p>
+                            <h2 class="lesson-card__title">在线学生</h2>
                         </div>
-                        <div class="lesson-inline-note">点击学生姓名可评价学习表现，点击“退”可让该生重新登录。</div>
                     </div>
                     <div class="lesson-card__body">
                         <div class="lesson-legend">
-                            <span class="lesson-legend__item"><asp:Label ID="Labelnocolor" runat="server" BackColor="#E8E8E8" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="没有作品"></asp:Label>没有作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelone" runat="server" BackColor="#B1D2FE" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="单个作品"></asp:Label>1 个作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labeltwo" runat="server" BackColor="#4F98FB" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="两个作品"></asp:Label>2 个作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelthree" runat="server" BackColor="#CDE7CF" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="三个作品"></asp:Label>3 个作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelfour" runat="server" BackColor="#9BC47D" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="四个作品"></asp:Label>4 个作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelmore" runat="server" BackColor="#BCADE4" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="多个作品"></asp:Label>多个作品</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labelnocolor" runat="server" BackColor="#E8E8E8" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="没有作品"></asp:Label>无作品</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labelone" runat="server" BackColor="#B1D2FE" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="单个作品"></asp:Label>1件</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labeltwo" runat="server" BackColor="#4F98FB" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="两个作品"></asp:Label>2件</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labelthree" runat="server" BackColor="#CDE7CF" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="三个作品"></asp:Label>3件</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labelfour" runat="server" BackColor="#9BC47D" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="四个作品"></asp:Label>4件</span>
+                            <span class="lesson-legend__item"><asp:Label ID="Labelmore" runat="server" BackColor="#BCADE4" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="多个作品"></asp:Label>5+</span>
                         </div>
 
-                        <div class="lesson-alert" style="margin-top: 18px;">
-                            <span class="lesson-alert__title">巡课提示</span>
-                            <span class="lesson-inline-note">学生卡片会按当前排序方式刷新，颜色表示作品提交数量，点击姓名可直接评价学习表现。</span>
-                        </div>
-
-                        <div style="margin-top: 18px; overflow-x: auto;">
-                            <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatColumns="8" RepeatDirection="Vertical" HorizontalAlign="Center" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand">
+                        <div style="margin-top: 14px; overflow-x: auto;">
+                            <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatColumns="8" RepeatDirection="Vertical" HorizontalAlign="Center" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand" RepeatLayout="Flow">
                                 <ItemTemplate>
                                     <div class="divonline student-card">
                                         <div class="student-card__num"><asp:Label ID="Labelqnum" runat="server" Text='<%# Eval("Qnum") %>'></asp:Label></div>
@@ -1000,7 +891,7 @@
                                         <div class="lesson-student-actions">
                                             <asp:HyperLink ID="Groupflag" runat="server" CssClass="lesson-group-flag">g</asp:HyperLink>
                                             <asp:Label ID="Labelcolor" runat="server" Text='<%# Eval("Qgscore") %>' ToolTip='<%# "组评语："+Eval("Qgroup") %>' CssClass="groupscore"></asp:Label>
-                                            <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="单击执行：让该学生重新登录！" CssClass="lockbtn"></asp:LinkButton>
+                                            <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="让该学生重新登录" CssClass="lockbtn"></asp:LinkButton>
                                         </div>
                                         <div class="student-card__machine"><asp:Label ID="LabelQmachine" runat="server" Text='<%# Eval("QmachineShort") %>' Visible="false"></asp:Label></div>
                                         <div style="display: none;">
@@ -1021,8 +912,7 @@
                 <section class="lesson-card lesson-card--span-4 lesson-theme--indigo">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">课堂控制面板</h2>
-                            <p class="lesson-card__desc">排序和模式开关保持原有事件，统一收纳成可扫视的控制区。</p>
+                            <h2 class="lesson-card__title">课堂控制</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -1038,17 +928,15 @@
                             </anthem:RadioButtonList>
                         </div>
 
-                        <div class="lesson-toggle-group" style="margin-top: 16px;">
-                            <span><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="提示：编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="提示：作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="提示：根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="提示：当前学案活动依次完成后解锁下一个活动！" oncheckedchanged="CheckBoxPass_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="提示：本班学生登录后，直接进入当前学案学案导航！" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="提示：选中表示公开显示班级密码，未选表示隐藏班级密码！" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="提示：选中表示允许本班单独个人模式登录，未选表示使用后台统一模式登录！" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></span>
+                        <div class="lesson-toggle-group" style="margin-top: 14px;">
+                            <span><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="当前学案活动依次完成后解锁下一个活动" oncheckedchanged="CheckBoxPass_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="本班学生登录后，直接进入当前学案导航" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="选中表示公开显示班级密码，未选表示隐藏" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></span>
+                            <span><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="选中表示允许本班单独个人模式登录" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></span>
                         </div>
-
-                        <span class="lesson-prompt">建议先开课后再调整课堂模式开关，避免学生在进入课堂时看到不一致的页面状态。</span>
                     </div>
                 </section>
 
@@ -1056,18 +944,12 @@
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">未签到学生</h2>
-                            <p class="lesson-card__desc">将未签到学生单独列出，便于快速记录备注或确认异常原因。</p>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div class="lesson-alert">
-                            <span class="lesson-alert__title">备注提醒</span>
-                            <span class="lesson-inline-note">点击未签到学生姓名可以补充未签到备注，便于课后追踪。</span>
-                            <asp:Label ID="Label2" runat="server"></asp:Label>
-                        </div>
-
-                        <div style="margin-top: 18px; overflow-x: auto;">
-                            <asp:DataList ID="DLnotline" runat="server" CssClass="lesson-offline-list" RepeatColumns="8" RepeatDirection="Horizontal" HorizontalAlign="Center" onitemdatabound="DLnotline_ItemDataBound">
+                        <asp:Label ID="Label2" runat="server"></asp:Label>
+                        <div style="overflow-x: auto;">
+                            <asp:DataList ID="DLnotline" runat="server" CssClass="lesson-offline-list" RepeatColumns="8" RepeatDirection="Horizontal" HorizontalAlign="Center" onitemdatabound="DLnotline_ItemDataBound" RepeatLayout="Flow">
                                 <ItemTemplate>
                                     <div class="divunline student-card student-card--offline">
                                         <div class="student-card__num"><asp:Label ID="LabelNnum" runat="server" Text='<%# Eval("Snum") %>'></asp:Label></div>
@@ -1083,8 +965,7 @@
                 <section class="lesson-card lesson-card--span-6 lesson-theme--cyan">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">机房与资源入口</h2>
-                            <p class="lesson-card__desc">把座位表、刷新和网盘开关放在一起，方便课中快速切换资源视角。</p>
+                            <h2 class="lesson-card__title">机房与资源</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
@@ -1101,9 +982,9 @@
                             </div>
                         </div>
 
-                        <div class="lesson-toggle-group" style="margin-top: 16px;">
-                            <span><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="提示：选中表示网盘启用，未选表示网盘禁用！" oncheckedchanged="CheckBoxShare_CheckedChanged" /></span>
-                            <span><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="提示：选中表示小组网盘启用（前提为前面的网盘开关启用），未选表示小组网盘禁用！" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></span>
+                        <div class="lesson-toggle-group" style="margin-top: 14px;">
+                            <span><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="选中表示网盘启用，未选表示网盘禁用" oncheckedchanged="CheckBoxShare_CheckedChanged" /></span>
+                            <span><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="选中表示小组网盘启用（需先启用网盘开关）" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></span>
                         </div>
                     </div>
                 </section>
@@ -1111,15 +992,13 @@
                 <section class="lesson-card lesson-card--span-6 lesson-theme--green">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">学案进度面板</h2>
-                            <p class="lesson-card__desc">直观展示全学期学案的学习进度，可一键切换学案对当前班级的发布状态。</p>
+                            <h2 class="lesson-card__title">学案进度</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
                         <div>
                             <div class="lesson-label">已学学案</div>
-                            <div class="lesson-course-note">绿色卡片表示本班已有学习痕迹，可继续查看作品量。</div>
-                            <div style="margin-top: 12px;">
+                            <div style="margin-top: 10px;">
                                 <asp:DataList ID="DLdonekc" runat="server" CssClass="lesson-done-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLdonekc_ItemDataBound">
                                     <ItemTemplate>
                                         <div class="doneksdiv">
@@ -1131,16 +1010,15 @@
                             </div>
                         </div>
 
-                        <div style="margin-top: 22px;">
+                        <div style="margin-top: 18px;">
                             <div class="lesson-label">未学学案</div>
-                            <div class="lesson-course-note">橙色卡片表示尚未学习，可通过右侧图标切换发布状态。</div>
-                            <div style="margin-top: 12px;">
+                            <div style="margin-top: 10px;">
                                 <asp:DataList ID="DLnewkc" runat="server" CssClass="lesson-new-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLnewkc_ItemDataBound" onitemcommand="DLnewkc_ItemCommand">
                                     <ItemTemplate>
                                         <div class="doneksdiv">
                                             <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="newkc"></asp:HyperLink></div>
                                             <div class="lesson-course-note"><asp:CheckBox ID="Ck" runat="server" Checked='<%# Eval("Cpublish") %>' Enabled="False" /></div>
-                                            <div style="margin-top: 6px;"><asp:ImageButton runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" ImageUrl="~/images/cardsmall.gif" /></div>
+                                            <div style="margin-top: 4px;"><asp:ImageButton runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" ImageUrl="~/images/cardsmall.gif" /></div>
                                         </div>
                                     </ItemTemplate>
                                 </asp:DataList>
@@ -1152,16 +1030,14 @@
                 <section class="lesson-card lesson-card--span-12 lesson-theme--red">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">课堂收尾与安全操作</h2>
-                            <p class="lesson-card__desc">提供本节课安全注销及强制下线等高风险操作，执行后部分状态无法撤回，请谨慎使用。</p>
+                            <h2 class="lesson-card__title">课堂收尾</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
                         <div class="lesson-footer">
                             <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" SkinID="BtnSmall" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn" />
                             <div class="lesson-footer__meta">
-                                <div><span>操作说明：</span>该操作会让当前上课班级学生全部退出登录，建议仅在下课或课堂重置时使用。</div>
-                                <div><span>状态信息：</span>服务器日期与刷新状态已在上方“课堂速览”区域展示。</div>
+                                <span>该操作会让当前上课班级学生全部退出登录，建议仅在下课时使用。</span>
                             </div>
                         </div>
                     </div>

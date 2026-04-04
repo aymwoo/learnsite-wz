@@ -2,87 +2,459 @@
     AutoEventWireup="true" CodeFile="softcategory.aspx.cs" Inherits="Teacher_softcategory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" runat="Server">
-    <div>
-        <div class="centerdiv">
-            <div style="margin: auto; width: 700px; font-size:11pt; text-align:center">
-                <br />
-                <strong>资源的分类设置</strong>：<br />
-                <br />
-                <asp:GridView ID="GVCategory" runat="server" SkinID="GridViewInfo" AutoGenerateColumns="False"
-                    DataKeyNames="Yid" Width="100%" CellPadding="0" Font-Size="9pt" OnRowCommand="GVCategory_RowCommand"
-                    EnableModelValidation="True" OnRowDataBound="GVCategory_RowDataBound" OnRowCancelingEdit="GVCategory_RowCancelingEdit"
-                    OnRowEditing="GVCategory_RowEditing" 
-                    OnRowUpdating="GVCategory_RowUpdating">
-                    <Columns>
-                        <asp:TemplateField >
-                            <ItemTemplate>
-                                <asp:Label ID="LabelYid" runat="server" Text='<%# Bind("Yid") %>'></asp:Label>
-                            </ItemTemplate>
-                            <ItemStyle ForeColor="#EEEEEE" Width="20px"  />
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="资源类别">
-                            <ItemTemplate>
-                                <asp:Label ID="LabelYtitle" runat="server" Text='<%# Bind("Ytitle") %>'></asp:Label>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:TextBox ID="TBoxYtitle" runat="server" Text='<%# Bind("Ytitle") %>' Font-Size="9pt"
-                                    Width="200px" Height="12px" BackColor="#FFFFCC"></asp:TextBox>
-                            </EditItemTemplate>
-                            <ItemStyle HorizontalAlign="Left" Width="200px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="ImageBtnTop" runat="server" CausesValidation="False" CommandName="Top"
-                                    CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="上" ToolTip="向上移"
-                                    Font-Underline="False"></asp:LinkButton>
-                            </ItemTemplate>
-                            <ItemStyle Width="16px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="ImageBtnBottom" runat="server" CausesValidation="False" CommandName="Bottom"
-                                    CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="下" ToolTip="向下移"
-                                    Font-Underline="False"></asp:LinkButton>
-                            </ItemTemplate>
-                            <ItemStyle Width="16px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField ShowHeader="False">
-                            <ItemTemplate>
-                                <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False" 
-                                    CommandName="Edit" ImageUrl="~/images/e.gif" Text="编辑" />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="True" 
-                                    CommandName="Update" ImageUrl="~/images/u.gif" Text="更新" />
-                                &nbsp;<asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False" 
-                                    CommandName="Cancel" ImageUrl="~/images/c.gif" Text="取消" />
-                            </EditItemTemplate>
-                            <ItemStyle Width="60px" />
-                        </asp:TemplateField>
-                        <asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:LinkButton ID="BtnDel" runat="server" CausesValidation="false" CommandName="Del" 
-                                CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="删除"></asp:LinkButton>
-                            </ItemTemplate>
-                            <ItemStyle Width="30px" />
-                        </asp:TemplateField>
-                    </Columns>
-                    <HeaderStyle Height="30px" />
-                    <RowStyle Height="30px" />
-                </asp:GridView>
+    <style type="text/css">
+        .cate-page {
+            --ls-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
+            --ls-card: rgba(255, 255, 255, 0.96);
+            --ls-border: #dbe6f5;
+            --ls-text: #0f172a;
+            --ls-muted: #64748b;
+            --ls-primary: #2563eb;
+            padding: 28px;
+            background: var(--ls-bg);
+            color: var(--ls-text);
+            min-height: calc(100vh - 8rem);
+        }
+
+        .cate-page * {
+            box-sizing: border-box;
+        }
+
+        .cate-shell {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .cate-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            padding: 24px 28px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 38%),
+                radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
+                linear-gradient(135deg, #0f172a 0%, #1d4ed8 52%, #38bdf8 100%);
+            color: #eff6ff;
+            box-shadow: 0 28px 60px rgba(37, 99, 235, 0.2);
+        }
+
+        .cate-hero__content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .cate-hero__title {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .cate-hero__subtitle {
+            margin: 8px 0 0;
+            font-size: 14px;
+            color: rgba(239, 246, 255, 0.88);
+            line-height: 1.8;
+        }
+
+        .cate-hero__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 18px;
+            border-radius: 0.375rem;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.95);
+            color: #1d4ed8;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+
+        .cate-hero__btn:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Card */
+        .cate-card {
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            background: var(--ls-card);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .cate-card--list {
+            background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%);
+        }
+
+        .cate-card--add {
+            background: linear-gradient(160deg, #ffffff 0%, #f0fdf4 100%);
+        }
+
+        .cate-card__head {
+            padding: 20px 24px 0;
+        }
+
+        .cate-card__title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--ls-text);
+        }
+
+        .cate-card__body {
+            padding: 18px 24px 22px;
+        }
+
+        /* Table */
+        .cate-table-wrap {
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+        }
+
+        .cate-table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cate-table-wrap th {
+            padding: 10px 16px;
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .cate-table-wrap td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        .cate-table-wrap tr:hover td {
+            background: #f8fafc;
+        }
+
+        .cate-table-wrap td a {
+            color: #4338ca;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .cate-table-wrap td a:hover {
+            color: #312e81;
+            text-decoration: underline;
+        }
+
+        .cate-cell--id {
+            color: #cbd5e1;
+            font-size: 12px;
+            width: 20px;
+        }
+
+        .cate-cell--title {
+            font-weight: 600;
+            width: 200px;
+        }
+
+        .cate-cell--move {
+            width: 16px;
+            text-align: center;
+        }
+
+        .cate-cell--move a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 0.25rem;
+            background: #eff6ff;
+            color: #2563eb !important;
+            font-weight: 700;
+            font-size: 12px;
+            text-decoration: none !important;
+            border: 1px solid #bfdbfe;
+            transition: background-color 0.15s;
+        }
+
+        .cate-cell--move a:hover {
+            background: #dbeafe;
+            text-decoration: none !important;
+        }
+
+        .cate-cell--edit {
+            width: 60px;
+        }
+
+        .cate-cell--edit input[type="image"] {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            opacity: 0.7;
+            transition: opacity 0.15s;
+        }
+
+        .cate-cell--edit input[type="image"]:hover {
+            opacity: 1;
+        }
+
+        .cate-cell--del {
+            width: 30px;
+        }
+
+        .cate-cell--del a {
+            color: #e11d48 !important;
+        }
+
+        .cate-cell--del a:hover {
+            color: #9f1239 !important;
+        }
+
+        .cate-edit-input {
+            width: 200px;
+            min-height: 32px;
+            padding: 4px 10px;
+            border: 1px solid #fbbf24;
+            border-radius: 0.375rem;
+            background: #fffbeb;
+            font-size: 13px;
+            color: #0f172a;
+        }
+
+        .cate-edit-input:focus {
+            border-color: #60a5fa;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+        }
+
+        /* Add form */
+        .cate-add-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .cate-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cate-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .cate-input {
+            min-width: 200px;
+            min-height: 38px;
+            padding: 0 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.375rem;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .cate-input:focus {
+            border-color: #60a5fa;
+            outline: none;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
+        }
+
+        .cate-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 38px;
+            padding: 0 18px;
+            border-radius: 0.375rem;
+            border: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.18s, box-shadow 0.18s;
+        }
+
+        .cate-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .cate-btn--primary {
+            color: #ffffff;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+        }
+
+        .cate-btn--secondary {
+            color: #1d4ed8;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .cate-page {
+                padding: 16px;
+            }
+
+            .cate-hero {
+                padding: 20px 16px;
+            }
+
+            .cate-hero__title {
+                font-size: 22px;
+            }
+
+            .cate-card__head {
+                padding: 16px 16px 0;
+            }
+
+            .cate-card__body {
+                padding: 14px 16px 18px;
+            }
+
+            .cate-add-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cate-input {
+                width: 100%;
+                min-width: unset;
+            }
+        }
+    </style>
+
+    <div class="cate-page">
+        <div class="cate-shell">
+            <div class="cate-hero">
+                <div class="cate-hero__content">
+                    <div>
+                        <h1 class="cate-hero__title">资源分类设置</h1>
+                        <p class="cate-hero__subtitle">管理资源分类，支持添加、编辑、排序和删除操作。</p>
+                    </div>
+                    <asp:Button ID="Btnreturn" runat="server" Text="返回资源列表" OnClick="Btnreturn_Click"
+                        SkinID="BtnSmall" CssClass="cate-hero__btn" />
+                </div>
             </div>
-            <div>
-                <br />
-                <br />
-                类别描述：<asp:TextBox ID="TextBoxNewYtitle" runat="server" SkinID="TextBoxNormal" Width="180px"
-                    MaxLength="30" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click" SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-                &nbsp;&nbsp;&nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click"
-                    SkinID="BtnSmall" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-                <br />
+
+            <div class="cate-card cate-card--list">
+                <div class="cate-card__head">
+                    <h2 class="cate-card__title">分类列表</h2>
+                </div>
+                <div class="cate-card__body">
+                    <div class="cate-table-wrap">
+                        <asp:GridView ID="GVCategory" runat="server" AutoGenerateColumns="False"
+                            DataKeyNames="Yid" Width="100%" CellPadding="0" GridLines="None"
+                            OnRowCommand="GVCategory_RowCommand" EnableModelValidation="True"
+                            OnRowDataBound="GVCategory_RowDataBound" OnRowCancelingEdit="GVCategory_RowCancelingEdit"
+                            OnRowEditing="GVCategory_RowEditing" OnRowUpdating="GVCategory_RowUpdating">
+                            <Columns>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:Label ID="LabelYid" runat="server" Text='<%# Bind("Yid") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--id" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="资源类别">
+                                    <ItemTemplate>
+                                        <asp:Label ID="LabelYtitle" runat="server" Text='<%# Bind("Ytitle") %>'></asp:Label>
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:TextBox ID="TBoxYtitle" runat="server" Text='<%# Bind("Ytitle") %>'
+                                            CssClass="cate-edit-input" MaxLength="30"></asp:TextBox>
+                                    </EditItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--title" />
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="ImageBtnTop" runat="server" CausesValidation="False" CommandName="Top"
+                                            CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="上" ToolTip="向上移"
+                                            Font-Underline="False"></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--move" />
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="ImageBtnBottom" runat="server" CausesValidation="False" CommandName="Bottom"
+                                            CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="下" ToolTip="向下移"
+                                            Font-Underline="False"></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--move" />
+                                </asp:TemplateField>
+                                <asp:TemplateField ShowHeader="False">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                            CommandName="Edit" ImageUrl="~/images/e.gif" Text="编辑" />
+                                    </ItemTemplate>
+                                    <EditItemTemplate>
+                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="True"
+                                            CommandName="Update" ImageUrl="~/images/u.gif" Text="更新" />
+                                        <asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False"
+                                            CommandName="Cancel" ImageUrl="~/images/c.gif" Text="取消" />
+                                    </EditItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--edit" />
+                                </asp:TemplateField>
+                                <asp:TemplateField>
+                                    <ItemTemplate>
+                                        <asp:LinkButton ID="BtnDel" runat="server" CausesValidation="false" CommandName="Del"
+                                            CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="删除"></asp:LinkButton>
+                                    </ItemTemplate>
+                                    <ItemStyle CssClass="cate-cell--del" />
+                                </asp:TemplateField>
+                            </Columns>
+                            <HeaderStyle CssClass="" />
+                            <RowStyle CssClass="" />
+                        </asp:GridView>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cate-card cate-card--add">
+                <div class="cate-card__head">
+                    <h2 class="cate-card__title">添加分类</h2>
+                </div>
+                <div class="cate-card__body">
+                    <div class="cate-add-form">
+                        <div class="cate-field">
+                            <span class="cate-label">类别名称</span>
+                            <asp:TextBox ID="TextBoxNewYtitle" runat="server" MaxLength="30"
+                                CssClass="cate-input"></asp:TextBox>
+                        </div>
+                        <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click"
+                            SkinID="BtnSmall" CssClass="cate-btn cate-btn--primary" />
+                    </div>
+                </div>
             </div>
         </div>
-        <br />
     </div>
 </asp:Content>

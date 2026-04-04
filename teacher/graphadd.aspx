@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="graphadd.aspx.cs"  inherits="Teacher_graphadd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/fileupload.css" rel="stylesheet" />
     <style type="text/css">
         .graph-add-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #ecfeff 100%);
@@ -15,10 +16,6 @@
             --content-add-secondary-hover: #cffafe;
             --content-add-focus: #0891b2;
             --content-add-focus-ring: rgba(8, 145, 178, 0.14);
-        }
-
-        .graph-add-upload input[type="file"] {
-            width: 100%;
         }
 
         .graph-add-editor-stage textarea {
@@ -60,8 +57,8 @@
 
                     <div class="content-add-field content-add-field-wide">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">流程图实例文件</label>
-                        <div class="content-add-static graph-add-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+                        <div class="ls-upload" data-accept=".xml" data-label="点击或拖拽上传实例文件" data-hint="支持 xml 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -109,4 +106,5 @@
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
 </asp:Content>

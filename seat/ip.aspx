@@ -8,6 +8,7 @@
     <title></title>
 
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/fileupload.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -61,8 +62,9 @@
         <br />
         <hr style="border: 1px dashed #CCCCCC" />
         <br />
-        请选择：<asp:FileUpload 
-            ID="FileUploadip" runat="server" Font-Size="9pt" />
+        <div class="ls-upload" data-accept=".xls,.xlsx" data-label="点击或拖拽上传 Excel 文件" data-hint="支持 xls / xlsx 格式">
+            <asp:FileUpload ID="FileUploadip" runat="server" />
+        </div>
 &nbsp;<asp:Button ID="ButtonIpExcel" runat="server" Font-Size="9pt" Text="从Excel导入IP列表" 
             ToolTip="点击后将清除原机房IP列表，并自动创建新IP列表" onclick="ButtonIpExcel_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
@@ -95,5 +97,6 @@
     </div>
     </div>
     </form>
+<script src="../js/fileupload.js"></script>
 </body>
 </html>

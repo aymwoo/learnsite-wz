@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/profile/Pf.master"  StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="myphoto.aspx.cs" Inherits="Profile_myphoto" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cstu" Runat="Server">
+<link href="../js/fileupload.css" rel="stylesheet" />
 <style>
 .pf-start{padding:20px 16px;background:linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0f172a}
 .pf-start *{box-sizing:border-box}
@@ -11,10 +12,6 @@
 .pf-card__body{padding:20px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .pf-photo-wrap{width:160px;height:160px;border-radius:1rem;overflow:hidden;border:3px solid #fed7aa;box-shadow:0 8px 24px rgba(234,88,12,.12);background:#fff7ed;display:flex;align-items:center;justify-content:center}
 .pf-photo-wrap img{width:100%;height:100%;object-fit:cover}
-.pf-upload-zone{width:100%;border:2px dashed #cbd5e1;border-radius:.75rem;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px;background:#f8fafc;transition:border-color .2s}
-.pf-upload-zone:hover{border-color:#fb923c;background:#fff7ed}
-.pf-upload-label{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em}
-.pf-upload-input{font-size:13px;color:#64748b}
 .pf-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:44px!important;width:100%!important;padding:0!important;border-radius:.75rem!important;border:0!important;font-size:14px!important;font-weight:700!important;cursor:pointer!important;color:#fff!important;background:linear-gradient(135deg,#ea580c 0%,#c2410c 100%)!important;box-shadow:0 8px 20px rgba(234,88,12,.22)!important;transition:transform .18s!important}
 .pf-btn:hover{transform:translateY(-1px)!important}
 .pf-btn[disabled]{opacity:.55!important;cursor:not-allowed!important;transform:none!important;box-shadow:none!important}
@@ -34,10 +31,8 @@
         <div class="pf-photo-wrap">
           <asp:Image ID="Imageface" runat="server" style="max-width:160px;max-height:160px;object-fit:cover" />
         </div>
-        <div class="pf-upload-zone">
-          <svg width="24" height="24" fill="none" stroke="#94a3b8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
-          <span class="pf-upload-label">选择相片</span>
-          <asp:FileUpload ID="PhotoFileUpload" runat="server" CssClass="pf-upload-input" />
+        <div class="ls-upload" data-accept=".jpg,.jpeg,.png" data-max-size="2048" data-label="点击或拖拽上传相片" data-hint="支持 jpg / jpeg / png，最大 2048 KB">
+          <asp:FileUpload ID="PhotoFileUpload" runat="server" />
         </div>
         <asp:Button ID="Btnphoto" runat="server" Enabled="False" onclick="Btnphoto_Click" SkinID="buttonSkin" Text="提交相片" CssClass="pf-btn" />
         <asp:Label ID="Labelstr" runat="server" SkinID="LabelMsgRed" CssClass="pf-msg"></asp:Label>
@@ -46,5 +41,6 @@
     </div>
   </div>
 </div>
+<script src="../js/fileupload.js"></script>
 </asp:Content>
 
