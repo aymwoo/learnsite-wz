@@ -2,15 +2,33 @@ name: Windows Environment Tests
 
 on:
   push:
-    paths-ignore:
-      - '.github/workflows/compile_test.yml'
-      - '.github/workflows/run_test_for_linux.yml'
-      - '.github/workflows/run_test_for_docker.yml'
+    paths:
+      - '.github/workflows/run_test_for_windows.yml'
+      - 'App_Code/**'
+      - 'App_Data/**'
+      - 'Bin/**'
+      - 'sql/**'
+      - 'web.config'
+      - '**/*.aspx'
+      - '**/*.aspx.cs'
+      - '**/*.master'
+      - '**/*.master.cs'
+      - 'run_tests.sh'
+      - 'Tests/**'
   pull_request:
-    paths-ignore:
-      - '.github/workflows/compile_test.yml'
-      - '.github/workflows/run_test_for_linux.yml'
-      - '.github/workflows/run_test_for_docker.yml'
+    paths:
+      - '.github/workflows/run_test_for_windows.yml'
+      - 'App_Code/**'
+      - 'App_Data/**'
+      - 'Bin/**'
+      - 'sql/**'
+      - 'web.config'
+      - '**/*.aspx'
+      - '**/*.aspx.cs'
+      - '**/*.master'
+      - '**/*.master.cs'
+      - 'run_tests.sh'
+      - 'Tests/**'
 
 jobs:
   test:
