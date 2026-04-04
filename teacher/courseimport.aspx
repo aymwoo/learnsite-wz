@@ -1,59 +1,316 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="courseimport.aspx.cs" Inherits="Teacher_courseimport" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div  class="placehold">
-        <br />
-        <br />
-        <div  class="cimport">
-            <div  class="phead" style="font-weight: bold">平台专用学案包导入</div>
-            <br />
-            当前选择：<asp:Label ID="Labelgrade" runat="server" Font-Bold="False"></asp:Label>
-            年级<br />
-            <br />
-            <asp:FileUpload ID="FudPackage" runat="server" Font-Size="9pt" />
-&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="导入" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-&nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-            <br />
-            <br />
-        <asp:Label ID="Labelmsg" runat="server" Font-Size="9pt" ForeColor="Red" 
-            Height="38px">*必须使用本平台生成的学案包*<br /><br />注意：学案包导入功能为版本向下兼容，不向上兼容！</asp:Label>
-            <br />
+    <style type="text/css">
+        .course-import-page {
+            --workspace-page-bg: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+            --workspace-hero-bg: linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #60a5fa 100%);
+            --workspace-primary-bg: #2563eb;
+            --workspace-primary-hover: #1d4ed8;
+            --workspace-primary-shadow: 0 14px 24px -18px rgba(37, 99, 235, 0.85);
+            --workspace-secondary-bg: #eff6ff;
+            --workspace-secondary-fg: #1d4ed8;
+            --workspace-secondary-border: #bfdbfe;
+            --workspace-secondary-hover: #dbeafe;
+        }
+
+        .course-import-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .course-import-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .course-import-upload-zone {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
+            border: 2px dashed #94a3b8;
+            border-radius: 16px;
+            background: #f8fafc;
+            color: #64748b;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .course-import-upload-zone:hover {
+            border-color: var(--workspace-primary-bg);
+            background: var(--workspace-secondary-hover);
+            color: var(--workspace-primary-hover);
+        }
+
+        .course-import-upload-zone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .course-import-upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        .course-import-upload-text {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .course-import-upload-subtext {
+            font-size: 0.85rem;
+            margin-top: 0.35rem;
+            opacity: 0.7;
+        }
+
+        .course-import-primary-btn {
+            padding: 14px 36px;
+            background: linear-gradient(135deg, var(--workspace-primary-bg) 0%, var(--workspace-primary-hover) 100%);
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-import-primary-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+        }
+
+        .course-import-secondary-btn {
+            padding: 14px 36px;
+            background: #ffffff;
+            color: #475569;
+            font-size: 15px;
+            font-weight: 700;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .course-import-secondary-btn:hover {
+            background: #f8fafc;
+            color: #0f172a;
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .course-import-action-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+
+        .course-import-gridview {
+            min-width: 640px;
+        }
+
+        .course-import-gridview caption {
+            caption-side: top;
+            text-align: left;
+            padding: 0 0 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .course-import-feedback {
+            min-height: 4rem;
+        }
+
+        .course-import-feedback .status {
+            color: #b91c1c;
+        }
+
+        @media (max-width: 768px) {
+            .course-import-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-import-action-group {
+                justify-content: stretch;
+            }
+
+            .course-import-table-wrap {
+                overflow-x: visible;
+                border: 0;
+                background: transparent;
+            }
+
+            .course-import-gridview {
+                min-width: 0;
+            }
+
+            .course-import-gridview th {
+                display: none;
+            }
+
+            .course-import-gridview tr {
+                display: block;
+            }
+
+            .course-import-gridview tr + tr {
+                margin-top: 0.9rem;
+            }
+
+            .course-import-gridview td {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                padding: 0.72rem 1rem;
+                border-bottom: 1px solid #eef2f7;
+                background: #ffffff;
+                text-align: right;
+            }
+
+            .course-import-gridview td:before {
+                content: "";
+                margin-right: auto;
+                color: #64748b;
+                font-size: 0.78rem;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                text-align: left;
+            }
+
+            .course-import-gridview td:nth-child(1):before { content: "年级"; }
+            .course-import-gridview td:nth-child(2):before { content: "课节"; }
+            .course-import-gridview td:nth-child(3):before { content: "学案"; }
+            .course-import-gridview td:nth-child(4):before { content: "类型"; }
+
+            .course-import-gridview tr td:first-child {
+                border-top-left-radius: 1rem;
+                border-top-right-radius: 1rem;
+                border-top: 1px solid #e2e8f0;
+            }
+
+            .course-import-gridview tr td:last-child {
+                border-bottom-left-radius: 1rem;
+                border-bottom-right-radius: 1rem;
+                border-bottom: 1px solid #e2e8f0;
+                box-shadow: 0 12px 28px -24px rgba(15, 23, 42, 0.35);
+            }
+        }
+    </style>
+
+    <div class="course-import-page">
+        <div class="course-import-shell">
+            <section class="course-import-hero">
+                <div class="course-import-hero-content">
+                    <span class="course-import-eyebrow">Import Course Package</span>
+                    <h1 class="course-import-title">平台专用学案包导入</h1>
+                    <p class="course-import-subtitle">保留原有导入、返回和结果展示逻辑，优化上传区、提示信息和导入结果列表的层次与可读性。</p>
+                </div>
+            </section>
+
+            <section class="course-import-panel">
+                <h2 class="course-import-section-title">导入设置</h2>
+                <p class="course-import-section-desc">当前年级、文件上传与按钮事件都保持不变，仍使用平台原有导入处理流程。</p>
+
+                <div class="course-import-grid">
+                    <div class="course-import-field">
+                        <span class="course-import-label">当前选择年级</span>
+                        <div class="course-import-note">
+                            <asp:Label ID="Labelgrade" runat="server" Font-Bold="False"></asp:Label>
+                            <span style="margin-left: 0.35rem;">年级</span>
+                        </div>
+                    </div>
+
+                    <div class="course-import-field" style="grid-column: 1 / -1; margin-top: 1rem;">
+                        <span class="course-import-label" style="display:block; margin-bottom: 0.75rem; font-weight:700; color:#334155; font-size:14px;">选择学案包文件</span>
+                        <div class="course-import-upload-zone" id="uploadZone">
+                            <i class="course-import-upload-icon bi bi-cloud-arrow-up"></i>
+                            <div class="course-import-upload-text">点击浏览或将文件拖拽到此区域</div>
+                            <div class="course-import-upload-subtext">仅支持包含学案数据的 .zip 压缩包文件</div>
+                            <div id="uploadFileName" style="display:none;margin-top:8px;padding:6px 14px;border-radius:8px;background:#dbeafe;color:#1d4ed8;font-size:14px;font-weight:700;"></div>
+                            <asp:FileUpload ID="FudPackage" runat="server" />
+                        </div>
+                    </div>
+
+                    <div class="course-import-action-group" style="grid-column: 1 / -1;">
+                        <asp:Button ID="Btnimport" runat="server" onclick="Btnimport_Click" Text="立刻导入" CssClass="course-import-primary-btn" />
+                        <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" Text="返回列表" CssClass="course-import-secondary-btn" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="course-import-feedback">
+                <h2 class="course-import-section-title">导入说明与结果</h2>
+                <p class="course-import-section-desc">下方消息仍由原始后端导入结果输出，包括错误码、成功提示和用时信息。</p>
+                <asp:Label ID="Labelmsg" runat="server" Font-Size="9pt" ForeColor="Red" Height="38px">*必须使用本平台生成的学案包*<br /><br />注意：学案包导入功能为版本向下兼容，不向上兼容！</asp:Label>
+            </section>
+
+            <section class="course-import-table-panel">
+                <h2 class="course-import-section-title">当前导入的学案列表</h2>
+                <p class="course-import-section-desc">每次成功导入后，仍按照原有逻辑展示当前新导入学案。</p>
+                <div class="course-import-table-wrap custom-scrollbar">
                     <asp:GridView ID="GVCourse" runat="server"
-                            AutoGenerateColumns="False"  DataKeyNames="Cid"  
-                            PageSize="20" Width="100%" CellPadding="3" 
-                            EnableModelValidation="True" Font-Size="9pt" ForeColor="#111111"    
-                GridLines="None" Caption="当前导入的学案列表：" CaptionAlign="Left" >
-                            <AlternatingRowStyle BackColor="White" />
-                            <Columns>
-                                <asp:BoundField DataField="Cobj" HeaderText="年级">
+                        AutoGenerateColumns="False" DataKeyNames="Cid"
+                        PageSize="20" Width="100%" CellPadding="3"
+                        EnableModelValidation="True" Font-Size="9pt" ForeColor="#111111"
+                        GridLines="None" Caption="当前导入的学案列表：" CaptionAlign="Left" CssClass="course-import-gridview">
+                        <AlternatingRowStyle BackColor="#FBFDFF" />
+                        <Columns>
+                            <asp:BoundField DataField="Cobj" HeaderText="年级">
                                 <ItemStyle Width="30px" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Cks" HeaderText="课节">
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Cks" HeaderText="课节">
                                 <ItemStyle Width="30px" />
-                                </asp:BoundField>
-                                <asp:BoundField DataField="Ctitle" HeaderText="学案" />
-                                <asp:BoundField DataField="Cclass" HeaderText="类型" SortExpression="Cclass" >
+                            </asp:BoundField>
+                            <asp:BoundField DataField="Ctitle" HeaderText="学案" />
+                            <asp:BoundField DataField="Cclass" HeaderText="类型" SortExpression="Cclass">
                                 <ItemStyle Width="50px" />
-                                </asp:BoundField>
-                            </Columns>
-                            <HeaderStyle BackColor="#9EA9B1" ForeColor="#111111" />                            
-                            <RowStyle BackColor="#E7E7E7" Height="24px" />
-                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
-                        </asp:GridView>
-            <br />
-            <asp:Label ID="LabelnewCids" runat="server" Visible="False"></asp:Label>
-            <br />
-         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+                            </asp:BoundField>
+                        </Columns>
+                        <HeaderStyle BackColor="#F8FAFC" ForeColor="#475569" />
+                        <RowStyle BackColor="#FFFFFF" Height="24px" />
+                        <SelectedRowStyle BackColor="#DBEAFE" Font-Bold="True" ForeColor="#1E3A8A" />
+                    </asp:GridView>
+                </div>
+                <asp:Label ID="LabelnewCids" runat="server" Visible="False"></asp:Label>
+            </section>
+        </div>
+    </div>
 
-</div>
+<script type="text/javascript">
+(function(){
+    var input = document.getElementById('<%= FudPackage.ClientID %>');
+    var label = document.getElementById('uploadFileName');
+    function showName(name) {
+        label.textContent = '📄 ' + name;
+        label.style.display = 'block';
+    }
+    input.addEventListener('change', function(){
+        if (this.files && this.files[0]) showName(this.files[0].name);
+    });
+    var zone = document.getElementById('uploadZone');
+    zone.addEventListener('dragover', function(e){ e.preventDefault(); });
+    zone.addEventListener('drop', function(e){
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) showName(e.dataTransfer.files[0].name);
+    });
+})();
+</script>
 </asp:Content>
-

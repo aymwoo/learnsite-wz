@@ -64,7 +64,9 @@ public partial class Teacher_courseedit : System.Web.UI.Page
                         course.Cbanner = savefilename;
                     }
                     else {
-                        course.Cbanner = HLbanner.NavigateUrl;                        
+                        // 优先用 modal 上传后写入的 HiddenBannerUrl，其次保留原值
+                        string hiddenUrl = HiddenBannerUrl.Value;
+                        course.Cbanner = !string.IsNullOrEmpty(hiddenUrl) ? hiddenUrl : HLbanner.NavigateUrl;
                     }
 
                     LearnSite.BLL.Courses coursebll = new LearnSite.BLL.Courses();
@@ -92,6 +94,7 @@ public partial class Teacher_courseedit : System.Web.UI.Page
         mcontent.InnerText = HttpUtility.HtmlDecode(course.Ccontent);
         CheckPublish.Checked = course.Cpublish;
         HLbanner.NavigateUrl = course.Cbanner;
+        HiddenBannerUrl.Value = course.Cbanner;
     }
     private void Grade()
     {

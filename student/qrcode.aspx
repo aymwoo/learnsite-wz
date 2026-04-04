@@ -120,12 +120,13 @@
 	</div>
 	
     <div class="column">
-		<center>
+		<div class="flex flex-col items-center gap-4 mt-4">
 		<qr-canvas :options="options"></qr-canvas>		
-        <br><br>  
-			<button id="savebtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >保存</button>&nbsp;	&nbsp;&nbsp;
+        <div class="flex items-center gap-4">
+			<button id="savebtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >保存</button>
 	        <button id="returnbtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >返回</button>
-		</center>
+		</div>
+		</div>
     </div>
 	
   </div>

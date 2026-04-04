@@ -48,8 +48,15 @@ public partial class Lessons_thinkadd : System.Web.UI.Page
             LearnSite.BLL.Flection flectionbll = new LearnSite.BLL.Flection();
             flectionbll.Add(flection);
             System.Threading.Thread.Sleep(500);
-            string url = "~/lessons/thinkshow.aspx?cid=" +Int32.Parse( Fcid);
-            Response.Redirect(url, false);
+            if (Request.QueryString["modal"] == "1")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
+            }
+            else
+            {
+                string url = "~/lessons/thinkshow.aspx?cid=" +Int32.Parse( Fcid);
+                Response.Redirect(url, false);
+            }
         }
     }
     protected void BtnCourse_Click(object sender, EventArgs e)

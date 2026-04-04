@@ -1,35 +1,55 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" CodeFile="myexam.aspx.cs" Inherits="student_myexam" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
-<div id="student">
-    <br />
-        <asp:Image ID="Image1" runat="server"  ImageUrl="~/images/clock.gif" />
-        <asp:Label runat="server" ID="Lbtitle" Font-Bold="True" Font-Size="16px"></asp:Label>
-    <br />
-    <br />
-    <div class="linedashed">
-    　姓名：<asp:Label runat="server" ID="Lbsname" ForeColor="#0066FF"></asp:Label>
-    　学号：<asp:Label runat="server" ID="Lbsnum" ForeColor="#0066FF"></asp:Label>
-    &nbsp;得分：<asp:Label runat="server" ID="Lbfscore" ForeColor="#0066FF"></asp:Label>
-    　类型：<asp:Label runat="server" ID="Lbtypecn" ForeColor="#0066FF" ></asp:Label>
-        <asp:Label runat="server" ID="Lbtype" Visible="False"></asp:Label>
-        <asp:Label runat="server" ID="Lbcheck" ></asp:Label>
+<div class="w-full max-w-5xl mx-auto space-y-6">
+    <!-- Exam Header Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <div class="flex items-center gap-3 mb-4">
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/clock.gif" CssClass="w-8 h-8" />
+            <asp:Label runat="server" ID="Lbtitle" CssClass="text-xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
+        </div>
+        
+        <div class="flex flex-wrap gap-x-6 gap-y-2 items-center py-3 px-4 bg-slate-50 rounded-xl border border-slate-100 text-sm text-slate-600">
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                <span class="text-slate-500">姓名</span>
+                <asp:Label runat="server" ID="Lbsname" CssClass="font-semibold text-slate-800"></asp:Label>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0"></path></svg>
+                <span class="text-slate-500">学号</span>
+                <asp:Label runat="server" ID="Lbsnum" CssClass="font-semibold text-slate-800"></asp:Label>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="text-slate-500">得分</span>
+                <asp:Label runat="server" ID="Lbfscore" CssClass="font-bold text-emerald-600"></asp:Label>
+            </div>
+            <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                <span class="text-slate-500">类型</span>
+                <asp:Label runat="server" ID="Lbtypecn" CssClass="font-semibold text-slate-800"></asp:Label>
+            </div>
+            <asp:Label runat="server" ID="Lbtype" Visible="False"></asp:Label>
+            <asp:Label runat="server" ID="Lbcheck" ></asp:Label>
 			<asp:Label ID="LabelCid" runat="server" Visible="False"></asp:Label>
 			<asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
             <asp:Label ID="LabelVid" runat="server" Visible="False"></asp:Label> 
             <asp:Label ID="LabelVtotal" runat="server" Visible="False"></asp:Label>
-        <asp:HyperLink ID="Hkscore" runat="server" Target="_blank" Visible="False" 
-            CssClass="buttonimg px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block" ImageUrl="~/images/vote.png" ToolTip="成绩分析"></asp:HyperLink>
+            <asp:HyperLink ID="Hkscore" runat="server" Target="_blank" Visible="False" 
+                CssClass="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 font-semibold rounded-lg hover:bg-emerald-100 transition text-sm border border-emerald-200" ImageUrl="~/images/vote.png" ToolTip="成绩分析"></asp:HyperLink>
+        </div>
     </div>
-    <br />
-    <div id="vcontent" runat="server" class="vcontent" ></div>
-    <br />
+    
+    <!-- Rich Content Area -->
+    <div id="vcontent" runat="server" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 text-slate-700 leading-relaxed" ></div>
+    
+    <!-- Quiz Questions Area -->
     <div class="quizarea">   
-            <div id="questionPage">
-            </div>
-	        <div class="btnsubmit">
-	        <input id="btnupload" class="btnwidth px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="submit" value="提交" /> 
-	        </div>   
+        <div id="questionPage"></div>
+        <div class="btnsubmit">
+            <input id="btnupload" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" type="submit" value="提交" /> 
+        </div>   
     </div>
 </div>
 

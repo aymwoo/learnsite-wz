@@ -241,8 +241,8 @@ public partial class Teacher_student : System.Web.UI.Page
         int Sgrade = Int32.Parse(DDLgrade.SelectedValue.ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
         LearnSite.BLL.Room rbll = new LearnSite.BLL.Room();
-        LearnSite.Model.Room rmodel = new LearnSite.Model.Room();
-        rmodel = rbll.GetModel(Sgrade, Sclass);
+        LearnSite.Model.Room rmodel = rbll.GetModel(Sgrade, Sclass);
+        if (rmodel == null) return;
         Ckclass.Checked = rmodel.Rclassedit;
         Ckphoto.Checked = rmodel.Rphotoedit;
         Cksex.Checked = rmodel.Rsexedit;

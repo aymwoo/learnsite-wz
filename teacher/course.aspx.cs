@@ -106,14 +106,31 @@ public partial class Teacher_course : System.Web.UI.Page
             lkbtn.Attributes.Add("onclick", jslk);
             LinkButton lbp = (LinkButton)e.Row.FindControl("LbtnCpublish");
             if (lbp.Text == "True")
-                lbp.Text = "已发布";
+            {
+                lbp.Text = "<i class=\"bi bi-check-circle-fill\"></i>";
+                lbp.ToolTip = "已发布";
+                lbp.CssClass = "course-icon-btn course-icon-success";
+            }
             else
-                lbp.Text = "否";
+            {
+                lbp.Text = "<i class=\"bi bi-circle\"></i>";
+                lbp.ToolTip = "未发布";
+                lbp.CssClass = "course-icon-btn course-icon-secondary";
+            }
+
             LinkButton lbg = (LinkButton)e.Row.FindControl("LbtnCgood");
             if (lbg.Text == "True")
-                lbg.Text = "显示";
+            {
+                lbg.Text = "<i class=\"bi bi-hand-thumbs-up-fill\"></i>";
+                lbg.ToolTip = "显示";
+                lbg.CssClass = "course-icon-btn course-icon-primary";
+            }
             else
-                lbg.Text = "隐藏";
+            {
+                lbg.Text = "<i class=\"bi bi-hand-thumbs-up\"></i>";
+                lbg.ToolTip = "隐藏";
+                lbg.CssClass = "course-icon-btn course-icon-secondary";
+            }
         }
         if (e.Row.RowType == DataControlRowType.DataRow)
         {

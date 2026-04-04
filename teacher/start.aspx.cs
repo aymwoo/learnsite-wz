@@ -63,8 +63,8 @@ public partial class Teacher_start : System.Web.UI.Page
         int Rgrade = Int32.Parse(DDLgrade.SelectedValue);
         int Rclass = Int32.Parse(DDLclass.SelectedValue);
         LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
-        LearnSite.Model.Room rmodel = new LearnSite.Model.Room();
-        rmodel = rm.GetModel(Rgrade, Rclass);
+        LearnSite.Model.Room rmodel = rm.GetModel(Rgrade, Rclass);
+        if (rmodel == null) return;
         CheckBoxip.Checked = rmodel.Rlock;
         CheckBoxOpen.Checked = rmodel.Ropen;
         CheckBoxRgauge.Checked = rmodel.Rgauge;

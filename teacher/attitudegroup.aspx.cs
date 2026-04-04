@@ -30,6 +30,7 @@ public partial class Teacher_attitudegroup : System.Web.UI.Page
                 LearnSite.BLL.Signin gbll = new LearnSite.BLL.Signin();
                 int gn = gbll.UpdateSgroup(Int32.Parse(sgroup), qgroup, qgscoreto,Qcid);
                 Labelmsg.Text = "成功评价小组表现，当前小组共有" + gn + "位同学！";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
             }
             catch
             {

@@ -296,7 +296,7 @@ if [ "$RUN_E2E" = true ]; then
     echo ""
     TOTAL_SUITES=$((TOTAL_SUITES + 1))
 
-    BASE_URL="${BASE_URL:-http://localhost:8080}"
+    BASE_URL="${BASE_URL:-http://localhost:9080}"
 
     # 检测 Web 服务是否运行
     if ! curl -s --connect-timeout 3 "$BASE_URL" > /dev/null 2>&1; then

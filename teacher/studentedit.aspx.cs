@@ -44,8 +44,15 @@ public partial class Teacher_studentedit : System.Web.UI.Page
             Btnsedit.Text = "修改成功";
 
             System.Threading.Thread.Sleep(1000);
-            string url = "~/teacher/studentshow.aspx?sid=" + Sid;
-            Response.Redirect(url, false);
+            if (Request.QueryString["modal"] == "1")
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
+            }
+            else
+            {
+                string url = "~/teacher/studentshow.aspx?sid=" + Sid;
+                Response.Redirect(url, false);
+            }
         }
     }
     private void ShowStudent()

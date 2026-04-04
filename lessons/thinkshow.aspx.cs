@@ -32,7 +32,7 @@ public partial class Lessons_thinkshow : System.Web.UI.Page
             }
             else
             {
-                string url = "~/lessons/thinkadd.aspx?cid=" + Fcid;
+                string url = "~/lessons/thinkadd.aspx?cid=" + Fcid + "&modal=1";
                 Response.Redirect(url, false);
             }
         }
@@ -41,7 +41,7 @@ public partial class Lessons_thinkshow : System.Web.UI.Page
     protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
     {
         string Cid = Request.QueryString["cid"].ToString();
-        string url = "~/lessons/thinkedit.aspx?cid=" + Cid;
+        string url = "~/lessons/thinkedit.aspx?cid=" + Cid + "&modal=1";
         Response.Redirect(url, true);
     }
 }

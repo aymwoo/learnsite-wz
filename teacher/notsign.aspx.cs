@@ -24,6 +24,7 @@ public partial class Teacher_notsign : System.Web.UI.Page
     {
         if (Request.QueryString["nnum"] != null && TextBox1.Text.Trim()!="")
         {
+            bool saved = false;
             string Nnum = Request.QueryString["nnum"].ToString();
             LearnSite.BLL.NotSign bll = new LearnSite.BLL.NotSign();
             if (bll.ExistsToday(Nnum))
@@ -31,6 +32,7 @@ public partial class Teacher_notsign : System.Web.UI.Page
                 //存在则更新
                 bll.UpdateNote(Nnum, TextBox1.Text.Trim());
                 Labelmsg.Text = "修改缺席备注成功！";
+                saved = true;
                 System.Threading.Thread.Sleep(500);
             }
             else
@@ -52,8 +54,15 @@ public partial class Teacher_notsign : System.Web.UI.Page
                 model.Nterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());
                 int results=bll.Add(model);
                 if ( results> 0)
+                {
                     Labelmsg.Text = "添加缺席备注成功！";
+                    saved = true;
+                }
                 System.Threading.Thread.Sleep(500);
+            }
+            if (saved)
+            {
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "closemodal", "window.parent.notifyLessonModalSuccess(true);", true);
             }
         }
     }

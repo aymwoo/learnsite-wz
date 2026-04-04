@@ -13,5 +13,6 @@ public partial class Teach : System.Web.UI.MasterPage
             LabelVer.Text = LearnSite.Common.WordProcess.SystemVersion();
             LabelVer.ToolTip = LearnSite.Common.WordProcess.SysVerUpdate();
         }
+        LogoutBtn.Visible = (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null);
     }
 }

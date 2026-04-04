@@ -1,0 +1,53 @@
+name: Windows Environment Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Setup MS SQL Server
+        uses: potatoqualitee/mssqlsuite@v1.7
+        with:
+          install: sqlengine
+          sa-password: YourStrong!Passw0rd
+
+      - name: Initialize Database
+        run: |
+          sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -Q "CREATE DATABASE [learnsite];"
+          sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -d learnsite -i sql\learnsite.sql
+
+      - name: Update web.config connection string
+        run: |
+          $content = Get-Content web.config -Raw
+          $content = $content -replace "Data Source=127.0.0.1;Initial Catalog=learnsite;uid=sa;pwd=YourStrong!Passw0rd;Encrypt=false;Connection Timeout=30;", "Data Source=localhost;Initial Catalog=learnsite;uid=sa;pwd=YourStrong!Passw0rd;Encrypt=false;Connection Timeout=30;"
+          Set-Content web.config $content
+        shell: powershell
+
+      - name: Start IIS Express
+        run: |
+          $iisExpress = "${env:ProgramFiles}\IIS Express\iisexpress.exe"
+          $args = "/path:${env:GITHUB_WORKSPACE} /port:8080"
+          Start-Process -FilePath $iisExpress -ArgumentList $args -NoNewWindow
+          Start-Sleep -Seconds 10
+        shell: powershell
+
+      - name: Run Tests
+        run: bash ./run_tests.sh
+        env:
+          BASE_URL: http://localhost:8080

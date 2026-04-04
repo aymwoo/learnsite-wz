@@ -1,0 +1,61 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5] [cursor=pointer]:
+      - 'img "ä¿¡æ¯æŠ€æœ¯å¦ä¹ ç½‘ç«™ LearnSite Powered By Asp.net2.0+Sql2005Express æ¸©å·žæ°´ä¹¡è®¾è®¡ç¼–å†™" [ref=e7]'
+      - generic [ref=e8]: "ä¿¡æ\x81¯ç§‘æŠ€æ•™å¦å¹³å\x8f°"
+    - generic [ref=e10]:
+      - img [ref=e11]
+      - generic [ref=e13]: "æ•™å¸ˆæŽ§åˆ¶å\x8f°"
+  - generic [ref=e14]:
+    - complementary [ref=e15]:
+      - navigation [ref=e16]:
+        - list [ref=e17]:
+          - listitem [ref=e18]:
+            - link "ä¸Šè¯¾" [ref=e19] [cursor=pointer]:
+              - /url: ../teacher/start.aspx
+              - img [ref=e20]
+              - generic [ref=e22]: ä¸Šè¯¾
+          - listitem [ref=e23]:
+            - link "å¤‡è¯¾" [ref=e24] [cursor=pointer]:
+              - /url: ../teacher/course.aspx
+              - img [ref=e25]
+              - generic [ref=e27]: å¤‡è¯¾
+          - listitem [ref=e28]:
+            - 'link "é‡è§„" [ref=e29] [cursor=pointer]':
+              - /url: ../teacher/gauge.aspx
+              - img [ref=e30]
+              - generic [ref=e32]: "é‡\x8fè§„"
+          - listitem [ref=e33]:
+            - 'link "ä½œå“" [ref=e34] [cursor=pointer]':
+              - /url: ../teacher/works.aspx
+              - img [ref=e35]
+              - generic [ref=e37]: "ä½œå“\x81"
+          - listitem [ref=e38]:
+            - link "ç¾åˆ°" [ref=e39] [cursor=pointer]:
+              - /url: ../teacher/signin.aspx
+              - img [ref=e40]
+              - generic [ref=e42]: ç¾åˆ°
+          - listitem [ref=e43]:
+            - link "å¦ç”Ÿ" [ref=e44] [cursor=pointer]:
+              - /url: ../teacher/student.aspx
+              - img [ref=e45]
+              - generic [ref=e47]: å¦ç”Ÿ
+          - listitem [ref=e48]:
+            - 'link "èµ„æº" [ref=e49] [cursor=pointer]':
+              - /url: ../teacher/soft.aspx
+              - img [ref=e50]
+              - generic [ref=e52]: "èµ„æº\x90"
+          - listitem [ref=e53]:
+            - 'link "çŠ¶æ€" [ref=e54] [cursor=pointer]':
+              - /url: ../teacher/systeminfo.aspx
+              - img [ref=e55]
+              - generic [ref=e57]: "çŠ¶æ€\x81"
+      - generic [ref=e58] [cursor=pointer]: ç‰ˆæœ¬v1.6.0.0
+    - main [ref=e59]:
+      - generic [ref=e64]:
+        - generic [ref=e65]: æ•™å¸ˆç™»å½•
+        - text: "è´¦å\x8f·ï¼š"
+        - textbox [active] [ref=e66]
+        - text: "å¯†ç \x81ï¼š"
+        - textbox [ref=e67]
+        - button "ç™»å½•" [ref=e68]

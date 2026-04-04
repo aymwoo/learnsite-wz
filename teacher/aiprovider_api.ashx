@@ -1,0 +1,467 @@
+<%@ WebHandler Language="C#" Class="aiprovider_api" %>
+
+using System;
+using System.Web;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Linq;
+
+public class aiprovider_api : IHttpHandler {
+    
+    public void ProcessRequest (HttpContext context) {
+        context.Response.ContentType = "application/json";
+        
+        // Check teacher cookie exists (ashx cannot use JudgeTeacherCookies which returns void and does redirect)
+        if (context.Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] == null)
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Unauthorized\"}");
+            return;
+        }
+
+        string action = context.Request["action"];
+        
+        try
+        {
+            switch (action)
+            {
+                case "list":
+                    GetList(context);
+                    break;
+                case "save":
+                    Save(context);
+                    break;
+                case "delete":
+                    Delete(context);
+                    break;
+                case "setdefault":
+                    SetDefault(context);
+                    break;
+                case "test":
+                    TestConnection(context);
+                    break;
+                case "import":
+                    ImportConfig(context);
+                    break;
+                case "chat":
+                    Chat(context);
+                    break;
+                default:
+                    context.Response.Write("{\"success\":false,\"msg\":\"Unknown action\"}");
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"" + ex.Message.Replace("\"", "'").Replace("\r", "").Replace("\n", " ") + "\"}");
+        }
+    }
+
+    private void GetList(HttpContext context)
+    {
+        LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+        List<LearnSite.Model.AIProvider> list = bll.GetModelList("");
+        
+        // Obscure API keys before sending to the client
+        foreach (var item in list)
+        {
+            if (!string.IsNullOrEmpty(item.ApiKey))
+            {
+                if (item.ApiKey.Length > 4)
+                {
+                    item.ApiKey = "********" + item.ApiKey.Substring(item.ApiKey.Length - 4);
+                }
+                else
+                {
+                    item.ApiKey = "********";
+                }
+            }
+        }
+        
+        string json = JsonConvert.SerializeObject(new { success = true, data = list });
+        context.Response.Write(json);
+    }
+
+    private void Save(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        string displayName = context.Request["displayName"];
+        string providerName = context.Request["providerName"];
+        string modelName = context.Request["modelName"];
+        string apiKey = context.Request["apiKey"];
+        string baseUrl = context.Request["baseUrl"];
+
+        if (string.IsNullOrEmpty(displayName) || string.IsNullOrEmpty(providerName) || string.IsNullOrEmpty(modelName))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Please fill in all required fields.\"}");
+            return;
+        }
+
+        LearnSite.Model.AIProvider model = new LearnSite.Model.AIProvider();
+        model.DisplayName = displayName;
+        model.ProviderName = providerName;
+        model.ModelName = modelName;
+        model.BaseUrl = baseUrl;
+
+        LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+        
+        if (string.IsNullOrEmpty(idStr) || idStr == "0")
+        {
+            // Add
+            model.ApiKey = apiKey;
+            model.IsDefault = false;
+            if (bll.GetModelList("").Count == 0)
+            {
+                model.IsDefault = true; // Make default if it's the first one
+            }
+            int id = bll.Add(model);
+            if (id > 0)
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Added successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to add.\"}");
+            }
+        }
+        else
+        {
+            // Update
+            int id = int.Parse(idStr);
+            LearnSite.Model.AIProvider oldModel = bll.GetModel(id);
+            if (oldModel != null)
+            {
+                // Do not overwrite API key if it's the obscured placeholder
+                if (!string.IsNullOrEmpty(apiKey) && apiKey.StartsWith("********"))
+                {
+                    model.ApiKey = oldModel.ApiKey;
+                }
+                else
+                {
+                    model.ApiKey = apiKey;
+                }
+                
+                model.Id = id;
+                model.IsDefault = oldModel.IsDefault;
+                if (bll.Update(model))
+                {
+                    context.Response.Write("{\"success\":true,\"msg\":\"Updated successfully.\"}");
+                }
+                else
+                {
+                    context.Response.Write("{\"success\":false,\"msg\":\"Failed to update.\"}");
+                }
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Record not found.\"}");
+            }
+        }
+    }
+
+    private void Delete(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+            if (bll.Delete(id))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Deleted successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to delete.\"}");
+            }
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Invalid ID.\"}");
+        }
+    }
+
+    private void SetDefault(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+            if (bll.SetDefault(id))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Default provider set successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to set default.\"}");
+            }
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Invalid ID.\"}");
+        }
+    }
+
+    private void TestConnection(HttpContext context)
+    {
+        string apiKey = context.Request["apiKey"];
+        string baseUrl = context.Request["baseUrl"];
+        string modelName = context.Request["modelName"];
+        
+        if (string.IsNullOrEmpty(baseUrl))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Base URL is required for testing.\"}");
+            return;
+        }
+
+        try
+        {
+            // Prepare OpenAI compatible request payload
+            string testUrl = baseUrl.TrimEnd('/') + "/chat/completions";
+            string payload = "{\"model\":\"" + modelName + "\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":10}";
+            
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(testUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Timeout = 10000; // 10 seconds timeout
+            
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                request.Headers.Add("Authorization", "Bearer " + apiKey);
+            }
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(payload);
+            request.ContentLength = byteArray.Length;
+
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(responseStream))
+                        {
+                            string responseFromServer = reader.ReadToEnd();
+                            // Parse response just to check if it's valid JSON from OpenAI format
+                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
+                            if (jsonResp != null && jsonResp.choices != null)
+                            {
+                                context.Response.Write("{\"success\":true,\"msg\":\"Connection successful!\"}");
+                            }
+                            else
+                            {
+                                context.Response.Write("{\"success\":false,\"msg\":\"Connection succeeded, but response format is not standard OpenAI compatible.\"}");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    context.Response.Write("{\"success\":false,\"msg\":\"HTTP Error: " + response.StatusCode + "\"}");
+                }
+            }
+        }
+        catch (WebException wex)
+        {
+            string errorMsg = wex.Message;
+            if (wex.Response != null)
+            {
+                using (HttpWebResponse errorResponse = (HttpWebResponse)wex.Response)
+                {
+                    errorMsg += " Status code: " + (int)errorResponse.StatusCode;
+                    using (Stream responseStream = errorResponse.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            using (StreamReader reader = new StreamReader(responseStream))
+                            {
+                                errorMsg += " Details: " + reader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+            }
+            context.Response.Write("{\"success\":false,\"msg\":\"Connection failed: " + errorMsg.Replace("\"", "'").Replace("\r", "").Replace("\n", " ") + "\"}");
+        }
+        catch (Exception ex)
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Test error: " + ex.Message.Replace("\"", "'").Replace("\r", "").Replace("\n", " ") + "\"}");
+        }
+    }
+    
+    private void ImportConfig(HttpContext context)
+    {
+        string jsonConfig = context.Request["config"];
+        if (string.IsNullOrEmpty(jsonConfig))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Configuration JSON is empty.\"}");
+            return;
+        }
+
+        try
+        {
+            List<LearnSite.Model.AIProvider> providers = JsonConvert.DeserializeObject<List<LearnSite.Model.AIProvider>>(jsonConfig);
+            if (providers != null && providers.Count > 0)
+            {
+                LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+                int successCount = 0;
+                foreach (var provider in providers)
+                {
+                    if (!string.IsNullOrEmpty(provider.DisplayName) && !string.IsNullOrEmpty(provider.ModelName))
+                    {
+                        bll.Add(provider);
+                        successCount++;
+                    }
+                }
+                context.Response.Write("{\"success\":true,\"msg\":\"Successfully imported " + successCount + " provider(s).\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Invalid JSON format or empty list.\"}");
+            }
+        }
+        catch (Exception ex)
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Parse error: " + ex.Message.Replace("\"", "'").Replace("\r", "").Replace("\n", " ") + "\"}");
+        }
+    }
+
+    
+    private void Chat(HttpContext context)
+    {
+        string prompt = context.Request["prompt"];
+        if (string.IsNullOrEmpty(prompt))
+        {
+            string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Prompt is required." });
+            context.Response.Write(respStr);
+            return;
+        }
+
+        LearnSite.BLL.AIProvider bll = new LearnSite.BLL.AIProvider();
+        List<LearnSite.Model.AIProvider> providers = bll.GetModelList("");
+        LearnSite.Model.AIProvider defaultProvider = providers.FirstOrDefault(p => p.IsDefault);
+        
+        if (defaultProvider == null && providers.Count > 0)
+        {
+            defaultProvider = providers[0];
+        }
+
+        if (defaultProvider == null)
+        {
+            string respStr = JsonConvert.SerializeObject(new { success = false, msg = "No AI provider configured. Please configure an AI provider first." });
+            context.Response.Write(respStr);
+            return;
+        }
+
+        string baseUrl = defaultProvider.BaseUrl;
+        string apiKey = defaultProvider.ApiKey;
+        string modelName = defaultProvider.ModelName;
+        
+        try
+        {
+            string chatUrl = baseUrl.TrimEnd('/') + "/chat/completions";
+            
+            var requestBody = new
+            {
+                model = modelName,
+                messages = new[]
+                {
+                    new { role = "user", content = prompt }
+                }
+            };
+            
+            string payload = JsonConvert.SerializeObject(requestBody);
+            
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(chatUrl);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            request.Timeout = 60000; // 60 seconds timeout for generation
+            
+            if (!string.IsNullOrEmpty(apiKey))
+            {
+                request.Headers.Add("Authorization", "Bearer " + apiKey);
+            }
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(payload);
+            request.ContentLength = byteArray.Length;
+
+            using (Stream dataStream = request.GetRequestStream())
+            {
+                dataStream.Write(byteArray, 0, byteArray.Length);
+            }
+
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            {
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    using (Stream responseStream = response.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(responseStream))
+                        {
+                            string responseFromServer = reader.ReadToEnd();
+                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
+                            if (jsonResp != null && jsonResp.choices != null && jsonResp.choices.Count > 0)
+                            {
+                                string contentResult = jsonResp.choices[0].message.content;
+                                string safeContent = JsonConvert.SerializeObject(new { success = true, data = contentResult });
+                                context.Response.Write(safeContent);
+                            }
+                            else
+                            {
+                                string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Invalid response format from AI Provider." });
+                                context.Response.Write(respStr);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string respStr = JsonConvert.SerializeObject(new { success = false, msg = "HTTP Error: " + response.StatusCode });
+                    context.Response.Write(respStr);
+                }
+            }
+        }
+        catch (WebException wex)
+        {
+            string errorMsg = wex.Message;
+            if (wex.Response != null)
+            {
+                using (HttpWebResponse errorResponse = (HttpWebResponse)wex.Response)
+                {
+                    errorMsg += " Status code: " + (int)errorResponse.StatusCode;
+                    using (Stream responseStream = errorResponse.GetResponseStream())
+                    {
+                        if (responseStream != null)
+                        {
+                            using (StreamReader reader = new StreamReader(responseStream))
+                            {
+                                errorMsg += " Details: " + reader.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+            }
+            string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Connection failed: " + errorMsg });
+            context.Response.Write(respStr);
+        }
+        catch (Exception ex)
+        {
+            string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Chat error: " + ex.Message });
+            context.Response.Write(respStr);
+        }
+    }
+
+    public bool IsReusable {
+        get {
+            return false;
+        }
+    }
+}
