@@ -82,54 +82,80 @@ jobs:
             echo "[WARNING] web.config not found, skipping configuration update"
           fi
 
-      - name: List directory contents
+      - name: Check directory structure and files
         run: |
-          echo "[INFO] Directory contents:"
+          echo "=== Directory Structure ==="
           ls -la
-          echo "[INFO] Bin directory:"
+          echo "=== Bin Directory ==="
           ls -la Bin/ 2>/dev/null || echo "Bin directory not found"
-          echo "[INFO] web.config exists: $([ -f "web.config" ] && echo "YES" || echo "NO")"
+          echo "=== Web.config ==="
+          ls -la web.config 2>/dev/null || echo "web.config not found"
+          echo "=== SQL Directory ==="
+          ls -la sql/ 2>/dev/null || echo "sql directory not found"
 
-      - name: Start Web Service
+      - name: Check port 8080 before start
         run: |
-          # 直接使用 xsp4 启动，不依赖 start_web.sh
-          echo "[INFO] Starting XSP4 web server..."
-          nohup xsp4 --port 8080 --address 0.0.0.0 --verbose > web.log 2>&1 &
-          echo "[INFO] Web server started, PID: $!"
-          sleep 20
+          echo "=== Port 8080 Status Before Start ==="
+          netstat -tuln | grep 8080 || echo "Port 8080 is not in use"
 
-      - name: Check Web Service Status
+      - name: Start Web Service with explicit error handling
         run: |
-          echo "[INFO] Checking web service status..."
-          netstat -tuln | grep 8080 || echo "[WARNING] Port 8080 not listening"
-          ps aux | grep xsp4 | grep -v grep || echo "[WARNING] XSP4 process not found"
-          echo "[INFO] Web server logs:"
-          cat web.log || echo "[WARNING] web.log not found"
-          echo "[INFO] Testing web service..."
-          curl -v http://localhost:8080 || echo "[ERROR] Web service not accessible"
-
-      - name: Run Tests
-        run: |
-          # 检查是否有测试文件
-          if [ -f "run_tests.sh" ]; then
-            chmod +x run_tests.sh
-            ./run_tests.sh
+          echo "=== Starting XSP4 Web Server ==="
+          # 直接在前台运行XSP4，捕获所有输出
+          timeout 30s xsp4 --port 8080 --address 0.0.0.0 --verbose > web.log 2>&1 &
+          XSP4_PID=$!
+          echo "XSP4 started with PID: $XSP4_PID"
+          sleep 10
+          # 检查进程是否仍在运行
+          if ps -p $XSP4_PID > /dev/null; then
+            echo "XSP4 is running"
           else
-            echo "[INFO] run_tests.sh not found, skipping tests"
-            # 至少验证Web服务能正常访问
-            echo "[INFO] Final web service test..."
-            curl -s http://localhost:8080 > /dev/null
-            if [ $? -eq 0 ]; then
-              echo "[SUCCESS] Web service is accessible"
-            else
-              echo "[ERROR] Web service is not accessible"
-              echo "[INFO] Final web server logs:"
-              cat web.log || echo "[WARNING] web.log not found"
-              exit 1
-            fi
+            echo "XSP4 process has exited"
+            echo "=== XSP4 Error Logs ==="
+            cat web.log
           fi
-        env:
-          BASE_URL: http://localhost:8080
+
+      - name: Check port 8080 after start
+        run: |
+          echo "=== Port 8080 Status After Start ==="
+          netstat -tuln | grep 8080 || echo "Port 8080 is not listening"
+
+      - name: Check XSP4 process
+        run: |
+          echo "=== XSP4 Process Status ==="
+          ps aux | grep xsp4 | grep -v grep || echo "XSP4 process not found"
+
+      - name: Show XSP4 logs
+        run: |
+          echo "=== XSP4 Server Logs ==="
+          cat web.log || echo "No web.log found"
+
+      - name: Test web service access
+        run: |
+          echo "=== Testing Web Service Access ==="
+          for i in {1..5}; do
+            echo "Attempt $i:"
+            curl -v http://localhost:8080
+            if [ $? -eq 0 ]; then
+              echo "SUCCESS: Web service accessible"
+              break
+            fi
+            echo "Waiting 5 seconds..."
+            sleep 5
+          done
+
+      - name: Final web service test
+        run: |
+          echo "=== Final Web Service Test ==="
+          curl -s http://localhost:8080 > /dev/null
+          if [ $? -eq 0 ]; then
+            echo "[SUCCESS] Web service is accessible"
+          else
+            echo "[ERROR] Web service is not accessible"
+            echo "=== Final XSP4 Logs ==="
+            cat web.log || echo "No web.log found"
+            exit 1
+          fi
 
       - name: Cleanup
         run: |
