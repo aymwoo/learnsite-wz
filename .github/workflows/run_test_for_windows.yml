@@ -12,8 +12,28 @@ jobs:
     runs-on: windows-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Get Latest Release
+        id: release
+        run: |
+          $release = gh release list --limit 1 --json tagName,name,assets --jq '.[0]' | ConvertFrom-Json
+          echo "tag_name=$($release.tagName)" >> $env:GITHUB_OUTPUT
+          echo "asset_name=$($release.assets[0].name)" >> $env:GITHUB_OUTPUT
+          echo "download_url=$($release.assets[0].url)" >> $env:GITHUB_OUTPUT
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download Release Asset
+        run: |
+          gh release download ${{ steps.release.outputs.tag_name }} --pattern "*.zip"
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Extract Release
+        run: |
+          Expand-Archive -Path learnsite-*.zip -DestinationPath . -Force
+        shell: powershell
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4

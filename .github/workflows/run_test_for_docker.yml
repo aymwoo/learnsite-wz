@@ -12,8 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Get Latest Release
+        id: release
+        run: |
+          TAG_NAME=$(gh release list --limit 1 --json tagName --jq '.[0].tagName')
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download Release Asset
+        run: |
+          gh release download ${{ steps.release.outputs.tag_name }} --pattern "*.zip"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Extract Release
+        run: |
+          unzip -o learnsite-*.zip -d .
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
