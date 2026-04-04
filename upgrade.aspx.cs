@@ -22,6 +22,7 @@ public partial class UpGrade : System.Web.UI.Page
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1500();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1600();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
+                LearnSite.DBUtility.UpdateGrade.UpdateTable1800();
 
                 Labelmsg.Text = "升级完毕，请删除本页面！以免数据库出错！";
 
