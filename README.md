@@ -28,10 +28,11 @@
 
 **快速启动**
 ```bash
+# 使用 GitHub Actions 工作流构建的镜像
 docker run -d --name learnsite \
   -p 8080:8080 \
   -e MONO_THREADS_PER_CPU=50 \
-  ghcr.io/realkiro/learnsite-wz:latest
+  ghcr.io/aymwoo/learnsite-wz:latest
 ```
 
 **配合 MSSQL 数据库**
@@ -43,18 +44,64 @@ docker run -d --name learnsite-mssql \
   -p 1433:1433 \
   mcr.microsoft.com/mssql/server:2022-latest
 
-# 启动 LearnSite 容器
+# 启动 LearnSite 容器（使用工作流构建的镜像）
 docker run -d --name learnsite \
   -p 8080:8080 \
   --link learnsite-mssql:mssql \
   -e MONO_THREADS_PER_CPU=50 \
-  ghcr.io/realkiro/learnsite-wz:latest
+  ghcr.io/aymwoo/learnsite-wz:latest
 ```
 
 **配置说明**
 - **端口**: 8080 (XSP4 Web 服务器)
 - **环境变量**: `MONO_THREADS_PER_CPU` (建议设置为 50)
 - **数据持久化**: 可通过 `-v` 挂载卷保存数据
+
+**使用 docker-compose 部署**
+
+创建 `docker-compose.yml` 文件（使用工作流构建的镜像）：
+
+```yaml
+version: '3.8'
+
+services:
+  learnsite:
+    # 使用 GitHub Actions 工作流构建的镜像
+    image: ghcr.io/your-github-username/learnsite-wz:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - MONO_THREADS_PER_CPU=50
+    depends_on:
+      - mssql
+    restart: unless-stopped
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  mssql_data:
+```
+
+**注意**：将 `your-github-username` 替换为实际的 GitHub 用户名。例如，在 `RealKiro/learnsite-wz` 仓库中，镜像地址为 `ghcr.io/realkiro/learnsite-wz:latest`。
+
+**启动命令**
+```bash
+docker-compose up -d
+```
+
+**停止命令**
+```bash
+docker-compose down
+```
 
 ### Linux 部署
 

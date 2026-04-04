@@ -22,6 +22,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Get Lowercase Owner
+        id: owner
+        run: |
+          # Convert repository owner to lowercase
+          LOWERCASE_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "lowercase_owner=$LOWERCASE_OWNER" >> $GITHUB_OUTPUT
+
       - name: Run MS SQL Server in Docker
         run: |
           docker run -d --name learnsite-mssql -e 'ACCEPT_EULA=Y' -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
@@ -41,14 +48,14 @@ jobs:
       - name: Pull and Run LearnSite Docker Image
         run: |
           # 拉取最新镜像
-          docker pull ghcr.io/realkiro/learnsite-wz:latest
+          docker pull ghcr.io/${{ steps.owner.outputs.lowercase_owner }}/learnsite-wz:latest
           
           # 运行容器
           docker run -d --name learnsite \
             --link learnsite-mssql:mssql \
             -p 8080:8080 \
             -e MONO_THREADS_PER_CPU=50 \
-            ghcr.io/realkiro/learnsite-wz:latest
+            ghcr.io/${{ steps.owner.outputs.lowercase_owner }}/learnsite-wz:latest
           
           echo "Waiting for LearnSite to start..."
           sleep 15
