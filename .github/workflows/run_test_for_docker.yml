@@ -109,11 +109,11 @@ jobs:
           echo "XSP4 version:"
           xsp4 --version 2>&1 || echo "xsp4 version check failed"
 
-      - name: Start XSP4 with detailed logging
+      - name: Start XSP4 with nonstop flag
         run: |
-          echo "=== Starting XSP4 with detailed logging ==="
-          # 直接在前台运行XSP4，捕获所有输出
-          xsp4 --port 8080 --address 0.0.0.0 --verbose 2>&1 > xsp4.log &
+          echo "=== Starting XSP4 with nonstop flag ==="
+          # 使用 --nonstop 参数确保XSP4不会立即停止
+          xsp4 --port 8080 --address 0.0.0.0 --nonstop --verbose 2>&1 > xsp4.log &
           XSP4_PID=$!
           echo "XSP4 started with PID: $XSP4_PID"
           sleep 15
@@ -126,44 +126,17 @@ jobs:
           
           echo "=== XSP4 Logs ==="
           cat xsp4.log || echo "No xsp4.log found"
-          
-          # 检查XSP4是否仍在运行
-          if ps -p $XSP4_PID > /dev/null; then
-            echo "XSP4 is still running"
-            kill $XSP4_PID 2>/dev/null || true
-          else
-            echo "XSP4 process has exited"
-          fi
 
-      - name: Test XSP4 with specific document root
+      - name: Test frontend page access
         run: |
-          echo "=== Testing XSP4 with specific document root ==="
-          # 使用明确的文档根目录
-          xsp4 --port 8080 --address 0.0.0.0 --verbose --root . 2>&1 > xsp4_root.log &
-          XSP4_PID=$!
-          echo "XSP4 started with PID: $XSP4_PID"
-          sleep 15
-          
-          echo "=== Testing main page access ==="
+          echo "=== Testing Frontend Page Access ==="
+          # 测试主页
+          echo "Testing main page..."
           curl -v http://localhost:8080
           
-          echo "=== XSP4 Logs with root ==="
-          cat xsp4_root.log || echo "No xsp4_root.log found"
-          
-          # 停止XSP4
-          kill $XSP4_PID 2>/dev/null || true
-
-      - name: Alternative - Use Python HTTP server to test directory
-        run: |
-          echo "=== Testing with Python HTTP Server ==="
-          python3 -m http.server 8080 &
-          PYTHON_PID=$!
-          sleep 5
-          
-          echo "Testing directory listing..."
-          curl -s http://localhost:8080
-          
-          kill $PYTHON_PID 2>/dev/null || true
+          # 测试login.aspx页面
+          echo "\nTesting login.aspx..."
+          curl -v http://localhost:8080/login.aspx
 
       - name: Cleanup
         run: |
