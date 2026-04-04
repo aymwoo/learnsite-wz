@@ -212,7 +212,7 @@ sudo yum install -y mono-complete mono-xsp4
           <sub><b>jnschool</b></sub>
         </a>
         <br />
-        <sub>成都版分支维护</sub>
+        <sub>Gitee 维护支持</sub>
       </td>
       <td align="center">
         <a href="https://github.com/aymwoo">
