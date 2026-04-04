@@ -431,7 +431,7 @@
             justify-content: center;
             min-height: 2.6rem;
             padding: 0.55rem 1rem;
-            border-radius: 0.9rem;
+            border-radius: 0.375rem;
             border: 1px solid #c7d2fe;
             background: #ffffff;
             color: #4338ca;
@@ -632,7 +632,7 @@
             justify-content: center;
             min-height: 2.6rem;
             padding: 0.55rem 1rem;
-            border-radius: 0.9rem;
+            border-radius: 0.375rem;
             border: 1px solid #cbd5e1;
             background: #ffffff;
             color: #334155;
@@ -926,7 +926,7 @@
             justify-content: center;
             min-height: 2.5rem;
             padding: 0.55rem 1rem;
-            border-radius: 0.85rem;
+            border-radius: 0.375rem;
             border: 1px solid #4f46e5;
             background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
             color: #ffffff;
@@ -1172,7 +1172,7 @@
             min-width: 2rem;
             min-height: 1.7rem;
             padding: 0.22rem 0.55rem;
-            border-radius: 0.6rem;
+            border-radius: 0.375rem;
             border: 1px solid #dbe4ff;
             background: #ffffff;
             color: #334155;

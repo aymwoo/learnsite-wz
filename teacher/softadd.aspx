@@ -46,7 +46,7 @@
         .editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
         
         .soft-actions { display: flex; gap: 16px; margin-top: 24px; align-items: center; }
-        .soft-btn { height: 44px; padding: 0 24px; border-radius: 0.85rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; font-size: 14px; }
+        .soft-btn { height: 44px; padding: 0 24px; border-radius: 0.375rem; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; font-size: 14px; }
         .soft-btn--primary { background: #2563eb; color: #fff; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2); }
         .soft-btn--primary:hover { background: #1d4ed8; transform: translateY(-1px); }
         .soft-btn--secondary { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }

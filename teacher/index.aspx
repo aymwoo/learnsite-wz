@@ -13,7 +13,7 @@
             width: 100%;
             padding: 0.85rem 1.5rem;
             border: none;
-            border-radius: 0.85rem;
+            border-radius: 0.375rem;
             background: linear-gradient(135deg, #4f46e5 0%, #4338ca 50%, #6366f1 100%);
             background-size: 200% 200%;
             color: #ffffff;

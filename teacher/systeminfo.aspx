@@ -188,7 +188,7 @@
             width: 100%;
             padding: 12px 16px;
             margin-top: 12px;
-            border-radius: 1rem;
+            border-radius: 0.375rem;
             font-size: 14px;
             font-weight: 700;
             text-decoration: none;
@@ -228,7 +228,7 @@
             background: #fee2e2;
             color: #dc2626;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.375rem;
         }
 
         .action-btn--danger:hover {

@@ -69,7 +69,7 @@
             justify-content: center;
             min-width: 3.8rem;
             padding: 0.42rem 0.82rem;
-            border-radius: 9999px;
+            border-radius: 0.375rem;
             background: #f8fafc;
             border: 1px solid #bae6fd;
             color: #0f766e;
@@ -151,7 +151,7 @@
             align-items: center;
             justify-content: center;
             padding: 0.7rem 1.5rem;
-            border-radius: 9999px;
+            border-radius: 0.375rem;
             font-weight: 700;
             font-size: 0.9rem;
             color: #475569;

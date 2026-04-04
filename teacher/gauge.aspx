@@ -142,7 +142,7 @@
             justify-content: center;
             width: 32px;
             height: 32px;
-            border-radius: 1rem;
+            border-radius: 0.375rem;
             background: #fee2e2;
             color: #b91c1c;
             font-size: 14px;
@@ -204,7 +204,7 @@
             justify-content: center;
             min-height: 48px;
             padding: 0 20px;
-            border-radius: 1rem;
+            border-radius: 0.375rem;
             border: none;
             font-size: 14px;
             font-weight: 700;

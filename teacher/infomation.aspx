@@ -88,7 +88,7 @@
 
     .info-btn {
         display: inline-flex; align-items: center; justify-content: center;
-        min-height: 44px; padding: 0 24px; border: 0; border-radius: 1rem;
+        min-height: 44px; padding: 0 24px; border: 0; border-radius: 0.375rem;
         font-size: 14px; font-weight: 700; color: #fff; cursor: pointer;
         background: linear-gradient(135deg,#dc2626 0%,#b91c1c 100%);
         box-shadow: 0 8px 16px rgba(220,38,38,.2);

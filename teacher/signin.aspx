@@ -129,7 +129,7 @@
             justify-content: center;
             height: 40px;
             padding: 0 20px;
-            border-radius: 0.85rem;
+            border-radius: 0.375rem;
             font-size: 13px;
             font-weight: 700;
             transition: all 0.2s;
@@ -229,7 +229,7 @@
             padding: 6px 14px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 0.375rem;
             color: #475569;
             text-decoration: none;
             transition: all 0.2s;

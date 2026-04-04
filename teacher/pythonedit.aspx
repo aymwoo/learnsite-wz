@@ -24,7 +24,7 @@
             justify-content: center;
             min-height: 2.95rem;
             padding: 0 0.95rem;
-            border-radius: 0.9rem;
+            border-radius: 0.375rem;
             border: 1px solid #bfdbfe;
             background: #eff6ff;
             color: #1d4ed8;

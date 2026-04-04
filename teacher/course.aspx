@@ -175,7 +175,7 @@
             align-items: center;
             justify-content: center;
             padding: 0.75rem 1.75rem;
-            border-radius: 9999px;
+            border-radius: 0.375rem;
             font-weight: 700;
             font-size: 0.95rem;
             color: #ffffff;
@@ -202,7 +202,7 @@
             align-items: center;
             justify-content: center;
             padding: 0.65rem 1.4rem;
-            border-radius: 0.5rem;
+            border-radius: 0.375rem;
             font-weight: 600;
             font-size: 0.9rem;
             color: #475569;

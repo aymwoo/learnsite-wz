@@ -80,8 +80,10 @@
                 <div class="mgr-card__head"><h2 class="mgr-card__title">注意事项</h2></div>
                 <div class="mgr-card__body">
                     <asp:Label ID="Labelmsg" runat="server" CssClass="mgr-msg">**导入Excel数据中必须要有学号、入学年度、年级、班级、姓名、密码、性别**<br />**入学年度、年级、班级必须为数字；学号必须为数字且尽量不超过12位**</asp:Label>
-                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/说明必读/学生导入模板.xls" Target="_blank" CssClass="mgr-btn mgr-btn--link" style="width:fit-content;">下载学生信息Excel模板</asp:HyperLink>
-                    <asp:Button ID="ButtonClear" runat="server" Text="清除最近导入数据" OnClick="ButtonClear_Click" CssClass="mgr-btn mgr-btn--danger" style="width:fit-content;" ToolTip="只删除刚才导入的数据，以方便重新导入！" />
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/说明必读/学生导入模板.xls" Target="_blank" CssClass="mgr-btn mgr-btn--link">下载学生信息Excel模板</asp:HyperLink>
+                        <asp:Button ID="ButtonClear" runat="server" Text="清除最近导入数据" OnClick="ButtonClear_Click" CssClass="mgr-btn mgr-btn--danger" ToolTip="只删除刚才导入的数据，以方便重新导入！" />
+                    </div>
                 </div>
             </div>
 

@@ -79,7 +79,7 @@
             color: #ffffff;
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
+            border-radius: 0.375rem;
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s;

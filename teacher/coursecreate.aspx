@@ -47,7 +47,7 @@
             font-size: 15px;
             font-weight: 800;
             border: none;
-            border-radius: 12px;
+            border-radius: 0.375rem;
             box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -64,7 +64,7 @@
             font-size: 15px;
             font-weight: 700;
             border: 1px solid #cbd5e1;
-            border-radius: 12px;
+            border-radius: 0.375rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

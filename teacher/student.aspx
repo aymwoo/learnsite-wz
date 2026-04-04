@@ -91,7 +91,7 @@
 
         .stu-btn {
             display: inline-flex; align-items: center; justify-content: center;
-            min-height: 40px; padding: 0 18px; border-radius: 0.5rem; border: none;
+            min-height: 40px; padding: 0 18px; border-radius: 0.375rem; border: none;
             font-size: 13px; font-weight: 700; cursor: pointer;
             transition: transform 0.18s, box-shadow 0.18s;
         }
@@ -108,7 +108,7 @@
 
         .stu-add-link {
             display: inline-flex; align-items: center; gap: 6px;
-            min-height: 40px; padding: 0 18px; border-radius: 1rem;
+            min-height: 40px; padding: 0 18px; border-radius: 0.375rem;
             background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
             color: #fff; font-size: 13px; font-weight: 700; text-decoration: none;
             box-shadow: 0 8px 16px rgba(79,70,229,0.2);
