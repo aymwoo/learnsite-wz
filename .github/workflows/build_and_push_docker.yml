@@ -29,12 +29,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Release Version
+      - name: Get Release Version and Lowercase Owner
         id: version
         run: |
           # Get the latest release tag
           LATEST_TAG=$(gh release list --repo ${{ github.repository }} --limit 1 --json tagName --jq '.[0].tagName')
           echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
+          
+          # Convert repository owner to lowercase
+          LOWERCASE_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "lowercase_owner=$LOWERCASE_OWNER" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -44,7 +48,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ toLower(github.repository_owner) }}/learnsite-wz:latest
-            ghcr.io/${{ toLower(github.repository_owner) }}/learnsite-wz:${{ steps.version.outputs.version }}
+            ghcr.io/${{ steps.version.outputs.lowercase_owner }}/learnsite-wz:latest
+            ghcr.io/${{ steps.version.outputs.lowercase_owner }}/learnsite-wz:${{ steps.version.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
