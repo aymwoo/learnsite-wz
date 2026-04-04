@@ -2,7 +2,7 @@ name: Docker Environment Tests
 
 on:
   workflow_run:
-    workflows: ["Release Build and Publish"]
+    workflows: ["Build and Push Docker Image"]
     types: [completed]
     branches: [master, main]
   workflow_dispatch:
@@ -12,46 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Get Alpha Release
-        id: release
-        run: |
-          # 优先获取alpha版本
-          ALPHA_TAGS=$(gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-")) | .tagName' | sort -r)
-          if [ ! -z "$ALPHA_TAGS" ]; then
-            TAG_NAME=$(echo "$ALPHA_TAGS" | head -1)
-            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
-          else
-            # 如果没有alpha版本，获取最新版本
-            TAG_NAME=$(gh release list --repo ${{ github.repository }} --limit 1 --json tagName --jq '.[0].tagName')
-            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-      - name: Download Release Asset
-        run: |
-          gh release download ${{ steps.release.outputs.tag_name }} --repo ${{ github.repository }} --pattern "*.zip"
-        env:
-          GH_TOKEN: ${{ github.token }}
-
-      - name: Extract Release
-        run: |
-          # 创建专门的测试目录
-          mkdir -p learnsite-test
-          unzip -o learnsite-*.zip -d learnsite-test
-          cd learnsite-test
-          pwd
-          ls -la
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          dotnet-version: '8.0.x'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run MS SQL Server in Docker
         run: |
@@ -59,18 +28,8 @@ jobs:
           echo "Waiting for SQL Server to start..."
           sleep 20
 
-      - name: Install Mono and XSP4
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ca-certificates gnupg
-          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-          sudo apt-get update
-          sudo apt-get install -y mono-complete mono-xsp4
-
       - name: Initialize Database
         run: |
-          cd learnsite-test
           if [ -f "sql/learnsite.sql" ]; then
             docker cp sql/learnsite.sql learnsite-mssql:/tmp/learnsite.sql
             docker exec learnsite-mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -C -Q "CREATE DATABASE [learnsite];"
@@ -79,68 +38,28 @@ jobs:
             echo "[WARNING] sql/learnsite.sql not found, skipping database initialization"
           fi
 
-      - name: Update web.config for Docker test
+      - name: Pull and Run LearnSite Docker Image
         run: |
-          cd learnsite-test
-          if [ -f "web.config" ]; then
-            sed -i 's/Data Source=127.0.0.1;/Data Source=localhost;/g' web.config
-            echo "[INFO] Updated web.config connection string"
-          else
-            echo "[WARNING] web.config not found, skipping configuration update"
-          fi
-
-      - name: Check directory structure
-        run: |
-          cd learnsite-test
-          echo "=== Current Directory ==="
-          pwd
-          ls -la
-          echo ""
-          echo "=== Bin Directory ==="
-          ls -la Bin/ 2>/dev/null || echo "Bin directory not found"
-          echo ""
-          echo "=== Check for index.aspx ==="
-          ls -la index.aspx 2>/dev/null || echo "index.aspx not found"
-          echo ""
-          echo "=== Check for index.aspx.cs ==="
-          ls -la index.aspx.cs 2>/dev/null || echo "index.aspx.cs not found"
-          echo ""
-          echo "=== Check for login.aspx ==="
-          ls -la login.aspx 2>/dev/null || echo "login.aspx not found"
-          echo ""
-          echo "=== All aspx files ==="
-          find . -name "*.aspx" | head -20
-          echo ""
-          echo "=== All aspx.cs files ==="
-          find . -name "*.aspx.cs" | head -20
-
-      - name: Test XSP4 installation
-        run: |
-          echo "=== Testing XSP4 Installation ==="
-          which xsp4
-          echo "XSP4 path: $(which xsp4)"
-          echo "Mono version: $(mono --version)"
-          echo "XSP4 version:"
-          xsp4 --version 2>&1 || echo "xsp4 version check failed"
-
-      - name: Start XSP4 with nonstop flag
-        run: |
-          cd learnsite-test
-          echo "=== Starting XSP4 with nonstop flag ==="
-          # 使用 --nonstop 参数确保XSP4不会立即停止
-          xsp4 --port 8080 --address 0.0.0.0 --nonstop --verbose 2>&1 > xsp4.log &
-          XSP4_PID=$!
-          echo "XSP4 started with PID: $XSP4_PID"
+          # 拉取最新镜像
+          docker pull ghcr.io/realkiro/learnsite-wz:latest
+          
+          # 运行容器
+          docker run -d --name learnsite \
+            --link learnsite-mssql:mssql \
+            -p 8080:8080 \
+            -e MONO_THREADS_PER_CPU=50 \
+            ghcr.io/realkiro/learnsite-wz:latest
+          
+          echo "Waiting for LearnSite to start..."
           sleep 15
+
+      - name: Check Container Status
+        run: |
+          echo "=== Container Status ==="
+          docker ps -a
           
-          echo "=== XSP4 Process Status ==="
-          ps aux | grep xsp4 | grep -v grep
-          
-          echo "=== Port 8080 Status ==="
-          netstat -tuln | grep 8080 || echo "Port 8080 not listening"
-          
-          echo "=== XSP4 Logs ==="
-          cat xsp4.log || echo "No xsp4.log found"
+          echo "=== LearnSite Container Logs ==="
+          docker logs learnsite --tail 50
 
       - name: Test frontend page access
         run: |
@@ -155,5 +74,7 @@ jobs:
 
       - name: Cleanup
         run: |
+          docker stop learnsite || true
+          docker rm learnsite || true
           docker stop learnsite-mssql || true
           docker rm learnsite-mssql || true
