@@ -16,7 +16,7 @@ jobs:
         id: release
         run: |
           # 优先获取alpha版本
-          $alphaReleases = gh release list --json tagName,name,assets --jq '.[] | select(.tagName | startswith("alpha-"))' | ConvertFrom-Json
+          $alphaReleases = gh release list --repo ${{ github.repository }} --json tagName,name,assets --jq '.[] | select(.tagName | startswith("alpha-"))' | ConvertFrom-Json
           if ($alphaReleases.Count -gt 0) {
             $latestAlpha = $alphaReleases | Sort-Object -Property tagName -Descending | Select-Object -First 1
             echo "tag_name=$($latestAlpha.tagName)" >> $env:GITHUB_OUTPUT
@@ -24,7 +24,7 @@ jobs:
             echo "download_url=$($latestAlpha.assets[0].url)" >> $env:GITHUB_OUTPUT
           } else {
             # 如果没有alpha版本，获取最新版本
-            $latestRelease = gh release list --limit 1 --json tagName,name,assets --jq '.[0]' | ConvertFrom-Json
+            $latestRelease = gh release list --repo ${{ github.repository }} --limit 1 --json tagName,name,assets --jq '.[0]' | ConvertFrom-Json
             echo "tag_name=$($latestRelease.tagName)" >> $env:GITHUB_OUTPUT
             echo "asset_name=$($latestRelease.assets[0].name)" >> $env:GITHUB_OUTPUT
             echo "download_url=$($latestRelease.assets[0].url)" >> $env:GITHUB_OUTPUT
@@ -35,7 +35,7 @@ jobs:
 
       - name: Download Release Asset
         run: |
-          gh release download ${{ steps.release.outputs.tag_name }} --pattern "*.zip"
+          gh release download ${{ steps.release.outputs.tag_name }} --repo ${{ github.repository }} --pattern "*.zip"
         shell: powershell
         env:
           GH_TOKEN: ${{ github.token }}
