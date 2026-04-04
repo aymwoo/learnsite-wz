@@ -7,8 +7,75 @@
             --workspace-hero-bg: linear-gradient(135deg, #312e81 0%, #4338ca 55%, #6366f1 100%);
             --workspace-primary-bg: #4f46e5;
             --workspace-primary-hover: #4338ca;
-            --workspace-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
+            padding: 28px;
+            background: var(--workspace-page-bg);
+            box-sizing: border-box;
         }
+        .course-edit-page * { box-sizing: border-box; }
+
+        .course-edit-hero {
+            border-radius: 1rem;
+            padding: 28px;
+            background: var(--workspace-hero-bg);
+            color: #eef2ff;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .course-edit-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .75; display: block; margin-bottom: 8px; }
+        .course-edit-title   { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+        .course-edit-subtitle{ margin: 8px 0 0; font-size: 14px; line-height: 1.7; opacity: .85; }
+
+        .course-edit-panel, .course-edit-editor-panel, .course-edit-feedback, .course-edit-actions {
+            background: #fff;
+            border: 1px solid #dbe6f5;
+            border-radius: 1rem;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(15,23,42,.04);
+        }
+        .course-edit-section-title { margin: 0 0 4px; font-size: 16px; font-weight: 800; color: #0f172a; }
+        .course-edit-section-desc  { margin: 0 0 18px; font-size: 14px; color: #64748b; line-height: 1.7; }
+
+        .course-edit-label { display: block; font-size: 14px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        .course-edit-input, .course-edit-select {
+            width: 100%; min-height: 42px; padding: 0 12px;
+            border: 1px solid #cbd5e1; border-radius: .75rem;
+            background: #f8fafc; color: #0f172a; font-size: 14px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .course-edit-input:focus, .course-edit-select:focus {
+            border-color: #60a5fa; outline: none; background: #fff;
+            box-shadow: 0 0 0 4px rgba(96,165,250,.18);
+        }
+        .course-edit-static { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #334155; min-height: 42px; }
+        .course-edit-publish { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+        .course-edit-primary-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 44px; padding: 0 24px; border: none; border-radius: 1rem;
+            font-size: 14px; font-weight: 700; color: #fff; cursor: pointer;
+            background: linear-gradient(135deg,#4f46e5,#4338ca);
+            box-shadow: 0 8px 16px rgba(79,70,229,.2); transition: transform .15s;
+        }
+        .course-edit-primary-btn:hover { transform: translateY(-1px); }
+        .course-edit-secondary-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 44px; padding: 0 24px; border: 1px solid #e2e8f0; border-radius: 1rem;
+            font-size: 14px; font-weight: 700; color: #475569; cursor: pointer;
+            background: #fff; transition: background .15s;
+        }
+        .course-edit-secondary-btn:hover { background: #f8fafc; }
+        .course-edit-switch-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 36px; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: .75rem;
+            font-size: 13px; font-weight: 700; color: #475569; cursor: pointer;
+            background: #f8fafc; transition: all .15s;
+        }
+        .course-edit-switch-btn.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
 
         .course-edit-grid {
             display: grid;
@@ -85,17 +152,138 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .course-edit-field,
-            .course-edit-field-wide {
-                grid-column: span 12;
-            }
+        .course-edit-shell {
+            position: relative;
         }
-    </style>
+
+        .course-edit-hero {
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.3s ease;
+        }
+
+        .course-edit-hero.has-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(15,23,42,0.55) 0%, rgba(49,46,129,0.45) 100%);
+            pointer-events: none;
+        }
+
+        .course-edit-hero.has-banner .course-edit-hero-content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+
+        .course-edit-hero.has-banner .course-edit-eyebrow,
+        .course-edit-hero.has-banner .course-edit-subtitle {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .course-edit-banner-trigger {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .15s;
+        }
+
+        .course-edit-banner-trigger:hover { background: rgba(255,255,255,0.25); }
+        .course-edit-banner-trigger svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+        /* Banner Modal */
+        .ce-banner-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(15,23,42,0.55);
+            align-items: center;
+            justify-content: center;
+        }
+        .ce-banner-modal.is-open { display: flex; }
+        .ce-banner-dialog {
+            background: #fff;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 24px 60px rgba(15,23,42,0.2);
+            overflow: hidden;
+        }
+        .ce-banner-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 20px 24px 0;
+        }
+        .ce-banner-title { margin: 0; font-size: 16px; font-weight: 800; color: #0f172a; }
+        .ce-banner-desc  { margin: 4px 0 0; font-size: 13px; color: #64748b; }
+        .ce-banner-close {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; border-radius: 50%; border: none;
+            background: #f1f5f9; cursor: pointer; flex-shrink: 0;
+        }
+        .ce-banner-close svg { width: 16px; height: 16px; stroke: #64748b; fill: none; stroke-width: 2; stroke-linecap: round; }
+        .ce-banner-body { padding: 20px 24px; }
+        .ce-banner-dropzone {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 10px; padding: 32px 20px;
+            border: 2px dashed #cbd5e1; border-radius: 1rem;
+            background: #f8fafc; cursor: pointer; transition: all .15s; text-align: center;
+            position: relative;
+        }
+        .ce-banner-dropzone.is-dragover { border-color: #60a5fa; background: #eff6ff; }
+        .ce-banner-dropzone svg { width: 36px; height: 36px; stroke: #94a3b8; fill: none; stroke-width: 1.5; stroke-linecap: round; }
+        .ce-banner-dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+        .ce-banner-drop-title { font-size: 14px; font-weight: 700; color: #334155; }
+        .ce-banner-drop-desc  { font-size: 12px; color: #64748b; }
+        .ce-banner-preview {
+            display: none; margin-top: 12px; border-radius: .75rem; overflow: hidden;
+            height: 120px; background-size: cover; background-position: center;
+            border: 1px solid #e2e8f0;
+        }
+        .ce-banner-status { margin-top: 10px; font-size: 13px; font-weight: 600; min-height: 20px; }
+        .ce-banner-status.is-error { color: #dc2626; }
+        .ce-banner-status.is-success { color: #16a34a; }
+        .ce-banner-foot {
+            display: flex; justify-content: flex-end; gap: 10px;
+            padding: 16px 24px; border-top: 1px solid #f1f5f9;
+        }
+        .ce-banner-btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-height: 40px; padding: 0 20px; border-radius: 1rem; border: 1px solid #e2e8f0;
+            font-size: 14px; font-weight: 700; cursor: pointer; background: #fff; color: #475569;
+            transition: background .15s;
+        }
+        .ce-banner-btn.primary {
+            background: linear-gradient(135deg,#4f46e5,#4338ca); color: #fff; border: none;
+            box-shadow: 0 4px 12px rgba(79,70,229,.2);
+        }
+        .ce-banner-btn:disabled { opacity: .5; cursor: not-allowed; }
 
     <div class="course-edit-page">
         <div class="course-edit-shell">
-            <section class="course-edit-hero">
+            <section id="EditHeroSection" class="course-edit-hero">
+                <button type="button" class="course-edit-banner-trigger" id="BannerTrigger">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
+                    编辑横幅
+                </button>
                 <div class="course-edit-hero-content">
                     <span class="course-edit-eyebrow">Edit Course Plan</span>
                     <h1 class="course-edit-title">学案编辑</h1>
@@ -149,7 +337,7 @@
                         </label>
                     </div>
 
-                    <div class="course-edit-field course-edit-field-wide">
+                    <div class="course-edit-field course-edit-field-wide" style="display:none;">
                         <span class="course-edit-label">横幅设置</span>
                         <div class="course-edit-banner-row">
                             <asp:HyperLink ID="HLbanner" runat="server" Target="_blank" CssClass="course-edit-banner-link">学案横幅</asp:HyperLink>
@@ -158,6 +346,7 @@
                             </div>
                         </div>
                     </div>
+                    <asp:HiddenField ID="HiddenBannerUrl" runat="server" />
                 </div>
             </section>
 
@@ -372,4 +561,129 @@
             </section>
         </div>
     </div>
+
+    <!-- Banner Modal -->
+    <div id="CeBannerModal" class="ce-banner-modal" aria-hidden="true">
+        <div class="ce-banner-dialog">
+            <div class="ce-banner-head">
+                <div>
+                    <h2 class="ce-banner-title">编辑学案横幅</h2>
+                    <p class="ce-banner-desc">上传图片作为学案横幅背景，建议使用横向大图。</p>
+                </div>
+                <button type="button" class="ce-banner-close" id="CeBannerClose">
+                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12"></path><path d="M18 6l-12 12"></path></svg>
+                </button>
+            </div>
+            <div class="ce-banner-body">
+                <div class="ce-banner-dropzone" id="CeBannerDropzone">
+                    <svg viewBox="0 0 24 24"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"></path></svg>
+                    <p class="ce-banner-drop-title">点击选择或拖拽图片到此处</p>
+                    <p class="ce-banner-drop-desc">支持 png、jpg、gif、webp，建议横向大图</p>
+                    <input type="file" id="CeBannerFile" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" />
+                </div>
+                <div id="CeBannerPreview" class="ce-banner-preview"></div>
+                <div id="CeBannerStatus" class="ce-banner-status"></div>
+            </div>
+            <div class="ce-banner-foot">
+                <button type="button" class="ce-banner-btn" id="CeBannerCancel">取消</button>
+                <button type="button" class="ce-banner-btn primary" id="CeBannerSave">保存横幅</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    (function(){
+        var hero = document.getElementById('EditHeroSection');
+        var modal = document.getElementById('CeBannerModal');
+        var trigger = document.getElementById('BannerTrigger');
+        var closeBtn = document.getElementById('CeBannerClose');
+        var cancelBtn = document.getElementById('CeBannerCancel');
+        var saveBtn = document.getElementById('CeBannerSave');
+        var dropzone = document.getElementById('CeBannerDropzone');
+        var fileInput = document.getElementById('CeBannerFile');
+        var preview = document.getElementById('CeBannerPreview');
+        var status = document.getElementById('CeBannerStatus');
+        var hiddenUrl = document.getElementById('<%= HiddenBannerUrl.ClientID %>');
+        var hlBanner = document.getElementById('<%= HLbanner.ClientID %>');
+        var cidField = document.querySelector('input[id$="HiddenCourseId"]');
+        var selectedFile = null;
+
+        // 初始化：如果已有横幅则应用
+        var initUrl = hlBanner ? hlBanner.href : '';
+        if (initUrl && initUrl !== window.location.href) applyHero(initUrl);
+
+        function applyHero(url) {
+            if (!url) return;
+            hero.style.backgroundImage = "url('" + url.replace(/'/g,"\\'"  ) + "')";
+            hero.classList.add('has-banner');
+        }
+
+        function setStatus(msg, cls) {
+            status.textContent = msg;
+            status.className = 'ce-banner-status' + (cls ? ' ' + cls : '');
+        }
+
+        trigger.addEventListener('click', function(){ modal.classList.add('is-open'); });
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+
+        function closeModal(){
+            modal.classList.remove('is-open');
+            selectedFile = null;
+            preview.style.display = 'none';
+            setStatus('');
+            fileInput.value = '';
+        }
+
+        fileInput.addEventListener('change', function(){
+            if (this.files && this.files[0]) previewFile(this.files[0]);
+        });
+        dropzone.addEventListener('dragover', function(e){ e.preventDefault(); dropzone.classList.add('is-dragover'); });
+        dropzone.addEventListener('dragleave', function(){ dropzone.classList.remove('is-dragover'); });
+        dropzone.addEventListener('drop', function(e){
+            e.preventDefault(); dropzone.classList.remove('is-dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) previewFile(e.dataTransfer.files[0]);
+        });
+
+        function previewFile(file) {
+            selectedFile = file;
+            var url = URL.createObjectURL(file);
+            preview.style.backgroundImage = "url('" + url + "')";
+            preview.style.display = 'block';
+            setStatus('已选择：' + file.name);
+        }
+
+        saveBtn.addEventListener('click', function(){
+            if (!selectedFile) { setStatus('请先选择图片', 'is-error'); return; }
+            var cid = new URLSearchParams(window.location.search).get('cid');
+            if (!cid) { setStatus('缺少课程编号', 'is-error'); return; }
+            var fd = new FormData();
+            fd.append('action', 'upload');
+            fd.append('cid', cid);
+            fd.append('banner', selectedFile);
+            saveBtn.disabled = true;
+            setStatus('上传中...');
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'coursebanner.ashx');
+            xhr.onload = function(){
+                saveBtn.disabled = false;
+                try {
+                    var res = JSON.parse(xhr.responseText);
+                    if (res.success && res.bannerUrl) {
+                        applyHero(res.bannerUrl);
+                        if (hlBanner) hlBanner.href = res.bannerUrl;
+                        if (hiddenUrl) hiddenUrl.value = res.bannerUrl;
+                        setStatus('横幅已更新', 'is-success');
+                        setTimeout(closeModal, 700);
+                    } else {
+                        setStatus(res.message || '上传失败', 'is-error');
+                    }
+                } catch(e) { setStatus('响应解析失败', 'is-error'); }
+            };
+            xhr.onerror = function(){ saveBtn.disabled = false; setStatus('网络错误', 'is-error'); };
+            xhr.send(fd);
+        });
+    })();
+    </script>
 </asp:Content>

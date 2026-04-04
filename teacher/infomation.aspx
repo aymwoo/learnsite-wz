@@ -36,16 +36,16 @@
     .info-class-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
     }
     .info-class-item {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 90px;
-        min-height: 44px;
-        padding: 0 16px;
-        border-radius: 1rem;
+        min-width: 72px;
+        min-height: 40px;
+        padding: 0 14px;
+        border-radius: 6px;
         border: 1px solid #bfdbfe;
         background: linear-gradient(180deg,#fff 0%,#eff6ff 100%);
         font-size: 14px;
@@ -55,6 +55,20 @@
         transition: transform .15s, box-shadow .15s;
     }
     .info-class-item:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(37,99,235,.15); }
+
+    /* 循环色系 */
+    .info-class-item:nth-child(6n+1) { background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
+    .info-class-item:nth-child(6n+2) { background:#f0fdf4; border-color:#bbf7d0; color:#15803d; }
+    .info-class-item:nth-child(6n+3) { background:#fefce8; border-color:#fde68a; color:#a16207; }
+    .info-class-item:nth-child(6n+4) { background:#fff1f2; border-color:#fecaca; color:#b91c1c; }
+    .info-class-item:nth-child(6n+5) { background:#f5f3ff; border-color:#ddd6fe; color:#6d28d9; }
+    .info-class-item:nth-child(6n+6) { background:#ecfeff; border-color:#a5f3fc; color:#0e7490; }
+    .info-cc-0 { background:#eff6ff; border-color:#bfdbfe; color:#1d4ed8; }
+    .info-cc-1 { background:#f0fdf4; border-color:#bbf7d0; color:#15803d; }
+    .info-cc-2 { background:#fefce8; border-color:#fde68a; color:#a16207; }
+    .info-cc-3 { background:#fff1f2; border-color:#fecaca; color:#b91c1c; }
+    .info-cc-4 { background:#f5f3ff; border-color:#ddd6fe; color:#6d28d9; }
+    .info-cc-5 { background:#ecfeff; border-color:#a5f3fc; color:#0e7490; }
 
     .info-meta {
         display: flex;
@@ -97,18 +111,17 @@
             <h2 class="info-card__title">我的班级列表</h2>
         </div>
         <div class="info-card__body">
-            <div class="info-class-grid">
-                <asp:DataList ID="DLmyclass" runat="server" RepeatColumns="10"
-                    RepeatDirection="Horizontal" CellPadding="0" CellSpacing="0"
-                    onitemdatabound="DLmyclass_ItemDataBound">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="HyperRgradeclass" runat="server" Font-Underline="False"
-                            Text='<%# Eval("Rgradeclass") %>' CssClass="info-class-item"></asp:HyperLink>
-                        <asp:Label ID="LabelRset" runat="server" Text='<%# Eval("Rset") %>' Visible="False"></asp:Label>
-                        <asp:Label ID="LabelRreg" runat="server" Text='<%# Eval("Rreg") %>' Visible="False"></asp:Label>
-                    </ItemTemplate>
-                </asp:DataList>
-            </div>
+            <div id="class-grid" class="info-class-grid"></div>
+            <asp:DataList ID="DLmyclass" runat="server" RepeatColumns="10"
+                RepeatDirection="Horizontal" CellPadding="0" CellSpacing="0"
+                onitemdatabound="DLmyclass_ItemDataBound" style="display:none;">
+                <ItemTemplate>
+                    <asp:HyperLink ID="HyperRgradeclass" runat="server" Font-Underline="False"
+                        Text='<%# Eval("Rgradeclass") %>' CssClass="info-class-item"></asp:HyperLink>
+                    <asp:Label ID="LabelRset" runat="server" Text='<%# Eval("Rset") %>' Visible="False"></asp:Label>
+                    <asp:Label ID="LabelRreg" runat="server" Text='<%# Eval("Rreg") %>' Visible="False"></asp:Label>
+                </ItemTemplate>
+            </asp:DataList>
         </div>
     </div>
 
@@ -118,11 +131,18 @@
     </div>
 
     <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-        <asp:Button ID="Btnlogout" runat="server" Text="系统退出" SkinID="BtnNormal"
-            onclick="Btnlogout_Click" CssClass="info-btn" />
         <asp:Label ID="Labelmsg" runat="server" SkinID="LabelMsgBlack" CssClass="info-msg"></asp:Label>
     </div>
 
 </div>
+<script>
+(function(){
+    var grid = document.getElementById('class-grid');
+    document.querySelectorAll('.info-class-item').forEach(function(el, i){
+        el.classList.add('info-cc-' + (i % 6));
+        grid.appendChild(el);
+    });
+})();
+</script>
 </asp:Content>
 

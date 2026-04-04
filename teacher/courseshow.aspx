@@ -961,21 +961,88 @@
             color: #b91c1c;
         }
 
-        .course-show-grid {
-            table-layout: fixed;
+        .course-show-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
         }
 
-        .course-show-grid .course-show-menu-row {
-            transition: background 0.2s ease, transform 0.2s ease;
+        .course-show-menu-row {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border-bottom: 1px solid #f1f5f9;
+            background: #ffffff;
+            transition: background 0.15s ease, opacity 0.15s ease, transform 0.15s ease;
         }
 
-        .course-show-grid .course-show-menu-row.dragging {
-            opacity: 0;
+        .course-show-menu-row:first-child {
+            border-radius: 0.75rem 0.75rem 0 0;
         }
 
-        .course-show-grid .course-show-menu-row.drop-target td {
-            background: #eef2ff;
-            box-shadow: inset 0 0 0 1px #a5b4fc;
+        .course-show-menu-row:last-child {
+            border-bottom: none;
+            border-radius: 0 0 0.75rem 0.75rem;
+        }
+
+        .course-show-menu-row:hover {
+            background: #fafbff;
+        }
+
+        .course-show-menu-row.dragging {
+            opacity: 0.38;
+            transform: scaleX(0.72);
+            transform-origin: left center;
+        }
+
+        .course-show-menu-row.is-hidden {
+            background: #f8fafc;
+        }
+
+        .course-show-menu-row.is-hidden .course-show-link,
+        .course-show-menu-row.is-hidden .course-show-type-text {
+            color: #64748b;
+        }
+
+        .course-show-menu-col-order {
+            flex: 0 0 7rem;
+            padding: 0.45rem 0.75rem;
+        }
+
+        .course-show-menu-col-type {
+            flex: 0 0 13rem;
+            padding: 0.45rem 0.75rem;
+        }
+
+        .course-show-menu-col-title {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 0.45rem 0.75rem;
+        }
+
+        .course-show-menu-col-state {
+            flex: 0 0 6rem;
+            padding: 0.45rem 0.75rem;
+            text-align: center;
+        }
+
+        .course-show-menu-col-action {
+            flex: 0 0 5rem;
+            padding: 0.45rem 0.75rem;
+            text-align: center;
+        }
+
+        .course-show-menu-header {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-radius: 0.75rem 0.75rem 0 0;
+            color: #64748b;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .course-show-drag-proxy {
@@ -984,74 +1051,41 @@
             top: 0;
             pointer-events: none;
             z-index: 9999;
-            opacity: 0.98;
+            opacity: 0.92;
             transform: translate3d(-9999px, -9999px, 0);
-            box-shadow: 0 28px 48px -24px rgba(15, 23, 42, 0.35);
+            box-shadow: 0 12px 32px -16px rgba(15, 23, 42, 0.28);
+            border-radius: 0.75rem;
+            border: 1px solid #c7d2fe;
+            background: #ffffff;
             transition: transform 0.03s linear;
         }
 
-        .course-show-drag-proxy table {
-            border-collapse: separate;
-            border-spacing: 0;
-            background: #ffffff;
-            border: 1px solid #c7d2fe;
-            border-radius: 1rem;
-            overflow: hidden;
-        }
-
-        .course-show-drag-proxy td {
-            padding: 0.95rem 0.9rem;
-            border-bottom: 1px solid #eef2f7;
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        .course-show-placeholder td {
-            padding: 0.35rem 0.9rem;
-            background: #eef2ff;
-            border-bottom: 1px dashed #a5b4fc;
-            box-shadow: inset 0 0 0 1px rgba(99, 102, 241, 0.18);
-        }
-
-        .course-show-placeholder-bar {
-            height: 0.65rem;
-            border-radius: 9999px;
+        .course-show-placeholder {
+            height: 2px;
             background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
-        }
-
-        .course-show-grid .course-show-menu-row.is-hidden td {
-            background: #f8fafc;
-            color: #94a3b8;
-        }
-
-        .course-show-grid .course-show-menu-row.is-hidden .course-show-link,
-        .course-show-grid .course-show-menu-row.is-hidden .course-show-type-text {
-            color: #64748b;
-        }
-
-        .course-show-order-cell {
-            width: 7rem;
+            border-radius: 9999px;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+            margin: 0;
         }
 
         .course-show-order-wrap {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.55rem;
         }
 
         .course-show-drag {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 0.7rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 0.5rem;
             border: 1px solid #dbe4ff;
             background: #f8faff;
             color: #64748b;
             cursor: move;
-            font-size: 1rem;
+            font-size: 0.85rem;
             user-select: none;
             touch-action: none;
         }
@@ -1062,8 +1096,7 @@
             color: #4338ca;
         }
 
-        .course-show-grid.is-sorting,
-        .course-show-grid.is-sorting .course-show-drag {
+        .course-show-menu-list.is-sorting .course-show-drag {
             cursor: grabbing;
         }
 
@@ -1071,45 +1104,30 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-width: 2.1rem;
-            height: 2.1rem;
-            padding: 0 0.55rem;
+            min-width: 1.6rem;
+            height: 1.6rem;
+            padding: 0 0.4rem;
             border-radius: 9999px;
             background: #e0e7ff;
             color: #3730a3;
             font-weight: 700;
-        }
-
-        .course-show-type-cell {
-            width: 14rem;
-        }
-
-        .course-show-compact-cell {
-            width: 6.5rem;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .course-show-action-cell {
-            width: 5.5rem;
-            text-align: center;
-            white-space: nowrap;
+            font-size: 0.8rem;
         }
 
         .course-show-type-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.55rem;
             max-width: 100%;
-            padding: 0.55rem 0.85rem;
+            padding: 0.3rem 0.65rem;
             border-radius: 9999px;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
         }
 
         .course-show-type-icon {
-            width: 1.75rem;
-            height: 1.75rem;
+            width: 1.4rem;
+            height: 1.4rem;
             object-fit: contain;
             flex-shrink: 0;
         }
@@ -1152,13 +1170,13 @@
             align-items: center;
             justify-content: center;
             min-width: 2rem;
-            min-height: 2rem;
-            padding: 0.35rem 0.65rem;
-            border-radius: 0.7rem;
+            min-height: 1.7rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 0.6rem;
             border: 1px solid #dbe4ff;
             background: #ffffff;
             color: #334155;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 700;
         }
 
@@ -1169,7 +1187,7 @@
         }
 
         .course-show-state-btn {
-            min-width: 4.3rem;
+            min-width: 4rem;
             color: #166534;
             background: #ecfdf5;
             border-color: #bbf7d0;
@@ -1182,7 +1200,7 @@
         }
 
         .course-show-danger-btn {
-            min-width: 3.5rem;
+            min-width: 3rem;
             color: #b91c1c;
             background: #fff1f2;
             border-color: #fecdd3;
@@ -1324,8 +1342,8 @@
                 justify-content: flex-start;
             }
 
-            .course-show-grid {
-                min-width: 760px;
+            .course-show-menu-wrap {
+                overflow-x: auto;
             }
 
             .course-show-type-cell {
@@ -1557,56 +1575,45 @@
                 <div id="MenuSortStatus" class="course-show-save-status"></div>
 
                 <div class="course-show-menu-wrap">
-                    <asp:GridView ID="GVlistmenu" runat="server" AutoGenerateColumns="False" EnableModelValidation="True" OnRowCommand="GVlistmenu_RowCommand" OnRowDataBound="GVlistmenu_RowDataBound" CssClass="course-show-grid" GridLines="None">
-                        <Columns>
-                            <asp:TemplateField Visible="False">
-                                <ItemTemplate>
-                                    <asp:Label ID="LabelLid" runat="server" Text='<%# Bind("Lid") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField Visible="False">
-                                <ItemTemplate>
-                                    <asp:Label ID="LabelLxid" runat="server" Text='<%# Bind("Lxid") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField Visible="False">
-                                <ItemTemplate>
-                                    <asp:Label ID="LabelLtype" runat="server" Text='<%# Bind("Ltype") %>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="顺序" ItemStyle-CssClass="course-show-order-cell">
-                                <ItemTemplate>
-                                    <div class="course-show-order-wrap">
-                                        <span class="course-show-drag" title="拖动排序">::</span>
-                                        <span class="course-show-order-badge"><asp:Label ID="LabelLsort" runat="server" Text='<%# Bind("Lsort") %>'></asp:Label></span>
+                    <div class="course-show-menu-header">
+                        <div class="course-show-menu-col-order">顺序</div>
+                        <div class="course-show-menu-col-type">类型</div>
+                        <div class="course-show-menu-col-title">导航栏目</div>
+                        <div class="course-show-menu-col-state">发布</div>
+                        <div class="course-show-menu-col-action">操作</div>
+                    </div>
+                    <div id="MenuList" class="course-show-menu-list">
+                        <asp:Repeater ID="RptListMenu" runat="server" OnItemDataBound="RptListMenu_ItemDataBound" OnItemCommand="RptListMenu_ItemCommand">
+                            <ItemTemplate>
+                                <div id="MenuRow" runat="server" class="course-show-menu-row" data-lid='<%# Eval("Lid") %>'>
+                                    <div class="course-show-menu-col-order">
+                                        <div class="course-show-order-wrap">
+                                            <span class="course-show-drag" title="拖动排序">::</span>
+                                            <span class="course-show-order-badge"><asp:Label ID="LabelLsort" runat="server" Text='<%# Eval("Lsort") %>'></asp:Label></span>
+                                        </div>
                                     </div>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="类型" ItemStyle-CssClass="course-show-type-cell">
-                                <ItemTemplate>
-                                    <span class="course-show-type-badge">
-                                        <asp:Image ID="Image4" runat="server" ImageUrl="~/images/new_none.gif" CssClass="course-show-type-icon" />
-                                        <asp:Label ID="Label4" runat="server" CssClass="course-show-type-text"></asp:Label>
-                                    </span>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="导航栏目">
-                                <ItemTemplate>
-                                    <asp:HyperLink ID="HlLtitle" runat="server" NavigateUrl="" Text='<%# Eval("Ltitle") %>' CssClass="course-show-link"></asp:HyperLink>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="发布" ItemStyle-CssClass="course-show-compact-cell">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkBtnShow" runat="server" CausesValidation="false" CommandName="P" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text='<%# Eval("lshow") %>' ToolTip="True显示，False隐藏" CssClass="course-show-state-btn"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="操作" ItemStyle-CssClass="course-show-action-cell">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="LinkBtnDel" runat="server" CausesValidation="false" CommandName="D" CommandArgument='<%# ((GridViewRow) Container).RowIndex %>' Text="删除" ToolTip="请认真确定是否删除，不可恢复！" CssClass="course-show-danger-btn"></asp:LinkButton>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                    </asp:GridView>
+                                    <div class="course-show-menu-col-type">
+                                        <span class="course-show-type-badge">
+                                            <asp:Image ID="Image4" runat="server" ImageUrl="~/images/new_none.gif" CssClass="course-show-type-icon" />
+                                            <asp:Label ID="Label4" runat="server" CssClass="course-show-type-text"></asp:Label>
+                                        </span>
+                                    </div>
+                                    <div class="course-show-menu-col-title">
+                                        <asp:HyperLink ID="HlLtitle" runat="server" NavigateUrl="" Text='<%# Eval("Ltitle") %>' CssClass="course-show-link"></asp:HyperLink>
+                                    </div>
+                                    <div class="course-show-menu-col-state">
+                                        <asp:LinkButton ID="LinkBtnShow" runat="server" CausesValidation="false" CommandName="P" CommandArgument='<%# Eval("Lid") %>' Text='<%# Eval("lshow") %>' ToolTip="True显示，False隐藏" CssClass="course-show-state-btn"></asp:LinkButton>
+                                    </div>
+                                    <div class="course-show-menu-col-action">
+                                        <asp:LinkButton ID="LinkBtnDel" runat="server" CausesValidation="false" CommandName="D" CommandArgument='<%# Eval("Lid") %>' Text="删除" ToolTip="请认真确定是否删除，不可恢复！" CssClass="course-show-danger-btn"></asp:LinkButton>
+                                    </div>
+                                    <asp:Label ID="LabelLid" runat="server" Text='<%# Eval("Lid") %>' style="display:none"></asp:Label>
+                                    <asp:Label ID="LabelLxid" runat="server" Text='<%# Eval("Lxid") %>' style="display:none"></asp:Label>
+                                    <asp:Label ID="LabelLtype" runat="server" Text='<%# Eval("Ltype") %>' style="display:none"></asp:Label>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
                 </div>
             </section>
         </div>
@@ -2032,12 +2039,9 @@
             }
 
             function initDragSort() {
-                var table = document.getElementById('<%= GVlistmenu.ClientID %>');
-                if (!table || !table.tBodies || !table.tBodies.length) {
-                    return;
-                }
+                var list = document.getElementById('MenuList');
+                if (!list) { return; }
 
-                var tbody = table.tBodies[0];
                 var activeRow = null;
                 var dragProxy = null;
                 var placeholder = null;
@@ -2058,54 +2062,32 @@
                 var statusTimer = 0;
 
                 function getRows() {
-                    return Array.prototype.slice.call(tbody.rows || []).filter(function (row) {
-                        return row.getAttribute('data-lid');
+                    return Array.prototype.slice.call(list.children).filter(function (el) {
+                        return el.getAttribute && el.getAttribute('data-lid');
                     });
                 }
 
                 function getOrder() {
-                    var rows = getRows();
-                    var order = [];
-                    for (var i = 0; i < rows.length; i++) {
-                        var lid = rows[i].getAttribute('data-lid');
-                        if (lid) {
-                            order.push(lid);
-                        }
-                    }
-                    return order;
+                    return getRows().map(function (r) { return r.getAttribute('data-lid'); });
                 }
 
                 function setStatus(message, statusClass) {
-                    if (!statusNode) {
-                        return;
-                    }
-
-                    if (statusTimer) {
-                        window.clearTimeout(statusTimer);
-                        statusTimer = 0;
-                    }
-
+                    if (!statusNode) { return; }
+                    if (statusTimer) { window.clearTimeout(statusTimer); statusTimer = 0; }
                     statusNode.className = 'course-show-save-status' + (statusClass ? ' ' + statusClass : '');
                     statusNode.innerHTML = message || '';
-
                     if (statusClass === 'is-success' && message) {
                         statusTimer = window.setTimeout(function () {
                             statusNode.className = 'course-show-save-status is-success is-fading';
                             window.setTimeout(function () {
-                                if (!isDirty) {
-                                    statusNode.className = 'course-show-save-status';
-                                    statusNode.innerHTML = '';
-                                }
+                                if (!isDirty) { statusNode.className = 'course-show-save-status'; statusNode.innerHTML = ''; }
                             }, 280);
                         }, 1600);
                     }
                 }
 
                 function setSaveButtonState(saving) {
-                    if (!saveButton) {
-                        return;
-                    }
-
+                    if (!saveButton) { return; }
                     saveButton.disabled = saving;
                     saveButton.innerHTML = saving ? '保存中...' : saveButtonDefaultText;
                 }
@@ -2113,301 +2095,142 @@
                 function setDirtyState(dirty) {
                     isDirty = dirty;
                     currentOrderValue = getOrder().join(',');
-                    if (hiddenOrder) {
-                        hiddenOrder.value = currentOrderValue;
-                    }
-
-                    if (saveButton) {
-                        saveButton.style.display = dirty ? 'inline-flex' : 'none';
-                        setSaveButtonState(false);
-                    }
-
-                    if (!dirty) {
-                        setStatus('', '');
-                    } else {
-                        setStatus('顺序已调整，点击保存后生效', '');
-                    }
+                    if (hiddenOrder) { hiddenOrder.value = currentOrderValue; }
+                    if (saveButton) { saveButton.style.display = dirty ? 'inline-flex' : 'none'; setSaveButtonState(false); }
+                    if (!dirty) { setStatus('', ''); } else { setStatus('顺序已调整，点击保存后生效', ''); }
                 }
 
                 function updateSortBadges() {
-                    var rows = getRows();
-                    for (var i = 0; i < rows.length; i++) {
-                        var label = rows[i].querySelector ? rows[i].querySelector('[id$="LabelLsort"]') : null;
-                        if (label) {
-                            if (typeof label.textContent !== 'undefined') {
-                                label.textContent = String(i + 1);
-                            } else {
-                                label.innerText = String(i + 1);
-                            }
-                        }
-                    }
-                }
-
-                function getScrollHost() {
-                    var node = table;
-                    while (node && node !== document.body) {
-                        if (node.className && String(node.className).indexOf('custom-scrollbar') > -1) {
-                            return node;
-                        }
-                        node = node.parentNode;
-                    }
-                    return null;
-                }
-
-                function clearDropTargets() {
-                    getRows().forEach(function (row) {
-                        row.className = row.className.replace(/\s?drop-target/g, '');
+                    getRows().forEach(function (row, i) {
+                        var label = row.querySelector('[id$="LabelLsort"]');
+                        if (label) { label.textContent = String(i + 1); }
                     });
                 }
 
                 function removeProxy() {
-                    if (dragProxy && dragProxy.parentNode) {
-                        dragProxy.parentNode.removeChild(dragProxy);
-                    }
+                    if (dragProxy && dragProxy.parentNode) { dragProxy.parentNode.removeChild(dragProxy); }
                     dragProxy = null;
                 }
 
                 function removePlaceholder() {
-                    if (placeholder && placeholder.parentNode) {
-                        placeholder.parentNode.removeChild(placeholder);
-                    }
+                    if (placeholder && placeholder.parentNode) { placeholder.parentNode.removeChild(placeholder); }
                     placeholder = null;
-                }
-
-                function syncColumnWidths(sourceRow, targetRow) {
-                    var sourceCells = sourceRow.cells || [];
-                    var targetCells = targetRow.cells || [];
-                    var count = Math.min(sourceCells.length, targetCells.length);
-                    for (var i = 0; i < count; i++) {
-                        targetCells[i].style.width = sourceCells[i].offsetWidth + 'px';
-                    }
                 }
 
                 function createProxy(row) {
                     removeProxy();
+                    var rect = row.getBoundingClientRect();
+                    var clone = row.cloneNode(true);
+                    clone.className = clone.className.replace(/\s?dragging/g, '');
+                    clone.style.width = rect.width + 'px';
+                    clone.style.boxSizing = 'border-box';
                     var wrapper = document.createElement('div');
                     wrapper.className = 'course-show-drag-proxy';
-                    var rowRect = row.getBoundingClientRect();
-                    wrapper.style.width = rowRect.width + 'px';
-
-                    var proxyTable = document.createElement('table');
-                    proxyTable.className = table.className.replace(/\s?is-sorting/g, '');
-                    proxyTable.style.width = rowRect.width + 'px';
-                    proxyTable.style.maxWidth = rowRect.width + 'px';
-                    proxyTable.style.tableLayout = 'fixed';
-
-                    var proxyBody = document.createElement('tbody');
-                    var cloneRow = row.cloneNode(true);
-                    cloneRow.className = cloneRow.className.replace(/\s?dragging/g, '');
-                    syncColumnWidths(row, cloneRow);
-                    proxyBody.appendChild(cloneRow);
-                    proxyTable.appendChild(proxyBody);
-                    wrapper.appendChild(proxyTable);
+                    wrapper.style.width = rect.width + 'px';
+                    wrapper.appendChild(clone);
                     document.body.appendChild(wrapper);
                     dragProxy = wrapper;
                 }
 
-                function createPlaceholder(row) {
+                function createPlaceholder() {
                     removePlaceholder();
-                    var holder = document.createElement('tr');
-                    holder.className = 'course-show-placeholder';
-                    var cell = document.createElement('td');
-                    cell.colSpan = row.cells.length;
-                    cell.style.height = row.offsetHeight + 'px';
-                    var bar = document.createElement('div');
-                    bar.className = 'course-show-placeholder-bar';
-                    cell.appendChild(bar);
-                    holder.appendChild(cell);
-                    placeholder = holder;
+                    var el = document.createElement('div');
+                    el.className = 'course-show-placeholder';
+                    placeholder = el;
                 }
 
                 function moveProxy(clientY) {
-                    if (!dragProxy || !activeRow) {
-                        return;
-                    }
+                    if (!dragProxy || !activeRow) { return; }
                     var rect = activeRow.getBoundingClientRect();
                     dragProxy.style.transform = 'translate3d(' + rect.left + 'px,' + (clientY - dragOffsetY) + 'px,0)';
                 }
 
                 function movePlaceholder(clientY) {
-                    if (!placeholder || !activeRow) {
-                        return;
-                    }
-
-                    var rows = getRows().filter(function (row) {
-                        return row !== activeRow;
-                    });
-
+                    if (!placeholder || !activeRow) { return; }
+                    var rows = getRows().filter(function (r) { return r !== activeRow; });
                     for (var i = 0; i < rows.length; i++) {
                         var rect = rows[i].getBoundingClientRect();
                         if (clientY < rect.top + rect.height / 2) {
-                            tbody.insertBefore(placeholder, rows[i]);
+                            list.insertBefore(placeholder, rows[i]);
                             return;
                         }
                     }
-
-                    tbody.appendChild(placeholder);
-                }
-
-                function updateDropTargets() {
-                    clearDropTargets();
-                    if (!placeholder) {
-                        return;
-                    }
-
-                    var nextRow = placeholder.nextSibling;
-                    var prevRow = placeholder.previousSibling;
-                    var targetRow = nextRow && nextRow.getAttribute && nextRow.getAttribute('data-lid') ? nextRow : prevRow;
-                    if (targetRow && targetRow.getAttribute && targetRow.getAttribute('data-lid')) {
-                        targetRow.className += ' drop-target';
-                    }
+                    list.appendChild(placeholder);
                 }
 
                 function applyRowMove() {
-                    if (!activeRow || !placeholder || !placeholder.parentNode) {
-                        return;
-                    }
-                    tbody.insertBefore(activeRow, placeholder);
+                    if (!activeRow || !placeholder || !placeholder.parentNode) { return; }
+                    list.insertBefore(activeRow, placeholder);
                     updateSortBadges();
                 }
 
                 function autoScroll(clientY) {
-                    var host = getScrollHost();
-                    var edge = 72;
-                    var step = 18;
+                    var edge = 72, step = 18;
+                    if (clientY < edge) { window.scrollBy(0, -step); }
+                    else if (clientY > window.innerHeight - edge) { window.scrollBy(0, step); }
+                }
 
-                    if (host) {
-                        var hostRect = host.getBoundingClientRect();
-                        if (clientY < hostRect.top + edge) {
-                            host.scrollTop -= step;
-                        } else if (clientY > hostRect.bottom - edge) {
-                            host.scrollTop += step;
-                        }
-                    } else {
-                        if (clientY < edge) {
-                            window.scrollBy(0, -step);
-                        } else if (clientY > window.innerHeight - edge) {
-                            window.scrollBy(0, step);
-                        }
-                    }
+                function handlePointerMove(clientY) {
+                    lastClientY = clientY;
+                    if (rafId) { return; }
+                    rafId = window.requestAnimationFrame(function () {
+                        rafId = 0;
+                        moveProxy(lastClientY);
+                        movePlaceholder(lastClientY);
+                        applyRowMove();
+                        autoScroll(lastClientY);
+                    });
                 }
 
                 function bindActiveEvents() {
                     if (!moveHandler) {
                         moveHandler = function (ev) {
-                            if (!activeRow) {
-                                return;
-                            }
-
+                            if (!activeRow) { return; }
                             ev = ev || window.event;
-                            if (ev.preventDefault && ev.touches) {
-                                ev.preventDefault();
-                            }
+                            if (ev.preventDefault && ev.touches) { ev.preventDefault(); }
                             handlePointerMove(getClientY(ev));
                         };
                     }
-
-                    if (!endHandler) {
-                        endHandler = function () {
-                            finishDrag();
-                        };
-                    }
-
+                    if (!endHandler) { endHandler = function () { finishDrag(); }; }
                     if (document.addEventListener) {
                         document.addEventListener('mousemove', moveHandler, false);
                         document.addEventListener('mouseup', endHandler, false);
                         document.addEventListener('touchmove', moveHandler, false);
                         document.addEventListener('touchend', endHandler, false);
                         document.addEventListener('touchcancel', endHandler, false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('onmousemove', moveHandler);
-                        document.attachEvent('onmouseup', endHandler);
                     }
                 }
 
                 function unbindActiveEvents() {
                     if (document.removeEventListener) {
-                        if (moveHandler) {
-                            document.removeEventListener('mousemove', moveHandler, false);
-                            document.removeEventListener('touchmove', moveHandler, false);
-                        }
-                        if (endHandler) {
-                            document.removeEventListener('mouseup', endHandler, false);
-                            document.removeEventListener('touchend', endHandler, false);
-                            document.removeEventListener('touchcancel', endHandler, false);
-                        }
-                    } else if (document.detachEvent) {
-                        if (moveHandler) {
-                            document.detachEvent('onmousemove', moveHandler);
-                        }
-                        if (endHandler) {
-                            document.detachEvent('onmouseup', endHandler);
-                        }
+                        if (moveHandler) { document.removeEventListener('mousemove', moveHandler, false); document.removeEventListener('touchmove', moveHandler, false); }
+                        if (endHandler) { document.removeEventListener('mouseup', endHandler, false); document.removeEventListener('touchend', endHandler, false); document.removeEventListener('touchcancel', endHandler, false); }
                     }
-                }
-
-                function handlePointerMove(clientY) {
-                    lastClientY = clientY;
-                    if (rafId) {
-                        return;
-                    }
-
-                    rafId = window.requestAnimationFrame(function () {
-                        rafId = 0;
-                        moveProxy(lastClientY);
-                        movePlaceholder(lastClientY);
-                        updateDropTargets();
-                        applyRowMove();
-                        autoScroll(lastClientY);
-                    });
                 }
 
                 function saveSort() {
-                    if (!isDirty || isSaving) {
-                        return;
-                    }
-
+                    if (!isDirty || isSaving) { return; }
                     var cid = courseIdField ? courseIdField.value : '';
                     var orderValue = currentOrderValue || getOrder().join(',');
-                    if (!cid || !orderValue) {
-                        setStatus('保存失败，缺少排序数据', 'is-error');
-                        return;
-                    }
-
+                    if (!cid || !orderValue) { setStatus('保存失败，缺少排序数据', 'is-error'); return; }
                     isSaving = true;
                     setSaveButtonState(true);
                     setStatus('正在保存排序...', '');
-
                     if (!window.jQuery || !jQuery.ajax) {
-                        isSaving = false;
-                        setSaveButtonState(false);
-                        setStatus('保存失败，页面缺少 AJAX 支持', 'is-error');
-                        return;
+                        isSaving = false; setSaveButtonState(false); setStatus('保存失败，页面缺少 AJAX 支持', 'is-error'); return;
                     }
-
                     jQuery.ajax({
-                        type: 'POST',
-                        url: 'courseshow.aspx/SaveSort',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
+                        type: 'POST', url: 'courseshow.aspx/SaveSort',
+                        contentType: 'application/json; charset=utf-8', dataType: 'json',
                         data: JSON.stringify({ cid: cid, order: orderValue }),
                         success: function (response) {
                             isSaving = false;
                             var ok = response && response.d === true;
                             setSaveButtonState(false);
-
-                            if (ok) {
-                                setDirtyState(false);
-                                setStatus('排序已保存', 'is-success');
-                            } else {
-                                setStatus('保存失败，请重试', 'is-error');
-                            }
+                            if (ok) { setDirtyState(false); setStatus('排序已保存', 'is-success'); }
+                            else { setStatus('保存失败，请重试', 'is-error'); }
                         },
-                        error: function () {
-                            isSaving = false;
-                            setSaveButtonState(false);
-                            setStatus('保存失败，请检查网络后重试', 'is-error');
-                        }
+                        error: function () { isSaving = false; setSaveButtonState(false); setStatus('保存失败，请检查网络后重试', 'is-error'); }
                     });
                 }
 
@@ -2415,79 +2238,50 @@
                     activeRow = row;
                     startOrder = getOrder().join(',');
                     dragOffsetY = Math.max(16, clientY - row.getBoundingClientRect().top);
-                    table.className += ' is-sorting';
-                    row.className += ' dragging';
                     createProxy(row);
-                    createPlaceholder(row);
-                    tbody.insertBefore(placeholder, row.nextSibling);
+                    row.className += ' dragging';
+                    createPlaceholder();
+                    list.insertBefore(placeholder, row.nextSibling);
                     moveProxy(clientY);
                     bindActiveEvents();
                 }
 
                 function finishDrag() {
-                    if (!activeRow) {
-                        return;
-                    }
-
-                    if (rafId) {
-                        window.cancelAnimationFrame(rafId);
-                        rafId = 0;
-                    }
-
+                    if (!activeRow) { return; }
+                    if (rafId) { window.cancelAnimationFrame(rafId); rafId = 0; }
                     activeRow.className = activeRow.className.replace(/\s?dragging/g, '');
-                    clearDropTargets();
-                    table.className = table.className.replace(/\s?is-sorting/g, '');
                     removeProxy();
                     removePlaceholder();
                     unbindActiveEvents();
-
                     var currentOrder = getOrder().join(',');
                     if (startOrder && currentOrder && startOrder !== currentOrder) {
                         updateSortBadges();
                         setDirtyState(true);
                     }
-
                     activeRow = null;
                     startOrder = '';
                 }
 
                 function getClientY(ev) {
-                    if (typeof ev.clientY === 'number') {
-                        return ev.clientY;
-                    }
-                    if (ev.touches && ev.touches.length) {
-                        return ev.touches[0].clientY;
-                    }
-                    if (ev.changedTouches && ev.changedTouches.length) {
-                        return ev.changedTouches[0].clientY;
-                    }
+                    if (typeof ev.clientY === 'number') { return ev.clientY; }
+                    if (ev.touches && ev.touches.length) { return ev.touches[0].clientY; }
+                    if (ev.changedTouches && ev.changedTouches.length) { return ev.changedTouches[0].clientY; }
                     return 0;
                 }
 
                 function bindRow(row) {
-                    if (!row || !row.getAttribute('data-lid')) {
-                        return;
-                    }
-
-                    var handle = row.querySelector ? row.querySelector('.course-show-drag') : null;
-                    if (!handle) {
-                        return;
-                    }
-
+                    if (!row || !row.getAttribute('data-lid')) { return; }
+                    var handle = row.querySelector('.course-show-drag');
+                    if (!handle) { return; }
                     handle.onmousedown = function (ev) {
                         ev = ev || window.event;
-                        if (ev.preventDefault) {
-                            ev.preventDefault();
-                        }
+                        if (ev.preventDefault) { ev.preventDefault(); }
                         startDrag(row, getClientY(ev));
                         return false;
                     };
-
                     handle.ontouchstart = function (ev) {
                         ev = ev || window.event;
-                        if (ev.preventDefault) {
-                            ev.preventDefault();
-                        }
+                        if (ev.preventDefault) { ev.preventDefault(); }
                         startDrag(row, getClientY(ev));
                         return false;
                     };
@@ -2496,36 +2290,19 @@
                 getRows().forEach(bindRow);
                 updateSortBadges();
                 currentOrderValue = getOrder().join(',');
-                if (hiddenOrder) {
-                    hiddenOrder.value = currentOrderValue;
-                }
+                if (hiddenOrder) { hiddenOrder.value = currentOrderValue; }
 
                 if (saveButton) {
-                    saveButton.onclick = function () {
-                        saveSort();
-                        return false;
-                    };
+                    saveButton.onclick = function () { saveSort(); return false; };
                 }
 
                 if (window.addEventListener) {
                     window.addEventListener('beforeunload', function (ev) {
-                        if (!isDirty) {
-                            return;
-                        }
-
+                        if (!isDirty) { return; }
                         var message = '当前排序尚未保存，离开页面将丢失本次调整。';
-                        if (ev) {
-                            ev.returnValue = message;
-                        }
+                        if (ev) { ev.returnValue = message; }
                         return message;
                     }, false);
-                } else if (window.attachEvent) {
-                    window.attachEvent('onbeforeunload', function () {
-                        if (!isDirty) {
-                            return;
-                        }
-                        return '当前排序尚未保存，离开页面将丢失本次调整。';
-                    });
                 }
             }
 

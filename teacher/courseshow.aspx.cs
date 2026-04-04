@@ -73,8 +73,8 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             string Cid = Request.QueryString["cid"].ToString();
             HiddenCourseId.Value = Cid;
             LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
-            GVlistmenu.DataSource = lbll.GetMenu(Int32.Parse(Cid));
-            GVlistmenu.DataBind();
+            RptListMenu.DataSource = lbll.GetMenu(Int32.Parse(Cid));
+            RptListMenu.DataBind();
         }
     }
     protected void LinkBtnAdd_Click(object sender, EventArgs e)
@@ -134,15 +134,15 @@ public partial class Teacher_courseshow : System.Web.UI.Page
             Response.Redirect(url, true);
         }
     }
-    protected void GVlistmenu_RowCommand(object sender, GridViewCommandEventArgs e)
+    protected void RptListMenu_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
-        int RowIndex = Convert.ToInt32(e.CommandArgument);
-        int Lid = Convert.ToInt32(((Label)GVlistmenu.Rows[RowIndex].FindControl("LabelLid")).Text);
-        int lxid = Convert.ToInt32(((Label)GVlistmenu.Rows[RowIndex].FindControl("LabelLxid")).Text);
-        string ltype = ((Label)GVlistmenu.Rows[RowIndex].FindControl("LabelLtype")).Text;
-        //int lsort = Convert.ToInt32(((Label)GVlistmenu.Rows[RowIndex].FindControl("LabelLsort")).Text);        
-        int Lcid = Int32.Parse(Request.QueryString["cid"].ToString());
+        int Lid = Convert.ToInt32(e.CommandArgument);
         LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
+        LearnSite.Model.ListMenu model = lbll.GetModel(Lid);
+        if (model == null) { showmenu(); return; }
+        int lxid = model.Lxid ?? 0;
+        string ltype = model.Ltype.ToString();
+
         if (e.CommandName == "P")
         {
             lbll.UpdateLshow(Lid);
@@ -151,321 +151,253 @@ public partial class Teacher_courseshow : System.Web.UI.Page
         {
             switch (ltype)
             {
-                case "1"://活动
-                case "5"://编程
-                case "6"://描述
-                case "8"://编程
-                case "10"://流程图
-                case "11"://像素画
-                case "12"://网页
-                case "13"://编程
-                case "14"://编程
-                case "15"://导图
-                case "16"://在线表格
-                case "17"://二维码
-                case "18"://在线文档
-                case "19"://演示文稿
-                case "20"://海报设计
-                case "21"://风格迁移
-                case "22"://图像分类
-                case "23"://人脸识别
-                case "24"://物联网MQTT
-                case "25"://手绘画布
-                case "26"://推箱子地图
-                case "27"://人工智能对话
-                case "28"://语音合成
-                case "29"://文字识别
-                case "30"://声音分析
-                case "31"://井字棋
-                case "32"://手写数字识别
-                case "33"://Markdown写作
-                case "34"://iframe嵌入网页
-                case "35"://文生图
-                case "36"://素材库
-                case "37"://网站设计
-                case "38"://网页课件
-                case "39"://课堂测验
-                    LearnSite.BLL.Mission mbll = new LearnSite.BLL.Mission();
-                    mbll.DeleteMission(lxid);//假删除任务
-                    lbll.Delete(Lid);//删除导航
+                case "1": case "5": case "6": case "8": case "10": case "11": case "12":
+                case "13": case "14": case "15": case "16": case "17": case "18": case "19":
+                case "20": case "21": case "22": case "23": case "24": case "25": case "26":
+                case "27": case "28": case "29": case "30": case "31": case "32": case "33":
+                case "34": case "35": case "36": case "37": case "38": case "39":
+                    new LearnSite.BLL.Mission().DeleteMission(lxid);
+                    lbll.Delete(Lid);
                     break;
-                case "2"://调查
-                    LearnSite.BLL.Survey vbll = new LearnSite.BLL.Survey();
-                    vbll.Delete(lxid);//删除调查
-                    lbll.Delete(Lid);//删除导航
+                case "2":
+                    new LearnSite.BLL.Survey().Delete(lxid);
+                    lbll.Delete(Lid);
                     break;
-                case "3"://讨论
-                    LearnSite.BLL.TopicDiscuss tbll = new LearnSite.BLL.TopicDiscuss();
-                    tbll.Delete(lxid);//删除讨论
-                    lbll.Delete(Lid);//删除导航
+                case "3":
+                    new LearnSite.BLL.TopicDiscuss().Delete(lxid);
+                    lbll.Delete(Lid);
                     break;
-
-                case "4"://表单
-                    LearnSite.BLL.TxtForm tfmbll = new LearnSite.BLL.TxtForm();
-                    tfmbll.Delete(lxid);//删除表单
-                    lbll.Delete(Lid);//删除导航
+                case "4":
+                    new LearnSite.BLL.TxtForm().Delete(lxid);
+                    lbll.Delete(Lid);
                     break;
-                case "9"://测评
-                    LearnSite.BLL.Consoles conbll = new LearnSite.BLL.Consoles();
-                    conbll.Delete(lxid);//删除测评
-                    lbll.Delete(Lid);//删除导航
+                case "9":
+                    new LearnSite.BLL.Consoles().Delete(lxid);
+                    lbll.Delete(Lid);
                     break;
-            }
-        }
-
-        if (e.CommandName == "Top")
-        {
-            if (RowIndex == 0)
-            {
-                lbll.Lsortnew(Lcid);//如果首行，初始化序号
-            }
-            if (RowIndex > 0)
-            {
-                int toplid = Convert.ToInt32(((Label)GVlistmenu.Rows[RowIndex - 1].FindControl("LabelLid")).Text);//获取上个导航编号
-                lbll.UpdateLsort(Lid, false);//当前导航减１向上
-                lbll.UpdateLsort(toplid, true);//上个导航增１向下
-            }
-            System.Threading.Thread.Sleep(500);
-            lbll.Lsortsncy(Lcid);//活动序号同步
-        }
-        if (e.CommandName == "Bottom")
-        {
-            int rowscount = GVlistmenu.Rows.Count;
-            if (RowIndex < rowscount - 1)
-            {
-                int bottomlid = Convert.ToInt32(((Label)GVlistmenu.Rows[RowIndex + 1].FindControl("LabelLid")).Text);//获取下个导航编号
-                lbll.UpdateLsort(bottomlid, false);//下个导航减１向上
-                lbll.UpdateLsort(Lid, true);//当前导航增１向下
-                System.Threading.Thread.Sleep(500);
-                lbll.Lsortsncy(Lcid);//lbll.UpdateMissonListMene(Lcid, lxid);//活动序号同步
             }
         }
 
         System.Threading.Thread.Sleep(200);
         showmenu();
     }
-    protected void GVlistmenu_RowDataBound(object sender, GridViewRowEventArgs e)
+    protected void RptListMenu_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
-        if (e.Row.RowIndex > -1)
-        {
-            HyperLink hl = (HyperLink)e.Row.FindControl("HlLtitle");
-            string lxid = ((Label)e.Row.FindControl("LabelLxid")).Text;
-            string ltype = ((Label)e.Row.FindControl("LabelLtype")).Text;
-            string lid = ((Label)e.Row.FindControl("LabelLid")).Text;
-            string Cid = Request.QueryString["cid"].ToString();
-            string Cold = "";
-            LinkButton showButton = (LinkButton)e.Row.FindControl("LinkBtnShow");
-            e.Row.Attributes["data-lid"] = lid;
-            e.Row.Attributes["class"] = "course-show-menu-row";
-            if (Request.QueryString["cold"] != null)
-            {
-                Cold = "&cold=T";
-            }
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem) return;
+
+        HyperLink hl = (HyperLink)e.Item.FindControl("HlLtitle");
+        string lxid = ((Label)e.Item.FindControl("LabelLxid")).Text;
+        string ltype = ((Label)e.Item.FindControl("LabelLtype")).Text;
+        string lid = ((Label)e.Item.FindControl("LabelLid")).Text;
+        string Cid = Request.QueryString["cid"].ToString();
+        string Cold = Request.QueryString["cold"] != null ? "&cold=T" : "";
+        LinkButton showButton = (LinkButton)e.Item.FindControl("LinkBtnShow");
+        Image img = (Image)e.Item.FindControl("Image4");
+        Label lbl = (Label)e.Item.FindControl("Label4");
             switch (ltype)
             {
                 case "1":
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/mission.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "练习";
+                    img.ImageUrl = "~/images/mission.png";
+                    lbl.Text = "练习";
                     hl.NavigateUrl = "missionshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "6"://描述
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/description.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "阅读";
+                    img.ImageUrl = "~/images/description.png";
+                    lbl.Text = "阅读";
                     hl.NavigateUrl = "missionshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "3":
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/topic.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "讨论";
+                    img.ImageUrl = "~/images/topic.png";
+                    lbl.Text = "讨论";
                     hl.NavigateUrl = "topicshow.aspx?tcid=" + Cid + "&tid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "4":
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/inquiry.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "填表";
+                    img.ImageUrl = "~/images/inquiry.png";
+                    lbl.Text = "填表";
                     hl.NavigateUrl = "txtformshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "5"://编程 
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/program.png";                   
-                    ((Label)e.Row.FindControl("Label4")).Text = "积木";
+                    img.ImageUrl = "~/images/program.png";                   
+                    lbl.Text = "积木";
                     hl.NavigateUrl = "programshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "8"://编程  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/python.png";                  
-                    ((Label)e.Row.FindControl("Label4")).Text = "代码";
+                    img.ImageUrl = "~/images/python.png";                  
+                    lbl.Text = "代码";
                     hl.NavigateUrl = "pythonshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "9"://测评 
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/console.png";                   
-                    ((Label)e.Row.FindControl("Label4")).Text = "测评";
+                    img.ImageUrl = "~/images/console.png";                   
+                    lbl.Text = "测评";
                     hl.NavigateUrl = "consoleshow.aspx?ncid=" + Cid + "&nid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "10"://流程图  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/mxgraph.png";                  
-                    ((Label)e.Row.FindControl("Label4")).Text = "流程";
+                    img.ImageUrl = "~/images/mxgraph.png";                  
+                    lbl.Text = "流程";
                     hl.NavigateUrl = "graphshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "11"://像素画  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/pixel.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "像素";
+                    img.ImageUrl = "~/images/pixel.png";
+                    lbl.Text = "像素";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "12"://网页
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/html.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "网页";
+                    img.ImageUrl = "~/images/html.png";
+                    lbl.Text = "网页";
                     hl.NavigateUrl = "htmlshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "13"://编程  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/pythonblock.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "拼图";
+                    img.ImageUrl = "~/images/pythonblock.png";
+                    lbl.Text = "拼图";
                     hl.NavigateUrl = "pythonshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "14"://python积木编程  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/blockpy.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "积木";
+                    img.ImageUrl = "~/images/blockpy.png";
+                    lbl.Text = "积木";
                     hl.NavigateUrl = "pythonshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "15"://思维导图  
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/kitymind.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "脑图";
+                    img.ImageUrl = "~/images/kitymind.png";
+                    lbl.Text = "脑图";
                     hl.NavigateUrl = "kitymindshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "16"://表格处理 
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/sheet.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "表格";
+                    img.ImageUrl = "~/images/sheet.png";
+                    lbl.Text = "表格";
                     hl.NavigateUrl = "excelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "17"://二维码 
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/qrcode.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "二维码";
+                    img.ImageUrl = "~/images/qrcode.png";
+                    lbl.Text = "二维码";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "18"://在线文档 
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/word.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "在线文档";
+                    img.ImageUrl = "~/images/word.png";
+                    lbl.Text = "在线文档";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "19"://在线演示文稿
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/pptist.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "演示文稿";
+                    img.ImageUrl = "~/images/pptist.png";
+                    lbl.Text = "演示文稿";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "20"://在线海报设计
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/poster.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "海报设计";
+                    img.ImageUrl = "~/images/poster.png";
+                    lbl.Text = "海报设计";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "21"://风格迁移 图像分类
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/style.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "风格迁移";
+                    img.ImageUrl = "~/images/style.png";
+                    lbl.Text = "风格迁移";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "22"://图像分类
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/mlimg.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "图像分类";
+                    img.ImageUrl = "~/images/mlimg.png";
+                    lbl.Text = "图像分类";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "23"://人脸识别
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/face.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "人脸识别";
+                    img.ImageUrl = "~/images/face.png";
+                    lbl.Text = "人脸识别";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "24"://物联网mqtt
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/mqtt.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "物联网";
+                    img.ImageUrl = "~/images/mqtt.png";
+                    lbl.Text = "物联网";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "25"://手绘画布
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/excalidraw.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "手绘画布";
+                    img.ImageUrl = "~/images/excalidraw.png";
+                    lbl.Text = "手绘画布";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "26"://推箱子地图
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/sokoban.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "推箱子地图";
+                    img.ImageUrl = "~/images/sokoban.png";
+                    lbl.Text = "推箱子地图";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "27"://人工智能对话
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/ai.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "人工智能对话";
+                    img.ImageUrl = "~/images/ai.png";
+                    lbl.Text = "人工智能对话";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "28"://语音合成
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/speek.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "语音合成";
+                    img.ImageUrl = "~/images/speek.png";
+                    lbl.Text = "语音合成";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "29"://文字识别
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/ocr.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "文字识别";
+                    img.ImageUrl = "~/images/ocr.png";
+                    lbl.Text = "文字识别";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "30"://声音分析
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/sound.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "声音分析";
+                    img.ImageUrl = "~/images/sound.png";
+                    lbl.Text = "声音分析";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "31"://井字棋
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/tic-tac-toe.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "井字棋";
+                    img.ImageUrl = "~/images/tic-tac-toe.png";
+                    lbl.Text = "井字棋";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "32"://手写数字识别
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/handnum.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "手写数字识别";
+                    img.ImageUrl = "~/images/handnum.png";
+                    lbl.Text = "手写数字识别";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "33"://markdown写作
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/markdown.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "markdown写作";
+                    img.ImageUrl = "~/images/markdown.png";
+                    lbl.Text = "markdown写作";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "34"://iframe嵌入网页
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/iframe.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "嵌入网页";
+                    img.ImageUrl = "~/images/iframe.png";
+                    lbl.Text = "嵌入网页";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "35"://文生图
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/text-to-image.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "文生图";
+                    img.ImageUrl = "~/images/text-to-image.png";
+                    lbl.Text = "文生图";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "36"://素材库
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/web.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "素材库";
+                    img.ImageUrl = "~/images/web.png";
+                    lbl.Text = "素材库";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "37"://网站设计
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/website.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "网站设计";
+                    img.ImageUrl = "~/images/website.png";
+                    lbl.Text = "网站设计";
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "38"://网页课件
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/ware.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "网页";
+                    img.ImageUrl = "~/images/ware.png";
+                    lbl.Text = "网页";
                     hl.NavigateUrl = "wareshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "39"://课堂测验
-                    ((Image)e.Row.FindControl("Image4")).ImageUrl = "~/images/wvote.png";
-                    ((Label)e.Row.FindControl("Label4")).Text = "测验";
+                    img.ImageUrl = "~/images/wvote.png";
+                    lbl.Text = "测验";
                     hl.NavigateUrl = "~/webform/exam.aspx?cid=" + Cid + "&eid=" + lxid + "&lid=" + lid + Cold;
                     break;
             }
 
-            bool isPublished = false;
-            Boolean.TryParse(showButton.Text, out isPublished);
-            showButton.Text = isPublished ? "已发布" : "未发布";
-            if (!isPublished)
-            {
-                showButton.CssClass += " is-off";
-                e.Row.Attributes["class"] += " is-hidden";
-            }
-
-            string strjs = "if(confirm('您确定要删除吗?'))return true;else return false; ";
-            ((LinkButton)e.Row.FindControl("LinkBtnDel")).OnClientClick = strjs;
-        }
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        bool isPublished = false;
+        Boolean.TryParse(showButton.Text, out isPublished);
+        showButton.Text = isPublished ? "已发布" : "未发布";
+        if (!isPublished)
         {
-            e.Row.Attributes.Add("style", "cursor:default;");
+            showButton.CssClass += " is-off";
+            // div行通过JS在客户端已有data-lid，is-hidden由aspx模板的class绑定处理
+            // 在服务端找到父div并加class
+            System.Web.UI.HtmlControls.HtmlGenericControl rowDiv =
+                (System.Web.UI.HtmlControls.HtmlGenericControl)e.Item.FindControl("MenuRow");
+            if (rowDiv != null) rowDiv.Attributes["class"] += " is-hidden";
         }
+
+        string strjs = "if(confirm('您确定要删除吗?'))return true;else return false; ";
+        ((LinkButton)e.Item.FindControl("LinkBtnDel")).OnClientClick = strjs;
     }
     protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
     {

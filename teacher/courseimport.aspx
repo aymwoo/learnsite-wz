@@ -240,10 +240,11 @@
 
                     <div class="course-import-field" style="grid-column: 1 / -1; margin-top: 1rem;">
                         <span class="course-import-label" style="display:block; margin-bottom: 0.75rem; font-weight:700; color:#334155; font-size:14px;">选择学案包文件</span>
-                        <div class="course-import-upload-zone">
+                        <div class="course-import-upload-zone" id="uploadZone">
                             <i class="course-import-upload-icon bi bi-cloud-arrow-up"></i>
                             <div class="course-import-upload-text">点击浏览或将文件拖拽到此区域</div>
                             <div class="course-import-upload-subtext">仅支持包含学案数据的 .zip 压缩包文件</div>
+                            <div id="uploadFileName" style="display:none;margin-top:8px;padding:6px 14px;border-radius:8px;background:#dbeafe;color:#1d4ed8;font-size:14px;font-weight:700;"></div>
                             <asp:FileUpload ID="FudPackage" runat="server" />
                         </div>
                     </div>
@@ -292,4 +293,24 @@
             </section>
         </div>
     </div>
+
+<script type="text/javascript">
+(function(){
+    var input = document.getElementById('<%= FudPackage.ClientID %>');
+    var label = document.getElementById('uploadFileName');
+    function showName(name) {
+        label.textContent = '📄 ' + name;
+        label.style.display = 'block';
+    }
+    input.addEventListener('change', function(){
+        if (this.files && this.files[0]) showName(this.files[0].name);
+    });
+    var zone = document.getElementById('uploadZone');
+    zone.addEventListener('dragover', function(e){ e.preventDefault(); });
+    zone.addEventListener('drop', function(e){
+        e.preventDefault();
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) showName(e.dataTransfer.files[0].name);
+    });
+})();
+</script>
 </asp:Content>
