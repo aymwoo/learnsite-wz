@@ -1,16 +1,23 @@
-name: Tests
+name: Compile and Test
 
 on:
   push:
+    branches:
+      - master
+      - main
     paths-ignore:
       - '.github/workflows/run_test_for_windows.yml'
       - '.github/workflows/run_test_for_linux.yml'
       - '.github/workflows/run_test_for_docker.yml'
   pull_request:
+    branches:
+      - master
+      - main
     paths-ignore:
       - '.github/workflows/run_test_for_windows.yml'
       - '.github/workflows/run_test_for_linux.yml'
       - '.github/workflows/run_test_for_docker.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-test:

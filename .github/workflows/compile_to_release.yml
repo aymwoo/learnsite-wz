@@ -1,6 +1,10 @@
 name: Release Build and Publish
 
 on:
+  workflow_run:
+    workflows: ["Compile and Test"]
+    types: [completed]
+    branches: [master, main]
   workflow_dispatch:
     inputs:
       release_type:
@@ -15,6 +19,7 @@ on:
 jobs:
   build_and_publish:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.release_type == 'latest' || github.event.inputs.release_type == 'alpha' }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
