@@ -1,37 +1,166 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="courseanalyse.aspx.cs" Inherits="Teacher_courseanalyse" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div style=" font-size:11pt; text-align:center;">
-    <br />
-    <br />
-    <asp:Label ID="Labeltitle" runat="server" Font-Bold="True" Font-Size="12pt"></asp:Label>
-    &nbsp;<br />
-    <br />
-      &nbsp;<asp:Label ID="Labeldistribution" runat="server" Font-Bold="False"></asp:Label>
-    <br />
-    <br />
-    <div id="divview" runat="server" visible="false"   style="margin: auto; text-align: center;">
-            <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
-            onclick="ImgBtnLeft_Click" Width="16px" />
-    <asp:DropDownList ID="DDLstore" runat="server" 
-            Font-Bold="True" Width="100px" AutoPostBack="True" Font-Size="12pt" 
-            onselectedindexchanged="DDLstore_SelectedIndexChanged">
-        <asp:ListItem></asp:ListItem>
-        </asp:DropDownList>
-        <asp:ImageButton ID="ImgBtnright" runat="server" 
-            ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
-            <br />
-            <asp:Label ID="lbcount" runat="server"></asp:Label>
+<style type="text/css">
+    /* ===== Hero Header ===== */
+    .ca-hero {
+        background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 100%);
+        border-radius: 14px;
+        padding: 1.5rem 1.75rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    .ca-hero-left { flex: 1; min-width: 0; }
+    .ca-hero-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #93c5fd;
+        margin-bottom: 0.35rem;
+    }
+    .ca-hero-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #ffffff;
+        word-break: break-word;
+        line-height: 1.3;
+    }
+    .ca-hero-back {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    /* ===== Stats Bar ===== */
+    .ca-stats-bar {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 0.9rem 1.25rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+        font-size: 0.88rem;
+        color: #475569;
+        font-weight: 500;
+    }
+    .ca-stats-bar strong { color: #1e293b; }
+
+    /* ===== Viewer Card ===== */
+    .ca-viewer-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin-bottom: 1.25rem;
+    }
+    .ca-viewer-toolbar {
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 0.65rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+    .ca-viewer-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: #64748b;
+    }
+    .ca-viewer-counter {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 2px 9px;
+        font-weight: 600;
+    }
+    .ca-nav-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px; height: 30px;
+        border-radius: 8px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        cursor: pointer;
+        transition: background 0.15s;
+    }
+    .ca-nav-btn:hover { background: #dbeafe; }
+    .ca-viewer-body {
+        padding: 1.25rem;
+        min-height: 200px;
+    }
+
+    /* ===== Empty state ===== */
+    .ca-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #94a3b8;
+        font-size: 0.95rem;
+    }
+</style>
+
+<!-- Hero -->
+<div class="ca-hero">
+    <div class="ca-hero-left">
+        <div class="ca-hero-label">学案分析</div>
+        <div class="ca-hero-title">
+            <asp:Label ID="Labeltitle" runat="server"></asp:Label>
         </div>
-    <asp:ImageButton ID="ImageButton1" runat="server" 
-        ImageUrl="~/images/return.gif" Width="16px" onclick="ImageButton1_Click" />
-    <br />
-        <div style="padding: 2px; margin: auto; text-align: center; font-size: 11pt;">
-        <asp:Literal ID="Literal1" runat="server"></asp:Literal>
-            <br />
-            <br />
+    </div>
+    <div class="ca-hero-back">
+        <asp:ImageButton ID="ImageButton1" runat="server"
+            ImageUrl="~/images/return.gif"
+            onclick="ImageButton1_Click"
+            ToolTip="返回学案列表"
+            style="width:28px;opacity:0.8;filter:brightness(10);" />
+    </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="ca-stats-bar">
+    <asp:Label ID="Labeldistribution" runat="server"></asp:Label>
+</div>
+
+<!-- Starred Works Viewer -->
+<div id="divview" runat="server" visible="false">
+    <div class="ca-viewer-card">
+        <div class="ca-viewer-toolbar">
+            <span class="ca-viewer-label">&#11088; 收藏作品 (G级)</span>
+            <div class="ca-nav-btn">
+                <asp:ImageButton ID="ImgBtnLeft" runat="server"
+                    ImageUrl="~/images/left.png" onclick="ImgBtnLeft_Click"
+                    style="width:12px;" />
+            </div>
+            <asp:DropDownList ID="DDLstore" runat="server"
+                Font-Bold="True" Width="180px" AutoPostBack="True"
+                Font-Size="10pt"
+                onselectedindexchanged="DDLstore_SelectedIndexChanged">
+                <asp:ListItem></asp:ListItem>
+            </asp:DropDownList>
+            <div class="ca-nav-btn">
+                <asp:ImageButton ID="ImgBtnright" runat="server"
+                    ImageUrl="~/images/right.png" onclick="ImgBtnright_Click"
+                    style="width:12px;" />
+            </div>
+            <span class="ca-viewer-counter">
+                <asp:Label ID="lbcount" runat="server"></asp:Label>
+            </span>
         </div>
-<br />
+        <div class="ca-viewer-body">
+            <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+        </div>
+    </div>
 </div>
 </asp:Content>
-

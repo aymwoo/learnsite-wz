@@ -106,8 +106,8 @@
                     <!-- Dynamic Course Menu -->
                     <div class="scm-menu-wrap">
                         <asp:Menu ID="Menuact" runat="server" Orientation="Horizontal" CssClass="flex flex-nowrap items-center min-w-max space-x-1 sm:space-x-2 py-1" ForeColor="#e2e8f0">
-                            <StaticSelectedStyle BackColor="rgba(255,255,255,0.2)" ForeColor="#ffffff" />
-                            <StaticHoverStyle BackColor="rgba(255,255,255,0.12)" ForeColor="#ffffff" />
+                            <StaticSelectedStyle BackColor="#334155" ForeColor="#ffffff" />
+                            <StaticHoverStyle BackColor="#1e3a5f" ForeColor="#ffffff" />
                             <StaticMenuItemStyle CssClass="px-3 sm:px-4 py-2 font-semibold text-[13px] sm:text-[14px] transition-all duration-200 ease-out rounded-xl whitespace-nowrap hover:bg-white/10" />
                         </asp:Menu>
                     </div>
