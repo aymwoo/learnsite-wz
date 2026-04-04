@@ -36,7 +36,12 @@ jobs:
 
       - name: Extract Release
         run: |
-          unzip -o learnsite-*.zip -d .
+          # 创建专门的测试目录
+          mkdir -p learnsite-test
+          unzip -o learnsite-*.zip -d learnsite-test
+          cd learnsite-test
+          pwd
+          ls -la
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -65,6 +70,7 @@ jobs:
 
       - name: Initialize Database
         run: |
+          cd learnsite-test
           if [ -f "sql/learnsite.sql" ]; then
             docker cp sql/learnsite.sql learnsite-mssql:/tmp/learnsite.sql
             docker exec learnsite-mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -C -Q "CREATE DATABASE [learnsite];"
@@ -75,6 +81,7 @@ jobs:
 
       - name: Update web.config for Docker test
         run: |
+          cd learnsite-test
           if [ -f "web.config" ]; then
             sed -i 's/Data Source=127.0.0.1;/Data Source=localhost;/g' web.config
             echo "[INFO] Updated web.config connection string"
@@ -84,6 +91,7 @@ jobs:
 
       - name: Check directory structure
         run: |
+          cd learnsite-test
           echo "=== Current Directory ==="
           pwd
           ls -la
@@ -91,14 +99,20 @@ jobs:
           echo "=== Bin Directory ==="
           ls -la Bin/ 2>/dev/null || echo "Bin directory not found"
           echo ""
-          echo "=== Check for DLLs ==="
-          find . -name "*.dll" | head -10
+          echo "=== Check for index.aspx ==="
+          ls -la index.aspx 2>/dev/null || echo "index.aspx not found"
           echo ""
-          echo "=== Check for web.config ==="
-          find . -name "web.config" | head -5
+          echo "=== Check for index.aspx.cs ==="
+          ls -la index.aspx.cs 2>/dev/null || echo "index.aspx.cs not found"
           echo ""
-          echo "=== Check for aspx files ==="
-          find . -name "*.aspx" | head -10
+          echo "=== Check for login.aspx ==="
+          ls -la login.aspx 2>/dev/null || echo "login.aspx not found"
+          echo ""
+          echo "=== All aspx files ==="
+          find . -name "*.aspx" | head -20
+          echo ""
+          echo "=== All aspx.cs files ==="
+          find . -name "*.aspx.cs" | head -20
 
       - name: Test XSP4 installation
         run: |
@@ -111,6 +125,7 @@ jobs:
 
       - name: Start XSP4 with nonstop flag
         run: |
+          cd learnsite-test
           echo "=== Starting XSP4 with nonstop flag ==="
           # 使用 --nonstop 参数确保XSP4不会立即停止
           xsp4 --port 8080 --address 0.0.0.0 --nonstop --verbose 2>&1 > xsp4.log &
