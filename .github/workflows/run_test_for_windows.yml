@@ -2,7 +2,15 @@ name: Windows Environment Tests
 
 on:
   push:
+    paths-ignore:
+      - '.github/workflows/compile_test.yml'
+      - '.github/workflows/run_test_for_linux.yml'
+      - '.github/workflows/run_test_for_docker.yml'
   pull_request:
+    paths-ignore:
+      - '.github/workflows/compile_test.yml'
+      - '.github/workflows/run_test_for_linux.yml'
+      - '.github/workflows/run_test_for_docker.yml'
 
 jobs:
   test:
@@ -46,6 +54,11 @@ jobs:
           Start-Process -FilePath $iisExpress -ArgumentList $args -NoNewWindow
           Start-Sleep -Seconds 10
         shell: powershell
+
+      - name: Check Web Service Status
+        run: |
+          curl http://localhost:8080 || echo "Web service not ready yet"
+        shell: bash
 
       - name: Run Tests
         run: bash ./run_tests.sh
