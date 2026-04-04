@@ -56,6 +56,49 @@ docker run -d --name learnsite \
 - **环境变量**: `MONO_THREADS_PER_CPU` (建议设置为 50)
 - **数据持久化**: 可通过 `-v` 挂载卷保存数据
 
+**使用 docker-compose 部署**
+
+创建 `docker-compose.yml` 文件：
+
+```yaml
+version: '3.8'
+
+services:
+  learnsite:
+    image: learnsite-wz:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - MONO_THREADS_PER_CPU=50
+    depends_on:
+      - mssql
+    restart: unless-stopped
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+    restart: unless-stopped
+
+volumes:
+  mssql_data:
+```
+
+**启动命令**
+```bash
+docker-compose up -d
+```
+
+**停止命令**
+```bash
+docker-compose down
+```
+
 ### Linux 部署
 
 **1. 安装依赖**
