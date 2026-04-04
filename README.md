@@ -58,14 +58,15 @@ docker run -d --name learnsite \
 
 **使用 docker-compose 部署**
 
-创建 `docker-compose.yml` 文件：
+创建 `docker-compose.yml` 文件（使用工作流构建的镜像）：
 
 ```yaml
 version: '3.8'
 
 services:
   learnsite:
-    image: learnsite-wz:latest
+    # 使用 GitHub Actions 工作流构建的镜像
+    image: ghcr.io/your-github-username/learnsite-wz:latest
     ports:
       - "8080:8080"
     environment:
@@ -88,6 +89,8 @@ services:
 volumes:
   mssql_data:
 ```
+
+**注意**：将 `your-github-username` 替换为实际的 GitHub 用户名。例如，在 `RealKiro/learnsite-wz` 仓库中，镜像地址为 `ghcr.io/realkiro/learnsite-wz:latest`。
 
 **启动命令**
 ```bash
