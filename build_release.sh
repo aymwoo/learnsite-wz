@@ -87,10 +87,7 @@ fi
 echo "[INFO] 移除 App_Code 源文件（已编译到 DLL）..."
 rm -rf "$OUTPUT_DIR/App_Code"
 
-# 也移除其他 .cs 代码文件（因为它们已经被编译）
-echo "[INFO] 移除 .aspx.cs 和 .master.cs 文件..."
-find "$OUTPUT_DIR" -name "*.aspx.cs" -delete 2>/dev/null || true
-find "$OUTPUT_DIR" -name "*.master.cs" -delete 2>/dev/null || true
+# 注意：保留 .aspx.cs 和 .master.cs 文件，因为 XSP4 需要这些文件来运行 ASP.NET Web Forms
 
 echo ""
 echo "=========================================="

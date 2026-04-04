@@ -12,8 +12,34 @@ jobs:
     runs-on: windows-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Get Alpha Release
+        id: release
+        run: |
+          # 优先获取alpha版本
+          $alphaTags = gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-")) | .tagName'
+          if ($alphaTags) {
+            $latestAlpha = ($alphaTags -split "`n") | Sort-Object -Descending | Select-Object -First 1
+            echo "tag_name=$latestAlpha" >> $env:GITHUB_OUTPUT
+          } else {
+            # 如果没有alpha版本，获取最新版本
+            $latestTag = gh release list --repo ${{ github.repository }} --limit 1 --json tagName --jq '.[0].tagName'
+            echo "tag_name=$latestTag" >> $env:GITHUB_OUTPUT
+          }
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download Release Asset
+        run: |
+          gh release download ${{ steps.release.outputs.tag_name }} --repo ${{ github.repository }} --pattern "*.zip"
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Extract Release
+        run: |
+          Expand-Archive -Path learnsite-*.zip -DestinationPath . -Force
+        shell: powershell
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4

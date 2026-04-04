@@ -12,8 +12,31 @@ jobs:
     runs-on: ubuntu-22.04
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Get Alpha Release
+        id: release
+        run: |
+          # 优先获取alpha版本
+          ALPHA_TAGS=$(gh release list --repo ${{ github.repository }} --json tagName --jq '.[] | select(.tagName | startswith("alpha-")) | .tagName' | sort -r)
+          if [ ! -z "$ALPHA_TAGS" ]; then
+            TAG_NAME=$(echo "$ALPHA_TAGS" | head -1)
+            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          else
+            # 如果没有alpha版本，获取最新版本
+            TAG_NAME=$(gh release list --repo ${{ github.repository }} --limit 1 --json tagName --jq '.[0].tagName')
+            echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Download Release Asset
+        run: |
+          gh release download ${{ steps.release.outputs.tag_name }} --repo ${{ github.repository }} --pattern "*.zip"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Extract Release
+        run: |
+          unzip -o learnsite-*.zip -d .
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
