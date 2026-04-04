@@ -35,7 +35,145 @@
 - TODO：
   - [ ] learnsite3.0 + postgresql 敬请期待
 
-# 三。项目结构
+# 三。多平台部署指南
+
+## Docker 部署
+
+### 快速启动
+
+```bash
+docker run -d --name learnsite \
+  -p 8080:8080 \
+  -e MONO_THREADS_PER_CPU=50 \
+  ghcr.io/realkiro/learnsite-wz:latest
+```
+
+### 配合 MSSQL 数据库
+
+```bash
+# 启动 MSSQL 容器
+docker run -d --name learnsite-mssql \
+  -e 'ACCEPT_EULA=Y' \
+  -e 'MSSQL_SA_PASSWORD=YourStrong!Passw0rd' \
+  -p 1433:1433 \
+  mcr.microsoft.com/mssql/server:2022-latest
+
+# 启动 LearnSite 容器
+docker run -d --name learnsite \
+  -p 8080:8080 \
+  --link learnsite-mssql:mssql \
+  -e MONO_THREADS_PER_CPU=50 \
+  ghcr.io/realkiro/learnsite-wz:latest
+```
+
+### 配置说明
+- **端口**: 8080 (XSP4 Web 服务器)
+- **环境变量**: `MONO_THREADS_PER_CPU` (建议设置为 50)
+- **数据持久化**: 可通过 `-v` 挂载卷保存数据
+
+## Linux 部署
+
+### 1. 安装依赖
+
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install -y mono-complete mono-xsp4
+
+# CentOS/RHEL
+sudo yum install -y mono-complete mono-xsp4
+```
+
+### 2. 部署步骤
+
+1. **下载发布包**
+   ```bash
+   wget https://github.com/RealKiro/learnsite-wz/releases/latest/download/learnsite-latest.zip
+   unzip learnsite-latest.zip -d /var/www/learnsite
+   ```
+
+2. **配置权限**
+   ```bash
+   sudo chown -R www-data:www-data /var/www/learnsite
+   sudo chmod +x /var/www/learnsite
+   ```
+
+3. **启动 XSP4 服务器**
+   ```bash
+   cd /var/www/learnsite
+   xsp4 --port 8080 --address 0.0.0.0 --nonstop
+   ```
+
+4. **设置为系统服务** (可选)
+   创建 `learnsite.service` 文件：
+   ```ini
+   [Unit]
+   Description=LearnSite Web Application
+   After=network.target
+
+   [Service]
+   WorkingDirectory=/var/www/learnsite
+   ExecStart=/usr/bin/xsp4 --port 8080 --address 0.0.0.0 --nonstop
+   Restart=always
+   User=www-data
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+   ```bash
+   sudo systemctl enable learnsite.service
+   sudo systemctl start learnsite.service
+   ```
+
+## Windows 部署
+
+### 1. 安装依赖
+
+- **.NET Framework 4.8** (Windows 10/11 已内置)
+- **IIS** (Internet Information Services)
+- **SQL Server** (Express 版本即可)
+
+### 2. 部署步骤
+
+1. **下载发布包**
+   从 GitHub Releases 下载最新的 `learnsite-latest.zip`
+
+2. **解压到 IIS 目录**
+   解压到 `C:\inetpub\wwwroot\learnsite`
+
+3. **配置 IIS**
+   - 打开 IIS 管理器
+   - 创建新网站，指向 `C:\inetpub\wwwroot\learnsite`
+   - 端口设置为 80 或其他可用端口
+   - 应用池设置为 `.NET Framework v4.0`
+
+4. **配置数据库**
+   - 运行 `sql/learnsite.sql` 创建数据库
+   - 修改 `web.config` 中的连接字符串
+
+5. **启动网站**
+   在 IIS 管理器中启动网站
+
+## 数据库配置
+
+### MSSQL 连接字符串
+
+```xml
+<connectionStrings>
+  <add name="LearnSiteConnectionString" 
+       connectionString="Data Source=localhost;Initial Catalog=learnsite;User ID=sa;Password=YourStrong!Passw0rd;Encrypt=false;" 
+       providerName="System.Data.SqlClient" />
+</connectionStrings>
+```
+
+### 首次运行
+
+1. 访问 `http://localhost:8080` (Docker/Linux) 或 `http://localhost/learnsite` (Windows)
+2. 系统会自动重定向到 `upgrade.aspx` 进行初始化
+3. 按照提示完成数据库配置
+
+# 四。项目结构
 ```
 learnsite/
 |-- .git/                           # Git版本控制目录
