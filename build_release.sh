@@ -78,28 +78,10 @@ mkdir -p "$OUTPUT_DIR/Bin"
 cp "$DLL_PATH" "$OUTPUT_DIR/Bin/"
 
 # 确保所有依赖的 DLL 都在 Bin 目录中
-echo "[INFO] 确保依赖的 DLL 存在..."
-DEPEND_DLLS=(
-    "Anthem.dll"
-    "ICSharpCode.SharpZipLib.dll"
-    "LitJSON.dll"
-    "Newtonsoft.Json.dll"
-    "NPOI.dll"
-    "NPOI.OOXML.dll"
-    "NPOI.OpenXml4Net.dll"
-    "NPinyin.dll"
-    "SimplePsd.dll"
-    "SwfDotNet.IO.dll"
-    "log4net.dll"
-    "mxgraph.dll"
-    "zlib.net.dll"
-)
-
-for dll in "${DEPEND_DLLS[@]}"; do
-    if [ -f "$PROJECT_DIR/Bin/$dll" ] && [ ! -f "$OUTPUT_DIR/Bin/$dll" ]; then
-        cp "$PROJECT_DIR/Bin/$dll" "$OUTPUT_DIR/Bin/"
-    fi
-done
+echo "[INFO] 复制所有 Bin 目录中的 DLL..."
+if [ -d "$PROJECT_DIR/Bin" ]; then
+    cp "$PROJECT_DIR/Bin"/*.dll "$OUTPUT_DIR/Bin/" 2>/dev/null || true
+fi
 
 # 移除 App_Code（因为已经编译到 DLL 中）
 echo "[INFO] 移除 App_Code 源文件（已编译到 DLL）..."

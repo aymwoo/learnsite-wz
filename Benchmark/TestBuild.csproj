@@ -20,42 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Anthem">
-      <HintPath>../Bin/Anthem.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>../Bin/ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJSON">
-      <HintPath>../Bin/LitJSON.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI">
-      <HintPath>../Bin/NPOI.dll</HintPath>
-    </Reference>
-    <Reference Include="NPOI.OOXML">
-      <HintPath>../Bin/NPOI.OOXML.dll</HintPath>
-    </Reference>
-    <Reference Include="NPinyin">
-      <HintPath>../Bin/NPinyin.dll</HintPath>
-    </Reference>
-    <Reference Include="SimplePsd">
-      <HintPath>../Bin/SimplePsd.dll</HintPath>
-    </Reference>
-    <Reference Include="SwfDotNet.IO">
-      <HintPath>../Bin/SwfDotNet.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>../Bin/log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="mxgraph">
-      <HintPath>../Bin/mxgraph.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>../Bin/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="zlib.net">
-      <HintPath>../Bin/zlib.net.dll</HintPath>
-    </Reference>
+    <!-- 使用通配符引用所有 Bin 目录中的 DLL -->
+    <Reference Include="../Bin/*.dll" />
   </ItemGroup>
 
   <ItemGroup>
