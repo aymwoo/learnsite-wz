@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <AssemblyName>LearnSite</AssemblyName>
+    <RootNamespace>LearnSite</RootNamespace>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,6 +13,43 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Anthem">
+      <HintPath>../Bin/Anthem.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJSON">
+      <HintPath>../Bin/LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>../Bin/NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>../Bin/NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPinyin">
+      <HintPath>../Bin/NPinyin.dll</HintPath>
+    </Reference>
+    <Reference Include="SimplePsd">
+      <HintPath>../Bin/SimplePsd.dll</HintPath>
+    </Reference>
+    <Reference Include="SwfDotNet.IO">
+      <HintPath>../Bin/SwfDotNet.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>../Bin/log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="mxgraph">
+      <HintPath>../Bin/mxgraph.dll</HintPath>
+    </Reference>
+    <Reference Include="zlib.net">
+      <HintPath>../Bin/zlib.net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

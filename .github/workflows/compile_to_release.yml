@@ -1,4 +1,4 @@
-name: Release Tests
+name: Release Build and Publish
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ on:
           - alpha
 
 jobs:
-  test_and_publish:
+  build_and_publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -29,14 +29,19 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Make run_tests.sh executable
-        run: chmod +x run_tests.sh
+      - name: Make scripts executable
+        run: chmod +x run_tests.sh build_release.sh
 
       - name: Run Unit Tests
         run: ./run_tests.sh --no-e2e
 
-      - name: Zip Repository for GitHub Release
-        run: zip -r learnsite-${{ github.event.inputs.release_type }}.zip . -x "*.git*" "node_modules/*" "TestResults/*"
+      - name: Build and Precompile Release
+        run: ./build_release.sh
+
+      - name: Zip Precompiled Release
+        run: |
+          cd publish_output
+          zip -r ../learnsite-${{ github.event.inputs.release_type }}.zip .
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
