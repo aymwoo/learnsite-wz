@@ -15,79 +15,105 @@
 
         .course-edit-hero {
             border-radius: 1rem;
-            padding: 28px;
+            padding: 18px 24px;
             background: var(--workspace-hero-bg);
             color: #eef2ff;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             position: relative;
             overflow: hidden;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
-        .course-edit-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .75; display: block; margin-bottom: 8px; }
-        .course-edit-title   { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
-        .course-edit-subtitle{ margin: 8px 0 0; font-size: 14px; line-height: 1.7; opacity: .85; }
+        .course-edit-title { margin: 0; font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
 
         .course-edit-panel, .course-edit-editor-panel, .course-edit-feedback, .course-edit-actions {
             background: #fff;
-            border: 1px solid #dbe6f5;
-            border-radius: 1rem;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 16px rgba(15,23,42,.04);
+            border: 1px solid #e8edf5;
+            border-radius: .85rem;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(15,23,42,.03);
         }
-        .course-edit-section-title { margin: 0 0 4px; font-size: 16px; font-weight: 800; color: #0f172a; }
-        .course-edit-section-desc  { margin: 0 0 18px; font-size: 14px; color: #64748b; line-height: 1.7; }
+        .course-edit-actions { display: flex; align-items: center; gap: 12px; padding: 18px 24px; }
+        .course-edit-feedback { background: #f8fafc; border-color: #e2e8f0; }
+        .course-edit-feedback:empty { display: none; }
+        .course-edit-section-title { margin: 0 0 3px; font-size: 15px; font-weight: 800; color: #0f172a; }
+        .course-edit-section-desc  { margin: 0 0 16px; font-size: 13px; color: #64748b; line-height: 1.7; }
 
-        .course-edit-label { display: block; font-size: 14px; font-weight: 700; color: #334155; margin-bottom: 6px; }
+        .course-edit-label { display: block; font-size: 12px; font-weight: 700; color: #64748b; margin-bottom: 4px; letter-spacing: 0.01em; text-transform: uppercase; }
         .course-edit-input, .course-edit-select {
-            width: 100%; min-height: 42px; padding: 0 12px;
-            border: 1px solid #cbd5e1; border-radius: .75rem;
-            background: #f8fafc; color: #0f172a; font-size: 14px;
+            width: 100%; height: 32px; min-height: 32px; padding: 0 10px;
+            border: 1px solid #e2e8f0; border-radius: .6rem;
+            background: #f8fafc; color: #0f172a; font-size: 13px;
             transition: border-color .2s, box-shadow .2s;
+            appearance: none; -webkit-appearance: none;
         }
+        .course-edit-field .course-edit-select { width: auto; border-radius: .4rem; }
+        select[id$="DDLcobj"] { min-width: 80px; }
         .course-edit-input:focus, .course-edit-select:focus {
-            border-color: #60a5fa; outline: none; background: #fff;
-            box-shadow: 0 0 0 4px rgba(96,165,250,.18);
+            border-color: #818cf8; outline: none; background: #fff;
+            box-shadow: 0 0 0 3px rgba(129,140,248,.15);
         }
-        .course-edit-static { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #334155; min-height: 42px; }
-        .course-edit-publish { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; cursor: pointer; }
+        .course-edit-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center; padding-right: 28px;
+        }
+        .course-edit-static { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #334155; min-height: 32px; }
+        .course-edit-static .course-edit-select { width: auto; min-width: 64px; flex-shrink: 0; }
+        .course-edit-publish { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer; color: #334155; min-height: 32px; }
 
         .course-edit-primary-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-height: 44px; padding: 0 24px; border: none; border-radius: 1rem;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            min-height: 42px; padding: 0 28px; border: none; border-radius: .9rem;
             font-size: 14px; font-weight: 700; color: #fff; cursor: pointer;
             background: linear-gradient(135deg,#4f46e5,#4338ca);
-            box-shadow: 0 8px 16px rgba(79,70,229,.2); transition: transform .15s;
+            box-shadow: 0 8px 20px -8px rgba(79,70,229,.55); transition: transform .15s, box-shadow .15s;
         }
-        .course-edit-primary-btn:hover { transform: translateY(-1px); }
+        .course-edit-primary-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 24px -8px rgba(79,70,229,.6); }
         .course-edit-secondary-btn {
             display: inline-flex; align-items: center; justify-content: center;
-            min-height: 44px; padding: 0 24px; border: 1px solid #e2e8f0; border-radius: 1rem;
+            min-height: 42px; padding: 0 24px; border: 1px solid #e2e8f0; border-radius: .9rem;
             font-size: 14px; font-weight: 700; color: #475569; cursor: pointer;
-            background: #fff; transition: background .15s;
+            background: #fff; transition: background .15s, border-color .15s;
         }
-        .course-edit-secondary-btn:hover { background: #f8fafc; }
-        .course-edit-switch-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-height: 36px; padding: 0 16px; border: 1px solid #e2e8f0; border-radius: .75rem;
-            font-size: 13px; font-weight: 700; color: #475569; cursor: pointer;
-            background: #f8fafc; transition: all .15s;
-        }
-        .course-edit-switch-btn.active { background: #4f46e5; color: #fff; border-color: #4f46e5; }
+        .course-edit-secondary-btn:hover { background: #f8fafc; border-color: #c7d2fe; color: #3730a3; }
 
         .course-edit-grid {
-            display: grid;
-            grid-template-columns: repeat(12, minmax(0, 1fr));
-            gap: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: flex-end;
         }
+        .course-edit-field { flex: 0 0 auto; min-width: 0; }
+        .course-edit-field-wide { flex: 1 1 100%; }
 
-        .course-edit-field { grid-column: span 4; }
-
-        .course-edit-field-wide {
-            grid-column: span 12;
+        .course-edit-editor-toolbar {
+            display: flex; flex-wrap: wrap; justify-content: space-between;
+            gap: 1rem; align-items: flex-end; margin-bottom: 14px;
         }
+        .course-edit-editor-select {
+            min-height: 38px; padding: 0 32px 0 12px; border: 1px solid #e2e8f0;
+            border-radius: .75rem; background: #f8fafc; color: #334155;
+            font-size: 13px; font-weight: 600; cursor: pointer;
+            appearance: none; -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 10px center;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .course-edit-editor-select:focus { border-color: #818cf8; outline: none; box-shadow: 0 0 0 3px rgba(129,140,248,.18); }
+        .course-edit-editor-stage {
+            border: 1px solid #e8edf5; border-radius: .85rem;
+            background: #fafbff; padding: 12px; overflow: hidden;
+        }
+        .course-edit-editor-stage .ke-container,
+        .course-edit-editor-stage #wangeditor-wrap,
+        .course-edit-editor-stage #vditor-wrap,
+        .course-edit-editor-stage textarea {
+            max-width: 100%; width: 100% !important;
+        }
+        .course-edit-msg { display: block; font-size: 14px; font-weight: 600; color: #0f172a; line-height: 1.7; }
+        .course-edit-msg:empty { display: none; }
 
         .course-edit-banner-row {
             display: grid;
@@ -276,6 +302,7 @@
             box-shadow: 0 4px 12px rgba(79,70,229,.2);
         }
         .ce-banner-btn:disabled { opacity: .5; cursor: not-allowed; }
+    </style>
 
     <div class="course-edit-page">
         <div class="course-edit-shell">
@@ -285,36 +312,31 @@
                     编辑横幅
                 </button>
                 <div class="course-edit-hero-content">
-                    <span class="course-edit-eyebrow">Edit Course Plan</span>
                     <h1 class="course-edit-title">学案编辑</h1>
-                    <p class="course-edit-subtitle">保留原有学案编辑、图片上传、富文本切换与提交逻辑，仅对信息架构、布局和编辑区域的视觉层次进行重构。</p>
                 </div>
             </section>
 
             <section class="course-edit-panel">
-                <h2 class="course-edit-section-title">基础设置</h2>
-                <p class="course-edit-section-desc">标题、分类、年级、学期、课节、发布状态和横幅上传都沿用当前后台处理逻辑。</p>
-
                 <div class="course-edit-grid">
                     <div class="course-edit-field course-edit-field-wide">
                         <label class="course-edit-label" for="<%= Texttitle.ClientID %>">学案名称</label>
-                        <asp:TextBox ID="Texttitle" runat="server" Width="436px" SkinID="TextBoxNormal" CssClass="course-edit-input"></asp:TextBox>
+                        <asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal" CssClass="course-edit-input"></asp:TextBox>
                     </div>
 
                     <div class="course-edit-field">
                         <label class="course-edit-label" for="<%= DDLclass.ClientID %>">学案分类</label>
-                        <asp:DropDownList ID="DDLclass" runat="server" Width="100px" Font-Size="9pt" CssClass="course-edit-select"></asp:DropDownList>
+                        <asp:DropDownList ID="DDLclass" runat="server" Font-Size="9pt" CssClass="course-edit-select"></asp:DropDownList>
                     </div>
 
                     <div class="course-edit-field">
                         <label class="course-edit-label" for="<%= DDLcobj.ClientID %>">授课年级</label>
-                        <asp:DropDownList ID="DDLcobj" runat="server" Font-Size="9pt" Width="40px" CssClass="course-edit-select"></asp:DropDownList>
+                        <asp:DropDownList ID="DDLcobj" runat="server" Font-Size="9pt" CssClass="course-edit-select"></asp:DropDownList>
                     </div>
 
                     <div class="course-edit-field">
                         <label class="course-edit-label" for="<%= DDLCterm.ClientID %>">学期设置</label>
                         <div class="course-edit-static">
-                            第&nbsp;<asp:DropDownList ID="DDLCterm" runat="server" Font-Names="Arial" Font-Size="8pt" Width="40px" CssClass="course-edit-select" style="height: 2.25rem; min-height: 2.25rem; width: 4.5rem; padding: 0 0.6rem; margin-right: 0.4rem;">
+                            第&nbsp;<asp:DropDownList ID="DDLCterm" runat="server" Font-Names="Arial" Font-Size="8pt" CssClass="course-edit-select">
                                 <asp:ListItem>1</asp:ListItem>
                                 <asp:ListItem Selected="True">2</asp:ListItem>
                             </asp:DropDownList>
@@ -325,7 +347,7 @@
                     <div class="course-edit-field">
                         <label class="course-edit-label" for="<%= DDLCks.ClientID %>">课节</label>
                         <div class="course-edit-static">
-                            第&nbsp;<asp:DropDownList ID="DDLCks" runat="server" Font-Size="8pt" Width="40px" Font-Names="Arial" CssClass="course-edit-select" style="height: 2.25rem; min-height: 2.25rem; width: 4.5rem; padding: 0 0.6rem; margin-right: 0.4rem;"></asp:DropDownList>
+                            第&nbsp;<asp:DropDownList ID="DDLCks" runat="server" Font-Size="8pt" Font-Names="Arial" CssClass="course-edit-select"></asp:DropDownList>
                             课节
                         </div>
                     </div>
@@ -359,14 +381,14 @@
                 <div class="course-edit-editor-toolbar">
                     <div>
                         <h2 class="course-edit-section-title">内容编辑</h2>
-                        <p class="course-edit-section-desc">支持原生 KindEditor、WangEditor 和 Vditor 三种模式切换，提交前继续通过原有 `syncContent()` 同步内容。</p>
+                        <p class="course-edit-section-desc">支持 KindEditor、WangEditor 和 Vditor 三种模式切换。</p>
                     </div>
                     <div>
-                        <label class="course-edit-label" for="editorSelector">编辑器选择</label><br />
+                        <label class="course-edit-label">编辑器</label>
                         <select id="editorSelector" onchange="switchEditor(this.value)" class="course-edit-editor-select">
-                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
-                            <option value="wangeditor">富文本编辑器 (WangEditor)</option>
-                            <option value="vditor">Markdown编辑器 (Vditor)</option>
+                            <option value="kindeditor" selected>KindEditor（原生）</option>
+                            <option value="wangeditor">WangEditor（富文本）</option>
+                            <option value="vditor">Vditor（Markdown）</option>
                         </select>
                     </div>
                 </div>
@@ -450,7 +472,7 @@
 
                         vditorObj = new Vditor('vditor-container', {
                             height: 400,
-                            width: '780px',
+                            width: '100%',
                             mode: 'ir',
                             preview: {
                                 mode: 'both'
@@ -536,28 +558,26 @@
                 </script>
 
                 <div class="course-edit-editor-stage custom-scrollbar">
-                    <div id="wangeditor-wrap" style="display:none; width: 780px; left:10px; position:relative; border: 1px solid #ccc; z-index: 100;">
+                    <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border: 1px solid #ccc; z-index: 100;">
                         <div id="wangeditor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
                         <div id="wangeditor-text" style="height: 350px;"></div>
                     </div>
 
-                    <div id="vditor-wrap" style="display:none; width: 780px; left:10px; position:relative; margin-bottom: 10px;">
+                    <div id="vditor-wrap" style="display:none; width:100%; position:relative; margin-bottom: 10px;">
                         <div id="vditor-container"></div>
                     </div>
 
-                    <textarea id="mcontent" runat="server" style="width: 780px; height:400px; left:10px;"></textarea>
+                    <textarea id="mcontent" runat="server" style="width:100%; height:400px;"></textarea>
                 </div>
             </section>
 
             <section class="course-edit-feedback">
-                <h2 class="course-edit-section-title">处理反馈</h2>
-                <p class="course-edit-section-desc">提交结果和后台提示信息仍由原页面逻辑输出。</p>
-                <asp:Label ID="Labelmsg" runat="server"></asp:Label>
+                <asp:Label ID="Labelmsg" runat="server" CssClass="course-edit-msg"></asp:Label>
             </section>
 
             <section class="course-edit-actions">
-                <asp:Button ID="Btnedit" runat="server" Text="确定" onclick="Btnedit_Click" OnClientClick="return syncContent();" SkinID="BtnNormal" CssClass="course-edit-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="返回" onclick="Btnreturn_Click" SkinID="BtnNormal" CssClass="course-edit-secondary-btn" />
+                <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" SkinID="BtnNormal" CssClass="course-edit-primary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" SkinID="BtnNormal" CssClass="course-edit-secondary-btn" />
             </section>
         </div>
     </div>
