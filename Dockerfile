@@ -1,5 +1,6 @@
 # LearnSite Web 应用 Dockerfile
 # 基于 Mono 运行时和 XSP4 Web 服务器
+# 支持 .NET Framework 4.8
 
 FROM mono:6.12.0.182-buster
 
@@ -15,8 +16,11 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# 安装 XSP4 (Mono ASP.NET 服务器)
-RUN apt-get update && apt-get install -y mono-xsp4 && rm -rf /var/lib/apt/lists/*
+# 安装 XSP4 (Mono ASP.NET 服务器) 和完整的 Mono 运行时
+RUN apt-get update && apt-get install -y \
+    mono-xsp4 \
+    mono-complete \
+    && rm -rf /var/lib/apt/lists/*
 
 # 创建应用目录
 WORKDIR /app
