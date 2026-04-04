@@ -66,8 +66,8 @@ jobs:
       - name: Initialize Database
         run: |
           docker cp sql/learnsite.sql learnsite-mssql:/tmp/learnsite.sql
-          docker exec learnsite-mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -Q "CREATE DATABASE [learnsite];"
-          docker exec learnsite-mssql /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -d learnsite -i /tmp/learnsite.sql
+          docker exec learnsite-mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -C -Q "CREATE DATABASE [learnsite];"
+          docker exec learnsite-mssql /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "YourStrong!Passw0rd" -C -d learnsite -i /tmp/learnsite.sql
 
       - name: Make scripts executable
         run: |
