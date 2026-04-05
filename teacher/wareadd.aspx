@@ -210,10 +210,26 @@
             </div>
         </div>
      <div  class="placehold">
-        <div style=" text-align:left; color:#ccc;">
-            将以下两行代码放置在交互网页的提交按钮事件里：<br />
-  			const message = { name: "标签游戏", value: score };// 消息字典为游戏标题和score成绩<br />
-			window.parent.postMessage(JSON.stringify(message), "*");// 向父页面发送消息
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded shadow-sm text-left">
+            <div class="flex items-center mb-2">
+                <i class="bi bi-info-circle-fill text-blue-500 mr-2"></i>
+                <h4 class="text-blue-800 font-bold m-0">学习平台成绩采集集成指南</h4>
+            </div>
+            <p class="text-sm text-blue-900 mb-2">
+                为方便学习平台准确获取并采集HTML课件中产生的学生评估分数，请将以下代码放入交互网页（如游戏、测验）的<strong>提交按钮事件</strong>或<strong>分数生成事件</strong>中：
+            </p>
+            <div class="bg-slate-800 rounded p-3 relative group">
+                <code class="text-green-400 text-sm font-mono block">
+                    const message = { name: "测验名称", value: score }; // 消息字典为测验名称和score成绩<br/>
+                    window.parent.postMessage(JSON.stringify(message), "*"); // 向父页面发送消息
+                </code>
+                <button type="button" onclick="navigator.clipboard.writeText('const message = { name: \'测验名称\', value: score };\nwindow.parent.postMessage(JSON.stringify(message), \'*\');'); alert('代码已复制到剪贴板');" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0">
+                    复制代码
+                </button>
+            </div>
+            <p class="text-xs text-blue-700 mt-2">
+                <strong>说明：</strong> <code>score</code> 变量必须是数值类型。当触发此代码时，平台会自动捕获分数，学生点击保存时即可将成绩汇总至教师端。
+            </p>
         </div>
          <br />
               <asp:Button ID="Btnadd" runat="server"  Text="添加主题" OnClick="Btnadd_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
