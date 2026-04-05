@@ -1,5 +1,23 @@
 # 更新日志 (CHANGELOG)
 
+## 2026-04-05
+
+### UI 重构
+- **学生端统一 `prog-*` 设计系统**：将 `student/` 下所有使用 `Scm.master` 的页面从混用 Tailwind 工具类迁移至自洽的 `prog-*` CSS 设计系统（命名风格对齐教师端 `lesson-*`），彻底消除对 CDN Tailwind 的运行时依赖
+- **学案导航条（lessonav）修复**：`Scm.master` 中解析 `asp:Menu`（`Menuact`）的 JS 从查找 `<table>` 改为查找 `<ul><li>`（`web.config` 设定 `controlRenderingCompatibilityVersion="4.8"` 渲染为列表结构），修复了环节导航链接完全不显示的 bug
+- **Sidebar sticky 修复**：移除 `.scm-content-card` 上的 `overflow: hidden`，该属性会裁剪内部 `position: sticky` 的 sidebar，导致其随页面滚动消失
+- **皮肤样式覆盖**：`SkinID="buttonSkinPink"` 和 `SkinID="HyperLinkPink"` 会在渲染时注入内联 `background-color`、`height`、`width`、`font-size` 等样式，各页面已通过高优先级 `!important` CSS 规则将其统一压制并替换为 `prog-btn-*` 系列样式
+
+### 涉及文件
+- `student/Scm.master`：topbar 精简（品牌 + 我的首页），新增 `scm-lessonav` 学案导航条（sticky top:56px），JS 全面重写，移除 `overflow: hidden`
+- `student/program.aspx`：两栏 `prog-grid`（`1fr 300px`），sidebar `sticky top:116px`，按钮统一为 `prog-btn-*` 系列，skin 样式覆盖
+- `student/showcourse.aspx`：去掉双层卡片包裹，简化结构
+- `student/myevaluate.aspx`：补加 `<meta charset="UTF-8">` 修复乱码
+- `student/txtform.aspx`：整体改为 `prog-grid`，sidebar 改为 `prog-card prog-sidebar-card`，按钮统一
+- `student/showmission.aspx`：同上，内部上传控件、GridView、Panel 完全保留，仅外层结构和样式改为 `prog-*` 系统
+- `student/showtask.aspx`：同上，Plupload 上传逻辑完整保留，仅外层结构和样式改为 `prog-*` 系统
+- `student/console.aspx`：同上，GridView 测评面板和 `BtnIdle`（`SkinID="buttonSkinPink"`）完整保留，外层改为 `prog-*` 系统并处理 skin 覆盖
+
 ## 2026-04-03
 
 ### UI 重构

@@ -2,14 +2,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <style type="text/css">
     .student-doc-wrap {
-        background: #ffffff;
+        background: transparent;
         border: none;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+        border-radius: 0;
+        box-shadow: none;
         overflow: hidden;
-        margin-top: 1.5rem;
-        margin-bottom: 3rem;
-        transition: all 0.3s ease;
+        margin-top: 0;
+        margin-bottom: 1rem;
     }
     .student-doc-head {
         background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
@@ -82,7 +81,7 @@
     }
 </style>
 
-<div class="w-full max-w-[1000px] mx-auto px-4 sm:px-6">
+<div class="w-full max-w-[900px] mx-auto">
     <div class="student-doc-wrap">
         <!-- Course Title Header -->
         <div class="student-doc-head">
