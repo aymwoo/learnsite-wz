@@ -251,6 +251,23 @@
                                 .profile-tab-btn.active { color:#4f46e5; font-weight:600; border-bottom-color:#4f46e5; background:#fff; }
                                 .profile-tab-btn svg { width:0.875rem; height:0.875rem; flex-shrink:0; }
                             </style>
+                            <!-- Student Info Bar (between header and tabs) -->
+                            <div id="modalStudentBar" class="flex-shrink-0 px-5 py-2.5" style="background:linear-gradient(to right,#f0f4ff,#f8faff);border-bottom:1px solid #e0e7ff;">
+                                <div style="display:flex;align-items:center;gap:12px;">
+                                    <img id="modalStudentAvatar" src="" alt="" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #c7d2fe;box-shadow:0 2px 6px rgba(79,70,229,.15);flex-shrink:0;" />
+                                    <div style="display:flex;flex-direction:column;gap:1px;min-width:0;">
+                                        <span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                                            <span id="modalStudentName" style="font-size:14px;font-weight:800;color:#1e1b4b;letter-spacing:-.01em;"></span>
+                                            <span id="modalStudentRankBadge" style="display:inline-flex;align-items:center;font-size:10px;font-weight:700;padding:1px 7px;border-radius:9999px;background:linear-gradient(135deg,#fb923c,#ec4899);color:#fff;box-shadow:0 1px 4px rgba(0,0,0,.15);line-height:1.6;white-space:nowrap;"></span>
+                                        </span>
+                                        <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                            <span id="modalStudentNum" style="font-size:11px;color:#6366f1;font-weight:600;"></span>
+                                            <span style="width:1px;height:10px;background:#c7d2fe;display:inline-block;"></span>
+                                            <span id="modalStudentClass" style="font-size:11px;color:#475569;font-weight:500;"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Tab Navigation -->
                             <div class="border-b border-slate-200 px-3 flex-shrink-0" style="background:#f8fafc;">
                                 <nav class="profile-modal-tabs" aria-label="资料导航">
@@ -326,6 +343,40 @@
                     var backdrop = document.getElementById('modernGroupModalBackdrop');
                     var panel = document.getElementById('modernGroupModalPanel');
                     var iframe = document.getElementById('modernGroupModalIframe');
+
+                    // Populate student info bar from sidebar controls
+                    (function() {
+                        var avatarSrc = (document.getElementById('<%= Imageface.ClientID %>') || {}).src || '';
+                        var name = (document.getElementById('<%= sname.ClientID %>') || {}).innerText || '';
+                        var num = (document.getElementById('<%= snum.ClientID %>') || {}).innerText || '';
+                        var cls = (document.getElementById('<%= sclass.ClientID %>') || {}).innerText || '';
+                        var rankEl = document.getElementById('<%= LabelRank.ClientID %>');
+                        var rankHtml = rankEl ? rankEl.innerHTML : '';
+                        // Extract plain text rank label from HTML (strip img tags, keep text nodes)
+                        var tmp = document.createElement('div');
+                        tmp.innerHTML = rankHtml;
+                        // Try to find an img title/alt, or just grab non-empty text
+                        var rankText = '';
+                        var imgs = tmp.querySelectorAll('img');
+                        if (imgs.length > 0) {
+                            rankText = imgs[0].title || imgs[0].alt || '';
+                        }
+                        if (!rankText) {
+                            rankText = (tmp.textContent || '').replace(/\s+/g,' ').trim().split(' ')[0];
+                        }
+
+                        var barAvatar = document.getElementById('modalStudentAvatar');
+                        var barName = document.getElementById('modalStudentName');
+                        var barRank = document.getElementById('modalStudentRankBadge');
+                        var barNum = document.getElementById('modalStudentNum');
+                        var barClass = document.getElementById('modalStudentClass');
+
+                        if (barAvatar && avatarSrc) barAvatar.src = avatarSrc;
+                        if (barName) barName.textContent = name;
+                        if (barRank) { barRank.textContent = rankText; barRank.style.display = rankText ? '' : 'none'; }
+                        if (barNum) barNum.textContent = num;
+                        if (barClass) barClass.textContent = cls;
+                    })();
 
                     // Load default tab (小组合作) if no page is loaded yet
                     if (!iframe.src || iframe.src === window.location.href || iframe.src === '') {

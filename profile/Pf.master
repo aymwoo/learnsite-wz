@@ -25,42 +25,9 @@
             <div  class="path"> 
             &nbsp;
             </div>
-            <div style="font-family:  Arial;  width: 1200px; margin: auto">
-<div style="float:left; overflow: hidden; text-align: center; " >
-        <div style="margin: auto; width: 980px; text-align: center;" >     
+            <div style="font-family: Arial;">
             <asp:ContentPlaceHolder ID="Cstu" runat="server">
             </asp:ContentPlaceHolder>
-</div>
-    <br />
-</div>
-<div style="float:right; overflow: hidden; text-align: center; width: 200px">
-<div>    
-    <asp:Image ID="Imageface" runat="server"  style=" max-width:160px; max-height:160px;border-width:0px;"   />    
-    <div id="DivRank" class="divinfo" >
-    <asp:Label ID="LabelRank" runat="server"></asp:Label>
-    </div>
-    </div> 
-    <div class="divinfo">
-    <div class="divinfo1">学号</div>
-    <div class="divinfo2"><asp:Label ID="snum" runat="server" ></asp:Label></div>
-    </div>
-    <div class="divinfo">
-    <div class="divinfo1">班级</div>
-    <div class="divinfo2"><asp:Label ID="sclass" runat="server" ></asp:Label></div>
-    </div>
-    <div class="divinfo">
-    <div class="divinfo1">姓名</div>
-    <div class="divinfo2"><asp:Label ID="sname" runat="server" ></asp:Label></div>
-    </div>  
-    <div class="divinfo">
-    <div class="divinfo1">小组</div>
-    <div class="divinfo2"></div>
-    <asp:Label ID="sleadername" runat="server" ></asp:Label>
-    </div><br />
-    <asp:HyperLink ID="HyperLink1" runat="server" ImageUrl="~/images/good.png"
-        NavigateUrl="~/profile/mychange.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">推荐组长</asp:HyperLink>
-    <br />
-    </div>
 </div>
         <br />
         </div>
