@@ -10,6 +10,7 @@ public partial class Teacher_start : System.Web.UI.Page
     // 供学习状态AJAX轮询JS使用
     protected string LsGrade = "0";
     protected string LsClass = "0";
+    protected string LsCid = "0";
     protected void Page_Load(object sender, EventArgs e)
     {
         LearnSite.Common.CookieHelp.JudgeTeacherCookies();
@@ -31,9 +32,23 @@ public partial class Teacher_start : System.Web.UI.Page
                 showLock();
                 showwtUrl();
                 showMenu();
-                LsGrade = DDLgrade.SelectedValue;
-                LsClass = DDLclass.SelectedValue;
             }
+        }
+    }
+
+    protected void Page_PreRender(object sender, EventArgs e)
+    {
+        if (DDLgrade != null && DDLgrade.Items.Count > 0)
+        {
+            LsGrade = DDLgrade.SelectedValue;
+        }
+        if (DDLclass != null && DDLclass.Items.Count > 0)
+        {
+            LsClass = DDLclass.SelectedValue;
+        }
+        if (DDLCid != null && DDLCid.Items.Count > 0)
+        {
+            LsCid = DDLCid.SelectedValue;
         }
     }
 

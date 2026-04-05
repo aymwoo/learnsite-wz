@@ -50,7 +50,7 @@
         .stu-list { width: 100%; }
         .stu-list-header, .stu-list-row {
             display: grid;
-            grid-template-columns: 50px 70px 70px 28px 50px 50px 80px 44px 28px 36px 60px 50px 60px 50px;
+            grid-template-columns: 50px 112px 70px 28px 50px 50px 80px 44px 28px 36px 60px 50px 60px 50px;
             align-items: center;
         }
         .stu-list-header {
@@ -73,6 +73,7 @@
             font-size: 13px; color: #334155;
             text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
+        .stu-list-cell--snum { overflow: visible; text-overflow: clip; }
 
         .stu-link { color: #4f46e5; font-weight: 700; text-decoration: none; }
         .stu-link:hover { color: #3730a3; text-decoration: underline; }
@@ -199,7 +200,7 @@
                         <ItemTemplate>
                             <div class="stu-list-row">
                                 <div class="stu-list-cell" style="color:#94a3b8;font-size:12px;"><asp:Label ID="LabelRowIndex" runat="server"></asp:Label></div>
-                                <div class="stu-list-cell" style="font-weight:700;color:#4f46e5;font-family:monospace;"><%# Eval("Snum") %></div>
+                                <div class="stu-list-cell stu-list-cell--snum" style="font-weight:700;color:#4f46e5;font-family:monospace;"><%# Eval("Snum") %></div>
                                 <div class="stu-list-cell" style="color:#94a3b8;">
                                     <asp:Label ID="Labelpwd" runat="server" Text="******" ToolTip='<%# Eval("Spwd") %>'></asp:Label>
                                 </div>

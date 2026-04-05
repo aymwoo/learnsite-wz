@@ -124,6 +124,9 @@
                                                     if (file.percent == 100 && !isup) {
                                                         isup = true;
                                                         OfficeToPng();
+                                                        if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                                                            window.LearnStatus.submitted();
+                                                        }
                                                         alert("作品已经提交成功！");
                                                     }
                                                 },

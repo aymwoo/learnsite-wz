@@ -65,7 +65,7 @@ public partial class teacher_learnrate : System.Web.UI.Page
             GridViewclass.DataBind();
 
             dt.Dispose();//强制释放
-            //Labelmsg.Text = LearnSite.Common.Computer.DatagoneMilliseconds(dt1, dt2) + "毫秒";
+            Labelmsg.Text = "最近刷新：" + dt2.ToString("HH:mm:ss") + "，耗时 " + LearnSite.Common.Computer.DatagoneMilliseconds(dt1, dt2) + " 毫秒";
             Btnreflash.ToolTip = "刷新";
             this.Page.Title = LabelGradeClass.Text;
         }
@@ -108,6 +108,11 @@ public partial class teacher_learnrate : System.Web.UI.Page
         }
     }
     protected void Btnreflash_Click(object sender, ImageClickEventArgs e)
+    {
+        showrate();
+    }
+
+    protected void BtnreflashText_Click(object sender, EventArgs e)
     {
         showrate();
     }

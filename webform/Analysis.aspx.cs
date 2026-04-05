@@ -12,6 +12,8 @@ public partial class webform_Analysis : System.Web.UI.Page
     protected int Persons = 0;
     protected int avgScore = 0;
     protected int avgSpent = 0;
+    protected int NoPersons = 0;
+    protected string PageStatus = string.Empty;
 
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
     protected void Page_Load(object sender, EventArgs e)
@@ -38,8 +40,10 @@ public partial class webform_Analysis : System.Web.UI.Page
         RepeaterList.DataBind();
         Persons = dt.Rows.Count;
 
-        RepeaterNo.DataSource = abll.GetListClassSname(Eid, cook.Sgrade, cook.Sclass);//获得未参加班级测验的学生列表
+        DataSet dsNo = abll.GetListClassSname(Eid, cook.Sgrade, cook.Sclass);//获得未参加班级测验的学生列表
+        RepeaterNo.DataSource = dsNo;
         RepeaterNo.DataBind();
+        NoPersons = dsNo.Tables[0].Rows.Count;
 
         // 创建一个DataTable来存储题目分析结果
         DataTable dtAnalysis = new DataTable();
@@ -151,6 +155,7 @@ public partial class webform_Analysis : System.Web.UI.Page
 
         RepeaterAnalysis.DataSource = dtAnalysis;
         RepeaterAnalysis.DataBind();
+        PageStatus = "最近刷新：" + DateTime.Now.ToString("HH:mm:ss") + "，已参与 " + Persons.ToString() + " 人，未参与 " + NoPersons.ToString() + " 人";
     }
 
     // 直接使用switch-case，不需要字典初始化

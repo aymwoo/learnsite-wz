@@ -95,7 +95,13 @@
                                                 fieldName: 'imgFile',
                                                 url: urlstr,
                                                 afterUpload: function (data) {
-                                                    if (data.error === 0) { alert("作品已经提交成功！"); location.reload(); }
+                                                    if (data.error === 0) {
+                                                        if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                                                            window.LearnStatus.submitted();
+                                                        }
+                                                        alert("作品已经提交成功！");
+                                                        location.reload();
+                                                    }
                                                     else { alert(data.message); }
                                                 },
                                                 afterError: function (str) { alert('出错信息: ' + str); }
@@ -183,7 +189,13 @@
                                                 fieldName: 'imgFilegroup',
                                                 url: gurlstr,
                                                 afterUpload: function (data) {
-                                                    if (data.error === 0) { alert("小组作品已经提交成功！"); location.reload(true); }
+                                                    if (data.error === 0) {
+                                                        if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                                                            window.LearnStatus.submitted();
+                                                        }
+                                                        alert("小组作品已经提交成功！");
+                                                        location.reload(true);
+                                                    }
                                                     else { alert(data.message); }
                                                 },
                                                 afterError: function (str) { alert('出错信息: ' + str); }

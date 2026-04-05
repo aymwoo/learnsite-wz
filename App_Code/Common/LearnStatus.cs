@@ -155,7 +155,7 @@ namespace LearnSite.Common
         /// <summary>
         /// 获取指定班级的所有学生状态，返回JSON字符串
         /// </summary>
-        public static string GetClassStatusJson(int sgrade, int sclass)
+        public static string GetClassStatusJson(int sgrade, int sclass, int cid)
         {
             Dictionary<string, StudentStatus> dict = GetStatusDict();
             List<StudentStatus> result = new List<StudentStatus>();
@@ -176,7 +176,7 @@ namespace LearnSite.Common
                     }
                 }
 
-                if (kvp.Value.Sgrade == sgrade && kvp.Value.Sclass == sclass)
+                if (kvp.Value.Sgrade == sgrade && kvp.Value.Sclass == sclass && (cid <= 0 || kvp.Value.Cid == cid))
                 {
                     result.Add(kvp.Value);
                 }
@@ -204,10 +204,15 @@ namespace LearnSite.Common
             return serializer.Serialize(result);
         }
 
+        public static string GetClassStatusJson(int sgrade, int sclass)
+        {
+            return GetClassStatusJson(sgrade, sclass, 0);
+        }
+
         /// <summary>
         /// 获取指定班级学生在各环节的分布统计，返回JSON
         /// </summary>
-        public static string GetClassProgressJson(int sgrade, int sclass)
+        public static string GetClassProgressJson(int sgrade, int sclass, int cid)
         {
             Dictionary<string, StudentStatus> dict = GetStatusDict();
 
@@ -219,7 +224,7 @@ namespace LearnSite.Common
 
             foreach (var kvp in dict)
             {
-                if (kvp.Value.Sgrade == sgrade && kvp.Value.Sclass == sclass)
+                if (kvp.Value.Sgrade == sgrade && kvp.Value.Sclass == sclass && (cid <= 0 || kvp.Value.Cid == cid))
                 {
                     totalOnline++;
                     string title = kvp.Value.Ltitle;
@@ -254,6 +259,11 @@ namespace LearnSite.Common
 
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             return serializer.Serialize(progress);
+        }
+
+        public static string GetClassProgressJson(int sgrade, int sclass)
+        {
+            return GetClassProgressJson(sgrade, sclass, 0);
         }
     }
 }

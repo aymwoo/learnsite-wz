@@ -26,7 +26,7 @@ public partial class Student_Scm : System.Web.UI.MasterPage
         if (cook.IsExist())
         {
             LsSnum = cook.Snum;
-            LsSname = HttpUtility.UrlEncode(cook.Sname);
+            LsSname = cook.Sname;
             LsSgrade = cook.Sgrade.ToString();
             LsSclass = cook.Sclass.ToString();
             LsSid = cook.Sid.ToString();
@@ -334,7 +334,7 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                         // 设置当前学案环节信息，供学习状态上报使用
                         LsCid = myCid;
                         LsLid = Lid;
-                        LsLtitle = HttpUtility.UrlEncode(Ltitlestr);
+                        LsLtitle = Ltitlestr;
                         LsLtype = Ltype;
                     }
                     Menuact.Items.Add(ma);//添加活动菜单

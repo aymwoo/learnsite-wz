@@ -1049,6 +1049,10 @@ function submitExam() {
                         alert('保存失败：' + response.substring(6));
                         return;
                     }
+
+                    if (window.LearnStatus && typeof window.LearnStatus.submitted === 'function') {
+                        window.LearnStatus.submitted();
+                    }
                 
                 } else {
                     alert('保存失败：服务器错误 ' + xhr.status);

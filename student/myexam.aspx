@@ -188,6 +188,9 @@
             processData: false,
             contentType: false
         }).done(function (res) {
+            if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                window.LearnStatus.submitted();
+            }
             alert("提交成功！");
 			location.reload();
         });

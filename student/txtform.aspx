@@ -322,6 +322,9 @@
                             contentType: false
                         }).done(function (res) {
                             $("#sucessed").show();
+                            if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                                window.LearnStatus.submitted();
+                            }
                             alert("提交成功！");
                             location.reload();
                         }).fail(function (res) {

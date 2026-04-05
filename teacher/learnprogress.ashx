@@ -25,28 +25,30 @@ public class learnprogress : IHttpHandler
             string action = context.Request.QueryString["action"] ?? "status";
             string sgrade = context.Request.QueryString["sgrade"] ?? "0";
             string sclass = context.Request.QueryString["sclass"] ?? "0";
+            string scid = context.Request.QueryString["cid"] ?? "0";
 
             int grade = int.Parse(sgrade);
             int cls = int.Parse(sclass);
+            int cid = int.Parse(scid);
 
             switch (action)
             {
                 case "status":
                     // 返回该班级所有学生的学习状态列表
-                    string statusJson = LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls);
+                    string statusJson = LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls, cid);
                     context.Response.Write("{\"ok\":true,\"data\":" + statusJson + "}");
                     break;
 
                 case "progress":
                     // 返回该班级的学习进度统计
-                    string progressJson = LearnSite.Common.LearnStatus.GetClassProgressJson(grade, cls);
+                    string progressJson = LearnSite.Common.LearnStatus.GetClassProgressJson(grade, cls, cid);
                     context.Response.Write("{\"ok\":true,\"data\":" + progressJson + "}");
                     break;
 
                 case "all":
                     // 返回完整数据（状态列表 + 进度统计）
-                    string allStatus = LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls);
-                    string allProgress = LearnSite.Common.LearnStatus.GetClassProgressJson(grade, cls);
+                    string allStatus = LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls, cid);
+                    string allProgress = LearnSite.Common.LearnStatus.GetClassProgressJson(grade, cls, cid);
                     context.Response.Write("{\"ok\":true,\"students\":" + allStatus + ",\"progress\":" + allProgress + "}");
                     break;
 

@@ -576,10 +576,11 @@ namespace LearnSite.BLL
                         string Ltype = dt.Rows[i]["Ltype"].ToString();//获取学案项目类型：1活动2调查3讨论4表单
                         int Lxid = Convert.ToInt32(dt.Rows[i]["Lxid"].ToString());//获取对应项目ID编号
                         string Ltitle = dt.Rows[i]["Ltitle"].ToString().Replace(" ", "");//获取菜单标题
+                        string displayTitle = GetUniqueColumnName(dtstus.Columns, Ltitle);
                         string Ltitlestr = "l" + Ltype + "x" + Lxid.ToString() + "c" + i.ToString();
 
                         dtstus.Columns.Add(Ltitlestr, typeof(string));
-                        dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                        dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                     }
                     MenuWorks kbll = new MenuWorks();
                     for (int j = 0; j < scount; j++)
@@ -631,6 +632,7 @@ namespace LearnSite.BLL
                         string Ltype = dt.Rows[i]["Ltype"].ToString();//获取学案项目类型：1活动2调查3讨论4表单
                         int Lxid = Convert.ToInt32(dt.Rows[i]["Lxid"].ToString());//获取对应项目ID编号
                         string Ltitle = dt.Rows[i]["Ltitle"].ToString().Replace(" ", "");//获取菜单标题
+                        string displayTitle = GetUniqueColumnName(dtstus.Columns, Ltitle);
                         string Ltitlestr = "l" + Ltype + "x" + Lxid.ToString()+"c"+i.ToString();
                         switch (Ltype)
                         {
@@ -647,7 +649,7 @@ namespace LearnSite.BLL
                                 {
                                     dtstus.Columns.Add(Ltitlestr, typeof(string));
                                     GetScore(dtstus, Ltitlestr, dtms);
-                                    dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                                    dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                                 }
                                 dtms.Dispose();
                                 break;
@@ -657,7 +659,7 @@ namespace LearnSite.BLL
                                 {
                                     dtstus.Columns.Add(Ltitlestr, typeof(string));
                                     GetScore(dtstus, Ltitlestr, dtsf);
-                                    dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                                    dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                                 }
                                 dtsf.Dispose();
                                 break;
@@ -667,7 +669,7 @@ namespace LearnSite.BLL
                                 {
                                     dtstus.Columns.Add(Ltitlestr, typeof(string));
                                     GetScore(dtstus, Ltitlestr, dttr);
-                                    dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                                    dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                                 }
                                 dttr.Dispose();
                                 break;
@@ -677,7 +679,7 @@ namespace LearnSite.BLL
                                 {
                                     dtstus.Columns.Add(Ltitlestr, typeof(string));
                                     GetScore(dtstus, Ltitlestr, dttx);
-                                    dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                                    dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                                 }
                                 dttx.Dispose();
                                 break;
@@ -687,7 +689,7 @@ namespace LearnSite.BLL
                                 {
                                     dtstus.Columns.Add(Ltitlestr, typeof(string));
                                     GetScore(dtstus, Ltitlestr, dttv);
-                                    dtstus.Columns[Ltitlestr].ColumnName = Ltitle;
+                                    dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
                                 }
                                 dttv.Dispose();
                                 break;
@@ -740,6 +742,21 @@ namespace LearnSite.BLL
                     dtt.Rows[i][cml] = totalscores;
                 }
             }
+        }
+
+        private string GetUniqueColumnName(DataColumnCollection columns, string title)
+        {
+            string baseName = string.IsNullOrEmpty(title) ? "未命名" : title;
+            string candidate = baseName;
+            int suffix = 2;
+
+            while (columns.Contains(candidate))
+            {
+                candidate = baseName + "(" + suffix.ToString() + ")";
+                suffix++;
+            }
+
+            return candidate;
         }
         /// <summary>
         /// 将第2张表的值赋值给第1张相同学号的指定列上
@@ -836,4 +853,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

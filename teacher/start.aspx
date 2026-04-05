@@ -1118,6 +1118,15 @@
             white-space: nowrap;
         }
 
+        .ls-rt-stu__meta {
+            font-size: 10px;
+            color: #64748b;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
         .ls-rt-stu__status {
             font-size: 10px;
             font-weight: 700;
@@ -1519,6 +1528,7 @@
             var lsPollingInterval = 8000; // 8秒轮询
             var lsGrade = "<%= LsGrade %>";
             var lsClass = "<%= LsClass %>";
+            var lsCid = "<%= LsCid %>";
 
             function lsStartPolling() {
                 lsFetchData(); // 立即获取一次
@@ -1545,7 +1555,7 @@
                 $.ajax({
                     url: "../teacher/learnprogress.ashx",
                     type: "GET",
-                    data: { action: "all", sgrade: lsGrade, sclass: lsClass },
+                    data: { action: "all", sgrade: lsGrade, sclass: lsClass, cid: lsCid },
                     dataType: "json",
                     timeout: 6000,
                     success: function (resp) {
