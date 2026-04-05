@@ -450,7 +450,7 @@
                             <asp:TextBox ID="TextBoxNewYtitle" runat="server" MaxLength="30"
                                 CssClass="cate-input"></asp:TextBox>
                         </div>
-                        <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click"
+                        <asp:Button ID="Btnadd" runat="server" Text="添加分类" OnClick="Btnadd_Click"
                             CssClass="cate-btn cate-btn--primary" />
                     </div>
                 </div>

@@ -95,9 +95,9 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="BtnEdit" runat="server" Text="修改" OnClick="BtnEdit_Click"
+                <asp:Button ID="BtnEdit" runat="server" Text="保存修改" OnClick="BtnEdit_Click"
                     CssClass="content-add-primary" />
-                <asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click"
+                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" OnClick="Btnreturn_Click"
                     CssClass="content-add-secondary" />
             </section>
         </div>

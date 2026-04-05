@@ -430,11 +430,11 @@
                                 Text="期末总评"
                                 CssClass="term-btn term-btn--success" />
                             <asp:Button ID="BtnExcel" runat="server" OnClick="BtnExcel_Click"
-                                Text="导出Excel" ToolTip="将学生期末成绩以Excel表格导出"
+                                Text="导出 Excel" ToolTip="将学生期末成绩以Excel表格导出"
                                 CssClass="term-btn term-btn--secondary" />
                             <asp:Button ID="Btntermview" runat="server" Text="学期查询" OnClick="Btntermview_Click"
                                 CssClass="term-btn term-btn--secondary" />
-                            <asp:Button ID="Btnback" runat="server" Text="返回" OnClick="Btnback_Click"
+                            <asp:Button ID="Btnback" runat="server" Text="返回查询" OnClick="Btnback_Click"
                                 CssClass="term-btn term-btn--ghost" />
                         </div>
 

@@ -62,7 +62,7 @@
             </section>
             <section class="admin-form-actions">
                 <div class="admin-form-action-row">
-                    <asp:LinkButton ID="LinkBtncancel" runat="server" OnClick="LinkBtncancel_Click" CssClass="admin-form-btn admin-form-btn--secondary">返回</asp:LinkButton>
+                    <asp:LinkButton ID="LinkBtncancel" runat="server" OnClick="LinkBtncancel_Click" CssClass="admin-form-btn admin-form-btn--secondary">返回列表</asp:LinkButton>
                 </div>
             </section>
         </div>

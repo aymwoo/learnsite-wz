@@ -38,10 +38,10 @@
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnExcel" runat="server" OnClick="BtnExcel_Click"
-                            Text="导出Excel" ToolTip="将学生期末成绩以Excel表格导出" CssClass="admin-form-btn admin-form-btn--primary" />
+                            Text="导出 Excel" ToolTip="将学生期末成绩以Excel表格导出" CssClass="admin-form-btn admin-form-btn--primary" />
                         <asp:Button ID="Btnshow" runat="server" OnClick="Btnshow_Click" Text="成绩浏览"
                             CssClass="admin-form-btn admin-form-btn--secondary" />
-                        <asp:Button ID="Btnback" runat="server" Text="返回" OnClick="Btnback_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                        <asp:Button ID="Btnback" runat="server" Text="返回查询" OnClick="Btnback_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
                     </div>
                 </div>
                 <div class="admin-form-grid">

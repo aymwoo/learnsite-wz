@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
-using System.Web.UI.HtmlControls;
 public partial class Teacher_start : System.Web.UI.Page
 {
     LearnSite.Model.TeaCook tcook = new LearnSite.Model.TeaCook();
@@ -470,6 +469,10 @@ public partial class Teacher_start : System.Web.UI.Page
     }
     protected void DLdonekc_ItemDataBound(object sender, DataListItemEventArgs e)
     {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
         int Wcid = Int32.Parse(DLdonekc.DataKeys[e.Item.ItemIndex].ToString());
         LearnSite.BLL.Works bll = new LearnSite.BLL.Works();
         int Rgrade = Int32.Parse(DDLgrade.SelectedValue);
@@ -478,6 +481,10 @@ public partial class Teacher_start : System.Web.UI.Page
     }
     protected void DLnotline_ItemDataBound(object sender, DataListItemEventArgs e)
     {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
         Label hl = new Label();
         hl = (Label)e.Item.FindControl("lbQname");
         Label lb = new Label();
@@ -502,10 +509,14 @@ public partial class Teacher_start : System.Web.UI.Page
     }
     protected void DLnewkc_ItemDataBound(object sender, DataListItemEventArgs e)
     {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
         CheckBox cb = new CheckBox();
         cb = (CheckBox)e.Item.FindControl("Ck");
-        ImageButton imgbtn = new ImageButton();
-        imgbtn = (ImageButton)e.Item.FindControl("PubSet");
+        Button imgbtn = new Button();
+        imgbtn = (Button)e.Item.FindControl("PubSet");
         if (cb.Checked)
         {
             cb.ToolTip = "已发布";
@@ -855,28 +866,17 @@ public partial class Teacher_start : System.Web.UI.Page
         imgbtn = (LinkButton)e.Item.FindControl("imgBtn");
         Label lt = new Label();
         lt = (Label)e.Item.FindControl("lableTitle");
-        HtmlGenericControl menuStatus = (HtmlGenericControl)e.Item.FindControl("MenuStatus");
         if (cb.Checked)
         {
             imgbtn.ToolTip = "点击隐藏";
             lt.ToolTip = "已发布";
             lt.ForeColor = System.Drawing.Color.Black;
-            if (menuStatus != null)
-            {
-                menuStatus.InnerText = "已打开";
-                menuStatus.Attributes["class"] = "lesson-menu-status lesson-menu-status--on";
-            }
         }
         else
         {
             imgbtn.ToolTip = "点击发布";
             lt.ToolTip = "已隐藏";
             lt.ForeColor = System.Drawing.Color.Gainsboro;
-            if (menuStatus != null)
-            {
-                menuStatus.InnerText = "已关闭";
-                menuStatus.Attributes["class"] = "lesson-menu-status";
-            }
         }
     }
     protected void DataListMenu_ItemCommand(object source, DataListCommandEventArgs e)

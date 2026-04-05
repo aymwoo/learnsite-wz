@@ -68,7 +68,7 @@
                     <asp:Button ID="Btnadd" runat="server" onclick="Btnadd_Click"
                         Text="添加试题" CssClass="admin-form-btn admin-form-btn--primary" />
                     <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click"
-                        Text="返回" CssClass="admin-form-btn admin-form-btn--secondary" />
+                        Text="返回学案" CssClass="admin-form-btn admin-form-btn--secondary" />
                     <asp:HyperLink ID="Hkconsole" runat="server" NavigateUrl="#"
                         Target="_blank" CssClass="admin-form-link">预览效果</asp:HyperLink>
                 </div>

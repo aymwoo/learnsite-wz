@@ -47,14 +47,14 @@
                 <asp:Label ID="Labelinfo" runat="server"></asp:Label>
                 <div class="admin-form-action-row" style="margin-top:1rem;">
                     <asp:Button ID="Btndown" runat="server" onclick="Btndown_Click"
-                        Text="这里下载" ToolTip="点击下载" CssClass="admin-form-btn admin-form-btn--primary" />
+                        Text="下载压缩包" ToolTip="点击下载" CssClass="admin-form-btn admin-form-btn--primary" />
                 </div>
             </asp:Panel>
 
             <section class="admin-form-actions">
                 <div class="admin-form-action-row">
-                    <asp:Button ID="BtnZip" runat="server" Text="打包" onclick="BtnZip_Click" ToolTip="点击开始学案打包" CssClass="admin-form-btn admin-form-btn--primary" />
-                    <asp:Button ID="Btnreturn" runat="server" Text="返回" onclick="Btnreturn_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                    <asp:Button ID="BtnZip" runat="server" Text="开始打包" onclick="BtnZip_Click" ToolTip="点击开始学案打包" CssClass="admin-form-btn admin-form-btn--primary" />
+                    <asp:Button ID="Btnreturn" runat="server" Text="返回学案" onclick="Btnreturn_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
                 </div>
             </section>
 

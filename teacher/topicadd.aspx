@@ -249,7 +249,7 @@
 
             <section class="content-add-actions">
                 <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" OnClientClick="return syncContent();" CssClass="topic-btn topic-btn--primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" CssClass="topic-btn topic-btn--secondary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="topic-btn topic-btn--secondary" />
             </section>
         </div>
     </div>

@@ -22,7 +22,7 @@ public partial class Teacher_problem : System.Web.UI.Page
     {
         if (Request.QueryString["Pid"] != null && Request.QueryString["nid"] != null)
         {
-            Btnadd.Text = "修改";
+            Btnadd.Text = "保存修改";
             string pid = Request.QueryString["Pid"].ToString();
             string nid = Request.QueryString["nid"].ToString();
             LearnSite.Model.Problems model = new LearnSite.Model.Problems();

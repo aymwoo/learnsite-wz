@@ -104,7 +104,7 @@
 
                 <section class="admin-form-actions">
                     <div class="admin-form-action-row">
-                        <asp:Button ID="Btnsedit" runat="server" OnClick="BtnsEdit_Click" Text="修改" CssClass="admin-form-btn admin-form-btn--primary" />
+                        <asp:Button ID="Btnsedit" runat="server" OnClick="BtnsEdit_Click" Text="保存修改" CssClass="admin-form-btn admin-form-btn--primary" />
                     </div>
                 </section>
             </div>

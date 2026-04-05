@@ -106,7 +106,7 @@
         </div>
         </center>
         <br />
-    <asp:Button ID="Btnback" runat="server" BorderWidth="1px" Height="20px" Text="返回"
+    <asp:Button ID="Btnback" runat="server" BorderWidth="1px" Height="20px" Text="返回学案"
                 Width="60px" OnClick="Btnback_Click" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
     </div>

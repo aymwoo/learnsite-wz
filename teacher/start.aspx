@@ -442,30 +442,6 @@
             object-fit: contain;
         }
 
-        .lesson-menu-meta {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
-        }
-
-        .lesson-menu-status {
-            display: inline-flex;
-            align-items: center;
-            min-height: 22px;
-            padding: 0 8px;
-            border-radius: 9999px;
-            background: #e2e8f0;
-            color: #475569;
-        }
-
-        .lesson-menu-status--on {
-            background: #ffedd5;
-            color: #c2410c;
-        }
-
         .lesson-quick-actions {
             display: flex;
             flex-wrap: wrap;
@@ -1325,10 +1301,6 @@
                                     <asp:LinkButton ID="imgBtn" runat="server" CssClass="lesson-menu-card" CommandArgument='<%# Eval("Lid") %>' CommandName="P">
                                         <span class="lesson-menu-button">
                                             <asp:Image ID="ImageMenuIcon" runat="server" ImageUrl='<%# Eval("Limgurl") %>' AlternateText='<%# Eval("Ltitle") %>' />
-                                        </span>
-                                        <span class="lesson-menu-meta">
-                                            <span id="MenuStatus" runat="server" class="lesson-menu-status">已隐藏</span>
-                                            <span>点击切换</span>
                                         </span>
                                     </asp:LinkButton>
                                     <asp:Label ID="lableTitle" runat="server" CssClass="lesson-menu-title" Text='<%# Eval("Ltitle") %>'></asp:Label>

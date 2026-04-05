@@ -41,7 +41,7 @@
                         <p class="admin-form-section-desc">学号、班级、成绩与联系方式等信息如下。</p>
                     </div>
                     <div class="admin-form-action-row">
-                        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkEdit_Click" CssClass="admin-form-btn admin-form-btn--secondary">修改</asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkEdit_Click" CssClass="admin-form-btn admin-form-btn--secondary">编辑资料</asp:LinkButton>
                     </div>
                 </div>
                 <div class="admin-form-kv">

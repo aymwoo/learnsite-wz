@@ -99,7 +99,7 @@
 
             <section class="admin-form-actions">
                 <div class="admin-form-action-row">
-                    <asp:Button ID="ButtonReturn" runat="server" onclick="ButtonReturn_Click" Text="返回" CssClass="admin-form-btn admin-form-btn--secondary" />
+                    <asp:Button ID="ButtonReturn" runat="server" onclick="ButtonReturn_Click" Text="返回学案" CssClass="admin-form-btn admin-form-btn--secondary" />
                 </div>
             </section>
         </div>

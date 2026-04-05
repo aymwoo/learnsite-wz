@@ -40,7 +40,7 @@
     <asp:HyperLink ID="HLurl" runat="server" Visible="false"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
         <br />
         <br />
-              <asp:Button ID="Btnreturn" runat="server"  Text="返回" OnClick="Btnreturn_Click"
+              <asp:Button ID="Btnreturn" runat="server"  Text="返回列表" OnClick="Btnreturn_Click"
                   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
         <br />
         <br />

@@ -47,7 +47,7 @@
 
             <section class="typing-admin-actions">
                 <div class="typing-admin-action-row">
-                    <asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click" CssClass="typing-admin-btn typing-admin-btn--secondary" />
+                    <asp:Button ID="Btnreturn" runat="server" Text="返回列表" OnClick="Btnreturn_Click" CssClass="typing-admin-btn typing-admin-btn--secondary" />
                 </div>
             </section>
         </div>

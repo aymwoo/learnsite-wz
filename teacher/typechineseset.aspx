@@ -63,7 +63,7 @@
                 <div class="typing-admin-action-row">
                     <asp:Button ID="BtnSelect" runat="server" Text="提交选择" onclick="BtnSelect_Click"
                         CssClass="typing-admin-btn typing-admin-btn--primary" />
-                    <asp:Button ID="BtnReturn" runat="server" Text="返回" onclick="BtnReturn_Click"
+                    <asp:Button ID="BtnReturn" runat="server" Text="返回列表" onclick="BtnReturn_Click"
                         CssClass="typing-admin-btn typing-admin-btn--secondary" />
                 </div>
             </section>

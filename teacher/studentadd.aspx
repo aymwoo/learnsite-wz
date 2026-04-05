@@ -113,7 +113,7 @@
 
                 <section class="admin-form-actions">
                     <div class="admin-form-action-row">
-                        <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" Text="添加" CssClass="admin-form-btn admin-form-btn--primary" />
+                        <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" Text="添加学生" CssClass="admin-form-btn admin-form-btn--primary" />
                     </div>
                 </section>
             </div>

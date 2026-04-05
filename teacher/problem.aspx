@@ -168,9 +168,9 @@
     <br />
     &nbsp;&nbsp;
     <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" OnClientClick="return syncProblemContent();"
-        Text="添加"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+        Text="添加题目"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     &nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" OnClick="Btnreturn_Click"
-        Text="返回"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+        Text="返回测评"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
     <br />
 </div>     

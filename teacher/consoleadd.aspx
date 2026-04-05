@@ -175,7 +175,7 @@
                     onclick="Btnadd_Click"
                     OnClientClick="return syncContent();"
                     CssClass="content-add-btn-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="返回"
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案"
                     onclick="BtnCourse_Click"
                     CssClass="content-add-btn-secondary" />
             </div>
