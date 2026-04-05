@@ -53,6 +53,11 @@ namespace LearnSite.BLL
             return BllDataTableMappers.MapAICustomSkillList(dt);
         }
 
+        public void EnsureDefaultGaugeSkill()
+        {
+            AIGaugeGenerator.EnsureDefaultGaugeSkill();
+        }
+
         #endregion  Method
     }
 }

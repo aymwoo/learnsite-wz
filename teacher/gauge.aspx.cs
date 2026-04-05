@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,6 +13,7 @@ public partial class Teacher_gauge : System.Web.UI.Page
         LearnSite.Common.CookieHelp.JudgeTeacherCookies();
         if (!IsPostBack)
         {
+            LearnSite.BLL.AIGaugeGenerator.EnsureDefaultGaugeSkill();
             Master.Page.Title = LearnSite.Common.CookieHelp.SetMainPageTitle() + "评价量规页面";
             ShowGauge();
             ShowGtype();
@@ -47,10 +49,34 @@ public partial class Teacher_gauge : System.Web.UI.Page
             gmodel.Gtitle = Gtitle;
             gmodel.Gtype = Gtype;
             LearnSite.BLL.Gauge gbll = new LearnSite.BLL.Gauge();
-            gbll.Add(gmodel);
+            int gaugeId = gbll.Add(gmodel);
             System.Threading.Thread.Sleep(200);
             TextBoxGtitle.Text = "";
             ShowGauge();
+            if (gaugeId > 0)
+            {
+                LearnSite.BLL.AIGaugeGenerator generator = new LearnSite.BLL.AIGaugeGenerator();
+                LearnSite.BLL.GaugeGenerationResult result = generator.Generate(Gtype, Gtitle);
+                int savedCount = generator.SaveItems(gaugeId, result.Items);
+                string msg = result.Message;
+                if (savedCount > 0)
+                    msg += " 已写入 " + savedCount + " 条评价项。";
+                else
+                    msg += " 评价项写入失败，请手动补充。";
+
+                string itemPreview = string.Join("|", result.Items.Select(item => (item.Msort ?? 0).ToString() + "." + (item.Mitem ?? string.Empty) + "（" + (item.Mscore ?? 0).ToString() + "分）"));
+                string redirectUrl = string.Format("~/teacher/gaugeitem.aspx?gid={0}&aimsg={1}&aiitems={2}&aifallback={3}",
+                    gaugeId,
+                    HttpUtility.UrlEncode(msg),
+                    HttpUtility.UrlEncode(itemPreview),
+                    result.UsedFallback ? "1" : "0");
+                Response.Redirect(redirectUrl, false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
+            else
+            {
+                LearnSite.Common.WordProcess.Alert("量规创建失败，请稍后重试！", this.Page);
+            }
         }
         else
         {

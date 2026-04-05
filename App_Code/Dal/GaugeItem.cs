@@ -190,6 +190,19 @@ namespace LearnSite.DAL
 			}
 		}
 
+		public bool DeleteByMgid(int Mgid)
+		{
+			StringBuilder strSql = new StringBuilder();
+			strSql.Append("delete from GaugeItem where Mgid=@Mgid");
+			SqlParameter[] parameters = {
+					new SqlParameter("@Mgid", SqlDbType.Int,4)
+			};
+			parameters[0].Value = Mgid;
+
+			DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
+			return true;
+		}
+
 
 		/// <summary>
 		/// 得到一个对象实体
@@ -382,4 +395,3 @@ namespace LearnSite.DAL
 		#endregion  Method
 	}
 }
-

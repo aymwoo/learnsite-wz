@@ -1035,6 +1035,9 @@
                         <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
                             <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="review"> 作品点评
                         </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="gauge"> 量规生成
+                        </label>
                     </div>
                 </div>
 
@@ -1084,7 +1087,8 @@
             'mission': '任务辅助',
             'writing': '写作助手',
             'quiz':    '习题解析',
-            'review':  '作品点评'
+            'review':  '作品点评',
+            'gauge':   '量规生成'
         };
 
         function renderCustomSkills(data) {

@@ -75,6 +75,11 @@ namespace LearnSite.BLL
 			return dal.DeleteList(Midlist );
 		}
 
+		public bool DeleteByMgid(int Mgid)
+		{
+			return dal.DeleteByMgid(Mgid);
+		}
+
 		/// <summary>
 		/// 得到一个对象实体
 		/// </summary>

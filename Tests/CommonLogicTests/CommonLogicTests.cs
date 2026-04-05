@@ -568,6 +568,33 @@ public class CommonLogicTests : IDisposable
     }
 
     [Fact]
+    public void AIGaugeSkillHelper_ParseGaugeItems_ParsesJsonCodeBlockAndNormalizesScores()
+    {
+        string content = "```json\n[{\"item\":\"创意表达\",\"score\":30},{\"item\":\"功能实现\",\"score\":30},{\"item\":\"界面美观\",\"score\":20},{\"item\":\"表达规范\",\"score\":20}]\n```";
+
+        var result = LearnSite.Common.AIGaugeSkillHelper.ParseGaugeItems(content);
+
+        Assert.Equal(4, result.Count);
+        Assert.Equal("创意表达", result[0].Mitem);
+        Assert.Equal(30, result[0].Mscore);
+        Assert.Equal(1, result[0].Msort);
+        Assert.Equal(100, result.Sum(x => x.Mscore ?? 0));
+    }
+
+    [Fact]
+    public void AIGaugeSkillHelper_ParseGaugeItems_RebalancesInvalidScores()
+    {
+        string content = "1. 创意设计（10分）\n2. 功能完成\n3. 作品美观（20分）";
+
+        var result = LearnSite.Common.AIGaugeSkillHelper.ParseGaugeItems(content);
+
+        Assert.Equal(3, result.Count);
+        Assert.Equal(100, result.Sum(x => x.Mscore ?? 0));
+        Assert.All(result, item => Assert.True((item.Mscore ?? 0) > 0));
+        Assert.True(new[] { 1, 2, 3 }.SequenceEqual(result.Select(x => x.Msort ?? 0)));
+    }
+
+    [Fact]
     public void BllDataTableMappers_MapSoftCategoryList_MapsCategoryFields()
     {
         DataTable dt = new DataTable();

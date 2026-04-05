@@ -2586,6 +2586,10 @@ namespace LearnSite.DBUtility
                 aiStr.Append(" [IsActive] BIT NOT NULL DEFAULT 1 ");
                 aiStr.Append(" )");
                 DbHelperSQL.ExecuteSql(aiStr.ToString());
+
+                string defaultPrompt = LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillPrompt().Replace("'", "''");
+                string seedSql = "INSERT INTO [dbo].[AICustomSkill] (SkillName,PromptContent,SkillScope,IsActive) VALUES (N'" + LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillName().Replace("'", "''") + "',N'" + defaultPrompt + "',N'gauge',1)";
+                DbHelperSQL.ExecuteSql(seedSql);
             }
         }
 
