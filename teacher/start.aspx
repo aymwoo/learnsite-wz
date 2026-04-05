@@ -248,7 +248,6 @@
         .lesson-links,
         .lesson-room-tools,
         .lesson-toolbar,
-        .lesson-toggle-group,
         .lesson-legend,
         .lesson-footer {
             display: flex;
@@ -417,10 +416,10 @@
         .lesson-switch {
             position: relative;
             display: inline-flex;
-            width: 44px;
-            height: 24px;
+            width: 36px;
+            height: 20px;
             background-color: #cbd5e1;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
             border: none;
@@ -436,8 +435,8 @@
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             background-color: white;
             border-radius: 50%;
             transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -445,7 +444,7 @@
         }
 
         .lesson-switch--on .lesson-switch-slider {
-            transform: translateX(20px);
+            transform: translateX(16px);
         }
 
         .lesson-menu-title {
@@ -486,14 +485,19 @@
         }
 
         .lesson-online-list,
-        .lesson-offline-list,
         .lesson-done-list,
         .lesson-new-list {
             width: 100%;
         }
 
-        .student-card,
-        .student-card--offline {
+        .lesson-offline-list {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+        }
+
+        .student-card {
             min-height: 110px;
             margin: 0 8px 10px 0;
             padding: 12px 10px;
@@ -501,6 +505,57 @@
             border-radius: 0.5rem;
             background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+        }
+
+        .student-card--offline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 0;
+            margin: 0 6px 6px 0;
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            background: #ffffff;
+            box-shadow: none;
+            transition: background 0.15s, border-color 0.15s;
+            vertical-align: top;
+            cursor: pointer;
+        }
+
+        .student-card--offline:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .student-card--offline .student-card__num {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+
+        .student-card--offline .labelname {
+            display: inline;
+            width: auto;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            background: none;
+            border: none;
+            border-radius: 0;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .student-card--offline .student-card__score {
+            margin: 0;
+            font-size: 11px;
+            color: #94a3b8;
+            flex-shrink: 0;
         }
 
         .student-card__num {
@@ -592,13 +647,113 @@
         }
 
         .lesson-toggle-group {
-            padding: 14px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0;
+            padding: 0;
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
-            background: #f8fbff;
+            background: #ffffff;
+            overflow: hidden;
         }
 
-        .lesson-toggle-group span,
+        /* --- Checkbox switch item --- */
+        .lesson-toggle-group > .ls-ck-switch {
+            display: flex;
+            align-items: center;
+            padding: 9px 14px;
+            border-bottom: 1px solid #f1f5f9;
+            border-right: 1px solid #f1f5f9;
+            transition: background 0.15s;
+        }
+        .lesson-toggle-group > .ls-ck-switch:hover {
+            background: #f8fafc;
+        }
+
+        /* Make ASP.NET / Anthem wrapper span transparent */
+        .ls-ck-switch > span {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Hide native checkbox */
+        .ls-ck-switch input[type="checkbox"] {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            position: absolute !important;
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            pointer-events: none;
+        }
+
+        /* Switch label: text left, switch right */
+        .ls-ck-switch label {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            padding-right: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+            cursor: pointer;
+            user-select: none;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        /* Switch track */
+        .ls-ck-switch label::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 18px;
+            background: #d1d5db;
+            border-radius: 9px;
+            transition: background 0.2s ease;
+        }
+
+        /* Switch knob */
+        .ls-ck-switch label::before {
+            content: '';
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            transition: right 0.2s ease;
+            z-index: 1;
+        }
+
+        /* Checked: track turns blue, knob slides right */
+        .ls-ck-switch input[type="checkbox"]:checked + label::after {
+            background: #6366f1;
+        }
+        .ls-ck-switch input[type="checkbox"]:checked + label::before {
+            right: 2px;
+        }
+
+        /* Focus ring */
+        .ls-ck-switch input[type="checkbox"]:focus-visible + label::after {
+            box-shadow: 0 0 0 2px #c7d2fe;
+        }
+
         .lesson-sort span {
             display: inline-flex;
             align-items: center;
@@ -733,6 +888,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .lesson-toggle-group {
+                grid-template-columns: 1fr;
+            }
+
             .lesson-field--actions {
                 grid-column: span 1;
             }
@@ -760,6 +919,220 @@
             .doneksdiv {
                 margin-right: 6px;
             }
+        }
+
+        /* ================================================================
+           Tab 切换组件样式
+           ================================================================ */
+        .ls-tab-bar {
+            display: inline-flex;
+            gap: 4px;
+            padding: 3px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .ls-tab {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #64748b;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .ls-tab:hover {
+            color: #334155;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .ls-tab--active {
+            color: #0f172a;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .ls-tab-panel {
+            min-height: 100px;
+        }
+
+        /* 实时监控指示器 */
+        .ls-realtime-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #16a34a;
+        }
+
+        .ls-pulse {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: ls-pulse-anim 1.5s ease-in-out infinite;
+        }
+
+        @keyframes ls-pulse-anim {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        /* 实时统计卡片 */
+        .ls-rt-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .ls-rt-stat {
+            flex: 1;
+            min-width: 100px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            text-align: center;
+        }
+
+        .ls-rt-stat__num {
+            display: block;
+            font-size: 28px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #0f172a;
+        }
+
+        .ls-rt-stat__label {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .ls-rt-stat--working { border-color: #bbf7d0; background: linear-gradient(180deg, #f0fdf4, #dcfce7); }
+        .ls-rt-stat--working .ls-rt-stat__num { color: #16a34a; }
+
+        .ls-rt-stat--viewing { border-color: #bfdbfe; background: linear-gradient(180deg, #eff6ff, #dbeafe); }
+        .ls-rt-stat--viewing .ls-rt-stat__num { color: #2563eb; }
+
+        .ls-rt-stat--submitted { border-color: #c4b5fd; background: linear-gradient(180deg, #f5f3ff, #ede9fe); }
+        .ls-rt-stat--submitted .ls-rt-stat__num { color: #7c3aed; }
+
+        .ls-rt-stat--idle { border-color: #fed7aa; background: linear-gradient(180deg, #fffbeb, #fef3c7); }
+        .ls-rt-stat--idle .ls-rt-stat__num { color: #d97706; }
+
+        .ls-rt-stat--total { border-color: #cbd5e1; background: linear-gradient(180deg, #ffffff, #f1f5f9); }
+
+        /* 环节分布条 */
+        .ls-rt-step-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .ls-rt-step-bar:last-child { border-bottom: none; }
+
+        .ls-rt-step-name {
+            flex-shrink: 0;
+            width: 120px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .ls-rt-step-progress {
+            flex: 1;
+            height: 22px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .ls-rt-step-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 6px;
+            transition: width 0.4s ease;
+            min-width: 0;
+        }
+
+        .ls-rt-step-count {
+            flex-shrink: 0;
+            font-size: 13px;
+            font-weight: 800;
+            color: #0f172a;
+            min-width: 28px;
+            text-align: right;
+        }
+
+        /* 学生状态卡片 */
+        .ls-rt-stu {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            min-width: 72px;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+
+        .ls-rt-stu--working { border-color: #86efac; background: #f0fdf4; }
+        .ls-rt-stu--viewing { border-color: #93c5fd; background: #eff6ff; }
+        .ls-rt-stu--submitted { border-color: #c4b5fd; background: #f5f3ff; }
+        .ls-rt-stu--idle { border-color: #fcd34d; background: #fffbeb; }
+
+        .ls-rt-stu__name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .ls-rt-stu__step {
+            font-size: 11px;
+            color: #64748b;
+            max-width: 80px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .ls-rt-stu__status {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .ls-rt-stu__status--working { background: #dcfce7; color: #16a34a; }
+        .ls-rt-stu__status--viewing { background: #dbeafe; color: #2563eb; }
+        .ls-rt-stu__status--submitted { background: #ede9fe; color: #7c3aed; }
+        .ls-rt-stu__status--idle { background: #fef3c7; color: #d97706; }
+
+        .ls-rt-stu__time {
+            font-size: 10px;
+            color: #94a3b8;
         }
     </style>
 
@@ -866,50 +1239,129 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-8 lesson-theme--teal">
+                <section class="lesson-card lesson-card--span-12 lesson-theme--teal" id="ls-realtime-section">
                     <div class="lesson-card__head">
-                        <div>
-                            <h2 class="lesson-card__title">在线学生</h2>
+                        <div style="display:flex;align-items:center;gap:16px;width:100%;">
+                            <div class="ls-tab-bar" id="ls-tab-bar">
+                                <button type="button" class="ls-tab ls-tab--active" data-tab="online" onclick="lsSwitchTab('online')">在线学生</button>
+                                <button type="button" class="ls-tab" data-tab="progress" onclick="lsSwitchTab('progress')">学案进度</button>
+                                <button type="button" class="ls-tab" data-tab="realtime" onclick="lsSwitchTab('realtime')">实时动态</button>
+                            </div>
+                            <div id="ls-realtime-indicator" class="ls-realtime-indicator" style="display:none;">
+                                <span class="ls-pulse"></span>
+                                <span class="ls-indicator-text">实时监控中</span>
+                            </div>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div class="lesson-legend">
-                            <span class="lesson-legend__item"><asp:Label ID="Labelnocolor" runat="server" BackColor="#E8E8E8" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="没有作品"></asp:Label>无作品</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelone" runat="server" BackColor="#B1D2FE" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="单个作品"></asp:Label>1件</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labeltwo" runat="server" BackColor="#4F98FB" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="两个作品"></asp:Label>2件</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelthree" runat="server" BackColor="#CDE7CF" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="三个作品"></asp:Label>3件</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelfour" runat="server" BackColor="#9BC47D" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="四个作品"></asp:Label>4件</span>
-                            <span class="lesson-legend__item"><asp:Label ID="Labelmore" runat="server" BackColor="#BCADE4" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="多个作品"></asp:Label>5+</span>
+                        <!-- Tab 1: 在线学生 -->
+                        <div class="ls-tab-panel" id="ls-panel-online" style="display:block;">
+                            <div class="lesson-legend">
+                                <span class="lesson-legend__item"><asp:Label ID="Labelnocolor" runat="server" BackColor="#E8E8E8" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="没有作品"></asp:Label>无作品</span>
+                                <span class="lesson-legend__item"><asp:Label ID="Labelone" runat="server" BackColor="#B1D2FE" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="单个作品"></asp:Label>1件</span>
+                                <span class="lesson-legend__item"><asp:Label ID="Labeltwo" runat="server" BackColor="#4F98FB" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="两个作品"></asp:Label>2件</span>
+                                <span class="lesson-legend__item"><asp:Label ID="Labelthree" runat="server" BackColor="#CDE7CF" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="三个作品"></asp:Label>3件</span>
+                                <span class="lesson-legend__item"><asp:Label ID="Labelfour" runat="server" BackColor="#9BC47D" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="四个作品"></asp:Label>4件</span>
+                                <span class="lesson-legend__item"><asp:Label ID="Labelmore" runat="server" BackColor="#BCADE4" CssClass="lesson-legend__swatch" EnableViewState="False" ToolTip="多个作品"></asp:Label>5+</span>
+                            </div>
+
+                            <div style="margin-top: 14px; overflow-x: auto;">
+                                <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatColumns="8" RepeatDirection="Vertical" HorizontalAlign="Center" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand" RepeatLayout="Flow">
+                                    <ItemTemplate>
+                                        <div class="divonline student-card">
+                                            <div class="student-card__num"><asp:Label ID="Labelqnum" runat="server" Text='<%# Eval("Qnum") %>'></asp:Label></div>
+                                            <asp:Label ID="HyperSname" runat="server" Text='<%# Eval("Qname") %>' CssClass="labelname"></asp:Label>
+                                            <div class="lesson-student-actions">
+                                                <asp:HyperLink ID="Groupflag" runat="server" CssClass="lesson-group-flag">g</asp:HyperLink>
+                                                <asp:Label ID="Labelcolor" runat="server" Text='<%# Eval("Qgscore") %>' ToolTip='<%# "组评语："+Eval("Qgroup") %>' CssClass="groupscore"></asp:Label>
+                                                <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="让该学生重新登录" CssClass="lockbtn"></asp:LinkButton>
+                                            </div>
+                                            <div class="student-card__machine"><asp:Label ID="LabelQmachine" runat="server" Text='<%# Eval("QmachineShort") %>' Visible="false"></asp:Label></div>
+                                            <div style="display: none;">
+                                                <asp:Label ID="Labelwork" runat="server" Text='<%# Eval("Qwork") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="Labelattitude" runat="server" Text='<%# Eval("Qattitude") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="Labelnote" runat="server" Text='<%# Eval("Qnote") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelSleader" runat="server" Text='<%# Eval("Sleader") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelSgroup" runat="server" Text='<%# Eval("Sgroup") %>' Visible="false"></asp:Label>
+                                                <asp:Label ID="LabelSgtitle" runat="server" Text='<%# Eval("Sgtitle") %>' Visible="false"></asp:Label>
+                                            </div>
+                                        </div>
+                                    </ItemTemplate>
+                                </asp:DataList>
+                            </div>
                         </div>
 
-                        <div style="margin-top: 14px; overflow-x: auto;">
-                            <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatColumns="8" RepeatDirection="Vertical" HorizontalAlign="Center" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand" RepeatLayout="Flow">
-                                <ItemTemplate>
-                                    <div class="divonline student-card">
-                                        <div class="student-card__num"><asp:Label ID="Labelqnum" runat="server" Text='<%# Eval("Qnum") %>'></asp:Label></div>
-                                        <asp:Label ID="HyperSname" runat="server" Text='<%# Eval("Qname") %>' CssClass="labelname"></asp:Label>
-                                        <div class="lesson-student-actions">
-                                            <asp:HyperLink ID="Groupflag" runat="server" CssClass="lesson-group-flag">g</asp:HyperLink>
-                                            <asp:Label ID="Labelcolor" runat="server" Text='<%# Eval("Qgscore") %>' ToolTip='<%# "组评语："+Eval("Qgroup") %>' CssClass="groupscore"></asp:Label>
-                                            <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="让该学生重新登录" CssClass="lockbtn"></asp:LinkButton>
-                                        </div>
-                                        <div class="student-card__machine"><asp:Label ID="LabelQmachine" runat="server" Text='<%# Eval("QmachineShort") %>' Visible="false"></asp:Label></div>
-                                        <div style="display: none;">
-                                            <asp:Label ID="Labelwork" runat="server" Text='<%# Eval("Qwork") %>' Visible="false"></asp:Label>
-                                            <asp:Label ID="Labelattitude" runat="server" Text='<%# Eval("Qattitude") %>' Visible="false"></asp:Label>
-                                            <asp:Label ID="Labelnote" runat="server" Text='<%# Eval("Qnote") %>' Visible="false"></asp:Label>
-                                            <asp:Label ID="LabelSleader" runat="server" Text='<%# Eval("Sleader") %>' Visible="false"></asp:Label>
-                                            <asp:Label ID="LabelSgroup" runat="server" Text='<%# Eval("Sgroup") %>' Visible="false"></asp:Label>
-                                            <asp:Label ID="LabelSgtitle" runat="server" Text='<%# Eval("Sgtitle") %>' Visible="false"></asp:Label>
-                                        </div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:DataList>
+                        <!-- Tab 2: 学案进度 -->
+                        <div class="ls-tab-panel" id="ls-panel-progress" style="display:none;">
+                            <div>
+                                <div class="lesson-label">已学学案</div>
+                                <div style="margin-top: 10px;">
+                                    <asp:DataList ID="DLdonekc" runat="server" CssClass="lesson-done-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLdonekc_ItemDataBound">
+                                        <ItemTemplate>
+                                            <div class="doneksdiv">
+                                                <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="donekc"></asp:HyperLink></div>
+                                                <div class="lesson-course-note"><asp:Label ID="wk" runat="server" ToolTip="作品总数"></asp:Label></div>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 18px;">
+                                <div class="lesson-label">未学学案</div>
+                                <div style="margin-top: 10px;">
+                                    <asp:DataList ID="DLnewkc" runat="server" CssClass="lesson-new-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLnewkc_ItemDataBound" onitemcommand="DLnewkc_ItemCommand">
+                                        <ItemTemplate>
+                                            <div class="doneksdiv">
+                                                <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="newkc"></asp:HyperLink></div>
+                                                <div class="lesson-course-note"><asp:CheckBox ID="Ck" runat="server" Checked='<%# Eval("Cpublish") %>' Enabled="False" /></div>
+                                                <div style="margin-top: 4px;"><asp:ImageButton runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" ImageUrl="~/images/cardsmall.gif" /></div>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:DataList>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab 3: 实时动态 -->
+                        <div class="ls-tab-panel" id="ls-panel-realtime" style="display:none;">
+                            <div class="ls-rt-summary" id="ls-rt-summary">
+                                <div class="ls-rt-stat ls-rt-stat--working">
+                                    <span class="ls-rt-stat__num" id="ls-rt-working">0</span>
+                                    <span class="ls-rt-stat__label">学习中</span>
+                                </div>
+                                <div class="ls-rt-stat ls-rt-stat--viewing">
+                                    <span class="ls-rt-stat__num" id="ls-rt-viewing">0</span>
+                                    <span class="ls-rt-stat__label">浏览中</span>
+                                </div>
+                                <div class="ls-rt-stat ls-rt-stat--submitted">
+                                    <span class="ls-rt-stat__num" id="ls-rt-submitted">0</span>
+                                    <span class="ls-rt-stat__label">已提交</span>
+                                </div>
+                                <div class="ls-rt-stat ls-rt-stat--idle">
+                                    <span class="ls-rt-stat__num" id="ls-rt-idle">0</span>
+                                    <span class="ls-rt-stat__label">空闲</span>
+                                </div>
+                                <div class="ls-rt-stat ls-rt-stat--total">
+                                    <span class="ls-rt-stat__num" id="ls-rt-total">0</span>
+                                    <span class="ls-rt-stat__label">在线总数</span>
+                                </div>
+                            </div>
+
+                            <div class="ls-rt-steps" id="ls-rt-steps" style="margin-top:16px;">
+                                <div class="lesson-label">各环节学生分布</div>
+                                <div id="ls-rt-steps-chart" style="margin-top:10px;"></div>
+                            </div>
+
+                            <div style="margin-top:16px;">
+                                <div class="lesson-label">学生详细状态</div>
+                                <div id="ls-rt-students" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-4 lesson-theme--indigo">
+                <section class="lesson-card lesson-card--span-6 lesson-theme--indigo">
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">课堂控制</h2>
@@ -929,35 +1381,13 @@
                         </div>
 
                         <div class="lesson-toggle-group" style="margin-top: 14px;">
-                            <span><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="当前学案活动依次完成后解锁下一个活动" oncheckedchanged="CheckBoxPass_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="本班学生登录后，直接进入当前学案导航" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="选中表示公开显示班级密码，未选表示隐藏" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></span>
-                            <span><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="选中表示允许本班单独个人模式登录" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></span>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="lesson-card lesson-card--span-12 lesson-theme--slate">
-                    <div class="lesson-card__head">
-                        <div>
-                            <h2 class="lesson-card__title">未签到学生</h2>
-                        </div>
-                    </div>
-                    <div class="lesson-card__body">
-                        <asp:Label ID="Label2" runat="server"></asp:Label>
-                        <div style="overflow-x: auto;">
-                            <asp:DataList ID="DLnotline" runat="server" CssClass="lesson-offline-list" RepeatColumns="8" RepeatDirection="Horizontal" HorizontalAlign="Center" onitemdatabound="DLnotline_ItemDataBound" RepeatLayout="Flow">
-                                <ItemTemplate>
-                                    <div class="divunline student-card student-card--offline">
-                                        <div class="student-card__num"><asp:Label ID="LabelNnum" runat="server" Text='<%# Eval("Snum") %>'></asp:Label></div>
-                                        <asp:Label ID="lbQname" runat="server" Text='<%# Eval("Sname") %>' CssClass="labelname"></asp:Label>
-                                        <div class="student-card__score"><asp:Label ID="LabelSscore" runat="server" Text='<%# Eval("Sscore") %>' ToolTip="总学分"></asp:Label></div>
-                                    </div>
-                                </ItemTemplate>
-                            </asp:DataList>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="当前学案活动依次完成后解锁下一个活动" oncheckedchanged="CheckBoxPass_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="本班学生登录后，直接进入当前学案导航" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="选中表示公开显示班级密码，未选表示隐藏" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="选中表示允许本班单独个人模式登录" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></div>
                         </div>
                     </div>
                 </section>
@@ -983,46 +1413,30 @@
                         </div>
 
                         <div class="lesson-toggle-group" style="margin-top: 14px;">
-                            <span><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="选中表示网盘启用，未选表示网盘禁用" oncheckedchanged="CheckBoxShare_CheckedChanged" /></span>
-                            <span><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="选中表示小组网盘启用（需先启用网盘开关）" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></span>
+                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="选中表示网盘启用，未选表示网盘禁用" oncheckedchanged="CheckBoxShare_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="选中表示小组网盘启用（需先启用网盘开关）" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></div>
                         </div>
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-6 lesson-theme--green">
+                <section class="lesson-card lesson-card--span-12 lesson-theme--slate">
                     <div class="lesson-card__head">
                         <div>
-                            <h2 class="lesson-card__title">学案进度</h2>
+                            <h2 class="lesson-card__title">未签到学生</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div>
-                            <div class="lesson-label">已学学案</div>
-                            <div style="margin-top: 10px;">
-                                <asp:DataList ID="DLdonekc" runat="server" CssClass="lesson-done-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLdonekc_ItemDataBound">
-                                    <ItemTemplate>
-                                        <div class="doneksdiv">
-                                            <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="donekc"></asp:HyperLink></div>
-                                            <div class="lesson-course-note"><asp:Label ID="wk" runat="server" ToolTip="作品总数"></asp:Label></div>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 18px;">
-                            <div class="lesson-label">未学学案</div>
-                            <div style="margin-top: 10px;">
-                                <asp:DataList ID="DLnewkc" runat="server" CssClass="lesson-new-list" ForeColor="Black" RepeatDirection="Horizontal" RepeatLayout="Flow" CellPadding="0" CellSpacing="0" DataKeyField="Cid" onitemdatabound="DLnewkc_ItemDataBound" onitemcommand="DLnewkc_ItemCommand">
-                                    <ItemTemplate>
-                                        <div class="doneksdiv">
-                                            <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="newkc"></asp:HyperLink></div>
-                                            <div class="lesson-course-note"><asp:CheckBox ID="Ck" runat="server" Checked='<%# Eval("Cpublish") %>' Enabled="False" /></div>
-                                            <div style="margin-top: 4px;"><asp:ImageButton runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" ImageUrl="~/images/cardsmall.gif" /></div>
-                                        </div>
-                                    </ItemTemplate>
-                                </asp:DataList>
-                            </div>
+                        <asp:Label ID="Label2" runat="server"></asp:Label>
+                        <div style="overflow-x: auto;">
+                            <asp:DataList ID="DLnotline" runat="server" CssClass="lesson-offline-list" RepeatDirection="Horizontal" onitemdatabound="DLnotline_ItemDataBound" RepeatLayout="Flow">
+                                <ItemTemplate>
+                                    <div class="student-card student-card--offline">
+                                        <div class="student-card__num"><asp:Label ID="LabelNnum" runat="server" Text='<%# Eval("Snum") %>'></asp:Label></div>
+                                        <asp:Label ID="lbQname" runat="server" Text='<%# Eval("Sname") %>' CssClass="labelname"></asp:Label>
+                                        <div class="student-card__score"><asp:Label ID="LabelSscore" runat="server" Text='<%# Eval("Sscore") %>' ToolTip="总学分"></asp:Label></div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:DataList>
                         </div>
                     </div>
                 </section>
@@ -1065,6 +1479,141 @@
             function attitudegroup(g, m, q, c) {
                 var urlat = "../teacher/attitudegroup.aspx?sg=" + g + "&ld=" + m + "&qd=" + q + "&qcid=" + c;
                 openLessonModal(urlat, "小组学习表现评价", 240);
+            }
+
+            /* ================================================================
+               Tab 切换
+               ================================================================ */
+            var lsCurrentTab = "online";
+            function lsSwitchTab(tabName) {
+                lsCurrentTab = tabName;
+                var tabs = document.querySelectorAll("#ls-tab-bar .ls-tab");
+                for (var i = 0; i < tabs.length; i++) {
+                    var t = tabs[i];
+                    if (t.getAttribute("data-tab") === tabName) {
+                        t.className = "ls-tab ls-tab--active";
+                    } else {
+                        t.className = "ls-tab";
+                    }
+                }
+                var panels = ["online", "progress", "realtime"];
+                for (var j = 0; j < panels.length; j++) {
+                    var p = document.getElementById("ls-panel-" + panels[j]);
+                    if (p) p.style.display = (panels[j] === tabName) ? "block" : "none";
+                }
+                // 切换到实时动态时启动轮询
+                var indicator = document.getElementById("ls-realtime-indicator");
+                if (tabName === "realtime") {
+                    if (indicator) indicator.style.display = "inline-flex";
+                    lsStartPolling();
+                } else {
+                    if (indicator) indicator.style.display = "none";
+                    lsStopPolling();
+                }
+            }
+
+            /* ================================================================
+               实时动态 AJAX 轮询
+               ================================================================ */
+            var lsPollingTimer = null;
+            var lsPollingInterval = 8000; // 8秒轮询
+            var lsGrade = "<%= LsGrade %>";
+            var lsClass = "<%= LsClass %>";
+
+            function lsStartPolling() {
+                lsFetchData(); // 立即获取一次
+                if (lsPollingTimer) clearInterval(lsPollingTimer);
+                lsPollingTimer = setInterval(lsFetchData, lsPollingInterval);
+            }
+
+            function lsStopPolling() {
+                if (lsPollingTimer) {
+                    clearInterval(lsPollingTimer);
+                    lsPollingTimer = null;
+                }
+            }
+
+            var statusLabels = {
+                "working": "学习中",
+                "viewing": "浏览中",
+                "submitted": "已提交",
+                "idle": "空闲"
+            };
+
+            function lsFetchData() {
+                if (lsGrade === "0" && lsClass === "0") return;
+                $.ajax({
+                    url: "../teacher/learnprogress.ashx",
+                    type: "GET",
+                    data: { action: "all", sgrade: lsGrade, sclass: lsClass },
+                    dataType: "json",
+                    timeout: 6000,
+                    success: function (resp) {
+                        if (resp && resp.ok) {
+                            lsRenderProgress(resp.progress);
+                            lsRenderStudents(resp.students);
+                        }
+                    },
+                    error: function () {
+                        // 静默失败
+                    }
+                });
+            }
+
+            function lsRenderProgress(prog) {
+                if (!prog) return;
+                var el = function (id) { return document.getElementById(id); };
+                el("ls-rt-working").innerText = prog.working || 0;
+                el("ls-rt-viewing").innerText = prog.viewing || 0;
+                el("ls-rt-submitted").innerText = prog.submitted || 0;
+                el("ls-rt-idle").innerText = prog.idle || 0;
+                el("ls-rt-total").innerText = prog.total || 0;
+
+                // 环节分布
+                var chart = el("ls-rt-steps-chart");
+                if (chart && prog.steps) {
+                    var html = "";
+                    var maxCount = 0;
+                    for (var k in prog.steps) {
+                        if (prog.steps[k] > maxCount) maxCount = prog.steps[k];
+                    }
+                    if (maxCount === 0) maxCount = 1;
+                    for (var stepName in prog.steps) {
+                        var cnt = prog.steps[stepName];
+                        var pct = Math.round((cnt / maxCount) * 100);
+                        html += '<div class="ls-rt-step-bar">' +
+                            '<span class="ls-rt-step-name" title="' + stepName + '">' + stepName + '</span>' +
+                            '<div class="ls-rt-step-progress"><div class="ls-rt-step-fill" style="width:' + pct + '%"></div></div>' +
+                            '<span class="ls-rt-step-count">' + cnt + '人</span>' +
+                            '</div>';
+                    }
+                    if (html === "") {
+                        html = '<span style="color:#94a3b8;font-size:13px;">暂无学生在线</span>';
+                    }
+                    chart.innerHTML = html;
+                }
+            }
+
+            function lsRenderStudents(students) {
+                var container = document.getElementById("ls-rt-students");
+                if (!container || !students) return;
+                if (students.length === 0) {
+                    container.innerHTML = '<span style="color:#94a3b8;font-size:13px;">暂无学生状态数据</span>';
+                    return;
+                }
+                var html = "";
+                for (var i = 0; i < students.length; i++) {
+                    var s = students[i];
+                    var st = s.Status || "idle";
+                    var label = statusLabels[st] || st;
+                    html += '<div class="ls-rt-stu ls-rt-stu--' + st + '">' +
+                        '<span class="ls-rt-stu__name">' + (s.Sname || "") + '</span>' +
+                        '<span class="ls-rt-stu__step" title="' + (s.Ltitle || "") + '">' + (s.Ltitle || "-") + '</span>' +
+                        '<span class="ls-rt-stu__status ls-rt-stu__status--' + st + '">' + label + '</span>' +
+                        '<span class="ls-rt-stu__time">' + (s.UpdateTime || "") + '</span>' +
+                        '</div>';
+                }
+                container.innerHTML = html;
             }
         </script>
     </div>

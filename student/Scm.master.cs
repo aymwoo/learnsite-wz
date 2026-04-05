@@ -8,10 +8,29 @@ public partial class Student_Scm : System.Web.UI.MasterPage
 {
     protected string Cbanner = "";
     protected string SiteTitle = "";
+    // 学习状态上报所需的学生信息
+    protected string LsSnum = "";
+    protected string LsSname = "";
+    protected string LsSgrade = "0";
+    protected string LsSclass = "0";
+    protected string LsSid = "0";
+    protected string LsCid = "0";
+    protected string LsLid = "0";
+    protected string LsLtitle = "";
+    protected string LsLtype = "";
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
     protected void Page_Load(object sender, EventArgs e)
     {
         SiteTitle = LearnSite.Common.XmlHelp.SiteTitle();
+        // 初始化学生学习状态上报信息
+        if (cook.IsExist())
+        {
+            LsSnum = cook.Snum;
+            LsSname = HttpUtility.UrlEncode(cook.Sname);
+            LsSgrade = cook.Sgrade.ToString();
+            LsSclass = cook.Sclass.ToString();
+            LsSid = cook.Sid.ToString();
+        }
         if (!IsPostBack)
         {
             ShowListMenu();
@@ -64,6 +83,9 @@ public partial class Student_Scm : System.Web.UI.MasterPage
         }
         if (LearnSite.Common.WordProcess.IsNum(myCid))
         {
+            // 设置当前课程ID，供学习状态上报使用
+            LsCid = myCid;
+
             string Uploadmode = LearnSite.Common.XmlHelp.GetUploadMode();
             string mUrl;
             switch (Uploadmode)
@@ -309,6 +331,11 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                     {
                         CurWay = Ltitlestr;
                         ma.Selected = true;
+                        // 设置当前学案环节信息，供学习状态上报使用
+                        LsCid = myCid;
+                        LsLid = Lid;
+                        LsLtitle = HttpUtility.UrlEncode(Ltitlestr);
+                        LsLtype = Ltype;
                     }
                     Menuact.Items.Add(ma);//添加活动菜单
                 }

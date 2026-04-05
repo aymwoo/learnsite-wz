@@ -7,6 +7,9 @@ using System.Drawing;
 public partial class Teacher_start : System.Web.UI.Page
 {
     LearnSite.Model.TeaCook tcook = new LearnSite.Model.TeaCook();
+    // 供学习状态AJAX轮询JS使用
+    protected string LsGrade = "0";
+    protected string LsClass = "0";
     protected void Page_Load(object sender, EventArgs e)
     {
         LearnSite.Common.CookieHelp.JudgeTeacherCookies();
@@ -28,6 +31,8 @@ public partial class Teacher_start : System.Web.UI.Page
                 showLock();
                 showwtUrl();
                 showMenu();
+                LsGrade = DDLgrade.SelectedValue;
+                LsClass = DDLclass.SelectedValue;
             }
         }
     }

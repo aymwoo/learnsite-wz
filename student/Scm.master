@@ -513,5 +513,21 @@
             }
         })();
     </script>
+
+    <!-- 学习状态上报配置 + 脚本 -->
+    <script type="text/javascript">
+        window.__learnStatus = {
+            snum: "<%= LsSnum %>",
+            sname: "<%= LsSname %>",
+            sgrade: "<%= LsSgrade %>",
+            sclass: "<%= LsSclass %>",
+            sid: "<%= LsSid %>",
+            cid: "<%= LsCid %>",
+            lid: "<%= LsLid %>",
+            ltitle: "<%= LsLtitle %>",
+            ltype: "<%= LsLtype %>"
+        };
+    </script>
+    <script src="../js/learnstatus.js" type="text/javascript"></script>
 </body>
 </html>

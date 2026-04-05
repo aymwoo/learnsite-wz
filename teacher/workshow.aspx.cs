@@ -105,7 +105,6 @@ public partial class Teacher_workshow : System.Web.UI.Page
                         string urlstr = Sgrade.ToString() + "&sc=" + Sclass.ToString() + "&ci=" + myCid + "&mi=" + Wmid.ToString() + "&ty=" + Mfiletype;
                         HLautoplay.Visible = true;
                         HLautoplay.NavigateUrl = "~/teacher/circleshow.aspx?sg=" + urlstr;
-                        HLautoplay.ImageUrl = "~/images/flashauto.png";
                         if (Mfiletype == "py" || Mfiletype == "ware")
                         {
                             BtnCheck.Visible = true;
@@ -374,7 +373,6 @@ public partial class Teacher_workshow : System.Web.UI.Page
                 string urlstr = Ggrade.ToString() + "&sc=" + Gclass.ToString() + "&ci=" + myCid + "&mi=" + Gmid.ToString();
                 HLgroupplay.Visible = true;
                 HLgroupplay.NavigateUrl = "~/teacher/circlegroups.aspx?sg=" + urlstr;
-                HLgroupplay.ImageUrl = "~/images/weboffice.png";
             }
             else
             {

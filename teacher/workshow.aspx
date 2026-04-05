@@ -98,6 +98,65 @@
             align-items: center;
         }
 
+        /* ===== Button base ===== */
+        .ws-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 34px;
+            padding: 0 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: filter 0.15s, box-shadow 0.15s, transform 0.1s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            line-height: 1;
+        }
+        .ws-btn:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.13);
+            transform: translateY(-1px);
+            text-decoration: none;
+            color: #ffffff;
+        }
+        .ws-btn:active {
+            filter: brightness(0.95);
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+        }
+
+        /* ---- Color variants ---- */
+        .ws-btn--blue     { background: #3b82f6; }
+        .ws-btn--indigo   { background: #6366f1; }
+        .ws-btn--slate    { background: #64748b; }
+        .ws-btn--rose     { background: #e11d48; }
+        .ws-btn--emerald  { background: #10b981; }
+        .ws-btn--teal     { background: #14b8a6; }
+        .ws-btn--amber    { background: #f59e0b; color: #78350f; }
+        .ws-btn--amber:hover { color: #78350f; }
+        .ws-btn--red      { background: #ef4444; }
+
+        /* Icon-only button variant */
+        .ws-btn--icon {
+            width: 34px;
+            padding: 0;
+            border-radius: 8px;
+        }
+        .ws-btn--icon img { height: 16px; width: 16px; }
+
+        /* Preview link buttons — image inside */
+        .ws-btn img {
+            height: 18px;
+            width: auto;
+            vertical-align: middle;
+        }
+
         /* ===== Work Cards Grid ===== */
         .ws-section-title {
             font-size: 0.75rem;
@@ -264,7 +323,7 @@
                 <asp:Image ID="ImageType" runat="server" style="height:20px" />
                 <asp:ImageButton ID="ImgBtnFlasherror" runat="server"
                     ImageUrl="~/images/flasherror.png" onclick="ImgBtnFlasherror_Click"
-                    ToolTip="Office文档转换异常标志清除重新转换" style="height:18px" />
+                    ToolTip="Office文档转换异常标志清除重新转换" CssClass="ws-btn ws-btn--icon ws-btn--red" />
             </div>
 
             <!-- Actions row -->
@@ -272,25 +331,25 @@
                 <div class="ws-actions">
                     <asp:ImageButton ID="BtnCheck" runat="server" onclick="BtnCheck_Click"
                         ImageUrl="~/images/check.png" ToolTip="将本班自动得分作品全部设置为已评"
-                        style="width:18px; cursor:pointer" />
-                    <asp:Button ID="BtnA" runat="server" Text="一键评A" SkinID="BtnSmall"
+                        CssClass="ws-btn ws-btn--icon ws-btn--amber" />
+                    <asp:Button ID="BtnA" runat="server" Text="一键评A"
                         onclick="BtnA_Click" ToolTip="将本班该活动未评的作品，全部评为A"
-                        CssClass="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition shadow-sm border-0 text-sm" />
-                    <asp:Button ID="BtnB" runat="server" Text="一键评B" SkinID="BtnSmall"
+                        CssClass="ws-btn ws-btn--blue" />
+                    <asp:Button ID="BtnB" runat="server" Text="一键评B"
                         onclick="BtnB_Click" ToolTip="将本班该活动未评的作品，全部评为B"
-                        CssClass="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition shadow-sm border-0 text-sm" />
-                    <asp:Button ID="BtnCk" runat="server" Text="一键已评" SkinID="BtnSmall"
+                        CssClass="ws-btn ws-btn--indigo" />
+                    <asp:Button ID="BtnCk" runat="server" Text="一键已评"
                         onclick="BtnCk_Click" ToolTip="不用给分的作品，一健全评为０"
-                        CssClass="px-3 py-1 bg-slate-500 text-white rounded hover:bg-slate-600 transition shadow-sm border-0 text-sm" />
-                    <asp:Button ID="BtnWp" runat="server" Text="一键未评" SkinID="BtnSmall"
+                        CssClass="ws-btn ws-btn--slate" />
+                    <asp:Button ID="BtnWp" runat="server" Text="一键未评"
                         onclick="BtnWp_Click" ToolTip="所有作品一键未评"
-                        CssClass="px-3 py-1 bg-slate-500 text-white rounded hover:bg-slate-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn--rose" />
                     <asp:HyperLink ID="HLautoplay" runat="server" Target="_blank"
                         ToolTip="个人作品自动展播"
-                        CssClass="px-3 py-1 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition shadow-sm text-sm inline-flex items-center gap-1">[HLautoplay]</asp:HyperLink>
+                        CssClass="ws-btn ws-btn--emerald">个人展播</asp:HyperLink>
                     <asp:HyperLink ID="HLgroupplay" runat="server" Target="_blank"
                         ToolTip="小组作品自动展播"
-                        CssClass="px-3 py-1 bg-teal-500 text-white rounded hover:bg-teal-600 transition shadow-sm text-sm inline-flex items-center gap-1">[HLgroupplay]</asp:HyperLink>
+                        CssClass="ws-btn ws-btn--teal">小组展播</asp:HyperLink>
                 </div>
             </div>
 
