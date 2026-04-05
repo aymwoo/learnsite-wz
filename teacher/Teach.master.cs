@@ -6,8 +6,11 @@ using System.Web.UI.WebControls;
 
 public partial class Teach : System.Web.UI.MasterPage
 {
+    protected string SiteTitle { get; private set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        SiteTitle = LearnSite.Common.XmlHelp.SiteTitle();
         if (!IsPostBack)
         {
             LabelVer.Text = LearnSite.Common.WordProcess.SystemVersion();

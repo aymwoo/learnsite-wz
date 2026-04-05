@@ -160,9 +160,54 @@
         </div>
 
         <!-- Sidebar (Right Column) -->
-        <div class="lg:col-span-1 border border-slate-200/60 bg-slate-50/50 rounded-2xl p-5 shadow-sm flex flex-col items-center space-y-6 self-start top-24 sticky">
+        <div class="lg:col-span-1 border border-slate-200/60 bg-slate-50/50 rounded-2xl p-5 shadow-sm flex flex-col items-center space-y-4 self-start top-24 sticky">
 
-            <div class="w-full bg-orange-50 border border-orange-100 rounded-xl p-4 mt-1">
+            <!-- Student Avatar + Brief Info Card -->
+            <div class="w-full bg-white border border-slate-200 rounded-xl p-4 flex flex-col items-center gap-3">
+                <!-- Avatar with rank badge -->
+                <div style="position:relative; flex-shrink:0;">
+                    <asp:Image ID="Imageface" runat="server" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid #e0e7ff; box-shadow:0 4px 12px rgba(79,70,229,0.15);" />
+                    <div style="position:absolute; bottom:-3px; right:-3px; background:linear-gradient(135deg,#fb923c,#ec4899); color:#fff; font-size:9px; font-weight:700; padding:1px 6px; border-radius:9999px; box-shadow:0 1px 3px rgba(0,0,0,0.18); border:2px solid #fff; line-height:1.5;">
+                        <asp:Label ID="LabelRank" runat="server"></asp:Label>
+                    </div>
+                </div>
+                <!-- Name -->
+                <div class="text-base font-bold text-slate-800 tracking-tight">
+                    <asp:Label ID="sname" runat="server"></asp:Label>
+                </div>
+                <!-- Info chips -->
+                <div style="display:flex; flex-direction:column; gap:0.375rem; width:100%;">
+                    <div style="display:flex; align-items:center; gap:0.375rem; padding:0.3rem 0.625rem; border-radius:0.5rem; background:#f8fafc; border:1px solid #e2e8f0; font-size:0.75rem; color:#475569;">
+                        <svg style="width:0.75rem; height:0.75rem; color:#818cf8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
+                        <asp:Label ID="snum" runat="server" style="color:#334155; font-weight:600;"></asp:Label>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.375rem; padding:0.3rem 0.625rem; border-radius:0.5rem; background:#f8fafc; border:1px solid #e2e8f0; font-size:0.75rem; color:#475569;">
+                        <svg style="width:0.75rem; height:0.75rem; color:#34d399; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <asp:Label ID="sclass" runat="server" style="color:#334155; font-weight:600;"></asp:Label>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.375rem; padding:0.3rem 0.625rem; border-radius:0.5rem; background:#f8fafc; border:1px solid #e2e8f0; font-size:0.75rem; color:#475569;">
+                        <svg style="width:0.75rem; height:0.75rem; color:#fbbf24; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <asp:HyperLink ID="HLgroup" runat="server" style="color:#4f46e5; font-weight:700; text-decoration:none;">加入小组</asp:HyperLink>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.375rem; padding:0.3rem 0.625rem; border-radius:0.5rem; background:#f8fafc; border:1px solid #e2e8f0; font-size:0.75rem; color:#475569; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                        <svg style="width:0.75rem; height:0.75rem; color:#94a3b8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
+                        <asp:Label ID="Labelteam" runat="server" style="color:#475569; font-weight:500; overflow:hidden; text-overflow:ellipsis;"></asp:Label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 我的资料 / 系统退出 buttons -->
+            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full">
+                <asp:Button ID="BtnProfile" runat="server" OnClick="BtnProfile_Click"
+                    Text="我的资料" CausesValidation="False" OnClientClick="openModernGroupModal(); return false;"
+                    CssClass="flex-1 w-full flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all duration-300 shadow-sm cursor-pointer" />
+                <asp:Button ID="BtnExit" runat="server" onclick="BtnExit_Click" 
+                    Enabled="False" Text="" 
+                    CssClass="flex-1 w-full flex justify-center py-2.5 px-4 rounded-xl text-sm font-semibold text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300 shadow-md border-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" />
+            </div>
+
+            <!-- 最新作品评语 -->
+            <div class="w-full bg-orange-50 border border-orange-100 rounded-xl p-4">
                 <div class="flex items-center gap-2 text-orange-600 font-semibold text-sm mb-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                     最新作品评语
@@ -176,16 +221,7 @@
                     </asp:HyperLink>
                 </div>
             </div>
-            
-            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 w-full mt-2 pt-4 border-t border-slate-200/60">
-                <asp:Button ID="BtnProfile" runat="server" OnClick="BtnProfile_Click"
-                    Text="我的资料" CausesValidation="False" OnClientClick="openModernGroupModal(); return false;"
-                    CssClass="flex-1 w-full flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 transition-all duration-300 shadow-sm cursor-pointer" />
-                <asp:Button ID="BtnExit" runat="server" onclick="BtnExit_Click" 
-                    Enabled="False" Text="" 
-                    CssClass="flex-1 w-full flex justify-center py-2.5 px-4 rounded-xl text-sm font-semibold text-white bg-red-500 hover:bg-red-600 focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-all duration-300 shadow-md border-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" />
-            </div>
-            
+
             <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
             
             <!-- Modern Tailwind CSS Modal for '我的资料'（多标签页整合版） -->
@@ -193,68 +229,30 @@
                 <!-- Background backdrop -->
                 <div id="modernGroupModalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0" aria-hidden="true"></div>
 
-                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-6">
+                <div class="fixed inset-0 z-10 flex items-end sm:items-center justify-center p-3 sm:p-6 overflow-y-auto">
                         <!-- Modal panel -->
-                        <div id="modernGroupModalPanel" class="relative transform rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 w-full opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100" style="overflow:hidden; max-width:min(660px, calc(100vw - 2rem)); box-sizing:border-box;">
+                        <div id="modernGroupModalPanel" class="relative w-full sm:max-w-2xl lg:max-w-3xl transform rounded-2xl bg-white text-left shadow-2xl transition-all opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95 border border-slate-100 flex flex-col" style="max-height:calc(100vh - 3rem); overflow:hidden;">
                             <!-- Header -->
-                            <div style="background:linear-gradient(to right,#eef2ff,#ffffff); padding:1rem 1.25rem; border-bottom:1px solid #e0e7ff; display:flex; align-items:center; justify-content:space-between;">
-                                <h3 style="margin:0; font-size:1.0625rem; font-weight:800; color:#312e81; display:flex; align-items:center; gap:0.5rem;" id="modal-title">
-                                    <svg style="width:1.125rem; height:1.125rem; color:#4f46e5;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            <div class="flex items-center justify-between px-5 py-3.5 border-b border-indigo-100 flex-shrink-0" style="background:linear-gradient(to right,#eef2ff,#ffffff);">
+                                <h3 class="flex items-center gap-2 text-base font-extrabold text-indigo-900 m-0" id="modal-title">
+                                    <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                     我的资料
                                 </h3>
-                                <button type="button" onclick="closeModernGroupModal()" style="color:#94a3b8; background:transparent; border:none; padding:0.375rem; border-radius:0.5rem; cursor:pointer; transition:all 0.2s; line-height:0;" onmouseover="this.style.color='#e11d48';this.style.background='#fff1f2'" onmouseout="this.style.color='#94a3b8';this.style.background='transparent'">
+                                <button type="button" onclick="closeModernGroupModal()" class="text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg p-1.5 transition-all" style="background:transparent; border:none; cursor:pointer; line-height:0;">
                                     <span class="sr-only">Close</span>
-                                    <svg style="width:1.25rem; height:1.25rem;" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                                 </button>
                             </div>
-                            <!-- Student Info Bar -->
-                            <div style="padding:0.625rem 1.25rem; background:linear-gradient(to right,#f8fafc,rgba(238,242,255,0.3)); border-bottom:1px solid #f1f5f9; overflow:hidden;">
-                                <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
-                                    <!-- Avatar -->
-                                    <div style="position:relative; flex-shrink:0;">
-                                        <asp:Image ID="Imageface" runat="server" style="width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
-                                        <div style="position:absolute; bottom:-2px; right:-2px; background:linear-gradient(135deg,#fb923c,#ec4899); color:#fff; font-size:9px; font-weight:700; padding:1px 5px; border-radius:9999px; box-shadow:0 1px 3px rgba(0,0,0,0.15); border:1.5px solid #fff; line-height:1.4;">
-                                            <asp:Label ID="LabelRank" runat="server"></asp:Label>
-                                        </div>
-                                    </div>
-                                    <!-- Info Chips -->
-                                    <div style="display:flex; flex-wrap:wrap; align-items:center; gap:0.375rem; min-width:0; flex:1;">
-                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
-                                            <svg style="width:0.75rem; height:0.75rem; color:#60a5fa; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                                            <asp:Label ID="sname" runat="server" style="font-weight:600; color:#1e293b;"></asp:Label>
-                                        </span>
-                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
-                                            <svg style="width:0.75rem; height:0.75rem; color:#818cf8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path></svg>
-                                            <asp:Label ID="snum" runat="server" style="color:#334155;"></asp:Label>
-                                        </span>
-                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
-                                            <svg style="width:0.75rem; height:0.75rem; color:#34d399; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                                            <asp:Label ID="sclass" runat="server" style="color:#334155;"></asp:Label>
-                                        </span>
-                                        <span style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:#fff; border:1px solid #e2e8f0; font-size:0.75rem; font-weight:500; color:#475569; box-shadow:0 1px 2px rgba(0,0,0,0.04); white-space:nowrap;">
-                                            <svg style="width:0.75rem; height:0.75rem; color:#fbbf24; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                                            <asp:HyperLink ID="HLgroup" runat="server" style="color:#4f46e5; font-weight:700; text-decoration:none;">加入小组</asp:HyperLink>
-                                        </span>
-                                    </div>
-                                    <!-- Team Members -->
-                                    <div style="display:none; align-items:center; gap:0.25rem; padding:0.25rem 0.5rem; border-radius:0.375rem; background:rgba(241,245,249,0.8); border:1px solid rgba(226,232,240,0.6); font-size:0.6875rem; color:#64748b; flex-shrink:0; max-width:180px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="sm-team-show">
-                                        <svg style="width:0.75rem; height:0.75rem; color:#94a3b8; flex-shrink:0;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path></svg>
-                                        <asp:Label ID="Labelteam" runat="server" style="color:#475569; font-weight:500;"></asp:Label>
-                                    </div>
-                                </div>
-                            </div>
                             <style>
-                                @media (min-width: 640px) { .sm-team-show { display: inline-flex !important; } }
                                 .profile-modal-tabs { display:flex; gap:0; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
                                 .profile-modal-tabs::-webkit-scrollbar { display:none; }
-                                .profile-tab-btn { display:inline-flex; align-items:center; gap:0.25rem; padding:0.5rem 0.625rem; font-size:0.75rem; font-weight:500; white-space:nowrap; border:none; background:transparent; color:#64748b; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; outline:none; flex-shrink:0; }
+                                .profile-tab-btn { display:inline-flex; align-items:center; gap:0.25rem; padding:0.5rem 0.75rem; font-size:0.75rem; font-weight:500; white-space:nowrap; border:none; background:transparent; color:#64748b; cursor:pointer; border-bottom:2px solid transparent; transition:all 0.2s; outline:none; flex-shrink:0; }
                                 .profile-tab-btn:hover { color:#334155; background:rgba(241,245,249,0.6); }
                                 .profile-tab-btn.active { color:#4f46e5; font-weight:600; border-bottom-color:#4f46e5; background:#fff; }
                                 .profile-tab-btn svg { width:0.875rem; height:0.875rem; flex-shrink:0; }
                             </style>
                             <!-- Tab Navigation -->
-                            <div style="background:#f8fafc; border-bottom:1px solid #e2e8f0; padding:0 0.75rem; overflow:hidden;">
+                            <div class="border-b border-slate-200 px-3 flex-shrink-0" style="background:#f8fafc;">
                                 <nav class="profile-modal-tabs" aria-label="资料导航">
                                     <button id="tab-group" type="button" onclick="switchProfileTab('../profile/mygroup.aspx', 'tab-group')"
                                         class="profile-tab profile-tab-btn active">
@@ -304,11 +302,10 @@
                                 </nav>
                             </div>
                             <!-- Content (Iframe) -->
-                            <div style="background:#fff; overflow:hidden;">
-                                <iframe id="modernGroupModalIframe" src="" style="width:100%; height:520px; border:none; display:block;" title="我的资料"></iframe>
+                            <div class="flex-1 min-h-0 bg-white">
+                                <iframe id="modernGroupModalIframe" src="" class="w-full border-none block" style="height:clamp(360px, 65vh, 640px);" title="我的资料"></iframe>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
 
