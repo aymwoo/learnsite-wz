@@ -54,6 +54,7 @@ namespace LearnSite.DBUtility
                     try
                     {
                         if (!DbHelperSQL.TabExists("AISkill")) return false;
+                        if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
                     }
                     catch
@@ -2542,6 +2543,22 @@ namespace LearnSite.DBUtility
                 aiStr.Append(" [SkillName] NVARCHAR(100) NULL, ");
                 aiStr.Append(" [PromptContent] NVARCHAR(MAX) NULL, ");
                 aiStr.Append(" [IsActive] BIT DEFAULT 1 ");
+                aiStr.Append(" )");
+                DbHelperSQL.ExecuteSql(aiStr.ToString());
+            }
+        }
+
+        public static void UpdateTable1900()
+        {
+            if (!DbHelperSQL.TabExists("AICustomSkill"))
+            {
+                StringBuilder aiStr = new StringBuilder();
+                aiStr.Append(" CREATE TABLE [dbo].[AICustomSkill] (");
+                aiStr.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                aiStr.Append(" [SkillName] NVARCHAR(100) NOT NULL, ");
+                aiStr.Append(" [PromptContent] NVARCHAR(MAX) NOT NULL, ");
+                aiStr.Append(" [SkillScope] NVARCHAR(200) NOT NULL DEFAULT '', ");
+                aiStr.Append(" [IsActive] BIT NOT NULL DEFAULT 1 ");
                 aiStr.Append(" )");
                 DbHelperSQL.ExecuteSql(aiStr.ToString());
             }
