@@ -1,51 +1,428 @@
-<%@ Page Title="AI Providers Settings" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="aiconfig.aspx.cs" Inherits="Teacher_aiconfig" %>
+<%@ Page Title="AI 配置中心" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="aiconfig.aspx.cs" Inherits="Teacher_aiconfig" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <div class="p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">AI 配置中心</h2>
-        </div>
+    <style type="text/css">
+        .ai-config {
+            --ls-bg: linear-gradient(180deg, #f8fbff 0%, #f3f7ff 100%);
+            --ls-card: rgba(255, 255, 255, 0.96);
+            --ls-border: #dbe6f5;
+            --ls-text: #0f172a;
+            --ls-muted: #64748b;
+            --ls-primary: #2563eb;
+            padding: 28px;
+            background: var(--ls-bg);
+            color: var(--ls-text);
+        }
 
-        <div class="mb-4 border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="configTabs" role="tablist">
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 border-blue-600 text-blue-600 rounded-t-lg active" id="providers-tab" data-tabs-target="#providers" type="button" role="tab" onclick="switchTab('providers')">AI 提供商</button>
-                </li>
-                <li class="mr-2" role="presentation">
-                    <button class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 text-gray-500" id="skills-tab" data-tabs-target="#skills" type="button" role="tab" onclick="switchTab('skills')">AI 提示词/Skills</button>
-                </li>
-            </ul>
-        </div>
+        .ai-config * {
+            box-sizing: border-box;
+        }
 
-        <div id="providers" role="tabpanel" class="tab-content">
-            <div class="flex justify-end items-center mb-6">
-                <div class="space-x-2">
-                    <button type="button" onclick="openImportModal()" class="px-4 py-2 bg-green-500 text-white rounded border-0 hover:bg-green-600 transition duration-300 shadow-md">
-                        导入 JSON 配置
-                    </button>
-                    <button type="button" onclick="openModal()" class="px-4 py-2 bg-blue-500 text-white rounded border-0 hover:bg-blue-600 transition duration-300 shadow-md">
-                        添加 AI 提供商
-                    </button>
+        .lesson-shell {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lesson-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #1e3a8a;
+            border-radius: 0.75rem;
+            padding: 24px 28px;
+            background:
+                radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 38%),
+                radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
+                linear-gradient(135deg, #0f172a 0%, #312e81 52%, #4f46e5 100%);
+            color: #eff6ff;
+            box-shadow: 0 28px 60px rgba(79, 70, 229, 0.22);
+        }
+
+        .lesson-hero__content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .lesson-hero__title {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .lesson-hero__subtitle {
+            max-width: 760px;
+            margin: 8px 0 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(239, 246, 255, 0.88);
+        }
+
+        .lesson-card {
+            min-width: 0;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            background: var(--ls-card);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .lesson-theme--blue   { background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%); }
+        .lesson-theme--purple { background: linear-gradient(160deg, #ffffff 0%, #f5f3ff 100%); }
+        .lesson-theme--teal   { background: linear-gradient(160deg, #ffffff 0%, #f0fdfa 100%); }
+
+        .lesson-card__head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            padding: 20px 24px 0;
+        }
+
+        .lesson-card__title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--ls-text);
+        }
+
+        .lesson-card__desc {
+            margin: 4px 0 0;
+            font-size: 13px;
+            color: var(--ls-muted);
+        }
+
+        .lesson-card__body {
+            padding: 18px 24px 24px;
+        }
+
+        /* Action buttons in card headers */
+        .ai-head-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .ai-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 36px;
+            padding: 0 14px;
+            border-radius: 0.375rem;
+            border: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+            text-decoration: none;
+        }
+
+        .ai-btn:hover { transform: translateY(-1px); }
+
+        .ai-btn--primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .ai-btn--primary:hover { box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35); }
+
+        .ai-btn--green {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+        }
+
+        .ai-btn--green:hover { box-shadow: 0 6px 16px rgba(22, 163, 74, 0.35); }
+
+        .ai-btn--teal {
+            background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+        }
+
+        .ai-btn--teal:hover { box-shadow: 0 6px 16px rgba(13, 148, 136, 0.35); }
+
+        .ai-btn--purple {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+        }
+
+        .ai-btn--purple:hover { box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35); }
+
+        /* Provider cards grid */
+        .ai-providers-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        }
+
+        .ai-provider-card {
+            border-radius: 0.625rem;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .ai-provider-card:hover {
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .ai-provider-card--default {
+            border-color: #22c55e;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15), 0 0 0 1px #22c55e;
+        }
+
+        .ai-provider-card__body { padding: 18px 18px 0; }
+        .ai-provider-card__foot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 18px 14px;
+            margin-top: 14px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .ai-provider-card__name {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 2px;
+        }
+
+        .ai-provider-card__sub {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .ai-provider-card__meta {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            border: 1px solid;
+        }
+
+        .ai-badge--green  { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+        .ai-badge--gray   { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+        .ai-badge--active { background: #dbeafe; color: #1e40af; border-color: #bfdbfe; }
+
+        .ai-card-action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 0.25rem;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+        }
+
+        .ai-card-action-btn--edit  { background: #eff6ff; color: #2563eb; }
+        .ai-card-action-btn--edit:hover  { background: #dbeafe; }
+        .ai-card-action-btn--del   { background: #fff1f2; color: #dc2626; }
+        .ai-card-action-btn--del:hover   { background: #fee2e2; }
+        .ai-card-action-btn--def   { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .ai-card-action-btn--def:hover   { background: #dcfce7; }
+
+        /* Skills grid */
+        .ai-skills-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        }
+
+        .ai-skill-card {
+            border-radius: 0.625rem;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .ai-skill-card:hover {
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .ai-skill-card__body { padding: 18px 18px 12px; flex: 1; }
+        .ai-skill-card__foot {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 10px 18px 14px;
+            border-top: 1px solid #f1f5f9;
+            background: #fafafa;
+            border-radius: 0 0 0.625rem 0.625rem;
+        }
+
+        .ai-skill-card__name {
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 10px;
+        }
+
+        .ai-skill-card__prompt {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            padding: 10px 12px;
+        }
+
+        /* Empty states */
+        .ai-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* Scope tags */
+        .ai-scope-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .ai-scope-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            background: #ede9fe;
+            color: #5b21b6;
+            border: 1px solid #ddd6fe;
+        }
+
+        @media (max-width: 768px) {
+            .ai-config { padding: 16px; }
+            .lesson-hero { padding: 18px 16px; }
+            .lesson-hero__title { font-size: 22px; }
+            .lesson-card__head { padding: 16px 16px 0; }
+            .lesson-card__body { padding: 14px 16px 18px; }
+            .ai-providers-grid,
+            .ai-skills-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+
+    <div class="ai-config">
+        <div class="lesson-shell">
+
+            <!-- Hero Banner -->
+            <div class="lesson-hero">
+                <div class="lesson-hero__content">
+                    <div>
+                        <h1 class="lesson-hero__title">AI 配置中心</h1>
+                        <p class="lesson-hero__subtitle">管理 AI 服务提供商、系统提示词与技能配置，为课堂 AI 功能提供支撑。</p>
+                    </div>
                 </div>
             </div>
 
-            <div id="providersList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Providers will be loaded here dynamically -->
-            </div>
-        </div>
-
-        <div id="skills" role="tabpanel" class="tab-content hidden">
-            <div class="flex justify-end items-center mb-6">
-                <div class="space-x-2">
-                    <button type="button" onclick="openSkillModal()" class="px-4 py-2 bg-blue-500 text-white rounded border-0 hover:bg-blue-600 transition duration-300 shadow-md">
-                        添加提示词
-                    </button>
+            <!-- Section 1: AI Provider -->
+            <section class="lesson-card lesson-theme--blue">
+                <div class="lesson-card__head">
+                    <div>
+                        <h2 class="lesson-card__title">AI 提供商</h2>
+                        <p class="lesson-card__desc">配置连接到不同 AI 服务的 API 参数，可设置默认提供商。</p>
+                    </div>
+                    <div class="ai-head-actions">
+                        <button type="button" onclick="openImportModal()" class="ai-btn ai-btn--green">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            导入 JSON 配置
+                        </button>
+                        <button type="button" onclick="openModal()" class="ai-btn ai-btn--primary">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            添加 AI 提供商
+                        </button>
+                    </div>
                 </div>
-            </div>
+                <div class="lesson-card__body">
+                    <div id="providersList" class="ai-providers-grid">
+                        <div class="ai-empty">正在加载...</div>
+                    </div>
+                </div>
+            </section>
 
-            <div id="skillsList" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Skills will be loaded here dynamically -->
-            </div>
+            <!-- Section 2: AI 提示词 (fixed-area prompts) -->
+            <section class="lesson-card lesson-theme--teal">
+                <div class="lesson-card__head">
+                    <div>
+                        <h2 class="lesson-card__title">AI 提示词</h2>
+                        <p class="lesson-card__desc">管理各固定功能区域的系统提示词（System Prompt），用于定义 AI 角色与行为规范。</p>
+                    </div>
+                    <div class="ai-head-actions">
+                        <button type="button" onclick="openSkillModal()" class="ai-btn ai-btn--teal">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            添加提示词
+                        </button>
+                    </div>
+                </div>
+                <div class="lesson-card__body">
+                    <div id="skillsList" class="ai-skills-grid">
+                        <div class="ai-empty">正在加载...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: AI Skills 管理 (custom user-defined skills) -->
+            <section class="lesson-card lesson-theme--purple">
+                <div class="lesson-card__head">
+                    <div>
+                        <h2 class="lesson-card__title">AI Skills 管理</h2>
+                        <p class="lesson-card__desc">自定义技能库，为每个技能设置提示词并指定应用场景，供学生在对应功能中调用。</p>
+                    </div>
+                    <div class="ai-head-actions">
+                        <button type="button" onclick="openCustomSkillModal()" class="ai-btn ai-btn--purple">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            添加技能
+                        </button>
+                    </div>
+                </div>
+                <div class="lesson-card__body">
+                    <div id="customSkillsList" class="ai-skills-grid">
+                        <div class="ai-empty">正在加载...</div>
+                    </div>
+                </div>
+            </section>
+
         </div>
     </div>
 
@@ -161,7 +538,7 @@
                     <input type="hidden" id="skillId" value="0">
 
                     <div>
-                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="skillName">技能/提示词名称 <span class="text-red-500">*</span></label>
+                        <label class="block text-gray-700 text-sm font-semibold mb-2" for="skillName">提示词名称 <span class="text-red-500">*</span></label>
                         <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 outline-none" id="skillName" type="text" placeholder="例如: Python 编程助手" required>
                     </div>
 
@@ -193,7 +570,11 @@
     <script type="text/javascript">
         $(document).ready(function() {
             loadProviders();
+            loadSkills();
+            loadCustomSkills();
         });
+
+        // ── Providers ──────────────────────────────────────────────────
 
         function loadProviders() {
             $.ajax({
@@ -204,49 +585,50 @@
                     if (res.success) {
                         renderProviders(res.data);
                     } else {
-                        alert("加载失败: " + res.msg);
+                        $('#providersList').html('<div class="ai-empty">加载失败: ' + res.msg + '</div>');
                     }
                 },
                 error: function() {
-                    alert("网络错误，无法加载数据。");
+                    $('#providersList').html('<div class="ai-empty">网络错误，无法加载数据。</div>');
                 }
             });
         }
 
         function renderProviders(data) {
-            var html = '';
             if (data.length === 0) {
-                html = '<div class="col-span-full text-center text-gray-500 py-8">暂无 AI 提供商配置，请点击右上角添加。</div>';
-            } else {
-                $.each(data, function(i, item) {
-                    var defaultBadge = item.IsDefault ? '<span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full font-semibold border border-green-200">默认</span>' : '';
-                    
-                    html += '<div class="bg-white rounded-xl shadow-sm border ' + (item.IsDefault ? 'border-green-400 ring-1 ring-green-400' : 'border-gray-200') + ' overflow-hidden hover:shadow-md transition-shadow relative">';
-                    html += '<div class="p-5">';
-                    html += '<div class="flex justify-between items-start mb-4">';
-                    html += '<div><h3 class="text-xl font-bold text-gray-800">' + item.DisplayName + '</h3>';
-                    html += '<p class="text-sm text-gray-500">' + item.ProviderName + '</p></div>';
-                    html += '<div>' + defaultBadge + '</div>';
-                    html += '</div>';
-                    
-                    html += '<div class="space-y-2 mb-4">';
-                    html += '<div class="flex items-center text-sm"><span class="text-gray-500 w-20">模型:</span><span class="font-medium text-gray-800">' + item.ModelName + '</span></div>';
-                    html += '</div>';
-                    
-                    html += '<div class="flex justify-between items-center pt-4 border-t border-gray-100">';
-                    html += '<div>';
-                    if (!item.IsDefault) {
-                        html += '<button type="button" onclick="setDefault(' + item.Id + ')" class="text-sm text-green-600 hover:text-green-800 border-0 bg-transparent mr-3">设为默认</button>';
-                    }
-                    html += '</div>';
-                    html += '<div class="space-x-2">';
-                    html += '<button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="text-sm text-blue-600 hover:text-blue-800 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border-0 rounded transition-colors">编辑</button>';
-                    html += '<button type="button" onclick="deleteProvider(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-3 py-1.5 bg-red-50 hover:bg-red-100 border-0 rounded transition-colors">删除</button>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div></div>';
-                });
+                $('#providersList').html('<div class="ai-empty">暂无 AI 提供商配置，请点击右上角"添加 AI 提供商"。</div>');
+                return;
             }
+            var html = '';
+            $.each(data, function(i, item) {
+                var cardClass = 'ai-provider-card' + (item.IsDefault ? ' ai-provider-card--default' : '');
+                var badge = item.IsDefault
+                    ? '<span class="ai-badge ai-badge--green">默认</span>'
+                    : '';
+                var setDefaultBtn = !item.IsDefault
+                    ? '<button type="button" onclick="setDefault(' + item.Id + ')" class="ai-card-action-btn ai-card-action-btn--def">设为默认</button>'
+                    : '';
+
+                html += '<div class="' + cardClass + '">';
+                html += '  <div class="ai-provider-card__body">';
+                html += '    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">';
+                html += '      <div>';
+                html += '        <p class="ai-provider-card__name">' + escapeHtml(item.DisplayName) + '</p>';
+                html += '        <span class="ai-provider-card__sub">' + escapeHtml(item.ProviderName) + '</span>';
+                html += '      </div>';
+                html += '      <div>' + badge + '</div>';
+                html += '    </div>';
+                html += '    <div class="ai-provider-card__meta">模型：<strong>' + escapeHtml(item.ModelName) + '</strong></div>';
+                html += '  </div>';
+                html += '  <div class="ai-provider-card__foot">';
+                html += '    <div>' + setDefaultBtn + '</div>';
+                html += '    <div style="display:flex;gap:6px;">';
+                html += '      <button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="ai-card-action-btn ai-card-action-btn--edit">编辑</button>';
+                html += '      <button type="button" onclick="deleteProvider(' + item.Id + ')" class="ai-card-action-btn ai-card-action-btn--del">删除</button>';
+                html += '    </div>';
+                html += '  </div>';
+                html += '</div>';
+            });
             $('#providersList').html(html);
         }
 
@@ -298,7 +680,6 @@
                 apiKey: $('#apiKey').val(),
                 baseUrl: $('#baseUrl').val()
             };
-
             $.ajax({
                 url: 'aiprovider_api.ashx',
                 type: 'POST',
@@ -311,9 +692,7 @@
                         alert("保存失败: " + res.msg);
                     }
                 },
-                error: function() {
-                    alert("网络错误，保存失败。");
-                }
+                error: function() { alert("网络错误，保存失败。"); }
             });
         }
 
@@ -324,15 +703,10 @@
                     type: 'POST',
                     data: { action: 'delete', id: id },
                     success: function(res) {
-                        if (res.success) {
-                            loadProviders();
-                        } else {
-                            alert("删除失败: " + res.msg);
-                        }
+                        if (res.success) { loadProviders(); }
+                        else { alert("删除失败: " + res.msg); }
                     },
-                    error: function() {
-                        alert("网络错误，删除失败。");
-                    }
+                    error: function() { alert("网络错误，删除失败。"); }
                 });
             }
         }
@@ -343,15 +717,10 @@
                 type: 'POST',
                 data: { action: 'setdefault', id: id },
                 success: function(res) {
-                    if (res.success) {
-                        loadProviders();
-                    } else {
-                        alert("设置失败: " + res.msg);
-                    }
+                    if (res.success) { loadProviders(); }
+                    else { alert("设置失败: " + res.msg); }
                 },
-                error: function() {
-                    alert("网络错误，设置失败。");
-                }
+                error: function() { alert("网络错误，设置失败。"); }
             });
         }
 
@@ -360,18 +729,16 @@
             var span = btn.find('span');
             var originalText = span.text();
             var resultMsg = $('#testResultMsg');
-            
+
             resultMsg.removeClass('hidden text-green-600 text-red-600').addClass('text-gray-500').text('正在测试中，请稍候...');
             span.text('测试中...');
             btn.prop('disabled', true);
-            
-            var apiKeyToTest = $('#apiKey').val();
 
             var data = {
                 action: 'test',
                 id: $('#providerId').val(),
                 modelName: $('#modelName').val(),
-                apiKey: apiKeyToTest,
+                apiKey: $('#apiKey').val(),
                 baseUrl: $('#baseUrl').val()
             };
 
@@ -405,19 +772,8 @@
 
         function importJsonConfig() {
             var jsonStr = $('#jsonConfigInput').val().trim();
-            if (!jsonStr) {
-                alert("请输入 JSON 配置。");
-                return;
-            }
-
-            try {
-                // Verify valid JSON before sending
-                JSON.parse(jsonStr);
-            } catch (e) {
-                alert("JSON 格式不正确: " + e.message);
-                return;
-            }
-
+            if (!jsonStr) { alert("请输入 JSON 配置。"); return; }
+            try { JSON.parse(jsonStr); } catch (e) { alert("JSON 格式不正确: " + e.message); return; }
             $.ajax({
                 url: 'aiprovider_api.ashx',
                 type: 'POST',
@@ -431,55 +787,12 @@
                         alert("导入失败: " + res.msg);
                     }
                 },
-                error: function() {
-                    alert("网络错误，导入失败。");
-                }
+                error: function() { alert("网络错误，导入失败。"); }
             });
         }
-        
-        // Handle clicking outside the modal content to close
-        function closeModalOnOutsideClick(event, contentId) {
-            var modalContent = document.getElementById(contentId);
-            if (modalContent && !modalContent.contains(event.target)) {
-                if (contentId === 'providerModalContent') {
-                    closeModal();
-                } else if (contentId === 'importModalContent') {
-                    closeImportModal();
-                } else if (contentId === 'skillModalContent') {
-                    closeSkillModal();
-                }
-            }
-        }
-        
-        // Handle ESC key to close modal
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                if (!$('#providerModal').hasClass('hidden')) {
-                    closeModal();
-                }
-                if (!$('#importModal').hasClass('hidden')) {
-                    closeImportModal();
-                }
-                if (!$('#skillModal').hasClass('hidden')) {
-                    closeSkillModal();
-                }
-            }
-        });
 
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            $('.tab-content').addClass('hidden');
-            $('#' + tabId).removeClass('hidden');
+        // ── Skills / 提示词 ────────────────────────────────────────────
 
-            $('#configTabs button').removeClass('border-blue-600 text-blue-600 hover:text-gray-600 hover:border-gray-300').addClass('border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-300');
-            $('#' + tabId + '-tab').removeClass('border-transparent text-gray-500 hover:text-gray-600 hover:border-gray-300').addClass('border-blue-600 text-blue-600');
-
-            if (tabId === 'skills') {
-                loadSkills();
-            }
-        }
-
-        // Skills Logic
         function loadSkills() {
             $.ajax({
                 url: 'aiprovider_api.ashx',
@@ -489,57 +802,42 @@
                     if (res.success) {
                         renderSkills(res.data);
                     } else {
-                        alert("加载失败: " + res.msg);
+                        $('#skillsList').html('<div class="ai-empty">加载失败: ' + res.msg + '</div>');
                     }
                 },
                 error: function() {
-                    alert("网络错误，无法加载数据。");
+                    $('#skillsList').html('<div class="ai-empty">网络错误，无法加载数据。</div>');
                 }
             });
         }
 
-        function escapeHtml(unsafe) {
-            if (!unsafe) return '';
-            return unsafe
-                 .replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
-        }
-
         function renderSkills(data) {
-            var html = '';
             if (data.length === 0) {
-                html = '<div class="col-span-full text-center text-gray-500 py-8">暂无提示词配置，请点击添加。</div>';
-            } else {
-                $.each(data, function(i, item) {
-                    var statusBadge = item.IsActive ? '<span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full font-semibold border border-green-200">已启用</span>' : '<span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full font-semibold border border-gray-200">已停用</span>';
-
-                    var safeSkillName = escapeHtml(item.SkillName);
-                    var safePromptContent = escapeHtml(item.PromptContent);
-                    var jsonStr = JSON.stringify(item).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
-
-                    html += '<div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow relative flex flex-col h-full">';
-                    html += '<div class="p-5 flex-1">';
-                    html += '<div class="flex justify-between items-start mb-4">';
-                    html += '<div><h3 class="text-xl font-bold text-gray-800">' + safeSkillName + '</h3></div>';
-                    html += '<div>' + statusBadge + '</div>';
-                    html += '</div>';
-
-                    html += '<div class="space-y-2 mb-4 flex-1">';
-                    html += '<p class="text-sm text-gray-600 break-words whitespace-pre-wrap line-clamp-4" title="' + safePromptContent + '">' + safePromptContent + '</p>';
-                    html += '</div></div>';
-
-                    html += '<div class="flex justify-end items-center p-4 border-t border-gray-100 bg-gray-50">';
-                    html += '<div class="space-x-2">';
-                    html += '<button type="button" onclick="editSkill(' + jsonStr + ')" class="text-sm text-blue-600 hover:text-blue-800 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border-0 rounded transition-colors">编辑</button>';
-                    html += '<button type="button" onclick="deleteSkill(' + item.Id + ')" class="text-sm text-red-600 hover:text-red-800 px-3 py-1.5 bg-red-50 hover:bg-red-100 border-0 rounded transition-colors">删除</button>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '</div>';
-                });
+                $('#skillsList').html('<div class="ai-empty">暂无提示词配置，请点击右上角"添加提示词"。</div>');
+                return;
             }
+            var html = '';
+            $.each(data, function(i, item) {
+                var badge = item.IsActive
+                    ? '<span class="ai-badge ai-badge--active">已启用</span>'
+                    : '<span class="ai-badge ai-badge--gray">已停用</span>';
+                var safePrompt = escapeHtml(item.PromptContent);
+                var jsonStr = JSON.stringify(item).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+
+                html += '<div class="ai-skill-card">';
+                html += '  <div class="ai-skill-card__body">';
+                html += '    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;">';
+                html += '      <h3 class="ai-skill-card__name">' + escapeHtml(item.SkillName) + '</h3>';
+                html += '      <div>' + badge + '</div>';
+                html += '    </div>';
+                html += '    <p class="ai-skill-card__prompt" title="' + safePrompt + '">' + safePrompt + '</p>';
+                html += '  </div>';
+                html += '  <div class="ai-skill-card__foot">';
+                html += '    <button type="button" onclick="editSkill(' + jsonStr + ')" class="ai-card-action-btn ai-card-action-btn--edit">编辑</button>';
+                html += '    <button type="button" onclick="deleteSkill(' + item.Id + ')" class="ai-card-action-btn ai-card-action-btn--del">删除</button>';
+                html += '  </div>';
+                html += '</div>';
+            });
             $('#skillsList').html(html);
         }
 
@@ -574,7 +872,6 @@
                 promptContent: $('#promptContent').val(),
                 isActive: $('#skillIsActive').is(':checked')
             };
-
             $.ajax({
                 url: 'aiprovider_api.ashx',
                 type: 'POST',
@@ -587,9 +884,7 @@
                         alert("保存失败: " + res.msg);
                     }
                 },
-                error: function() {
-                    alert("网络错误，保存失败。");
-                }
+                error: function() { alert("网络错误，保存失败。"); }
             });
         }
 
@@ -600,15 +895,259 @@
                     type: 'POST',
                     data: { action: 'deleteSkill', id: id },
                     success: function(res) {
-                        if (res.success) {
-                            loadSkills();
-                        } else {
-                            alert("删除失败: " + res.msg);
-                        }
+                        if (res.success) { loadSkills(); }
+                        else { alert("删除失败: " + res.msg); }
                     },
-                    error: function() {
-                        alert("网络错误，删除失败。");
+                    error: function() { alert("网络错误，删除失败。"); }
+                });
+            }
+        }
+
+        // ── Utilities ──────────────────────────────────────────────────
+
+        function escapeHtml(unsafe) {
+            if (!unsafe) return '';
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function closeModalOnOutsideClick(event, contentId) {
+            var modalContent = document.getElementById(contentId);
+            if (modalContent && !modalContent.contains(event.target)) {
+                if (contentId === 'providerModalContent') closeModal();
+                else if (contentId === 'importModalContent') closeImportModal();
+                else if (contentId === 'skillModalContent') closeSkillModal();
+                else if (contentId === 'customSkillModalContent') closeCustomSkillModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (!$('#providerModal').hasClass('hidden')) closeModal();
+                if (!$('#importModal').hasClass('hidden')) closeImportModal();
+                if (!$('#skillModal').hasClass('hidden')) closeSkillModal();
+                if (!$('#customSkillModal').hasClass('hidden')) closeCustomSkillModal();
+            }
+        });
+    </script>
+
+    <!-- Add/Edit Custom Skill Modal -->
+    <div id="customSkillModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm hidden overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" onclick="closeModalOnOutsideClick(event, 'customSkillModalContent')">
+        <div id="customSkillModalContent" class="relative w-full max-w-lg shadow-2xl rounded-2xl bg-white border border-gray-100 p-6 md:p-8" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800" id="customSkillModalTitle">添加技能</h3>
+                <button type="button" onclick="closeCustomSkillModal()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="space-y-5">
+                <input type="hidden" id="customSkillId" value="0">
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="customSkillName">技能名称 <span class="text-red-500">*</span></label>
+                    <input class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none" id="customSkillName" type="text" placeholder="例如: 代码审查助手">
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-semibold mb-2" for="customPromptContent">提示词内容 <span class="text-red-500">*</span></label>
+                    <textarea class="box-border w-full max-w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 outline-none" id="customPromptContent" rows="5" placeholder="请输入该技能的系统提示词..."></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">应用场景 <span class="text-gray-400 font-normal">（可多选）</span></label>
+                    <div class="grid grid-cols-2 gap-2 p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="chat"> AI 对话
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="console"> 编程控制台
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="mission"> 任务辅助
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="writing"> 写作助手
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="quiz"> 习题解析
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="review"> 作品点评
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="flex items-center space-x-3 cursor-pointer">
+                        <input type="checkbox" id="customSkillIsActive" class="form-checkbox h-5 w-5 text-purple-600 rounded border-gray-300" checked>
+                        <span class="text-gray-700 text-sm font-semibold">是否启用</span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3 justify-end pt-6 border-t border-gray-100">
+                    <button type="button" onclick="closeCustomSkillModal()" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-2.5 px-6 rounded-lg transition-all duration-200">
+                        取消
+                    </button>
+                    <button type="button" onclick="saveCustomSkill(event)" class="bg-purple-600 hover:bg-purple-700 text-white border-0 font-semibold py-2.5 px-8 rounded-lg shadow-sm transition-all duration-200">
+                        保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // ── Custom Skills ──────────────────────────────────────────────
+
+        function loadCustomSkills() {
+            $.ajax({
+                url: 'aiprovider_api.ashx',
+                type: 'POST',
+                data: { action: 'listCustomSkills' },
+                success: function(res) {
+                    if (res.success) {
+                        renderCustomSkills(res.data);
+                    } else {
+                        $('#customSkillsList').html('<div class="ai-empty">加载失败: ' + res.msg + '</div>');
                     }
+                },
+                error: function() {
+                    $('#customSkillsList').html('<div class="ai-empty">网络错误，无法加载数据。</div>');
+                }
+            });
+        }
+
+        var scopeLabels = {
+            'chat':    'AI 对话',
+            'console': '编程控制台',
+            'mission': '任务辅助',
+            'writing': '写作助手',
+            'quiz':    '习题解析',
+            'review':  '作品点评'
+        };
+
+        function renderCustomSkills(data) {
+            if (data.length === 0) {
+                $('#customSkillsList').html('<div class="ai-empty">暂无自定义技能，请点击右上角"添加技能"。</div>');
+                return;
+            }
+            var html = '';
+            $.each(data, function(i, item) {
+                var badge = item.IsActive
+                    ? '<span class="ai-badge ai-badge--active">已启用</span>'
+                    : '<span class="ai-badge ai-badge--gray">已停用</span>';
+                var safePrompt = escapeHtml(item.PromptContent);
+                var jsonStr = JSON.stringify(item).replace(/'/g, "&#39;").replace(/"/g, "&quot;");
+
+                // Scope tags
+                var scopeHtml = '';
+                if (item.SkillScope && item.SkillScope.trim() !== '') {
+                    var scopes = item.SkillScope.split(',');
+                    $.each(scopes, function(j, s) {
+                        s = s.trim();
+                        if (s && scopeLabels[s]) {
+                            scopeHtml += '<span class="ai-scope-tag">' + scopeLabels[s] + '</span>';
+                        }
+                    });
+                }
+                var scopeBlock = scopeHtml
+                    ? '<div class="ai-scope-tags">' + scopeHtml + '</div>'
+                    : '<div class="ai-scope-tags"><span style="font-size:12px;color:#94a3b8;">未指定应用场景</span></div>';
+
+                html += '<div class="ai-skill-card">';
+                html += '  <div class="ai-skill-card__body">';
+                html += '    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;">';
+                html += '      <h3 class="ai-skill-card__name">' + escapeHtml(item.SkillName) + '</h3>';
+                html += '      <div>' + badge + '</div>';
+                html += '    </div>';
+                html += '    <p class="ai-skill-card__prompt" title="' + safePrompt + '">' + safePrompt + '</p>';
+                html += scopeBlock;
+                html += '  </div>';
+                html += '  <div class="ai-skill-card__foot">';
+                html += '    <button type="button" onclick="editCustomSkill(' + jsonStr + ')" class="ai-card-action-btn ai-card-action-btn--edit">编辑</button>';
+                html += '    <button type="button" onclick="deleteCustomSkill(' + item.Id + ')" class="ai-card-action-btn ai-card-action-btn--del">删除</button>';
+                html += '  </div>';
+                html += '</div>';
+            });
+            $('#customSkillsList').html(html);
+        }
+
+        function openCustomSkillModal() {
+            $('#customSkillModalTitle').text('添加技能');
+            $('#customSkillId').val('0');
+            $('#customSkillName').val('');
+            $('#customPromptContent').val('');
+            $('#customSkillIsActive').prop('checked', true);
+            $('.custom-scope-cb').prop('checked', false);
+            $('#customSkillModal').removeClass('hidden').addClass('flex');
+        }
+
+        function editCustomSkill(item) {
+            $('#customSkillModalTitle').text('编辑技能');
+            $('#customSkillId').val(item.Id);
+            $('#customSkillName').val(item.SkillName);
+            $('#customPromptContent').val(item.PromptContent);
+            $('#customSkillIsActive').prop('checked', item.IsActive);
+            // Restore scope checkboxes
+            $('.custom-scope-cb').prop('checked', false);
+            if (item.SkillScope) {
+                var scopes = item.SkillScope.split(',');
+                $.each(scopes, function(i, s) {
+                    $('.custom-scope-cb[value="' + s.trim() + '"]').prop('checked', true);
+                });
+            }
+            $('#customSkillModal').removeClass('hidden').addClass('flex');
+        }
+
+        function closeCustomSkillModal() {
+            $('#customSkillModal').addClass('hidden').removeClass('flex');
+        }
+
+        function saveCustomSkill(e) {
+            e.preventDefault();
+            var scopes = [];
+            $('.custom-scope-cb:checked').each(function() {
+                scopes.push($(this).val());
+            });
+            var data = {
+                action: 'saveCustomSkill',
+                id: $('#customSkillId').val(),
+                skillName: $('#customSkillName').val(),
+                promptContent: $('#customPromptContent').val(),
+                skillScope: scopes.join(','),
+                isActive: $('#customSkillIsActive').is(':checked')
+            };
+            $.ajax({
+                url: 'aiprovider_api.ashx',
+                type: 'POST',
+                data: data,
+                success: function(res) {
+                    if (res.success) {
+                        closeCustomSkillModal();
+                        loadCustomSkills();
+                    } else {
+                        alert("保存失败: " + res.msg);
+                    }
+                },
+                error: function() { alert("网络错误，保存失败。"); }
+            });
+        }
+
+        function deleteCustomSkill(id) {
+            if (confirm("确定要删除此技能吗？")) {
+                $.ajax({
+                    url: 'aiprovider_api.ashx',
+                    type: 'POST',
+                    data: { action: 'deleteCustomSkill', id: id },
+                    success: function(res) {
+                        if (res.success) { loadCustomSkills(); }
+                        else { alert("删除失败: " + res.msg); }
+                    },
+                    error: function() { alert("网络错误，删除失败。"); }
                 });
             }
         }

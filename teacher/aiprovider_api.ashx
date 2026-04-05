@@ -57,6 +57,15 @@ public class aiprovider_api : IHttpHandler {
                 case "deleteSkill":
                     DeleteSkill(context);
                     break;
+                case "listCustomSkills":
+                    GetCustomSkillList(context);
+                    break;
+                case "saveCustomSkill":
+                    SaveCustomSkill(context);
+                    break;
+                case "deleteCustomSkill":
+                    DeleteCustomSkill(context);
+                    break;
                 default:
                     context.Response.Write("{\"success\":false,\"msg\":\"Unknown action\"}");
                     break;
@@ -543,6 +552,73 @@ public class aiprovider_api : IHttpHandler {
         else
         {
             context.Response.Write("{\"success\":false,\"msg\":\"Invalid ID.\"}");
+        }
+    }
+
+    private void GetCustomSkillList(HttpContext context)
+    {
+        LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+        List<LearnSite.Model.AICustomSkill> list = bll.GetModelList("");
+        string json = JsonConvert.SerializeObject(new { success = true, data = list });
+        context.Response.Write(json);
+    }
+
+    private void SaveCustomSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        string skillName = context.Request["skillName"];
+        string promptContent = context.Request["promptContent"];
+        string skillScope = context.Request["skillScope"] ?? "";
+        string isActiveStr = context.Request["isActive"];
+
+        if (string.IsNullOrEmpty(skillName) || string.IsNullOrEmpty(promptContent))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"技能名称和提示词内容不能为空。\"}");
+            return;
+        }
+
+        LearnSite.Model.AICustomSkill model = new LearnSite.Model.AICustomSkill();
+        model.SkillName = skillName;
+        model.PromptContent = promptContent;
+        model.SkillScope = skillScope;
+        model.IsActive = string.IsNullOrEmpty(isActiveStr) ? true : (isActiveStr.ToLower() == "true" || isActiveStr == "1");
+
+        LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+
+        if (string.IsNullOrEmpty(idStr) || idStr == "0")
+        {
+            int id = bll.Add(model);
+            if (id > 0)
+                context.Response.Write("{\"success\":true,\"msg\":\"添加成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"添加失败。\"}");
+        }
+        else
+        {
+            int id = int.Parse(idStr);
+            model.Id = id;
+            if (bll.Update(model))
+                context.Response.Write("{\"success\":true,\"msg\":\"更新成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"更新失败。\"}");
+        }
+    }
+
+    private void DeleteCustomSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+            if (bll.Delete(id))
+                context.Response.Write("{\"success\":true,\"msg\":\"删除成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"删除失败。\"}");
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"无效 ID。\"}");
         }
     }
 
