@@ -228,6 +228,7 @@
 
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
                     var kindEditorObj;
                     var wangEditorObj;
@@ -278,7 +279,9 @@
                                         server: upjs,
                                         customInsert(res, insertFn) {
                                             if (res.error === 0) {
-                                                insertFn(res.url, res.filename || res.url.split('/').pop());
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
                                             } else {
                                                 alert(res.message || '附件上传失败');
                                             }
@@ -288,7 +291,9 @@
                                         server: upjs,
                                         customInsert(res, insertFn) {
                                             if (res.error === 0) {
-                                                insertFn(res.url, res.filename || res.url.split('/').pop());
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
                                             } else {
                                                 alert(res.message || '文件上传失败');
                                             }
@@ -330,15 +335,8 @@
                             width: '830px',
                             mode: 'ir',
                             upload: {
-                                url: upjs,
-                                fieldName: 'imgFile',
-                                format: function (files, responseText) {
-                                    var res = {};
-                                    try { res = JSON.parse(responseText); } catch (e) { }
-                                    if (res.error === 0 && res.url) {
-                                        return JSON.stringify({ msg: '', code: 0, data: { errFiles: [], succMap: (function(){ var m = {}; m[files[0].name] = res.url; return m; })() } });
-                                    }
-                                    return JSON.stringify({ msg: res.message || '上传失败', code: 1, data: { errFiles: files.map(function (f) { return f.name; }), succMap: {} } });
+                                handler: function (files) {
+                                    LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
                                 }
                             },
                             preview: {
