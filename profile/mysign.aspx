@@ -11,7 +11,9 @@
 .pf-card__icon--teal{background:#ccfbf1;border:1px solid #99f6e4}
 .pf-card__icon--rose{background:#ffe4e6;border:1px solid #fecdd3}
 .pf-card__title{margin:0;font-size:15px;font-weight:800;color:#0f172a;letter-spacing:-.02em}
-.pf-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:#f1f5f9;color:#64748b}
+.pf-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+.pf-badge--teal{background:#ccfbf1;color:#0f766e;border:1px solid #99f6e4}
+.pf-badge--rose{background:#ffe4e6;color:#be123c;border:1px solid #fecdd3}
 .pf-card__body{padding:0}
 /* GridView table */
 .pf-grid-wrap{overflow-x:auto}
@@ -35,7 +37,7 @@
         </div>
         <h2 class="pf-card__title">签到记录</h2>
       </div>
-      <span class="pf-badge"><asp:Label ID="Labelsignin" runat="server"></asp:Label></span>
+      <span class="pf-badge pf-badge--teal"><asp:Label ID="Labelsignin" runat="server"></asp:Label></span>
     </div>
     <div class="pf-card__body">
       <div class="pf-grid-wrap">
@@ -80,7 +82,7 @@
         </div>
         <h2 class="pf-card__title">缺席记录</h2>
       </div>
-      <span class="pf-badge"><asp:Label ID="Labelnosign" runat="server"></asp:Label></span>
+      <span class="pf-badge pf-badge--rose"><asp:Label ID="Labelnosign" runat="server"></asp:Label></span>
     </div>
     <div class="pf-card__body">
       <div class="pf-grid-wrap">
