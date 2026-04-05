@@ -135,7 +135,19 @@
     var id = "<%=Id %>";
     var words = unescape("<%=Words %>");
     var thumb = "<%=Thumb %>";
+    window.__learnStatus = {
+        snum: "<%= Snum %>",
+        sname: "<%= LsSname %>",
+        sgrade: "<%= LsSgrade %>",
+        sclass: "<%= LsSclass %>",
+        sid: "<%= LsSid %>",
+        cid: "<%= LsCid %>",
+        lid: "<%= LsLid %>",
+        ltitle: "<%= LsLtitle %>",
+        ltype: "<%= LsLtype %>"
+    };
 </script>
+<script src="../js/learnstatus.js" type="text/javascript"></script>
 <script src="../plugins/qrcode/index.js" type="text/javascript"></script>
 <script type="text/javascript" >
     function returnurl() {
@@ -145,7 +157,6 @@
     }
     $("#savebtn").on("click", function (e) {
         savework();
-        alert("保存成功！");
     });
 
     $("#returnbtn").on("click", function (e) {
@@ -173,7 +184,10 @@
             processData: false,
             contentType: false
         }).done(function (res) {
-            //alert("保存成功！");
+            if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                window.LearnStatus.submitted();
+            }
+            alert("保存成功！");
             console.log(res)
         });
     }

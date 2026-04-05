@@ -71,6 +71,18 @@
 
 <script src="../../Plugins/km/kityminder.editor.js"></script>
 <script >
+    window.__learnStatus = {
+        snum: "<%= Snum %>",
+        sname: "<%= LsSname %>",
+        sgrade: "<%= LsSgrade %>",
+        sclass: "<%= LsSclass %>",
+        sid: "<%= LsSid %>",
+        cid: "<%= LsCid %>",
+        lid: "<%= LsLid %>",
+        ltitle: "<%= LsLtitle %>",
+        ltype: "<%= LsLtype %>"
+    };
+
     window.onload = function () {
         var codefile = "<%=codefile %>";
         if (codefile != "") {
@@ -122,6 +134,9 @@
                 processData: false,
                 contentType: false
             }).done(function (res) {
+                if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                    window.LearnStatus.submitted();
+                }
                 alert("保存成功！");
                 $(".export").attr("disabled", "false");
                 console.log(res)
@@ -151,6 +166,8 @@
     }
 
 </script>
+
+<script src="../js/learnstatus.js" type="text/javascript"></script>
 
 <script>
     angular.module('kityminderDemo', ['kityminderEditor'])

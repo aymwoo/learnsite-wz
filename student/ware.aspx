@@ -73,6 +73,9 @@
 				processData: false,
 				contentType: false
 			}).done(function (res) {
+                if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+                    window.LearnStatus.submitted();
+                }
                 var message = "保存成功！  "+quiztitle+" ："+quizvalue;
 				alert(message);
                 location.reload();

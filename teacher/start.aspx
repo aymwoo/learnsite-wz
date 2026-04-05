@@ -1550,6 +1550,33 @@
                 "idle": "空闲"
             };
 
+            var stepTypeLabels = {
+                "1": "活动",
+                "2": "调查",
+                "3": "讨论",
+                "4": "表单",
+                "5": "Scratch",
+                "6": "资源",
+                "7": "说明",
+                "8": "Python",
+                "9": "测评",
+                "10": "流程图",
+                "11": "像素画",
+                "12": "网页",
+                "13": "拼图",
+                "14": "积木"
+            };
+
+            function lsDecodeMaybe(val) {
+                if (!val) return "";
+                try {
+                    if (/%[0-9A-Fa-f]{2}/.test(val)) {
+                        return decodeURIComponent(val);
+                    }
+                } catch (e) { }
+                return val;
+            }
+
             function lsFetchData() {
                 if (lsGrade === "0" && lsClass === "0") return;
                 $.ajax({
@@ -1616,9 +1643,14 @@
                     var s = students[i];
                     var st = s.Status || "idle";
                     var label = statusLabels[st] || st;
+                    var sname = lsDecodeMaybe(s.Sname || "");
+                    var ltitle = lsDecodeMaybe(s.Ltitle || "");
+                    var ltype = stepTypeLabels[s.Ltype] || (s.Ltype ? ("类型" + s.Ltype) : "未知类型");
+                    var meta = "学案#" + (s.Cid || 0) + " · " + ltype;
                     html += '<div class="ls-rt-stu ls-rt-stu--' + st + '">' +
-                        '<span class="ls-rt-stu__name">' + (s.Sname || "") + '</span>' +
-                        '<span class="ls-rt-stu__step" title="' + (s.Ltitle || "") + '">' + (s.Ltitle || "-") + '</span>' +
+                        '<span class="ls-rt-stu__name">' + sname + '</span>' +
+                        '<span class="ls-rt-stu__step" title="' + ltitle + '">' + (ltitle || "-") + '</span>' +
+                        '<span class="ls-rt-stu__meta" title="' + meta + '">' + meta + '</span>' +
                         '<span class="ls-rt-stu__status ls-rt-stu__status--' + st + '">' + label + '</span>' +
                         '<span class="ls-rt-stu__time">' + (s.UpdateTime || "") + '</span>' +
                         '</div>';
