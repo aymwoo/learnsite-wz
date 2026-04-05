@@ -38,7 +38,7 @@
                 <div class="admin-form-toolbar">
                     <div>
                         <h2 class="admin-form-section-title">课件信息</h2>
-                        <p class="admin-form-section-desc">可以直接打开课件首页，或返回修改当前网页课件主题。</p>
+                        <p class="admin-form-section-desc">可以直接预览当前课件首页，并查看当前网页课件主题信息。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
@@ -69,7 +69,7 @@
 
             <section class="admin-form-panel">
                 <h2 class="admin-form-section-title">课件预览</h2>
-                <p class="admin-form-section-desc">以下 iframe 直接加载当前配置的网页课件首页。</p>
+                <p class="admin-form-section-desc">以下 iframe 直接预览当前配置的网页课件首页效果。</p>
                 <iframe id="htmliframe" src="<%=WareUrl %>" class="ware-show-frame"></iframe>
             </section>
         </div>

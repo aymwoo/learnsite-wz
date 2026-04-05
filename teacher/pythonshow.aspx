@@ -36,15 +36,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Python Mission</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看 Python 编程活动内容、自动批改入口、模式设置和示例资源。</p>
+                    <p class="admin-form-subtitle">预览当前 Python 编程活动内容、自动批改入口和示例资源。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">运行设置</h2>
-                        <p class="admin-form-section-desc">保留自动批改入口、发布状态、模式切换和示例文件链接。</p>
+                        <h2 class="admin-form-section-title">运行预览</h2>
+                        <p class="admin-form-section-desc">这里显示自动批改入口、发布状态、模式开关和示例文件链接。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
@@ -76,7 +76,7 @@
 
             <section class="admin-form-panel">
                 <h2 class="admin-form-section-title">编程说明</h2>
-                <p class="admin-form-section-desc">正文内容仍由后台直接渲染，仅优化展示区版式和可读性。</p>
+                <p class="admin-form-section-desc">以下为当前 Python 编程活动说明内容。</p>
                 <div id="Mcontent" class="python-show-content" runat="server"></div>
             </section>
 

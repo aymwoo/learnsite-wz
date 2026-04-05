@@ -113,35 +113,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Flection> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Flection> modelList = new List<LearnSite.Model.Flection>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Flection model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Flection();
-					if(dt.Rows[n]["Fid"].ToString()!="")
-					{
-						model.Fid=int.Parse(dt.Rows[n]["Fid"].ToString());
-					}
-					if(dt.Rows[n]["Fcid"].ToString()!="")
-					{
-						model.Fcid=int.Parse(dt.Rows[n]["Fcid"].ToString());
-					}
-					if(dt.Rows[n]["Fhid"].ToString()!="")
-					{
-						model.Fhid=int.Parse(dt.Rows[n]["Fhid"].ToString());
-					}
-					model.Fcontent=dt.Rows[n]["Fcontent"].ToString();
-					if(dt.Rows[n]["Fdate"].ToString()!="")
-					{
-						model.Fdate=DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapFlectionList(dt);
 		}
 
 		/// <summary>
@@ -172,4 +144,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

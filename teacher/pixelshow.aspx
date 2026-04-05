@@ -27,15 +27,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Pixel Activity</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看主题创作活动内容、发布状态、作品类型和评价标准。</p>
+                    <p class="admin-form-subtitle">预览当前像素创作活动内容、发布状态和作品类型。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">活动信息</h2>
-                        <p class="admin-form-section-desc">这里展示当前像素创作活动的基础属性。</p>
+                        <h2 class="admin-form-section-title">活动预览</h2>
+                        <p class="admin-form-section-desc">这里显示当前像素创作活动的基础属性。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

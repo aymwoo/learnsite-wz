@@ -28,7 +28,7 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Student Profile</div>
                     <h1 class="admin-form-title">学生基本信息</h1>
-                    <p class="admin-form-subtitle">查看学生个人档案，并可直接进入编辑页维护信息。</p>
+                    <p class="admin-form-subtitle">查看学生个人档案与当前信息，便于核对学生资料。</p>
                 </div>
             </section>
 
@@ -38,7 +38,7 @@
                 <div class="admin-form-toolbar">
                     <div>
                         <h2 class="admin-form-section-title"><%# Eval("Sname") %></h2>
-                        <p class="admin-form-section-desc">学号、班级、成绩与联系方式等信息如下。</p>
+                        <p class="admin-form-section-desc">学号、班级、成绩与联系方式等当前信息如下。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkEdit_Click" CssClass="admin-form-btn admin-form-btn--secondary">编辑资料</asp:LinkButton>

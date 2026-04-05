@@ -27,15 +27,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Text Form</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看学案表单内容、发布时间和协同设置，并可进入编辑页面继续维护。</p>
+                    <p class="admin-form-subtitle">预览当前学案表单内容、发布时间和协同状态。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">表单信息</h2>
-                        <p class="admin-form-section-desc">这里展示当前学案表单的基础属性。</p>
+                        <h2 class="admin-form-section-title">表单预览</h2>
+                        <p class="admin-form-section-desc">这里显示当前学案表单的基础属性。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

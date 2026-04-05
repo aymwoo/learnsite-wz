@@ -32,7 +32,7 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Console Test</div>
                     <h1 class="admin-form-title"><asp:Label runat="server" ID="Lbtitle"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看测评说明、控制启停状态，并维护当前测评下的试题列表。</p>
+                    <p class="admin-form-subtitle">预览当前测评说明、启停状态和试题列表效果。</p>
                 </div>
             </section>
 
@@ -40,7 +40,7 @@
                 <div class="admin-form-toolbar">
                     <div>
                         <h2 class="admin-form-section-title">测评信息</h2>
-                        <p class="admin-form-section-desc">这里展示当前测评日期，并提供编辑和启停控制。</p>
+                        <p class="admin-form-section-desc">这里显示当前测评日期、说明与启停状态。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

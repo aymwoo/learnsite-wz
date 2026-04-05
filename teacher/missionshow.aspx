@@ -38,15 +38,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Course Mission</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看学案活动说明、提交与合作设置，以及评价标准信息。</p>
+                    <p class="admin-form-subtitle">预览当前学案活动说明、提交状态、合作设置和评价标准。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">活动设置</h2>
-                        <p class="admin-form-section-desc">保留活动提交、上次作品、小组合作和发布状态的展示逻辑。</p>
+                        <h2 class="admin-form-section-title">活动预览</h2>
+                        <p class="admin-form-section-desc">这里显示活动提交、上次作品、小组合作和发布状态。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

@@ -130,92 +130,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.GroupWork> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.GroupWork> modelList = new List<LearnSite.Model.GroupWork>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.GroupWork model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.GroupWork();
-					if(dt.Rows[n]["Gid"].ToString()!="")
-					{
-						model.Gid=int.Parse(dt.Rows[n]["Gid"].ToString());
-					}
-					model.Gnum=dt.Rows[n]["Gnum"].ToString();
-					model.Gstudents=dt.Rows[n]["Gstudents"].ToString();
-					if(dt.Rows[n]["Gterm"].ToString()!="")
-					{
-						model.Gterm=int.Parse(dt.Rows[n]["Gterm"].ToString());
-					}
-					if(dt.Rows[n]["Ggrade"].ToString()!="")
-					{
-						model.Ggrade=int.Parse(dt.Rows[n]["Ggrade"].ToString());
-					}
-					if(dt.Rows[n]["Gclass"].ToString()!="")
-					{
-						model.Gclass=int.Parse(dt.Rows[n]["Gclass"].ToString());
-					}
-					if(dt.Rows[n]["Gcid"].ToString()!="")
-					{
-						model.Gcid=int.Parse(dt.Rows[n]["Gcid"].ToString());
-					}
-					if(dt.Rows[n]["Gmid"].ToString()!="")
-					{
-						model.Gmid=int.Parse(dt.Rows[n]["Gmid"].ToString());
-					}
-					model.Gfilename=dt.Rows[n]["Gfilename"].ToString();
-					model.Gtype=dt.Rows[n]["Gtype"].ToString();
-					model.Gurl=dt.Rows[n]["Gurl"].ToString();
-					if(dt.Rows[n]["Glengh"].ToString()!="")
-					{
-						model.Glengh=int.Parse(dt.Rows[n]["Glengh"].ToString());
-					}
-					if(dt.Rows[n]["Gscore"].ToString()!="")
-					{
-						model.Gscore=int.Parse(dt.Rows[n]["Gscore"].ToString());
-					}
-					if(dt.Rows[n]["Gtime"].ToString()!="")
-					{
-						model.Gtime=int.Parse(dt.Rows[n]["Gtime"].ToString());
-					}
-					if(dt.Rows[n]["Gvote"].ToString()!="")
-					{
-						model.Gvote=int.Parse(dt.Rows[n]["Gvote"].ToString());
-					}
-					if(dt.Rows[n]["Gcheck"].ToString()!="")
-					{
-						if((dt.Rows[n]["Gcheck"].ToString()=="1")||(dt.Rows[n]["Gcheck"].ToString().ToLower()=="true"))
-						{
-						model.Gcheck=true;
-						}
-						else
-						{
-							model.Gcheck=false;
-						}
-					}
-					model.Gnote=dt.Rows[n]["Gnote"].ToString();
-					if(dt.Rows[n]["Grank"].ToString()!="")
-					{
-						model.Grank=int.Parse(dt.Rows[n]["Grank"].ToString());
-					}
-					if(dt.Rows[n]["Ghit"].ToString()!="")
-					{
-						model.Ghit=int.Parse(dt.Rows[n]["Ghit"].ToString());
-					}
-					model.Gip=dt.Rows[n]["Gip"].ToString();
-					if(dt.Rows[n]["Gdate"].ToString()!="")
-					{
-						model.Gdate=DateTime.Parse(dt.Rows[n]["Gdate"].ToString());
-					}
-                    if (dt.Rows[n]["Ggroup"].ToString() != "")
-                    {
-                        model.Ggroup = int.Parse(dt.Rows[n]["Ggroup"].ToString());
-                    }
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapGroupWorkList(dt);
 		}
 
 		/// <summary>
@@ -368,4 +283,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

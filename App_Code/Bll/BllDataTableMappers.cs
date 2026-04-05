@@ -1708,5 +1708,1475 @@ namespace LearnSite.BLL
             }
             return modelList;
         }
+
+        public static List<LearnSite.Model.Answers> MapAnswersList(DataTable dt)
+        {
+            List<LearnSite.Model.Answers> modelList = new List<LearnSite.Model.Answers>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Answers model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Answers();
+                    if (dt.Rows[n]["Aid"] != null && dt.Rows[n]["Aid"].ToString() != "")
+                    {
+                        model.Aid = int.Parse(dt.Rows[n]["Aid"].ToString());
+                    }
+                    if (dt.Rows[n]["Eid"] != null && dt.Rows[n]["Eid"].ToString() != "")
+                    {
+                        model.Eid = int.Parse(dt.Rows[n]["Eid"].ToString());
+                    }
+                    if (dt.Rows[n]["Asid"] != null && dt.Rows[n]["Asid"].ToString() != "")
+                    {
+                        model.Asid = int.Parse(dt.Rows[n]["Asid"].ToString());
+                    }
+                    if (dt.Rows[n]["Asnum"] != null && dt.Rows[n]["Asnum"].ToString() != "")
+                    {
+                        model.Asnum = dt.Rows[n]["Asnum"].ToString();
+                    }
+                    if (dt.Rows[n]["Asname"] != null)
+                    {
+                        model.Asname = dt.Rows[n]["Asname"].ToString();
+                    }
+                    if (dt.Rows[n]["Asgrade"] != null && dt.Rows[n]["Asgrade"].ToString() != "")
+                    {
+                        model.Asgrade = int.Parse(dt.Rows[n]["Asgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Asclass"] != null && dt.Rows[n]["Asclass"].ToString() != "")
+                    {
+                        model.Asclass = int.Parse(dt.Rows[n]["Asclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Atime"] != null && dt.Rows[n]["Atime"].ToString() != "")
+                    {
+                        model.Atime = DateTime.Parse(dt.Rows[n]["Atime"].ToString());
+                    }
+                    if (dt.Rows[n]["Ascore"] != null && dt.Rows[n]["Ascore"].ToString() != "")
+                    {
+                        model.Ascore = int.Parse(dt.Rows[n]["Ascore"].ToString());
+                    }
+                    if (dt.Rows[n]["Aspent"] != null && dt.Rows[n]["Aspent"].ToString() != "")
+                    {
+                        model.Aspent = int.Parse(dt.Rows[n]["Aspent"].ToString());
+                    }
+                    if (dt.Rows[n]["Adata"] != null)
+                    {
+                        model.Adata = dt.Rows[n]["Adata"].ToString();
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Game> MapGameList(DataTable dt)
+        {
+            List<LearnSite.Model.Game> modelList = new List<LearnSite.Model.Game>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Game model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Game();
+                    if (dt.Rows[n]["Gid"] != null && dt.Rows[n]["Gid"].ToString() != "")
+                    {
+                        model.Gid = int.Parse(dt.Rows[n]["Gid"].ToString());
+                    }
+                    if (dt.Rows[n]["Gsid"] != null && dt.Rows[n]["Gsid"].ToString() != "")
+                    {
+                        model.Gsid = int.Parse(dt.Rows[n]["Gsid"].ToString());
+                    }
+                    if (dt.Rows[n]["Gsname"] != null && dt.Rows[n]["Gsname"].ToString() != "")
+                    {
+                        model.Gsname = dt.Rows[n]["Gsname"].ToString();
+                    }
+                    if (dt.Rows[n]["Gnum"] != null && dt.Rows[n]["Gnum"].ToString() != "")
+                    {
+                        model.Gnum = int.Parse(dt.Rows[n]["Gnum"].ToString());
+                    }
+                    if (dt.Rows[n]["Gtitle"] != null)
+                    {
+                        model.Gtitle = dt.Rows[n]["Gtitle"].ToString();
+                    }
+                    if (dt.Rows[n]["Gsave"] != null && dt.Rows[n]["Gsave"].ToString() != "")
+                    {
+                        model.Gsave = int.Parse(dt.Rows[n]["Gsave"].ToString());
+                    }
+                    if (dt.Rows[n]["Gnote"] != null)
+                    {
+                        model.Gnote = dt.Rows[n]["Gnote"].ToString();
+                    }
+                    if (dt.Rows[n]["Gscore"] != null && dt.Rows[n]["Gscore"].ToString() != "")
+                    {
+                        model.Gscore = int.Parse(dt.Rows[n]["Gscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Gdate"] != null && dt.Rows[n]["Gdate"].ToString() != "")
+                    {
+                        model.Gdate = DateTime.Parse(dt.Rows[n]["Gdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Chinese> MapChineseList(DataTable dt)
+        {
+            List<LearnSite.Model.Chinese> modelList = new List<LearnSite.Model.Chinese>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Chinese model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Chinese();
+                    if (dt.Rows[n]["Nid"] != null && dt.Rows[n]["Nid"].ToString() != "")
+                    {
+                        model.Nid = int.Parse(dt.Rows[n]["Nid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ntitle"] != null)
+                    {
+                        model.Ntitle = dt.Rows[n]["Ntitle"].ToString();
+                    }
+                    if (dt.Rows[n]["Ncontent"] != null)
+                    {
+                        model.Ncontent = dt.Rows[n]["Ncontent"].ToString();
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Gauge> MapGaugeList(DataTable dt)
+        {
+            List<LearnSite.Model.Gauge> modelList = new List<LearnSite.Model.Gauge>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Gauge model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Gauge();
+                    if (dt.Rows[n]["Gid"] != null && dt.Rows[n]["Gid"].ToString() != "")
+                    {
+                        model.Gid = int.Parse(dt.Rows[n]["Gid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ghid"] != null && dt.Rows[n]["Ghid"].ToString() != "")
+                    {
+                        model.Ghid = int.Parse(dt.Rows[n]["Ghid"].ToString());
+                    }
+                    if (dt.Rows[n]["Gtype"] != null && dt.Rows[n]["Gtype"].ToString() != "")
+                    {
+                        model.Gtype = dt.Rows[n]["Gtype"].ToString();
+                    }
+                    if (dt.Rows[n]["Gtitle"] != null && dt.Rows[n]["Gtitle"].ToString() != "")
+                    {
+                        model.Gtitle = dt.Rows[n]["Gtitle"].ToString();
+                    }
+                    if (dt.Rows[n]["Gcount"] != null && dt.Rows[n]["Gcount"].ToString() != "")
+                    {
+                        model.Gcount = int.Parse(dt.Rows[n]["Gcount"].ToString());
+                    }
+                    if (dt.Rows[n]["Gdate"] != null && dt.Rows[n]["Gdate"].ToString() != "")
+                    {
+                        model.Gdate = DateTime.Parse(dt.Rows[n]["Gdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.GaugeItem> MapGaugeItemList(DataTable dt)
+        {
+            List<LearnSite.Model.GaugeItem> modelList = new List<LearnSite.Model.GaugeItem>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.GaugeItem model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.GaugeItem();
+                    if (dt.Rows[n]["Mid"] != null && dt.Rows[n]["Mid"].ToString() != "")
+                    {
+                        model.Mid = int.Parse(dt.Rows[n]["Mid"].ToString());
+                    }
+                    if (dt.Rows[n]["Mgid"] != null && dt.Rows[n]["Mgid"].ToString() != "")
+                    {
+                        model.Mgid = int.Parse(dt.Rows[n]["Mgid"].ToString());
+                    }
+                    if (dt.Rows[n]["Mitem"] != null && dt.Rows[n]["Mitem"].ToString() != "")
+                    {
+                        model.Mitem = dt.Rows[n]["Mitem"].ToString();
+                    }
+                    if (dt.Rows[n]["Mscore"] != null && dt.Rows[n]["Mscore"].ToString() != "")
+                    {
+                        model.Mscore = int.Parse(dt.Rows[n]["Mscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Msort"] != null && dt.Rows[n]["Msort"].ToString() != "")
+                    {
+                        model.Msort = int.Parse(dt.Rows[n]["Msort"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.GaugeFeedback> MapGaugeFeedbackList(DataTable dt)
+        {
+            List<LearnSite.Model.GaugeFeedback> modelList = new List<LearnSite.Model.GaugeFeedback>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.GaugeFeedback model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.GaugeFeedback();
+                    if (dt.Rows[n]["Fid"] != null && dt.Rows[n]["Fid"].ToString() != "")
+                    {
+                        model.Fid = int.Parse(dt.Rows[n]["Fid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fnum"] != null && dt.Rows[n]["Fnum"].ToString() != "")
+                    {
+                        model.Fnum = dt.Rows[n]["Fnum"].ToString();
+                    }
+                    if (dt.Rows[n]["Fgrade"] != null && dt.Rows[n]["Fgrade"].ToString() != "")
+                    {
+                        model.Fgrade = int.Parse(dt.Rows[n]["Fgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Fclass"] != null && dt.Rows[n]["Fclass"].ToString() != "")
+                    {
+                        model.Fclass = int.Parse(dt.Rows[n]["Fclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Fcid"] != null && dt.Rows[n]["Fcid"].ToString() != "")
+                    {
+                        model.Fcid = int.Parse(dt.Rows[n]["Fcid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fmid"] != null && dt.Rows[n]["Fmid"].ToString() != "")
+                    {
+                        model.Fmid = int.Parse(dt.Rows[n]["Fmid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fwid"] != null && dt.Rows[n]["Fwid"].ToString() != "")
+                    {
+                        model.Fwid = int.Parse(dt.Rows[n]["Fwid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fgid"] != null && dt.Rows[n]["Fgid"].ToString() != "")
+                    {
+                        model.Fgid = int.Parse(dt.Rows[n]["Fgid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fselect"] != null && dt.Rows[n]["Fselect"].ToString() != "")
+                    {
+                        model.Fselect = dt.Rows[n]["Fselect"].ToString();
+                    }
+                    if (dt.Rows[n]["Fscore"] != null && dt.Rows[n]["Fscore"].ToString() != "")
+                    {
+                        model.Fscore = int.Parse(dt.Rows[n]["Fscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Fgood"] != null && dt.Rows[n]["Fgood"].ToString() != "")
+                    {
+                        model.Fgood = dt.Rows[n]["Fgood"].ToString() == "1" || dt.Rows[n]["Fgood"].ToString().ToLower() == "true";
+                    }
+                    if (dt.Rows[n]["Fdate"] != null && dt.Rows[n]["Fdate"].ToString() != "")
+                    {
+                        model.Fdate = DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.English> MapEnglishList(DataTable dt)
+        {
+            List<LearnSite.Model.English> modelList = new List<LearnSite.Model.English>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.English model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.English();
+                    if (dt.Rows[n]["Eid"].ToString() != "")
+                    {
+                        model.Eid = int.Parse(dt.Rows[n]["Eid"].ToString());
+                    }
+                    model.Eword = dt.Rows[n]["Eword"].ToString();
+                    model.Emeaning = dt.Rows[n]["Emeaning"].ToString();
+                    if (dt.Rows[n]["Elevel"].ToString() != "")
+                    {
+                        model.Elevel = int.Parse(dt.Rows[n]["Elevel"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Summary> MapSummaryList(DataTable dt)
+        {
+            List<LearnSite.Model.Summary> modelList = new List<LearnSite.Model.Summary>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Summary model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Summary();
+                    if (dt.Rows[n]["Sid"].ToString() != "")
+                    {
+                        model.Sid = int.Parse(dt.Rows[n]["Sid"].ToString());
+                    }
+                    if (dt.Rows[n]["Scid"].ToString() != "")
+                    {
+                        model.Scid = int.Parse(dt.Rows[n]["Scid"].ToString());
+                    }
+                    if (dt.Rows[n]["Shid"].ToString() != "")
+                    {
+                        model.Shid = int.Parse(dt.Rows[n]["Shid"].ToString());
+                    }
+                    model.Scontent = dt.Rows[n]["Scontent"].ToString();
+                    if (dt.Rows[n]["Sdate"].ToString() != "")
+                    {
+                        model.Sdate = DateTime.Parse(dt.Rows[n]["Sdate"].ToString());
+                    }
+                    if (dt.Rows[n]["Sgrade"].ToString() != "")
+                    {
+                        model.Sgrade = int.Parse(dt.Rows[n]["Sgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Sclass"].ToString() != "")
+                    {
+                        model.Sclass = int.Parse(dt.Rows[n]["Sclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Syear"].ToString() != "")
+                    {
+                        model.Syear = int.Parse(dt.Rows[n]["Syear"].ToString());
+                    }
+                    if (dt.Rows[n]["Sshow"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Sshow"].ToString() == "1") || (dt.Rows[n]["Sshow"].ToString().ToLower() == "true"))
+                        {
+                            model.Sshow = true;
+                        }
+                        else
+                        {
+                            model.Sshow = false;
+                        }
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Pchinese> MapPchineseList(DataTable dt)
+        {
+            List<LearnSite.Model.Pchinese> modelList = new List<LearnSite.Model.Pchinese>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Pchinese model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Pchinese();
+                    if (dt.Rows[n]["Pid"] != null && dt.Rows[n]["Pid"].ToString() != "")
+                    {
+                        model.Pid = int.Parse(dt.Rows[n]["Pid"].ToString());
+                    }
+                    if (dt.Rows[n]["Psid"] != null && dt.Rows[n]["Psid"].ToString() != "")
+                    {
+                        model.Psid = int.Parse(dt.Rows[n]["Psid"].ToString());
+                    }
+                    if (dt.Rows[n]["Psnum"] != null)
+                    {
+                        model.Psnum = dt.Rows[n]["Psnum"].ToString();
+                    }
+                    if (dt.Rows[n]["Papple"] != null && dt.Rows[n]["Papple"].ToString() != "")
+                    {
+                        model.Papple = int.Parse(dt.Rows[n]["Papple"].ToString());
+                    }
+                    if (dt.Rows[n]["Ptotal"] != null && dt.Rows[n]["Ptotal"].ToString() != "")
+                    {
+                        model.Ptotal = int.Parse(dt.Rows[n]["Ptotal"].ToString());
+                    }
+                    if (dt.Rows[n]["Pspeed"] != null && dt.Rows[n]["Pspeed"].ToString() != "")
+                    {
+                        model.Pspeed = int.Parse(dt.Rows[n]["Pspeed"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdegree"] != null && dt.Rows[n]["Pdegree"].ToString() != "")
+                    {
+                        model.Pdegree = int.Parse(dt.Rows[n]["Pdegree"].ToString());
+                    }
+                    if (dt.Rows[n]["Pyear"] != null && dt.Rows[n]["Pyear"].ToString() != "")
+                    {
+                        model.Pyear = int.Parse(dt.Rows[n]["Pyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Pgrade"] != null && dt.Rows[n]["Pgrade"].ToString() != "")
+                    {
+                        model.Pgrade = int.Parse(dt.Rows[n]["Pgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Pclass"] != null && dt.Rows[n]["Pclass"].ToString() != "")
+                    {
+                        model.Pclass = int.Parse(dt.Rows[n]["Pclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Pterm"] != null && dt.Rows[n]["Pterm"].ToString() != "")
+                    {
+                        model.Pterm = int.Parse(dt.Rows[n]["Pterm"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdate"] != null && dt.Rows[n]["Pdate"].ToString() != "")
+                    {
+                        model.Pdate = DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.SurveyClass> MapSurveyClassList(DataTable dt)
+        {
+            List<LearnSite.Model.SurveyClass> modelList = new List<LearnSite.Model.SurveyClass>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.SurveyClass model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.SurveyClass();
+                    if (dt.Rows[n]["Yid"] != null && dt.Rows[n]["Yid"].ToString() != "")
+                    {
+                        model.Yid = int.Parse(dt.Rows[n]["Yid"].ToString());
+                    }
+                    if (dt.Rows[n]["Yyear"] != null && dt.Rows[n]["Yyear"].ToString() != "")
+                    {
+                        model.Yyear = int.Parse(dt.Rows[n]["Yyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Ygrade"] != null && dt.Rows[n]["Ygrade"].ToString() != "")
+                    {
+                        model.Ygrade = int.Parse(dt.Rows[n]["Ygrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Yclass"] != null && dt.Rows[n]["Yclass"].ToString() != "")
+                    {
+                        model.Yclass = int.Parse(dt.Rows[n]["Yclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Yterm"] != null && dt.Rows[n]["Yterm"].ToString() != "")
+                    {
+                        model.Yterm = int.Parse(dt.Rows[n]["Yterm"].ToString());
+                    }
+                    if (dt.Rows[n]["Ycid"] != null && dt.Rows[n]["Ycid"].ToString() != "")
+                    {
+                        model.Ycid = int.Parse(dt.Rows[n]["Ycid"].ToString());
+                    }
+                    if (dt.Rows[n]["Yvid"] != null && dt.Rows[n]["Yvid"].ToString() != "")
+                    {
+                        model.Yvid = int.Parse(dt.Rows[n]["Yvid"].ToString());
+                    }
+                    if (dt.Rows[n]["Yselect"] != null && dt.Rows[n]["Yselect"].ToString() != "")
+                    {
+                        model.Yselect = dt.Rows[n]["Yselect"].ToString();
+                    }
+                    if (dt.Rows[n]["Ycount"] != null && dt.Rows[n]["Ycount"].ToString() != "")
+                    {
+                        model.Ycount = dt.Rows[n]["Ycount"].ToString();
+                    }
+                    if (dt.Rows[n]["Yscore"] != null && dt.Rows[n]["Yscore"].ToString() != "")
+                    {
+                        model.Yscore = int.Parse(dt.Rows[n]["Yscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Ydate"] != null && dt.Rows[n]["Ydate"].ToString() != "")
+                    {
+                        model.Ydate = DateTime.Parse(dt.Rows[n]["Ydate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.SurveyFeedback> MapSurveyFeedbackList(DataTable dt)
+        {
+            List<LearnSite.Model.SurveyFeedback> modelList = new List<LearnSite.Model.SurveyFeedback>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.SurveyFeedback model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.SurveyFeedback();
+                    if (dt.Rows[n]["Fid"] != null && dt.Rows[n]["Fid"].ToString() != "")
+                    {
+                        model.Fid = int.Parse(dt.Rows[n]["Fid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fnum"] != null && dt.Rows[n]["Fnum"].ToString() != "")
+                    {
+                        model.Fnum = dt.Rows[n]["Fnum"].ToString();
+                    }
+                    if (dt.Rows[n]["Fyear"] != null && dt.Rows[n]["Fyear"].ToString() != "")
+                    {
+                        model.Fyear = int.Parse(dt.Rows[n]["Fyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Fgrade"] != null && dt.Rows[n]["Fgrade"].ToString() != "")
+                    {
+                        model.Fgrade = int.Parse(dt.Rows[n]["Fgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Fclass"] != null && dt.Rows[n]["Fclass"].ToString() != "")
+                    {
+                        model.Fclass = int.Parse(dt.Rows[n]["Fclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Fterm"] != null && dt.Rows[n]["Fterm"].ToString() != "")
+                    {
+                        model.Fterm = int.Parse(dt.Rows[n]["Fterm"].ToString());
+                    }
+                    if (dt.Rows[n]["Fcid"] != null && dt.Rows[n]["Fcid"].ToString() != "")
+                    {
+                        model.Fcid = int.Parse(dt.Rows[n]["Fcid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fvid"] != null && dt.Rows[n]["Fvid"].ToString() != "")
+                    {
+                        model.Fvid = int.Parse(dt.Rows[n]["Fvid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fvtype"] != null && dt.Rows[n]["Fvtype"].ToString() != "")
+                    {
+                        model.Fvtype = int.Parse(dt.Rows[n]["Fvtype"].ToString());
+                    }
+                    if (dt.Rows[n]["Fselect"] != null && dt.Rows[n]["Fselect"].ToString() != "")
+                    {
+                        model.Fselect = dt.Rows[n]["Fselect"].ToString();
+                    }
+                    if (dt.Rows[n]["Fscore"] != null && dt.Rows[n]["Fscore"].ToString() != "")
+                    {
+                        model.Fscore = int.Parse(dt.Rows[n]["Fscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Fdate"] != null && dt.Rows[n]["Fdate"].ToString() != "")
+                    {
+                        model.Fdate = DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Room> MapRoomList(DataTable dt)
+        {
+            List<LearnSite.Model.Room> modelList = new List<LearnSite.Model.Room>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Room model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Room();
+                    if (dt.Rows[n]["Rid"].ToString() != "")
+                    {
+                        model.Rid = int.Parse(dt.Rows[n]["Rid"].ToString());
+                    }
+                    if (dt.Rows[n]["Rhid"].ToString() != "")
+                    {
+                        model.Rhid = int.Parse(dt.Rows[n]["Rhid"].ToString());
+                    }
+                    if (dt.Rows[n]["Rgrade"].ToString() != "")
+                    {
+                        model.Rgrade = int.Parse(dt.Rows[n]["Rgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Rclass"].ToString() != "")
+                    {
+                        model.Rclass = int.Parse(dt.Rows[n]["Rclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Rset"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Rset"].ToString() == "1") || (dt.Rows[n]["Rset"].ToString().ToLower() == "true"))
+                        {
+                            model.Rset = true;
+                        }
+                        else
+                        {
+                            model.Rset = false;
+                        }
+                    }
+                    model.Rpwd = dt.Rows[n]["Rpwd"].ToString();
+                    if (dt.Rows[n]["Rlock"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Rlock"].ToString() == "1") || (dt.Rows[n]["Rlock"].ToString().ToLower() == "true"))
+                        {
+                            model.Rlock = true;
+                        }
+                        else
+                        {
+                            model.Rlock = false;
+                        }
+                    }
+                    model.Rip = dt.Rows[n]["Rip"].ToString();
+                    if (dt.Rows[n]["Rgauge"] != null && dt.Rows[n]["Rgauge"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Rgauge"].ToString() == "1") || (dt.Rows[n]["Rgauge"].ToString().ToLower() == "true"))
+                        {
+                            model.Rgauge = true;
+                        }
+                        else
+                        {
+                            model.Rgauge = false;
+                        }
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Students> MapStudentsList(DataTable dt)
+        {
+            List<LearnSite.Model.Students> modelList = new List<LearnSite.Model.Students>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Students model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Students();
+                    if (dt.Rows[n]["Sid"].ToString() != "")
+                    {
+                        model.Sid = int.Parse(dt.Rows[n]["Sid"].ToString());
+                    }
+                    model.Snum = dt.Rows[n]["Snum"].ToString();
+                    if (dt.Rows[n]["Syear"].ToString() != "")
+                    {
+                        model.Syear = int.Parse(dt.Rows[n]["Syear"].ToString());
+                    }
+                    if (dt.Rows[n]["Sgrade"].ToString() != "")
+                    {
+                        model.Sgrade = int.Parse(dt.Rows[n]["Sgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Sclass"].ToString() != "")
+                    {
+                        model.Sclass = int.Parse(dt.Rows[n]["Sclass"].ToString());
+                    }
+                    model.Sname = dt.Rows[n]["Sname"].ToString();
+                    model.Spwd = dt.Rows[n]["Spwd"].ToString();
+                    model.Sex = dt.Rows[n]["Sex"].ToString();
+                    model.Saddress = dt.Rows[n]["Saddress"].ToString();
+                    model.Sphone = dt.Rows[n]["Sphone"].ToString();
+                    model.Sparents = dt.Rows[n]["Sparents"].ToString();
+                    model.Sheadtheacher = dt.Rows[n]["Sheadtheacher"].ToString();
+                    if (dt.Rows[n]["Sscore"].ToString() != "")
+                    {
+                        model.Sscore = int.Parse(dt.Rows[n]["Sscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Squiz"].ToString() != "")
+                    {
+                        model.Squiz = int.Parse(dt.Rows[n]["Squiz"].ToString());
+                    }
+                    if (dt.Rows[n]["Sattitude"].ToString() != "")
+                    {
+                        model.Sattitude = int.Parse(dt.Rows[n]["Sattitude"].ToString());
+                    }
+                    model.Sape = dt.Rows[n]["Sape"].ToString();
+                    if (dt.Rows[n]["Swscore"].ToString() != "")
+                    {
+                        model.Swscore = int.Parse(dt.Rows[n]["Swscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Stscore"].ToString() != "")
+                    {
+                        model.Stscore = int.Parse(dt.Rows[n]["Stscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Sallscore"].ToString() != "")
+                    {
+                        model.Sallscore = int.Parse(dt.Rows[n]["Sallscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Spscore"].ToString() != "")
+                    {
+                        model.Spscore = int.Parse(dt.Rows[n]["Spscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Sgroup"].ToString() != "")
+                    {
+                        model.Sgroup = int.Parse(dt.Rows[n]["Sgroup"].ToString());
+                    }
+                    if (dt.Rows[n]["Sleader"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Sleader"].ToString() == "1") || (dt.Rows[n]["Sleader"].ToString().ToLower() == "true"))
+                        {
+                            model.Sleader = true;
+                        }
+                        else
+                        {
+                            model.Sleader = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Svote"].ToString() != "")
+                    {
+                        model.Svote = int.Parse(dt.Rows[n]["Svote"].ToString());
+                    }
+                    if (dt.Rows[n]["Sgscore"].ToString() != "")
+                    {
+                        model.Sgscore = int.Parse(dt.Rows[n]["Sgscore"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Ip> MapIpList(DataTable dt)
+        {
+            List<LearnSite.Model.Ip> modelList = new List<LearnSite.Model.Ip>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Ip model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Ip();
+                    if (dt.Rows[n]["Iid"].ToString() != "")
+                    {
+                        model.Iid = int.Parse(dt.Rows[n]["Iid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ihid"].ToString() != "")
+                    {
+                        model.Ihid = int.Parse(dt.Rows[n]["Ihid"].ToString());
+                    }
+                    if (dt.Rows[n]["Inum"].ToString() != "")
+                    {
+                        model.Inum = int.Parse(dt.Rows[n]["Inum"].ToString());
+                    }
+                    model.Iip = dt.Rows[n]["Iip"].ToString();
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.House> MapHouseList(DataTable dt)
+        {
+            List<LearnSite.Model.House> modelList = new List<LearnSite.Model.House>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.House model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.House();
+                    if (dt.Rows[n]["Hid"].ToString() != "")
+                    {
+                        model.Hid = int.Parse(dt.Rows[n]["Hid"].ToString());
+                    }
+                    model.Hname = dt.Rows[n]["Hname"].ToString();
+                    model.Hseat = dt.Rows[n]["Hseat"].ToString();
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Consoles> MapConsolesList(DataTable dt)
+        {
+            List<LearnSite.Model.Consoles> modelList = new List<LearnSite.Model.Consoles>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Consoles model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Consoles();
+                    if (dt.Rows[n]["Nid"] != null && dt.Rows[n]["Nid"].ToString() != "")
+                    {
+                        model.Nid = int.Parse(dt.Rows[n]["Nid"].ToString());
+                    }
+                    if (dt.Rows[n]["Nhid"] != null && dt.Rows[n]["Nhid"].ToString() != "")
+                    {
+                        model.Nhid = int.Parse(dt.Rows[n]["Nhid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ncid"] != null && dt.Rows[n]["Ncid"].ToString() != "")
+                    {
+                        model.Ncid = int.Parse(dt.Rows[n]["Ncid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ntitle"] != null && dt.Rows[n]["Ntitle"].ToString() != "")
+                    {
+                        model.Ntitle = dt.Rows[n]["Ntitle"].ToString();
+                    }
+                    if (dt.Rows[n]["Ncontent"] != null && dt.Rows[n]["Ncontent"].ToString() != "")
+                    {
+                        model.Ncontent = dt.Rows[n]["Ncontent"].ToString();
+                    }
+                    if (dt.Rows[n]["Npublish"] != null && dt.Rows[n]["Npublish"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Npublish"].ToString() == "1") || (dt.Rows[n]["Npublish"].ToString().ToLower() == "true"))
+                        {
+                            model.Npublish = true;
+                        }
+                        else
+                        {
+                            model.Npublish = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Ndate"] != null && dt.Rows[n]["Ndate"].ToString() != "")
+                    {
+                        model.Ndate = DateTime.Parse(dt.Rows[n]["Ndate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Autonomic> MapAutonomicList(DataTable dt)
+        {
+            List<LearnSite.Model.Autonomic> modelList = new List<LearnSite.Model.Autonomic>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Autonomic model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Autonomic();
+                    if (dt.Rows[n]["Aid"] != null && dt.Rows[n]["Aid"].ToString() != "")
+                    {
+                        model.Aid = int.Parse(dt.Rows[n]["Aid"].ToString());
+                    }
+                    if (dt.Rows[n]["Asid"] != null && dt.Rows[n]["Asid"].ToString() != "")
+                    {
+                        model.Asid = int.Parse(dt.Rows[n]["Asid"].ToString());
+                    }
+                    if (dt.Rows[n]["Anum"] != null)
+                    {
+                        model.Anum = dt.Rows[n]["Anum"].ToString();
+                    }
+                    if (dt.Rows[n]["Aname"] != null)
+                    {
+                        model.Aname = dt.Rows[n]["Aname"].ToString();
+                    }
+                    if (dt.Rows[n]["Ayid"] != null && dt.Rows[n]["Ayid"].ToString() != "")
+                    {
+                        model.Ayid = int.Parse(dt.Rows[n]["Ayid"].ToString());
+                    }
+                    if (dt.Rows[n]["Afid"] != null && dt.Rows[n]["Afid"].ToString() != "")
+                    {
+                        model.Afid = int.Parse(dt.Rows[n]["Afid"].ToString());
+                    }
+                    if (dt.Rows[n]["Atype"] != null)
+                    {
+                        model.Atype = dt.Rows[n]["Atype"].ToString();
+                    }
+                    if (dt.Rows[n]["Afilename"] != null)
+                    {
+                        model.Afilename = dt.Rows[n]["Afilename"].ToString();
+                    }
+                    if (dt.Rows[n]["Aurl"] != null)
+                    {
+                        model.Aurl = dt.Rows[n]["Aurl"].ToString();
+                    }
+                    if (dt.Rows[n]["Alength"] != null && dt.Rows[n]["Alength"].ToString() != "")
+                    {
+                        model.Alength = int.Parse(dt.Rows[n]["Alength"].ToString());
+                    }
+                    if (dt.Rows[n]["Ascore"] != null && dt.Rows[n]["Ascore"].ToString() != "")
+                    {
+                        model.Ascore = int.Parse(dt.Rows[n]["Ascore"].ToString());
+                    }
+                    if (dt.Rows[n]["Adate"] != null && dt.Rows[n]["Adate"].ToString() != "")
+                    {
+                        model.Adate = DateTime.Parse(dt.Rows[n]["Adate"].ToString());
+                    }
+                    if (dt.Rows[n]["Aip"] != null)
+                    {
+                        model.Aip = dt.Rows[n]["Aip"].ToString();
+                    }
+                    if (dt.Rows[n]["Avote"] != null && dt.Rows[n]["Avote"].ToString() != "")
+                    {
+                        model.Avote = int.Parse(dt.Rows[n]["Avote"].ToString());
+                    }
+                    if (dt.Rows[n]["Aegg"] != null && dt.Rows[n]["Aegg"].ToString() != "")
+                    {
+                        model.Aegg = int.Parse(dt.Rows[n]["Aegg"].ToString());
+                    }
+                    if (dt.Rows[n]["Acheck"] != null && dt.Rows[n]["Acheck"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Acheck"].ToString() == "1") || (dt.Rows[n]["Acheck"].ToString().ToLower() == "true"))
+                        {
+                            model.Acheck = true;
+                        }
+                        else
+                        {
+                            model.Acheck = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Aself"] != null)
+                    {
+                        model.Aself = dt.Rows[n]["Aself"].ToString();
+                    }
+                    if (dt.Rows[n]["Agood"] != null && dt.Rows[n]["Agood"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Agood"].ToString() == "1") || (dt.Rows[n]["Agood"].ToString().ToLower() == "true"))
+                        {
+                            model.Agood = true;
+                        }
+                        else
+                        {
+                            model.Agood = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Ayear"] != null && dt.Rows[n]["Ayear"].ToString() != "")
+                    {
+                        model.Ayear = int.Parse(dt.Rows[n]["Ayear"].ToString());
+                    }
+                    if (dt.Rows[n]["Agrade"] != null && dt.Rows[n]["Agrade"].ToString() != "")
+                    {
+                        model.Agrade = int.Parse(dt.Rows[n]["Agrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Aclass"] != null && dt.Rows[n]["Aclass"].ToString() != "")
+                    {
+                        model.Aclass = int.Parse(dt.Rows[n]["Aclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Aterm"] != null && dt.Rows[n]["Aterm"].ToString() != "")
+                    {
+                        model.Aterm = int.Parse(dt.Rows[n]["Aterm"].ToString());
+                    }
+                    if (dt.Rows[n]["Ahit"] != null && dt.Rows[n]["Ahit"].ToString() != "")
+                    {
+                        model.Ahit = int.Parse(dt.Rows[n]["Ahit"].ToString());
+                    }
+                    if (dt.Rows[n]["Aoffice"] != null && dt.Rows[n]["Aoffice"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Aoffice"].ToString() == "1") || (dt.Rows[n]["Aoffice"].ToString().ToLower() == "true"))
+                        {
+                            model.Aoffice = true;
+                        }
+                        else
+                        {
+                            model.Aoffice = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Aflash"] != null && dt.Rows[n]["Aflash"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Aflash"].ToString() == "1") || (dt.Rows[n]["Aflash"].ToString().ToLower() == "true"))
+                        {
+                            model.Aflash = true;
+                        }
+                        else
+                        {
+                            model.Aflash = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Aerror"] != null && dt.Rows[n]["Aerror"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Aerror"].ToString() == "1") || (dt.Rows[n]["Aerror"].ToString().ToLower() == "true"))
+                        {
+                            model.Aerror = true;
+                        }
+                        else
+                        {
+                            model.Aerror = false;
+                        }
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.GroupWork> MapGroupWorkList(DataTable dt)
+        {
+            List<LearnSite.Model.GroupWork> modelList = new List<LearnSite.Model.GroupWork>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.GroupWork model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.GroupWork();
+                    if (dt.Rows[n]["Gid"].ToString() != "")
+                    {
+                        model.Gid = int.Parse(dt.Rows[n]["Gid"].ToString());
+                    }
+                    model.Gnum = dt.Rows[n]["Gnum"].ToString();
+                    model.Gstudents = dt.Rows[n]["Gstudents"].ToString();
+                    if (dt.Rows[n]["Gterm"].ToString() != "")
+                    {
+                        model.Gterm = int.Parse(dt.Rows[n]["Gterm"].ToString());
+                    }
+                    if (dt.Rows[n]["Ggrade"].ToString() != "")
+                    {
+                        model.Ggrade = int.Parse(dt.Rows[n]["Ggrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Gclass"].ToString() != "")
+                    {
+                        model.Gclass = int.Parse(dt.Rows[n]["Gclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Gcid"].ToString() != "")
+                    {
+                        model.Gcid = int.Parse(dt.Rows[n]["Gcid"].ToString());
+                    }
+                    if (dt.Rows[n]["Gmid"].ToString() != "")
+                    {
+                        model.Gmid = int.Parse(dt.Rows[n]["Gmid"].ToString());
+                    }
+                    model.Gfilename = dt.Rows[n]["Gfilename"].ToString();
+                    model.Gtype = dt.Rows[n]["Gtype"].ToString();
+                    model.Gurl = dt.Rows[n]["Gurl"].ToString();
+                    if (dt.Rows[n]["Glengh"].ToString() != "")
+                    {
+                        model.Glengh = int.Parse(dt.Rows[n]["Glengh"].ToString());
+                    }
+                    if (dt.Rows[n]["Gscore"].ToString() != "")
+                    {
+                        model.Gscore = int.Parse(dt.Rows[n]["Gscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Gtime"].ToString() != "")
+                    {
+                        model.Gtime = int.Parse(dt.Rows[n]["Gtime"].ToString());
+                    }
+                    if (dt.Rows[n]["Gvote"].ToString() != "")
+                    {
+                        model.Gvote = int.Parse(dt.Rows[n]["Gvote"].ToString());
+                    }
+                    if (dt.Rows[n]["Gcheck"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Gcheck"].ToString() == "1") || (dt.Rows[n]["Gcheck"].ToString().ToLower() == "true"))
+                        {
+                            model.Gcheck = true;
+                        }
+                        else
+                        {
+                            model.Gcheck = false;
+                        }
+                    }
+                    model.Gnote = dt.Rows[n]["Gnote"].ToString();
+                    if (dt.Rows[n]["Grank"].ToString() != "")
+                    {
+                        model.Grank = int.Parse(dt.Rows[n]["Grank"].ToString());
+                    }
+                    if (dt.Rows[n]["Ghit"].ToString() != "")
+                    {
+                        model.Ghit = int.Parse(dt.Rows[n]["Ghit"].ToString());
+                    }
+                    model.Gip = dt.Rows[n]["Gip"].ToString();
+                    if (dt.Rows[n]["Gdate"].ToString() != "")
+                    {
+                        model.Gdate = DateTime.Parse(dt.Rows[n]["Gdate"].ToString());
+                    }
+                    if (dt.Rows[n]["Ggroup"].ToString() != "")
+                    {
+                        model.Ggroup = int.Parse(dt.Rows[n]["Ggroup"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.JudgeArg> MapJudgeArgList(DataTable dt)
+        {
+            List<LearnSite.Model.JudgeArg> modelList = new List<LearnSite.Model.JudgeArg>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.JudgeArg model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.JudgeArg();
+                    if (dt.Rows[n]["Jid"] != null && dt.Rows[n]["Jid"].ToString() != "")
+                    {
+                        model.Jid = int.Parse(dt.Rows[n]["Jid"].ToString());
+                    }
+                    if (dt.Rows[n]["Jhid"] != null && dt.Rows[n]["Jhid"].ToString() != "")
+                    {
+                        model.Jhid = int.Parse(dt.Rows[n]["Jhid"].ToString());
+                    }
+                    if (dt.Rows[n]["Jmid"] != null && dt.Rows[n]["Jmid"].ToString() != "")
+                    {
+                        model.Jmid = int.Parse(dt.Rows[n]["Jmid"].ToString());
+                    }
+                    if (dt.Rows[n]["Jsleep"] != null && dt.Rows[n]["Jsleep"].ToString() != "")
+                    {
+                        model.Jsleep = int.Parse(dt.Rows[n]["Jsleep"].ToString());
+                    }
+                    if (dt.Rows[n]["Jinone"] != null)
+                    {
+                        model.Jinone = dt.Rows[n]["Jinone"].ToString();
+                    }
+                    if (dt.Rows[n]["Jintwo"] != null)
+                    {
+                        model.Jintwo = dt.Rows[n]["Jintwo"].ToString();
+                    }
+                    if (dt.Rows[n]["Jinthree"] != null)
+                    {
+                        model.Jinthree = dt.Rows[n]["Jinthree"].ToString();
+                    }
+                    if (dt.Rows[n]["Joutone"] != null)
+                    {
+                        model.Joutone = dt.Rows[n]["Joutone"].ToString();
+                    }
+                    if (dt.Rows[n]["Joutwo"] != null)
+                    {
+                        model.Joutwo = dt.Rows[n]["Joutwo"].ToString();
+                    }
+                    if (dt.Rows[n]["Jouthree"] != null)
+                    {
+                        model.Jouthree = dt.Rows[n]["Jouthree"].ToString();
+                    }
+                    if (dt.Rows[n]["Jright"] != null && dt.Rows[n]["Jright"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Jright"].ToString() == "1") || (dt.Rows[n]["Jright"].ToString().ToLower() == "true"))
+                        {
+                            model.Jright = true;
+                        }
+                        else
+                        {
+                            model.Jright = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Jcode"] != null)
+                    {
+                        model.Jcode = dt.Rows[n]["Jcode"].ToString();
+                    }
+                    if (dt.Rows[n]["Jcid"] != null && dt.Rows[n]["Jcid"].ToString() != "")
+                    {
+                        model.Jcid = int.Parse(dt.Rows[n]["Jcid"].ToString());
+                    }
+                    if (dt.Rows[n]["Jimg"] != null)
+                    {
+                        model.Jimg = dt.Rows[n]["Jimg"].ToString();
+                    }
+                    if (dt.Columns.Contains("Jthumb"))
+                    {
+                        if (dt.Rows[n]["Jthumb"] != null)
+                        {
+                            model.Jthumb = dt.Rows[n]["Jthumb"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        model.Jthumb = "";
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Computers> MapComputersList(DataTable dt)
+        {
+            List<LearnSite.Model.Computers> modelList = new List<LearnSite.Model.Computers>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Computers model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Computers();
+                    if (dt.Rows[n]["Pid"].ToString() != "")
+                    {
+                        model.Pid = int.Parse(dt.Rows[n]["Pid"].ToString());
+                    }
+                    model.Pip = dt.Rows[n]["Pip"].ToString();
+                    model.Pmachine = dt.Rows[n]["Pmachine"].ToString();
+                    if (dt.Rows[n]["Plock"].ToString() != "")
+                    {
+                        if ((dt.Rows[n]["Plock"].ToString() == "1") || (dt.Rows[n]["Plock"].ToString().ToLower() == "true"))
+                        {
+                            model.Plock = true;
+                        }
+                        else
+                        {
+                            model.Plock = false;
+                        }
+                    }
+                    if (dt.Rows[n]["Pdate"].ToString() != "")
+                    {
+                        model.Pdate = DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Problems> MapProblemsList(DataTable dt)
+        {
+            List<LearnSite.Model.Problems> modelList = new List<LearnSite.Model.Problems>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Problems model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Problems();
+                    if (dt.Rows[n]["Pid"] != null && dt.Rows[n]["Pid"].ToString() != "")
+                    {
+                        model.Pid = int.Parse(dt.Rows[n]["Pid"].ToString());
+                    }
+                    if (dt.Rows[n]["Phid"] != null && dt.Rows[n]["Phid"].ToString() != "")
+                    {
+                        model.Phid = int.Parse(dt.Rows[n]["Phid"].ToString());
+                    }
+                    if (dt.Rows[n]["Pnid"] != null && dt.Rows[n]["Pnid"].ToString() != "")
+                    {
+                        model.Pnid = int.Parse(dt.Rows[n]["Pnid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ptitle"] != null && dt.Rows[n]["Ptitle"].ToString() != "")
+                    {
+                        model.Ptitle = dt.Rows[n]["Ptitle"].ToString();
+                    }
+                    if (dt.Rows[n]["Pcode"] != null && dt.Rows[n]["Pcode"].ToString() != "")
+                    {
+                        model.Pcode = dt.Rows[n]["Pcode"].ToString();
+                    }
+                    if (dt.Rows[n]["Pouput"] != null && dt.Rows[n]["Pouput"].ToString() != "")
+                    {
+                        model.Pouput = dt.Rows[n]["Pouput"].ToString();
+                    }
+                    if (dt.Rows[n]["Pscore"] != null && dt.Rows[n]["Pscore"].ToString() != "")
+                    {
+                        model.Pscore = int.Parse(dt.Rows[n]["Pscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdate"] != null && dt.Rows[n]["Pdate"].ToString() != "")
+                    {
+                        model.Pdate = DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Flection> MapFlectionList(DataTable dt)
+        {
+            List<LearnSite.Model.Flection> modelList = new List<LearnSite.Model.Flection>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Flection model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Flection();
+                    if (dt.Rows[n]["Fid"].ToString() != "")
+                    {
+                        model.Fid = int.Parse(dt.Rows[n]["Fid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fcid"].ToString() != "")
+                    {
+                        model.Fcid = int.Parse(dt.Rows[n]["Fcid"].ToString());
+                    }
+                    if (dt.Rows[n]["Fhid"].ToString() != "")
+                    {
+                        model.Fhid = int.Parse(dt.Rows[n]["Fhid"].ToString());
+                    }
+                    model.Fcontent = dt.Rows[n]["Fcontent"].ToString();
+                    if (dt.Rows[n]["Fdate"].ToString() != "")
+                    {
+                        model.Fdate = DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Pfinger> MapPfingerList(DataTable dt)
+        {
+            List<LearnSite.Model.Pfinger> modelList = new List<LearnSite.Model.Pfinger>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Pfinger model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Pfinger();
+                    if (dt.Rows[n]["Pid"].ToString() != "")
+                    {
+                        model.Pid = int.Parse(dt.Rows[n]["Pid"].ToString());
+                    }
+                    model.Psnum = dt.Rows[n]["Psnum"].ToString();
+                    if (dt.Rows[n]["Pspd"].ToString() != "")
+                    {
+                        model.Pspd = decimal.Parse(dt.Rows[n]["Pspd"].ToString());
+                    }
+                    if (dt.Rows[n]["Pyear"].ToString() != "")
+                    {
+                        model.Pyear = int.Parse(dt.Rows[n]["Pyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Pmonth"].ToString() != "")
+                    {
+                        model.Pmonth = int.Parse(dt.Rows[n]["Pmonth"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdate"].ToString() != "")
+                    {
+                        model.Pdate = DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdegree"].ToString() != "")
+                    {
+                        model.Pdegree = int.Parse(dt.Rows[n]["Pdegree"].ToString());
+                    }
+                    if (dt.Rows[n]["Pgrade"].ToString() != "")
+                    {
+                        model.Pgrade = int.Parse(dt.Rows[n]["Pgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Pterm"].ToString() != "")
+                    {
+                        model.Pterm = int.Parse(dt.Rows[n]["Pterm"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.DelStudents> MapDelStudentsList(DataTable dt)
+        {
+            List<LearnSite.Model.DelStudents> modelList = new List<LearnSite.Model.DelStudents>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.DelStudents model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.DelStudents();
+                    if (dt.Rows[n]["Did"] != null && dt.Rows[n]["Did"].ToString() != "")
+                    {
+                        model.Did = int.Parse(dt.Rows[n]["Did"].ToString());
+                    }
+                    if (dt.Rows[n]["Dnum"] != null && dt.Rows[n]["Dnum"].ToString() != "")
+                    {
+                        model.Dnum = dt.Rows[n]["Dnum"].ToString();
+                    }
+                    if (dt.Rows[n]["Dyear"] != null && dt.Rows[n]["Dyear"].ToString() != "")
+                    {
+                        model.Dyear = int.Parse(dt.Rows[n]["Dyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Dgrade"] != null && dt.Rows[n]["Dgrade"].ToString() != "")
+                    {
+                        model.Dgrade = int.Parse(dt.Rows[n]["Dgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Dclass"] != null && dt.Rows[n]["Dclass"].ToString() != "")
+                    {
+                        model.Dclass = int.Parse(dt.Rows[n]["Dclass"].ToString());
+                    }
+                    if (dt.Rows[n]["Dname"] != null && dt.Rows[n]["Dname"].ToString() != "")
+                    {
+                        model.Dname = dt.Rows[n]["Dname"].ToString();
+                    }
+                    if (dt.Rows[n]["Dsex"] != null && dt.Rows[n]["Dsex"].ToString() != "")
+                    {
+                        model.Dsex = dt.Rows[n]["Dsex"].ToString();
+                    }
+                    if (dt.Rows[n]["Daddress"] != null && dt.Rows[n]["Daddress"].ToString() != "")
+                    {
+                        model.Daddress = dt.Rows[n]["Daddress"].ToString();
+                    }
+                    if (dt.Rows[n]["Dphone"] != null && dt.Rows[n]["Dphone"].ToString() != "")
+                    {
+                        model.Dphone = dt.Rows[n]["Dphone"].ToString();
+                    }
+                    if (dt.Rows[n]["Dparents"] != null && dt.Rows[n]["Dparents"].ToString() != "")
+                    {
+                        model.Dparents = dt.Rows[n]["Dparents"].ToString();
+                    }
+                    if (dt.Rows[n]["Dheadtheacher"] != null && dt.Rows[n]["Dheadtheacher"].ToString() != "")
+                    {
+                        model.Dheadtheacher = dt.Rows[n]["Dheadtheacher"].ToString();
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.NotSign> MapNotSignList(DataTable dt)
+        {
+            List<LearnSite.Model.NotSign> modelList = new List<LearnSite.Model.NotSign>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.NotSign model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.NotSign();
+                    if (dt.Rows[n]["Nid"].ToString() != "")
+                    {
+                        model.Nid = int.Parse(dt.Rows[n]["Nid"].ToString());
+                    }
+                    model.Nnum = dt.Rows[n]["Nnum"].ToString();
+                    if (dt.Rows[n]["Ndate"].ToString() != "")
+                    {
+                        model.Ndate = DateTime.Parse(dt.Rows[n]["Ndate"].ToString());
+                    }
+                    if (dt.Rows[n]["Nyear"].ToString() != "")
+                    {
+                        model.Nyear = int.Parse(dt.Rows[n]["Nyear"].ToString());
+                    }
+                    if (dt.Rows[n]["Nmonth"].ToString() != "")
+                    {
+                        model.Nmonth = int.Parse(dt.Rows[n]["Nmonth"].ToString());
+                    }
+                    if (dt.Rows[n]["Nday"].ToString() != "")
+                    {
+                        model.Nday = int.Parse(dt.Rows[n]["Nday"].ToString());
+                    }
+                    model.Nweek = dt.Rows[n]["Nweek"].ToString();
+                    model.Nnote = dt.Rows[n]["Nnote"].ToString();
+                    if (dt.Rows[n]["Ngrade"].ToString() != "")
+                    {
+                        model.Ngrade = int.Parse(dt.Rows[n]["Ngrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Nterm"].ToString() != "")
+                    {
+                        model.Nterm = int.Parse(dt.Rows[n]["Nterm"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
+
+        public static List<LearnSite.Model.Ptyper> MapPtyperList(DataTable dt)
+        {
+            List<LearnSite.Model.Ptyper> modelList = new List<LearnSite.Model.Ptyper>();
+            int rowsCount = dt.Rows.Count;
+            if (rowsCount > 0)
+            {
+                LearnSite.Model.Ptyper model;
+                for (int n = 0; n < rowsCount; n++)
+                {
+                    model = new LearnSite.Model.Ptyper();
+                    if (dt.Rows[n]["Pid"].ToString() != "")
+                    {
+                        model.Pid = int.Parse(dt.Rows[n]["Pid"].ToString());
+                    }
+                    if (dt.Rows[n]["Ptid"].ToString() != "")
+                    {
+                        model.Ptid = int.Parse(dt.Rows[n]["Ptid"].ToString());
+                    }
+                    model.Psnum = dt.Rows[n]["Psnum"].ToString();
+                    if (dt.Rows[n]["Pscore"].ToString() != "")
+                    {
+                        model.Pscore = int.Parse(dt.Rows[n]["Pscore"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdate"].ToString() != "")
+                    {
+                        model.Pdate = DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
+                    }
+                    model.Pip = dt.Rows[n]["Pip"].ToString();
+                    if (dt.Rows[n]["Ptype"].ToString() != "")
+                    {
+                        model.Ptype = int.Parse(dt.Rows[n]["Ptype"].ToString());
+                    }
+                    if (dt.Rows[n]["Pdegree"].ToString() != "")
+                    {
+                        model.Ptype = int.Parse(dt.Rows[n]["Pdegree"].ToString());
+                    }
+                    if (dt.Rows[n]["Pgrade"].ToString() != "")
+                    {
+                        model.Pgrade = int.Parse(dt.Rows[n]["Pgrade"].ToString());
+                    }
+                    if (dt.Rows[n]["Pterm"].ToString() != "")
+                    {
+                        model.Pterm = int.Parse(dt.Rows[n]["Pterm"].ToString());
+                    }
+                    modelList.Add(model);
+                }
+            }
+            return modelList;
+        }
     }
 }

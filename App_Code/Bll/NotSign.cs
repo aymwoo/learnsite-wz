@@ -145,49 +145,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.NotSign> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.NotSign> modelList = new List<LearnSite.Model.NotSign>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.NotSign model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.NotSign();
-					if(dt.Rows[n]["Nid"].ToString()!="")
-					{
-						model.Nid=int.Parse(dt.Rows[n]["Nid"].ToString());
-					}
-					model.Nnum=dt.Rows[n]["Nnum"].ToString();
-					if(dt.Rows[n]["Ndate"].ToString()!="")
-					{
-						model.Ndate=DateTime.Parse(dt.Rows[n]["Ndate"].ToString());
-					}
-					if(dt.Rows[n]["Nyear"].ToString()!="")
-					{
-						model.Nyear=int.Parse(dt.Rows[n]["Nyear"].ToString());
-					}
-					if(dt.Rows[n]["Nmonth"].ToString()!="")
-					{
-						model.Nmonth=int.Parse(dt.Rows[n]["Nmonth"].ToString());
-					}
-					if(dt.Rows[n]["Nday"].ToString()!="")
-					{
-						model.Nday=int.Parse(dt.Rows[n]["Nday"].ToString());
-					}
-					model.Nweek=dt.Rows[n]["Nweek"].ToString();
-					model.Nnote=dt.Rows[n]["Nnote"].ToString();
-                    if (dt.Rows[n]["Ngrade"].ToString() != "")
-                    {
-                        model.Ngrade = int.Parse(dt.Rows[n]["Ngrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Nterm"].ToString() != "")
-                    {
-                        model.Nterm = int.Parse(dt.Rows[n]["Nterm"].ToString());
-                    }
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapNotSignList(dt);
 		}
 
 		/// <summary>
@@ -233,4 +191,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

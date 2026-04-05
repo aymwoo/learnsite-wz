@@ -149,31 +149,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Ip> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Ip> modelList = new List<LearnSite.Model.Ip>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Ip model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Ip();
-					if(dt.Rows[n]["Iid"].ToString()!="")
-					{
-						model.Iid=int.Parse(dt.Rows[n]["Iid"].ToString());
-					}
-					if(dt.Rows[n]["Ihid"].ToString()!="")
-					{
-						model.Ihid=int.Parse(dt.Rows[n]["Ihid"].ToString());
-					}
-					if(dt.Rows[n]["Inum"].ToString()!="")
-					{
-						model.Inum=int.Parse(dt.Rows[n]["Inum"].ToString());
-					}
-					model.Iip=dt.Rows[n]["Iip"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapIpList(dt);
 		}
 
 		/// <summary>
@@ -216,4 +192,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

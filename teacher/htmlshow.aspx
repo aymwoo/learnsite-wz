@@ -27,15 +27,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">HTML Activity</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看网页设计活动内容、首页文件、发布状态和评价标准。</p>
+                    <p class="admin-form-subtitle">预览当前网页设计活动内容、首页文件与发布状态。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">活动信息</h2>
-                        <p class="admin-form-section-desc">这里展示当前网页设计活动的基础属性与资源入口。</p>
+                        <h2 class="admin-form-section-title">活动预览</h2>
+                        <p class="admin-form-section-desc">这里显示当前网页设计活动的基础属性与资源入口。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

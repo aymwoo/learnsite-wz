@@ -1337,4 +1337,836 @@ public class CommonLogicTests : IDisposable
         Assert.Equal(7, result[0].Tscore);
         Assert.Equal("10.0.0.22", result[0].Tip);
     }
+
+    [Fact]
+    public void BllDataTableMappers_MapAnswersList_MapsAnswersFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Aid");
+        dt.Columns.Add("Eid");
+        dt.Columns.Add("Asid");
+        dt.Columns.Add("Asnum");
+        dt.Columns.Add("Asname");
+        dt.Columns.Add("Asgrade");
+        dt.Columns.Add("Asclass");
+        dt.Columns.Add("Atime");
+        dt.Columns.Add("Ascore");
+        dt.Columns.Add("Aspent");
+        dt.Columns.Add("Adata");
+        dt.Rows.Add("251", "80", "3005", "2024014", "stu-b", "6", "2", "2024-04-23", "95", "120", "answer-json");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapAnswersList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(251, result[0].Aid);
+        Assert.Equal(80, result[0].Eid);
+        Assert.Equal(3005, result[0].Asid);
+        Assert.Equal("2024014", result[0].Asnum);
+        Assert.Equal("stu-b", result[0].Asname);
+        Assert.Equal(6, result[0].Asgrade);
+        Assert.Equal(2, result[0].Asclass);
+        Assert.Equal(new DateTime(2024, 4, 23), result[0].Atime);
+        Assert.Equal(95, result[0].Ascore);
+        Assert.Equal(120, result[0].Aspent);
+        Assert.Equal("answer-json", result[0].Adata);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapGameList_MapsGameFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Gid");
+        dt.Columns.Add("Gsid");
+        dt.Columns.Add("Gsname");
+        dt.Columns.Add("Gnum");
+        dt.Columns.Add("Gtitle");
+        dt.Columns.Add("Gsave");
+        dt.Columns.Add("Gnote");
+        dt.Columns.Add("Gscore");
+        dt.Columns.Add("Gdate");
+        dt.Rows.Add("261", "3006", "stu-c", "4", "maze", "12", "note", "0", "2024-04-24");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapGameList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(261, result[0].Gid);
+        Assert.Equal(3006, result[0].Gsid);
+        Assert.Equal("stu-c", result[0].Gsname);
+        Assert.Equal(4, result[0].Gnum);
+        Assert.Equal("maze", result[0].Gtitle);
+        Assert.Equal(12, result[0].Gsave);
+        Assert.Equal("note", result[0].Gnote);
+        Assert.Equal(0, result[0].Gscore);
+        Assert.Equal(new DateTime(2024, 4, 24), result[0].Gdate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapChineseList_MapsChineseFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Nid");
+        dt.Columns.Add("Ntitle");
+        dt.Columns.Add("Ncontent");
+        dt.Rows.Add("271", "Lesson A", "ni hao");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapChineseList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(271, result[0].Nid);
+        Assert.Equal("Lesson A", result[0].Ntitle);
+        Assert.Equal("ni hao", result[0].Ncontent);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapGaugeList_MapsGaugeFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Gid");
+        dt.Columns.Add("Ghid");
+        dt.Columns.Add("Gtype");
+        dt.Columns.Add("Gtitle");
+        dt.Columns.Add("Gcount");
+        dt.Columns.Add("Gdate");
+        dt.Rows.Add("281", "6", "works", "Gauge A", "4", "2024-04-25");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapGaugeList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(281, result[0].Gid);
+        Assert.Equal(6, result[0].Ghid);
+        Assert.Equal("works", result[0].Gtype);
+        Assert.Equal("Gauge A", result[0].Gtitle);
+        Assert.Equal(4, result[0].Gcount);
+        Assert.Equal(new DateTime(2024, 4, 25), result[0].Gdate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapGaugeItemList_MapsGaugeItemFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Mid");
+        dt.Columns.Add("Mgid");
+        dt.Columns.Add("Mitem");
+        dt.Columns.Add("Mscore");
+        dt.Columns.Add("Msort");
+        dt.Rows.Add("291", "281", "Creativity", "5", "1");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapGaugeItemList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(291, result[0].Mid);
+        Assert.Equal(281, result[0].Mgid);
+        Assert.Equal("Creativity", result[0].Mitem);
+        Assert.Equal(5, result[0].Mscore);
+        Assert.Equal(1, result[0].Msort);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapGaugeFeedbackList_MapsGaugeFeedbackFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Fid");
+        dt.Columns.Add("Fnum");
+        dt.Columns.Add("Fgrade");
+        dt.Columns.Add("Fclass");
+        dt.Columns.Add("Fcid");
+        dt.Columns.Add("Fmid");
+        dt.Columns.Add("Fwid");
+        dt.Columns.Add("Fgid");
+        dt.Columns.Add("Fselect");
+        dt.Columns.Add("Fscore");
+        dt.Columns.Add("Fgood");
+        dt.Columns.Add("Fdate");
+        dt.Rows.Add("301", "2024015", "6", "1", "20", "291", "21", "281", "291,292", "9", "true", "2024-04-26");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapGaugeFeedbackList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(301, result[0].Fid);
+        Assert.Equal("2024015", result[0].Fnum);
+        Assert.Equal(6, result[0].Fgrade);
+        Assert.Equal(1, result[0].Fclass);
+        Assert.Equal(20, result[0].Fcid);
+        Assert.Equal(291, result[0].Fmid);
+        Assert.Equal(21, result[0].Fwid);
+        Assert.Equal(281, result[0].Fgid);
+        Assert.Equal("291,292", result[0].Fselect);
+        Assert.Equal(9, result[0].Fscore);
+        Assert.True(result[0].Fgood);
+        Assert.Equal(new DateTime(2024, 4, 26), result[0].Fdate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapEnglishList_MapsEnglishFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Eid");
+        dt.Columns.Add("Eword");
+        dt.Columns.Add("Emeaning");
+        dt.Columns.Add("Elevel");
+        dt.Rows.Add("311", "apple", "fruit", "2");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapEnglishList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(311, result[0].Eid);
+        Assert.Equal("apple", result[0].Eword);
+        Assert.Equal("fruit", result[0].Emeaning);
+        Assert.Equal(2, result[0].Elevel);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapSummaryList_MapsSummaryFieldsAndFalseBoolean()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Sid");
+        dt.Columns.Add("Scid");
+        dt.Columns.Add("Shid");
+        dt.Columns.Add("Scontent");
+        dt.Columns.Add("Sdate");
+        dt.Columns.Add("Sgrade");
+        dt.Columns.Add("Sclass");
+        dt.Columns.Add("Syear");
+        dt.Columns.Add("Sshow");
+        dt.Rows.Add("321", "20", "8", "summary text", "2024-04-27", "6", "2", "2024", "0");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapSummaryList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(321, result[0].Sid);
+        Assert.Equal(20, result[0].Scid);
+        Assert.Equal(8, result[0].Shid);
+        Assert.Equal("summary text", result[0].Scontent);
+        Assert.Equal(new DateTime(2024, 4, 27), result[0].Sdate);
+        Assert.Equal(6, result[0].Sgrade);
+        Assert.Equal(2, result[0].Sclass);
+        Assert.Equal(2024, result[0].Syear);
+        Assert.False(result[0].Sshow);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapPchineseList_MapsPchineseFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Pid");
+        dt.Columns.Add("Psid");
+        dt.Columns.Add("Psnum");
+        dt.Columns.Add("Papple");
+        dt.Columns.Add("Ptotal");
+        dt.Columns.Add("Pspeed");
+        dt.Columns.Add("Pdegree");
+        dt.Columns.Add("Pyear");
+        dt.Columns.Add("Pgrade");
+        dt.Columns.Add("Pclass");
+        dt.Columns.Add("Pterm");
+        dt.Columns.Add("Pdate");
+        dt.Rows.Add("331", "18", "2024018", "5", "12", "88", "3", "2024", "6", "1", "2", "2024-04-28");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapPchineseList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(331, result[0].Pid);
+        Assert.Equal(18, result[0].Psid);
+        Assert.Equal("2024018", result[0].Psnum);
+        Assert.Equal(5, result[0].Papple);
+        Assert.Equal(12, result[0].Ptotal);
+        Assert.Equal(88, result[0].Pspeed);
+        Assert.Equal(3, result[0].Pdegree);
+        Assert.Equal(2024, result[0].Pyear);
+        Assert.Equal(6, result[0].Pgrade);
+        Assert.Equal(1, result[0].Pclass);
+        Assert.Equal(2, result[0].Pterm);
+        Assert.Equal(new DateTime(2024, 4, 28), result[0].Pdate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapSurveyClassList_MapsSurveyClassFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Yid");
+        dt.Columns.Add("Yyear");
+        dt.Columns.Add("Ygrade");
+        dt.Columns.Add("Yclass");
+        dt.Columns.Add("Yterm");
+        dt.Columns.Add("Ycid");
+        dt.Columns.Add("Yvid");
+        dt.Columns.Add("Yselect");
+        dt.Columns.Add("Ycount");
+        dt.Columns.Add("Yscore");
+        dt.Columns.Add("Ydate");
+        dt.Rows.Add("341", "2024", "6", "2", "1", "30", "40", "1,2,3", "3,2,1", "95", "2024-04-29");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapSurveyClassList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(341, result[0].Yid);
+        Assert.Equal(2024, result[0].Yyear);
+        Assert.Equal(6, result[0].Ygrade);
+        Assert.Equal(2, result[0].Yclass);
+        Assert.Equal(1, result[0].Yterm);
+        Assert.Equal(30, result[0].Ycid);
+        Assert.Equal(40, result[0].Yvid);
+        Assert.Equal("1,2,3", result[0].Yselect);
+        Assert.Equal("3,2,1", result[0].Ycount);
+        Assert.Equal(95, result[0].Yscore);
+        Assert.Equal(new DateTime(2024, 4, 29), result[0].Ydate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapSurveyFeedbackList_MapsSurveyFeedbackFieldsWithoutUnmappedFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Fid");
+        dt.Columns.Add("Fnum");
+        dt.Columns.Add("Fyear");
+        dt.Columns.Add("Fgrade");
+        dt.Columns.Add("Fclass");
+        dt.Columns.Add("Fterm");
+        dt.Columns.Add("Fcid");
+        dt.Columns.Add("Fvid");
+        dt.Columns.Add("Fvtype");
+        dt.Columns.Add("Fselect");
+        dt.Columns.Add("Fscore");
+        dt.Columns.Add("Fdate");
+        dt.Columns.Add("Fsid");
+        dt.Columns.Add("Flid");
+        dt.Rows.Add("351", "2024021", "2024", "6", "3", "2", "31", "41", "5", "A,B", "88", "2024-04-30", "99", "77");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapSurveyFeedbackList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(351, result[0].Fid);
+        Assert.Equal("2024021", result[0].Fnum);
+        Assert.Equal(2024, result[0].Fyear);
+        Assert.Equal(6, result[0].Fgrade);
+        Assert.Equal(3, result[0].Fclass);
+        Assert.Equal(2, result[0].Fterm);
+        Assert.Equal(31, result[0].Fcid);
+        Assert.Equal(41, result[0].Fvid);
+        Assert.Equal(5, result[0].Fvtype);
+        Assert.Equal("A,B", result[0].Fselect);
+        Assert.Equal(88, result[0].Fscore);
+        Assert.Equal(new DateTime(2024, 4, 30), result[0].Fdate);
+        Assert.Null(result[0].Fsid);
+        Assert.Equal(0, result[0].Flid);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapRoomList_MapsLegacyRoomFieldsOnly()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Rid");
+        dt.Columns.Add("Rhid");
+        dt.Columns.Add("Rgrade");
+        dt.Columns.Add("Rclass");
+        dt.Columns.Add("Rset");
+        dt.Columns.Add("Rpwd");
+        dt.Columns.Add("Rlock");
+        dt.Columns.Add("Rip");
+        dt.Columns.Add("Rgauge");
+        dt.Columns.Add("Ropen");
+        dt.Rows.Add("361", "5", "6", "1", "true", "pwd", "0", "192.168.1.8", "1", "1");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapRoomList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(361, result[0].Rid);
+        Assert.Equal(5, result[0].Rhid);
+        Assert.Equal(6, result[0].Rgrade);
+        Assert.Equal(1, result[0].Rclass);
+        Assert.True(result[0].Rset);
+        Assert.Equal("pwd", result[0].Rpwd);
+        Assert.False(result[0].Rlock);
+        Assert.Equal("192.168.1.8", result[0].Rip);
+        Assert.True(result[0].Rgauge);
+        Assert.False(result[0].Ropen);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapStudentsList_MapsStudentFieldsAndLegacyBoolean()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Sid");
+        dt.Columns.Add("Snum");
+        dt.Columns.Add("Syear");
+        dt.Columns.Add("Sgrade");
+        dt.Columns.Add("Sclass");
+        dt.Columns.Add("Sname");
+        dt.Columns.Add("Spwd");
+        dt.Columns.Add("Sex");
+        dt.Columns.Add("Saddress");
+        dt.Columns.Add("Sphone");
+        dt.Columns.Add("Sparents");
+        dt.Columns.Add("Sheadtheacher");
+        dt.Columns.Add("Sscore");
+        dt.Columns.Add("Squiz");
+        dt.Columns.Add("Sattitude");
+        dt.Columns.Add("Sape");
+        dt.Columns.Add("Swscore");
+        dt.Columns.Add("Stscore");
+        dt.Columns.Add("Sallscore");
+        dt.Columns.Add("Spscore");
+        dt.Columns.Add("Sgroup");
+        dt.Columns.Add("Sleader");
+        dt.Columns.Add("Svote");
+        dt.Columns.Add("Sgscore");
+        dt.Columns.Add("Stxtform");
+        dt.Rows.Add("371", "2024031", "2024", "6", "2", "Alice", "123", "F", "Addr", "12345", "Parent", "Teacher", "91", "4", "5", "A", "92", "93", "94", "95", "6", "true", "7", "96", "88");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapStudentsList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(371, result[0].Sid);
+        Assert.Equal("2024031", result[0].Snum);
+        Assert.Equal(2024, result[0].Syear);
+        Assert.Equal(6, result[0].Sgrade);
+        Assert.Equal(2, result[0].Sclass);
+        Assert.Equal("Alice", result[0].Sname);
+        Assert.Equal("123", result[0].Spwd);
+        Assert.Equal("F", result[0].Sex);
+        Assert.Equal("Addr", result[0].Saddress);
+        Assert.Equal("12345", result[0].Sphone);
+        Assert.Equal("Parent", result[0].Sparents);
+        Assert.Equal("Teacher", result[0].Sheadtheacher);
+        Assert.Equal(91, result[0].Sscore);
+        Assert.Equal(4, result[0].Squiz);
+        Assert.Equal(5, result[0].Sattitude);
+        Assert.Equal("A", result[0].Sape);
+        Assert.Equal(92, result[0].Swscore);
+        Assert.Equal(93, result[0].Stscore);
+        Assert.Equal(94, result[0].Sallscore);
+        Assert.Equal(95, result[0].Spscore);
+        Assert.Equal(6, result[0].Sgroup);
+        Assert.True(result[0].Sleader);
+        Assert.Equal(7, result[0].Svote);
+        Assert.Equal(96, result[0].Sgscore);
+        Assert.Null(result[0].Stxtform);
+        Assert.Null(result[0].Sidle);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapIpList_MapsIpFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Iid");
+        dt.Columns.Add("Ihid");
+        dt.Columns.Add("Inum");
+        dt.Columns.Add("Iip");
+        dt.Rows.Add("381", "5", "12", "10.0.0.12");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapIpList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(381, result[0].Iid);
+        Assert.Equal(5, result[0].Ihid);
+        Assert.Equal(12, result[0].Inum);
+        Assert.Equal("10.0.0.12", result[0].Iip);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapHouseList_MapsHouseFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Hid");
+        dt.Columns.Add("Hname");
+        dt.Columns.Add("Hseat");
+        dt.Rows.Add("391", "Room A", "1,2,3");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapHouseList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(391, result[0].Hid);
+        Assert.Equal("Room A", result[0].Hname);
+        Assert.Equal("1,2,3", result[0].Hseat);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapConsolesList_MapsLegacyConsoleFieldsOnly()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Nid");
+        dt.Columns.Add("Nhid");
+        dt.Columns.Add("Ncid");
+        dt.Columns.Add("Ntitle");
+        dt.Columns.Add("Ncontent");
+        dt.Columns.Add("Npublish");
+        dt.Columns.Add("Ndate");
+        dt.Columns.Add("Nbegin");
+        dt.Rows.Add("401", "5", "30", "Console A", "content", "false", "2024-05-01", "true");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapConsolesList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(401, result[0].Nid);
+        Assert.Equal(5, result[0].Nhid);
+        Assert.Equal(30, result[0].Ncid);
+        Assert.Equal("Console A", result[0].Ntitle);
+        Assert.Equal("content", result[0].Ncontent);
+        Assert.False(result[0].Npublish);
+        Assert.Equal(new DateTime(2024, 5, 1), result[0].Ndate);
+        Assert.False(result[0].Nbegin);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapAutonomicList_MapsAutonomicFieldsAndBooleanVariants()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Aid");
+        dt.Columns.Add("Asid");
+        dt.Columns.Add("Anum");
+        dt.Columns.Add("Aname");
+        dt.Columns.Add("Ayid");
+        dt.Columns.Add("Afid");
+        dt.Columns.Add("Atype");
+        dt.Columns.Add("Afilename");
+        dt.Columns.Add("Aurl");
+        dt.Columns.Add("Alength");
+        dt.Columns.Add("Ascore");
+        dt.Columns.Add("Adate");
+        dt.Columns.Add("Aip");
+        dt.Columns.Add("Avote");
+        dt.Columns.Add("Aegg");
+        dt.Columns.Add("Acheck");
+        dt.Columns.Add("Aself");
+        dt.Columns.Add("Agood");
+        dt.Columns.Add("Ayear");
+        dt.Columns.Add("Agrade");
+        dt.Columns.Add("Aclass");
+        dt.Columns.Add("Aterm");
+        dt.Columns.Add("Ahit");
+        dt.Columns.Add("Aoffice");
+        dt.Columns.Add("Aflash");
+        dt.Columns.Add("Aerror");
+        dt.Rows.Add("411", "21", "2024041", "Bob", "61", "71", "scratch", "demo.sb3", "/upload/demo.sb3", "123", "98", "2024-05-02", "127.0.0.1", "9", "2", "1", "self note", "false", "2024", "6", "3", "2", "7", "true", "0", "true");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapAutonomicList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(411, result[0].Aid);
+        Assert.Equal(21, result[0].Asid);
+        Assert.Equal("2024041", result[0].Anum);
+        Assert.Equal("Bob", result[0].Aname);
+        Assert.Equal(61, result[0].Ayid);
+        Assert.Equal(71, result[0].Afid);
+        Assert.Equal("scratch", result[0].Atype);
+        Assert.Equal("demo.sb3", result[0].Afilename);
+        Assert.Equal("/upload/demo.sb3", result[0].Aurl);
+        Assert.Equal(123, result[0].Alength);
+        Assert.Equal(98, result[0].Ascore);
+        Assert.Equal(new DateTime(2024, 5, 2), result[0].Adate);
+        Assert.Equal("127.0.0.1", result[0].Aip);
+        Assert.Equal(9, result[0].Avote);
+        Assert.Equal(2, result[0].Aegg);
+        Assert.True(result[0].Acheck);
+        Assert.Equal("self note", result[0].Aself);
+        Assert.False(result[0].Agood);
+        Assert.Equal(2024, result[0].Ayear);
+        Assert.Equal(6, result[0].Agrade);
+        Assert.Equal(3, result[0].Aclass);
+        Assert.Equal(2, result[0].Aterm);
+        Assert.Equal(7, result[0].Ahit);
+        Assert.True(result[0].Aoffice);
+        Assert.False(result[0].Aflash);
+        Assert.True(result[0].Aerror);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapGroupWorkList_MapsGroupWorkFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Gid");
+        dt.Columns.Add("Gnum");
+        dt.Columns.Add("Gstudents");
+        dt.Columns.Add("Gterm");
+        dt.Columns.Add("Ggrade");
+        dt.Columns.Add("Gclass");
+        dt.Columns.Add("Gcid");
+        dt.Columns.Add("Gmid");
+        dt.Columns.Add("Gfilename");
+        dt.Columns.Add("Gtype");
+        dt.Columns.Add("Gurl");
+        dt.Columns.Add("Glengh");
+        dt.Columns.Add("Gscore");
+        dt.Columns.Add("Gtime");
+        dt.Columns.Add("Gvote");
+        dt.Columns.Add("Gcheck");
+        dt.Columns.Add("Gnote");
+        dt.Columns.Add("Grank");
+        dt.Columns.Add("Ghit");
+        dt.Columns.Add("Gip");
+        dt.Columns.Add("Gdate");
+        dt.Columns.Add("Ggroup");
+        dt.Rows.Add("421", "2024051", "a,b,c", "2", "6", "3", "40", "50", "demo.zip", "zip", "/group/demo.zip", "321", "87", "120", "9", "true", "good", "1", "33", "10.0.0.8", "2024-05-03", "4");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapGroupWorkList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(421, result[0].Gid);
+        Assert.Equal("2024051", result[0].Gnum);
+        Assert.Equal("a,b,c", result[0].Gstudents);
+        Assert.Equal(2, result[0].Gterm);
+        Assert.Equal(6, result[0].Ggrade);
+        Assert.Equal(3, result[0].Gclass);
+        Assert.Equal(40, result[0].Gcid);
+        Assert.Equal(50, result[0].Gmid);
+        Assert.Equal("demo.zip", result[0].Gfilename);
+        Assert.Equal("zip", result[0].Gtype);
+        Assert.Equal("/group/demo.zip", result[0].Gurl);
+        Assert.Equal(321, result[0].Glengh);
+        Assert.Equal(87, result[0].Gscore);
+        Assert.Equal(120, result[0].Gtime);
+        Assert.Equal(9, result[0].Gvote);
+        Assert.True(result[0].Gcheck);
+        Assert.Equal("good", result[0].Gnote);
+        Assert.Equal(1, result[0].Grank);
+        Assert.Equal(33, result[0].Ghit);
+        Assert.Equal("10.0.0.8", result[0].Gip);
+        Assert.Equal(new DateTime(2024, 5, 3), result[0].Gdate);
+        Assert.Equal(4, result[0].Ggroup);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapJudgeArgList_MapsJudgeArgFieldsAndMissingThumbFallback()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Jid");
+        dt.Columns.Add("Jhid");
+        dt.Columns.Add("Jmid");
+        dt.Columns.Add("Jsleep");
+        dt.Columns.Add("Jinone");
+        dt.Columns.Add("Jintwo");
+        dt.Columns.Add("Jinthree");
+        dt.Columns.Add("Joutone");
+        dt.Columns.Add("Joutwo");
+        dt.Columns.Add("Jouthree");
+        dt.Columns.Add("Jright");
+        dt.Columns.Add("Jcode");
+        dt.Columns.Add("Jcid");
+        dt.Columns.Add("Jimg");
+        dt.Rows.Add("431", "5", "60", "1500", "1", "2", "3", "4", "5", "6", "false", "print(1)", "70", "judge.png");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapJudgeArgList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(431, result[0].Jid);
+        Assert.Equal(5, result[0].Jhid);
+        Assert.Equal(60, result[0].Jmid);
+        Assert.Equal(1500, result[0].Jsleep);
+        Assert.Equal("1", result[0].Jinone);
+        Assert.Equal("2", result[0].Jintwo);
+        Assert.Equal("3", result[0].Jinthree);
+        Assert.Equal("4", result[0].Joutone);
+        Assert.Equal("5", result[0].Joutwo);
+        Assert.Equal("6", result[0].Jouthree);
+        Assert.False(result[0].Jright);
+        Assert.Equal("print(1)", result[0].Jcode);
+        Assert.Equal(70, result[0].Jcid);
+        Assert.Equal("judge.png", result[0].Jimg);
+        Assert.Equal("", result[0].Jthumb);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapComputersList_MapsLegacyComputerFieldsOnly()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Pid");
+        dt.Columns.Add("Pip");
+        dt.Columns.Add("Pmachine");
+        dt.Columns.Add("Plock");
+        dt.Columns.Add("Pdate");
+        dt.Columns.Add("Px");
+        dt.Columns.Add("Py");
+        dt.Columns.Add("Pm");
+        dt.Rows.Add("441", "10.0.0.9", "pc-01", "1", "2024-05-04", "7", "8", "LabA");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapComputersList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(441, result[0].Pid);
+        Assert.Equal("10.0.0.9", result[0].Pip);
+        Assert.Equal("pc-01", result[0].Pmachine);
+        Assert.True(result[0].Plock);
+        Assert.Equal(new DateTime(2024, 5, 4), result[0].Pdate);
+        Assert.Equal(0, result[0].Px);
+        Assert.Equal(0, result[0].Py);
+        Assert.Null(result[0].Pm);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapProblemsList_MapsLegacyProblemFieldsOnly()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Pid");
+        dt.Columns.Add("Phid");
+        dt.Columns.Add("Pnid");
+        dt.Columns.Add("Ptitle");
+        dt.Columns.Add("Pcode");
+        dt.Columns.Add("Pouput");
+        dt.Columns.Add("Pscore");
+        dt.Columns.Add("Pdate");
+        dt.Columns.Add("Psort");
+        dt.Columns.Add("Pcid");
+        dt.Rows.Add("451", "5", "61", "title", "print(1)", "1", "10", "2024-05-05", "3", "88");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapProblemsList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(451, result[0].Pid);
+        Assert.Equal(5, result[0].Phid);
+        Assert.Equal(61, result[0].Pnid);
+        Assert.Equal("title", result[0].Ptitle);
+        Assert.Equal("print(1)", result[0].Pcode);
+        Assert.Equal("1", result[0].Pouput);
+        Assert.Equal(10, result[0].Pscore);
+        Assert.Equal(new DateTime(2024, 5, 5), result[0].Pdate);
+        Assert.Null(result[0].Psort);
+        Assert.Equal(0, result[0].Pcid);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapFlectionList_MapsFlectionFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Fid");
+        dt.Columns.Add("Fcid");
+        dt.Columns.Add("Fhid");
+        dt.Columns.Add("Fcontent");
+        dt.Columns.Add("Fdate");
+        dt.Rows.Add("461", "62", "6", "reflection text", "2024-05-06");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapFlectionList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(461, result[0].Fid);
+        Assert.Equal(62, result[0].Fcid);
+        Assert.Equal(6, result[0].Fhid);
+        Assert.Equal("reflection text", result[0].Fcontent);
+        Assert.Equal(new DateTime(2024, 5, 6), result[0].Fdate);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapPfingerList_MapsPfingerFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Pid");
+        dt.Columns.Add("Psnum");
+        dt.Columns.Add("Pspd");
+        dt.Columns.Add("Pyear");
+        dt.Columns.Add("Pmonth");
+        dt.Columns.Add("Pdate");
+        dt.Columns.Add("Pdegree");
+        dt.Columns.Add("Pgrade");
+        dt.Columns.Add("Pterm");
+        dt.Rows.Add("471", "2024071", "12.5", "2024", "5", "2024-05-07", "4", "6", "2");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapPfingerList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(471, result[0].Pid);
+        Assert.Equal("2024071", result[0].Psnum);
+        Assert.Equal(12.5m, result[0].Pspd);
+        Assert.Equal(2024, result[0].Pyear);
+        Assert.Equal(5, result[0].Pmonth);
+        Assert.Equal(new DateTime(2024, 5, 7), result[0].Pdate);
+        Assert.Equal(4, result[0].Pdegree);
+        Assert.Equal(6, result[0].Pgrade);
+        Assert.Equal(2, result[0].Pterm);
+        Assert.Equal(0, result[0].Psid);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapDelStudentsList_MapsDeletedStudentFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Did");
+        dt.Columns.Add("Dnum");
+        dt.Columns.Add("Dyear");
+        dt.Columns.Add("Dgrade");
+        dt.Columns.Add("Dclass");
+        dt.Columns.Add("Dname");
+        dt.Columns.Add("Dsex");
+        dt.Columns.Add("Daddress");
+        dt.Columns.Add("Dphone");
+        dt.Columns.Add("Dparents");
+        dt.Columns.Add("Dheadtheacher");
+        dt.Rows.Add("481", "2024081", "2024", "6", "1", "Tom", "M", "Addr", "123", "Parent", "Teacher");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapDelStudentsList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(481, result[0].Did);
+        Assert.Equal("2024081", result[0].Dnum);
+        Assert.Equal(2024, result[0].Dyear);
+        Assert.Equal(6, result[0].Dgrade);
+        Assert.Equal(1, result[0].Dclass);
+        Assert.Equal("Tom", result[0].Dname);
+        Assert.Equal("M", result[0].Dsex);
+        Assert.Equal("Addr", result[0].Daddress);
+        Assert.Equal("123", result[0].Dphone);
+        Assert.Equal("Parent", result[0].Dparents);
+        Assert.Equal("Teacher", result[0].Dheadtheacher);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapNotSignList_MapsNotSignFields()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Nid");
+        dt.Columns.Add("Nnum");
+        dt.Columns.Add("Ndate");
+        dt.Columns.Add("Nyear");
+        dt.Columns.Add("Nmonth");
+        dt.Columns.Add("Nday");
+        dt.Columns.Add("Nweek");
+        dt.Columns.Add("Nnote");
+        dt.Columns.Add("Ngrade");
+        dt.Columns.Add("Nterm");
+        dt.Rows.Add("491", "2024091", "2024-05-08", "2024", "5", "8", "Wed", "note", "6", "2");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapNotSignList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(491, result[0].Nid);
+        Assert.Equal("2024091", result[0].Nnum);
+        Assert.Equal(new DateTime(2024, 5, 8), result[0].Ndate);
+        Assert.Equal(2024, result[0].Nyear);
+        Assert.Equal(5, result[0].Nmonth);
+        Assert.Equal(8, result[0].Nday);
+        Assert.Equal("Wed", result[0].Nweek);
+        Assert.Equal("note", result[0].Nnote);
+        Assert.Equal(6, result[0].Ngrade);
+        Assert.Equal(2, result[0].Nterm);
+    }
+
+    [Fact]
+    public void BllDataTableMappers_MapPtyperList_PreservesLegacyPdegreeOverwriteBug()
+    {
+        DataTable dt = new DataTable();
+        dt.Columns.Add("Pid");
+        dt.Columns.Add("Ptid");
+        dt.Columns.Add("Psnum");
+        dt.Columns.Add("Pscore");
+        dt.Columns.Add("Pdate");
+        dt.Columns.Add("Pip");
+        dt.Columns.Add("Ptype");
+        dt.Columns.Add("Pdegree");
+        dt.Columns.Add("Pgrade");
+        dt.Columns.Add("Pterm");
+        dt.Rows.Add("501", "81", "2024101", "99", "2024-05-09", "10.0.0.10", "3", "7", "6", "2");
+
+        var result = LearnSite.BLL.BllDataTableMappers.MapPtyperList(dt);
+
+        Assert.Single(result);
+        Assert.Equal(501, result[0].Pid);
+        Assert.Equal(81, result[0].Ptid);
+        Assert.Equal("2024101", result[0].Psnum);
+        Assert.Equal(99, result[0].Pscore);
+        Assert.Equal(new DateTime(2024, 5, 9), result[0].Pdate);
+        Assert.Equal("10.0.0.10", result[0].Pip);
+        Assert.Equal(7, result[0].Ptype);
+        Assert.Null(result[0].Pdegree);
+        Assert.Equal(6, result[0].Pgrade);
+        Assert.Equal(2, result[0].Pterm);
+        Assert.Equal(0, result[0].Psid);
+    }
 }

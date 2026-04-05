@@ -27,15 +27,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Topic Discussion</div>
                     <h1 class="admin-form-title">主题讨论详情</h1>
-                    <p class="admin-form-subtitle">查看讨论主题、发布时间和学案编号，并可切换讨论开关或进入编辑页面。</p>
+                    <p class="admin-form-subtitle">预览当前讨论主题、发布时间、状态和正文内容。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">主题信息</h2>
-                        <p class="admin-form-section-desc">当前主题讨论的名称、日期和状态展示如下。</p>
+                        <h2 class="admin-form-section-title">主题预览</h2>
+                        <p class="admin-form-section-desc">当前主题讨论的名称、日期和状态如下。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="Btnclock" runat="server" Text="讨论状态"

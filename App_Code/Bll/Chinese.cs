@@ -135,21 +135,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Chinese> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Chinese> modelList = new List<LearnSite.Model.Chinese>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Chinese model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapChineseList(dt);
 		}
 
 		/// <summary>
@@ -188,4 +174,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

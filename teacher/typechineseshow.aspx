@@ -22,7 +22,7 @@
                 <div class="typing-admin-hero-content">
                     <div class="typing-admin-eyebrow">Pinyin Practice</div>
                     <h1 class="typing-admin-title">拼音词语详情</h1>
-                    <p class="typing-admin-subtitle">查看拼音词语原文，并直接跳转到编辑页面继续维护。</p>
+                    <p class="typing-admin-subtitle">查看当前拼音词语原文与展示效果。</p>
                 </div>
             </section>
 

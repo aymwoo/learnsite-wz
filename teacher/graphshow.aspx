@@ -27,15 +27,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Flowchart Activity</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看流程图活动内容、发布状态、作品类型、示例文件和评价标准。</p>
+                    <p class="admin-form-subtitle">预览当前流程图活动内容、发布状态、作品类型和示例文件。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">活动信息</h2>
-                        <p class="admin-form-section-desc">这里展示当前流程图活动的基础属性与相关资源。</p>
+                        <h2 class="admin-form-section-title">活动预览</h2>
+                        <p class="admin-form-section-desc">这里显示当前流程图活动的基础属性与相关资源。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"

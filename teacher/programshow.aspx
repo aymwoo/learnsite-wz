@@ -35,15 +35,15 @@
                 <div class="admin-form-hero-content">
                     <div class="admin-form-eyebrow">Program Mission</div>
                     <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
-                    <p class="admin-form-subtitle">查看编程活动内容、作品继承设置、发布状态和评价标准。</p>
+                    <p class="admin-form-subtitle">预览当前编程活动内容、作品继承状态和示例资源。</p>
                 </div>
             </section>
 
             <section class="admin-form-panel">
                 <div class="admin-form-toolbar">
                     <div>
-                        <h2 class="admin-form-section-title">主题设置</h2>
-                        <p class="admin-form-section-desc">保留原有发布状态、作品继承、实例下载和评价标准入口。</p>
+                        <h2 class="admin-form-section-title">主题预览</h2>
+                        <p class="admin-form-section-desc">这里显示发布状态、作品继承、实例下载和评价标准入口。</p>
                     </div>
                     <div class="admin-form-action-row">
                         <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
@@ -70,7 +70,7 @@
 
             <section class="admin-form-panel">
                 <h2 class="admin-form-section-title">活动说明</h2>
-                <p class="admin-form-section-desc">正文内容仍由后台直接渲染，仅优化展示区版式和可读性。</p>
+                <p class="admin-form-section-desc">以下为当前编程活动说明内容。</p>
                 <div id="Mcontent" class="mission-show-content" runat="server"></div>
             </section>
 

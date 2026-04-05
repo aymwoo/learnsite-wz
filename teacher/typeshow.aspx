@@ -22,7 +22,7 @@
                 <div class="typing-admin-hero-content">
                     <div class="typing-admin-eyebrow">Typing Practice</div>
                     <h1 class="typing-admin-title">打字文章详情</h1>
-                    <p class="typing-admin-subtitle">查看文章正文、类型和用途信息，并可直接进入编辑页面。</p>
+                    <p class="typing-admin-subtitle">查看当前打字文章正文、类型和用途信息。</p>
                 </div>
             </section>
 

@@ -143,62 +143,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.SurveyClass> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.SurveyClass> modelList = new List<LearnSite.Model.SurveyClass>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.SurveyClass model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.SurveyClass();
-					if(dt.Rows[n]["Yid"]!=null && dt.Rows[n]["Yid"].ToString()!="")
-					{
-						model.Yid=int.Parse(dt.Rows[n]["Yid"].ToString());
-					}
-					if(dt.Rows[n]["Yyear"]!=null && dt.Rows[n]["Yyear"].ToString()!="")
-					{
-						model.Yyear=int.Parse(dt.Rows[n]["Yyear"].ToString());
-					}
-					if(dt.Rows[n]["Ygrade"]!=null && dt.Rows[n]["Ygrade"].ToString()!="")
-					{
-						model.Ygrade=int.Parse(dt.Rows[n]["Ygrade"].ToString());
-					}
-					if(dt.Rows[n]["Yclass"]!=null && dt.Rows[n]["Yclass"].ToString()!="")
-					{
-						model.Yclass=int.Parse(dt.Rows[n]["Yclass"].ToString());
-					}
-					if(dt.Rows[n]["Yterm"]!=null && dt.Rows[n]["Yterm"].ToString()!="")
-					{
-						model.Yterm=int.Parse(dt.Rows[n]["Yterm"].ToString());
-					}
-					if(dt.Rows[n]["Ycid"]!=null && dt.Rows[n]["Ycid"].ToString()!="")
-					{
-						model.Ycid=int.Parse(dt.Rows[n]["Ycid"].ToString());
-					}
-					if(dt.Rows[n]["Yvid"]!=null && dt.Rows[n]["Yvid"].ToString()!="")
-					{
-						model.Yvid=int.Parse(dt.Rows[n]["Yvid"].ToString());
-					}
-					if(dt.Rows[n]["Yselect"]!=null && dt.Rows[n]["Yselect"].ToString()!="")
-					{
-					model.Yselect=dt.Rows[n]["Yselect"].ToString();
-					}
-					if(dt.Rows[n]["Ycount"]!=null && dt.Rows[n]["Ycount"].ToString()!="")
-					{
-					model.Ycount=dt.Rows[n]["Ycount"].ToString();
-					}
-					if(dt.Rows[n]["Yscore"]!=null && dt.Rows[n]["Yscore"].ToString()!="")
-					{
-						model.Yscore=int.Parse(dt.Rows[n]["Yscore"].ToString());
-					}
-					if(dt.Rows[n]["Ydate"]!=null && dt.Rows[n]["Ydate"].ToString()!="")
-					{
-						model.Ydate=DateTime.Parse(dt.Rows[n]["Ydate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSurveyClassList(dt);
 		}
 
 		/// <summary>
@@ -234,4 +179,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

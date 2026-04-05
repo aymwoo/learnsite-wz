@@ -158,38 +158,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.GaugeItem> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.GaugeItem> modelList = new List<LearnSite.Model.GaugeItem>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.GaugeItem model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.GaugeItem();
-					if(dt.Rows[n]["Mid"]!=null && dt.Rows[n]["Mid"].ToString()!="")
-					{
-						model.Mid=int.Parse(dt.Rows[n]["Mid"].ToString());
-					}
-					if(dt.Rows[n]["Mgid"]!=null && dt.Rows[n]["Mgid"].ToString()!="")
-					{
-						model.Mgid=int.Parse(dt.Rows[n]["Mgid"].ToString());
-					}
-					if(dt.Rows[n]["Mitem"]!=null && dt.Rows[n]["Mitem"].ToString()!="")
-					{
-					model.Mitem=dt.Rows[n]["Mitem"].ToString();
-					}
-					if(dt.Rows[n]["Mscore"]!=null && dt.Rows[n]["Mscore"].ToString()!="")
-					{
-						model.Mscore=int.Parse(dt.Rows[n]["Mscore"].ToString());
-					}
-					if(dt.Rows[n]["Msort"]!=null && dt.Rows[n]["Msort"].ToString()!="")
-					{
-						model.Msort=int.Parse(dt.Rows[n]["Msort"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapGaugeItemList(dt);
 		}
 
 		/// <summary>
@@ -229,4 +198,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-
