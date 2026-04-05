@@ -1,9 +1,10 @@
-<%@ Page Title="" Language="C#" EnableEventValidation = "false" StylesheetTheme="Teacher" AutoEventWireup="true"
+<%@ Page Title="" Language="C#" ResponseEncoding="utf-8" EnableEventValidation = "false" StylesheetTheme="Teacher" AutoEventWireup="true"
     CodeFile="coursetotal.aspx.cs" Inherits="Teacher_coursetotal" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title></title>
 
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
