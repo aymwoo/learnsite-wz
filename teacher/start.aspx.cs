@@ -104,12 +104,7 @@ public partial class Teacher_start : System.Web.UI.Page
             TBpwd.ToolTip = "个人模式：学生使用个人密码登录";
         }
 
-        /*
-        if (LearnSite.Common.XmlHelp.GetSingleLogin())//如果是单点登录
-        {
-            BtnaAllQuit.Visible = true;
-        }
-         */
+        BtnaAllQuit.Visible = true;
 
     }
 

@@ -21,6 +21,17 @@
     var lastActivity = Date.now();
     var heartbeatTimer = null;
     var idleTimer = null;
+    var hasKicked = false;
+
+    function handleKick() {
+        if (hasKicked) return;
+        hasKicked = true;
+        try {
+            clearInterval(heartbeatTimer);
+            clearTimeout(idleTimer);
+        } catch (e) { }
+        window.location.href = "../student/myinfo.aspx?action=logout&kick=1";
+    }
 
     /**
      * 发送状态数据到服务器
@@ -43,6 +54,16 @@
             xhr.open("POST", reportUrl, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.timeout = 5000;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    try {
+                        var data = JSON.parse(xhr.responseText || "{}");
+                        if (data && data.kick) {
+                            handleKick();
+                        }
+                    } catch (ex) { }
+                }
+            };
             xhr.send(formData);
         } catch (e) {
             // 静默失败，不影响学生正常使用

@@ -59,6 +59,12 @@ public class learnstatus : IHttpHandler
             return;
         }
 
+        if (LearnSite.Common.App.Iskick(snum))
+        {
+            context.Response.Write("{\"ok\":true,\"kick\":true}");
+            return;
+        }
+
         LearnSite.Common.LearnStatus.UpdateStatus(
             snum,
             HttpUtility.UrlDecode(sname),
@@ -72,7 +78,7 @@ public class learnstatus : IHttpHandler
             int.Parse(sid)
         );
 
-        context.Response.Write("{\"ok\":true}");
+        context.Response.Write("{\"ok\":true,\"kick\":false}");
     }
 
     private void HandleRemove(HttpContext context)
@@ -101,6 +107,12 @@ public class learnstatus : IHttpHandler
 
         if (!string.IsNullOrEmpty(snum))
         {
+            if (LearnSite.Common.App.Iskick(snum))
+            {
+                context.Response.Write("{\"ok\":true,\"kick\":true}");
+                return;
+            }
+
             LearnSite.Common.LearnStatus.UpdateStatus(
                 snum,
                 HttpUtility.UrlDecode(sname),
@@ -115,7 +127,7 @@ public class learnstatus : IHttpHandler
             );
         }
 
-        context.Response.Write("{\"ok\":true}");
+        context.Response.Write("{\"ok\":true,\"kick\":false}");
     }
 
     public bool IsReusable

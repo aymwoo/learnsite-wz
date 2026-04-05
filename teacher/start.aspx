@@ -300,6 +300,12 @@
             box-shadow: none;
         }
 
+        .lesson-btn--danger {
+            color: #ffffff;
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 6px 16px rgba(220, 38, 38, 0.22);
+        }
+
         .lesson-link {
             color: #14532d;
             background: #f0fdf4;
@@ -1458,7 +1464,7 @@
                     </div>
                     <div class="lesson-card__body">
                         <div class="lesson-footer">
-                            <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" SkinID="BtnSmall" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn" />
+                            <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn lesson-btn--danger" />
                             <div class="lesson-footer__meta">
                                 <span>该操作会让当前上课班级学生全部退出登录，建议仅在下课时使用。</span>
                             </div>
