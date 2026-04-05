@@ -107,7 +107,7 @@ public partial class Teacher_circlegroups : System.Web.UI.Page
             gbll.UpdateGscore(Int32.Parse(gid), Int32.Parse(score), sgrade, Int32.Parse(term));
         }
     }
-    protected void ImgBtnright_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnright_Click(object sender, EventArgs e)
     {
         int groupcount = DLgroups.Items.Count;
         int pos = Int32.Parse(Labelpos.Text);
@@ -117,7 +117,7 @@ public partial class Teacher_circlegroups : System.Web.UI.Page
         Labelpos.Text = pos.ToString();
         showGroupWork();
     }
-    protected void ImgBtnLeft_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnLeft_Click(object sender, EventArgs e)
     {
         int pos = Int32.Parse(Labelpos.Text);
         pos--;
@@ -129,7 +129,7 @@ public partial class Teacher_circlegroups : System.Web.UI.Page
         Labelpos.Text = pos.ToString();
         showGroupWork();
     }
-    protected void ImgBtnrefresh_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnrefresh_Click(object sender, EventArgs e)
     {
         int groupcount = DLgroups.Items.Count;
         int pos = Int32.Parse(Labelpos.Text);

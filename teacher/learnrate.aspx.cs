@@ -129,7 +129,7 @@ public partial class teacher_learnrate : System.Web.UI.Page
             e.Row.Attributes.Add("onclick", "this.style.backgroundColor='#D8E0D8'; this.style.color='buttontext';this.style.cursor='default';");
         }
     }
-    protected void Btnreflash_Click(object sender, ImageClickEventArgs e)
+    protected void Btnreflash_Click(object sender, EventArgs e)
     {
         showrate();
     }

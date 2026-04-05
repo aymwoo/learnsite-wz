@@ -313,8 +313,8 @@
 
         <section class="admin-form-actions">
             <div class="admin-form-action-row">
-                <asp:Button ID="Btnadd" runat="server"  Text="添加主题" OnClick="Btnadd_Click" CssClass="admin-form-btn admin-form-btn--primary" />
-                <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                <asp:Button ID="Btnadd" runat="server"  Text="添加课件" OnClick="Btnadd_Click" CssClass="admin-form-btn admin-form-btn--primary" />
+                <asp:Button ID="BtnCourse" runat="server"  Text="返回学案" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
             </div>
         </section>
     </div>

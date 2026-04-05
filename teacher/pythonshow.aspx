@@ -47,7 +47,7 @@
                         <p class="admin-form-section-desc">保留自动批改入口、发布状态、模式切换和示例文件链接。</p>
                     </div>
                     <div class="admin-form-action-row">
-                        <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
+                        <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
                         <asp:Button ID="BtnReturnSmall" runat="server" Text="返回学案" ToolTip="返回" OnClick="BtnReturnSmall_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
                     </div>
                 </div>

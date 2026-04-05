@@ -413,14 +413,14 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="False">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
-                                            CommandName="Edit" ImageUrl="~/images/e.gif" Text="编辑" />
+                                        <asp:Button ID="ImageButton1" runat="server" CausesValidation="False"
+                                            CommandName="Edit" Text="编辑" CssClass="cate-inline-btn" />
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="True"
-                                            CommandName="Update" ImageUrl="~/images/u.gif" Text="更新" />
-                                        <asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False"
-                                            CommandName="Cancel" ImageUrl="~/images/c.gif" Text="取消" />
+                                        <asp:Button ID="ImageButton1" runat="server" CausesValidation="True"
+                                            CommandName="Update" Text="更新" CssClass="cate-inline-btn" />
+                                        <asp:Button ID="ImageButton2" runat="server" CausesValidation="False"
+                                            CommandName="Cancel" Text="取消" CssClass="cate-inline-btn" />
                                     </EditItemTemplate>
                                     <ItemStyle CssClass="cate-cell--edit" />
                                 </asp:TemplateField>

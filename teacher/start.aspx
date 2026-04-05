@@ -404,6 +404,19 @@
             vertical-align: top;
         }
 
+        .lesson-menu-card {
+            width: 100%;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            text-align: center;
+        }
+
         .lesson-menu-button {
             width: 48px;
             height: 48px;
@@ -411,12 +424,74 @@
             border-radius: 0.5rem;
             border: 1px solid #dbeafe;
             background: #eff6ff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        .lesson-menu-card:hover .lesson-menu-button {
+            transform: translateY(-1px);
+            border-color: #93c5fd;
+            box-shadow: 0 10px 22px rgba(37, 99, 235, 0.16);
         }
 
         .lesson-menu-button img {
             width: 100%;
             height: 100%;
             object-fit: contain;
+        }
+
+        .lesson-menu-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+        }
+
+        .lesson-menu-status {
+            display: inline-flex;
+            align-items: center;
+            min-height: 22px;
+            padding: 0 8px;
+            border-radius: 9999px;
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .lesson-menu-status--on {
+            background: #ffedd5;
+            color: #c2410c;
+        }
+
+        .lesson-quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lesson-quick-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 0 14px;
+            border-radius: 9999px;
+            border: 1px solid #fed7aa;
+            background: #fff7ed;
+            color: #c2410c;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.18s ease, background-color 0.18s ease;
+        }
+
+        .lesson-quick-btn:hover {
+            transform: translateY(-1px);
+            background: #ffedd5;
         }
 
         .lesson-switch {
@@ -1236,13 +1311,26 @@
                     <div class="lesson-card__head">
                         <div>
                             <h2 class="lesson-card__title">学案活动开关</h2>
+                            <p class="lesson-card__desc">可逐项切换当前学案活动，也可使用快捷按钮一次全部打开或关闭。</p>
+                        </div>
+                        <div class="lesson-quick-actions">
+                            <asp:Button ID="BtnMenuOpenAll" runat="server" Text="全部开启" OnClick="BtnMenuOpenAll_Click" CssClass="lesson-quick-btn" />
+                            <asp:Button ID="BtnMenuCloseAll" runat="server" Text="全部关闭" OnClick="BtnMenuCloseAll_Click" CssClass="lesson-quick-btn" />
                         </div>
                     </div>
                     <div class="lesson-card__body">
                         <asp:DataList ID="DataListMenu" runat="server" CssClass="lesson-menu-list" RepeatLayout="Flow" RepeatDirection="Horizontal" DataKeyField="Lid" onitemdatabound="DataListMenu_ItemDataBound" onitemcommand="DataListMenu_ItemCommand">
                             <ItemTemplate>
                                 <div class="lesson-menu-item">
-                                    <asp:ImageButton ID="imgBtn" runat="server" CssClass="lesson-menu-button" ImageUrl='<%# Eval("Limgurl") %>' CommandArgument="Lid" CommandName="P" />
+                                    <asp:LinkButton ID="imgBtn" runat="server" CssClass="lesson-menu-card" CommandArgument='<%# Eval("Lid") %>' CommandName="P">
+                                        <span class="lesson-menu-button">
+                                            <asp:Image ID="ImageMenuIcon" runat="server" ImageUrl='<%# Eval("Limgurl") %>' AlternateText='<%# Eval("Ltitle") %>' />
+                                        </span>
+                                        <span class="lesson-menu-meta">
+                                            <span id="MenuStatus" runat="server" class="lesson-menu-status">已隐藏</span>
+                                            <span>点击切换</span>
+                                        </span>
+                                    </asp:LinkButton>
                                     <asp:Label ID="lableTitle" runat="server" CssClass="lesson-menu-title" Text='<%# Eval("Ltitle") %>'></asp:Label>
                                     <asp:CheckBox ID="CheckBoxShow" Checked='<%# Eval("Lshow") %>' runat="server" Visible="false" />
                                     <asp:LinkButton ID="BtnSwitchToggle" runat="server" CommandName="P" CommandArgument='<%# Eval("Lid") %>' CssClass='<%# Convert.ToBoolean(Eval("Lshow")) ? "lesson-switch lesson-switch--on" : "lesson-switch" %>'>
@@ -1330,7 +1418,7 @@
                                             <div class="doneksdiv">
                                                 <div><asp:HyperLink ID="ks" runat="server" Text='<%# Eval("Cks") %>' ToolTip='<%# Eval("Ctitle") %>' CssClass="newkc"></asp:HyperLink></div>
                                                 <div class="lesson-course-note"><asp:CheckBox ID="Ck" runat="server" Checked='<%# Eval("Cpublish") %>' Enabled="False" /></div>
-                                                <div style="margin-top: 4px;"><asp:ImageButton runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" ImageUrl="~/images/cardsmall.gif" /></div>
+                                                <div style="margin-top: 4px;"><asp:Button runat="server" ID="PubSet" CssClass="lesson-publish-toggle" CommandArgument="Cid" CommandName="P" Text="发布状态" /></div>
                                             </div>
                                         </ItemTemplate>
                                     </asp:DataList>
@@ -1421,7 +1509,7 @@
                             </div>
                             <div class="lesson-room-tools">
                                 <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank" CssClass="lesson-link">座位表</asp:HyperLink>
-                                <asp:ImageButton ID="Btnrefresh" runat="server" onclick="Btnrefresh_Click" Enabled="False" ImageUrl="~/images/refresh.gif" CssClass="lesson-refresh" />
+                                <asp:Button ID="Btnrefresh" runat="server" Text="刷新座位" OnClick="Btnrefresh_Click" Enabled="False" CssClass="lesson-refresh" />
                                 <asp:HyperLink ID="HylkDiskstu" runat="server" ImageUrl="~/images/disksmallstu.gif" Target="_blank" ToolTip="查看学生网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
                                 <asp:HyperLink ID="HylkDiskGroup" runat="server" ImageUrl="~/images/disksmall.gif" Target="_blank" ToolTip="查看小组网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
                             </div>

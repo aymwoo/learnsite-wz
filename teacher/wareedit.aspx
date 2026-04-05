@@ -292,8 +292,8 @@
 
         <section class="admin-form-actions">
             <div class="admin-form-action-row">
-                <asp:Button ID="Btnedit" runat="server"  Text="修改主题" OnClick="Btnedit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
-                <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                <asp:Button ID="Btnedit" runat="server"  Text="保存修改" OnClick="Btnedit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
+                <asp:Button ID="BtnCourse" runat="server"  Text="返回学案" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
             </div>
         </section>
     </div>

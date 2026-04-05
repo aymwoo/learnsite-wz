@@ -38,9 +38,9 @@
                         <p class="admin-form-section-desc">当前主题讨论的名称、日期和状态展示如下。</p>
                     </div>
                     <div class="admin-form-action-row">
-                        <asp:ImageButton ID="Btnclock" runat="server" ImageUrl="~/images/clock.gif"
-                            onclick="Btnclock_Click" />
-                        <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                        <asp:Button ID="Btnclock" runat="server" Text="讨论状态"
+                            OnClick="Btnclock_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                        <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
                             OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
                     </div>
                 </div>
@@ -69,7 +69,7 @@
 
             <section class="admin-form-actions">
                 <div class="admin-form-action-row">
-                    <asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                    <asp:Button ID="Btnreturn" runat="server" Text="返回学案" OnClick="Btnreturn_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
                 </div>
             </section>
         </div>

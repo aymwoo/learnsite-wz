@@ -77,6 +77,12 @@
             cursor: pointer;
         }
 
+        .group-btn--secondary {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
         .group-select {
             min-height: 2.5rem;
             padding: 0 0.85rem;
@@ -114,7 +120,7 @@
             </asp:DataList>
             <br />
             <asp:Label ID="Labelgid" runat="server" Visible="False"></asp:Label>
-            <asp:ImageButton ID="ImgBtnrefresh" runat="server" ImageUrl="~/images/b.gif" onclick="ImgBtnrefresh_Click" />
+            <asp:Button ID="ImgBtnrefresh" runat="server" Text="轮播下一组" OnClick="ImgBtnrefresh_Click" CssClass="group-btn group-btn--secondary" />
             <asp:Label ID="Labelpos" runat="server" Text="0" Visible="False"></asp:Label>
             <asp:Label ID="Labellastpos" runat="server" Text="0" Visible="False"></asp:Label>
             <br />
@@ -136,9 +142,9 @@
             </asp:DropDownList>
             <br />
             <br />
-            <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" onclick="ImgBtnLeft_Click" Width="16px" />
+            <asp:Button ID="ImgBtnLeft" runat="server" Text="上一组" OnClick="ImgBtnLeft_Click" CssClass="group-btn group-btn--secondary" />
             &nbsp;<asp:Button ID="BtnCicle" runat="server" onclick="BtnCicle_Click" Text="播放" CssClass="group-btn" />
-            &nbsp;<asp:ImageButton ID="ImgBtnright" runat="server" ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
+            &nbsp;<asp:Button ID="ImgBtnright" runat="server" Text="下一组" OnClick="ImgBtnright_Click" CssClass="group-btn group-btn--secondary" />
             <script type ="text/javascript" >
                 function myrefresh() {
                     var stxt = document.getElementById("<%= BtnCicle.ClientID %>").value;

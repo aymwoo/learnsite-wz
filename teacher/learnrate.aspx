@@ -244,7 +244,7 @@
                 </div>
             </div>
 
-            <asp:ImageButton ID="Btnreflash" runat="server" ImageUrl="~/images/none.gif" OnClick="Btnreflash_Click" Style="display:none;" />
+            <asp:Button ID="Btnreflash" runat="server" Text="刷新" OnClick="Btnreflash_Click" Style="display:none;" />
         </div>
     </div>
 

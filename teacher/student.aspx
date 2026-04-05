@@ -107,6 +107,27 @@
         .stu-btn--danger:hover { background: #fecaca; }
         .stu-btn--blue { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,0.2); }
 
+        .stu-mini-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0 8px;
+            border-radius: 0.45rem;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .stu-mini-btn:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+            color: #4338ca;
+        }
+
         .stu-add-link {
             display: inline-flex; align-items: center; gap: 6px;
             min-height: 40px; padding: 0 18px; border-radius: 0.375rem;
@@ -205,9 +226,9 @@
                                     <asp:Label ID="Labelpwd" runat="server" Text="******" ToolTip='<%# Eval("Spwd") %>'></asp:Label>
                                 </div>
                                 <div class="stu-list-cell">
-                                    <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                    <asp:Button ID="ImageButton1" runat="server" CausesValidation="False"
                                         CommandArgument='<%# Eval("Sid") %>' CommandName="ChangePwd"
-                                        ImageUrl="~/images/refresh.gif" ToolTip="自动更新密码" />
+                                        Text="重置" ToolTip="自动更新密码" CssClass="stu-mini-btn" />
                                 </div>
                                 <div class="stu-list-cell"><%# Eval("Sgrade") %></div>
                                 <div class="stu-list-cell" style="font-weight:600;"><%# Eval("Sclass") %></div>
@@ -216,9 +237,9 @@
                                 </div>
                                 <div class="stu-list-cell"><%# Eval("Sex") %></div>
                                 <div class="stu-list-cell">
-                                    <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False"
+                                    <asp:Button ID="ImageBtnGroup" runat="server" CausesValidation="False"
                                         CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup"
-                                        ImageUrl="~/images/gcard.gif" />
+                                        Text="分组" CssClass="stu-mini-btn" />
                                 </div>
                                 <div class="stu-list-cell">
                                     <asp:LinkButton ID="LinkBtnQuit" runat="server" CausesValidation="false"

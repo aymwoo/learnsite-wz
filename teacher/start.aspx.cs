@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Web.UI.HtmlControls;
 public partial class Teacher_start : System.Web.UI.Page
 {
     LearnSite.Model.TeaCook tcook = new LearnSite.Model.TeaCook();
@@ -581,7 +582,7 @@ public partial class Teacher_start : System.Web.UI.Page
         bool ropen = CheckBoxOpen.Checked;
         rm.UpdateRopen(Rgrade, Rclass, ropen);
     }
-    protected void Btnrefresh_Click(object sender, ImageClickEventArgs e)
+    protected void Btnrefresh_Click(object sender, EventArgs e)
     {
         if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
         {
@@ -844,23 +845,38 @@ public partial class Teacher_start : System.Web.UI.Page
 
     protected void DataListMenu_ItemDataBound(object sender, DataListItemEventArgs e)
     {
+        if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+        {
+            return;
+        }
         CheckBox cb = new CheckBox();
         cb = (CheckBox)e.Item.FindControl("CheckBoxShow");
-        ImageButton imgbtn = new ImageButton();
-        imgbtn = (ImageButton)e.Item.FindControl("imgBtn");
+        LinkButton imgbtn = new LinkButton();
+        imgbtn = (LinkButton)e.Item.FindControl("imgBtn");
         Label lt = new Label();
         lt = (Label)e.Item.FindControl("lableTitle");
+        HtmlGenericControl menuStatus = (HtmlGenericControl)e.Item.FindControl("MenuStatus");
         if (cb.Checked)
         {
             imgbtn.ToolTip = "点击隐藏";
             lt.ToolTip = "已发布";
             lt.ForeColor = System.Drawing.Color.Black;
+            if (menuStatus != null)
+            {
+                menuStatus.InnerText = "已打开";
+                menuStatus.Attributes["class"] = "lesson-menu-status lesson-menu-status--on";
+            }
         }
         else
         {
             imgbtn.ToolTip = "点击发布";
             lt.ToolTip = "已隐藏";
             lt.ForeColor = System.Drawing.Color.Gainsboro;
+            if (menuStatus != null)
+            {
+                menuStatus.InnerText = "已关闭";
+                menuStatus.Attributes["class"] = "lesson-menu-status";
+            }
         }
     }
     protected void DataListMenu_ItemCommand(object source, DataListCommandEventArgs e)
@@ -873,6 +889,43 @@ public partial class Teacher_start : System.Web.UI.Page
             System.Threading.Thread.Sleep(200);
             showMenu();
         }
+    }
+    protected void BtnMenuOpenAll_Click(object sender, EventArgs e)
+    {
+        BatchSetCurrentCourseMenuVisibility(true);
+    }
+    protected void BtnMenuCloseAll_Click(object sender, EventArgs e)
+    {
+        BatchSetCurrentCourseMenuVisibility(false);
+    }
+    private void BatchSetCurrentCourseMenuVisibility(bool isOpen)
+    {
+        string cid = DDLCid.SelectedValue;
+        if (String.IsNullOrEmpty(cid))
+        {
+            return;
+        }
+        LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
+        System.Data.DataTable dt = lbll.GetMenu(Int32.Parse(cid)).Tables[0];
+        int count = dt.Rows.Count;
+        for (int i = 0; i < count; i++)
+        {
+            int lid = Convert.ToInt32(dt.Rows[i]["Lid"]);
+            bool currentShow = Convert.ToBoolean(dt.Rows[i]["Lshow"]);
+            if (currentShow != isOpen)
+            {
+                if (isOpen)
+                {
+                    lbll.OpenLshow(lid);
+                }
+                else
+                {
+                    lbll.CloseLshow(lid);
+                }
+            }
+        }
+        System.Threading.Thread.Sleep(200);
+        showMenu();
     }
     protected void CheckBoxPass_CheckedChanged(object sender, EventArgs e)
     {

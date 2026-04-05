@@ -43,10 +43,10 @@
                         <p class="admin-form-section-desc">这里展示当前测评日期，并提供编辑和启停控制。</p>
                     </div>
                     <div class="admin-form-action-row">
-                        <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                        <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
                             OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
-                        <asp:ImageButton ID="Btnclock" runat="server" ImageUrl="~/images/clock.gif"
-                            onclick="Btnclock_Click" ToolTip="测评启用或停止" />
+                        <asp:Button ID="Btnclock" runat="server" Text="测评状态"
+                            OnClick="Btnclock_Click" ToolTip="测评启用或停止" CssClass="admin-form-btn admin-form-btn--secondary" />
                     </div>
                 </div>
                 <div class="admin-form-kv">

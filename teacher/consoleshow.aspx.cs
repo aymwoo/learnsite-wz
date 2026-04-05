@@ -39,11 +39,15 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
             bool isBegin = nmodel.Nbegin;
             if (!isBegin)
             {
-                Btnclock.ImageUrl = "~/images/clockred.gif" + "?temp=" + DateTime.Now.Millisecond.ToString();
+                Btnclock.Text = "已暂停";
+                Btnclock.ToolTip = "点击启用测评";
+                Btnclock.CssClass = "admin-form-btn admin-form-btn--secondary";
             }
             else
             {
-                Btnclock.ImageUrl = "~/images/clock.gif" + "?temp=" + DateTime.Now.Millisecond.ToString();
+                Btnclock.Text = "已启用";
+                Btnclock.ToolTip = "点击暂停测评";
+                Btnclock.CssClass = "admin-form-btn admin-form-btn--primary";
             }
         }
     }
@@ -165,7 +169,7 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
         }
     }
 
-    protected void Btnclock_Click(object sender, ImageClickEventArgs e)
+    protected void Btnclock_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["nid"] != null)
         {

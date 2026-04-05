@@ -43,13 +43,15 @@ public partial class Teacher_topicshow : System.Web.UI.Page
             bool isClose = model.Tclose;
             if (isClose)
             {
-                Btnclock.ImageUrl = "~/images/clockred.gif" + "?temp=" + DateTime.Now.Millisecond.ToString();
-                Btnclock.ToolTip = "讨论暂停！";
+                Btnclock.Text = "已暂停";
+                Btnclock.ToolTip = "点击开启讨论";
+                Btnclock.CssClass = "admin-form-btn admin-form-btn--secondary";
             }
             else
             {
-                Btnclock.ImageUrl = "~/images/clock.gif" + "?temp=" + DateTime.Now.Millisecond.ToString();
-                Btnclock.ToolTip = "讨论开启！";
+                Btnclock.Text = "已开启";
+                Btnclock.ToolTip = "点击暂停讨论";
+                Btnclock.CssClass = "admin-form-btn admin-form-btn--primary";
             }
             Tcontent.InnerHtml = HttpUtility.HtmlDecode(model.Tcontent);
         }
@@ -59,7 +61,7 @@ public partial class Teacher_topicshow : System.Web.UI.Page
         string url = "~/teacher/topicedit.aspx?tcid=" + LabelMcid.Text + "&tid=" + Labeltid.Text;
         Response.Redirect(url, false);
     }
-    protected void Btnclock_Click(object sender, ImageClickEventArgs e)
+    protected void Btnclock_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["tid"] != null)
         {

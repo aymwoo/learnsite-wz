@@ -14,7 +14,7 @@
     更新日期：<asp:Label ID="Labeldate" runat="server"  ></asp:Label>
     学分：<asp:Label ID="Labelopen" runat="server"  ></asp:Label>
             &nbsp;
-            <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+            <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
             OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
         &nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="BtnReturnSmall" runat="server" Text="返回列表" ToolTip="返回"
             OnClick="BtnReturnSmall_Click" CssClass="admin-form-btn admin-form-btn--secondary" />

@@ -33,7 +33,7 @@
                     <div class="typing-admin-detail-header">
                         <div class="typing-admin-toolbar">
                             <h2 class="typing-admin-detail-title"><%# Eval("Ntitle") %></h2>
-                            <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                            <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
                                 OnClick="BtnEdit_Click" CssClass="typing-admin-btn typing-admin-btn--primary" />
                         </div>
                     </div>

@@ -88,6 +88,20 @@
             box-shadow: none;
         }
 
+        .circle-btn--ghost {
+            background: #ffffff;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            box-shadow: none;
+        }
+
+        .circle-btn--danger {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            box-shadow: none;
+        }
+
         .circle-select,
         .circle-input {
             min-height: 2.5rem;
@@ -130,11 +144,11 @@
                     <asp:Button ID="Btnflash" runat="server" Text="刷新" onclick="Btnflash_Click" Width="40px" CssClass="circle-btn" />
                     <asp:Button ID="Btnrestart" runat="server" Text="重新" onclick="Btnrestart_Click" Width="40px" CssClass="circle-btn" />
                     <asp:Button ID="Btnstop" runat="server" Text="继续" onclick="Btnstop_Click" Width="40px" CssClass="circle-btn circle-btn--secondary" />
-                    <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" onclick="ImgBtnLeft_Click" Width="16px" />
+                    <asp:Button ID="ImgBtnLeft" runat="server" Text="上一项" OnClick="ImgBtnLeft_Click" CssClass="circle-btn circle-btn--ghost" />
                     <asp:DropDownList ID="DDLstore" runat="server" Font-Bold="True" Width="100px" AutoPostBack="True" Font-Size="12pt" onselectedindexchanged="DDLstore_SelectedIndexChanged" CssClass="circle-select">
                         <asp:ListItem></asp:ListItem>
                     </asp:DropDownList>
-                    <asp:ImageButton ID="ImgBtnright" runat="server" ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
+                    <asp:Button ID="ImgBtnright" runat="server" Text="下一项" OnClick="ImgBtnright_Click" CssClass="circle-btn circle-btn--ghost" />
                     <asp:Label ID="Labelnum" runat="server" Font-Names="Arial" Font-Size="9pt"></asp:Label>
                 </div>
                 <div id="stuname" class="circle-student-name">
@@ -146,7 +160,7 @@
 
         <section class="circle-panel">
             <div class="circle-filters">
-                <asp:ImageButton ID="ImgBtnTextbox" runat="server" CommandName="v" ImageUrl="~/images/peer_review.png" onclick="ImgBtnTextbox_Click" />
+                <asp:Button ID="ImgBtnTextbox" runat="server" CommandName="v" Text="隐藏评语" OnClick="ImgBtnTextbox_Click" CssClass="circle-btn circle-btn--ghost" />
                 <span>教师评语：</span>
                 <asp:TextBox ID="TextBoxWself" runat="server" BorderColor="Silver" BorderStyle="Dashed" BorderWidth="1px" BackColor="#FDF5E3" CssClass="circle-input"></asp:TextBox>
                 <asp:Image ID="Image2" runat="server" ImageUrl="~/images/token.png" />
@@ -163,8 +177,8 @@
                         <asp:ListItem>O</asp:ListItem>
                     </Items>
                 </asp:RadioButtonList>
-                <asp:ImageButton ID="ImgBtn" runat="server" ImageUrl="~/images/refresh.gif" onclick="ImgBtn_Click" ToolTip="循环展播专用刷新" />
-                <asp:ImageButton ID="BtnCheck" runat="server" onclick="BtnCheck_Click" ImageUrl="~/images/check.png" ToolTip="将自动得分作品设置为已评" />
+                <asp:Button ID="ImgBtn" runat="server" Text="刷新展播" OnClick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="circle-btn circle-btn--secondary" />
+                <asp:Button ID="BtnCheck" runat="server" Text="标记已评" OnClick="BtnCheck_Click" ToolTip="将自动得分作品设置为已评" CssClass="circle-btn circle-btn--primary" />
                 <img id="showname" src="../images/help.png"  alt="显示姓名"/>
                 <asp:DropDownList ID="DDLname" runat="server" AutoPostBack="True" Width="60px" onselectedindexchanged="DDLname_SelectedIndexChanged" CssClass="circle-select">
                     <asp:ListItem></asp:ListItem>
@@ -172,7 +186,7 @@
                 <asp:CheckBox ID="CkselectG" runat="server" Text="筛Ｇ评" ToolTip="推荐作品筛选" AutoPostBack="True" oncheckedchanged="CkselectG_CheckedChanged" />
                 <asp:CheckBox ID="CheckselectA" runat="server" Text="筛A评" ToolTip="优秀作品筛选" AutoPostBack="True" oncheckedchanged="CheckselectA_CheckedChanged" />
                 <asp:CheckBox ID="CheckBoxW" runat="server" Text="筛未评" ToolTip="未评作品筛选" AutoPostBack="True" oncheckedchanged="CheckBoxW_CheckedChanged" />
-                <asp:ImageButton ID="ImageBtnDel" runat="server" ImageUrl="~/images/delete.gif" onclick="ImageBtnDel_Click" ToolTip="删除作品" style="width: 12px" />
+                <asp:Button ID="ImageBtnDel" runat="server" Text="删除作品" OnClick="ImageBtnDel_Click" ToolTip="删除作品" CssClass="circle-btn circle-btn--danger" />
             </div>
         </section>
 

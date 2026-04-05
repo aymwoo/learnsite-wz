@@ -110,22 +110,19 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            min-height: 32px;
+            padding: 0 12px;
             border: 1px solid #bfdbfe;
             border-radius: 0.375rem;
             background: #eff6ff;
             cursor: pointer;
             transition: background-color 0.15s;
+            color: #1d4ed8;
+            font-weight: 700;
         }
 
         .myth-download-btn:hover {
             background: #dbeafe;
-        }
-
-        .myth-download-btn img {
-            width: 16px;
-            height: 16px;
         }
 
         /* File list */
@@ -366,8 +363,8 @@
                 <div class="myth-card myth-card--span-5 myth-card--files">
                     <div class="myth-card__head">
                         <h2 class="myth-card__title">模型文件</h2>
-                        <asp:ImageButton ID="ImgBtnDown" runat="server"
-                            ImageUrl="~/images/down.gif" onclick="ImgBtnDown_Click"
+                        <asp:Button ID="ImgBtnDown" runat="server"
+                            Text="打包下载" OnClick="ImgBtnDown_Click"
                             ToolTip="点击打包下载" CssClass="myth-download-btn" />
                     </div>
                     <div class="myth-card__body">

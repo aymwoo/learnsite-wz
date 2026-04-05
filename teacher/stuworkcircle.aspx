@@ -7,6 +7,28 @@
     <title></title>
 
     <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <style type="text/css">
+        .swc-nav-btn,
+        .swc-tool-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.2rem;
+            padding: 0 0.9rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.6rem;
+            background: #ffffff;
+            color: #334155;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .swc-tool-btn {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,19 +43,19 @@
         <div style="margin: auto; width: 98%;">
 <center>
     <div style="font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 9pt">
-        <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
-            onclick="ImgBtnLeft_Click" Width="16px" />
+        <asp:Button ID="ImgBtnLeft" runat="server" Text="上一项"
+            OnClick="ImgBtnLeft_Click" CssClass="swc-nav-btn" />
     <asp:DropDownList ID="DDLstore" runat="server" 
             Font-Bold="True" Width="300px" AutoPostBack="True" Font-Size="12pt" 
             onselectedindexchanged="DDLstore_SelectedIndexChanged">
         <asp:ListItem></asp:ListItem>
         </asp:DropDownList>
-        <asp:ImageButton ID="ImgBtnright" runat="server" 
-            ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
+        <asp:Button ID="ImgBtnright" runat="server"
+            Text="下一项" OnClick="ImgBtnright_Click" CssClass="swc-nav-btn" />
          <br />
             <asp:Label ID="lbcount" runat="server"></asp:Label>
-        <asp:ImageButton ID="ImgBtn" runat="server" ImageUrl="~/images/refresh.gif" 
-            onclick="ImgBtn_Click" ToolTip="循环展播专用刷新" />
+        <asp:Button ID="ImgBtn" runat="server" Text="刷新展播"
+            OnClick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="swc-tool-btn" />
          <br />
         </div>        
         <div style=" font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; margin: 2px; " >

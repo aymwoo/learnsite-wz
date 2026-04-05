@@ -464,9 +464,9 @@
                                     </asp:CheckBoxField>
                                     <asp:TemplateField ShowHeader="False">
                                         <ItemTemplate>
-                                            <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="false"
+                                            <asp:Button ID="ImageButton1" runat="server" CausesValidation="false"
                                                 CommandArgument='<%# Eval("Pid") %>' CommandName="Lock"
-                                                ImageUrl="~/images/lock.png" Text="按钮" ToolTip="更新锁定状态" />
+                                                Text="锁定" ToolTip="更新锁定状态" CssClass="comp-lock-btn" />
                                         </ItemTemplate>
                                         <ItemStyle CssClass="comp-cell--lock-btn" />
                                     </asp:TemplateField>

@@ -49,7 +49,7 @@
                         <p class="admin-form-section-desc">保留活动提交、上次作品、小组合作和发布状态的展示逻辑。</p>
                     </div>
                     <div class="admin-form-action-row">
-                        <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                        <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
                             OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
                         <asp:Button ID="BtnReturnSmall" runat="server" Text="返回学案" ToolTip="返回"
                             OnClick="BtnReturnSmall_Click" CssClass="admin-form-btn admin-form-btn--secondary" />

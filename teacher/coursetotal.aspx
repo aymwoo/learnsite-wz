@@ -69,9 +69,9 @@
             </Items>
         </asp:RadioButtonList>
 
-                &nbsp;<asp:ImageButton ID="ImageBtnExcel" runat="server" ImageUrl="~/images/down.gif" 
-                onclick="ImageBtnExcel_Click" ToolTip="将汇总表导出为Excel格式" />
-&nbsp;<asp:ImageButton ID="Btnreflash" runat="server" ImageUrl="~/images/refresh.gif" OnClick="Btnreflash_Click" />
+                &nbsp;<asp:Button ID="ImageBtnExcel" runat="server" Text="导出 Excel"
+                OnClick="ImageBtnExcel_Click" ToolTip="将汇总表导出为Excel格式" CssClass="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition duration-300 shadow-md border-0" />
+&nbsp;<asp:Button ID="Btnreflash" runat="server" Text="刷新数据" OnClick="Btnreflash_Click" CssClass="px-4 py-2 bg-slate-600 text-white rounded hover:bg-slate-700 transition duration-300 shadow-md border-0" />
 
                 <br />
             </center>

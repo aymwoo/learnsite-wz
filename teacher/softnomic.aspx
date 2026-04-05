@@ -186,24 +186,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            padding: 0;
+            min-height: 34px;
+            padding: 0 12px;
             border-radius: 0.375rem;
             border: 1px solid #e2e8f0;
             background: #ffffff;
             cursor: pointer;
             transition: background-color 0.15s, border-color 0.15s;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
         }
 
         .nomic-nav-btn:hover {
             background: #f1f5f9;
             border-color: #c7d2fe;
-        }
-
-        .nomic-nav-btn img {
-            width: 14px;
-            height: 14px;
         }
 
         .nomic-student-select {
@@ -335,22 +332,20 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
+            min-height: 34px;
+            padding: 0 14px;
             border: 1px solid #e2e8f0;
             border-radius: 0.375rem;
             background: #f8fafc;
             cursor: pointer;
             transition: background-color 0.15s;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
         }
 
         .nomic-refresh:hover {
             background: #e2e8f0;
-        }
-
-        .nomic-refresh img {
-            width: 16px;
-            height: 16px;
         }
 
         .nomic-hidden {
@@ -443,16 +438,16 @@
 
                         <div class="nomic-divider"></div>
 
-                        <asp:ImageButton ID="ImgBtnLeft" runat="server"
-                            ImageUrl="~/images/left.png" onclick="ImgBtnLeft_Click"
+                        <asp:Button ID="ImgBtnLeft" runat="server"
+                            Text="上一项" OnClick="ImgBtnLeft_Click"
                             CssClass="nomic-nav-btn" />
                         <asp:DropDownList ID="DDLstore" runat="server"
                             AutoPostBack="True" CssClass="nomic-student-select"
                             onselectedindexchanged="DDLstore_SelectedIndexChanged">
                             <asp:ListItem></asp:ListItem>
                         </asp:DropDownList>
-                        <asp:ImageButton ID="ImgBtnright" runat="server"
-                            ImageUrl="~/images/right.png" onclick="ImgBtnright_Click"
+                        <asp:Button ID="ImgBtnright" runat="server"
+                            Text="下一项" OnClick="ImgBtnright_Click"
                             CssClass="nomic-nav-btn" />
                         <asp:Label ID="Labelnum" runat="server" CssClass="nomic-counter"></asp:Label>
                     </div>
@@ -494,8 +489,8 @@
                         <asp:Literal ID="Literal1" runat="server"></asp:Literal>
                     </div>
                     <div style="margin-top: 12px; text-align: center;">
-                        <asp:ImageButton ID="ImgBtn" runat="server" ImageUrl="~/images/refresh.gif"
-                            onclick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="nomic-refresh" />
+                        <asp:Button ID="ImgBtn" runat="server" Text="刷新展播"
+                            OnClick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="nomic-refresh" />
                     </div>
                 </div>
             </div>

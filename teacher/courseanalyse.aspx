@@ -105,12 +105,16 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 30px; height: 30px;
+        min-height: 30px;
+        padding: 0 12px;
         border-radius: 8px;
         background: #eff6ff;
         border: 1px solid #bfdbfe;
         cursor: pointer;
         transition: background 0.15s;
+        color: #1d4ed8;
+        font-size: 12px;
+        font-weight: 700;
     }
     .ca-nav-btn:hover { background: #dbeafe; }
     .ca-viewer-body {
@@ -155,9 +159,8 @@
         <div class="ca-viewer-toolbar">
             <span class="ca-viewer-label">&#11088; 收藏作品 (G级)</span>
             <div class="ca-nav-btn">
-                <asp:ImageButton ID="ImgBtnLeft" runat="server"
-                    ImageUrl="~/images/left.png" onclick="ImgBtnLeft_Click"
-                    style="width:12px;" />
+                <asp:Button ID="ImgBtnLeft" runat="server"
+                    Text="上一项" OnClick="ImgBtnLeft_Click" />
             </div>
             <asp:DropDownList ID="DDLstore" runat="server"
                 Font-Bold="True" Width="180px" AutoPostBack="True"
@@ -166,9 +169,8 @@
                 <asp:ListItem></asp:ListItem>
             </asp:DropDownList>
             <div class="ca-nav-btn">
-                <asp:ImageButton ID="ImgBtnright" runat="server"
-                    ImageUrl="~/images/right.png" onclick="ImgBtnright_Click"
-                    style="width:12px;" />
+                <asp:Button ID="ImgBtnright" runat="server"
+                    Text="下一项" OnClick="ImgBtnright_Click" />
             </div>
             <span class="ca-viewer-counter">
                 <asp:Label ID="lbcount" runat="server"></asp:Label>
