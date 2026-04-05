@@ -172,12 +172,32 @@
                                 placeholder: '请输入内容...',
                                 MENU_CONF: {
                                     uploadImage: {
-                                        server: '../kindeditor/aspnet/upload_json.aspx?dir=image',
+                                        server: upjs,
                                         customInsert(res, insertFn) {
                                             if (res.error === 0) {
                                                 insertFn(res.url);
                                             } else {
-                                                alert(res.message);
+                                                alert(res.message || '图片上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadAttachment: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                insertFn(res.url, res.filename || res.url.split('/').pop());
+                                            } else {
+                                                alert(res.message || '附件上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadFile: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                insertFn(res.url, res.filename || res.url.split('/').pop());
+                                            } else {
+                                                alert(res.message || '文件上传失败');
                                             }
                                         }
                                     }
@@ -215,6 +235,18 @@
                         vditorObj = new Vditor('vditor-container', {
                             height: 400,
                             mode: 'ir',
+                            upload: {
+                                url: upjs,
+                                fieldName: 'imgFile',
+                                format: function (files, responseText) {
+                                    var res = {};
+                                    try { res = JSON.parse(responseText); } catch (e) { }
+                                    if (res.error === 0 && res.url) {
+                                        return JSON.stringify({ msg: '', code: 0, data: { errFiles: [], succMap: (function(){ var m = {}; m[files[0].name] = res.url; return m; })() } });
+                                    }
+                                    return JSON.stringify({ msg: res.message || '上传失败', code: 1, data: { errFiles: files.map(function (f) { return f.name; }), succMap: {} } });
+                                }
+                            },
                             preview: {
                                 mode: 'both'
                             },
