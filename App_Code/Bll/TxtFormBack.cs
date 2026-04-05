@@ -314,6 +314,7 @@ namespace LearnSite.BLL
                             kmodel.Klid = Int32.Parse(Lid);
                             kmodel.Ksid = Wsid;
                             kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                            kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                             kmodel.Kcheck = false;
                             BLL.MenuWorks kbll = new MenuWorks();
                             kbll.Add(kmodel);
@@ -337,4 +338,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

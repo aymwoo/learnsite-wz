@@ -571,18 +571,46 @@ namespace LearnSite.BLL
                 int dcount = dt.Rows.Count;
                 if (dcount > 0)
                 {
+                    List<int> lidList = new List<int>();
                     for (int i = 0; i < dcount; i++)
                     {
                         string Ltype = dt.Rows[i]["Ltype"].ToString();//获取学案项目类型：1活动2调查3讨论4表单
                         int Lxid = Convert.ToInt32(dt.Rows[i]["Lxid"].ToString());//获取对应项目ID编号
+                        int Lid = Convert.ToInt32(dt.Rows[i]["Lid"].ToString());//获取菜单ID编号
                         string Ltitle = dt.Rows[i]["Ltitle"].ToString().Replace(" ", "");//获取菜单标题
                         string displayTitle = GetUniqueColumnName(dtstus.Columns, Ltitle);
                         string Ltitlestr = "l" + Ltype + "x" + Lxid.ToString() + "c" + i.ToString();
 
                         dtstus.Columns.Add(Ltitlestr, typeof(string));
                         dtstus.Columns[Ltitlestr].ColumnName = displayTitle;
+                        lidList.Add(Lid);
                     }
+
                     MenuWorks kbll = new MenuWorks();
+                    Dictionary<string, int> spendLookup = new Dictionary<string, int>();
+                    if (lidList.Count > 0)
+                    {
+                        string lidWhere = string.Join(",", lidList.ToArray());
+                        DataTable dtWorks = kbll.GetList("Klid in (" + lidWhere + ")").Tables[0];
+                        int workCount = dtWorks.Rows.Count;
+                        for (int w = 0; w < workCount; w++)
+                        {
+                            string sidStr = dtWorks.Rows[w]["Ksid"].ToString();
+                            string lidStr = dtWorks.Rows[w]["Klid"].ToString();
+                            int seconds = 0;
+                            if (dtWorks.Columns.Contains("Kseconds") && dtWorks.Rows[w]["Kseconds"] != DBNull.Value && dtWorks.Rows[w]["Kseconds"].ToString() != "")
+                            {
+                                seconds = Convert.ToInt32(dtWorks.Rows[w]["Kseconds"]);
+                            }
+                            else if (dtWorks.Rows[w]["Ktime"] != DBNull.Value && dtWorks.Rows[w]["Ktime"].ToString() != "")
+                            {
+                                seconds = Convert.ToInt32(dtWorks.Rows[w]["Ktime"]) * 60;
+                            }
+                            spendLookup[sidStr + "-" + lidStr] = seconds;
+                        }
+                        dtWorks.Dispose();
+                    }
+
                     for (int j = 0; j < scount; j++)
                     {
                         int pretime = 0;
@@ -590,7 +618,12 @@ namespace LearnSite.BLL
                         {
                             int Sid = Int32.Parse(dtstus.Rows[j][0].ToString());
                             int Lid = Int32.Parse(dt.Rows[i][0].ToString());//获取对应项目ID编号
-                            int nowtime = kbll.SpendTime(Sid, Lid);
+                            int nowtime = 0;
+                            string workKey = Sid.ToString() + "-" + Lid.ToString();
+                            if (spendLookup.ContainsKey(workKey))
+                            {
+                                nowtime = spendLookup[workKey];
+                            }
                             dtstus.Rows[j][i + 3] = nowtime - pretime;
                             pretime = nowtime;//将前个作品花费时间减去
                         }

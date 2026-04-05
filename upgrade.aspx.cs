@@ -6,8 +6,13 @@ using System.Web.UI.WebControls;
 
 public partial class UpGrade : System.Web.UI.Page
 {
+    protected string CurrentDbVersion = "未知";
+    protected string TargetDbVersion = "1910";
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        CurrentDbVersion = LearnSite.DBUtility.UpdateGrade.GetCurrentVersion();
+        TargetDbVersion = LearnSite.DBUtility.UpdateGrade.GetTargetVersion();
         if (!IsPostBack)
             checkdatabase();
     }
@@ -24,6 +29,7 @@ public partial class UpGrade : System.Web.UI.Page
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1800();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1900();
+                LearnSite.DBUtility.UpdateGrade.UpdateTable1910();
 
                 Labelmsg.Text = "升级完毕，请删除本页面！以免数据库出错！";
 

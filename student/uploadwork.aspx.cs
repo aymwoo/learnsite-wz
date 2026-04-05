@@ -166,6 +166,7 @@ public partial class Student_uploadwork : System.Web.UI.Page
                         kmodel.Klid = Int32.Parse(Wlid);
                         kmodel.Ksid = Int32.Parse(Wsid);
                         kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(LoginTime), Wdate);
+                        kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(LoginTime), Wdate));
                         kmodel.Kcheck = false;
                         LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
                         kbll.Add(kmodel);

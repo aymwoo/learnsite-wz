@@ -80,6 +80,7 @@ namespace LearnSite.BLL
                 kmodel.Klid = Vlid;
                 kmodel.Ksid = cook.Sid;
                 kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(cook.LoginTime), todate);
+                kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(cook.LoginTime), todate));
                 kmodel.Kcheck = false;
                 LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
                 if (!kbll.Exists(cook.Sid, Vlid))
@@ -314,4 +315,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

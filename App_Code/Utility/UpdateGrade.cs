@@ -33,6 +33,30 @@ namespace LearnSite.DBUtility
             else
                 return TableCheck();//检测数据库表是否完整并最新
         }
+
+        public static string GetTargetVersion()
+        {
+            return "1910";
+        }
+
+        public static string GetCurrentVersion()
+        {
+            try
+            {
+                if (DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return "1910";
+                if (DbHelperSQL.TabExists("AICustomSkill")) return "1900";
+                if (DbHelperSQL.TabExists("AISkill")) return "1800";
+                if (DbHelperSQL.TabExists("AIProvider")) return "1700";
+                if (DbHelperSQL.TabExists("Answers")) return "1600";
+                if (DbHelperSQL.TabExists("Folders")) return "1500";
+                if (DbHelperSQL.ColumnExists("Mission", "Microworld")) return "1365";
+                return "1.10以下";
+            }
+            catch
+            {
+                return "未知";
+            }
+        }
         public static bool TableExistCheck()
         {
             string CheckTabel = "Students";
@@ -55,6 +79,7 @@ namespace LearnSite.DBUtility
                     {
                         if (!DbHelperSQL.TabExists("AISkill")) return false;
                         if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
+                        if (!DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
                     }
                     catch
@@ -2561,6 +2586,24 @@ namespace LearnSite.DBUtility
                 aiStr.Append(" [IsActive] BIT NOT NULL DEFAULT 1 ");
                 aiStr.Append(" )");
                 DbHelperSQL.ExecuteSql(aiStr.ToString());
+            }
+        }
+
+        public static void UpdateTable1910()
+        {
+            string menuWorksTable = "MenuWorks";
+            string kseconds = "Kseconds";
+            if (!DbHelperSQL.ColumnExists(menuWorksTable, kseconds))
+            {
+                DbHelperSQL.AddColumn(menuWorksTable, kseconds, "int", 0);
+                DbHelperSQL.ExecuteSql("update MenuWorks set Kseconds = isnull(Ktime, 0) * 60 where Kseconds is null or Kseconds = 0");
+            }
+
+            string checkIndexSql = "select count(1) from sys.indexes where name='IX_MenuWorks_Klid_Ksid' and object_id = object_id('MenuWorks')";
+            if (DbHelperSQL.FindNum(checkIndexSql) == 0)
+            {
+                string createIndexSql = "create nonclustered index IX_MenuWorks_Klid_Ksid on MenuWorks (Klid asc, Ksid asc) include (Ktime, Kseconds, Kcheck, Kstar)";
+                DbHelperSQL.ExecuteSql(createIndexSql);
             }
         }
     }

@@ -50,6 +50,11 @@ namespace LearnSite.BLL
         {
             return dal.SpendTime(Ksid, klid);
         }
+
+        public int SpendSeconds(int Ksid, int klid)
+        {
+            return dal.SpendSeconds(Ksid, klid);
+        }
         /// <summary>
         /// 是否存在该记录
         /// </summary>
@@ -239,4 +244,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-
