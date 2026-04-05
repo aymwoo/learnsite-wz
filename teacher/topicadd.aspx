@@ -36,6 +36,8 @@
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
+            text-align: center;
+            line-height: 1;
         }
 
         .topic-btn--primary {
