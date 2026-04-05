@@ -14,6 +14,65 @@
             width: 800px;
             height: 500px;
         }
+
+        .topic-add-page .content-add-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .topic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 0 24px;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .topic-btn--primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(79, 70, 229, 0.25);
+        }
+
+        .topic-btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.35);
+        }
+
+        .topic-btn--primary:active {
+            transform: translateY(0);
+        }
+
+        .topic-btn--secondary {
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .topic-btn--secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #0f172a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .topic-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
     </style>
 
     <div class="content-add-page topic-add-page">
@@ -77,8 +136,8 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" SkinID="BtnNormal" CssClass="content-add-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="content-add-secondary" />
+                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" SkinID="BtnNormal" CssClass="topic-btn topic-btn--primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="topic-btn topic-btn--secondary" />
             </section>
         </div>
     </div>
