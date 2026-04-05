@@ -233,53 +233,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Solves> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Solves> modelList = new List<LearnSite.Model.Solves>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Solves model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Solves();
-					if(dt.Rows[n]["Vid"]!=null && dt.Rows[n]["Vid"].ToString()!="")
-					{
-						model.Vid=int.Parse(dt.Rows[n]["Vid"].ToString());
-					}
-					if(dt.Rows[n]["Vpid"]!=null && dt.Rows[n]["Vpid"].ToString()!="")
-					{
-						model.Vpid=int.Parse(dt.Rows[n]["Vpid"].ToString());
-					}
-					if(dt.Rows[n]["Vsid"]!=null && dt.Rows[n]["Vsid"].ToString()!="")
-					{
-						model.Vsid=int.Parse(dt.Rows[n]["Vsid"].ToString());
-					}
-					if(dt.Rows[n]["Vanswer"]!=null && dt.Rows[n]["Vanswer"].ToString()!="")
-					{
-					model.Vanswer=dt.Rows[n]["Vanswer"].ToString();
-					}
-					if(dt.Rows[n]["Vright"]!=null && dt.Rows[n]["Vright"].ToString()!="")
-					{
-						if((dt.Rows[n]["Vright"].ToString()=="1")||(dt.Rows[n]["Vright"].ToString().ToLower()=="true"))
-						{
-						model.Vright=true;
-						}
-						else
-						{
-							model.Vright=false;
-						}
-					}
-					if(dt.Rows[n]["Vscore"]!=null && dt.Rows[n]["Vscore"].ToString()!="")
-					{
-						model.Vscore=int.Parse(dt.Rows[n]["Vscore"].ToString());
-					}
-					if(dt.Rows[n]["Vdate"]!=null && dt.Rows[n]["Vdate"].ToString()!="")
-					{
-						model.Vdate=DateTime.Parse(dt.Rows[n]["Vdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSolvesList(dt);
 		}
 
 		/// <summary>

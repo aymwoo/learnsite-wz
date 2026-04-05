@@ -147,59 +147,7 @@ namespace LearnSite.BLL
         /// </summary>
         public List<LearnSite.Model.Signin> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.Signin> modelList = new List<LearnSite.Model.Signin>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Signin model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Signin();
-                    if (dt.Rows[n]["Qid"].ToString() != "")
-                    {
-                        model.Qid = int.Parse(dt.Rows[n]["Qid"].ToString());
-                    }
-                    model.Qnum = dt.Rows[n]["Qnum"].ToString();
-                    if (dt.Rows[n]["Qattitude"].ToString() != "")
-                    {
-                        model.Qattitude = int.Parse(dt.Rows[n]["Qattitude"].ToString());
-                    }
-                    if (dt.Rows[n]["Qdate"].ToString() != "")
-                    {
-                        model.Qdate = DateTime.Parse(dt.Rows[n]["Qdate"].ToString());
-                    }
-                    if (dt.Rows[n]["Qyear"].ToString() != "")
-                    {
-                        model.Qyear = int.Parse(dt.Rows[n]["Qyear"].ToString());
-                    }
-                    if (dt.Rows[n]["Qmonth"].ToString() != "")
-                    {
-                        model.Qmonth = int.Parse(dt.Rows[n]["Qmonth"].ToString());
-                    }
-                    if (dt.Rows[n]["Qday"].ToString() != "")
-                    {
-                        model.Qday = int.Parse(dt.Rows[n]["Qday"].ToString());
-                    }
-                    model.Qweek = dt.Rows[n]["Qweek"].ToString();
-                    model.Qip = dt.Rows[n]["Qip"].ToString();
-                    model.Qmachine = dt.Rows[n]["Qmachine"].ToString();
-                    model.Qnote = dt.Rows[n]["Qnote"].ToString();
-                    if (dt.Rows[n]["Qwork"].ToString() != "")
-                    {
-                        model.Qwork = int.Parse(dt.Rows[n]["Qwork"].ToString());
-                    }
-                    if (dt.Rows[n]["Qgrade"].ToString() != "")
-                    {
-                        model.Qgrade = int.Parse(dt.Rows[n]["Qgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Qterm"].ToString() != "")
-                    {
-                        model.Qterm = int.Parse(dt.Rows[n]["Qterm"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapSigninList(dt);
         }
 		/// <summary>
 		/// 获得数据列表
@@ -562,4 +510,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

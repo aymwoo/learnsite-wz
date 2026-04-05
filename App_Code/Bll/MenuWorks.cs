@@ -191,21 +191,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.MenuWorks> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.MenuWorks> modelList = new List<LearnSite.Model.MenuWorks>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.MenuWorks model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapMenuWorksList(dt);
 		}
 
 		/// <summary>

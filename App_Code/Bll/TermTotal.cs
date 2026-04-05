@@ -115,64 +115,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.TermTotal> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.TermTotal> modelList = new List<LearnSite.Model.TermTotal>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.TermTotal model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.TermTotal();
-					if(dt.Rows[n]["Tid"].ToString()!="")
-					{
-						model.Tid=int.Parse(dt.Rows[n]["Tid"].ToString());
-					}
-					model.Tnum=dt.Rows[n]["Tnum"].ToString();
-					if(dt.Rows[n]["Tterm"].ToString()!="")
-					{
-						model.Tterm=int.Parse(dt.Rows[n]["Tterm"].ToString());
-					}
-					if(dt.Rows[n]["Tgrade"].ToString()!="")
-					{
-						model.Tgrade=int.Parse(dt.Rows[n]["Tgrade"].ToString());
-					}
-					if(dt.Rows[n]["Tscore"].ToString()!="")
-					{
-						model.Tscore=int.Parse(dt.Rows[n]["Tscore"].ToString());
-					}
-					if(dt.Rows[n]["Tgscore"].ToString()!="")
-					{
-						model.Tgscore=int.Parse(dt.Rows[n]["Tgscore"].ToString());
-					}
-					if(dt.Rows[n]["Tquiz"].ToString()!="")
-					{
-						model.Tquiz=int.Parse(dt.Rows[n]["Tquiz"].ToString());
-					}
-					if(dt.Rows[n]["Tattitude"].ToString()!="")
-					{
-						model.Tattitude=int.Parse(dt.Rows[n]["Tattitude"].ToString());
-					}
-					if(dt.Rows[n]["Twscore"].ToString()!="")
-					{
-						model.Twscore=int.Parse(dt.Rows[n]["Twscore"].ToString());
-					}
-					if(dt.Rows[n]["Ttscore"].ToString()!="")
-					{
-						model.Ttscore=int.Parse(dt.Rows[n]["Ttscore"].ToString());
-					}
-					if(dt.Rows[n]["Tpscore"].ToString()!="")
-					{
-						model.Tpscore=int.Parse(dt.Rows[n]["Tpscore"].ToString());
-					}
-					if(dt.Rows[n]["Tallscore"].ToString()!="")
-					{
-						model.Tallscore=int.Parse(dt.Rows[n]["Tallscore"].ToString());
-					}
-					model.Tape=dt.Rows[n]["Tape"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTermTotalList(dt);
 		}
 
 		/// <summary>
@@ -363,4 +306,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

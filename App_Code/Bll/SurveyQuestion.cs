@@ -166,38 +166,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.SurveyQuestion> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.SurveyQuestion> modelList = new List<LearnSite.Model.SurveyQuestion>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.SurveyQuestion model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.SurveyQuestion();
-					if(dt.Rows[n]["Qid"]!=null && dt.Rows[n]["Qid"].ToString()!="")
-					{
-						model.Qid=int.Parse(dt.Rows[n]["Qid"].ToString());
-					}
-					if(dt.Rows[n]["Qvid"]!=null && dt.Rows[n]["Qvid"].ToString()!="")
-					{
-						model.Qvid=int.Parse(dt.Rows[n]["Qvid"].ToString());
-					}
-					if(dt.Rows[n]["Qcid"]!=null && dt.Rows[n]["Qcid"].ToString()!="")
-					{
-						model.Qcid=int.Parse(dt.Rows[n]["Qcid"].ToString());
-					}
-					if(dt.Rows[n]["Qtitle"]!=null && dt.Rows[n]["Qtitle"].ToString()!="")
-					{
-					model.Qtitle=dt.Rows[n]["Qtitle"].ToString();
-					}
-					if(dt.Rows[n]["Qcount"]!=null && dt.Rows[n]["Qcount"].ToString()!="")
-					{
-						model.Qcount=int.Parse(dt.Rows[n]["Qcount"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSurveyQuestionList(dt);
 		}
 
 		/// <summary>
@@ -233,4 +202,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

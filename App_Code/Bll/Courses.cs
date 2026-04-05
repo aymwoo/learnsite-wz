@@ -240,72 +240,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Courses> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Courses> modelList = new List<LearnSite.Model.Courses>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Courses model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Courses();
-					if(dt.Rows[n]["Cid"].ToString()!="")
-					{
-						model.Cid=int.Parse(dt.Rows[n]["Cid"].ToString());
-					}
-					model.Ctitle=dt.Rows[n]["Ctitle"].ToString();
-					model.Cclass=dt.Rows[n]["Cclass"].ToString();
-					model.Ccontent=dt.Rows[n]["Ccontent"].ToString();
-					if(dt.Rows[n]["Cdate"].ToString()!="")
-					{
-						model.Cdate=DateTime.Parse(dt.Rows[n]["Cdate"].ToString());
-					}
-					if(dt.Rows[n]["Chit"].ToString()!="")
-					{
-						model.Chit=int.Parse(dt.Rows[n]["Chit"].ToString());
-					}
-					if(dt.Rows[n]["Cobj"].ToString()!="")
-					{
-						model.Cobj=int.Parse(dt.Rows[n]["Cobj"].ToString());
-					}
-					if(dt.Rows[n]["Cterm"].ToString()!="")
-					{
-						model.Cterm=int.Parse(dt.Rows[n]["Cterm"].ToString());
-					}
-					if(dt.Rows[n]["Cks"].ToString()!="")
-					{
-						model.Cks=int.Parse(dt.Rows[n]["Cks"].ToString());
-					}
-					model.Cfiletype=dt.Rows[n]["Cfiletype"].ToString();
-					if(dt.Rows[n]["Cupload"].ToString()!="")
-					{
-						if((dt.Rows[n]["Cupload"].ToString()=="1")||(dt.Rows[n]["Cupload"].ToString().ToLower()=="true"))
-						{
-						model.Cupload=true;
-						}
-						else
-						{
-							model.Cupload=false;
-						}
-					}
-					if(dt.Rows[n]["Chid"].ToString()!="")
-					{
-						model.Chid=int.Parse(dt.Rows[n]["Chid"].ToString());
-					}
-					if(dt.Rows[n]["Cpublish"].ToString()!="")
-					{
-						if((dt.Rows[n]["Cpublish"].ToString()=="1")||(dt.Rows[n]["Cpublish"].ToString().ToLower()=="true"))
-						{
-						model.Cpublish=true;
-						}
-						else
-						{
-							model.Cpublish=false;
-						}
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapCoursesList(dt);
 		}
 
 		/// <summary>

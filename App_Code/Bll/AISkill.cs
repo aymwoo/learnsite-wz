@@ -47,21 +47,7 @@ namespace LearnSite.BLL
 
         public List<LearnSite.Model.AISkill> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.AISkill> modelList = new List<LearnSite.Model.AISkill>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.AISkill model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                    {
-                        modelList.Add(model);
-                    }
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapAISkillList(dt);
         }
 
         #endregion  Method

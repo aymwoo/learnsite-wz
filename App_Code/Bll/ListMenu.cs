@@ -213,53 +213,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.ListMenu> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.ListMenu> modelList = new List<LearnSite.Model.ListMenu>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.ListMenu model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.ListMenu();
-					if(dt.Rows[n]["Lid"]!=null && dt.Rows[n]["Lid"].ToString()!="")
-					{
-						model.Lid=int.Parse(dt.Rows[n]["Lid"].ToString());
-					}
-					if(dt.Rows[n]["Lcid"]!=null && dt.Rows[n]["Lcid"].ToString()!="")
-					{
-						model.Lcid=int.Parse(dt.Rows[n]["Lcid"].ToString());
-					}
-					if(dt.Rows[n]["Lsort"]!=null && dt.Rows[n]["Lsort"].ToString()!="")
-					{
-						model.Lsort=int.Parse(dt.Rows[n]["Lsort"].ToString());
-					}
-					if(dt.Rows[n]["Ltype"]!=null && dt.Rows[n]["Ltype"].ToString()!="")
-					{
-						model.Ltype=int.Parse(dt.Rows[n]["Ltype"].ToString());
-					}
-					if(dt.Rows[n]["Lxid"]!=null && dt.Rows[n]["Lxid"].ToString()!="")
-					{
-						model.Lxid=int.Parse(dt.Rows[n]["Lxid"].ToString());
-					}
-					if(dt.Rows[n]["Lshow"]!=null && dt.Rows[n]["Lshow"].ToString()!="")
-					{
-						if((dt.Rows[n]["Lshow"].ToString()=="1")||(dt.Rows[n]["Lshow"].ToString().ToLower()=="true"))
-						{
-						model.Lshow=true;
-						}
-						else
-						{
-							model.Lshow=false;
-						}
-					}
-					if(dt.Rows[n]["Ltitle"]!=null && dt.Rows[n]["Ltitle"].ToString()!="")
-					{
-					model.Ltitle=dt.Rows[n]["Ltitle"].ToString();
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapListMenuList(dt);
 		}
 
 		/// <summary>
@@ -339,4 +293,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

@@ -124,5 +124,41 @@ namespace EnDeCodeTests
             // Act & Assert
             Assert.ThrowsAny<Exception>(() => EnDeCode.Encrypt(pToEncrypt, sKey));
         }
+
+        [Fact]
+        public void Encrypt_SameInputTwice_WithSameKey_ReturnsSameCipherText()
+        {
+            string originalText = "RepeatableContent";
+            string sKey = "56";
+
+            string encrypted1 = EnDeCode.Encrypt(originalText, sKey);
+            string encrypted2 = EnDeCode.Encrypt(originalText, sKey);
+
+            Assert.Equal(encrypted1, encrypted2);
+        }
+
+        [Fact]
+        public void Decrypt_LowercaseHexCipherText_ReturnsOriginalText()
+        {
+            string originalText = "CaseInsensitiveHex";
+            string sKey = "78";
+
+            string encrypted = EnDeCode.Encrypt(originalText, sKey).ToLowerInvariant();
+            string decrypted = EnDeCode.Decrypt(encrypted, sKey);
+
+            Assert.Equal(originalText, decrypted);
+        }
+
+        [Fact]
+        public void Encrypt_WhitespaceContent_RoundTripsSuccessfully()
+        {
+            string originalText = " line1\r\n\tline2 ";
+            string sKey = "90";
+
+            string encrypted = EnDeCode.Encrypt(originalText, sKey);
+            string decrypted = EnDeCode.Decrypt(encrypted, sKey);
+
+            Assert.Equal(originalText, decrypted);
+        }
     }
 }

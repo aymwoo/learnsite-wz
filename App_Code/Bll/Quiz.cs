@@ -134,57 +134,7 @@ namespace LearnSite.BLL
 		/// </summary>
         public List<LearnSite.Model.Quiz> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.Quiz> modelList = new List<LearnSite.Model.Quiz>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Quiz model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Quiz();
-                    if (dt.Rows[n]["Qid"].ToString() != "")
-                    {
-                        model.Qid = int.Parse(dt.Rows[n]["Qid"].ToString());
-                    }
-                    if (dt.Rows[n]["Qtype"].ToString() != "")
-                    {
-                        model.Qtype = int.Parse(dt.Rows[n]["Qtype"].ToString());
-                    }
-                    model.Question = dt.Rows[n]["Question"].ToString();
-                    model.Qanswer = dt.Rows[n]["Qanswer"].ToString();
-                    model.Qanalyze = dt.Rows[n]["Qanalyze"].ToString();
-                    if (dt.Rows[n]["Qscore"].ToString() != "")
-                    {
-                        model.Qscore = int.Parse(dt.Rows[n]["Qscore"].ToString());
-                    }
-                    model.Qclass = dt.Rows[n]["Qclass"].ToString();
-                    if (dt.Rows[n]["Qselect"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Qselect"].ToString() == "1") || (dt.Rows[n]["Qselect"].ToString().ToLower() == "true"))
-                        {
-                            model.Qselect = true;
-                        }
-                        else
-                        {
-                            model.Qselect = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Qright"].ToString() != "")
-                    {
-                        model.Qright = int.Parse(dt.Rows[n]["Qright"].ToString());
-                    }
-                    if (dt.Rows[n]["Qwrong"].ToString() != "")
-                    {
-                        model.Qwrong = int.Parse(dt.Rows[n]["Qwrong"].ToString());
-                    }
-                    if (dt.Rows[n]["Qaccuracy"].ToString() != "")
-                    {
-                        model.Qaccuracy = int.Parse(dt.Rows[n]["Qaccuracy"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapQuizList(dt);
         }
 
 		/// <summary>
@@ -241,4 +191,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

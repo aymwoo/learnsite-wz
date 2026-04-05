@@ -170,52 +170,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.TopicDiscuss> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.TopicDiscuss> modelList = new List<LearnSite.Model.TopicDiscuss>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.TopicDiscuss model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.TopicDiscuss();
-					if(dt.Rows[n]["Tid"].ToString()!="")
-					{
-						model.Tid=int.Parse(dt.Rows[n]["Tid"].ToString());
-					}
-					if(dt.Rows[n]["Tcid"].ToString()!="")
-					{
-						model.Tcid=int.Parse(dt.Rows[n]["Tcid"].ToString());
-					}
-					model.Ttitle=dt.Rows[n]["Ttitle"].ToString();
-					model.Tcontent=dt.Rows[n]["Tcontent"].ToString();
-					if(dt.Rows[n]["Tcount"].ToString()!="")
-					{
-						model.Tcount=int.Parse(dt.Rows[n]["Tcount"].ToString());
-					}
-					if(dt.Rows[n]["Tteacher"].ToString()!="")
-					{
-						model.Tteacher=int.Parse(dt.Rows[n]["Tteacher"].ToString());
-					}
-					if(dt.Rows[n]["Tdate"].ToString()!="")
-					{
-						model.Tdate=DateTime.Parse(dt.Rows[n]["Tdate"].ToString());
-					}
-					if(dt.Rows[n]["Tclose"].ToString()!="")
-					{
-						if((dt.Rows[n]["Tclose"].ToString()=="1")||(dt.Rows[n]["Tclose"].ToString().ToLower()=="true"))
-						{
-						model.Tclose=true;
-						}
-						else
-						{
-							model.Tclose=false;
-						}
-					}
-					model.Tresult=dt.Rows[n]["Tresult"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTopicDiscussList(dt);
 		}
 
 		/// <summary>
@@ -246,4 +201,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

@@ -124,59 +124,8 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Soft> DataTableToList(DataTable dt)
 		{
-            List<LearnSite.Model.Soft> modelList = new List<LearnSite.Model.Soft>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Soft model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Soft();
-                    if (dt.Rows[n]["Fid"].ToString() != "")
-                    {
-                        model.Fid = int.Parse(dt.Rows[n]["Fid"].ToString());
-                    }
-                    model.Ftitle = dt.Rows[n]["Ftitle"].ToString();
-                    model.Fcontent = dt.Rows[n]["Fcontent"].ToString();
-                    model.Furl = dt.Rows[n]["Furl"].ToString();
-                    if (dt.Rows[n]["Fhit"].ToString() != "")
-                    {
-                        model.Fhit = int.Parse(dt.Rows[n]["Fhit"].ToString());
-                    }
-                    if (dt.Rows[n]["Fdate"].ToString() != "")
-                    {
-                        model.Fdate = DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
-                    }
-                    model.Ffiletype = dt.Rows[n]["Ffiletype"].ToString();
-                    model.Fclass = dt.Rows[n]["Fclass"].ToString();
-                    if (dt.Rows[n]["Fhide"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Fhide"].ToString() == "1") || (dt.Rows[n]["Fhide"].ToString().ToLower() == "true"))
-                        {
-                            model.Fhide = true;
-                        }
-                        else
-                        {
-                            model.Fhide = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Fopen"].ToString() != "")
-                    {
-                        model.Fopen = int.Parse(dt.Rows[n]["Fopen"].ToString());
-                    } 
-                    if (dt.Rows[n]["Fhid"].ToString() != "")
-                    {
-                        model.Fhid = int.Parse(dt.Rows[n]["Fhid"].ToString());
-                    }
-                    if (dt.Rows[n]["Fyid"].ToString() != "")
-                    {
-                        model.Fyid = int.Parse(dt.Rows[n]["Fyid"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
-        }
+			return BllDataTableMappers.MapSoftList(dt);
+		}
         /// <summary>
         /// 获取有提交作品的本分类资源列表
         /// </summary>
@@ -278,4 +227,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-
