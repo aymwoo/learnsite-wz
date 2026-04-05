@@ -502,8 +502,12 @@
                             currentHtml = kindEditorObj.html();
                         } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
                             currentHtml = wangEditorObj.getHtml();
-                        } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                            currentHtml = vditorObj.getHTML();
+                        } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
+                            try {
+                                currentHtml = vditorObj.getHTML();
+                            } catch (e) {
+                                try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; }
+                            }
                         }
 
                         if (kindContainer) kindContainer.style.display = 'none';
@@ -549,8 +553,12 @@
                                 mcontent.value = wangEditorObj.getHtml();
                             }
                         } else if (currentEditor === 'vditor') {
-                            if (vditorObj) {
-                                mcontent.value = vditorObj.getHTML();
+                            if (vditorObj && vditorReady) {
+                                try {
+                                    mcontent.value = vditorObj.getHTML();
+                                } catch (e) {
+                                    try { mcontent.value = vditorObj.getValue(); } catch (e2) {}
+                                }
                             }
                         }
                         return true;
@@ -576,8 +584,8 @@
             </section>
 
             <section class="course-edit-actions">
-                <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" SkinID="BtnNormal" CssClass="course-edit-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" SkinID="BtnNormal" CssClass="course-edit-secondary-btn" />
+                <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="course-edit-primary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" CssClass="course-edit-secondary-btn" />
             </section>
         </div>
     </div>

@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -228,6 +229,23 @@ public class aiprovider_api : IHttpHandler {
         string apiKey = context.Request["apiKey"];
         string baseUrl = context.Request["baseUrl"];
         string modelName = context.Request["modelName"];
+        string idStr = context.Request["id"];
+
+        // If apiKey is the obscured placeholder, fetch the real key from DB
+        if (!string.IsNullOrEmpty(apiKey) && apiKey.StartsWith("********"))
+        {
+            int id = 0;
+            int.TryParse(idStr, out id);
+            if (id > 0)
+            {
+                var bll = new LearnSite.BLL.AIProvider();
+                var existing = bll.GetModel(id);
+                if (existing != null)
+                {
+                    apiKey = existing.ApiKey;
+                }
+            }
+        }
         
         if (string.IsNullOrEmpty(baseUrl))
         {
@@ -269,8 +287,8 @@ public class aiprovider_api : IHttpHandler {
                         {
                             string responseFromServer = reader.ReadToEnd();
                             // Parse response just to check if it's valid JSON from OpenAI format
-                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
-                            if (jsonResp != null && jsonResp.choices != null)
+                            JObject jsonResp = JsonConvert.DeserializeObject<JObject>(responseFromServer);
+                            if (jsonResp != null && jsonResp["choices"] != null)
                             {
                                 context.Response.Write("{\"success\":true,\"msg\":\"Connection successful!\"}");
                             }
@@ -425,10 +443,10 @@ public class aiprovider_api : IHttpHandler {
                         using (StreamReader reader = new StreamReader(responseStream))
                         {
                             string responseFromServer = reader.ReadToEnd();
-                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
-                            if (jsonResp != null && jsonResp.choices != null && jsonResp.choices.Count > 0)
+                            JObject jsonResp = JsonConvert.DeserializeObject<JObject>(responseFromServer);
+                            if (jsonResp != null && jsonResp["choices"] != null && ((JArray)jsonResp["choices"]).Count > 0)
                             {
-                                string contentResult = jsonResp.choices[0].message.content;
+                                string contentResult = jsonResp["choices"][0]["message"]["content"].ToString();
                                 string safeContent = JsonConvert.SerializeObject(new { success = true, data = contentResult });
                                 context.Response.Write(safeContent);
                             }

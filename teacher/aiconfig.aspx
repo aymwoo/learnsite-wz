@@ -247,6 +247,8 @@
         .ai-card-action-btn--del:hover   { background: #fee2e2; }
         .ai-card-action-btn--def   { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
         .ai-card-action-btn--def:hover   { background: #dcfce7; }
+        .ai-card-action-btn--copy  { background: #f5f3ff; color: #7c3aed; }
+        .ai-card-action-btn--copy:hover  { background: #ede9fe; }
 
         /* Skills grid */
         .ai-skills-grid {
@@ -436,6 +438,11 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
+                <div id="presetBar" class="mb-5">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2.5">快速选择模板</p>
+                    <div class="flex flex-wrap gap-2" id="presetBtns"></div>
+                </div>
+
                 <div id="providerForm" class="space-y-5">
                     <input type="hidden" id="providerId" value="0">
                     
@@ -576,6 +583,39 @@
 
         // ── Providers ──────────────────────────────────────────────────
 
+        var providerPresets = [
+            { label: '通义千问', icon: '🔮', displayName: '通义千问', providerName: 'Aliyun',      modelName: 'qwen-max',         baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+            { label: '豆包',     icon: '🫘', displayName: '豆包',     providerName: 'Volcengine',  modelName: 'doubao-pro-128k',  baseUrl: 'https://ark.cn-beijing.volces.com/api/v3' },
+            { label: '智谱GLM',  icon: '🧠', displayName: '智谱GLM',  providerName: 'ZhipuAI',     modelName: 'glm-4',            baseUrl: 'https://open.bigmodel.cn/api/paas/v4' },
+            { label: 'Kimi',     icon: '🌙', displayName: 'Kimi',     providerName: 'Moonshot',    modelName: 'moonshot-v1-8k',   baseUrl: 'https://api.moonshot.cn/v1' },
+            { label: 'MiniMax',  icon: '⚡', displayName: 'MiniMax',  providerName: 'MiniMax',     modelName: 'MiniMax-M1',       baseUrl: 'https://api.minimaxi.com/v1' },
+            { label: 'DeepSeek', icon: '🐋', displayName: 'DeepSeek', providerName: 'DeepSeek',    modelName: 'deepseek-chat',    baseUrl: 'https://api.deepseek.com/v1' }
+        ];
+
+        function renderPresetBtns() {
+            var html = '';
+            for (var i = 0; i < providerPresets.length; i++) {
+                var p = providerPresets[i];
+                html += '<button type="button" onclick="applyPreset(' + i + ')" '
+                     +  'class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg border border-gray-200 bg-gray-50 text-gray-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1">'
+                     +  '<span>' + p.icon + '</span><span>' + p.label + '</span></button>';
+            }
+            $('#presetBtns').html(html);
+        }
+
+        function applyPreset(idx) {
+            var p = providerPresets[idx];
+            $('#displayName').val(p.displayName);
+            $('#providerName').val(p.providerName);
+            $('#modelName').val(p.modelName);
+            $('#baseUrl').val(p.baseUrl);
+            // highlight the selected preset button
+            $('#presetBtns button').removeClass('bg-blue-50 border-blue-300 text-blue-700 ring-2 ring-blue-400')
+                                  .addClass('bg-gray-50 border-gray-200 text-gray-700');
+            $('#presetBtns button').eq(idx).removeClass('bg-gray-50 border-gray-200 text-gray-700')
+                                          .addClass('bg-blue-50 border-blue-300 text-blue-700 ring-2 ring-blue-400');
+        }
+
         function loadProviders() {
             $.ajax({
                 url: 'aiprovider_api.ashx',
@@ -623,6 +663,7 @@
                 html += '  <div class="ai-provider-card__foot">';
                 html += '    <div>' + setDefaultBtn + '</div>';
                 html += '    <div style="display:flex;gap:6px;">';
+                html += '      <button type="button" onclick=\'duplicateProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="ai-card-action-btn ai-card-action-btn--copy" title="复制配置"><svg style="width:13px;height:13px;margin-right:2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>复制</button>';
                 html += '      <button type="button" onclick=\'editProvider(' + JSON.stringify(item).replace(/'/g, "\\'") + ')\' class="ai-card-action-btn ai-card-action-btn--edit">编辑</button>';
                 html += '      <button type="button" onclick="deleteProvider(' + item.Id + ')" class="ai-card-action-btn ai-card-action-btn--del">删除</button>';
                 html += '    </div>';
@@ -641,6 +682,8 @@
             $('#apiKey').val('');
             $('#baseUrl').val('https://api.openai.com/v1');
             $('#testResultMsg').addClass('hidden').text('');
+            renderPresetBtns();
+            $('#presetBar').show();
             $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
@@ -653,6 +696,20 @@
             $('#apiKey').val(item.ApiKey);
             $('#baseUrl').val(item.BaseUrl);
             $('#testResultMsg').addClass('hidden').text('');
+            $('#presetBar').hide();
+            $('#providerModal').removeClass('hidden').addClass('flex');
+        }
+
+        function duplicateProvider(item) {
+            $('#modalTitle').text('复制新建 AI 提供商');
+            $('#providerId').val('0');
+            $('#displayName').val(item.DisplayName + ' (副本)');
+            $('#providerName').val(item.ProviderName);
+            $('#modelName').val(item.ModelName);
+            $('#apiKey').val('');
+            $('#baseUrl').val(item.BaseUrl);
+            $('#testResultMsg').addClass('hidden').text('');
+            $('#presetBar').hide();
             $('#providerModal').removeClass('hidden').addClass('flex');
         }
 
