@@ -83,7 +83,7 @@
         ltype: "<%= LsLtype %>"
     };
 
-    window.onload = function () {
+    window.addEventListener('load', function () {
         var codefile = "<%=codefile %>";
         if (codefile != "") {
             codefile = decodeURIComponent(codefile);
@@ -93,7 +93,7 @@
                 console.log(data)
             });
         }
-    }
+    });
     var fpage = "<%=Fpage %>";
     function returnurl() {
         if (confirm('是否要离开此页面？') == true) {

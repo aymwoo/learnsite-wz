@@ -525,7 +525,7 @@
 	</script>
 
     <script type="text/javascript" >
-        window.onload = function () {
+        window.addEventListener('load', function () {
             var main = document.getElementById('main');
             var resize = document.getElementById('resize');
             var left = document.getElementById('left');
@@ -567,7 +567,7 @@
                     document.onmouseup = null;
                 };
             };
-        };
+        });
 
 
         $(".keyword").click(function () {

@@ -363,7 +363,7 @@
                         <p class="cate-hero__subtitle">管理资源分类，支持添加、编辑、排序和删除操作。</p>
                     </div>
                     <asp:Button ID="Btnreturn" runat="server" Text="返回资源列表" OnClick="Btnreturn_Click"
-                        SkinID="BtnSmall" CssClass="cate-hero__btn" />
+                        CssClass="cate-hero__btn" />
                 </div>
             </div>
 
@@ -451,7 +451,7 @@
                                 CssClass="cate-input"></asp:TextBox>
                         </div>
                         <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click"
-                            SkinID="BtnSmall" CssClass="cate-btn cate-btn--primary" />
+                            CssClass="cate-btn cate-btn--primary" />
                     </div>
                 </div>
             </div>

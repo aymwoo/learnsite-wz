@@ -132,12 +132,12 @@
 	var trained=false;
 	var tested=false;
 
-	window.onload = function(){
+	window.addEventListener('load', function(){
 		//加载数据
 		load();
 		//自适应
 		autoSize();
-	};
+	});
 
 	// ######################################
     // #######        手写         ###########
@@ -555,7 +555,6 @@
 	</script>
 
 </html>
-
 
 
 

@@ -40,9 +40,9 @@
         }
     };
  
-    window.onload = function () {
+    window.addEventListener('load', function () {
         setIframeHeight(document.getElementById('wareframe'));
-    };
+    });
 
     function SaveIframe() { 
         var htmlcode ="";// 使用缩略图预览

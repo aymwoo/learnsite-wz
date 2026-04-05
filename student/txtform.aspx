@@ -287,7 +287,7 @@
                         console.log("独立模式");
                     }
                     else {
-                        window.onload = start;
+                        window.addEventListener('load', start);
                         console.log("协作模式");
                     }
 

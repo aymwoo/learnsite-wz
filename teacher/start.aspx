@@ -1185,8 +1185,8 @@
                             </div>
                             <div class="lesson-field lesson-field--actions">
                                 <div class="lesson-actions">
-                                    <asp:Button ID="Btnset" runat="server" Text="开始上课" SkinID="BtnNormal" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
-                                    <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" SkinID="BtnNormal" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
+                                    <asp:Button ID="Btnset" runat="server" Text="开始上课" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
+                                    <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
                                     <div class="lesson-input-group" style="min-width: 200px; max-width: 240px;">
                                         <span class="lesson-input-group__label">班级口令</span>
                                         <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" CssClass="lesson-input-group__input"></asp:TextBox>

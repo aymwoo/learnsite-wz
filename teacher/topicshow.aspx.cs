@@ -54,7 +54,7 @@ public partial class Teacher_topicshow : System.Web.UI.Page
             Tcontent.InnerHtml = HttpUtility.HtmlDecode(model.Tcontent);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         string url = "~/teacher/topicedit.aspx?tcid=" + LabelMcid.Text + "&tid=" + Labeltid.Text;
         Response.Redirect(url, false);

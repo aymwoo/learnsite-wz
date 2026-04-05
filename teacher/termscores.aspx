@@ -421,21 +421,21 @@
 
                         <div class="term-actions" style="margin-top: 16px;">
                             <asp:Button ID="BtnScoresNo" runat="server" OnClick="BtnScoresNo_Click"
-                                Text="未评设置C" SkinID="BtnNormal" ToolTip="所教班级未评作品全部设置为C（分值6）"
+                                Text="未评设置C" ToolTip="所教班级未评作品全部设置为C（分值6）"
                                 CssClass="term-btn term-btn--warning" />
                             <asp:Button ID="BtnScores" runat="server" OnClick="BtnScore_Click"
-                                Text="总分折算" SkinID="BtnNormal" ToolTip="先统计总分，再得出折算总分"
+                                Text="总分折算" ToolTip="先统计总分，再得出折算总分"
                                 CssClass="term-btn term-btn--primary" />
                             <asp:Button ID="Btnape" runat="server" onclick="Btnape_Click"
-                                Text="期末总评" SkinID="BtnNormal"
+                                Text="期末总评"
                                 CssClass="term-btn term-btn--success" />
                             <asp:Button ID="BtnExcel" runat="server" OnClick="BtnExcel_Click"
-                                Text="导出Excel" SkinID="BtnNormal" ToolTip="将学生期末成绩以Excel表格导出"
+                                Text="导出Excel" ToolTip="将学生期末成绩以Excel表格导出"
                                 CssClass="term-btn term-btn--secondary" />
                             <asp:Button ID="Btntermview" runat="server" Text="学期查询" OnClick="Btntermview_Click"
-                                SkinID="BtnNormal" CssClass="term-btn term-btn--secondary" />
+                                CssClass="term-btn term-btn--secondary" />
                             <asp:Button ID="Btnback" runat="server" Text="返回" OnClick="Btnback_Click"
-                                SkinID="BtnNormal" CssClass="term-btn term-btn--ghost" />
+                                CssClass="term-btn term-btn--ghost" />
                         </div>
 
                         <div class="term-msg">

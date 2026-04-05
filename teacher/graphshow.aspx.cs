@@ -63,7 +63,7 @@ public partial class Teacher_graphshow : System.Web.UI.Page
                 Mcontent.InnerHtml = "这里是流程图页面，你走错地方了!";
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null)
         {
@@ -90,7 +90,7 @@ public partial class Teacher_graphshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
         {

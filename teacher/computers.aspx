@@ -495,18 +495,18 @@
                     <div class="comp-card__body">
                         <div class="comp-actions">
                             <asp:Button ID="BtnDelAll" runat="server" onclick="BtnDelAll_Click"
-                                SkinID="BtnNormal" Text="全体删除" CssClass="comp-btn comp-btn--danger" />
+                                Text="全体删除" CssClass="comp-btn comp-btn--danger" />
                             <asp:Button ID="BtnUnlock" runat="server" onclick="BtnUnlock_Click"
-                                SkinID="BtnNormal" Text="全体解绑" CssClass="comp-btn comp-btn--secondary" />
+                                Text="全体解绑" CssClass="comp-btn comp-btn--secondary" />
                             <asp:Button ID="BtnOnlock" runat="server"
-                                SkinID="BtnNormal" Text="全体绑定" onclick="BtnOnlock_Click" CssClass="comp-btn comp-btn--success" />
+                                Text="全体绑定" onclick="BtnOnlock_Click" CssClass="comp-btn comp-btn--success" />
                             <asp:Button ID="BtnAssign" runat="server"
-                                SkinID="BtnNormal" Text="自动分配" onclick="BtnAssign_Click"
+                                Text="自动分配" onclick="BtnAssign_Click"
                                 ToolTip="培训时用，先获取所有学生机IP，然后点自动分配学号" Visible="False" CssClass="comp-btn comp-btn--primary" />
-                            <asp:Button ID="BtnClear" runat="server" SkinID="BtnNormal" Text="清除分配"
+                            <asp:Button ID="BtnClear" runat="server" Text="清除分配"
                                 ToolTip="清除分配的学号" onclick="BtnClear_Click" Visible="False" CssClass="comp-btn comp-btn--secondary" />
                             <asp:Button ID="BtnRefresh" runat="server"
-                                SkinID="BtnNormal" Text="刷新" onclick="BtnRefresh_Click" CssClass="comp-btn comp-btn--primary" />
+                                Text="刷新" onclick="BtnRefresh_Click" CssClass="comp-btn comp-btn--primary" />
                         </div>
                         <div class="comp-hint">解除绑定后，学生登录更新记录就会自动绑定。</div>
                         <div style="margin-top: 10px;">
@@ -530,7 +530,7 @@
                                     <asp:FileUpload ID="FuHostnameIp" runat="server" />
                                 </div>
                                 <asp:Button ID="BtnImport" runat="server" onclick="BtnImport_Click"
-                                    SkinID="BtnNormal" Text="导入Excel" CssClass="comp-btn comp-btn--primary" />
+                                    Text="导入Excel" CssClass="comp-btn comp-btn--primary" />
                             </div>
                             <asp:Label ID="Labelmsg" runat="server" CssClass="comp-msg"></asp:Label>
 

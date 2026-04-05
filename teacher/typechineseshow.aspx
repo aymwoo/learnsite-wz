@@ -1,30 +1,55 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="typechineseshow.aspx.cs" Inherits="Teacher_typechineseshow" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<br />
-<div  class="typeplace"> 
+    <link href="../App_Themes/Teacher/typing-admin.css" rel="stylesheet" />
+    <style type="text/css">
+        .typing-chinese-detail-page {
+            --typing-admin-page-bg: linear-gradient(180deg, #fdfaf6 0%, #fff7ed 100%);
+            --typing-admin-hero-bg: linear-gradient(135deg, #9a3412 0%, #ea580c 55%, #f59e0b 100%);
+            --typing-admin-hero-shadow: 0 22px 45px -28px rgba(234, 88, 12, 0.72);
+            --typing-admin-primary-bg: #ea580c;
+            --typing-admin-primary-hover: #c2410c;
+            --typing-admin-primary-shadow: 0 14px 24px -18px rgba(234, 88, 12, 0.85);
+            --typing-admin-secondary-border: #fdba74;
+            --typing-admin-secondary-bg: #fff7ed;
+            --typing-admin-secondary-hover: #ffedd5;
+            --typing-admin-secondary-fg: #c2410c;
+        }
+    </style>
+    <div class="typing-admin-page typing-chinese-detail-page">
+        <div class="typing-admin-shell">
+            <section class="typing-admin-hero">
+                <div class="typing-admin-hero-content">
+                    <div class="typing-admin-eyebrow">Pinyin Practice</div>
+                    <h1 class="typing-admin-title">拼音词语详情</h1>
+                    <p class="typing-admin-subtitle">查看拼音词语原文，并直接跳转到编辑页面继续维护。</p>
+                </div>
+            </section>
 
-    <asp:Repeater ID="Repeater1" runat="server">   
-    <ItemTemplate>   
-    <div style="width: 600px; font-size: 11pt;  border: whitesmoke 1px solid;  "> 	
-    <div  style="height: 20px;;font-size: 12pt; font-family: 宋体;font-weight: bold ;background-color: whitesmoke ; text-align:center">
-    <%#Eval("Ntitle")%>&nbsp;&nbsp; 
-            <asp:ImageButton ID="BtnEdit" runat="server" ToolTip="点击修改" 
-            ImageUrl="~/images/edit.gif" onclick="BtnEdit_Click"  style="width: 16px" />
-    </div>    
-        <br />
-        <div  style=" width:600px; word-break:break-all; word-wrap:break-word; text-align:left;">		
-		<%# Eval("Ncontent")%>
-		</div>
-     </div>
-	</div>   	
-     <br/>      				
-	</ItemTemplate>
- </asp:Repeater>
-              <br />
-              <asp:Button ID="Btnreturn" runat="server"  Text="返回" OnClick="Btnreturn_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-    <br />
- <br /> 
-</div> 
+            <asp:Repeater ID="Repeater1" runat="server">
+            <ItemTemplate>
+            <section class="typing-admin-detail">
+                <div class="typing-admin-detail-card">
+                    <div class="typing-admin-detail-header">
+                        <div class="typing-admin-toolbar">
+                            <h2 class="typing-admin-detail-title"><%# Eval("Ntitle") %></h2>
+                            <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                                OnClick="BtnEdit_Click" CssClass="typing-admin-btn typing-admin-btn--primary" />
+                        </div>
+                    </div>
+                    <div class="typing-admin-detail-body">
+                        <div class="typing-admin-detail-content"><%# Eval("Ncontent") %></div>
+                    </div>
+                </div>
+            </section>
+            </ItemTemplate>
+            </asp:Repeater>
+
+            <section class="typing-admin-actions">
+                <div class="typing-admin-action-row">
+                    <asp:Button ID="Btnreturn" runat="server" Text="返回" OnClick="Btnreturn_Click" CssClass="typing-admin-btn typing-admin-btn--secondary" />
+                </div>
+            </section>
+        </div>
+    </div>
 </asp:Content>
-

@@ -5,44 +5,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
+    <style type="text/css">
+        .workpackage-page {
+            --admin-form-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+            --admin-form-hero-bg: linear-gradient(135deg, #1e1b4b 0%, #4338ca 55%, #6366f1 100%);
+            --admin-form-hero-shadow: 0 22px 45px -28px rgba(79, 70, 229, 0.75);
+            --admin-form-primary-bg: #4f46e5;
+            --admin-form-primary-hover: #4338ca;
+            --admin-form-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
+            --admin-form-secondary-border: #c7d2fe;
+            --admin-form-secondary-bg: #eef2ff;
+            --admin-form-secondary-hover: #e0e7ff;
+            --admin-form-secondary-fg: #3730a3;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div style="margin: auto; text-align: center;font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 9pt">
-          班级作品打包<br />
-          <br />
-          <asp:DropDownList ID="DDLgrade" runat="server" Font-Size="9pt" 
-            Width="50px" EnableTheming="True" AutoPostBack="True" 
-                onselectedindexchanged="DDLgrade_SelectedIndexChanged">
-        </asp:DropDownList>
-            年级 
-            <asp:DropDownList ID="DDLclass" runat="server" Font-Size="9pt" 
-            Width="50px" EnableTheming="True" AutoPostBack="True" 
-                onselectedindexchanged="DDLclass_SelectedIndexChanged">
-        </asp:DropDownList>
-            班级&nbsp;&nbsp;&nbsp;学案名称：<asp:DropDownList ID="DDLCid" runat="server" Font-Names="Arial" 
-              Font-Size="9pt" AutoPostBack="True" 
-              onselectedindexchanged="DDLCid_SelectedIndexChanged">
-          </asp:DropDownList>
-          &nbsp;
-          <asp:Button ID="Button1" runat="server" Text="作品打包" onclick="Button1_Click" 
-              SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-          <br />
-          <br />
-          <asp:Label ID="Labelyear" runat="server" Visible="False"></asp:Label>
-          <br />
-          <div style="border: 1px dashed #CCCCCC; width: 300px; margin: auto; background-color: #FFFFFF;">
-              <br />
-          <br />
-          <asp:HyperLink ID="HyperLink1" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">本学案作品包下载</asp:HyperLink>
-          <br />
-          <br />
-          <asp:Label ID="Labelmsg" runat="server">打包时请耐心等待几秒！</asp:Label>
-          </div>
-          <br />
-          </div>
+    <div class="admin-form-page workpackage-page">
+        <div class="admin-form-shell">
+            <section class="admin-form-hero">
+                <div class="admin-form-hero-content">
+                    <div class="admin-form-eyebrow">Work Package</div>
+                    <h1 class="admin-form-title">班级作品打包</h1>
+                    <p class="admin-form-subtitle">按年级、班级和学案选择作品目录，生成并下载当前学案作品包。</p>
+                </div>
+            </section>
+
+            <section class="admin-form-panel">
+                <h2 class="admin-form-section-title">打包条件</h2>
+                <p class="admin-form-section-desc">切换年级、班级和学案后，可重新生成作品压缩包。</p>
+                <div class="admin-form-grid">
+                    <div class="admin-form-field">
+                        <label class="admin-form-label" for="<%= DDLgrade.ClientID %>">年级</label>
+                        <asp:DropDownList ID="DDLgrade" runat="server" Font-Size="9pt"
+                            Width="50px" EnableTheming="True" AutoPostBack="True"
+                            onselectedindexchanged="DDLgrade_SelectedIndexChanged" CssClass="admin-form-select">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="admin-form-field">
+                        <label class="admin-form-label" for="<%= DDLclass.ClientID %>">班级</label>
+                        <asp:DropDownList ID="DDLclass" runat="server" Font-Size="9pt"
+                            Width="50px" EnableTheming="True" AutoPostBack="True"
+                            onselectedindexchanged="DDLclass_SelectedIndexChanged" CssClass="admin-form-select">
+                        </asp:DropDownList>
+                    </div>
+                    <div class="admin-form-field admin-form-field-wide">
+                        <label class="admin-form-label" for="<%= DDLCid.ClientID %>">学案名称</label>
+                        <asp:DropDownList ID="DDLCid" runat="server" Font-Names="Arial"
+                          Font-Size="9pt" AutoPostBack="True"
+                          onselectedindexchanged="DDLCid_SelectedIndexChanged" CssClass="admin-form-select">
+                      </asp:DropDownList>
+                    </div>
+                </div>
+            </section>
+
+            <section class="admin-form-actions">
+                <div class="admin-form-action-row">
+                    <asp:Button ID="Button1" runat="server" Text="作品打包" onclick="Button1_Click"
+                        CssClass="admin-form-btn admin-form-btn--primary" />
+                </div>
+            </section>
+
+            <section class="admin-form-panel">
+                <h2 class="admin-form-section-title">打包结果</h2>
+                <p class="admin-form-section-desc">打包完成后，可从下方直接下载生成的压缩包。</p>
+                <asp:Label ID="Labelyear" runat="server" Visible="False"></asp:Label>
+                <div class="admin-form-kv">
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">下载文件</span>
+                        <span class="admin-form-kv-value"><asp:HyperLink ID="HyperLink1" runat="server" CssClass="admin-form-link">本学案作品包下载</asp:HyperLink></span>
+                    </div>
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">状态信息</span>
+                        <span class="admin-form-kv-value"><asp:Label ID="Labelmsg" runat="server">打包时请耐心等待几秒！</asp:Label></span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
     </form>
 </body>
 </html>

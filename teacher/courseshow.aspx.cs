@@ -125,7 +125,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
         }
     }
 
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["cid"] != null)
         {
@@ -399,7 +399,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
         string strjs = "if(confirm('您确定要删除吗?'))return true;else return false; ";
         ((LinkButton)e.Item.FindControl("LinkBtnDel")).OnClientClick = strjs;
     }
-    protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+    protected void ImageButton1_Click(object sender, EventArgs e)
     {
         showmenu();
     }

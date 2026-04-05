@@ -282,12 +282,12 @@ document.addEventListener('keydown', function(e) {
             }
         }
         // 页面加载完成后初始化
-        window.onload = function() {
+        window.addEventListener('load', function() {
             loadFolderTree();
             loadFiles(currentFolderPath);
             setupDragAndDrop();
             document.getElementById('fileInput').onchange = handleFileSelect;
-        };
+        });
         
         
         // 加载文件夹树

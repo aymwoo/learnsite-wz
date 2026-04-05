@@ -1,35 +1,84 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="htmlshow.aspx.cs" Inherits="teacher_htmlshow" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div class="courseshow">
-    <br />
-        <div   class="missiontitle">
-    <asp:Label ID="LabelMtitle"  runat="server" ></asp:Label>
-   </div><br />
-    <div class="courseother">
-       日期：<asp:Label ID="LabelMdate"  runat="server" ></asp:Label>
-			&nbsp;作品类型：<asp:Image ID="ImageType" runat="server" />
-			<asp:Label ID="LabelMfiletype" runat="server" ></asp:Label>
-            &nbsp;<asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" 
-            Enabled="False" /> 
-             &nbsp;&nbsp; 
-            网页文件名<asp:Label ID="Labelfilename" runat="server" ></asp:Label>      
-            &nbsp;&nbsp; <asp:HyperLink ID="HLMgid" runat="server" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">评价标准</asp:HyperLink>
-            <asp:ImageButton ID="BtnEdit" runat="server" ToolTip="点击修改" 
-            ImageUrl="~/images/edit.gif" onclick="BtnEdit_Click" 
-           style="width: 16px" />
-   &nbsp;<asp:ImageButton ID="BtnReturnSmall" runat="server" ToolTip="返回" 
-            ImageUrl="~/images/return.gif" onclick="BtnReturnSmall_Click" 
-           style="width: 16px" />
-   </div>
-        <div   id="Mcontent"  class="coursecontent" runat="server">	
-		</div>
-		<br />
-         <asp:LinkButton ID="LinkBtn" runat="server"  OnClick="LinkBtn_Click" SkinID="LinkBtn">返回学案</asp:LinkButton>
-    <br />
-		<br />
+    <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
+    <style type="text/css">
+        .mission-show-page {
+            --admin-form-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+            --admin-form-hero-bg: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 55%, #06b6d4 100%);
+            --admin-form-hero-shadow: 0 22px 45px -28px rgba(124, 58, 237, 0.72);
+            --admin-form-primary-bg: #7c3aed;
+            --admin-form-primary-hover: #6d28d9;
+            --admin-form-primary-shadow: 0 14px 24px -18px rgba(124, 58, 237, 0.85);
+            --admin-form-secondary-border: #c4b5fd;
+            --admin-form-secondary-bg: #f5f3ff;
+            --admin-form-secondary-hover: #ede9fe;
+            --admin-form-secondary-fg: #6d28d9;
+        }
 
-</div> 
-    <br />
+        .mission-show-content {
+            line-height: 1.8;
+            word-break: break-word;
+        }
+    </style>
+    <div class="admin-form-page mission-show-page">
+        <div class="admin-form-shell">
+            <section class="admin-form-hero">
+                <div class="admin-form-hero-content">
+                    <div class="admin-form-eyebrow">HTML Activity</div>
+                    <h1 class="admin-form-title"><asp:Label ID="LabelMtitle" runat="server"></asp:Label></h1>
+                    <p class="admin-form-subtitle">查看网页设计活动内容、首页文件、发布状态和评价标准。</p>
+                </div>
+            </section>
+
+            <section class="admin-form-panel">
+                <div class="admin-form-toolbar">
+                    <div>
+                        <h2 class="admin-form-section-title">活动信息</h2>
+                        <p class="admin-form-section-desc">这里展示当前网页设计活动的基础属性与资源入口。</p>
+                    </div>
+                    <div class="admin-form-action-row">
+                        <asp:Button ID="BtnEdit" runat="server" Text="修改内容" ToolTip="点击修改"
+                            OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
+                        <asp:Button ID="BtnReturnSmall" runat="server" Text="返回学案" ToolTip="返回"
+                            OnClick="BtnReturnSmall_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+                    </div>
+                </div>
+                <div class="admin-form-kv">
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">日期</span>
+                        <span class="admin-form-kv-value"><asp:Label ID="LabelMdate" runat="server"></asp:Label></span>
+                    </div>
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">作品类型</span>
+                        <span class="admin-form-kv-value"><asp:Image ID="ImageType" runat="server" /> <asp:Label ID="LabelMfiletype" runat="server"></asp:Label></span>
+                    </div>
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">发布状态</span>
+                        <span class="admin-form-kv-value"><asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" Enabled="False" /></span>
+                    </div>
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">网页文件名</span>
+                        <span class="admin-form-kv-value"><asp:Label ID="Labelfilename" runat="server"></asp:Label></span>
+                    </div>
+                    <div class="admin-form-kv-item">
+                        <span class="admin-form-kv-label">评价标准</span>
+                        <span class="admin-form-kv-value"><asp:HyperLink ID="HLMgid" runat="server" CssClass="admin-form-link">评价标准</asp:HyperLink></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="admin-form-panel">
+                <h2 class="admin-form-section-title">活动内容</h2>
+                <p class="admin-form-section-desc">以下为当前网页设计活动说明内容。</p>
+                <div id="Mcontent" class="mission-show-content" runat="server"></div>
+            </section>
+
+            <section class="admin-form-actions">
+                <div class="admin-form-action-row">
+                    <asp:LinkButton ID="LinkBtn" runat="server" OnClick="LinkBtn_Click" CssClass="admin-form-btn admin-form-btn--secondary">返回学案</asp:LinkButton>
+                </div>
+            </section>
+        </div>
+    </div>
 </asp:Content>
-

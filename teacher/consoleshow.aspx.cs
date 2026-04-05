@@ -50,17 +50,22 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
 
     private void showproblem()
     {
-        if (Request.QueryString["nid"] != null && Request.QueryString["ncid"] != null && Request.QueryString["lid"] != null)
+        Hkconsole.Visible = false;
+        if (Request.QueryString["nid"] != null && Request.QueryString["ncid"] != null)
         {
             string nid = Request.QueryString["nid"].ToString();
             string cid = Request.QueryString["ncid"].ToString();
-            string lid = Request.QueryString["lid"].ToString();
             LearnSite.BLL.Problems qbll = new LearnSite.BLL.Problems();
             GVProblem.DataSource = qbll.GetListNid(Int32.Parse(nid));
             GVProblem.DataBind();
 
-            string url = "~/teacher/consolepreview.aspx?nid=" + nid + "&ncid=" + cid + "&lid=" + lid;
-            Hkconsole.NavigateUrl = url;
+            if (Request.QueryString["lid"] != null)
+            {
+                string lid = Request.QueryString["lid"].ToString();
+                string url = "~/teacher/consolepreview.aspx?nid=" + nid + "&ncid=" + cid + "&lid=" + lid;
+                Hkconsole.NavigateUrl = url;
+                Hkconsole.Visible = true;
+            }
         }
     }
     protected void Btnadd_Click(object sender, EventArgs e)
@@ -70,6 +75,10 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
             string nid = Request.QueryString["nid"].ToString();
             string cid = Request.QueryString["ncid"].ToString();
             string url = "~/teacher/problem.aspx?nid=" + nid + "&ncid=" + cid;
+            if (Request.QueryString["lid"] != null)
+            {
+                url += "&lid=" + Request.QueryString["lid"].ToString();
+            }
             Response.Redirect(url, false);
         }
     }
@@ -123,7 +132,11 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
             {
                 string nid = Request.QueryString["nid"].ToString();
                 string cid = Request.QueryString["ncid"].ToString();
-                string url = "~/teacher/problem.aspx?nid=" + nid + "&ncid=" + cid + "&pid=" + pid; ;
+                string url = "~/teacher/problem.aspx?nid=" + nid + "&ncid=" + cid + "&pid=" + pid;
+                if (Request.QueryString["lid"] != null)
+                {
+                    url += "&lid=" + Request.QueryString["lid"].ToString();
+                }
                 ((HyperLink)e.Row.FindControl("HyperLinkPid")).NavigateUrl = url;
             }
         }
@@ -137,13 +150,17 @@ public partial class Teacher_consoleshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["nid"] != null && Request.QueryString["ncid"] != null)
         {
             string nid = Request.QueryString["nid"].ToString();
             string cid = Request.QueryString["ncid"].ToString();
             string url = "~/teacher/consoleadd.aspx?nid=" + nid + "&cid=" + cid;
+            if (Request.QueryString["lid"] != null)
+            {
+                url += "&lid=" + Request.QueryString["lid"].ToString();
+            }
             Response.Redirect(url, true);
         }
     }

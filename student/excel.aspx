@@ -111,7 +111,7 @@
   
 */  
 
-   window.onload = function () {
+   window.addEventListener('load', function () {
         var codefile = "<%=codefile %>";
         var example="<%=Exampleurl %>";	
 		var xhr = new XMLHttpRequest();
@@ -171,6 +171,6 @@
 
 		}
 	
-	}
+	});
 </script>
 </html>

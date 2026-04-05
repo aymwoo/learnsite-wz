@@ -36,6 +36,22 @@
         align-items: center;
         cursor: pointer;
     }
+    .ca-hero-back .ca-back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.6rem;
+        padding: 0 1rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(191, 219, 254, 0.55);
+        background: rgba(239, 246, 255, 0.14);
+        color: #ffffff;
+        font-weight: 700;
+        transition: all 0.2s ease;
+    }
+    .ca-hero-back .ca-back-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
 
     /* ===== Stats Bar ===== */
     .ca-stats-bar {
@@ -120,11 +136,11 @@
         </div>
     </div>
     <div class="ca-hero-back">
-        <asp:ImageButton ID="ImageButton1" runat="server"
-            ImageUrl="~/images/return.gif"
-            onclick="ImageButton1_Click"
+        <asp:Button ID="ImageButton1" runat="server"
+            Text="返回学案"
+            OnClick="ImageButton1_Click"
             ToolTip="返回学案列表"
-            style="width:28px;opacity:0.8;filter:brightness(10);" />
+            CssClass="ca-back-btn" />
     </div>
 </div>
 

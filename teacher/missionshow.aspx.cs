@@ -70,7 +70,7 @@ public partial class Teacher_missionshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null && Request.QueryString["lid"] != null)
         {
@@ -81,7 +81,7 @@ public partial class Teacher_missionshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null)
         {

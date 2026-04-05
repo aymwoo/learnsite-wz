@@ -1386,7 +1386,7 @@
                                 <a id="HeroEditLink" runat="server" class="course-show-hero-edit" title="编辑横幅" aria-label="编辑横幅">
                                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
                                 </a>
-                                <asp:ImageButton ID="BtnEdit" runat="server" ImageUrl="~/images/edit.gif" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-show-hidden course-show-edit-btn" AlternateText="编辑学案" />
+                                <asp:Button ID="BtnEdit" runat="server" Text="编辑学案" ToolTip="点击修改" OnClick="BtnEdit_Click" CssClass="course-show-hidden course-show-edit-btn" />
                             </div>
                         </div>
                     </div>

@@ -433,7 +433,7 @@
 
                             <div>
                                 <asp:Button ID="BtnBuild" runat="server" onclick="BtnBuild_Click"
-                                    SkinID="BtnLong" Text="生成任教班级模型" CssClass="myth-btn" />
+                                    Text="生成任教班级模型" CssClass="myth-btn" />
                             </div>
 
                             <asp:Label ID="Labelmsg" runat="server" CssClass="myth-msg"></asp:Label>

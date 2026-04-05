@@ -116,9 +116,9 @@
             ppt.command.loadppt(ppturl);
         }
     }
-    window.onload = function () {
+    window.addEventListener('load', function () {
         document.getElementById("pptId").innerText = id;
-    }
+    });
 
     setTimeout(readppt, 1000);
 

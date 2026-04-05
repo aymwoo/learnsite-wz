@@ -82,10 +82,10 @@
                             <asp:ListItem>11</asp:ListItem>
                             <asp:ListItem>12</asp:ListItem>
             </asp:DropDownList>
-                        &nbsp;<asp:Button ID="Btnadd" runat="server"  Text="添加"  onclick="Btnadd_Click" 
-                            SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
-                    &nbsp;<asp:Button ID="Btnreturn" runat="server"  Text="返回"  onclick="Btnreturn_Click" 
-                            SkinID="BtnSmall" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
+                        &nbsp;<asp:Button ID="Btnadd" runat="server"  Text="添加"  onclick="Btnadd_Click"
+                            CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+                    &nbsp;<asp:Button ID="Btnreturn" runat="server"  Text="返回"  onclick="Btnreturn_Click"
+                            Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     <br />
                     </div>
                         </div>
@@ -96,4 +96,3 @@
 </div>
 
 </asp:Content>
-

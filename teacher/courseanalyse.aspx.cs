@@ -136,7 +136,7 @@ public partial class Teacher_courseanalyse : System.Web.UI.Page
     {
         ShowFlash();
     }
-    protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+    protected void ImageButton1_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/teacher/course.aspx", false);
     }
