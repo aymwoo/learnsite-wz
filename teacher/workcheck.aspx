@@ -85,6 +85,65 @@
         }
         .ws-sort-group { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
         .ws-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+        .ws-btn,
+        a.ws-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            min-height: 34px;
+            padding: 0 14px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            line-height: 1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+        .ws-btn:hover,
+        a.ws-btn:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+            text-decoration: none;
+        }
+        .ws-btn:active,
+        a.ws-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+        }
+        .ws-btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-color: #dc2626;
+            color: #ffffff;
+        }
+        .ws-btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            border-color: #ea580c;
+            color: #ffffff;
+        }
+        .ws-btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            border-color: #2563eb;
+            color: #ffffff;
+        }
+        .ws-btn-success {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #059669;
+            color: #ffffff;
+        }
+        .ws-btn-info {
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
+            border-color: #0f766e;
+            color: #ffffff;
+        }
+        .ws-btn-neutral {
+            background: linear-gradient(135deg, #64748b, #475569);
+            border-color: #475569;
+            color: #ffffff;
+        }
 
         /* ===== Work Cards ===== */
         .ws-section-title {
@@ -99,21 +158,26 @@
         .ws-cards-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
         .divscore {
-            border: 1px solid #dbeafe !important;
-            background: #fffaee !important;
-            border-radius: 10px !important;
+            border: 1px solid #cfe3ff !important;
+            background: linear-gradient(180deg, #fffef7 0%, #f8fbff 100%) !important;
+            border-radius: 14px !important;
             width: 106px !important;
-            padding: 6px 4px !important;
+            padding: 8px 6px !important;
             text-align: center !important;
-            transition: box-shadow 0.15s;
+            box-shadow: 0 10px 24px rgba(59, 130, 246, 0.08);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-        .divscore:hover { box-shadow: 0 2px 8px rgba(59,130,246,0.12); }
+        .divscore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(59, 130, 246, 0.14);
+        }
         .workname {
             display: inline-block !important;
-            background: #dbeafe !important;
-            color: #1e40af !important;
-            border-radius: 5px !important;
-            padding: 1px 4px !important;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+            color: #1e3a8a !important;
+            border: 1px solid #93c5fd !important;
+            border-radius: 999px !important;
+            padding: 2px 8px !important;
             font-size: 10pt !important;
             width: auto !important;
             max-width: 90px !important;
@@ -123,40 +187,90 @@
             text-decoration: none !important;
             height: auto !important;
             line-height: 1.4 !important;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.12);
         }
         .wscored {
             display: inline-block !important;
-            background: #e0f2fe !important;
-            color: #0369a1 !important;
-            border-radius: 4px !important;
+            min-width: 24px !important;
+            padding: 0 4px !important;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd) !important;
+            color: #075985 !important;
+            border: 1px solid #7dd3fc !important;
+            border-radius: 999px !important;
             font-size: 10pt !important;
-            width: 18px !important;
-            height: 18px !important;
-            line-height: 18px !important;
+            height: 22px !important;
+            line-height: 20px !important;
             text-align: center;
             text-decoration: none !important;
             cursor: pointer;
-            transition: background 0.1s;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(14, 165, 233, 0.12);
+            transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
         }
-        .wscored:hover { background: #bae6fd !important; }
+        .wscored:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.03);
+            box-shadow: 0 6px 14px rgba(14, 165, 233, 0.18);
+        }
+        .wscored-g {
+            background: linear-gradient(135deg, #fde68a, #f59e0b) !important;
+            border-color: #f59e0b !important;
+            color: #78350f !important;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+        }
+        .wscored-a {
+            background: linear-gradient(135deg, #bfdbfe, #60a5fa) !important;
+            border-color: #60a5fa !important;
+            color: #1e3a8a !important;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.18);
+        }
+        .wscored-b {
+            background: linear-gradient(135deg, #bbf7d0, #34d399) !important;
+            border-color: #34d399 !important;
+            color: #065f46 !important;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.18);
+        }
+        .wscored-c {
+            background: linear-gradient(135deg, #fde68a, #fbbf24) !important;
+            border-color: #fbbf24 !important;
+            color: #92400e !important;
+            box-shadow: 0 4px 10px rgba(245, 158, 11, 0.18);
+        }
+        .wscored-d {
+            background: linear-gradient(135deg, #fdba74, #fb923c) !important;
+            border-color: #fb923c !important;
+            color: #9a3412 !important;
+            box-shadow: 0 4px 10px rgba(249, 115, 22, 0.18);
+        }
+        .wscored-e {
+            background: linear-gradient(135deg, #fecdd3, #fb7185) !important;
+            border-color: #fb7185 !important;
+            color: #9f1239 !important;
+            box-shadow: 0 4px 10px rgba(244, 63, 94, 0.18);
+        }
 
         .ws-group-section { margin-top: 1.5rem; }
         .divgroupscore {
-            border: 1px solid #d1fae5 !important;
-            background: #f0fdf4 !important;
-            border-radius: 10px !important;
+            border: 1px solid #bbf7d0 !important;
+            background: linear-gradient(180deg, #f7fff9 0%, #f0fdf4 100%) !important;
+            border-radius: 14px !important;
             width: 110px !important;
-            padding: 6px 4px !important;
+            padding: 8px 6px !important;
             text-align: center !important;
-            transition: box-shadow 0.15s;
+            box-shadow: 0 10px 24px rgba(16, 185, 129, 0.08);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-        .divgroupscore:hover { box-shadow: 0 2px 8px rgba(16,185,129,0.12); }
+        .divgroupscore:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(16, 185, 129, 0.14);
+        }
         .groupname {
             display: inline-block !important;
-            background: #bbf7d0 !important;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
             color: #065f46 !important;
-            border-radius: 5px !important;
-            padding: 1px 4px !important;
+            border: 1px solid #6ee7b7 !important;
+            border-radius: 999px !important;
+            padding: 2px 8px !important;
             font-size: 10pt !important;
             width: auto !important;
             max-width: 96px !important;
@@ -166,6 +280,7 @@
             text-decoration: none !important;
             height: auto !important;
             line-height: 1.4 !important;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.12);
         }
 
         .ws-nowork-section {
@@ -232,7 +347,7 @@
                 <asp:Image ID="ImageType" runat="server" style="height:20px" />
                 <asp:Button ID="ImgBtnFlasherror" runat="server"
                     Text="清除异常" OnClick="ImgBtnFlasherror_Click"
-                    ToolTip="Office文档转换异常标志清除重新转换" CssClass="px-3 py-1 bg-rose-600 text-white rounded hover:bg-rose-700 transition shadow-sm border-0 text-sm" />
+                    ToolTip="Office文档转换异常标志清除重新转换" CssClass="ws-btn ws-btn-danger" />
             </div>
 
             <!-- Actions -->
@@ -240,27 +355,27 @@
                 <div class="ws-actions">
                     <asp:Button ID="BtnCheck" runat="server" Text="批量设为已评" OnClick="BtnCheck_Click"
                         ToolTip="将本班自动得分作品全部设置为已评"
-                        CssClass="px-3 py-1 bg-amber-500 text-white rounded hover:bg-amber-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-warning" />
                     <asp:Button ID="BtnA" runat="server" Text="一键评A" SkinID="BtnSmall"
                         onclick="BtnA_Click" ToolTip="将本班该活动未评的作品，全部评为A"
-                        CssClass="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-primary" />
                     <asp:Button ID="BtnB" runat="server" Text="一键评B" SkinID="BtnSmall"
                         onclick="BtnB_Click" ToolTip="将本班该活动未评的作品，全部评为B"
-                        CssClass="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-primary" />
                     <asp:Button ID="BtnCk" runat="server" Text="一键已评" SkinID="BtnSmall"
                         onclick="BtnCk_Click" ToolTip="不用给分的作品，一健全评为０"
-                        CssClass="px-3 py-1 bg-slate-500 text-white rounded hover:bg-slate-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-success" />
                     <asp:Button ID="BtnWp" runat="server" Text="一键未评" SkinID="BtnSmall"
                         onclick="BtnWp_Click" ToolTip="所有作品一键未评"
-                        CssClass="px-3 py-1 bg-slate-500 text-white rounded hover:bg-slate-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-neutral" />
                     <asp:HyperLink ID="HLautoplay" runat="server" Target="_blank"
                         ToolTip="个人作品自动展播"
-                        CssClass="px-3 py-1 bg-emerald-500 text-white rounded hover:bg-emerald-600 transition shadow-sm text-sm inline-flex items-center gap-1">[HLautoplay]</asp:HyperLink>
+                        CssClass="ws-btn ws-btn-success">[HLautoplay]</asp:HyperLink>
                     <asp:HyperLink ID="HLgroupplay" runat="server" Target="_blank"
                         ToolTip="小组作品自动展播"
-                        CssClass="px-3 py-1 bg-teal-500 text-white rounded hover:bg-teal-600 transition shadow-sm text-sm inline-flex items-center gap-1">[HLgroupplay]</asp:HyperLink>
+                        CssClass="ws-btn ws-btn-info">[HLgroupplay]</asp:HyperLink>
                     <asp:Button ID="Btnreturn" runat="server" Text="关闭窗口" SkinID="BtnSmall"
-                        CssClass="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition shadow-sm border-0 text-sm" />
+                        CssClass="ws-btn ws-btn-danger" />
                 </div>
             </div>
 
@@ -310,14 +425,14 @@
                                 ImageUrl="~/images/flashview.png" ToolTip="Flash格式预览" Visible="False"></asp:HyperLink>
                         </div>
                         <div>
-                            <asp:LinkButton ID="LG" runat="server" CommandArgument="Wid" CommandName="G" ToolTip="收藏12分" CssClass="wscored">G</asp:LinkButton>
-                            &nbsp;<asp:LinkButton ID="LA" runat="server" CommandArgument="Wid" CommandName="A" ToolTip="优秀10分" CssClass="wscored">A</asp:LinkButton>
-                            &nbsp;<asp:LinkButton ID="LB" runat="server" CommandArgument="Wid" CommandName="B" ToolTip="良好8分" CssClass="wscored">B</asp:LinkButton>
+                            <asp:LinkButton ID="LG" runat="server" CommandArgument="Wid" CommandName="G" ToolTip="收藏12分" CssClass="wscored wscored-g">G</asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LA" runat="server" CommandArgument="Wid" CommandName="A" ToolTip="优秀10分" CssClass="wscored wscored-a">A</asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LB" runat="server" CommandArgument="Wid" CommandName="B" ToolTip="良好8分" CssClass="wscored wscored-b">B</asp:LinkButton>
                         </div>
                         <div>
-                            <asp:LinkButton ID="LC" runat="server" CommandArgument="Wid" CommandName="C" ToolTip="一般6分" CssClass="wscored">C</asp:LinkButton>
-                            &nbsp;<asp:LinkButton ID="LD" runat="server" CommandArgument="Wid" CommandName="D" ToolTip="落后4分" CssClass="wscored">D</asp:LinkButton>
-                            &nbsp;<asp:LinkButton ID="LE" runat="server" CommandArgument="Wid" CommandName="E" ToolTip="不及格2分" CssClass="wscored">E</asp:LinkButton>
+                            <asp:LinkButton ID="LC" runat="server" CommandArgument="Wid" CommandName="C" ToolTip="一般6分" CssClass="wscored wscored-c">C</asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LD" runat="server" CommandArgument="Wid" CommandName="D" ToolTip="落后4分" CssClass="wscored wscored-d">D</asp:LinkButton>
+                            &nbsp;<asp:LinkButton ID="LE" runat="server" CommandArgument="Wid" CommandName="E" ToolTip="不及格2分" CssClass="wscored wscored-e">E</asp:LinkButton>
                         </div>
                         <asp:Label ID="Labelscore" runat="server" Text='<%# Eval("Wscore") %>' Visible="False"></asp:Label>
                         <asp:Label ID="Labelurl" runat="server" Text='<%# Eval("Wurl") %>' Visible="False"></asp:Label>
@@ -351,19 +466,19 @@
                                 oncheckedchanged="CBg_CheckedChanged"
                                 ToolTip="评价状态：取消则评分为0并可重新提交，选中则初始评分为0并不可重新提交" />
                             <div>
-                                <asp:LinkButton ID="L20" runat="server" CommandArgument="Gid" CommandName="20" ToolTip="20学分" CssClass="wscored">A+</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L19" runat="server" CommandArgument="Gid" CommandName="19" ToolTip="19学分" CssClass="wscored">A</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L18" runat="server" CommandArgument="Gid" CommandName="18" ToolTip="18学分" CssClass="wscored">A-</asp:LinkButton>
+                                <asp:LinkButton ID="L20" runat="server" CommandArgument="Gid" CommandName="20" ToolTip="20学分" CssClass="wscored wscored-a">A+</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L19" runat="server" CommandArgument="Gid" CommandName="19" ToolTip="19学分" CssClass="wscored wscored-a">A</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L18" runat="server" CommandArgument="Gid" CommandName="18" ToolTip="18学分" CssClass="wscored wscored-a">A-</asp:LinkButton>
                             </div>
                             <div>
-                                <asp:LinkButton ID="L17" runat="server" CommandArgument="Gid" CommandName="17" ToolTip="17学分" CssClass="wscored">B+</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L16" runat="server" CommandArgument="Gid" CommandName="16" ToolTip="16学分" CssClass="wscored">B</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L15" runat="server" CommandArgument="Gid" CommandName="15" ToolTip="15学分" CssClass="wscored">B-</asp:LinkButton>
+                                <asp:LinkButton ID="L17" runat="server" CommandArgument="Gid" CommandName="17" ToolTip="17学分" CssClass="wscored wscored-b">B+</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L16" runat="server" CommandArgument="Gid" CommandName="16" ToolTip="16学分" CssClass="wscored wscored-b">B</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L15" runat="server" CommandArgument="Gid" CommandName="15" ToolTip="15学分" CssClass="wscored wscored-b">B-</asp:LinkButton>
                             </div>
                             <div>
-                                <asp:LinkButton ID="L14" runat="server" CommandArgument="Gid" CommandName="14" ToolTip="14学分" CssClass="wscored">C+</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L13" runat="server" CommandArgument="Gid" CommandName="13" ToolTip="13学分" CssClass="wscored">C</asp:LinkButton>
-                                &nbsp;<asp:LinkButton ID="L12" runat="server" CommandArgument="Gid" CommandName="12" ToolTip="12学分" CssClass="wscored">C-</asp:LinkButton>
+                                <asp:LinkButton ID="L14" runat="server" CommandArgument="Gid" CommandName="14" ToolTip="14学分" CssClass="wscored wscored-c">C+</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L13" runat="server" CommandArgument="Gid" CommandName="13" ToolTip="13学分" CssClass="wscored wscored-c">C</asp:LinkButton>
+                                &nbsp;<asp:LinkButton ID="L12" runat="server" CommandArgument="Gid" CommandName="12" ToolTip="12学分" CssClass="wscored wscored-c">C-</asp:LinkButton>
                             </div>
                             <asp:Label ID="Labelgscore" runat="server" Text='<%# Eval("Gscore") %>' Visible="False"></asp:Label>
                             <asp:Label ID="Labelgurl" runat="server" Text='<%# Eval("Gurl") %>' Visible="False"></asp:Label>
@@ -392,7 +507,7 @@
         <div class="ws-refresh-note">
             <asp:Button ID="Btnreflash" runat="server" Text="立即刷新"
                 OnClick="Btnreflash_Click"
-                CssClass="px-3 py-1 bg-slate-600 text-white rounded hover:bg-slate-700 transition shadow-sm border-0 text-sm" />
+                CssClass="ws-btn ws-btn-neutral" />
             每30秒自动刷新
         </div>
     </div>

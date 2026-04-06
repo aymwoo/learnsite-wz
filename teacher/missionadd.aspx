@@ -111,6 +111,56 @@
             color: #334155;
             white-space: pre-wrap;
         }
+
+        .ai-progress-wrap {
+            display: none;
+            padding: 0.75rem;
+            border: 1px solid #dbeafe;
+            border-radius: 0.5rem;
+            background: #f8fbff;
+        }
+
+        .ai-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .ai-progress-text {
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        .ai-progress-percent {
+            color: #475569;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .ai-progress-track {
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: #dbeafe;
+            overflow: hidden;
+        }
+
+        .ai-progress-bar {
+            width: 0;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #4f46e5 0%, #3b82f6 100%);
+            transition: width 0.25s ease;
+        }
+
+        .ai-progress-note {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
         
         .ai-panel-footer {
             padding: 1rem;
@@ -452,6 +502,16 @@
                                 <div id="ai-loading" class="ai-loading-spinner"></div>
                                 <span id="ai-btn-text">生成内容</span>
                             </button>
+                            <div id="ai-progress-wrap" class="ai-progress-wrap">
+                                <div class="ai-progress-header">
+                                    <span id="ai-progress-text" class="ai-progress-text">准备生成</span>
+                                    <span id="ai-progress-percent" class="ai-progress-percent">0%</span>
+                                </div>
+                                <div class="ai-progress-track">
+                                    <div id="ai-progress-bar" class="ai-progress-bar"></div>
+                                </div>
+                                <div id="ai-progress-note" class="ai-progress-note">输入提示词后，系统会调用当前默认 AI Provider 生成教学内容。</div>
+                            </div>
                             <div>
                                 <label style="font-size: 0.85rem; color: #64748b; margin-bottom: 0.5rem; display: block;">生成结果：</label>
                                 <div id="ai-result" class="ai-result-area"></div>
@@ -465,6 +525,34 @@
                 </div>
                 
                 <script>
+                    function setAIProgress(percent, text, note) {
+                        var progressWrap = document.getElementById('ai-progress-wrap');
+                        var progressBar = document.getElementById('ai-progress-bar');
+                        var progressText = document.getElementById('ai-progress-text');
+                        var progressPercent = document.getElementById('ai-progress-percent');
+                        var progressNote = document.getElementById('ai-progress-note');
+
+                        progressWrap.style.display = 'block';
+                        progressBar.style.width = percent + '%';
+                        progressText.innerText = text;
+                        progressPercent.innerText = percent + '%';
+                        progressNote.innerText = note || '';
+                    }
+
+                    function resetAIProgress() {
+                        var progressWrap = document.getElementById('ai-progress-wrap');
+                        var progressBar = document.getElementById('ai-progress-bar');
+                        var progressText = document.getElementById('ai-progress-text');
+                        var progressPercent = document.getElementById('ai-progress-percent');
+                        var progressNote = document.getElementById('ai-progress-note');
+
+                        progressWrap.style.display = 'none';
+                        progressBar.style.width = '0%';
+                        progressText.innerText = '准备生成';
+                        progressPercent.innerText = '0%';
+                        progressNote.innerText = '输入提示词后，系统会调用当前默认 AI Provider 生成教学内容。';
+                    }
+
                     function generateAIContent() {
                         var prompt = document.getElementById('ai-prompt').value.trim();
                         if (!prompt) {
@@ -480,13 +568,24 @@
                         btn.disabled = true;
                         btnText.innerText = '正在生成...';
                         loading.style.display = 'block';
-                        resultArea.innerHTML = '<span style="color:#64748b;">AI 正在努力思考中，这可能需要一点时间...</span>';
+                        resultArea.innerHTML = '<span style="color:#64748b;">生成中，结果完成后会显示在这里。</span>';
+                        setAIProgress(10, '正在提交请求', '已将教学内容需求发送到 AI 服务，请稍候。');
                         
-                        // Use jQuery ajax since it's likely available or fetch
                         var xhr = new XMLHttpRequest();
+                        xhr.timeout = 65000;
                         xhr.open("POST", "aiprovider_api.ashx", true);
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                         xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 2) {
+                                setAIProgress(45, '服务端处理中', '请求已送达，AI 正在分析提示词并生成内容。');
+                                return;
+                            }
+
+                            if (xhr.readyState === 3) {
+                                setAIProgress(75, '正在整理结果', '已收到返回数据，正在整理生成结果。');
+                                return;
+                            }
+
                             if (xhr.readyState === 4) {
                                 btn.disabled = false;
                                 btnText.innerText = '生成内容';
@@ -496,19 +595,36 @@
                                     try {
                                         var res = JSON.parse(xhr.responseText);
                                         if (res.success) {
-                                            // Handle markdown slightly - convert some basic stuff or let vditor handle it
                                             var text = res.data;
                                             resultArea.innerText = text;
+                                            setAIProgress(100, '生成完成', 'AI 教学助手已返回内容，可复制或一键插入编辑器。');
                                         } else {
                                             resultArea.innerHTML = '<span style="color:#ef4444;">错误：' + res.msg + '</span>';
+                                            setAIProgress(100, '生成失败', 'AI Provider 已返回错误，请检查默认模型配置或稍后重试。');
                                         }
                                     } catch (e) {
                                         resultArea.innerHTML = '<span style="color:#ef4444;">解析响应失败</span>';
+                                        setAIProgress(100, '解析失败', '已收到响应，但结果格式不符合预期。');
                                     }
                                 } else {
                                     resultArea.innerHTML = '<span style="color:#ef4444;">请求失败，状态码：' + xhr.status + '</span>';
+                                    setAIProgress(100, '请求失败', '接口请求未成功完成，请检查网络或服务端状态。');
                                 }
                             }
+                        };
+                        xhr.onerror = function() {
+                            btn.disabled = false;
+                            btnText.innerText = '生成内容';
+                            loading.style.display = 'none';
+                            resultArea.innerHTML = '<span style="color:#ef4444;">网络异常，无法连接 AI 接口</span>';
+                            setAIProgress(100, '网络异常', '未能连接到 AI Provider 接口，请检查网络或服务器配置。');
+                        };
+                        xhr.ontimeout = function() {
+                            btn.disabled = false;
+                            btnText.innerText = '生成内容';
+                            loading.style.display = 'none';
+                            resultArea.innerHTML = '<span style="color:#ef4444;">请求超时，请稍后重试</span>';
+                            setAIProgress(100, '请求超时', 'AI 生成超过 65 秒未返回，可能是模型响应较慢或服务拥堵。');
                         };
                         xhr.send("action=chat&prompt=" + encodeURIComponent(prompt));
                     }
@@ -516,7 +632,7 @@
                     function copyAIContent() {
                         var resultArea = document.getElementById('ai-result');
                         var text = resultArea.innerText;
-                        if (!text || text.indexOf('AI 正在努力思考中') !== -1) {
+                        if (!text || text.indexOf('生成中，结果完成后会显示在这里。') !== -1 || text.indexOf('错误：') === 0 || text.indexOf('请求失败') === 0 || text.indexOf('网络异常') === 0 || text.indexOf('请求超时') === 0 || text.indexOf('解析响应失败') === 0) {
                             alert('没有可复制的内容');
                             return;
                         }
@@ -535,7 +651,7 @@
                     function insertAIContent() {
                         var resultArea = document.getElementById('ai-result');
                         var text = resultArea.innerText;
-                        if (!text || text.indexOf('AI 正在努力思考中') !== -1 || text.indexOf('错误：') === 0) {
+                        if (!text || text.indexOf('生成中，结果完成后会显示在这里。') !== -1 || text.indexOf('错误：') === 0 || text.indexOf('请求失败') === 0 || text.indexOf('网络异常') === 0 || text.indexOf('请求超时') === 0 || text.indexOf('解析响应失败') === 0) {
                             alert('没有可插入的内容');
                             return;
                         }

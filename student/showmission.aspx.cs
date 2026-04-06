@@ -9,6 +9,7 @@ using System.Data;
 public partial class Student_showmission : System.Web.UI.Page
 {
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (LearnSite.Common.CookieHelp.IsStudentLogin())
@@ -55,7 +56,9 @@ public partial class Student_showmission : System.Web.UI.Page
                 string sWfiletype = model.Mfiletype;
                 LabelMtitle.Text = model.Mtitle;
                 LabelMcid.Text = model.Mcid.ToString();
-                Mcontent.InnerHtml = HttpUtility.HtmlDecode(model.Mcontent);
+                string decodedContent = HttpUtility.HtmlDecode(model.Mcontent);
+                HiddenMissionRaw.Value = decodedContent;
+                Mcontent.InnerHtml = decodedContent;
                 LabelSnum.Text = sSnum;
                 LabelMfiletype.Text = sWfiletype;
                 bool isupload = model.Mupload;
@@ -150,6 +153,7 @@ public partial class Student_showmission : System.Web.UI.Page
             }
             else
             {
+                HiddenMissionRaw.Value = string.Empty;
                 Mcontent.InnerHtml = "此学案活动不存在！";
                 Panelworks.Visible = false;
             }
