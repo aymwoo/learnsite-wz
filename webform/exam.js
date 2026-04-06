@@ -14,6 +14,7 @@ let examData = {
     timestamp:null,
     title: "",
     description: "",
+    enableAiAssessment: false,
     questions: []
 };
 
@@ -63,6 +64,9 @@ function init() {
 function readExamData() {               
     if (myjson) {
         examData = JSON.parse(myjson);
+        if (typeof examData.enableAiAssessment !== 'boolean') {
+            examData.enableAiAssessment = false;
+        }
         console.log("读取数据库",examData);
         saveExamData();
         // 数据加载完成后重新渲染页面
@@ -73,7 +77,10 @@ function readExamData() {
 function loadExamData() {
     const savedData = localStorage.getItem(localStorageFlag);
     if (savedData) {
-        examData = JSON.parse(savedData); 
+        examData = JSON.parse(savedData);
+        if (typeof examData.enableAiAssessment !== 'boolean') {
+            examData.enableAiAssessment = false;
+        }
     }
 }
 
@@ -136,6 +143,11 @@ function updateExamTitle(newTitle) {
 // 更新试卷描述
 function updateExamDescription(newDescription) {
     examData.description = newDescription;
+    saveExamData();
+}
+
+function updateExamAiAssessment(enabled) {
+    examData.enableAiAssessment = !!enabled;
     saveExamData();
 }
 
@@ -297,6 +309,12 @@ function renderQuestions() {
             <textarea class="exam-desc-edit" id="examDescEdit" 
                     onchange="updateExamDescription(this.value)"
                     placeholder="请输入测验描述">${examData.description}</textarea>
+            <label style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:14px;color:#334155;">
+                <input type="checkbox" ${examData.enableAiAssessment ? 'checked' : ''}
+                    onchange="updateExamAiAssessment(this.checked)">
+                <span>启用 AI 评估</span>
+                <span style="font-size:12px;color:#64748b;">默认关闭，关闭时仅生成规则评估摘要</span>
+            </label>
         </div>
     `;
     

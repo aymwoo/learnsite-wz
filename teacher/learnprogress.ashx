@@ -79,11 +79,13 @@ public class learnprogress : IHttpHandler
     private void GetStudentDetail(HttpContext context, int cid)
     {
         int sid;
+        int lid;
         if (!int.TryParse(context.Request.QueryString["sid"], out sid) || sid <= 0)
         {
             context.Response.Write("{\"ok\":false,\"msg\":\"invalid sid\"}");
             return;
         }
+        int.TryParse(context.Request.QueryString["lid"], out lid);
 
         LearnSite.BLL.Students stuBll = new LearnSite.BLL.Students();
         LearnSite.Model.Students stu = stuBll.GetModel(sid);
@@ -96,8 +98,7 @@ public class learnprogress : IHttpHandler
         LearnSite.Model.AIStudentExamAssessment assessment = null;
         if (DbHelperSQL.TabExists("AIStudentExamAssessment"))
         {
-            LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
-            assessment = assessmentBll.GetLatestByStudentCourse(sid, cid);
+            assessment = GetMatchedAssessment(sid, cid, lid);
         }
         Dictionary<string, string> questionTitles = new Dictionary<string, string>();
         Dictionary<string, string> optionTexts = new Dictionary<string, string>();
@@ -176,7 +177,8 @@ public class learnprogress : IHttpHandler
         foreach (JToken token in students)
         {
             int sid = token["Sid"] == null ? 0 : token["Sid"].Value<int>();
-            LearnSite.Model.AIStudentExamAssessment assessment = sid > 0 ? assessmentBll.GetLatestByStudentCourse(sid, cid) : null;
+            int lid = token["Lid"] == null ? 0 : token["Lid"].Value<int>();
+            LearnSite.Model.AIStudentExamAssessment assessment = sid > 0 ? GetMatchedAssessment(assessmentBll, sid, cid, lid) : null;
             bool hasAssessment = assessment != null;
             if (token is JObject)
             {
@@ -187,5 +189,30 @@ public class learnprogress : IHttpHandler
         }
 
         return students.ToString(Formatting.None);
+    }
+
+    private LearnSite.Model.AIStudentExamAssessment GetMatchedAssessment(int sid, int cid, int lid)
+    {
+        LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
+        return GetMatchedAssessment(assessmentBll, sid, cid, lid);
+    }
+
+    private LearnSite.Model.AIStudentExamAssessment GetMatchedAssessment(LearnSite.BLL.AIStudentExamAssessment assessmentBll, int sid, int cid, int lid)
+    {
+        LearnSite.Model.AIStudentExamAssessment assessment = null;
+        if (sid <= 0 || cid <= 0)
+            return null;
+
+        if (lid > 0)
+        {
+            assessment = assessmentBll.GetLatestByStudentCourseLesson(sid, cid, lid);
+        }
+
+        if (assessment == null)
+        {
+            assessment = assessmentBll.GetLatestByStudentCourse(sid, cid);
+        }
+
+        return assessment;
     }
 }

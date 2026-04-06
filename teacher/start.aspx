@@ -547,6 +547,13 @@
             width: 100%;
         }
 
+        .lesson-online-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
         .lesson-offline-list {
             width: 100%;
             display: flex;
@@ -555,8 +562,11 @@
         }
 
         .student-card {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 110px;
-            margin: 0 8px 10px 0;
+            margin: 0;
             padding: 12px 10px;
             border: 1px solid #e2e8f0;
             border-radius: 0.5rem;
@@ -1843,7 +1853,7 @@
                         var badgeText = s.AssessmentFallback ? '模板评估' : 'AI评估';
                         aiBadge = '<span class="' + badgeClass + '" title="最近评估：' + (s.AssessmentTime || '-') + '">' + badgeText + '</span>';
                     }
-                    html += '<div class="ls-rt-stu ls-rt-stu--' + st + '" onclick="lsOpenStudentDetail(' + (s.Sid || 0) + ')">' +
+                    html += '<div class="ls-rt-stu ls-rt-stu--' + st + '" onclick="lsOpenStudentDetail(' + (s.Sid || 0) + ',' + (s.Lid || 0) + ')">' +
                         '<span class="ls-rt-stu__name">' + sname + '</span>' +
                         '<span class="ls-rt-stu__step" title="' + ltitle + '">' + (ltitle || "-") + '</span>' +
                         '<span class="ls-rt-stu__meta" title="' + meta + '">' + meta + '</span>' +
@@ -1884,22 +1894,23 @@
                     var titleMap = window.lsStudentQuestionTitles || {};
                     var optionMap = window.lsStudentOptionTexts || {};
                     var blankMap = window.lsStudentBlankAnswers || {};
-                    var html = '<div class="ls-rt-modal__content">本次记录共 ' + (parsed.total || 0) + ' 题，得分 ' + (parsed.score || 0) + '。</div>';
+                    var summary = parsed.summary || {};
+                    var totalQuestions = summary.totalQuestions || parsed.total || parsed.answers.length || 0;
+                    var earnedScore = summary.earnedScore || parsed.score || 0;
+                    var html = '<div class="ls-rt-modal__content">本次记录共 ' + totalQuestions + ' 题，得分 ' + earnedScore + '。</div>';
                     html += '<div style="margin-top:12px;display:grid;gap:10px;">';
                     for (var i = 0; i < parsed.answers.length; i++) {
                         var item = parsed.answers[i];
-                        var state = item.isWrong ? '错误' : '正确';
-                        var stateColor = item.isWrong ? '#b91c1c' : '#047857';
-                        var qid = '';
-                        if (item.name && item.name.indexOf('-') > -1) {
+                        var isCorrect = item.isCorrect === true || item.isWrong === false;
+                        var state = isCorrect ? '正确' : '错误';
+                        var stateColor = isCorrect ? '#047857' : '#b91c1c';
+                        var qid = item.questionId || '';
+                        if (!qid && item.name && item.name.indexOf('-') > -1) {
                             qid = item.name.split('-')[1] || '';
                         }
-                        var displayTitle = titleMap[qid] || item.name || ('第' + (i + 1) + '题');
-                        var answerValue = item.value || '-';
+                        var displayTitle = item.questionTitle || titleMap[qid] || item.name || ('第' + (i + 1) + '题');
+                        var answerValue = lsFormatStudentAnswer(item, optionMap);
                         var answerMeta = '';
-                        if (optionMap[answerValue]) {
-                            answerValue = optionMap[answerValue] + '（选项ID:' + answerValue + '）';
-                        }
                         if (item.name && item.name.indexOf('填空-') === 0) {
                             var blankMid = item.name.split('-')[2] || '';
                             if (blankMap[blankMid]) {
@@ -1922,7 +1933,61 @@
                 }
             }
 
-            function lsOpenStudentDetail(sid) {
+            function lsFormatStudentAnswer(item, optionMap) {
+                if (!item) return '-';
+                var answerValue = item.userAnswer;
+                var questionType = item.questionType || '';
+
+                if (answerValue === null || answerValue === undefined || answerValue === '') {
+                    return '-';
+                }
+
+                if (questionType === 'single_choice') {
+                    if (optionMap[String(answerValue)]) {
+                        return optionMap[String(answerValue)] + '（选项索引:' + answerValue + '）';
+                    }
+                    return String(answerValue);
+                }
+
+                if (questionType === 'multiple_choice') {
+                    if (!Array.isArray(answerValue) || answerValue.length === 0) return '-';
+                    return answerValue.map(function (value) {
+                        return optionMap[String(value)] ? optionMap[String(value)] + '（选项索引:' + value + '）' : String(value);
+                    }).join('；');
+                }
+
+                if (questionType === 'true_false') {
+                    return answerValue ? '正确' : '错误';
+                }
+
+                if (questionType === 'fill_blank') {
+                    return Array.isArray(answerValue) && answerValue.length ? answerValue.join('；') : '-';
+                }
+
+                if (questionType === 'matching' || questionType === 'table_question') {
+                    try {
+                        return JSON.stringify(answerValue);
+                    } catch (e) {
+                        return '-';
+                    }
+                }
+
+                if (questionType === 'sort_question') {
+                    return Array.isArray(answerValue) && answerValue.length ? answerValue.join(' -> ') : '-';
+                }
+
+                if (typeof answerValue === 'object') {
+                    try {
+                        return JSON.stringify(answerValue);
+                    } catch (e) {
+                        return '-';
+                    }
+                }
+
+                return String(answerValue);
+            }
+
+            function lsOpenStudentDetail(sid, lid) {
                 if (!sid) return;
                 var modal = document.getElementById('lsStudentModal');
                 var body = document.getElementById('lsStudentModalBody');
@@ -1935,7 +2000,7 @@
                     url: '../teacher/learnprogress.ashx',
                     type: 'GET',
                     dataType: 'json',
-                    data: { action: 'studentdetail', sid: sid, cid: lsCid, sgrade: lsGrade, sclass: lsClass },
+                    data: { action: 'studentdetail', sid: sid, cid: lsCid, lid: lid || 0, sgrade: lsGrade, sclass: lsClass },
                     timeout: 6000,
                     success: function (resp) {
                         if (!resp || !resp.ok || !resp.data) {
@@ -1952,7 +2017,12 @@
                                 '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">AI 测验评估</span><div class="ls-rt-modal__content">当前学案下暂无该学生的 AI 测验评估记录。</div></div>';
                             return;
                         }
-                        var chips = '<span class="ls-rt-chip">Provider：' + (assessment.providerName || '-') + '</span>' +
+                        var isRuleAssessment = (assessment.providerName || '') === '规则评估';
+                        var modeChipStyle = isRuleAssessment
+                            ? 'background:#f1f5f9;color:#475569;border:1px solid #cbd5e1;'
+                            : 'background:#dbeafe;color:#1d4ed8;border:1px solid #93c5fd;';
+                        var chips = '<span class="ls-rt-chip" style="' + modeChipStyle + '">评估模式：' + (isRuleAssessment ? '规则评估模式' : 'AI 评估已启用') + '</span>' +
+                            '<span class="ls-rt-chip">Provider：' + (assessment.providerName || '-') + '</span>' +
                             '<span class="ls-rt-chip">Skill：' + (assessment.skillName || '-') + '</span>' +
                             '<span class="ls-rt-chip">得分：' + (assessment.score || 0) + ' / ' + (assessment.questionCount || 0) + '</span>' +
                             '<span class="ls-rt-chip">生成时间：' + (assessment.createdAt || '-') + '</span>';

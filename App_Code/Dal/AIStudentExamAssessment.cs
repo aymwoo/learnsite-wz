@@ -73,6 +73,24 @@ namespace LearnSite.DAL
             return null;
         }
 
+        public LearnSite.Model.AIStudentExamAssessment GetLatestByStudentCourseLesson(int sid, int cid, int lid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select top 1 * from AIStudentExamAssessment where Sid=@Sid and Cid=@Cid and Lid=@Lid order by CreatedAt desc, Id desc");
+            SqlParameter[] parameters = {
+                new SqlParameter("@Sid", SqlDbType.Int, 4),
+                new SqlParameter("@Cid", SqlDbType.Int, 4),
+                new SqlParameter("@Lid", SqlDbType.Int, 4)
+            };
+            parameters[0].Value = sid;
+            parameters[1].Value = cid;
+            parameters[2].Value = lid;
+            DataSet ds = DbHelperSQL.Query(strSql.ToString(), parameters);
+            if (ds.Tables[0].Rows.Count > 0)
+                return DataRowToModel(ds.Tables[0].Rows[0]);
+            return null;
+        }
+
         private LearnSite.Model.AIStudentExamAssessment DataRowToModel(DataRow row)
         {
             LearnSite.Model.AIStudentExamAssessment model = new LearnSite.Model.AIStudentExamAssessment();

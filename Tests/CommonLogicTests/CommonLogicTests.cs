@@ -2196,4 +2196,182 @@ public class CommonLogicTests : IDisposable
         Assert.Equal(2, result[0].Pterm);
         Assert.Equal(0, result[0].Psid);
     }
+
+    // ================================================================
+    // AIStudentExamSkillHelper 单元测试
+    // ================================================================
+
+    [Fact]
+    public void AIStudentExamSkillHelper_GetDefaultSkillName_ReturnsExpected()
+    {
+        var name = LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillName();
+        Assert.Equal("AI测验评估助手", name);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_GetDefaultSkillPrompt_ContainsRequiredFields()
+    {
+        var prompt = LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillPrompt();
+        Assert.Contains("{{studentName}}", prompt);
+        Assert.Contains("{{examTitle}}", prompt);
+        Assert.Contains("{{score}}", prompt);
+        Assert.Contains("{{questionCount}}", prompt);
+        Assert.Contains("{{answerLog}}", prompt);
+        Assert.Contains("summary", prompt);
+        Assert.Contains("analysis", prompt);
+        Assert.Contains("suggestions", prompt);
+        Assert.Contains("learningLog", prompt);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ReplaceTokens_ReplacesAllTokens()
+    {
+        string template = "学生{{studentName}}参加{{examTitle}}，得分{{score}}/{{questionCount}}，记录：{{answerLog}}";
+        string result = LearnSite.Common.AIStudentExamSkillHelper.ReplaceTokens(
+            template, "张三", "信息测验", 8, 10, "Q1:A Q2:B");
+
+        Assert.Equal("学生张三参加信息测验，得分8/10，记录：Q1:A Q2:B", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ReplaceTokens_NullTemplate_ReturnsEmpty()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.ReplaceTokens(
+            null, "张三", "信息测验", 5, 10, "log");
+        Assert.Equal(string.Empty, result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ReplaceTokens_NullValues_ReplacedWithEmpty()
+    {
+        string template = "{{studentName}}-{{examTitle}}-{{answerLog}}";
+        string result = LearnSite.Common.AIStudentExamSkillHelper.ReplaceTokens(
+            template, null, null, 0, 0, null);
+        Assert.Equal("--", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackSummary_HighScore()
+    {
+        // 85% -> "完成较好"
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackSummary("单元测试", 9, 10);
+        Assert.Contains("完成较好", result);
+        Assert.Contains("单元测试", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackSummary_MediumScore()
+    {
+        // 70% -> "整体表现稳定"
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackSummary("单元测试", 7, 10);
+        Assert.Contains("整体表现稳定", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackSummary_LowScore()
+    {
+        // 40% -> "存在较多失分点"
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackSummary("单元测试", 4, 10);
+        Assert.Contains("存在较多失分点", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackSummary_ZeroQuestions()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackSummary("测试", 0, 0);
+        Assert.Contains("缺少足够的答题明细", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackAnalysis_ReturnsPlaceholderText()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackAnalysis("Q1:A");
+        Assert.Contains("AI 评估暂不可用", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackSuggestions_ReturnsThreeItems()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackSuggestions();
+        Assert.Contains("1.", result);
+        Assert.Contains("2.", result);
+        Assert.Contains("3.", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackLearningLog_IncludesAllFields()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackLearningLog(
+            "李四", "期末考试", 7, 10, "Q1:正确 Q2:错误");
+
+        Assert.Contains("李四", result);
+        Assert.Contains("期末考试", result);
+        Assert.Contains("7 / 10", result);
+        Assert.Contains("Q1:正确 Q2:错误", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_BuildFallbackLearningLog_NullValues()
+    {
+        string result = LearnSite.Common.AIStudentExamSkillHelper.BuildFallbackLearningLog(
+            null, null, 0, 0, null);
+
+        Assert.Contains("学生：", result);
+        Assert.Contains("测验：", result);
+        Assert.Contains("0 / 0", result);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_ValidJson()
+    {
+        string json = "{\"summary\":\"表现良好\",\"analysis\":\"掌握扎实\",\"suggestions\":\"继续努力\",\"learningLog\":\"已完成\"}";
+        var obj = LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject(json);
+
+        Assert.NotNull(obj);
+        Assert.Equal("表现良好", obj["summary"]?.ToString());
+        Assert.Equal("掌握扎实", obj["analysis"]?.ToString());
+        Assert.Equal("继续努力", obj["suggestions"]?.ToString());
+        Assert.Equal("已完成", obj["learningLog"]?.ToString());
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_JsonWithCodeBlock()
+    {
+        string content = "```json\n{\"summary\":\"不错\",\"analysis\":\"良好\"}\n```";
+        var obj = LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject(content);
+
+        Assert.NotNull(obj);
+        Assert.Equal("不错", obj["summary"]?.ToString());
+        Assert.Equal("良好", obj["analysis"]?.ToString());
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_JsonWithSurroundingText()
+    {
+        string content = "以下是评估结果：{\"summary\":\"完成较好\"} 感谢使用。";
+        var obj = LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject(content);
+
+        Assert.NotNull(obj);
+        Assert.Equal("完成较好", obj["summary"]?.ToString());
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_InvalidJson_ReturnsNull()
+    {
+        var obj = LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject("这不是JSON");
+        Assert.Null(obj);
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_EmptyString_ReturnsNull()
+    {
+        Assert.Null(LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject(""));
+        Assert.Null(LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject(null));
+    }
+
+    [Fact]
+    public void AIStudentExamSkillHelper_ParseResponseObject_OnlyCodeFence_ReturnsNull()
+    {
+        Assert.Null(LearnSite.Common.AIStudentExamSkillHelper.ParseResponseObject("```json\n```"));
+    }
 }

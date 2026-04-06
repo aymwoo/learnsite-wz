@@ -54,7 +54,10 @@ public partial class UpGrade : System.Web.UI.Page
     {
         if (LearnSite.DBUtility.UpdateGrade.TableExistCheck())
         {
-            if (!LearnSite.DBUtility.UpdateGrade.VersionCheck())
+            bool needLegacyUpgrade = !LearnSite.DBUtility.UpdateGrade.VersionCheck();
+            List<LearnSite.DBUtility.MigrationEntry> pendingMigrations = LearnSite.DBUtility.DbMigration.GetPendingMigrations();
+            bool hasPendingMigrations = pendingMigrations != null && pendingMigrations.Count > 0;
+            if (needLegacyUpgrade || hasPendingMigrations)
             {
                 AnalyzeUpgradeState();
                 if (!CanUpgrade)
@@ -63,14 +66,17 @@ public partial class UpGrade : System.Web.UI.Page
                     return;
                 }
 
-                Oldupdate();//旧网站更新
-                LearnSite.DBUtility.UpdateGrade.UpdateTableEnglish();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1500();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1600();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1800();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1900();
-                LearnSite.DBUtility.UpdateGrade.UpdateTable1910();
+                if (needLegacyUpgrade)
+                {
+                    Oldupdate();//旧网站更新
+                    LearnSite.DBUtility.UpdateGrade.UpdateTableEnglish();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1500();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1600();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1800();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1900();
+                    LearnSite.DBUtility.UpdateGrade.UpdateTable1910();
+                }
                 List<LearnSite.DBUtility.MigrationResult> pendingResults = LearnSite.DBUtility.DbMigration.RunAllPending();
 
                 StringBuilder resultSummary = new StringBuilder();

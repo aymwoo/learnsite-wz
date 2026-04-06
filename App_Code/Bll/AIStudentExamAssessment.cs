@@ -13,5 +13,10 @@ namespace LearnSite.BLL
         {
             return dal.GetLatestByStudentCourse(sid, cid);
         }
+
+        public LearnSite.Model.AIStudentExamAssessment GetLatestByStudentCourseLesson(int sid, int cid, int lid)
+        {
+            return dal.GetLatestByStudentCourseLesson(sid, cid, lid);
+        }
     }
 }

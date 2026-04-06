@@ -155,6 +155,11 @@ namespace LearnSite.BLL
             return BuildProviderDisplayName(provider);
         }
 
+        public StudentExamAssessmentResult GenerateRuleBasedAssessment(StudentExamAssessmentContext context)
+        {
+            return BuildFallback(context, "规则评估", "未启用 AI 评估，已使用规则评估摘要。");
+        }
+
         private StudentExamAssessmentResult BuildFallback(StudentExamAssessmentContext context, string providerName, string message)
         {
             return new StudentExamAssessmentResult

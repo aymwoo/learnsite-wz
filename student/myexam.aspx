@@ -48,7 +48,7 @@
     <div class="quizarea">   
         <div id="questionPage"></div>
         <div class="btnsubmit">
-            <input id="btnupload" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" type="submit" value="提交" /> 
+            <input id="btnupload" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" type="button" value="提交" /> 
         </div>   
     </div>
 </div>
@@ -102,12 +102,14 @@
     }
 
 	$(document).ready(function(){
-		$('#aspnetForm').on('submit', function(event){
+		$('#btnupload').on('click', function(event){
 			event.preventDefault(); // 阻止默认提交
 			console.log("数据列表：",idList);
 			console.log("成绩列表：",scoreList);
 
-			var formData = $(this).serializeArray(); // 获取表单数据
+			var formData = $('#form1').serializeArray().filter(function(item){
+				return item && item.name && (item.name.indexOf('单选-') === 0 || item.name.indexOf('填空-') === 0);
+			}); // 仅保留试题答案字段，避免 ASP.NET 隐藏域干扰判分
 			var myData =[];
 				
 			formData.forEach(function(item,key){
@@ -122,7 +124,7 @@
 			})			
 			
 			checkquestion(myData);
-			
+			return false;
 		});
 	});
 

@@ -7,13 +7,13 @@ using System.Web.UI.WebControls;
 public partial class student_myexam : System.Web.UI.Page
 {
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
-    public static string questionList = "";
-    public static bool isClose = false;
-    public static string Lidstr = "";
-    public static string Cidstr = "";
-    public static string Vidstr = "";
-    public static string Vtypestr = "";
-    public static bool isDone = false;
+    public string questionList = "";
+    public bool isClose = false;
+    public string Lidstr = "";
+    public string Cidstr = "";
+    public string Vidstr = "";
+    public string Vtypestr = "";
+    public bool isDone = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {

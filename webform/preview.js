@@ -13,6 +13,7 @@ let examData = {
     timestamp: null,
     title: "信息科技测验",
     description: "请仔细阅读题目并作答",
+    enableAiAssessment: false,
     questions: []
 };
 
@@ -47,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadExamData() {
     if(jsonData) {
         examData = JSON.parse(jsonData);
+        if (typeof examData.enableAiAssessment !== 'boolean') {
+            examData.enableAiAssessment = false;
+        }
         examData.eid = myeid;//设定当前试卷ID，很重要
         examData.cid = mycid; 
         console.log("读取数据库：",myeid);
@@ -1020,48 +1024,130 @@ function submitExam() {
         if (floatingButtons) {
             floatingButtons.style.display = 'none';
         }
-        const score=result.earnedScore;
+        const score = result.earnedScore;
         const spend = Math.ceil((endTimestamp - startTimestamp) / (1000 * 60));
-        //submissionData
+        const qcount = examData.questions ? examData.questions.length : 0;
+        const adataStr = JSON.stringify(submissionData);
         
         console.log("答题得分：", score);
         console.log("用时（分）：", spend);
         console.log("提交数据：", submissionData);
-        
-        var formData = new FormData();
-        formData.append('Lid', mylid);
-        formData.append('Cid', mycid);
-        formData.append('Eid', myeid);
-        formData.append('Ascore', score);
-        formData.append('Aspend', spend);
-        formData.append('Adata', JSON.stringify(submissionData));
-    
-        // 通过服务器保存JSON文件
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'upimg.ashx?action=answer', true);
-    
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    const response = xhr.responseText;
-                
-                    if (response.startsWith('ERROR:')) {
-                        alert('保存失败：' + response.substring(6));
-                        return;
-                    }
 
-                    if (window.LearnStatus && typeof window.LearnStatus.submitted === 'function') {
-                        window.LearnStatus.submitted();
-                    }
-                
-                } else {
-                    alert('保存失败：服务器错误 ' + xhr.status);
-                }
-            }
-        };
-    
-        xhr.send(formData);
+        if (examData.enableAiAssessment) {
+            showExamAiLoading('系统正在提交测验结果，请稍候。');
+            submitExamWithAi(score, spend, qcount, adataStr);
+            return;
+        }
+
+        submitExamWithoutAi(score, spend, qcount, adataStr);
     }
+}
+
+function submitExamWithoutAi(score, spend, qcount, adataStr) {
+    showExamAiLoading('系统正在提交测验结果，并生成规则评估摘要，请稍候。');
+    submitExamWithAi(score, spend, qcount, adataStr, false);
+}
+
+function submitExamWithAi(score, spend, qcount, adataStr, enableAi) {
+    if (enableAi === undefined) enableAi = true;
+    var formData = new FormData();
+    formData.append('Lid', mylid);
+    formData.append('Cid', mycid);
+    formData.append('Eid', myeid);
+    formData.append('Ascore', score);
+    formData.append('Aspent', spend);
+    formData.append('Qcount', qcount);
+    formData.append('Adata', adataStr);
+    formData.append('EnableAiAssessment', enableAi ? '1' : '0');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'uploadanswer.ashx', true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status !== 200) {
+            closeExamAiLoading();
+            console.warn('AI 评估提交失败，降级为普通提交：HTTP ' + xhr.status);
+            submitExamXhr(score, spend, adataStr);
+            return;
+        }
+
+        var payload = parseExamAiSseData(xhr.responseText);
+        if (!payload || payload.ok !== true) {
+            closeExamAiLoading();
+            console.warn('AI 评估提交失败，降级为普通提交：', payload && payload.message ? payload.message : '未知错误');
+            submitExamXhr(score, spend, adataStr);
+            return;
+        }
+
+        if (window.LearnStatus && typeof window.LearnStatus.submitted === 'function') {
+            window.LearnStatus.submitted();
+        }
+
+        showExamAiLoading(payload.message || (enableAi ? '提交成功，AI 测验评估已生成。' : '提交成功，规则评估摘要已生成。'));
+
+        var summaryBox = document.getElementById('examAiSummary');
+        var summaryText = document.getElementById('examAiSummaryText');
+        if (summaryBox && summaryText && payload.summary) {
+            summaryText.innerHTML = payload.summary;
+            summaryBox.style.display = 'block';
+        }
+
+        window.setTimeout(function () { closeExamAiLoading(); }, 2000);
+    };
+
+    xhr.send(formData);
+}
+
+// 降级用的 XHR 提交方式（不含 AI 评估）
+function submitExamXhr(score, spend, adataStr) {
+    var formData = new FormData();
+    formData.append('Lid', mylid);
+    formData.append('Cid', mycid);
+    formData.append('Eid', myeid);
+    formData.append('Ascore', score);
+    formData.append('Aspend', spend);
+    formData.append('Adata', adataStr);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'upimg.ashx?action=answer', true);
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var response = xhr.responseText;
+                if (response.startsWith('ERROR:')) {
+                    alert('保存失败：' + response.substring(6));
+                    return;
+                }
+                if (window.LearnStatus && typeof window.LearnStatus.submitted === 'function') {
+                    window.LearnStatus.submitted();
+                }
+            } else {
+                alert('保存失败：服务器错误 ' + xhr.status);
+            }
+        }
+    };
+
+    xhr.send(formData);
+}
+
+// AI 评估加载遮罩层
+function showExamAiLoading(message) {
+    var loading = document.getElementById('examAiLoading');
+    var desc = document.getElementById('examAiLoadingDesc');
+    if (desc && message) desc.innerHTML = message;
+    if (loading) loading.style.display = 'flex';
+}
+
+function closeExamAiLoading() {
+    var loading = document.getElementById('examAiLoading');
+    if (loading) loading.style.display = 'none';
+}
+
+function parseExamAiSseData(data) {
+    try { return JSON.parse(data); } catch (e) { return null; }
 }
 
 // 收集提交数据

@@ -465,6 +465,105 @@
             margin-top: 14px;
         }
 
+        .upgrade-progress-mask {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(3px);
+        }
+
+        .upgrade-progress-mask.is-open {
+            display: flex;
+        }
+
+        .upgrade-progress-card {
+            width: min(92vw, 480px);
+            padding: 28px 24px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+            text-align: left;
+        }
+
+        .upgrade-progress-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .upgrade-progress-desc {
+            margin: 10px 0 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .upgrade-progress-bar {
+            margin-top: 18px;
+            height: 14px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .upgrade-progress-bar__fill {
+            width: 8%;
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            transition: width 0.6s ease;
+        }
+
+        .upgrade-progress-steps {
+            margin: 18px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        .upgrade-progress-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .upgrade-progress-step.is-active {
+            background: #eff6ff;
+            color: #1d4ed8;
+            box-shadow: inset 0 0 0 1px #bfdbfe;
+        }
+
+        .upgrade-progress-step.is-done {
+            background: #ecfdf5;
+            color: #047857;
+            box-shadow: inset 0 0 0 1px #a7f3d0;
+        }
+
+        .upgrade-progress-step__dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-size: 11px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
         .upgrade-btn-primary,
         .upgrade-btn-secondary {
             min-width: 140px;
@@ -590,6 +689,64 @@
                 button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>收起升级说明</span>';
             }
             return false;
+        }
+
+        var upgradeProgressTimer = null;
+
+        function showUpgradeProgress() {
+            var mask = document.getElementById('upgradeProgressMask');
+            var button = document.getElementById('<%= Btnupgrade.ClientID %>');
+            if (mask) {
+                mask.className = 'upgrade-progress-mask is-open';
+            }
+            window.setTimeout(function () {
+                if (button) {
+                    button.disabled = true;
+                    button.className = 'upgrade-btn-primary upgrade-btn-disabled';
+                    button.value = '正在升级...';
+                }
+            }, 0);
+
+            var fill = document.getElementById('upgradeProgressFill');
+            var desc = document.getElementById('upgradeProgressDesc');
+            var steps = document.querySelectorAll('#upgradeProgressSteps .upgrade-progress-step');
+            var progressPoints = [12, 36, 68, 92];
+            var progressTexts = [
+                '正在检查旧版本结构并准备升级环境...',
+                '正在补齐历史表字段、词库和兼容补丁...',
+                '正在执行新版本迁移与初始化数据写入...',
+                '正在整理结果并准备跳转，请不要关闭页面...'
+            ];
+            var current = 0;
+
+            function renderStep(index) {
+                if (fill) {
+                    fill.style.width = progressPoints[index] + '%';
+                }
+                if (desc) {
+                    desc.innerHTML = progressTexts[index];
+                }
+                for (var i = 0; i < steps.length; i++) {
+                    steps[i].className = 'upgrade-progress-step';
+                    if (i < index) {
+                        steps[i].className += ' is-done';
+                    } else if (i === index) {
+                        steps[i].className += ' is-active';
+                    }
+                }
+            }
+
+            renderStep(0);
+            if (upgradeProgressTimer) {
+                window.clearInterval(upgradeProgressTimer);
+            }
+            upgradeProgressTimer = window.setInterval(function () {
+                if (current < progressPoints.length - 1) {
+                    current++;
+                    renderStep(current);
+                }
+            }, 1400);
+            return true;
         }
     </script>
 </head>
@@ -730,7 +887,7 @@
                                 onclick="BtnAnalyze_Click" CssClass="upgrade-btn-secondary" />
                             <asp:Button ID="BtnExportReport" runat="server" Font-Size="9pt" Text="导出检查报告"
                                 onclick="BtnExportReport_Click" CssClass="upgrade-btn-secondary" />
-                            <asp:Button ID="Btnupgrade" runat="server" Font-Size="9pt" Text="确认后执行升级" OnClientClick="return confirm('请确认你已经完成数据库备份，并且当前连接的是需要升级的旧库。是否继续执行升级？');"
+                            <asp:Button ID="Btnupgrade" runat="server" Font-Size="9pt" Text="确认后执行升级" OnClientClick="if(!confirm('请确认你已经完成数据库备份，并且当前连接的是需要升级的旧库。是否继续执行升级？')) return false; showUpgradeProgress();"
                                 onclick="Btnupgrade_Click" CssClass="upgrade-btn-primary" />
                             <asp:Button ID="BtnCreateTable" runat="server" onclick="BtnCreateTable_Click" 
                                 Text="创建数据表" CssClass="upgrade-btn-secondary" />
@@ -771,6 +928,22 @@
                         </div>
                     </div>
                 </asp:Panel>
+            </div>
+        </div>
+
+        <div id="upgradeProgressMask" class="upgrade-progress-mask" aria-live="polite" aria-busy="true">
+            <div class="upgrade-progress-card">
+                <p class="upgrade-progress-title">正在执行数据库升级</p>
+                <p id="upgradeProgressDesc" class="upgrade-progress-desc">正在检查旧版本结构并准备升级环境...</p>
+                <div class="upgrade-progress-bar">
+                    <div id="upgradeProgressFill" class="upgrade-progress-bar__fill"></div>
+                </div>
+                <ul id="upgradeProgressSteps" class="upgrade-progress-steps">
+                    <li class="upgrade-progress-step is-active"><span class="upgrade-progress-step__dot">1</span><span>检查旧版本结构</span></li>
+                    <li class="upgrade-progress-step"><span class="upgrade-progress-step__dot">2</span><span>补齐历史字段和兼容补丁</span></li>
+                    <li class="upgrade-progress-step"><span class="upgrade-progress-step__dot">3</span><span>执行新版本迁移与初始化</span></li>
+                    <li class="upgrade-progress-step"><span class="upgrade-progress-step__dot">4</span><span>整理结果并完成跳转</span></li>
+                </ul>
             </div>
         </div>
     </form>
