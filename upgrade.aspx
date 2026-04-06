@@ -18,7 +18,7 @@
 
         .upgrade-page {
             min-height: 100vh;
-            padding: 28px 16px;
+            padding: 20px 14px;
         }
 
         .upgrade-shell {
@@ -26,13 +26,13 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 14px;
         }
 
         .upgrade-hero {
             border: 1px solid #1e3a8a;
             border-radius: 20px;
-            padding: 28px 32px;
+            padding: 22px 24px;
             background:
                 radial-gradient(circle at top left, rgba(99, 102, 241, 0.22), transparent 38%),
                 radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
@@ -45,7 +45,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 18px;
+            margin-bottom: 12px;
         }
 
         .upgrade-hero__logo {
@@ -57,16 +57,16 @@
 
         .upgrade-title {
             margin: 0;
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.03em;
         }
 
         .upgrade-subtitle {
-            margin: 10px 0 0;
-            font-size: 14px;
+            margin: 8px 0 0;
+            font-size: 13px;
             color: rgba(239, 246, 255, 0.88);
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .upgrade-card {
@@ -78,37 +78,57 @@
         }
 
         .upgrade-card__head {
-            padding: 18px 22px;
+            padding: 16px 20px;
             border-bottom: 1px solid #eef2ff;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
         }
 
         .upgrade-card__title {
             margin: 0;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 800;
             color: #0f172a;
         }
 
         .upgrade-card__desc {
             margin: 6px 0 0;
-            font-size: 13px;
+            font-size: 12px;
             color: #64748b;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .upgrade-card__body {
-            padding: 22px;
+            padding: 18px;
         }
 
         .upgrade-tips {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
+            gap: 10px;
+        }
+
+        .upgrade-tips__summary {
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+            background: #f8fbff;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .upgrade-tips__more {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .upgrade-tips__more.is-open {
+            display: block;
+            animation: upgrade-expand-fade 0.18s ease-out;
         }
 
         .upgrade-tip {
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: 14px;
             border: 1px solid #dbeafe;
             background: #f8fbff;
@@ -132,20 +152,20 @@
         }
 
         .upgrade-tip__text {
-            font-size: 13px;
+            font-size: 12px;
             color: #475569;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         .upgrade-version-grid {
-            margin-top: 18px;
+            margin-top: 14px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 12px;
         }
 
         .upgrade-version-card {
-            padding: 16px 18px;
+            padding: 14px 16px;
             border-radius: 14px;
             border: 1px solid #dbeafe;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
@@ -162,29 +182,85 @@
         }
 
         .upgrade-version-card__value {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: 800;
             color: #1d4ed8;
             line-height: 1.1;
+        }
+
+        .upgrade-version-card__value--compact {
+            font-size: 16px;
+            line-height: 1.35;
+        }
+
+        .upgrade-version-card--combined {
+            padding: 16px 18px;
+            border-color: #c7d2fe;
+            background: linear-gradient(135deg, #eef2ff 0%, #f8fbff 100%);
+        }
+
+        .upgrade-version-compare {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .upgrade-version-compare__item {
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(199, 210, 254, 0.9);
+        }
+
+        .upgrade-version-compare__hint {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #64748b;
+            letter-spacing: 0.04em;
+            margin-bottom: 8px;
+        }
+
+        .upgrade-version-compare__value {
+            font-size: 22px;
+            font-weight: 900;
+            color: #312e81;
+            line-height: 1.1;
+        }
+
+        .upgrade-version-compare__arrow {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #4f46e5;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.22);
         }
 
         .upgrade-list {
             margin: 0;
             padding-left: 18px;
             color: #334155;
-            line-height: 1.9;
-            font-size: 14px;
+            line-height: 1.7;
+            font-size: 13px;
         }
 
         .upgrade-check-grid {
-            margin-top: 18px;
+            margin-top: 14px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 12px;
         }
 
         .upgrade-check-card {
-            padding: 16px 18px;
+            padding: 14px 16px;
             border-radius: 14px;
             border: 1px solid #dbeafe;
             background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
@@ -200,6 +276,11 @@
             background: linear-gradient(180deg, #fff1f2 0%, #fff7f7 100%);
         }
 
+        .upgrade-check-card--success {
+            border-color: #bbf7d0;
+            background: linear-gradient(180deg, #f0fdf4 0%, #f7fff8 100%);
+        }
+
         .upgrade-check-card__label {
             display: block;
             font-size: 12px;
@@ -208,6 +289,8 @@
             text-transform: uppercase;
             letter-spacing: 0.06em;
             margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
 
         .upgrade-check-card__value {
@@ -215,6 +298,44 @@
             font-weight: 800;
             color: #1d4ed8;
             line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+
+        .upgrade-check-card__icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 800;
+            background: rgba(59, 130, 246, 0.12);
+            color: #1d4ed8;
+        }
+
+        .upgrade-check-card--warn .upgrade-check-card__icon {
+            background: rgba(245, 158, 11, 0.14);
+            color: #b45309;
+        }
+
+        .upgrade-check-card--danger .upgrade-check-card__icon {
+            background: rgba(239, 68, 68, 0.14);
+            color: #dc2626;
+        }
+
+        .upgrade-check-card--success .upgrade-check-card__icon {
+            background: rgba(34, 197, 94, 0.14);
+            color: #15803d;
+        }
+
+        .upgrade-check-card__meta {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.6;
         }
 
         .upgrade-check-card--warn .upgrade-check-card__value {
@@ -231,8 +352,8 @@
             margin: 0;
             padding-left: 18px;
             color: #334155;
-            line-height: 1.9;
-            font-size: 14px;
+            line-height: 1.7;
+            font-size: 13px;
         }
 
         .upgrade-risk-list li,
@@ -341,7 +462,7 @@
             flex-wrap: wrap;
             gap: 12px;
             justify-content: center;
-            margin-top: 22px;
+            margin-top: 14px;
         }
 
         .upgrade-btn-primary,
@@ -416,6 +537,16 @@
             .upgrade-page { padding: 16px; }
             .upgrade-hero { padding: 22px 20px; }
             .upgrade-title { font-size: 24px; }
+            .upgrade-version-grid {
+                grid-template-columns: 1fr;
+            }
+            .upgrade-version-compare {
+                grid-template-columns: 1fr;
+            }
+            .upgrade-version-compare__arrow {
+                margin: 0 auto;
+                transform: rotate(90deg);
+            }
         }
     </style>
 
@@ -437,6 +568,26 @@
                 target.className = 'upgrade-collapsible__more is-open';
                 button.setAttribute('data-open', '1');
                 button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>收起列表</span>';
+            }
+            return false;
+        }
+
+        function toggleUpgradeTips(button) {
+            var target = document.getElementById('upgradeTipsMore');
+            if (!button || !target) {
+                return false;
+            }
+
+            var isOpen = button.getAttribute('data-open') === '1';
+            if (isOpen) {
+                target.className = 'upgrade-tips__more';
+                button.setAttribute('data-open', '0');
+                button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>展开升级说明</span>';
+            }
+            else {
+                target.className = 'upgrade-tips__more is-open';
+                button.setAttribute('data-open', '1');
+                button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>收起升级说明</span>';
             }
             return false;
         }
@@ -464,52 +615,70 @@
                         <p class="upgrade-card__desc">执行更新前建议先备份数据库。系统会自动判断是否需要升级，不会重复添加已有字段和索引。</p>
                     </div>
                     <div class="upgrade-card__body">
-                        <div class="upgrade-tips">
-                            <div class="upgrade-tip upgrade-tip--warn">
-                                <span class="upgrade-tip__title">升级前必读</span>
-                                <div class="upgrade-tip__text">请先备份数据库，以防中断或误操作时可以快速恢复。</div>
-                            </div>
-                            <div class="upgrade-tip">
-                                <span class="upgrade-tip__title">自动升级内容</span>
-                                <div class="upgrade-tip__text">自动补齐表、字段、索引，并执行必要的初始化数据修复。</div>
-                            </div>
-                            <div class="upgrade-tip">
-                                <span class="upgrade-tip__title">全新安装说明</span>
-                                <div class="upgrade-tip__text">首次安装也需要执行本页，用于创建基础词典和初始化默认数据。</div>
+                        <div class="upgrade-tips__summary">
+                            本页支持旧版 LearnSite 数据库升级、新版迁移补齐和首次安装初始化。建议先备份数据库，再根据下方预检查结果决定是否执行升级。
+                        </div>
+                        <div id="upgradeTipsMore" class="upgrade-tips__more">
+                            <div class="upgrade-tips">
+                                <div class="upgrade-tip upgrade-tip--warn">
+                                    <span class="upgrade-tip__title">升级前必读</span>
+                                    <div class="upgrade-tip__text">请先备份数据库，以防中断或误操作时可以快速恢复。</div>
+                                </div>
+                                <div class="upgrade-tip">
+                                    <span class="upgrade-tip__title">自动升级内容</span>
+                                    <div class="upgrade-tip__text">自动补齐表、字段、索引，并执行必要的初始化数据修复。</div>
+                                </div>
+                                <div class="upgrade-tip">
+                                    <span class="upgrade-tip__title">全新安装说明</span>
+                                    <div class="upgrade-tip__text">首次安装也需要执行本页，用于创建基础词典和初始化默认数据。</div>
+                                </div>
                             </div>
                         </div>
+                        <button type="button" class="upgrade-collapse-btn" data-open="0" onclick="return toggleUpgradeTips(this);"><span class="upgrade-collapse-btn__arrow">▶</span><span>展开升级说明</span></button>
 
                         <div class="upgrade-version-grid">
                             <div class="upgrade-version-card">
                                 <span class="upgrade-version-card__label">当前连接数据库</span>
-                                <div class="upgrade-version-card__value" style="font-size:20px;"><%= ConnectedDatabaseName %></div>
+                                <div class="upgrade-version-card__value upgrade-version-card__value--compact"><%= ConnectedDatabaseName %></div>
                             </div>
                             <div class="upgrade-version-card">
                                 <span class="upgrade-version-card__label">最近预检查时间</span>
-                                <div class="upgrade-version-card__value" style="font-size:20px;"><%= LastAnalyzeTime %></div>
+                                <div class="upgrade-version-card__value upgrade-version-card__value--compact"><%= LastAnalyzeTime %></div>
                             </div>
-                            <div class="upgrade-version-card">
-                                <span class="upgrade-version-card__label">当前数据库迁移版本</span>
-                                <div class="upgrade-version-card__value"><%= CurrentDbVersion %></div>
-                            </div>
-                            <div class="upgrade-version-card">
-                                <span class="upgrade-version-card__label">即将更新到版本</span>
-                                <div class="upgrade-version-card__value"><%= TargetDbVersion %></div>
+                            <div class="upgrade-version-card upgrade-version-card--combined">
+                                <span class="upgrade-version-card__label">数据库迁移版本对比</span>
+                                <div class="upgrade-version-compare">
+                                    <div class="upgrade-version-compare__item">
+                                        <span class="upgrade-version-compare__hint">旧版本</span>
+                                        <div class="upgrade-version-compare__value"><%= CurrentDbVersion %></div>
+                                    </div>
+                                    <div class="upgrade-version-compare__arrow">→</div>
+                                    <div class="upgrade-version-compare__item">
+                                        <span class="upgrade-version-compare__hint">新版本</span>
+                                        <div class="upgrade-version-compare__value"><%= TargetDbVersion %></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="upgrade-check-grid">
-                            <div class="upgrade-check-card">
+                            <div class="upgrade-check-card <%=(UpgradeMode.IndexOf("空库") >= 0 ? "upgrade-check-card--warn" : "") %>">
+                                <div class="upgrade-check-card__icon"><%=(UpgradeMode.IndexOf("空库") >= 0 ? "!" : "DB") %></div>
                                 <span class="upgrade-check-card__label">数据库识别结果</span>
                                 <div class="upgrade-check-card__value"><%= UpgradeMode %></div>
+                                <div class="upgrade-check-card__meta">系统会根据基础表、迁移记录和关键字段识别当前数据库所处阶段。</div>
                             </div>
-                            <div class="upgrade-check-card <%=(RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : "")) %>">
+                            <div class="upgrade-check-card <%=(UpgradeDecision == "数据库已是最新" ? "upgrade-check-card--success" : (RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : ""))) %>">
+                                <div class="upgrade-check-card__icon"><%=(UpgradeDecision == "数据库已是最新" ? "✓" : (RiskLevel == "高" ? "!" : "Go")) %></div>
                                 <span class="upgrade-check-card__label">升级结论</span>
                                 <div class="upgrade-check-card__value"><%= UpgradeDecision %></div>
+                                <div class="upgrade-check-card__meta">先看这个结论，再决定是否执行升级。</div>
                             </div>
-                            <div class="upgrade-check-card <%=(RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : "")) %>">
+                            <div class="upgrade-check-card <%=(RiskLevel == "低" ? "upgrade-check-card--success" : (RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : ""))) %>">
+                                <div class="upgrade-check-card__icon"><%=(RiskLevel == "低" ? "✓" : (RiskLevel == "高" ? "!" : "~")) %></div>
                                 <span class="upgrade-check-card__label">风险等级</span>
                                 <div class="upgrade-check-card__value"><%= RiskLevel %></div>
+                                <div class="upgrade-check-card__meta">高风险代表当前数据库不适合直接执行覆盖升级。</div>
                             </div>
                         </div>
 
