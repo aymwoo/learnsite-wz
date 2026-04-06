@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" CodeFile="preview.aspx.cs" Inherits="webform_preview" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" CodeFile="preview.aspx.cs" Inherits="webform_preview" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
     <link rel="stylesheet" href="github.min.css">    

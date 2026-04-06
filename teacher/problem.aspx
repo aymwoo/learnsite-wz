@@ -1,10 +1,11 @@
-<%@ Page Title="" Language="C#"  Validaterequest="false"  AutoEventWireup="true" CodeFile="problem.aspx.cs" Inherits="Teacher_problem" %>
+<%@ Page Title="" Language="C#"  Validaterequest="false"  AutoEventWireup="true" CodeFile="problem.aspx.cs" Inherits="Teacher_problem" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
+        <meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <script src="../js/MenuCookie.js" type="text/javascript"></script>

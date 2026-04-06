@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="start.aspx.cs" Inherits="Teacher_start" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="start.aspx.cs" Inherits="Teacher_start" ResponseEncoding="utf-8" %>
 
 <%@ Register Assembly="Anthem" Namespace="Anthem" TagPrefix="anthem" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">

@@ -1,9 +1,10 @@
-<%@ Page Title="" Language="C#" StylesheetTheme="Teacher" AutoEventWireup="true"   CodeFile="notsign.aspx.cs" Inherits="Teacher_notsign" %>
+<%@ Page Title="" Language="C#" StylesheetTheme="Teacher" AutoEventWireup="true"   CodeFile="notsign.aspx.cs" Inherits="Teacher_notsign" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <meta charset="utf-8" />
 <title></title>
     <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
     <style type="text/css">

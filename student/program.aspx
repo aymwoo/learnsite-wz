@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" StylesheetTheme="Student"  CodeFile="program.aspx.cs" Inherits="Student_program" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" StylesheetTheme="Student"  CodeFile="program.aspx.cs" Inherits="Student_program" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <style type="text/css">
@@ -388,6 +388,7 @@
                             onclick="BtnBegin_Click"
                             SkinID="buttonSkinPink"
                             Text="开关指令"
+                            Visible="False"
                             CssClass="prog-btn-secondary" />
 
                         <asp:Button ID="ButtonClear" runat="server"
@@ -396,6 +397,7 @@
                             Text="清除提交"
                             ToolTip="清除模拟学生提交的本项作品"
                             onclick="ButtonClear_Click"
+                            Visible="False"
                             CssClass="prog-btn-danger" />
 
                         <asp:Label ID="Labelmsg" runat="server"

@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sitelog.aspx.cs" Inherits="Teacher_sitelog" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sitelog.aspx.cs" Inherits="Teacher_sitelog" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>网站异常信息记录页面</title>
+        <meta charset="utf-8" />
+<title>网站异常信息记录页面</title>
     <style type="text/css">
         body{font-size: 11pt; font-family: Arial;}
         .syl

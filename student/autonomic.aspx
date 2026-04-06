@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true"  StylesheetTheme="Student" CodeFile="autonomic.aspx.cs" Inherits="Student_autonomic" %>
+<%@ Page Language="C#" AutoEventWireup="true"  StylesheetTheme="Student" CodeFile="autonomic.aspx.cs" Inherits="Student_autonomic" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
-    <title></title>   
+        <meta charset="utf-8" />
+<title></title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         .divcate{margin:auto; padding: 2px; background-color: #E0ECFE; font-size: 11pt; font-weight: bold; text-align: left; height: 24px; width:100%;}
@@ -78,4 +79,3 @@
     </form>
 </body>
 </html>
-

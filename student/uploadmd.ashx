@@ -8,8 +8,10 @@ public class uploadmd : IHttpHandler
 {
     public void ProcessRequest(HttpContext context)
     {
-        // 设置响应的内容类型为 JSON
-        context.Response.ContentType = "application/json";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
+// 设置响应的内容类型为 JSON
+        context.Response.ContentType = "application/json; charset=utf-8";
 
         // 检查是否有文件上传
         if (context.Request.Files.Count > 0)

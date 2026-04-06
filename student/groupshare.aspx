@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="groupshare.aspx.cs" Inherits="Student_groupshare" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="groupshare.aspx.cs" Inherits="Student_groupshare" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+        <meta charset="utf-8" />
+<title></title>
     <style type="text/css">
     .by {margin: 0px;background-color: #E6F0E7}
     .disk{margin: auto; text-align: center; width: 600px; font-size: 11pt;background-color: #FFFFDD; font-family: 宋体, Arial, Helvetica, sans-serif;}

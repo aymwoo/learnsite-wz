@@ -1,8 +1,9 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="codeshare.aspx.cs" Inherits="Student_codeshare" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="codeshare.aspx.cs" Inherits="Student_codeshare" ResponseEncoding="utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+        <meta charset="utf-8" />
+<title></title>
     <style type="text/css">
         body { margin: 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; background: #f0f2f5; }
     </style>

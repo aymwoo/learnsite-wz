@@ -1,8 +1,9 @@
-<%@ Page Language="C#" AutoEventWireup="true"  ValidateRequest="false" EnableViewStateMac="false"  CodeFile="pixel.aspx.cs" Inherits="Student_pixel" %>
+<%@ Page Language="C#" AutoEventWireup="true"  ValidateRequest="false" EnableViewStateMac="false"  CodeFile="pixel.aspx.cs" Inherits="Student_pixel" ResponseEncoding="utf-8" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-  <title>Pixel Art Maker 像素艺术画</title>
+      <meta charset="utf-8" />
+<title>Pixel Art Maker 像素艺术画</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="../pixelartmaker/style.css"/>  
 
@@ -61,4 +62,3 @@
 <script src='../pixelartmaker/gif.worker.js' type="text/javascript" ></script>
 </body>
 </html>
-

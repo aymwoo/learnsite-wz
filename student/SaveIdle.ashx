@@ -6,7 +6,9 @@ using System.Web;
 public class SaveIdle : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-        context.Response.ContentType = "text/plain";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
+        context.Response.ContentType = "text/plain; charset=utf-8";
         string pid = HttpContext.Current.Request.Form["pid"];
         string score = HttpContext.Current.Request.Form["score"];
         string cid = HttpContext.Current.Request.Form["cid"];

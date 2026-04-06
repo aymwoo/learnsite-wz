@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="studentworks.aspx.cs" Inherits="Workshow_studentworks" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="studentworks.aspx.cs" Inherits="Workshow_studentworks" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+        <meta charset="utf-8" />
+<title></title>
     <link href="../js/flot/examples.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../js/flot/excanvas.min.js" type="text/javascript"></script> 

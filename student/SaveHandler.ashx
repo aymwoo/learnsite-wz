@@ -6,7 +6,9 @@ public class SaveHandler : IHttpHandler
 {
     public void ProcessRequest(HttpContext context)
     {
-        context.Response.ContentType = "text/plain";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
+        context.Response.ContentType = "text/plain; charset=utf-8";
         string mspd = HttpContext.Current.Request.Form["mspd"];
         string rstr = "0";
         LearnSite.BLL.Pfinger pbll = new LearnSite.BLL.Pfinger();

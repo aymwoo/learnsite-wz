@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/student/Scm.master"  AutoEventWireup="true" CodeFile="summary.aspx.cs" Inherits="Student_summary" %>
+<%@ Page Language="C#" MasterPageFile="~/student/Scm.master"  AutoEventWireup="true" CodeFile="summary.aspx.cs" Inherits="Student_summary" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div class="w-full max-w-4xl mx-auto">

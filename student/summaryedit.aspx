@@ -1,4 +1,4 @@
-<%@ Page Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="summaryedit.aspx.cs" Inherits="Student_summaryedit" %>
+<%@ Page Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="summaryedit.aspx.cs" Inherits="Student_summaryedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div class="w-full max-w-4xl mx-auto">

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sokoban.aspx.cs" Inherits="student_sokoban" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sokoban.aspx.cs" Inherits="student_sokoban" ResponseEncoding="utf-8" %>
 
 <!doctype html>
 <html>
@@ -918,5 +918,4 @@
 
 	</script>
 </html>
-
 

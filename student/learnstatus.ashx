@@ -11,7 +11,9 @@ public class learnstatus : IHttpHandler
 {
     public void ProcessRequest(HttpContext context)
     {
-        context.Response.ContentType = "application/json";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
+        context.Response.ContentType = "application/json; charset=utf-8";
         context.Response.AddHeader("Cache-Control", "no-cache, no-store");
 
         try

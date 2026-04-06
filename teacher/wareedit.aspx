@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="wareedit.aspx.cs" Inherits="teacher_wareedit" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="wareedit.aspx.cs" Inherits="teacher_wareedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />

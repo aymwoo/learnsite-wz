@@ -1,11 +1,12 @@
-<%@ Page Language="C#"  StylesheetTheme="Student" AutoEventWireup="true" CodeFile="txtformresult.aspx.cs" Inherits="Student_txtformresult" %>
+<%@ Page Language="C#"  StylesheetTheme="Student" AutoEventWireup="true" CodeFile="txtformresult.aspx.cs" Inherits="Student_txtformresult" ResponseEncoding="utf-8" %>
 <%@ Register Assembly="Anthem" Namespace="Anthem" TagPrefix="anthem" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+        <meta charset="utf-8" />
+<title></title>
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style>
         body { 

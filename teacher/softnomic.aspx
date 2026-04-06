@@ -1,9 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" StylesheetTheme="Teacher" CodeFile="softnomic.aspx.cs" Inherits="Teacher_softnomic" %>
+<%@ Page Language="C#" AutoEventWireup="true" StylesheetTheme="Teacher" CodeFile="softnomic.aspx.cs" Inherits="Teacher_softnomic" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>自学园作品评价与展示</title>
+        <meta charset="utf-8" />
+<title>自学园作品评价与展示</title>
     <style type="text/css">
         *, *::before, *::after {
             box-sizing: border-box;

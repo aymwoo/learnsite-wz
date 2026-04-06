@@ -1,4 +1,4 @@
-<%@ Page Title="AI 配置中心" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="aiconfig.aspx.cs" Inherits="Teacher_aiconfig" %>
+<%@ Page Title="AI 配置中心" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="aiconfig.aspx.cs" Inherits="Teacher_aiconfig" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">

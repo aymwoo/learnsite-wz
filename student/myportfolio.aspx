@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="myportfolio.aspx.cs" Inherits="student_myportfolio" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="myportfolio.aspx.cs" Inherits="student_myportfolio" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-      <title>作品集</title>
+          <meta charset="utf-8" />
+<title>作品集</title>
   <style>
     .box {
         display: flex;  
@@ -57,4 +58,3 @@
     </form>
 </body>
 </html>
-

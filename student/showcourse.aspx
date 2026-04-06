@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student"  Validaterequest="false"  AutoEventWireup="true" CodeFile="showcourse.aspx.cs" Inherits="Student_showcourse" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student"  Validaterequest="false"  AutoEventWireup="true" CodeFile="showcourse.aspx.cs" Inherits="Student_showcourse" ResponseEncoding="utf-8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <style type="text/css">
     .student-doc-wrap {
@@ -99,4 +99,3 @@
     </div>
 </div>
 </asp:Content>
-

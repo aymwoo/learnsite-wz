@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="typechineseshow.aspx.cs" Inherits="Teacher_typechineseshow" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="typechineseshow.aspx.cs" Inherits="Teacher_typechineseshow" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link href="../App_Themes/Teacher/typing-admin.css" rel="stylesheet" />

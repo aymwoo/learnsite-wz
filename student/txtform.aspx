@@ -1,5 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student"
-    AutoEventWireup="true" CodeFile="txtform.aspx.cs" Inherits="Student_txtform" %>
+    AutoEventWireup="true" CodeFile="txtform.aspx.cs" Inherits="Student_txtform" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <style>

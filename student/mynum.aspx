@@ -1,9 +1,10 @@
 <%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true"
-    CodeFile="mynum.aspx.cs" Inherits="Student_mynum" %>
+    CodeFile="mynum.aspx.cs" Inherits="Student_mynum" ResponseEncoding="utf-8" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>学号查询</title>
+        <meta charset="utf-8" />
+<title>学号查询</title>
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="../js/tooltip.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>

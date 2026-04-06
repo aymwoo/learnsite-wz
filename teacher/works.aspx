@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="works.aspx.cs" Inherits="Teacher_works" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="works.aspx.cs" Inherits="Teacher_works" ResponseEncoding="utf-8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link rel="stylesheet" type="text/css" href="../webform/bootstrap-icons.min.css" />
     <style type="text/css">

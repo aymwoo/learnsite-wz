@@ -1,8 +1,9 @@
-<%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myrule.aspx.cs" Inherits="Student_myrule" %>
+<%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myrule.aspx.cs" Inherits="Student_myrule" ResponseEncoding="utf-8" %>
     
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
-    <title>课堂守则</title>   
+        <meta charset="utf-8" />
+<title>课堂守则</title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style>

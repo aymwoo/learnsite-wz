@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="qrcodeadd.aspx.cs" Inherits="teacher_qrcodeadd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="qrcodeadd.aspx.cs" Inherits="teacher_qrcodeadd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
