@@ -8,6 +8,9 @@
 - **学生测验 AI 评估 skill**：新增默认 `student_exam` 场景 skill“AI测验评估助手”，学生在 `student/myexam.aspx` 提交测验后会自动调用默认 AI Provider 生成评估摘要、分析建议和学习日志，并把结果入库
 - **教师端实时动态 AI 详情 modal**：`teacher/start.aspx` 的实时动态学生卡片支持点击查看详情，modal 中展示学生 AI 测验评估概览、Provider、Skill、生成时间、学习日志和可读化答题记录
 - **学生测验 AI 评估存储表**：新增 `AIStudentExamAssessment` 表及迁移 `1.9.1.1`，用于保存学生测验 AI 分析结果、答题日志与学习日志
+- **问卷设置中心**：新增 `teacher/surveysettings.aspx`，教师可集中配置问卷开关、说明和相关参数，配合 `Survey` 的 BLL/DAL/Model 调整，补齐问卷管理入口
+- **测验与问卷体验升级**：重做 `student/myexam.aspx`、`webform/exam.aspx`、`webform/preview.aspx` 与 `lessons/presurvey.aspx` 的界面和交互，并新增问卷设置中心，统一测验、预览、打印和问卷管理体验
+- **活动页与编辑器能力增强**：新增 `CustomActivityCatalog`、`IframeUrlHelper`，提升 `student/iframe.aspx` 的活动解析能力，同时升级像素画编辑器以及多类学生活动页、AI 工具页的工具栏和操作体验
 
 ### 问题修复
 - **量规 AI 重新生成安全性优化**：覆盖模式改为“先生成后替换”，避免 AI 调用失败时先清空原量规项
@@ -16,6 +19,8 @@
 - **静态前端库本地化**：将教师端编辑器资源以及全站使用的 Tailwind utilities、Font Awesome、clipboard.js、FileSaver.js 等静态库切换为本地文件，减少对外部 CDN 的依赖
 - **学生测验 AI 评估兼容修复**：当数据库尚未创建 `AIStudentExamAssessment` 表时，学生提交测验不再失败，教师端实时动态也不会因读取 AI 评估表异常而整体失效；同时补充了教师端学生管理页控件类型不一致导致的 `InvalidCastException` 修复
 - **Tailwind 本地版本回退修复**：将误替换为 Tailwind v4 本地文件的页面统一改回匹配原 CDN 的 `2.2.19 utilities` 本地版本，修复教师端顶部栏、侧边栏等布局样式回归问题
+- **问卷、测验与活动页稳定性修复**：修正 `Survey` 数据映射、测验提交流程、像素画编辑处理和活动目录逻辑，减少教师端与学生端在问卷、测验和活动页中的异常情况
+- **课程与升级页逻辑修正**：补齐 `teacher/courseshow.aspx.cs`、`upgrade.aspx.cs`、`start.aspx.cs` 等页面的边界处理，提升课程展示和升级流程稳定性
 
 ### 升级增强
 - **数据库升级中心预检查**：`upgrade.aspx` 新增数据库类型识别、升级结论、风险等级、待执行迁移列表和风险提示，帮助用户在“解压覆盖旧站点再升级”的场景下先判断是否适合直接升级
@@ -25,56 +30,30 @@
 - **升级页首屏信息压缩与版本对比优化**：将数据库名、预检查时间和迁移版本对比统一到紧凑概览区，移除多余版本目标卡片，简化为“旧版本 → 新版本”展示，并把升级说明改为默认摘要 + 按需展开，缩短首屏高度
 
 ### 涉及文件
-- `teacher/gauge.aspx`、`teacher/gauge.aspx.cs`、`teacher/gauge_generate.ashx`
-- `teacher/gaugeitem.aspx`、`teacher/gaugeitem.aspx.cs`
-- `teacher/start.aspx`、`teacher/learnprogress.ashx`
-- `student/myexam.aspx`、`student/uploadexam.ashx`
-- `teacher/aiconfig.aspx`、`teacher/aiprovider_api.ashx`
-- `App_Code/Bll/AIGaugeGenerator.cs`
-- `App_Code/Bll/AIStudentExamGenerator.cs`
-- `App_Code/Bll/AIStudentExamAssessment.cs`
-- `App_Code/Common/AIGaugeSkillHelper.cs`
-- `App_Code/Common/AIStudentExamSkillHelper.cs`
-- `App_Code/Dal/AIStudentExamAssessment.cs`
-- `App_Code/Model/AIStudentExamAssessment.cs`
-- `App_Code/Utility/UpdateGrade.cs`、`App_Code/Utility/DbMigration.cs`
+- AI 量规与测验评估：`teacher/gauge*`、`teacher/start.aspx`、`student/myexam.aspx`、`student/uploadexam.ashx`
+- 问卷与试卷：`teacher/surveysettings.aspx`、`lessons/presurvey.aspx`、`webform/exam.aspx`、`webform/preview.aspx`
+- 活动页与编辑器：`student/iframe.aspx`、`student/Scm.master.cs`、`teacher/pixel*.aspx`、`js/toolbar-buttons.css`
+- 后端与迁移：`App_Code/Common/*`、`App_Code/Dal/Survey.cs`、`App_Code/Bll/AIStudentExamAssessment.cs`、`App_Code/Utility/DbMigration.cs`
 
 ## 2026-04-05
 
-### UI 重构
-- **学生端统一 `prog-*` 设计系统**：将 `student/` 下所有使用 `Scm.master` 的页面从混用 Tailwind 工具类迁移至自洽的 `prog-*` CSS 设计系统（命名风格对齐教师端 `lesson-*`），彻底消除对 CDN Tailwind 的运行时依赖
-- **学案导航条（lessonav）修复**：`Scm.master` 中解析 `asp:Menu`（`Menuact`）的 JS 从查找 `<table>` 改为查找 `<ul><li>`（`web.config` 设定 `controlRenderingCompatibilityVersion="4.8"` 渲染为列表结构），修复了环节导航链接完全不显示的 bug
-- **Sidebar sticky 修复**：移除 `.scm-content-card` 上的 `overflow: hidden`，该属性会裁剪内部 `position: sticky` 的 sidebar，导致其随页面滚动消失
-- **皮肤样式覆盖**：`SkinID="buttonSkinPink"` 和 `SkinID="HyperLinkPink"` 会在渲染时注入内联 `background-color`、`height`、`width`、`font-size` 等样式，各页面已通过高优先级 `!important` CSS 规则将其统一压制并替换为 `prog-btn-*` 系列样式
+### 新功能
+- **学生端 `prog-*` 设计系统落地**：将使用 `Scm.master` 的学生页面统一迁移到 `prog-*` 视觉与布局体系，减少对运行时 Tailwind 的依赖，并统一按钮、卡片、侧栏与内容区样式
+
+### 问题修复
+- **学案导航与 sticky 侧栏修复**：调整 `Scm.master` 导航解析逻辑，并移除影响 `position: sticky` 的裁剪样式，修复学案导航不显示和侧栏滚动消失的问题
+- **旧皮肤样式覆盖修复**：压制 `buttonSkinPink`、`HyperLinkPink` 等皮肤注入的内联样式，避免按钮尺寸、字号和背景色破坏新版页面布局
 
 ### 涉及文件
-- `student/Scm.master`：topbar 精简（品牌 + 我的首页），新增 `scm-lessonav` 学案导航条（sticky top:56px），JS 全面重写，移除 `overflow: hidden`
-- `student/program.aspx`：两栏 `prog-grid`（`1fr 300px`），sidebar `sticky top:116px`，按钮统一为 `prog-btn-*` 系列，skin 样式覆盖
-- `student/showcourse.aspx`：去掉双层卡片包裹，简化结构
-- `student/myevaluate.aspx`：补加 `<meta charset="UTF-8">` 修复乱码
-- `student/txtform.aspx`：整体改为 `prog-grid`，sidebar 改为 `prog-card prog-sidebar-card`，按钮统一
-- `student/showmission.aspx`：同上，内部上传控件、GridView、Panel 完全保留，仅外层结构和样式改为 `prog-*` 系统
-- `student/showtask.aspx`：同上，Plupload 上传逻辑完整保留，仅外层结构和样式改为 `prog-*` 系统
-- `student/console.aspx`：同上，GridView 测评面板和 `BtnIdle`（`SkinID="buttonSkinPink"`）完整保留，外层改为 `prog-*` 系统并处理 skin 覆盖
+- 母版页与导航：`student/Scm.master`
+- 学生端页面：`student/program.aspx`、`student/showcourse.aspx`、`student/txtform.aspx`、`student/showmission.aspx`、`student/showtask.aspx`、`student/console.aspx` 等
 
 ## 2026-04-03
 
-### UI 重构
-- **管理器页面全面现代化**：所有 manager 页面采用浅色主题替代深色渐变，统一视觉风格
-- **字体尺寸优化**：全局字体从 13px 提升至 14px，增强可读性
-- **布局约束移除**：删除所有母版页的 `max-w-[1400px]` 限制，内容自适应宽度
-- **机房选择交互增强**：添加点击选择、悬停效果、绿色指示点和选中状态高亮
-- **侧边栏紧凑化**：导航菜单字体从 13px 调整为 11px，更紧凑的布局
-- **教师信息页面重设计**：采用卡片式布局，班级卡片添加 6 色循环色系
-- **机房布置页面重构**：采用现代化卡片式布局，优化表格和按钮样式
-- **备份优秀作品页面重设计**：采用现代化卡片式布局
-- **拖拽上传功能**：学生导入页面添加现代化的拖拽文件上传区域
-
 ### 新功能
-- **学案封面图片**：课程编辑页面支持上传和保存学案封面图片，带预览和移除功能
-- **管理器头部退出按钮**：在管理控制台头部添加快捷退出按钮，正确清除 Cookie 并跳转
-- **AI 教学助手**：任务创建页面集成 AI 教学助手侧边栏，支持提示词生成内容并插入编辑器
-- **AI 聊天 API**：新增 `aiprovider_api.ashx` 的 chat 端点，支持调用默认 AI 提供商生成内容
+- **教师端界面现代化升级**：manager 与教师后台页面统一改为更轻量的浅色视觉体系，优化卡片、表格、布局宽度、机房选择和上传交互
+- **AI 教学能力接入**：任务创建页新增 AI 教学助手侧边栏，`aiprovider_api.ashx` 新增 chat 接口，支持通过默认 AI Provider 生成内容
+- **课程与后台功能增强**：课程编辑支持学案封面图上传与预览，管理控制台增加快捷退出入口
 
 ### 问题修复
 - **空值检查增强**：`start.aspx.cs` 和 `student.aspx.cs` 添加 room model 空值检查，防止 null 引用异常
@@ -82,97 +61,110 @@
 - **删除逻辑优化**：课程菜单删除操作使用模型获取数据，避免依赖行索引
 - **复选框样式改进**：教师添加页面的权限复选框使用自定义样式，对齐更合理
 
-### 性能优化
-- **拖拽排序精简**：课程菜单拖拽排序移除 requestAnimationFrame，简化事件绑定
-- **代码精简**：合并多个 case 分支，使用对象初始化器替代冗余代码
+### 升级增强
+- **后台交互与代码结构优化**：精简课程菜单拖拽排序逻辑，合并冗余分支，并在多个后台页面中同步提升可维护性与交互一致性
+
+### 涉及文件
+- 教师与管理后台：`teacher/systeminfo.aspx`、`teacher/works.aspx`、`teacher/student.aspx`、`teacher/index.aspx`、`teacher/Teach.master`
+- 课程与任务：`teacher/courseedit.aspx`、`teacher/courseshow.aspx`、`teacher/missionadd.aspx`
+- 学生与工具页：`student/chat.aspx`、`student/kitymind.aspx` 及相关学生页面
+- AI 与开发环境：`aiprovider_api.ashx`、测试项目、`start_dev.sh`
 
 ## 2026-04-02
 
 ### 新功能
-- **AI 模型提供商管理**：新增 `aiprovider.aspx` 页面，支持添加、编辑、删除、测试连接、批量 JSON 导入 AI 提供商配置（通义千问/DeepSeek/智谱GLM 等），数据库自动建表及默认数据填充
-- **多编辑器切换**：课程编辑、活动添加/编辑页面（`courseedit`/`missionadd`/`missionedit`）支持 KindEditor、WangEditor、Vditor 三种编辑器切换，使用下拉菜单选择
-- **教师模块 UI 现代化**：教师后台全面采用 Tailwind CSS 重构为现代 SaaS 风格界面
-- **核心控制台解构升级**：`teacher/systeminfo.aspx`，`teacher/works.aspx` 及 `teacher/student.aspx` 彻底淘汰了拥有十余年历史的定宽表格排版，运用 3列现代网格交互仪表盘和悬浮卡片包装组件进行深层结构重铸
-- **周边工具弹性化适配**：`student/chat.aspx`，`student/kitymind.aspx` 及各类细节子模块从 612固定宽度的 float 浮动布局改为自适应宽高 Flexbox/Grid，引入现代化专属交互反馈动画
-- **学生页面 UI 重构**：学生端页面使用 Tailwind CSS 重构，统一视觉风格
-- **测试基础设施**：引入 xUnit 测试框架，添加 EnDeCode 加解密、ImageCheck 图片类型检测等单元测试
-- **开发环境启动脚本**：新增 `start_dev.sh`，支持 Arch Linux 下使用国内 Docker 镜像快速搭建开发环境
+- **AI 模型提供商管理上线**：新增 `aiprovider.aspx` 页面，支持新增、编辑、删除、测试连接和批量导入 AI Provider 配置，并自动完成建表和默认数据初始化
+- **编辑器与教师后台现代化升级**：课程与活动编辑页支持 KindEditor、WangEditor、Vditor 切换，教师后台同步完成一轮现代化 UI 改造
+- **学生端与周边工具界面重构**：学生页面及 `student/chat.aspx`、`student/kitymind.aspx` 等工具页改为更现代的自适应布局与交互风格
+- **测试与开发环境补强**：引入 xUnit 测试基础设施，并新增 `start_dev.sh` 以简化本地开发环境启动
 
 ### 问题修复
-- 修复 AI 提供商 API（`aiprovider_api.ashx`）编译错误：`JudgeTeacherCookies()` 返回 `void` 不可对其取反，改用 Cookie 存在性检查
-- 修复 Vditor Markdown 编辑器 `html2md` 调用时 lute WASM 未就绪导致的报错
-- 修复 `teacher/works.aspx` 顶部控制菜单多重嵌套和重复 ID 导致的 ASP.NET 编译器致命错误
-- 修复 `teacher/student.aspx` 数据表格 DOM 原生结构在之前编辑中缺失 <GridView> 主标签的问题并补全弹模绑定
-- 修复 `teacher/index.aspx` (登录按钮) 和 `teacher/Teach.master` (Header) 文字溢出及超出屏幕边缘产生横向滚动轴的兼容性 bug
-- 编辑器 CDN 从不可达的 `unpkg.com` 切换至 `cdn.jsdelivr.net`（WangEditor 固定版本 5.1.23）
-- 使用国内 MCR 镜像替代不可用的自定义 MSSQL Docker 镜像，修复 Mono 下 Socket 异常
-- 统一教师模块 TinyBox 弹窗为 `Teach.master` 共享 Modal 组件，消除各页面重复代码
+- **AI 接口与编辑器兼容修复**：修复 `aiprovider_api.ashx` 编译问题、Vditor `html2md` 初始化异常，并切换到更可用的编辑器静态资源来源
+- **教师端页面结构修复**：修复 `teacher/works.aspx`、`teacher/student.aspx`、`teacher/index.aspx` 和 `teacher/Teach.master` 中的结构与样式问题，提升后台页面稳定性
+- **开发环境与弹窗逻辑修复**：替换不可用的 MSSQL 镜像，并将教师模块的 TinyBox 弹窗统一为母版页共享 Modal 组件
 
-### 性能优化
-- 教师导航栏新增 AI 模型提供商入口
+### 升级增强
+- **后台入口与可维护性增强**：教师导航栏新增 AI 模型提供商入口，多个页面在这次重构中同步减少重复代码并提升可维护性
+
+### 涉及文件
+- AI Provider 与编辑器：`aiprovider.aspx`、`aiprovider_api.ashx`、`teacher/courseedit.aspx`、`teacher/missionadd.aspx`、`teacher/missionedit.aspx`
+- 教师后台：`teacher/systeminfo.aspx`、`teacher/works.aspx`、`teacher/student.aspx`、`teacher/index.aspx`、`teacher/Teach.master`
+- 学生与工具页：`student/chat.aspx`、`student/kitymind.aspx` 及相关学生页面
+- 测试与开发环境：测试项目、`start_dev.sh`
 
 ## 2026-04-01
 
-### 安全修复
-- 修复 `SurveyFeedback.GetClassScore` SQL 注入漏洞（参数化查询）
-- 修复 `Soft.cs` DAL 层 SQL 注入漏洞
+### 问题修复
+- **SQL 注入安全修复**：修复 `SurveyFeedback.GetClassScore` 与 `Soft.cs` 中的 SQL 注入风险，统一改为更安全的参数化查询方式
 
-### 性能优化
-- `TopicReply` 学生列表拼接改用 StringBuilder，减少字符串分配
-- 批量更新 Problem 排序，消除 N+1 查询
-- `Students.TotalSgscore` 消除 N+1 查询
-- `Students.TermABCDE` 成绩评定消除 N+1 查询
-- `Students.TeamScores` 团队分数消除 N+1 查询
-- `Computers.AutoAssign` 自动分配消除 N+1 查询
-- `TurtleQuestion.Qsortnew` 排序优化
-- `AutoSleader` 组长分配消除 N+1 查询
-- `Courses.ShowDoneCourse` 使用 HashSet O(1) 查找替代线性扫描
-- `SoftCategory.initYsort` 批量 UPDATE 替代逐条执行
-- `TxtFormBack` BLL/DAL 层字符串拼接改用 StringBuilder
+### 升级增强
+- **核心查询与批处理性能优化**：对成绩统计、自动分配、排序、列表拼接和批量更新等逻辑进行集中优化，减少 N+1 查询、字符串分配和逐条数据库写入带来的开销
+- **基础代码清理与重构**：清理冗余构造函数、注释代码和多处重复实现，重构 SQL 脚本解析与资源释放逻辑，提升底层代码可维护性
 
-### 代码重构
-- `SharpZip.cs` 移除冗余 try-catch 和空构造函数
-- `UpdateStscore` 移除注释代码
-- `DbLinkEdit` / `SqlHelper` SQL 脚本解析重构，改用 `using` 管理资源，修复 gb2312 编码读取
-- `SurveyQuestion.GetListQuestion` 消除 N+1 查询
-- 批量清理多个类中自动生成的空构造函数和 TODO 注释（Htmlcheck、psdToBmp、Flatform、ImportCourse、MngCook、XmlCourse、ExcelHelper、Cook、TeaCook、WorkUpload 等）
+### 涉及文件
+- 安全修复：`SurveyFeedback`、`Soft.cs`
+- 性能优化：`TopicReply`、`Students`、`Computers`、`TurtleQuestion`、`Courses`、`SoftCategory`、`TxtFormBack`
+- 基础重构：`SharpZip.cs`、`UpdateStscore`、`DbLinkEdit`、`SqlHelper`、`SurveyQuestion` 及多个工具类
 
 ## 2026-03-31
 
-- 罗老师常规更新修改
+### 升级增强
+- **常规业务更新**：同步罗老师的常规功能与业务调整
 
 ## 2026-03-27
 
-- 在周老师 LearnSiteCode2026-1-27 源码基础上进行修改
-- 批量转换项目文件编码为 UTF-8
-- 修改 `web.config` 支持 .NET 4.8
+### 新功能
+- **项目源码基线切换**：以周老师 `LearnSiteCode2026-1-27` 源码为基础继续开展后续改造
+
+### 升级增强
+- **工程兼容性升级**：批量统一项目文件编码为 UTF-8，并更新 `web.config` 以支持 .NET 4.8 运行环境
+
+### 涉及文件
+- 项目配置与编码：全站项目文件、`web.config`
 
 ## 2026-03-01
 
-- 同步 2026-1-5 版更新内容
+### 升级增强
+- **上游版本同步**：同步 `2026-1-5` 版本的更新内容，为后续改造提供统一基础
 
 ## 2026-02-26
 
-- 项目结构梳理
-- 添加学案模板（来源：openlearnsite.com）
-- 更新 README 说明文档
+### 新功能
+- **学案模板补充**：新增来源于 `openlearnsite.com` 的学案模板资源
+
+### 升级增强
+- **项目结构与文档整理**：完成项目结构梳理，并更新 `README` 说明文档
+
+### 涉及文件
+- 项目结构与文档：目录结构、`README`
+- 模板资源：学案模板相关文件
 
 ## 2026-02-25
 
-- 统一全站文件编码格式为 UTF-8
-- 调整目录结构（去掉二级目录）
-- 新增 `web.config.docker` Docker 环境配置
-- 优化项目说明文档
+### 新功能
+- **Docker 环境配置补充**：新增 `web.config.docker`，为容器化部署与开发环境提供独立配置
+
+### 升级增强
+- **项目初始化整理**：统一全站文件编码为 UTF-8，调整目录结构，并同步优化项目说明文档
+
+### 涉及文件
+- 配置文件：`web.config.docker`
+- 工程整理：全站文件编码、目录结构、项目说明文档
 
 ## 2026-01-10
 
-- 上传 LearnSite 信息学习平台 2025-12-30 版源码
-- 上传 LearnSiteCode2026-1-5 版源码
+### 新功能
+- **源码版本入库**：导入 LearnSite 信息学习平台 `2025-12-30` 版源码，以及 `LearnSiteCode2026-1-5` 版源码
+
+### 涉及文件
+- 基础源码：LearnSite 平台初始代码与对应资源文件
 
 ## 2025-11-01
 
-- 增加更多功能，符合新课标（2025-9-19 版）
+### 新功能
+- **新课标能力增强**：补充更多符合 `2025-09-19` 新课标要求的功能内容
 
 ## 2024-09-14
 
-- 项目初始提交（Initial commit）
+### 新功能
+- **项目初始化**：完成项目初始提交（Initial commit）
