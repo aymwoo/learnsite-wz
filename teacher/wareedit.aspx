@@ -212,7 +212,9 @@
      <div  class="placehold">
         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded shadow-sm text-left">
             <div class="flex items-center mb-2">
-                <i class="bi bi-info-circle-fill text-blue-500 mr-2"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-blue-500 mr-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM8.93 6.588 8.558 9.29c-.07.34-.294.533-.635.533-.194 0-.487-.07-.686-.246l.088-.416c.145.07.294.105.416.105.197 0 .28-.07.32-.246l.287-2.134c.07-.34.294-.533.635-.533.194 0 .487.07.686.246l-.088.416a1.02 1.02 0 0 0-.416-.105c-.197 0-.28.07-.32.246zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
                 <h4 class="text-blue-800 font-bold m-0">学习平台成绩采集集成指南</h4>
             </div>
             <p class="text-sm text-blue-900 mb-2">
@@ -223,7 +225,7 @@
                     const message = { name: "测验名称", value: score }; // 消息字典为测验名称和score成绩<br/>
                     window.parent.postMessage(JSON.stringify(message), "*"); // 向父页面发送消息
                 </code>
-                <button type="button" onclick="navigator.clipboard.writeText('const message = { name: \'测验名称\', value: score };\nwindow.parent.postMessage(JSON.stringify(message), \'*\');'); alert('代码已复制到剪贴板');" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0">
+                <button type="button" onclick="navigator.clipboard.writeText('const message = { name: \'测验名称\', value: score };\nwindow.parent.postMessage(JSON.stringify(message), \'*\');'); alert('代码已复制到剪贴板');" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 focus:opacity-100 focus-visible:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-opacity cursor-pointer border-0">
                     复制代码
                 </button>
             </div>

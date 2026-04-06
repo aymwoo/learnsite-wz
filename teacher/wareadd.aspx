@@ -225,7 +225,51 @@
                     const message = { name: "测验名称", value: score }; // 消息字典为测验名称和score成绩<br/>
                     window.parent.postMessage(JSON.stringify(message), "*"); // 向父页面发送消息
                 </code>
-                <button type="button" onclick="navigator.clipboard.writeText('const message = { name: \'测验名称\', value: score };\nwindow.parent.postMessage(JSON.stringify(message), \'*\');'); alert('代码已复制到剪贴板');" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0">
+                <script type="text/javascript">
+                    function fallbackCopyText(text) {
+                        var textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.setAttribute('readonly', '');
+                        textArea.style.position = 'absolute';
+                        textArea.style.left = '-9999px';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        textArea.setSelectionRange(0, textArea.value.length);
+
+                        var copied = false;
+                        try {
+                            copied = document.execCommand('copy');
+                        } catch (err) {
+                            copied = false;
+                        }
+
+                        document.body.removeChild(textArea);
+                        return copied;
+                    }
+
+                    function copyIntegrationCode() {
+                        var codeText = 'const message = { name: \\'测验名称\\', value: score };\\nwindow.parent.postMessage(JSON.stringify(message), \\'*\\');';
+
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(codeText)
+                                .then(function () {
+                                    alert('代码已复制到剪贴板');
+                                })
+                                .catch(function () {
+                                    if (fallbackCopyText(codeText)) {
+                                        alert('代码已复制到剪贴板');
+                                    } else {
+                                        alert('复制失败，请手动复制代码');
+                                    }
+                                });
+                        } else if (fallbackCopyText(codeText)) {
+                            alert('代码已复制到剪贴板');
+                        } else {
+                            alert('复制失败，请手动复制代码');
+                        }
+                    }
+                </script>
+                <button type="button" onclick="copyIntegrationCode();" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0">
                     复制代码
                 </button>
             </div>
