@@ -1,0 +1,34 @@
+/* 让本页编辑器宽度自适应屏幕 */
+    .missionedit-page.cplace {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 0 1.2rem;
+    }
+    .missionedit-page .cleft {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 1rem;
+        padding: 1rem 0;
+    }
+    .missionedit-editor-wrap {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap .ke-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap #wangeditor-wrap,
+    .missionedit-editor-wrap #vditor-wrap,
+    .missionedit-editor-wrap textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap .vditor {
+        width: 100% !important;
+        max-width: 100% !important;
+    }

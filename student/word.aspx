@@ -13,61 +13,10 @@
   <link rel="stylesheet" href="../plugins/canvas-editor/assets/index.9f94c3a2.css">
 <script src="../code/jquery.min.js"></script>
 	<link rel="stylesheet" href="../deepseek/all.min.css">
-	<style type="text/css">
-		.word-toolbar {
-			display: inline-flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			align-items: center;
-			margin-left: 14px;
-			vertical-align: middle;
-		}
-
-		.word-toolbar__btn {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			gap: 8px;
-			min-width: 110px;
-			height: 40px;
-			padding: 0 16px;
-			border: 0;
-			border-radius: 12px;
-			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-			color: #ffffff;
-			font-size: 14px;
-			font-weight: 700;
-			white-space: nowrap;
-			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
-			cursor: pointer;
-			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
-		}
-
-		.word-toolbar__btn:hover {
-			transform: translateY(-1px);
-			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
-			filter: brightness(1.03);
-		}
-
-		.word-toolbar__btn--neutral {
-			background: linear-gradient(135deg, #475569 0%, #334155 100%);
-			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
-		}
-
-		@media (max-width: 768px) {
-			.word-toolbar {
-				display: flex;
-				margin: 12px 0 0;
-			}
-
-			.word-toolbar__btn {
-				flex: 1 1 120px;
-				min-width: 0;
-			}
-		}
-	</style>
+	
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../App_Themes/Student/word.css" />
 </head>
 
 <body>
@@ -479,100 +428,14 @@
     </div>
   </div>
   
+    <script type="text/javascript">
+        window.__wordConfig = {
+            id: "<%=Id %>",
+            words: "<%=Words %>",
+            fpage: "<%=Fpage %>"
+        };
+    </script>
+    <script type="text/javascript" src="../js/word.js"></script>
 </body>
-<script type="text/javascript" >
-    var id = "<%=Id %>";
-    var key = "word" + id;
-    var words = "<%=Words %>";
 
-    function returnurl() {
-        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
-            window.location.href = "<%=Fpage %>"
-        }
-    }
-
-    function savework() {
-        var title = "";
-        var canvas = document.getElementsByTagName('canvas')[0];
-        var Cover = blob(canvas.toDataURL());
-        var Content = window.btoa(encodeURIComponent(JSON.stringify(editor.command.getValue())));
-        var Extension = "word";
-        var urls = 'uploadtopic.ashx?id=' + id;
-        var formData = new FormData();
-        formData.append('title', title);
-        formData.append('cover', Cover);
-        formData.append('content', Content);
-        formData.append('ext', Extension);
-
-        $.ajax({
-            url: urls,
-            type: 'POST',
-            cache: false,
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function (res) {
-            alert("保存成功！");
-            console.log(res)
-        });
-    }
-
-    function showwork() {
-        if (words != "") {
-            var savedoc = JSON.parse(decodeURIComponent(atob(words)));
-            //console.log(savedoc);
-            editor.command.executeSetValue(savedoc.data);
-            console.log("恢复文档");
-        }
-        else {
-            var value = localStorage.getItem(key);
-            if (value != null) {
-                var docvalue = JSON.parse(value);
-                editor.command.executeSetValue(docvalue.data);
-                console.log("读取缓存");
-            }
-            else {
-                console.log("新建文档");
-            }
-        }
-    }
-    setTimeout(showwork, 1000); //延迟执行加载文档
-    function blob(dataURI) {
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        var byteString = atob(dataURI.split(',')[1]);
-        var arrayBuffer = new ArrayBuffer(byteString.length);
-        var intArray = new Uint8Array(arrayBuffer);
-
-        for (var i = 0; i < byteString.length; i++) {
-            intArray[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([intArray], { type: mimeString });
-    }
-
-    // 设置定时器，每隔10秒调用一次saveToLocalStorage()函数
-    setInterval(function () {
-        var value = editor.command.getValue();
-        saveToLocalStorage(key, value); // 调用保存到本地存储的函数
-    }, 10000);
-
-    // 保存到本地存储的函数
-    function saveToLocalStorage(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-        console.log("自动缓存");
-    }
-
-    function test() {
-        console.log("字符串");
-        var newWords = editor.command.getValue();
-        var a = JSON.stringify(newWords.data);
-        a = window.btoa(encodeURIComponent(a))
-        console.log(a);
-        b = decodeURIComponent(atob(a));
-        b = JSON.parse(b);
-        console.log("原格式");
-        console.log(b);
-
-        var words = '{"header":[],"main":[],"footer":[]}';
-    }
-</script>
 </html>
