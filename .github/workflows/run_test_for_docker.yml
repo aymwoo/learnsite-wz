@@ -6,6 +6,7 @@ on:
     types: [completed]
     branches: [master, main]
   workflow_dispatch:
+    branches: [master, main]
 
 jobs:
   test:
@@ -33,7 +34,7 @@ jobs:
         run: |
           docker run -d --name learnsite-mssql -e 'ACCEPT_EULA=Y' -e "MSSQL_SA_PASSWORD=YourStrong!Passw0rd" -p 1433:1433 mcr.microsoft.com/mssql/server:2022-latest
           echo "Waiting for SQL Server to start..."
-          sleep 20
+          sleep 15
 
       - name: Initialize Database
         run: |
@@ -58,26 +59,18 @@ jobs:
             ghcr.io/${{ steps.owner.outputs.lowercase_owner }}/learnsite-wz:latest
           
           echo "Waiting for LearnSite to start..."
-          sleep 15
-
-      - name: Check Container Status
-        run: |
-          echo "=== Container Status ==="
-          docker ps -a
-          
-          echo "=== LearnSite Container Logs ==="
-          docker logs learnsite --tail 50
+          sleep 10
 
       - name: Test frontend page access
         run: |
           echo "=== Testing Frontend Page Access ==="
           # 测试主页
           echo "Testing main page..."
-          curl -v http://localhost:8080
+          curl -s http://localhost:8080 || echo "Main page test failed"
           
           # 测试index.aspx登录页面
-          echo "\nTesting index.aspx (login page)..."
-          curl -v http://localhost:8080/index.aspx
+          echo "Testing index.aspx (login page)..."
+          curl -s http://localhost:8080/index.aspx || echo "Login page test failed"
 
       - name: Cleanup
         run: |

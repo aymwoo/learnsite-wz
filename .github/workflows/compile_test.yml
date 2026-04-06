@@ -5,18 +5,22 @@ on:
     branches:
       - master
       - main
+      - dev
     paths-ignore:
       - '.github/workflows/run_test_for_windows.yml'
       - '.github/workflows/run_test_for_linux.yml'
       - '.github/workflows/run_test_for_docker.yml'
+      - '.github/workflows/dev_branch_tests.yml'
   pull_request:
     branches:
       - master
       - main
+      - dev
     paths-ignore:
       - '.github/workflows/run_test_for_windows.yml'
       - '.github/workflows/run_test_for_linux.yml'
       - '.github/workflows/run_test_for_docker.yml'
+      - '.github/workflows/dev_branch_tests.yml'
   workflow_dispatch:
 
 jobs:
