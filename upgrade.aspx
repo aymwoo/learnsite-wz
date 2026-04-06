@@ -235,9 +235,105 @@
             font-size: 14px;
         }
 
+        .upgrade-risk-list li,
+        .upgrade-check-list li,
+        .upgrade-pending-list li {
+            margin-bottom: 4px;
+        }
+
+        .upgrade-risk-list li {
+            color: #92400e;
+            position: relative;
+            list-style: none;
+            padding-left: 22px;
+        }
+
+        .upgrade-risk-list li::before {
+            content: "!";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #fee2e2;
+            color: #dc2626;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .upgrade-risk-list li strong {
+            color: #b91c1c;
+        }
+
+        .upgrade-check-card--danger {
+            box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.08), 0 10px 24px rgba(220, 38, 38, 0.08);
+        }
+
+        .upgrade-btn-disabled,
+        .upgrade-btn-disabled:hover {
+            background: #cbd5e1 !important;
+            border-color: #cbd5e1 !important;
+            color: #ffffff !important;
+            cursor: not-allowed !important;
+            box-shadow: none !important;
+        }
+
         .upgrade-check-empty {
             font-size: 13px;
             color: #94a3b8;
+        }
+
+        .upgrade-collapsible__more {
+            display: none;
+        }
+
+        .upgrade-collapsible__more.is-open {
+            display: block;
+            animation: upgrade-expand-fade 0.18s ease-out;
+        }
+
+        .upgrade-collapse-btn {
+            margin-top: 10px;
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upgrade-collapse-btn:hover {
+            background: #dbeafe;
+        }
+
+        .upgrade-collapse-btn__arrow {
+            display: inline-block;
+            font-size: 12px;
+            transition: transform 0.18s ease;
+        }
+
+        .upgrade-collapse-btn[data-open="1"] .upgrade-collapse-btn__arrow {
+            transform: rotate(90deg);
+        }
+
+        @keyframes upgrade-expand-fade {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .upgrade-actions {
@@ -324,6 +420,27 @@
     </style>
 
     <link href="js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <script type="text/javascript">
+        function toggleUpgradeList(button, targetId, remainCount) {
+            var target = document.getElementById(targetId);
+            if (!button || !target) {
+                return false;
+            }
+
+            var isOpen = button.getAttribute('data-open') === '1';
+            if (isOpen) {
+                target.className = 'upgrade-collapsible__more';
+                button.setAttribute('data-open', '0');
+                button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>展开全部（剩余 ' + remainCount + ' 项）</span>';
+            }
+            else {
+                target.className = 'upgrade-collapsible__more is-open';
+                button.setAttribute('data-open', '1');
+                button.innerHTML = '<span class="upgrade-collapse-btn__arrow">▶</span><span>收起列表</span>';
+            }
+            return false;
+        }
+    </script>
 </head>
 <body>
        <form id="form1" runat="server" > 
@@ -338,7 +455,6 @@
                     <h1 class="upgrade-title">数据库升级中心</h1>
                     <p class="upgrade-subtitle">
                         从旧版 LearnSite 升级到当前版本，系统会自动判断缺失的数据表、字段与索引并执行补齐。<br />
-                        本次升级已包含 `MenuWorks.Kseconds` 秒级停留时长字段与 `IX_MenuWorks_Klid_Ksid` 查询优化索引。
                     </p>
                 </div>
 

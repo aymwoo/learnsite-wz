@@ -22,6 +22,7 @@ public partial class UpGrade : System.Web.UI.Page
     protected string PendingDataHtml = "";
     protected string PendingPerformanceHtml = "";
     protected bool CanUpgrade = false;
+    private int CollapsibleListSeed = 0;
 
     protected void BtnAnalyze_Click(object sender, EventArgs e)
     {
@@ -118,6 +119,8 @@ public partial class UpGrade : System.Web.UI.Page
 
     private void AnalyzeUpgradeState()
     {
+        Btnupgrade.Enabled = true;
+        Btnupgrade.CssClass = "upgrade-btn-primary";
         ConnectedDatabaseName = GetCurrentDatabaseName();
         LastAnalyzeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         List<string> summary = new List<string>();
@@ -151,6 +154,8 @@ public partial class UpGrade : System.Web.UI.Page
             UpgradeDecision = "不能直接升级";
             RiskLevel = "高";
             CanUpgrade = false;
+            Btnupgrade.Enabled = false;
+            Btnupgrade.CssClass = "upgrade-btn-primary upgrade-btn-disabled";
             summary.Add("当前数据库缺少 `Students` 基础表，不能按覆盖升级流程直接升级。请先创建数据表，再执行更新。");
             risks.Add("如果数据库为空或连接错库，直接执行升级不会得到可用系统。");
         }
@@ -230,12 +235,12 @@ public partial class UpGrade : System.Web.UI.Page
         risks.Add("强烈建议先做数据库备份，再执行升级。若你是直接解压覆盖旧站点，必须确认 `web.config` 仍指向正确的旧库。");
         risks.Add("升级期间不要同时让教师或学生继续操作系统，避免数据写入和结构变更并发。");
 
-        UpgradeSummaryHtml = BuildListHtml(summary, "upgrade-check-list");
-        UpgradeRiskHtml = BuildListHtml(risks, "upgrade-risk-list");
-        PendingMigrationHtml = BuildListHtml(pending, "upgrade-pending-list");
-        PendingStructureHtml = BuildListHtml(pendingStructure, "upgrade-pending-list");
-        PendingDataHtml = BuildListHtml(pendingData, "upgrade-pending-list");
-        PendingPerformanceHtml = BuildListHtml(pendingPerformance, "upgrade-pending-list");
+        UpgradeSummaryHtml = BuildCollapsibleListHtml(summary, "upgrade-check-list", 5);
+        UpgradeRiskHtml = BuildCollapsibleListHtml(risks, "upgrade-risk-list", 4);
+        PendingMigrationHtml = BuildCollapsibleListHtml(pending, "upgrade-pending-list", 6);
+        PendingStructureHtml = BuildCollapsibleListHtml(pendingStructure, "upgrade-pending-list", 5);
+        PendingDataHtml = BuildCollapsibleListHtml(pendingData, "upgrade-pending-list", 5);
+        PendingPerformanceHtml = BuildCollapsibleListHtml(pendingPerformance, "upgrade-pending-list", 5);
     }
 
     private string BuildListHtml(List<string> items, string cssClass)
@@ -249,10 +254,61 @@ public partial class UpGrade : System.Web.UI.Page
         sb.Append("<ul class='").Append(cssClass).Append("'>");
         foreach (string item in items)
         {
-            sb.Append("<li>").Append(Server.HtmlEncode(item)).Append("</li>");
+            sb.Append("<li>").Append(FormatListItem(item, cssClass)).Append("</li>");
         }
         sb.Append("</ul>");
         return sb.ToString();
+    }
+
+    private string BuildCollapsibleListHtml(List<string> items, string cssClass, int previewCount)
+    {
+        if (items == null || items.Count == 0)
+        {
+            return BuildListHtml(items, cssClass);
+        }
+
+        if (items.Count <= previewCount)
+        {
+            return BuildListHtml(items, cssClass);
+        }
+
+        CollapsibleListSeed++;
+        string hiddenId = "upgrade-list-more-" + CollapsibleListSeed;
+        int remain = items.Count - previewCount;
+
+        StringBuilder sb = new StringBuilder();
+        sb.Append("<div class='upgrade-collapsible'>");
+        sb.Append("<ul class='").Append(cssClass).Append("'>");
+        for (int i = 0; i < previewCount; i++)
+        {
+            sb.Append("<li>").Append(FormatListItem(items[i], cssClass)).Append("</li>");
+        }
+        sb.Append("</ul>");
+        sb.Append("<div id='").Append(hiddenId).Append("' class='upgrade-collapsible__more'>");
+        sb.Append("<ul class='").Append(cssClass).Append("'>");
+        for (int i = previewCount; i < items.Count; i++)
+        {
+            sb.Append("<li>").Append(FormatListItem(items[i], cssClass)).Append("</li>");
+        }
+        sb.Append("</ul></div>");
+        sb.Append("<button type='button' class='upgrade-collapse-btn' data-open='0' onclick=\"toggleUpgradeList(this, '").Append(hiddenId).Append("', ").Append(remain).Append(")\"><span class='upgrade-collapse-btn__arrow'>▶</span><span>展开全部（剩余 ").Append(remain).Append(" 项）</span></button>");
+        sb.Append("</div>");
+        return sb.ToString();
+    }
+
+    private string FormatListItem(string item, string cssClass)
+    {
+        string text = Server.HtmlEncode(item ?? string.Empty);
+        if (cssClass == "upgrade-risk-list")
+        {
+            string[] dangerWords = new string[] { "不能直接升级", "为空", "连接错库", "必须", "备份", "不要同时", "权限不足" };
+            for (int i = 0; i < dangerWords.Length; i++)
+            {
+                string word = Server.HtmlEncode(dangerWords[i]);
+                text = text.Replace(word, "<strong>" + word + "</strong>");
+            }
+        }
+        return text;
     }
 
     private string GetCurrentDatabaseName()
