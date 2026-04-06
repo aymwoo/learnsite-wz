@@ -51,12 +51,13 @@ public partial class Teacher_graphshow : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(examurl))
                 {
                     string filename = LearnSite.Common.WordProcess.getshortfname(examurl);
+                    Hlexample.Visible = true;
                     Hlexample.Text = filename;
                     Hlexample.NavigateUrl = examurl;
                 }
                 else
                 {
-                    Hlexample.Text = "";
+                    Hlexample.Visible = false;
                 }
             }
             else
