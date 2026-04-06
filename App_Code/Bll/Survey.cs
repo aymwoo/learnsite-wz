@@ -193,80 +193,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Survey> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Survey> modelList = new List<LearnSite.Model.Survey>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Survey model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Survey();
-					if(dt.Rows[n]["Vid"]!=null && dt.Rows[n]["Vid"].ToString()!="")
-					{
-						model.Vid=int.Parse(dt.Rows[n]["Vid"].ToString());
-					}
-					if(dt.Rows[n]["Vcid"]!=null && dt.Rows[n]["Vcid"].ToString()!="")
-					{
-						model.Vcid=int.Parse(dt.Rows[n]["Vcid"].ToString());
-					}
-					if(dt.Rows[n]["Vhid"]!=null && dt.Rows[n]["Vhid"].ToString()!="")
-					{
-						model.Vhid=int.Parse(dt.Rows[n]["Vhid"].ToString());
-					}
-					if(dt.Rows[n]["Vtitle"]!=null && dt.Rows[n]["Vtitle"].ToString()!="")
-					{
-					model.Vtitle=dt.Rows[n]["Vtitle"].ToString();
-					}
-					if(dt.Rows[n]["Vcontent"]!=null && dt.Rows[n]["Vcontent"].ToString()!="")
-					{
-					model.Vcontent=dt.Rows[n]["Vcontent"].ToString();
-					}
-					if(dt.Rows[n]["Vtype"]!=null && dt.Rows[n]["Vtype"].ToString()!="")
-					{
-						model.Vtype=int.Parse(dt.Rows[n]["Vtype"].ToString());
-					}
-					if(dt.Rows[n]["Vtotal"]!=null && dt.Rows[n]["Vtotal"].ToString()!="")
-					{
-						model.Vtotal=int.Parse(dt.Rows[n]["Vtotal"].ToString());
-					}
-					if(dt.Rows[n]["Vscore"]!=null && dt.Rows[n]["Vscore"].ToString()!="")
-					{
-						model.Vscore=int.Parse(dt.Rows[n]["Vscore"].ToString());
-					}
-					if(dt.Rows[n]["Vaverage"]!=null && dt.Rows[n]["Vaverage"].ToString()!="")
-					{
-						model.Vaverage=int.Parse(dt.Rows[n]["Vaverage"].ToString());
-					}
-					if(dt.Rows[n]["Vclose"]!=null && dt.Rows[n]["Vclose"].ToString()!="")
-					{
-						if((dt.Rows[n]["Vclose"].ToString()=="1")||(dt.Rows[n]["Vclose"].ToString().ToLower()=="true"))
-						{
-						model.Vclose=true;
-						}
-						else
-						{
-							model.Vclose=false;
-						}
-					}
-					if(dt.Rows[n]["Vpoint"]!=null && dt.Rows[n]["Vpoint"].ToString()!="")
-					{
-						if((dt.Rows[n]["Vpoint"].ToString()=="1")||(dt.Rows[n]["Vpoint"].ToString().ToLower()=="true"))
-						{
-						model.Vpoint=true;
-						}
-						else
-						{
-							model.Vpoint=false;
-						}
-					}
-					if(dt.Rows[n]["Vdate"]!=null && dt.Rows[n]["Vdate"].ToString()!="")
-					{
-						model.Vdate=DateTime.Parse(dt.Rows[n]["Vdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSurveyList(dt);
 		}
 
 		/// <summary>
@@ -302,4 +229,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

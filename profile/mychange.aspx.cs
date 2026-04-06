@@ -24,13 +24,9 @@ public partial class Profile_mychange : System.Web.UI.Page
     }
     private void ShowStudent()
     {
-        HyperLink hk = (HyperLink)Page.Master.FindControl("HyperLink1");
-        hk.Visible = false;
-
         LearnSite.BLL.Students stu = new LearnSite.BLL.Students();
         DataListstu.DataSource = stu.GetListTeam(cook.Sgrade, cook.Sclass);
         DataListstu.DataBind();
-
     }
     protected void DataListstu_ItemCommand(object source, DataListCommandEventArgs e)
     {

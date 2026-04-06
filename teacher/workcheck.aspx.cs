@@ -377,7 +377,7 @@ public partial class Teacher_workcheck : System.Web.UI.Page
         ShowUploadMsort();
         ShowWorks();
     }
-    protected void ImgBtnFlasherror_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnFlasherror_Click(object sender, EventArgs e)
     {
         int Sgrade = Int32.Parse(Request.QueryString["grade"].ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue);
@@ -403,7 +403,7 @@ public partial class Teacher_workcheck : System.Web.UI.Page
         System.Threading.Thread.Sleep(200);
         showGroup();
     }
-    protected void Btnreflash_Click(object sender, ImageClickEventArgs e)
+    protected void Btnreflash_Click(object sender, EventArgs e)
     {
         ShowWorks();
     }
@@ -421,7 +421,7 @@ public partial class Teacher_workcheck : System.Web.UI.Page
         ShowDoneWorks();
         ShowWorks();
     }
-    protected void BtnCheck_Click(object sender, ImageClickEventArgs e)
+    protected void BtnCheck_Click(object sender, EventArgs e)
     {
         QuickSetScore("Check");
         ShowDoneWorks();

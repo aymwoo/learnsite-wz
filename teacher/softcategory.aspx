@@ -363,7 +363,7 @@
                         <p class="cate-hero__subtitle">管理资源分类，支持添加、编辑、排序和删除操作。</p>
                     </div>
                     <asp:Button ID="Btnreturn" runat="server" Text="返回资源列表" OnClick="Btnreturn_Click"
-                        SkinID="BtnSmall" CssClass="cate-hero__btn" />
+                        CssClass="cate-hero__btn" />
                 </div>
             </div>
 
@@ -413,14 +413,14 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField ShowHeader="False">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
-                                            CommandName="Edit" ImageUrl="~/images/e.gif" Text="编辑" />
+                                        <asp:Button ID="ImageButton1" runat="server" CausesValidation="False"
+                                            CommandName="Edit" Text="编辑" CssClass="cate-inline-btn" />
                                     </ItemTemplate>
                                     <EditItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="True"
-                                            CommandName="Update" ImageUrl="~/images/u.gif" Text="更新" />
-                                        <asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False"
-                                            CommandName="Cancel" ImageUrl="~/images/c.gif" Text="取消" />
+                                        <asp:Button ID="ImageButton1" runat="server" CausesValidation="True"
+                                            CommandName="Update" Text="更新" CssClass="cate-inline-btn" />
+                                        <asp:Button ID="ImageButton2" runat="server" CausesValidation="False"
+                                            CommandName="Cancel" Text="取消" CssClass="cate-inline-btn" />
                                     </EditItemTemplate>
                                     <ItemStyle CssClass="cate-cell--edit" />
                                 </asp:TemplateField>
@@ -450,8 +450,8 @@
                             <asp:TextBox ID="TextBoxNewYtitle" runat="server" MaxLength="30"
                                 CssClass="cate-input"></asp:TextBox>
                         </div>
-                        <asp:Button ID="Btnadd" runat="server" Text="添加" OnClick="Btnadd_Click"
-                            SkinID="BtnSmall" CssClass="cate-btn cate-btn--primary" />
+                        <asp:Button ID="Btnadd" runat="server" Text="添加分类" OnClick="Btnadd_Click"
+                            CssClass="cate-btn cate-btn--primary" />
                     </div>
                 </div>
             </div>

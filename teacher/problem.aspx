@@ -1,10 +1,13 @@
-<%@ Page Title="" Language="C#"  Validaterequest="false"  AutoEventWireup="true" CodeFile="problem.aspx.cs" Inherits="Teacher_problem" %>
+<%@ Page Title="" Language="C#"  Validaterequest="false"  AutoEventWireup="true" CodeFile="problem.aspx.cs" Inherits="Teacher_problem" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
+        <meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <script src="../js/MenuCookie.js" type="text/javascript"></script>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <style type="text/css">
@@ -67,9 +70,33 @@
   width: 800px;
   text-align:right;
 }
+
+.problem-editor-switch {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:8px 0;
+}
+
+.problem-editor-switch select {
+  min-height:36px;
+  padding:0 28px 0 10px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  background:#fff;
+  color:#0f172a;
+}
+
+#problem-wangeditor-wrap,
+#problem-vditor-wrap,
+#mcontent,
+.ke-container {
+  max-width:980px;
+  width:980px !important;
+}
 </style>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body >
        <form id="form1" runat="server" > 
@@ -116,7 +143,22 @@
                 <asp:ListItem>4</asp:ListItem>
                 <asp:ListItem>5</asp:ListItem>
             </asp:DropDownList>分<br />
-&nbsp;<textarea id ="mcontent" runat ="server" name="textareaWord" style="width: 980px; height:120px;" ></textarea>
+<div class="problem-editor-switch">
+    <span style="font-size:13px;font-weight:700;color:#334155;">编辑器：</span>
+    <select id="editorSelector" onchange="switchProblemEditor(this.value)">
+        <option value="kindeditor" selected>KindEditor</option>
+        <option value="wangeditor">WangEditor</option>
+        <option value="vditor">Vditor</option>
+    </select>
+</div>
+<div id="problem-wangeditor-wrap" style="display:none; position:relative; border:1px solid #ccc; z-index:100; margin-bottom:10px;">
+    <div id="problem-wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
+    <div id="problem-wangeditor-text" style="height:220px;"></div>
+</div>
+<div id="problem-vditor-wrap" style="display:none; position:relative; margin-bottom:10px;">
+    <div id="problem-vditor-container"></div>
+</div>
+&nbsp;<textarea id ="mcontent" runat ="server" ClientIDMode="Static" name="textareaWord" style="width: 980px; height:120px;" ></textarea>
         </div>
 
 <div id="editor"></div>
@@ -126,15 +168,15 @@
 <div style="margin: auto; ">
     <br />
     &nbsp;&nbsp;
-    <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" SkinID="BtnSmall" 
-        Text="添加"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-    &nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" OnClick="Btnreturn_Click" 
-        SkinID="BtnSmall" Text="返回"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+    <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" OnClientClick="return syncProblemContent();"
+        Text="添加题目"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+    &nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" OnClick="Btnreturn_Click"
+        Text="返回测评"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
     <br />
     <br />
 </div>     
-    <asp:HiddenField ID="code" runat="server" />
-    <asp:HiddenField ID="print" runat="server" />
+    <asp:HiddenField ID="code" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="print" runat="server" ClientIDMode="Static" />
 <div id="centerbar">
 <button  onclick="runit()" type="button"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"> 
 <i class="fa fa-play" aria-hidden="true"></i>运行
@@ -145,10 +187,6 @@
 </button>
 </div>
     </div>
-
-    </form>
-
-</body>
   <!-- 主要文件 -->
   <script src="../code/build/src/ace.js" type="text/javascript"></script>
   <!-- 用来提供代码提示和自动补全的插件 -->
@@ -212,13 +250,13 @@
         }
     }
 
-    window.onload = function () {
+    window.addEventListener('load', function () {
         mycode = document.getElementById("code");
         pprint = document.getElementById("print");
         console.log(mycode);
         console.log(pprint);
         initedit();
-    }
+    });
 
     function myfun() {
         return new Promise(function (resolve, reject) {
@@ -303,24 +341,120 @@
 </script>
 <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>
 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="../js/vendors/vditor/index.min.js"></script>
+<script src="../js/vendors/wangeditor/index.js"></script>
+<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
 <script>
 	var keditor;
+	var wangEditorObj;
+	var vditorObj;
+	var currentEditor = 'kindeditor';
+	var vditorReady = false;
+	var pendingVditorHtml = null;
 	var cid= <%=myCid() %>;
 	var ty="Course";
 	var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&ty='+ty;
 	var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&ty='+ty;
 	KindEditor.ready(function (K) {
-		keditor = K.create('textarea[name="mcontent"]', {
+		keditor = K.create('#mcontent', {
 		    resizeType: 1,
 		    pasteType: 1,
 		    newlineTag: "br",				
 			uploadJson : upjs,
 			fileManagerJson : fmjs,
 			allowFileManager : true,
+			filterMode : false,
 		    allowImageUpload: true,
 		    items: ['fontname', 'fontsize', '|', 'bold', 'italic','removeformat','image','about']
 		});
 	});
+
+	function initProblemWangEditor() {
+		if (wangEditorObj) return;
+		const createEditor = window.wangEditor.createEditor;
+		const createToolbar = window.wangEditor.createToolbar;
+		const mcontent = document.getElementById('mcontent');
+		wangEditorObj = createEditor({
+			selector: '#problem-wangeditor-text',
+			html: keditor ? keditor.html() : mcontent.value,
+			config: {
+				placeholder: '请输入试题内容...',
+				MENU_CONF: {
+					uploadImage: { server: upjs, customInsert: function(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } },
+					uploadAttachment: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } },
+					uploadFile: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } }
+				}
+			}
+		});
+		createToolbar({ editor: wangEditorObj, selector: '#problem-wangeditor-toolbar', config: {} });
+	}
+
+	function safeProblemHtml2Md(html) {
+		try {
+			if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
+			var l = Lute.New();
+			return l.HTML2Md(html);
+		} catch (e) { return html; }
+	}
+
+	function initProblemVditor() {
+		if (vditorObj) return;
+		const mcontent = document.getElementById('mcontent');
+		var initialContent = keditor ? keditor.html() : mcontent.value;
+		vditorObj = new Vditor('problem-vditor-container', {
+			height: 260,
+			mode: 'ir',
+			upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } },
+			preview: { mode: 'both' },
+			cache: { enable: false },
+			after: function () {
+				vditorReady = true;
+				var contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
+				if (contentToSet) vditorObj.setValue(safeProblemHtml2Md(contentToSet));
+				pendingVditorHtml = null;
+			}
+		});
+	}
+
+	function syncProblemContent() {
+		var mcontent = document.getElementById('mcontent');
+		if (!mcontent) return true;
+		if (currentEditor === 'kindeditor' && keditor) mcontent.value = keditor.html();
+		else if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
+		else if (currentEditor === 'vditor' && vditorObj) {
+			try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
+		}
+		return true;
+	}
+
+	function switchProblemEditor(type) {
+		currentEditor = type;
+		var kindContainer = document.querySelector('.ke-container');
+		var wangContainer = document.getElementById('problem-wangeditor-wrap');
+		var vditorContainer = document.getElementById('problem-vditor-wrap');
+		var currentHtml = '';
+		if (kindContainer && kindContainer.style.display !== 'none' && keditor) currentHtml = keditor.html();
+		else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
+		else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
+			try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } }
+		}
+		if (kindContainer) kindContainer.style.display = 'none';
+		if (wangContainer) wangContainer.style.display = 'none';
+		if (vditorContainer) vditorContainer.style.display = 'none';
+		if (type === 'kindeditor') {
+			if (kindContainer) kindContainer.style.display = 'block';
+			if (keditor && currentHtml) keditor.html(currentHtml);
+		} else if (type === 'wangeditor') {
+			if (wangContainer) wangContainer.style.display = 'block';
+			if (!wangEditorObj) initProblemWangEditor();
+			if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
+		} else if (type === 'vditor') {
+			if (vditorContainer) vditorContainer.style.display = 'block';
+			if (!vditorObj) { pendingVditorHtml = currentHtml; initProblemVditor(); }
+			else if (vditorReady) vditorObj.setValue(safeProblemHtml2Md(currentHtml));
+			else pendingVditorHtml = currentHtml;
+		}
+	}
 </script> 
         </div>         
         </div>   

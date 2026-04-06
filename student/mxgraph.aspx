@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" EnableViewStateMac="false" CodeFile="mxgraph.aspx.cs" Inherits="Student_mxgraph" %>
+<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" EnableViewStateMac="false" CodeFile="mxgraph.aspx.cs" Inherits="Student_mxgraph" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -53,49 +53,110 @@
 	<script type="text/javascript" src="../mxgraph/js/Toolbar.js"></script>
 	<script type="text/javascript" src="../mxgraph/js/Dialogs.js"></script>
     <script src="../code/jquery.min.js" type="text/javascript"></script>
-	<style>		
-		.savetext{
+ 	<style>		
+		body {
+			margin: 0;
+		}
+
+		.graph-toolbar {
 			position: fixed;
-			top: 2px;
-			right: 350px;
-			z-index: 888;  
-			width:100px;
+			top: 10px;
+			right: 16px;
+			z-index: 888;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 10px;
+			max-width: calc(100vw - 32px);
 		}
-		.savetext:hover{
-			background:#a8e083;
-			border:1px solid;
+
+		.graph-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 132px;
+			height: 42px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: .01em;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
 		}
-		.contentbtn{
-			position: fixed;
-			top: 2px;
-			right: 200px;
-			z-index: 888;  
-			width:100px;
+
+		.graph-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
 		}
-		.contentbtn:hover{
-			background:#a8e083;
-			border:1px solid;
+
+		.graph-toolbar__btn:disabled {
+			opacity: .68;
+			cursor: wait;
+			transform: none;
 		}
-		.returnbtn{
-			position: fixed;
-			top: 2px;
-			right: 50px;
-			z-index: 888;  
-			width:100px;
+
+		.graph-toolbar__btn--secondary {
+			background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+			box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
 		}
-		.returnbtn:hover{
-			background:#a8e083;
-			border:1px solid;
+
+		.graph-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+
+		.graph-toolbar__icon {
+			font-style: normal;
+			font-size: 15px;
+			line-height: 1;
+		}
+
+		#mcontext {
+			border-radius: 14px 0 0 0;
+			box-shadow: 0 16px 32px rgba(15, 23, 42, 0.16);
+		}
+
+		@media (max-width: 768px) {
+			.graph-toolbar {
+				left: 10px;
+				right: 10px;
+				justify-content: stretch;
+			}
+
+			.graph-toolbar__btn {
+				flex: 1 1 120px;
+				min-width: 0;
+			}
 		}
 		::-webkit-scrollbar {  display: none; /* Chrome Safari */  }
 	</style>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../deepseek/all.min.css">
 </head>
 <body class="geEditor">
-<button class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="savetoxml()" type="button"  >保存流程图</button>
-<button  onclick="showcontent()" type="button" class="contentbtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" > 查看学案</button>
-<button  onclick="returnurl()" type="button" class="returnbtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" > 返回</button>
+<div class="graph-toolbar">
+    <button class="graph-toolbar__btn" onclick="savetoxml()" type="button">
+        <i class="fa fa-save graph-toolbar__icon" aria-hidden="true"></i>
+        <span>保存流程图</span>
+    </button>
+    <button onclick="showcontent()" type="button" class="graph-toolbar__btn graph-toolbar__btn--secondary">
+        <i class="fa fa-book-open graph-toolbar__icon" aria-hidden="true"></i>
+        <span>查看学案</span>
+    </button>
+    <button onclick="returnurl()" type="button" class="graph-toolbar__btn graph-toolbar__btn--neutral">
+        <i class="fa fa-reply" aria-hidden="true"></i>
+        <span>返回学案</span>
+    </button>
+</div>
     <form id="form1" runat="server">
        <div id="mcontext" style="display: none; background: #fffdea; overflow-y: auto; overflow-x: hidden;
             position: absolute;  width: 500px; height: 50%; z-index: 999;opacity:0.9; font-size: 16px;
@@ -137,7 +198,7 @@
 	    var savemsg = document.getElementById("savemsg");
 
 	    function savetoxml() {
-	        $(".savetext").attr("disabled", "true");
+	        $(".graph-toolbar__btn").eq(0).prop("disabled", true);
 	        var format = "png";
 	        var bg = '#ffffff';
 	        var scale = 1;
@@ -195,10 +256,11 @@
 	                contentType: false
 	            }).done(function (res) {
 	                alert("保存成功！");
-	                $(".savetext").attr("disabled", "false");
+	                $(".graph-toolbar__btn").eq(0).prop("disabled", false);
 	                console.log(res)
 	            }).fail(function (res) {
 	                alert("保存失败！");
+	                $(".graph-toolbar__btn").eq(0).prop("disabled", false);
 	                console.log(res)
 	            });
 	        } else {

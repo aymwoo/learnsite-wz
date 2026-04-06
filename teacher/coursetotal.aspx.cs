@@ -119,11 +119,11 @@ public partial class Teacher_coursetotal : System.Web.UI.Page
             e.Row.Attributes.Add("onclick", "this.style.backgroundColor='#D8E0D8'; this.style.color='buttontext';this.style.cursor='default';");
         }
     }
-    protected void Btnreflash_Click(object sender, ImageClickEventArgs e)
+    protected void Btnreflash_Click(object sender, EventArgs e)
     {
         showtotal();
     }
-    protected void ImageBtnExcel_Click(object sender, ImageClickEventArgs e)
+    protected void ImageBtnExcel_Click(object sender, EventArgs e)
     {
         string title = LabelGradeClass.Text + "《" + DDLCid.SelectedItem.Text + "》学习汇总";
         title=title.Replace(" ", "");

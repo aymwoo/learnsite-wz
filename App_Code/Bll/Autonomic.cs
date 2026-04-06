@@ -223,21 +223,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Autonomic> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Autonomic> modelList = new List<LearnSite.Model.Autonomic>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Autonomic model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapAutonomicList(dt);
 		}
 
 		/// <summary>
@@ -308,4 +294,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

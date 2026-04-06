@@ -150,24 +150,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.House> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.House> modelList = new List<LearnSite.Model.House>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.House model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.House();
-					if(dt.Rows[n]["Hid"].ToString()!="")
-					{
-						model.Hid=int.Parse(dt.Rows[n]["Hid"].ToString());
-					}
-					model.Hname=dt.Rows[n]["Hname"].ToString();
-					model.Hseat=dt.Rows[n]["Hseat"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapHouseList(dt);
 		}
 
 		/// <summary>
@@ -189,4 +172,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

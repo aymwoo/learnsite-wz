@@ -152,6 +152,21 @@ body{
 	text-align:right;
 	padding:10px;
 }
+
+#btnerase,
+#btnupload,
+#btnreturn,
+#btnsave {
+	position: static;
+	top: auto;
+	right: auto;
+	padding: 0;
+	text-decoration: none;
+	opacity: 1;
+	background: none;
+	color: inherit;
+}
+
 .btncode{	
 	background-color:#252d30;	
     border: 1px solid #354044;	
@@ -448,4 +463,3 @@ body{
 	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.3);
 	background-color: #49565a;
 }
-

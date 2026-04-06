@@ -81,7 +81,7 @@ public partial class Teacher_mythware : System.Web.UI.Page
             }
         }
     }
-    protected void ImgBtnDown_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnDown_Click(object sender, EventArgs e)
     {
         if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
         {

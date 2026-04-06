@@ -178,6 +178,24 @@ body{
 	text-align:right;
 	padding:10px;
 }
+
+#codebutton {
+	display:flex;
+	justify-content:flex-end;
+	gap:10px;
+}
+
+#btnclear, #btnrun, #btnsave, #btnreturn {
+	position:static;
+	top:auto;
+	right:auto;
+	background:none;
+	color:inherit;
+	padding:0;
+	text-decoration:none;
+	opacity:1;
+}
+
 .btncode{	
 	background-color:#252d30;	
     border: 1px solid #354044;	
@@ -479,4 +497,3 @@ body{
 	-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.3);
 	background-color: #303A3F;
 }
-

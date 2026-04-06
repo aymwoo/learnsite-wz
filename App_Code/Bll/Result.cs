@@ -149,42 +149,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Result> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Result> modelList = new List<LearnSite.Model.Result>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Result model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Result();
-					if(dt.Rows[n]["Rid"].ToString()!="")
-					{
-						model.Rid=int.Parse(dt.Rows[n]["Rid"].ToString());
-					}
-					model.Rnum=dt.Rows[n]["Rnum"].ToString();
-					if(dt.Rows[n]["Rscore"].ToString()!="")
-					{
-						model.Rscore=int.Parse(dt.Rows[n]["Rscore"].ToString());
-					}
-					if(dt.Rows[n]["Rdate"].ToString()!="")
-					{
-						model.Rdate=DateTime.Parse(dt.Rows[n]["Rdate"].ToString());
-					}
-                    model.Rhistory = dt.Rows[n]["Rhistory"].ToString();
-                    model.Rwrong = dt.Rows[n]["Rwrong"].ToString();
-                    if (dt.Rows[n]["Rgrade"].ToString() != "")
-                    {
-                        model.Rgrade = int.Parse(dt.Rows[n]["Rgrade"].ToString());
-                    } 
-                    if (dt.Rows[n]["Rterm"].ToString() != "")
-                    {
-                        model.Rterm = int.Parse(dt.Rows[n]["Rterm"].ToString());
-                    }
-
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapResultList(dt);
 		}
 
 		/// <summary>
@@ -254,4 +219,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

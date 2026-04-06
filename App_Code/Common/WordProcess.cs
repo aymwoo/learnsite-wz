@@ -118,8 +118,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsCnEnNum(string StrInput)
         {
-            Match m = RegCnEnNum.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsCnEnNum(StrInput);
         }
         /// <summary>
         /// 是否数字
@@ -128,8 +127,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsNum(string StrInput)
         {
-            Match m = RegNum.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsNum(StrInput);
         }
         /// <summary>
         /// 允许数字（正数、负数、小数、0）
@@ -138,8 +136,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsIntNum(string StrInput)
         {
-            Match m = RegIsNum.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsIntNum(StrInput);
         }
         /// <summary>
         /// 检查字符串是否超过指定的最大长度
@@ -149,14 +146,7 @@ namespace LearnSite.Common
         /// <returns></returns>			
         public static bool StrLength(string StrInput)
         {
-            if (StrInput.Length > 8)
-            {
-                return false;//超过8个字符，返回假
-            }
-            else
-            {
-                return true;
-            }
+            return WordProcessCore.StrLength(StrInput);
         }
 
         /// <summary>
@@ -166,8 +156,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsEnglish(string StrInput)
         {
-            Match m = RegEnglish.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsEnglish(StrInput);
         }
         /// <summary>
         /// 检测是否有中文字符
@@ -176,8 +165,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsZh(string StrInput)
         {
-            Match m = RegCHZN.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsZh(StrInput);
         }
         /// <summary>
         /// 检测是否英文字母或数字
@@ -186,8 +174,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static bool IsEnNum(string StrInput)
         {
-            Match m = RegUsername.Match(StrInput);
-            return m.Success;
+            return WordProcessCore.IsEnNum(StrInput);
         }
 
         /// <summary>
@@ -197,15 +184,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string Hash(string toHash)
         {
-            MD5CryptoServiceProvider crypto = new MD5CryptoServiceProvider();
-            byte[] bytes = Encoding.UTF7.GetBytes(toHash);
-            bytes = crypto.ComputeHash(bytes);
-            StringBuilder sb = new StringBuilder();
-            foreach (byte num in bytes)
-            {
-                sb.AppendFormat("{0:x2}", num);
-            }
-            return sb.ToString();
+            return WordProcessCore.Hash(toHash);
         }
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密
@@ -214,8 +193,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GetMD5(string s)
         {
-            s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
-            return s.ToLower();
+            return WordProcessCore.GetMD5(s);
         }
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密取8位
@@ -224,9 +202,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GetMD5_8bit(string s)
         {
-            s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
-            s = s.Substring(0, 8);
-            return s.ToLower();
+            return WordProcessCore.GetMD5_8bit(s);
         }
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密取8位
@@ -235,9 +211,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GetMD5_16bit(string s)
         {
-            s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
-            s = s.Substring(0, 16);
-            return s.ToLower();
+            return WordProcessCore.GetMD5_16bit(s);
         }
         /// <summary>
         /// 根据配置对指定字符串进行 MD5 加密取n位；注意不要超过原加密后长度
@@ -246,9 +220,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GetMD5_Nbit(string s,int n)
         {
-            s = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(s, "md5").ToString();
-            s = s.Substring(0, n);
-            return s.ToLower();
+            return WordProcessCore.GetMD5_Nbit(s, n);
         }
         /// <summary>
         /// 转换成小写
@@ -257,7 +229,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string StrToLower(string str)
         {
-            return str.ToLower();
+            return WordProcessCore.StrToLower(str);
         }
         /// <summary>
         /// 生成Serv_uMd5密码
@@ -266,12 +238,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string Serv_u_Md5(string pwd)
         {
-            string rdoms = "";  //定义字符串
-            Random ran = new Random();
-            rdoms += Convert.ToChar(ran.Next(26) + 'a').ToString() + Convert.ToChar(ran.Next(26) + 'a').ToString(); //将随机产生的两个字母相连.例如:a+b=ab
-            string strmd5 = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(rdoms + pwd, "MD5");  //把两位随机字母和md5连接并再次进行MD5加密
-            return rdoms + strmd5; //将两位随机字母与加密后的MD5值再次连接
-
+            return WordProcessCore.Serv_u_Md5(pwd);
         }
         private static char[] constant =
             {
@@ -286,15 +253,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GenerateRandom(int Length)
         {
-            System.Text.StringBuilder newRandom = new System.Text.StringBuilder(36);
-
-            Random rd = new Random();
-            for (int i = 0; i < Length; i++)
-            {
-                newRandom.Append(constant[rd.Next(36)]);
-            }
-            return newRandom.ToString();
-
+            return WordProcessCore.GenerateRandom(Length);
         }
 
         private static char[] constantnum =
@@ -310,15 +269,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string GenerateRandomNum(int Length)
         {
-            System.Text.StringBuilder newRandom = new System.Text.StringBuilder(9);
-
-            Random rd = new Random();
-            for (int i = 0; i < Length; i++)
-            {
-                newRandom.Append(constantnum[rd.Next(9)]);
-            }
-            return newRandom.ToString();
-
+            return WordProcessCore.GenerateRandomNum(Length);
         }
         /// <summary>
         /// 随机生成指定整数大小以内的数字，返回整型int
@@ -327,17 +278,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static int GetRandomNum(int NumMax)
         {
-            if (NumMax > 0)
-            {
-                Random s = new Random();  　//建立了一个复杂random类型的对象s。注意new语句和括号不能少。
-                int r;                     //建立简单int型对象r。             
-                r = s.Next(NumMax);       //让复杂s对象的next子项（方法）生出一个NumMax以内的随机数，存入简单对象r中。 
-                return r;
-            }
-            else
-            {
-                return 0;
-            }
+            return WordProcessCore.GetRandomNum(NumMax);
         }
 
         /// <summary>

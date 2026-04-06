@@ -45,7 +45,7 @@ public partial class teacher_wareshow : System.Web.UI.Page
 
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null)
         {
@@ -72,7 +72,7 @@ public partial class teacher_wareshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
         {

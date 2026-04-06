@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="soft.aspx.cs" Inherits="Teacher_soft" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="soft.aspx.cs" Inherits="Teacher_soft" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
@@ -311,16 +311,24 @@
             text-align: center;
         }
 
-        .soft-cell--toggle input[type="image"] {
-            width: 16px;
-            height: 16px;
-            opacity: 0.6;
-            transition: opacity 0.15s, transform 0.3s;
+        .soft-cell--toggle .soft-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0 10px;
+            border-radius: 0.45rem;
+            border: 1px solid #dbeafe;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
+            transition: transform 0.2s, background-color 0.15s;
         }
 
-        .soft-cell--toggle input[type="image"]:hover {
-            opacity: 1;
+        .soft-cell--toggle .soft-toggle-btn:hover {
+            background: #dbeafe;
             transform: rotate(180deg);
         }
 
@@ -527,9 +535,9 @@
                                 </asp:CheckBoxField>
                                 <asp:TemplateField ShowHeader="False" HeaderText="状态">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                        <asp:Button ID="ImageButton1" runat="server" CausesValidation="False"
                                             CommandArgument='<%# Eval("Fid") %>' CommandName="Change"
-                                            ImageUrl="~/images/refresh.gif" ToolTip="发布：无或隐藏：√" />
+                                            Text="切换状态" ToolTip="发布：无或隐藏：√" CssClass="soft-toggle-btn" />
                                     </ItemTemplate>
                                     <HeaderStyle CssClass="soft-th--center" />
                                     <ItemStyle CssClass="soft-cell--toggle" />

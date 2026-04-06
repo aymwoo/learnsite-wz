@@ -158,7 +158,7 @@ public partial class Teacher_circleshow : System.Web.UI.Page
     {
         showflash();
     }
-    protected void ImgBtnLeft_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnLeft_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx > 0)
@@ -167,7 +167,7 @@ public partial class Teacher_circleshow : System.Web.UI.Page
         }
         showflash();
     }
-    protected void ImgBtnright_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnright_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx < DDLstore.Items.Count - 1)
@@ -311,7 +311,7 @@ public partial class Teacher_circleshow : System.Web.UI.Page
         }
     }
 
-    protected void ImgBtn_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtn_Click(object sender, EventArgs e)
     {
         int mc = DDLstore.Items.Count;
         if (mc > 0)
@@ -332,7 +332,7 @@ public partial class Teacher_circleshow : System.Web.UI.Page
         }
     }
 
-    protected void ImageBtnDel_Click(object sender, ImageClickEventArgs e)
+    protected void ImageBtnDel_Click(object sender, EventArgs e)
     {
         int Mid = Int32.Parse(Request.QueryString["mi"].ToString());
         string Wnum = Labelnum.ToolTip;
@@ -348,17 +348,19 @@ public partial class Teacher_circleshow : System.Web.UI.Page
             showflash();
         }
     }
-    protected void ImgBtnTextbox_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnTextbox_Click(object sender, EventArgs e)
     {
         string flag = ImgBtnTextbox.CommandName;
         switch (flag)
         {
             case "v":
                 ImgBtnTextbox.CommandName = "h";
+                ImgBtnTextbox.Text = "显示评语";
                 TextBoxWself.Visible = false;
                 break;
             default:
                 ImgBtnTextbox.CommandName = "v";
+                ImgBtnTextbox.Text = "隐藏评语";
                 TextBoxWself.Visible = true;
                 break;
         }
@@ -380,7 +382,7 @@ public partial class Teacher_circleshow : System.Web.UI.Page
         CheckBoxW.Checked = false;
         CkselectG.Checked = false;
     }
-    protected void BtnCheck_Click(object sender, ImageClickEventArgs e)
+    protected void BtnCheck_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mi"] != null)
         {

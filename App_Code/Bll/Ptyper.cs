@@ -144,52 +144,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Ptyper> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Ptyper> modelList = new List<LearnSite.Model.Ptyper>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Ptyper model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Ptyper();
-					if(dt.Rows[n]["Pid"].ToString()!="")
-					{
-						model.Pid=int.Parse(dt.Rows[n]["Pid"].ToString());
-					}
-					if(dt.Rows[n]["Ptid"].ToString()!="")
-					{
-						model.Ptid=int.Parse(dt.Rows[n]["Ptid"].ToString());
-					}
-					model.Psnum=dt.Rows[n]["Psnum"].ToString();
-					if(dt.Rows[n]["Pscore"].ToString()!="")
-					{
-						model.Pscore=int.Parse(dt.Rows[n]["Pscore"].ToString());
-					}
-					if(dt.Rows[n]["Pdate"].ToString()!="")
-					{
-						model.Pdate=DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
-					}
-					model.Pip=dt.Rows[n]["Pip"].ToString();
-					if(dt.Rows[n]["Ptype"].ToString()!="")
-					{
-						model.Ptype=int.Parse(dt.Rows[n]["Ptype"].ToString());
-					}
-                    if (dt.Rows[n]["Pdegree"].ToString() != "")
-                    {
-                        model.Ptype = int.Parse(dt.Rows[n]["Pdegree"].ToString());
-                    }
-                    if (dt.Rows[n]["Pgrade"].ToString() != "")
-                    {
-                        model.Pgrade = int.Parse(dt.Rows[n]["Pgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Pterm"].ToString() != "")
-                    {
-                        model.Pterm = int.Parse(dt.Rows[n]["Pterm"].ToString());
-                    }
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapPtyperList(dt);
 		}
 
 		/// <summary>
@@ -374,4 +329,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

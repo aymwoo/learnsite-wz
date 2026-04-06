@@ -6,6 +6,9 @@ using System.Web.UI.WebControls;
 
 public partial class Lessons_presurvey : System.Web.UI.Page
 {
+    public bool EnableAiAssessment = false;
+    public string ReturnUrl = "#";
+
     protected void Page_Load(object sender, EventArgs e)
     {
         LearnSite.Common.CookieHelp.IsTeacherCookies();
@@ -20,12 +23,15 @@ public partial class Lessons_presurvey : System.Web.UI.Page
         if (Request.QueryString["vid"] != null && Request.QueryString["cid"] != null)
         {
             string vid = Request.QueryString["vid"].ToString();
+            string cid = Request.QueryString["cid"].ToString();
+            ReturnUrl = "../teacher/courseshow.aspx?cid=" + cid;
 
             LearnSite.Model.Survey vmodel = new LearnSite.Model.Survey();
             LearnSite.BLL.Survey vbll = new LearnSite.BLL.Survey();
             vmodel = vbll.GetModel(Int32.Parse(vid));
             Lbtitle.Text = vmodel.Vtitle;
             vcontent.InnerHtml = HttpUtility.HtmlDecode(vmodel.Vcontent);
+            EnableAiAssessment = vmodel.Venableai;
             int vtype = vmodel.Vtype.Value;
             Lbtype.Text = vtype.ToString();
             if (vtype > 0)
@@ -48,6 +54,9 @@ public partial class Lessons_presurvey : System.Web.UI.Page
                 Btnclock.ImageUrl = "~/images/clock.gif" + "?temp=" + DateTime.Now.Millisecond.ToString();
                 Btnclock.ToolTip = "调查开启，请开始回答！";
             }
+
+            Btnok.Enabled = false;
+            Btnshow.Enabled = false;
         }
     }
 

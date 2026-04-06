@@ -1,4 +1,4 @@
-<%@ Page Validaterequest="false" Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="courseedit.aspx.cs" Inherits="Teacher_courseedit" %>
+<%@ Page Validaterequest="false" Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="courseedit.aspx.cs" Inherits="Teacher_courseedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
@@ -373,10 +373,10 @@
             </section>
 
             <section class="course-edit-editor-panel">
-                <link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
-                <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+                <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
+                <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
 
                 <div class="course-edit-editor-toolbar">
                     <div>
@@ -395,6 +395,7 @@
 
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
                     var kindEditorObj;
                     var wangEditorObj;
@@ -430,12 +431,36 @@
                                 placeholder: '请输入内容...',
                                 MENU_CONF: {
                                     uploadImage: {
-                                        server: '../kindeditor/aspnet/upload_json.aspx?dir=image',
+                                        server: upjs,
                                         customInsert(res, insertFn) {
                                             if (res.error === 0) {
                                                 insertFn(res.url);
                                             } else {
-                                                alert(res.message);
+                                                alert(res.message || '图片上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadAttachment: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
+                                            } else {
+                                                alert(res.message || '附件上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadFile: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
+                                            } else {
+                                                alert(res.message || '文件上传失败');
                                             }
                                         }
                                     }
@@ -474,6 +499,11 @@
                             height: 400,
                             width: '100%',
                             mode: 'ir',
+                            upload: {
+                                handler: function (files) {
+                                    LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
+                                }
+                            },
                             preview: {
                                 mode: 'both'
                             },
@@ -502,8 +532,12 @@
                             currentHtml = kindEditorObj.html();
                         } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
                             currentHtml = wangEditorObj.getHtml();
-                        } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                            currentHtml = vditorObj.getHTML();
+                        } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
+                            try {
+                                currentHtml = vditorObj.getHTML();
+                            } catch (e) {
+                                try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; }
+                            }
                         }
 
                         if (kindContainer) kindContainer.style.display = 'none';
@@ -549,8 +583,12 @@
                                 mcontent.value = wangEditorObj.getHtml();
                             }
                         } else if (currentEditor === 'vditor') {
-                            if (vditorObj) {
-                                mcontent.value = vditorObj.getHTML();
+                            if (vditorObj && vditorReady) {
+                                try {
+                                    mcontent.value = vditorObj.getHTML();
+                                } catch (e) {
+                                    try { mcontent.value = vditorObj.getValue(); } catch (e2) {}
+                                }
                             }
                         }
                         return true;
@@ -576,8 +614,8 @@
             </section>
 
             <section class="course-edit-actions">
-                <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" SkinID="BtnNormal" CssClass="course-edit-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" SkinID="BtnNormal" CssClass="course-edit-secondary-btn" />
+                <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="course-edit-primary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" CssClass="course-edit-secondary-btn" />
             </section>
         </div>
     </div>

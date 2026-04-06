@@ -1,18 +1,84 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" EnableEventValidation="false"  CodeFile="wareadd.aspx.cs" Inherits="teacher_wareadd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" EnableEventValidation="false"  CodeFile="wareadd.aspx.cs" Inherits="teacher_wareadd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<style>    
+<link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
+<style>
+    .ware-page {
+        --admin-form-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+        --admin-form-hero-bg: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #06b6d4 100%);
+        --admin-form-hero-shadow: 0 22px 45px -28px rgba(29, 78, 216, 0.72);
+        --admin-form-primary-bg: #2563eb;
+        --admin-form-primary-hover: #1d4ed8;
+        --admin-form-primary-shadow: 0 14px 24px -18px rgba(37, 99, 235, 0.85);
+        --admin-form-secondary-border: #bfdbfe;
+        --admin-form-secondary-bg: #eff6ff;
+        --admin-form-secondary-hover: #dbeafe;
+        --admin-form-secondary-fg: #1d4ed8;
+    }
+
+    .ware-page .admin-form-panel {
+        overflow: hidden;
+    }
+
+    .ware-page .main-content {
+        border-radius: 1rem;
+        border: 1px solid #dbe4f0;
+        min-height: 560px;
+        background: #f8fafc;
+    }
+
+    .ware-page .upload-zone {
+        position: sticky;
+        top: 1rem;
+    }
+
+    .ware-page .ware-note {
+        color: #64748b;
+        line-height: 1.8;
+    }
+
+    .ware-page .admin-form-grid .admin-form-field {
+        grid-column: span 4;
+    }
+
+    .ware-page .admin-form-grid .admin-form-field-wide {
+        grid-column: span 8;
+    }
+
+    @media (max-width: 1024px) {
+        .ware-page .main-content {
+            flex-direction: column;
+        }
+
+        .ware-page .sidebar {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .ware-page .upload-zone {
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .ware-page .admin-form-grid .admin-form-field,
+        .ware-page .admin-form-grid .admin-form-field-wide {
+            grid-column: span 12;
+        }
+    }
+
     .content {
         flex: 1;
         padding: 20px;
     }   
     .main-content {
         display: flex;
-        background: white;
-        border-radius: 0 0 10px 10px;
-        min-height: 50vh;
         background: #f8f9fa;
-        border-right: 1px solid #dee2e6;
+        border-radius: 1rem;
+        min-height: 560px;
+        border: 1px solid #dbe4f0;
         padding: 20px;
     }
             
@@ -25,7 +91,8 @@
         padding: 30px;
         text-align: center;
         background: #b5dbfa;
-        position:fixed;
+        position: sticky;
+        top: 1rem;
         cursor: pointer;
         transition: all 0.3s;    
         width: 240px;
@@ -168,17 +235,42 @@
         color: white;
     }
 </style>
-<div  class="cplace">
-    <div  class="cleft">
-        课件主题：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
-            Width="220px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-        <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布"  Checked="True" />
-            &nbsp; 课件首页<asp:TextBox ID="TextBoxHtml" runat="server" Width="300px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-        <br /><br />
-    </div>
-     <div class="main-content">
-            <!-- 左侧文件夹导航 -->
-            <div class="sidebar">
+<div class="admin-form-page ware-page">
+    <div class="admin-form-shell">
+        <section class="admin-form-hero">
+            <div class="admin-form-hero-content">
+                <div class="admin-form-eyebrow">Web Courseware</div>
+                <h1 class="admin-form-title">新增网页课件</h1>
+                <p class="admin-form-subtitle">上传网页资源文件，选择首页文件，并将其作为网页课件主题添加到当前学案。</p>
+            </div>
+        </section>
+
+        <section class="admin-form-panel">
+            <h2 class="admin-form-section-title">课件设置</h2>
+            <p class="admin-form-section-desc">填写主题名称，设置是否发布，并从右侧上传文件中选择 HTML 首页。</p>
+            <div class="admin-form-grid">
+                <div class="admin-form-field">
+                    <label class="admin-form-label" for="<%= Texttitle.ClientID %>">课件主题</label>
+                    <asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal"
+                        Width="220px"  CssClass="admin-form-input"></asp:TextBox>
+                </div>
+                <div class="admin-form-field">
+                    <label class="admin-form-label" for="<%= CheckPublish.ClientID %>">发布状态</label>
+                    <div class="admin-form-static"><asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" Checked="True" /></div>
+                </div>
+                <div class="admin-form-field admin-form-field-wide">
+                    <label class="admin-form-label" for="<%= TextBoxHtml.ClientID %>">课件首页</label>
+                    <asp:TextBox ID="TextBoxHtml" runat="server" Width="300px" CssClass="admin-form-input"></asp:TextBox>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-form-panel">
+            <h2 class="admin-form-section-title">文件管理</h2>
+            <p class="admin-form-section-desc">拖放或选择文件上传。HTML 文件可以设置为首页，其他资源会直接出现在列表中。</p>
+            <div class="main-content">
+             <!-- 左侧文件夹导航 -->
+             <div class="sidebar">
                 <div class="upload-zone" id="uploadZone">
                     <i class="file-icon" style="font-size: 48px; color: #007bff;">📄</i>
                     <h3>拖放文件到此处上传</h3>
@@ -201,12 +293,13 @@
             </div>
             
             <!-- 右侧内容区域 -->
-            <div class="content">
-                <!-- 文档操作按钮区域 -->                
-                <div class="file-list" id="fileList">
-                    <div class="empty-state">
-                    </div>
-                </div>
+             <div class="content">
+                 <!-- 文档操作按钮区域 -->                
+                 <div class="file-list" id="fileList">
+                     <div class="empty-state">
+                     </div>
+                 </div>
+             </div>
             </div>
         </div>
      <div  class="placehold">
@@ -277,22 +370,26 @@
                 <strong>说明：</strong> <code>score</code> 变量必须是数值类型。当触发此代码时，平台会自动捕获分数，学生点击保存时即可将成绩汇总至教师端。
             </p>
         </div>
-         <br />
-              <asp:Button ID="Btnadd" runat="server"  Text="添加主题" OnClick="Btnadd_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server"  Text="学案返回" OnClick="BtnCourse_Click"  SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" /><br />
-         <br />
-         </div>    
+        </section>
+
+        <section class="admin-form-actions">
+            <div class="admin-form-action-row">
+                <asp:Button ID="Btnadd" runat="server"  Text="添加课件" OnClick="Btnadd_Click" CssClass="admin-form-btn admin-form-btn--primary" />
+                <asp:Button ID="BtnCourse" runat="server"  Text="返回学案" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+            </div>
+        </section>
+    </div>
 </div>
 
 <script type="text/javascript">
         var cid = "<%=Cid %>";
     
         // 页面加载完成后初始化
-        window.onload = function() {
+        window.addEventListener('load', function() {
             loadFiles();
             setupDragAndDrop();
             document.getElementById('fileInput').onchange = handleFileSelect;
-        };
+        });
         // 加载文件列表 - 关键修复：直接使用路径，不进行编码
         function loadFiles() {
             var xhr = new XMLHttpRequest();
@@ -557,8 +654,8 @@ function deleteFile(filePath) {
     
 function selectFile(fileName,filePath) {
 
-    var TextBoxHtml = document.getElementById('ctl00_Content_TextBoxHtml');
-    TextBoxHtml.value =decodeURIComponent(filePath);
+    var TextBoxHtml = document.getElementById('<%= TextBoxHtml.ClientID %>');
+    TextBoxHtml.value = decodeURIComponent(filePath);
     console.log("设置为首页",filePath);
     
 }

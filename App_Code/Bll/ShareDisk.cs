@@ -161,21 +161,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.ShareDisk> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.ShareDisk> modelList = new List<LearnSite.Model.ShareDisk>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.ShareDisk model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapShareDiskList(dt);
 		}
 
 		/// <summary>
@@ -214,4 +200,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

@@ -14,6 +14,7 @@ namespace LearnSite.Model
 		private int? _ksid;
 		private int? _klid;
 		private int? _ktime;
+        private int? _kseconds;
         private bool _kcheck;
         private int  _kstar = 0 ;
 		/// <summary>
@@ -49,6 +50,14 @@ namespace LearnSite.Model
 			get{return _ktime;}
 		}
 		/// <summary>
+		/// 秒级停留时长
+		/// </summary>
+		public int? Kseconds
+		{
+			set{ _kseconds=value;}
+			get{return _kseconds;}
+		}
+		/// <summary>
 		/// 
 		/// </summary>
 		public bool Kcheck
@@ -68,4 +77,3 @@ namespace LearnSite.Model
 
 	}
 }
-

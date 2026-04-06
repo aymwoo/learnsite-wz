@@ -10,11 +10,10 @@ CodeFile="index.aspx.cs" Inherits="index" %>
       type="text/css"
     />
     <link
-      href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css"
+      href="js/css/tailwind-utilities-2.2.19.min.css"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
+<style>
       .glass-panel {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(10px);

@@ -22,7 +22,7 @@ public partial class Teacher_problem : System.Web.UI.Page
     {
         if (Request.QueryString["Pid"] != null && Request.QueryString["nid"] != null)
         {
-            Btnadd.Text = "修改";
+            Btnadd.Text = "保存修改";
             string pid = Request.QueryString["Pid"].ToString();
             string nid = Request.QueryString["nid"].ToString();
             LearnSite.Model.Problems model = new LearnSite.Model.Problems();
@@ -72,6 +72,10 @@ public partial class Teacher_problem : System.Web.UI.Page
                     bll.UpdateProblem(model);
 
                     string url = "~/teacher/consoleshow.aspx?nid=" + nid + "&ncid=" + cid;
+                    if (Request.QueryString["lid"] != null)
+                    {
+                        url += "&lid=" + Request.QueryString["lid"].ToString();
+                    }
                     Response.Redirect(url);
                 }
                 else
@@ -82,6 +86,10 @@ public partial class Teacher_problem : System.Web.UI.Page
                     int n = bll.Add(model);
 
                     string url = "~/teacher/consoleshow.aspx?nid=" + nid + "&ncid=" + cid;
+                    if (Request.QueryString["lid"] != null)
+                    {
+                        url += "&lid=" + Request.QueryString["lid"].ToString();
+                    }
                     Response.Redirect(url);
                 }
             }
@@ -97,6 +105,10 @@ public partial class Teacher_problem : System.Web.UI.Page
             string nid = Request.QueryString["nid"].ToString();
             string cid = Request.QueryString["ncid"].ToString();
             string url = "~/teacher/consoleshow.aspx?nid=" + nid + "&ncid=" + cid;
+            if (Request.QueryString["lid"] != null)
+            {
+                url += "&lid=" + Request.QueryString["lid"].ToString();
+            }
             Response.Redirect(url);
         }
     }

@@ -7,13 +7,15 @@ using System.Web.UI.WebControls;
 public partial class student_myexam : System.Web.UI.Page
 {
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
-    public static string questionList = "";
-    public static bool isClose = false;
-    public static string Lidstr = "";
-    public static string Cidstr = "";
-    public static string Vidstr = "";
-    public static string Vtypestr = "";
-    public static bool isDone = false;
+    public string Fpage = "#";
+    public string questionList = "";
+    public bool isClose = false;
+    public string Lidstr = "";
+    public string Cidstr = "";
+    public string Vidstr = "";
+    public string Vtypestr = "";
+    public bool isDone = false;
+    public bool EnableAiAssessment = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -39,6 +41,7 @@ public partial class student_myexam : System.Web.UI.Page
                 int Vid = lmodel.Lxid.Value;
                 LabelCid.Text = Cid.ToString();
                 LabelVid.Text = Vid.ToString();
+                Fpage = "program.aspx?lid=" + Lid + "&mill=" + DateTime.Now.Millisecond;
 
                 Lidstr = Lid;
                 Cidstr = Cid.ToString();
@@ -58,6 +61,7 @@ public partial class student_myexam : System.Web.UI.Page
                 vcontent.InnerHtml = HttpUtility.HtmlDecode(vmodel.Vcontent);
                 int vtype = vmodel.Vtype.Value;
                 Vtypestr = vtype.ToString();
+                EnableAiAssessment = vmodel.Venableai;
                 Lbtype.Text = Vtypestr;
                 if (vtype > 0)
                 {
@@ -81,16 +85,16 @@ public partial class student_myexam : System.Web.UI.Page
                 {
                     isDone = true;
                     //如果已经回答过调查
-                    Lbcheck.Text = "已完成！";
-                    Lbcheck.BackColor = System.Drawing.Color.Green;
+                    Lbcheck.Text = "已完成";
+                    Lbcheck.CssClass = "survey-check-tag survey-check-tag--done";
                     Lbfscore.Text = myscore.ToString();
                 }
                 else
                 {
                     isDone = false;
                     Lbfscore.Text = "0";
-                    Lbcheck.Text = "未完成！";
-                    Lbcheck.BackColor = System.Drawing.Color.Red;
+                    Lbcheck.Text = "未完成";
+                    Lbcheck.CssClass = "survey-check-tag survey-check-tag--pending";
                 }
 
 

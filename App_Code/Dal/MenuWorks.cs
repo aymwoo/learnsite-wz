@@ -104,6 +104,20 @@ namespace LearnSite.DAL
             return DbHelperSQL.FindNumber(strSql.ToString(), parameters);
         }
 
+        public int SpendSeconds(int Ksid, int klid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select isnull(Kseconds, Ktime * 60) from MenuWorks");
+            strSql.Append(" where Ksid=@Ksid and klid=@klid ");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Ksid", SqlDbType.Int,4),
+					new SqlParameter("@klid", SqlDbType.Int,4)};
+            parameters[0].Value = Ksid;
+            parameters[1].Value = klid;
+
+            return DbHelperSQL.FindNumber(strSql.ToString(), parameters);
+        }
+
 		/// <summary>
 		/// 增加一条数据
 		/// </summary>
@@ -111,20 +125,23 @@ namespace LearnSite.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into MenuWorks(");
-			strSql.Append("Ksid,Klid,Ktime,Kcheck,Kstar)");
+			strSql.Append("Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar)");
 			strSql.Append(" values (");
-			strSql.Append("@Ksid,@Klid,@Ktime,@Kcheck,@Kstar)");
+			strSql.Append("@Ksid,@Klid,@Ktime,@Kseconds,@Kcheck,@Kstar)");
+			int kseconds = model.Kseconds.HasValue ? model.Kseconds.Value : (model.Ktime.HasValue ? model.Ktime.Value * 60 : 0);
 			SqlParameter[] parameters = {
 					new SqlParameter("@Ksid", SqlDbType.Int,4),
 					new SqlParameter("@Klid", SqlDbType.Int,4),
 					new SqlParameter("@Ktime", SqlDbType.Int,4),
+					new SqlParameter("@Kseconds", SqlDbType.Int,4),
 					new SqlParameter("@Kcheck", SqlDbType.Bit,1),
 					new SqlParameter("@Kstar", SqlDbType.Int,4)};
 			parameters[0].Value = model.Ksid;
 			parameters[1].Value = model.Klid;
 			parameters[2].Value = model.Ktime;
-            parameters[3].Value = model.Kcheck;
-            parameters[4].Value = model.Kstar;
+	            parameters[3].Value = kseconds;
+	            parameters[4].Value = model.Kcheck;
+	            parameters[5].Value = model.Kstar;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -146,22 +163,26 @@ namespace LearnSite.DAL
 			strSql.Append("Ksid=@Ksid,");
 			strSql.Append("Klid=@Klid,");
 			strSql.Append("Ktime=@Ktime,");
+			strSql.Append("Kseconds=@Kseconds,");
             strSql.Append("Kcheck=@Kcheck,");
             strSql.Append("Kstar=@Kstar");
 			strSql.Append(" where Kid=@Kid ");
+			int kseconds = model.Kseconds.HasValue ? model.Kseconds.Value : (model.Ktime.HasValue ? model.Ktime.Value * 60 : 0);
 			SqlParameter[] parameters = {
 					new SqlParameter("@Ksid", SqlDbType.Int,4),
 					new SqlParameter("@Klid", SqlDbType.Int,4),
 					new SqlParameter("@Ktime", SqlDbType.Int,4),
+					new SqlParameter("@Kseconds", SqlDbType.Int,4),
 					new SqlParameter("@Kcheck", SqlDbType.Bit,1),
 					new SqlParameter("@Kid", SqlDbType.Int,4),
 					new SqlParameter("@Kstar", SqlDbType.Int,4)};
 			parameters[0].Value = model.Ksid;
 			parameters[1].Value = model.Klid;
 			parameters[2].Value = model.Ktime;
-			parameters[3].Value = model.Kcheck;
-            parameters[4].Value = model.Kid;
-            parameters[5].Value = model.Kstar;
+			parameters[3].Value = kseconds;
+			parameters[4].Value = model.Kcheck;
+	            parameters[5].Value = model.Kid;
+	            parameters[6].Value = model.Kstar;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -247,7 +268,7 @@ namespace LearnSite.DAL
         public LearnSite.Model.MenuWorks GetModelme(int Ksid, int Klid)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select  top 1 Kid,Ksid,Klid,Ktime,Kcheck,Kstar from MenuWorks ");
+            strSql.Append("select  top 1 Kid,Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar from MenuWorks ");
             strSql.Append(" where Ksid=@Ksid and Klid=@Klid");
             SqlParameter[] parameters = {
 					new SqlParameter("@Ksid", SqlDbType.Int,4),                                        
@@ -274,7 +295,7 @@ namespace LearnSite.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-            strSql.Append("select  top 1 Kid,Ksid,Klid,Ktime,Kcheck,Kstar from MenuWorks ");
+            strSql.Append("select  top 1 Kid,Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar from MenuWorks ");
 			strSql.Append(" where Kid=@Kid ");
 			SqlParameter[] parameters = {
 					new SqlParameter("@Kid", SqlDbType.Int,4)			};
@@ -317,6 +338,10 @@ namespace LearnSite.DAL
 				{
 					model.Ktime=int.Parse(row["Ktime"].ToString());
 				}
+				if(row.Table.Columns.Contains("Kseconds") && row["Kseconds"]!=null && row["Kseconds"].ToString()!="")
+				{
+					model.Kseconds=int.Parse(row["Kseconds"].ToString());
+				}
 				if(row["Kcheck"]!=null && row["Kcheck"].ToString()!="")
 				{
 					if((row["Kcheck"].ToString()=="1")||(row["Kcheck"].ToString().ToLower()=="true"))
@@ -344,7 +369,7 @@ namespace LearnSite.DAL
             ArrayList mylids = new ArrayList();
             string strWhere = "Ksid='" + Ksid.ToString() + "'";
             StringBuilder strSql = new StringBuilder();
-            strSql.Append("select Kid,Ksid,Klid,Ktime,Kcheck,Kstar ");
+            strSql.Append("select Kid,Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar ");
             strSql.Append(" FROM MenuWorks ");
             if (strWhere.Trim() != "")
             {
@@ -400,7 +425,7 @@ namespace LearnSite.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-            strSql.Append("select Kid,Ksid,Klid,Ktime,Kcheck,Kstar ");
+			strSql.Append("select Kid,Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar ");
 			strSql.Append(" FROM MenuWorks ");
 			if(strWhere.Trim()!="")
 			{
@@ -420,7 +445,7 @@ namespace LearnSite.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-            strSql.Append(" Kid,Ksid,Klid,Ktime,Kcheck,Kstar ");
+            strSql.Append(" Kid,Ksid,Klid,Ktime,Kseconds,Kcheck,Kstar ");
 			strSql.Append(" FROM MenuWorks ");
 			if(strWhere.Trim()!="")
 			{
@@ -508,4 +533,3 @@ namespace LearnSite.DAL
 		#endregion  ExtensionMethod
 	}
 }
-

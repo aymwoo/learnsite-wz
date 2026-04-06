@@ -123,55 +123,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.StudentsExcel> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.StudentsExcel> modelList = new List<LearnSite.Model.StudentsExcel>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.StudentsExcel model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.StudentsExcel();
-					if(dt.Rows[n]["Sid"].ToString()!="")
-					{
-						model.Sid=int.Parse(dt.Rows[n]["Sid"].ToString());
-					}
-					model.Snum=dt.Rows[n]["Snum"].ToString();
-					if(dt.Rows[n]["Syear"].ToString()!="")
-					{
-						model.Syear=int.Parse(dt.Rows[n]["Syear"].ToString());
-					}
-					if(dt.Rows[n]["Sgrade"].ToString()!="")
-					{
-						model.Sgrade=int.Parse(dt.Rows[n]["Sgrade"].ToString());
-					}
-					if(dt.Rows[n]["Sclass"].ToString()!="")
-					{
-						model.Sclass=int.Parse(dt.Rows[n]["Sclass"].ToString());
-					}
-					model.Sname=dt.Rows[n]["Sname"].ToString();
-					model.Spwd=dt.Rows[n]["Spwd"].ToString();
-					model.Sex=dt.Rows[n]["Sex"].ToString();
-					model.Saddress=dt.Rows[n]["Saddress"].ToString();
-					model.Sphone=dt.Rows[n]["Sphone"].ToString();
-					model.Sparents=dt.Rows[n]["Sparents"].ToString();
-					model.Sheadtheacher=dt.Rows[n]["Sheadtheacher"].ToString();
-					if(dt.Rows[n]["Sscore"].ToString()!="")
-					{
-						model.Sscore=int.Parse(dt.Rows[n]["Sscore"].ToString());
-					}
-                    if (dt.Rows[n]["Squiz"].ToString() != "")
-                    {
-                        model.Squiz = int.Parse(dt.Rows[n]["Squiz"].ToString());
-                    }
-					if(dt.Rows[n]["Sattitude"].ToString()!="")
-					{
-						model.Sattitude=int.Parse(dt.Rows[n]["Sattitude"].ToString());
-					}
-					model.Sape=dt.Rows[n]["Sape"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapStudentsExcelList(dt);
 		}
 
 		/// <summary>
@@ -193,4 +145,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

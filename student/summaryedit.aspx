@@ -1,16 +1,16 @@
-<%@ Page Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="summaryedit.aspx.cs" Inherits="Student_summaryedit" %>
+<%@ Page Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="summaryedit.aspx.cs" Inherits="Student_summaryedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div class="w-full max-w-4xl mx-auto">
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8 space-y-6 overflow-hidden">
         <!-- Header -->
-        <div class="flex items-center gap-3 pb-4 border-b border-slate-100">
+        <div class="course-node-head flex items-center gap-3 pb-4 border-b border-slate-100" style="padding:24px 24px 20px;margin:-24px -24px 0;">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
             </div>
             <div>
                 <span class="text-sm text-slate-500 font-medium">学案名称</span>
-                <div class="text-lg font-bold text-slate-800"><asp:Label ID="Label1" runat="server"></asp:Label></div>
+                <div class="course-node-title text-lg font-bold text-slate-800"><asp:Label ID="Label1" runat="server"></asp:Label></div>
             </div>
         </div>
         

@@ -194,50 +194,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Problems> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Problems> modelList = new List<LearnSite.Model.Problems>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Problems model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Problems();
-					if(dt.Rows[n]["Pid"]!=null && dt.Rows[n]["Pid"].ToString()!="")
-					{
-						model.Pid=int.Parse(dt.Rows[n]["Pid"].ToString());
-					}
-					if(dt.Rows[n]["Phid"]!=null && dt.Rows[n]["Phid"].ToString()!="")
-					{
-						model.Phid=int.Parse(dt.Rows[n]["Phid"].ToString());
-					}
-					if(dt.Rows[n]["Pnid"]!=null && dt.Rows[n]["Pnid"].ToString()!="")
-					{
-						model.Pnid=int.Parse(dt.Rows[n]["Pnid"].ToString());
-					}
-					if(dt.Rows[n]["Ptitle"]!=null && dt.Rows[n]["Ptitle"].ToString()!="")
-					{
-					model.Ptitle=dt.Rows[n]["Ptitle"].ToString();
-					}
-					if(dt.Rows[n]["Pcode"]!=null && dt.Rows[n]["Pcode"].ToString()!="")
-					{
-					model.Pcode=dt.Rows[n]["Pcode"].ToString();
-					}
-					if(dt.Rows[n]["Pouput"]!=null && dt.Rows[n]["Pouput"].ToString()!="")
-					{
-					model.Pouput=dt.Rows[n]["Pouput"].ToString();
-					}
-					if(dt.Rows[n]["Pscore"]!=null && dt.Rows[n]["Pscore"].ToString()!="")
-					{
-						model.Pscore=int.Parse(dt.Rows[n]["Pscore"].ToString());
-					}
-					if(dt.Rows[n]["Pdate"]!=null && dt.Rows[n]["Pdate"].ToString()!="")
-					{
-						model.Pdate=DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapProblemsList(dt);
 		}
                 
         /// <summary>
@@ -281,4 +238,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

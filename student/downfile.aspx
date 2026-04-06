@@ -1,5 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student"
-    AutoEventWireup="true" CodeFile="downfile.aspx.cs" Inherits="Student_downfile" %>
+    AutoEventWireup="true" CodeFile="downfile.aspx.cs" Inherits="Student_downfile" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" runat="Server">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full">

@@ -54,7 +54,7 @@ public partial class Teacher_programshow : System.Web.UI.Page
                 HLMgid.NavigateUrl = "~/teacher/gaugeitem.aspx?gid=" + Mgid.ToString();
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null)
         {
@@ -81,7 +81,7 @@ public partial class Teacher_programshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
         {

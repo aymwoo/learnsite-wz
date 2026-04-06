@@ -93,5 +93,53 @@ namespace SharpZipTests
             Assert.True(Directory.Exists(newExtractDir));
             Assert.True(File.Exists(Path.Combine(newExtractDir, "test.txt")));
         }
+
+        [Fact]
+        public void UnpackQuizFiles_ShouldSkipDatabaseFiles()
+        {
+            string sourceDir = Path.Combine(_tempDir, "quiz_source");
+            Directory.CreateDirectory(sourceDir);
+            File.WriteAllText(Path.Combine(sourceDir, "quiz.txt"), "Quiz");
+            File.WriteAllText(Path.Combine(sourceDir, "quiz.db"), "Should skip");
+
+            SharpZip.PackFiles(_zipFile, sourceDir);
+
+            bool result = SharpZip.UnpackQuizFiles(_zipFile, _extractDir);
+
+            Assert.True(result);
+            Assert.True(File.Exists(Path.Combine(_extractDir, "quiz.txt")));
+            Assert.False(File.Exists(Path.Combine(_extractDir, "quiz.db")));
+        }
+
+        [Fact]
+        public void UnpackFilesXml_ShouldExtractOnlyCourseXml()
+        {
+            string sourceDir = Path.Combine(_tempDir, "xml_source");
+            Directory.CreateDirectory(sourceDir);
+            File.WriteAllText(Path.Combine(sourceDir, "Course.xml"), "<course />");
+            File.WriteAllText(Path.Combine(sourceDir, "other.txt"), "Other");
+
+            SharpZip.PackFiles(_zipFile, sourceDir);
+
+            bool result = SharpZip.UnpackFilesXml(_zipFile, _extractDir);
+
+            Assert.True(result);
+            Assert.True(File.Exists(Path.Combine(_extractDir, "Course.xml")));
+            Assert.False(File.Exists(Path.Combine(_extractDir, "other.txt")));
+        }
+
+        [Fact]
+        public void UnpackFilesXml_WhenCourseXmlDoesNotExist_ReturnsFalse()
+        {
+            string sourceDir = Path.Combine(_tempDir, "no_xml_source");
+            Directory.CreateDirectory(sourceDir);
+            File.WriteAllText(Path.Combine(sourceDir, "other.txt"), "Other");
+
+            SharpZip.PackFiles(_zipFile, sourceDir);
+
+            bool result = SharpZip.UnpackFilesXml(_zipFile, _extractDir);
+
+            Assert.False(result);
+        }
     }
 }

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webstore.aspx.cs" Inherits="student_webstore" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webstore.aspx.cs" Inherits="student_webstore" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,22 +8,82 @@
     <link href="../js/webstore.css" rel="stylesheet" type="text/css" />
     <!-- 引入KindEditor富文本编辑器 -->
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
-	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+    <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.store-toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+		}
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+		.store-toolbar__brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			font-weight: 800;
+			font-size: 1.05rem;
+			color: #0f172a;
+		}
+
+		.store-toolbar__actions {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 10px;
+		}
+
+		.store-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 110px;
+			height: 40px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.store-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.store-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+	</style>
+
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- 移除了表单标签，避免按钮点击导致表单提交 -->
     <div id="workHistory"  class="container">
         <div class="header">           
-            <div class="button-container">                
-                <sp class="banner">
-                    🌏 信息科技素材库
+            <div class="button-container store-toolbar">                
+                <sp class="banner store-toolbar__brand">
+                    <span>🌏</span>
+                    <span>信息科技素材库</span>
                 </sp> 
-                <button class="btn return-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="returnurl();" >返回</button>
-                <button class="btn save-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="savework();" >保存</button>
+                <div class="store-toolbar__actions">
+                    <button class="btn return-button store-toolbar__btn store-toolbar__btn--neutral" type="button" onclick="returnurl();"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+	                    <button class="btn save-button store-toolbar__btn" type="button" onclick="savework();"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+                </div>
             </div>
         </div>
         <hr class ="hrclass"/>
@@ -302,17 +362,17 @@ document.addEventListener('keydown', function(e) {
         }
 
         function returnurl() {
-            if (confirm('是否要离开此页面？') == true) {
+            if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
                 window.location.href = "<%=Fpage %>"
             }
         }
         // 页面加载完成后初始化
-        window.onload = function() {
+        window.addEventListener('load', function() {
             loadFolderTree();
             loadFiles(currentFolderPath);
             setupDragAndDrop();
             document.getElementById('fileInput').onchange = handleFileSelect;
-        };
+        });
         
         // 初始化KindEditor富文本编辑器
         function initKindEditor() {

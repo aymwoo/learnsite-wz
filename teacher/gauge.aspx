@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="gauge.aspx.cs" Inherits="Teacher_gauge" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="gauge.aspx.cs" Inherits="Teacher_gauge" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
@@ -251,6 +251,116 @@
             color: #92400e;
         }
 
+        .gauge-loading {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(3px);
+        }
+
+        .gauge-loading.is-active {
+            display: flex;
+        }
+
+        .gauge-loading__card {
+            width: min(92vw, 420px);
+            padding: 28px 24px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+            text-align: center;
+        }
+
+        .gauge-loading__spinner {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            border-radius: 999px;
+            border: 5px solid #dbeafe;
+            border-top-color: #2563eb;
+            animation: gauge-spin 0.9s linear infinite;
+        }
+
+        .gauge-loading__title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .gauge-loading__desc {
+            margin: 10px 0 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #64748b;
+        }
+
+        .gauge-loading__steps {
+            margin: 18px 0 0;
+            padding: 0;
+            list-style: none;
+            text-align: left;
+            display: grid;
+            gap: 10px;
+        }
+
+        .gauge-loading__step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 13px;
+            transition: all 0.25s ease;
+        }
+
+        .gauge-loading__step-index {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .gauge-loading__step.is-active {
+            background: #eff6ff;
+            color: #1d4ed8;
+            box-shadow: inset 0 0 0 1px #bfdbfe;
+        }
+
+        .gauge-loading__step.is-active .gauge-loading__step-index {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .gauge-loading__step.is-done {
+            background: #ecfdf5;
+            color: #047857;
+            box-shadow: inset 0 0 0 1px #a7f3d0;
+        }
+
+        .gauge-loading__step.is-done .gauge-loading__step-index {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        @keyframes gauge-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .gauge-page { padding: 16px; }
             .gauge-form { grid-template-columns: 1fr; }
@@ -328,7 +438,7 @@
                             <span class="gauge-label">量规标题</span>
                             <asp:TextBox ID="TextBoxGtitle" runat="server" CssClass="gauge-input" placeholder="例如：Scratch游戏作品互评表"></asp:TextBox>
                         </div>
-                        <asp:Button ID="Btnadd" runat="server" Text="添加量规" onclick="Btnadd_Click" CssClass="gauge-btn" />
+                        <asp:Button ID="Btnadd" runat="server" Text="添加量规" onclick="Btnadd_Click" UseSubmitBehavior="false" OnClientClick="return startGaugeSseGenerate();" CssClass="gauge-btn" />
                     </div>
                 </div>
             </div>
@@ -345,4 +455,174 @@
             </div>
         </div>
     </div>
+
+    <div id="gaugeLoading" class="gauge-loading" aria-live="polite" aria-busy="true">
+        <div class="gauge-loading__card">
+            <div class="gauge-loading__spinner"></div>
+            <p class="gauge-loading__title">正在生成量规</p>
+            <p id="gaugeLoadingDesc" class="gauge-loading__desc">系统正在创建量规并调用 AI 自动生成评价项，请稍候，不要关闭当前页面。</p>
+            <ul id="gaugeLoadingSteps" class="gauge-loading__steps">
+                <li class="gauge-loading__step is-active" data-step="0">
+                    <span class="gauge-loading__step-index">1</span>
+                    <span>正在创建量规记录</span>
+                </li>
+                <li class="gauge-loading__step" data-step="1">
+                    <span class="gauge-loading__step-index">2</span>
+                    <span>正在调用 AI 生成评价项</span>
+                </li>
+                <li class="gauge-loading__step" data-step="2">
+                    <span class="gauge-loading__step-index">3</span>
+                    <span>正在写入量规项并准备跳转</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var gaugeEventSource = null;
+        var gaugeStreamFinished = false;
+
+        function setGaugeProgressStep(index) {
+            var steps = document.querySelectorAll('#gaugeLoadingSteps .gauge-loading__step');
+            for (var i = 0; i < steps.length; i++) {
+                steps[i].className = 'gauge-loading__step';
+                if (i < index) {
+                    steps[i].className += ' is-done';
+                }
+                else if (i === index) {
+                    steps[i].className += ' is-active';
+                }
+            }
+
+            var desc = document.getElementById('gaugeLoadingDesc');
+            if (!desc) {
+                return;
+            }
+
+            if (index === 0) {
+                desc.innerHTML = '系统正在创建量规基础记录，请稍候。';
+            }
+            else if (index === 1) {
+                desc.innerHTML = '系统正在调用 AI 生成评价项，如果当前使用默认模板，也会自动继续处理。';
+            }
+            else {
+                desc.innerHTML = '系统正在写入评价项并跳转到编辑页，请不要关闭当前页面。';
+            }
+        }
+
+        function setGaugeProgressMessage(message) {
+            var desc = document.getElementById('gaugeLoadingDesc');
+            if (desc && message) {
+                desc.innerHTML = message;
+            }
+        }
+
+        function openGaugeLoading() {
+            var button = document.getElementById('<%= Btnadd.ClientID %>');
+            var loading = document.getElementById('gaugeLoading');
+            if (button) {
+                button.disabled = true;
+                button.value = '正在生成...';
+            }
+            if (loading && loading.className.indexOf('is-active') < 0) {
+                loading.className += ' is-active';
+            }
+        }
+
+        function resetGaugeButton() {
+            var button = document.getElementById('<%= Btnadd.ClientID %>');
+            if (button) {
+                button.disabled = false;
+                button.value = '添加量规';
+            }
+        }
+
+        function closeGaugeEventSource() {
+            if (gaugeEventSource) {
+                gaugeEventSource.close();
+                gaugeEventSource = null;
+            }
+        }
+
+        function parseGaugeSseData(data) {
+            try {
+                return JSON.parse(data);
+            }
+            catch (e) {
+                return null;
+            }
+        }
+
+        function startGaugeSseGenerate() {
+            var titleInput = document.getElementById('<%= TextBoxGtitle.ClientID %>');
+            if (!titleInput || !titleInput.value || !titleInput.value.trim()) {
+                return __doPostBack('<%= Btnadd.UniqueID %>', '');
+            }
+
+            var typeInput = document.getElementById('<%= DDLtype.ClientID %>');
+            var gaugeType = typeInput ? typeInput.value : '';
+            var gaugeTitle = titleInput.value.trim();
+            var requestUrl = '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>' + '?gtype=' + encodeURIComponent(gaugeType) + '&gtitle=' + encodeURIComponent(gaugeTitle);
+
+            if (!window.EventSource) {
+                return __doPostBack('<%= Btnadd.UniqueID %>', '');
+            }
+
+            openGaugeLoading();
+            gaugeStreamFinished = false;
+            setGaugeProgressStep(0);
+            setGaugeProgressMessage('系统正在创建量规基础记录，请稍候。');
+            closeGaugeEventSource();
+
+            gaugeEventSource = new EventSource(requestUrl);
+            gaugeEventSource.addEventListener('progress', function (event) {
+                var payload = parseGaugeSseData(event.data);
+                if (!payload) {
+                    return;
+                }
+                var step = parseInt(payload.step, 10);
+                if (!isNaN(step)) {
+                    setGaugeProgressStep(Math.max(0, Math.min(2, step - 1)));
+                }
+                setGaugeProgressMessage(payload.message || '系统正在处理，请稍候。');
+            });
+
+            gaugeEventSource.addEventListener('done', function (event) {
+                var payload = parseGaugeSseData(event.data);
+                gaugeStreamFinished = true;
+                closeGaugeEventSource();
+                setGaugeProgressStep(2);
+                setGaugeProgressMessage(payload && payload.message ? payload.message : '量规已创建，正在跳转。');
+                window.setTimeout(function () {
+                    if (payload && payload.redirectUrl) {
+                        window.location.href = payload.redirectUrl;
+                    }
+                    else {
+                        window.location.reload();
+                    }
+                }, 350);
+            });
+
+            gaugeEventSource.addEventListener('failed', function (event) {
+                var payload = event && event.data ? parseGaugeSseData(event.data) : null;
+                gaugeStreamFinished = true;
+                closeGaugeEventSource();
+                resetGaugeButton();
+                alert(payload && payload.message ? payload.message : '量规生成失败，请稍后重试。');
+                window.location.reload();
+            });
+
+            gaugeEventSource.onerror = function () {
+                if (!gaugeEventSource || gaugeStreamFinished) {
+                    return;
+                }
+                closeGaugeEventSource();
+                resetGaugeButton();
+                alert('量规生成连接已中断，请稍后重试。');
+                window.location.reload();
+            };
+
+            return false;
+        }
+    </script>
 </asp:Content>

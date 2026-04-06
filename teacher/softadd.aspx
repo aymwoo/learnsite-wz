@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  Validaterequest="false" AutoEventWireup="true" CodeFile="softadd.aspx.cs" Inherits="Teacher_softadd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  Validaterequest="false" AutoEventWireup="true" CodeFile="softadd.aspx.cs" Inherits="Teacher_softadd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link href="../js/fileupload.css" rel="stylesheet" />
@@ -127,13 +127,14 @@
                     </div>
                 </div>
                 
-                <link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
-                <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+                <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
+                <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
                 
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
                     var kindEditorObj;
                     var wangEditorObj;
@@ -172,12 +173,36 @@
                                 placeholder: '请输入内容...',
                                 MENU_CONF: {
                                     uploadImage: {
-                                        server: '../kindeditor/aspnet/upload_json.aspx?dir=image',
+                                        server: upjs,
                                         customInsert(res, insertFn) {
                                             if (res.error === 0) {
                                                 insertFn(res.url);
                                             } else {
-                                                alert(res.message);
+                                                alert(res.message || '图片上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadAttachment: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
+                                            } else {
+                                                alert(res.message || '附件上传失败');
+                                            }
+                                        }
+                                    },
+                                    uploadFile: {
+                                        server: upjs,
+                                        customInsert(res, insertFn) {
+                                            if (res.error === 0) {
+                                                if (wangEditorObj) {
+                                                    LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                                }
+                                            } else {
+                                                alert(res.message || '文件上传失败');
                                             }
                                         }
                                     }
@@ -215,6 +240,11 @@
                         vditorObj = new Vditor('vditor-container', {
                             height: 400,
                             mode: 'ir',
+                            upload: {
+                                handler: function (files) {
+                                    LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
+                                }
+                            },
                             preview: {
                                 mode: 'both'
                             },

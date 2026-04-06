@@ -334,6 +334,12 @@ i {
     color: #333;	
 }
 
+#codebutton {
+	display:flex;
+	justify-content:flex-end;
+	gap:10px;
+}
+
 
 .banner {
 	width:100%;

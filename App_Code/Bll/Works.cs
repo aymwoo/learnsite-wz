@@ -408,151 +408,7 @@ namespace LearnSite.BLL
         /// </summary>
         public List<LearnSite.Model.Works> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.Works> modelList = new List<LearnSite.Model.Works>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Works model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Works();
-                    if (dt.Rows[n]["Wid"].ToString() != "")
-                    {
-                        model.Wid = int.Parse(dt.Rows[n]["Wid"].ToString());
-                    }
-                    model.Wnum = dt.Rows[n]["Wnum"].ToString();
-                    if (dt.Rows[n]["Wcid"].ToString() != "")
-                    {
-                        model.Wcid = int.Parse(dt.Rows[n]["Wcid"].ToString());
-                    }
-                    if (dt.Rows[n]["Wmid"].ToString() != "")
-                    {
-                        model.Wmid = int.Parse(dt.Rows[n]["Wmid"].ToString());
-                    }
-                    if (dt.Rows[n]["Wmsort"].ToString() != "")
-                    {
-                        model.Wmsort = int.Parse(dt.Rows[n]["Wmsort"].ToString());
-                    }
-                    model.Wfilename = dt.Rows[n]["Wfilename"].ToString();
-                    model.Wurl = dt.Rows[n]["Wurl"].ToString();
-                    if (dt.Rows[n]["Wlength"].ToString() != "")
-                    {
-                        model.Wlength = int.Parse(dt.Rows[n]["Wlength"].ToString());
-                    }
-                    if (dt.Rows[n]["Wscore"].ToString() != "")
-                    {
-                        model.Wscore = int.Parse(dt.Rows[n]["Wscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Wdate"].ToString() != "")
-                    {
-                        model.Wdate = DateTime.Parse(dt.Rows[n]["Wdate"].ToString());
-                    }
-                    model.Wip = dt.Rows[n]["Wip"].ToString();
-                    model.Wtime = dt.Rows[n]["Wtime"].ToString();
-                    if (dt.Rows[n]["Wvote"].ToString() != "")
-                    {
-                        model.Wvote = int.Parse(dt.Rows[n]["Wvote"].ToString());
-                    }
-                    if (dt.Rows[n]["Wegg"].ToString() != "")
-                    {
-                        model.Wegg = int.Parse(dt.Rows[n]["Wegg"].ToString());
-                    }
-                    if (dt.Rows[n]["Wcheck"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Wcheck"].ToString() == "1") || (dt.Rows[n]["Wcheck"].ToString().ToLower() == "true"))
-                        {
-                            model.Wcheck = true;
-                        }
-                        else
-                        {
-                            model.Wcheck = false;
-                        }
-                    }
-                    model.Wself = dt.Rows[n]["Wself"].ToString();
-                    if (dt.Rows[n]["Wcan"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Wcan"].ToString() == "1") || (dt.Rows[n]["Wcan"].ToString().ToLower() == "true"))
-                        {
-                            model.Wcan = true;
-                        }
-                        else
-                        {
-                            model.Wcan = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Wgood"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Wgood"].ToString() == "1") || (dt.Rows[n]["Wgood"].ToString().ToLower() == "true"))
-                        {
-                            model.Wgood = true;
-                        }
-                        else
-                        {
-                            model.Wgood = false;
-                        }
-                    }
-                    model.Wtype = dt.Rows[n]["Wtype"].ToString();
-                    if (dt.Rows[n]["Wgrade"].ToString() != "")
-                    {
-                        model.Wgrade = int.Parse(dt.Rows[n]["Wgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Wterm"].ToString() != "")
-                    {
-                        model.Wterm = int.Parse(dt.Rows[n]["Wterm"].ToString());
-                    }
-                    if (dt.Rows[n]["Whit"].ToString() != "")
-                    {
-                        model.Whit = int.Parse(dt.Rows[n]["Whit"].ToString());
-                    }
-                    if (dt.Rows[n]["Wlscore"].ToString() != "")
-                    {
-                        model.Wlscore = int.Parse(dt.Rows[n]["Wlscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Wlemotion"].ToString() != "")
-                    {
-                        model.Wlemotion = int.Parse(dt.Rows[n]["Wlemotion"].ToString());
-                    }
-                    if (dt.Rows[n]["Woffice"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Woffice"].ToString() == "1") || (dt.Rows[n]["Woffice"].ToString().ToLower() == "true"))
-                        {
-                            model.Woffice = true;
-                        }
-                        else
-                        {
-                            model.Woffice = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Wflash"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Wflash"].ToString() == "1") || (dt.Rows[n]["Wflash"].ToString().ToLower() == "true"))
-                        {
-                            model.Wflash = true;
-                        }
-                        else
-                        {
-                            model.Wflash = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Werror"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Werror"].ToString() == "1") || (dt.Rows[n]["Werror"].ToString().ToLower() == "true"))
-                        {
-                            model.Wflash = true;
-                        }
-                        else
-                        {
-                            model.Wflash = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Wfscore"].ToString() != "")
-                    {
-                        model.Wfscore = int.Parse(dt.Rows[n]["Wfscore"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapWorksList(dt);
         }
 
 		/// <summary>
@@ -1723,6 +1579,7 @@ namespace LearnSite.BLL
                 kmodel.Klid = Int32.Parse(Wlid);
                 kmodel.Ksid = Wsid;
                 kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                 kmodel.Kcheck = false;
                 BLL.MenuWorks kbll = new MenuWorks();
                 kbll.Add(kmodel);
@@ -1870,6 +1727,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2010,6 +1868,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2138,6 +1997,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2283,6 +2143,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2415,6 +2276,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2543,6 +2405,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2670,6 +2533,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2791,6 +2655,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -2912,6 +2777,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3036,6 +2902,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3163,6 +3030,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3313,6 +3181,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3428,6 +3297,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3564,6 +3434,7 @@ namespace LearnSite.BLL
                     kmodel.Klid = Int32.Parse(Wlid);
                     kmodel.Ksid = Wsid;
                     kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                    kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                     kmodel.Kcheck = false;
                     BLL.MenuWorks kbll = new MenuWorks();
                     kbll.Add(kmodel);
@@ -3792,4 +3663,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

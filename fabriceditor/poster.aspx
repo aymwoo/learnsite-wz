@@ -29,7 +29,7 @@
     <script type="module" crossorigin src="/fabriceditor/js/index.js"></script>
     <link rel="stylesheet" href="/fabriceditor/assets/index-b3d4c966.css">
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form2" runat="server">

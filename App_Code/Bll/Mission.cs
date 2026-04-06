@@ -165,78 +165,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Mission> DataTableToList(DataTable dt)
 		{
-            List<LearnSite.Model.Mission> modelList = new List<LearnSite.Model.Mission>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Mission model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Mission();
-                    if (dt.Rows[n]["Mid"].ToString() != "")
-                    {
-                        model.Mid = int.Parse(dt.Rows[n]["Mid"].ToString());
-                    }
-                    model.Mtitle = dt.Rows[n]["Mtitle"].ToString();
-                    if (dt.Rows[n]["Mcid"].ToString() != "")
-                    {
-                        model.Mcid = int.Parse(dt.Rows[n]["Mcid"].ToString());
-                    }
-                    model.Mcontent = dt.Rows[n]["Mcontent"].ToString();
-                    if (dt.Rows[n]["Mdate"].ToString() != "")
-                    {
-                        model.Mdate = DateTime.Parse(dt.Rows[n]["Mdate"].ToString());
-                    }
-                    if (dt.Rows[n]["Mhit"].ToString() != "")
-                    {
-                        model.Mhit = int.Parse(dt.Rows[n]["Mhit"].ToString());
-                    }
-                    model.Mfiletype = dt.Rows[n]["Mfiletype"].ToString();
-                    if (dt.Rows[n]["Mupload"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Mupload"].ToString() == "1") || (dt.Rows[n]["Mupload"].ToString().ToLower() == "true"))
-                        {
-                            model.Mupload = true;
-                        }
-                        else
-                        {
-                            model.Mupload = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Msort"].ToString() != "")
-                    {
-                        model.Msort = int.Parse(dt.Rows[n]["Msort"].ToString());
-                    }
-                    if (dt.Rows[n]["Mpublish"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Mpublish"].ToString() == "1") || (dt.Rows[n]["Mpublish"].ToString().ToLower() == "true"))
-                        {
-                            model.Mpublish = true;
-                        }
-                        else
-                        {
-                            model.Mpublish = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Mgroup"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Mgroup"].ToString() == "1") || (dt.Rows[n]["Mgroup"].ToString().ToLower() == "true"))
-                        {
-                            model.Mgroup = true;
-                        }
-                        else
-                        {
-                            model.Mgroup = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Mgid"] != null && dt.Rows[n]["Mgid"].ToString() != "")
-                    {
-                        model.Mgid = int.Parse(dt.Rows[n]["Mgid"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+			return BllDataTableMappers.MapMissionList(dt);
         }                
         /// <summary>
         /// 获取活动作品上传类型
@@ -424,4 +353,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

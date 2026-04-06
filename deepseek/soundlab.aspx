@@ -96,6 +96,31 @@
         .recording-item button.delete-btn {
             background-color: #dc3545;
         }
+		.recording-item .recording-action {
+			display:inline-flex;
+			align-items:center;
+			justify-content:center;
+			gap:8px;
+			min-width:88px;
+			height:36px;
+			padding:0 14px;
+			border:0;
+			border-radius:10px;
+			color:#ffffff;
+			font-size:13px;
+			font-weight:700;
+			white-space:nowrap;
+			box-shadow:0 12px 24px -18px rgba(15,23,42,.6);
+		}
+		.recording-item .recording-action:hover {
+			filter:brightness(1.03);
+		}
+		.recording-item .recording-action--play {
+			background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%);
+		}
+		.recording-item .recording-action--delete {
+			background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%);
+		}
         .recording-title {
             width: 150px;
         }
@@ -179,8 +204,16 @@
     
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="all.min.css">
+	<style type="text/css">
+		.sound-toolbar { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; align-items:center; }
+		.sound-toolbar__btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:112px; height:40px; padding:0 16px; border:0; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+		.sound-toolbar__btn:hover { transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); }
+		.sound-toolbar__btn--secondary { background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 14px 28px -18px rgba(15,118,110,.78); }
+		.sound-toolbar__btn--neutral { background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
+	</style>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -203,13 +236,14 @@
             </div>
         </div>
         <div class="controls">
-            <button id="startBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">开始录音</button>
-            <button id="stopBtn" disabled class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">停止录音</button>
-            <button  type = "button" onclick="savechat()"   title="保存到服务器上"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
-			<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
-			<span class="sp"></span>
-			<button  onclick="returnurl()" title="返回到学案页面" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
-			<i class="fa fa-reply" aria-hidden="true"></i> 返回</button>  
+	            <div class="sound-toolbar">
+	            <button id="startBtn" class="sound-toolbar__btn" type="button"><i class="fa fa-microphone" aria-hidden="true"></i><span>开始录音</span></button>
+	            <button id="stopBtn" disabled class="sound-toolbar__btn sound-toolbar__btn--secondary" type="button"><i class="fa fa-stop" aria-hidden="true"></i><span>停止录音</span></button>
+	            <button  type = "button" onclick="savechat()" title="保存作品到服务器" class="sound-toolbar__btn sound-toolbar__btn--secondary">
+			<i class="fa fa-save" aria-hidden="true"></i> 保存作品</button>
+			<button onclick="returnurl()" title="返回到学案页面" class="sound-toolbar__btn sound-toolbar__btn--neutral" type="button">
+			<i class="fa fa-reply" aria-hidden="true"></i> 返回学案</button>  
+	            </div>
 
         </div>
         <div id="status">准备就绪</div>
@@ -230,7 +264,7 @@
 					<select id="recording2">
 						<option value="">选择第二个录音</option>
 					</select>
-					<button onclick="compareRecordings()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">开始比较</button>
+					<button onclick="compareRecordings()" class="sound-toolbar__btn" type="button">开始比较</button>
 				</div>
 				<div id="result" class="result-box"></div>
 			</div>
@@ -501,8 +535,8 @@
                         <img src="${rec.mfcc}"  title="倒谱图：音色"/> <!-- 显示 MFCC 图像 -->
                     </div>
                     <div  class="recording-tool">
-                        <button onclick="playRecording(${rec.id})" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">播放</button>
-                        <button class="delete-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteRecording(${rec.id})">删除</button>
+						<button onclick="playRecording(${rec.id})" class="recording-action recording-action--play" type="button"><i class="fa fa-play" aria-hidden="true"></i><span>播放</span></button>
+						<button class="recording-action recording-action--delete" onclick="deleteRecording(${rec.id})" type="button"><i class="fa fa-trash" aria-hidden="true"></i><span>删除</span></button>
                     </div>
                 </div>
             `).join('');
@@ -749,7 +783,7 @@ var docurl = document.URL;
 var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
 var id = "<%=Id %>";
 function returnurl() {
-    if (confirm('是否要离开此页面？') == true) {
+    if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
         window.location.href = "<%=Fpage %>"
     }
 }
@@ -801,5 +835,3 @@ function blob(dataURI) {
 
 </script>
 </html>
-
-

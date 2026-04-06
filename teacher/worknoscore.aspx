@@ -1,6 +1,41 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="worknoscore.aspx.cs" Inherits="Teacher_worknoscore" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="worknoscore.aspx.cs" Inherits="Teacher_worknoscore" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <style type="text/css">
+        .wn-inline-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .wn-nav-btn,
+        .wn-tool-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 2.1rem;
+            padding: 0 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.6rem;
+            background: #ffffff;
+            color: #334155;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .wn-nav-btn:hover,
+        .wn-tool-btn:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        .wn-tool-btn--primary {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+    </style>
     <div  class="placehold">   
        <div  class="cline"></div>
         <strong>
@@ -16,15 +51,15 @@
         <br />
 <center>
     <div style="font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 9pt">
-        <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
-            onclick="ImgBtnLeft_Click" Width="16px" />
+        <asp:Button ID="ImgBtnLeft" runat="server" Text="上一项"
+            OnClick="ImgBtnLeft_Click" CssClass="wn-nav-btn" />
     <asp:DropDownList ID="DDLstore" runat="server" 
             Font-Bold="True" Width="100px" AutoPostBack="True" Font-Size="12pt" 
             onselectedindexchanged="DDLstore_SelectedIndexChanged">
         <asp:ListItem></asp:ListItem>
         </asp:DropDownList>
-        <asp:ImageButton ID="ImgBtnright" runat="server" 
-            ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
+        <asp:Button ID="ImgBtnright" runat="server"
+            Text="下一项" OnClick="ImgBtnright_Click" CssClass="wn-nav-btn" />
          <asp:Label ID="lbcurindex" runat="server" Text="0" Visible="False"></asp:Label>
             <asp:Label ID="LabelMid" runat="server" Font-Names="Arial" Font-Size="9pt" 
             Visible="False"></asp:Label>
@@ -55,8 +90,8 @@
                                     </Items>
                                 </asp:RadioButtonList>
              &nbsp;
-        <asp:ImageButton ID="ImgBtn" runat="server" ImageUrl="~/images/refresh.gif" 
-            onclick="ImgBtn_Click" ToolTip="循环展播专用刷新" />
+        <asp:Button ID="ImgBtn" runat="server" Text="刷新展播"
+            OnClick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="wn-tool-btn wn-tool-btn--primary" />
             <asp:Label ID="lbcount" runat="server"></asp:Label>
              <br />
         </div>   
@@ -71,9 +106,8 @@
         </div>
         </center>
         <br />
-    <asp:Button ID="Btnback" runat="server" BorderWidth="1px" Height="20px" Text="返回" 
-                Width="60px" OnClick="Btnback_Click" SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+    <asp:Button ID="Btnback" runat="server" BorderWidth="1px" Height="20px" Text="返回学案"
+                Width="60px" OnClick="Btnback_Click" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
 
     </div>
 </asp:Content>
-

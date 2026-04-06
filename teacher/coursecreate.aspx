@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="coursecreate.aspx.cs" Inherits="Teacher_coursecreate" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="coursecreate.aspx.cs" Inherits="Teacher_coursecreate" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
@@ -137,7 +137,7 @@
 
             <section class="course-create-actions">
                 <asp:Button ID="BtnCreate" runat="server" Text="创建学案" onclick="BtnCreate_Click" CssClass="course-create-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="学案返回" onclick="Btnreturn_Click" CssClass="course-create-secondary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="返回学案" onclick="Btnreturn_Click" CssClass="course-create-secondary-btn" />
             </section>
 
             <section class="course-create-feedback">

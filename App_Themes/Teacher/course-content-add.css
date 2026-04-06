@@ -12,8 +12,7 @@
 }
 
 .content-add-shell.is-medium {
-    max-width: 1120px;
-    margin: 0 auto;
+    /* max-width removed for full-width layout */
 }
 
 .content-add-hero {

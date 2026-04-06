@@ -419,6 +419,7 @@ CREATE TABLE [dbo].[MenuWorks](
 	[ksid] [int] NULL,
 	[klid] [int] NULL,
 	[ktime] [int] NULL,
+	[kseconds] [int] NULL,
 	[kcheck] [bit] NULL,
 	[kstar] [int] NULL,
 PRIMARY KEY CLUSTERED 
@@ -1439,6 +1440,21 @@ GO
 ALTER TABLE [dbo].[ListMenu] ADD  DEFAULT ((1)) FOR [Lshow]
 GO
 ALTER TABLE [dbo].[MenuWorks] ADD  DEFAULT ((0)) FOR [kcheck]
+GO
+IF COL_LENGTH('dbo.MenuWorks', 'kseconds') IS NULL
+BEGIN
+    ALTER TABLE [dbo].[MenuWorks] ADD [kseconds] [int] NULL
+END
+GO
+IF NOT EXISTS (
+    SELECT 1 FROM sys.indexes 
+    WHERE name = 'IX_MenuWorks_Klid_Ksid' AND object_id = OBJECT_ID('dbo.MenuWorks')
+)
+BEGIN
+    CREATE NONCLUSTERED INDEX [IX_MenuWorks_Klid_Ksid]
+    ON [dbo].[MenuWorks]([Klid] ASC, [Ksid] ASC)
+    INCLUDE ([Ktime], [Kseconds], [Kcheck], [Kstar])
+END
 GO
 ALTER TABLE [dbo].[Mission] ADD  CONSTRAINT [DF_Mission_Mhit]  DEFAULT ((0)) FOR [Mhit]
 GO

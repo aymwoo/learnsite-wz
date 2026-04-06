@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="mqtt.aspx.cs" Inherits="student_mqtt" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="mqtt.aspx.cs" Inherits="student_mqtt" ResponseEncoding="utf-8" %>
 <!DOCTYPE html>
 <html >
 <head runat="server">
@@ -10,8 +10,59 @@
     <script src="../code/jquery.min.js"></script>
     <link href="../code/mqtt/mqtt.css" rel="stylesheet" type="text/css" />
 	<script src="../code/chart.js"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.mqtt-toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+		}
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+		.mqtt-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 112px;
+			height: 40px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.mqtt-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.mqtt-toolbar__btn--secondary {
+			background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+			box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
+		}
+
+		.mqtt-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+
+		.mqtt-toolbar__btn:disabled {
+			opacity: .68;
+			cursor: not-allowed;
+			transform: none;
+		}
+	</style>
+
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -31,9 +82,11 @@
 			
 			</td>
 			<td>
-		<button id="btnConnect"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">点击连接</button>&nbsp;&nbsp;&nbsp;
-		<button id="savebtn"  onclick="savework();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">保存</button>&nbsp;
-		<button id="returnbtn" onclick="returnurl();"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">返回</button>			
+		<div class="mqtt-toolbar">
+		<button id="btnConnect" class="mqtt-toolbar__btn"><i class="fa fa-plug" aria-hidden="true"></i><span>点击连接</span></button>
+		<button id="savebtn" onclick="savework();" class="mqtt-toolbar__btn mqtt-toolbar__btn--secondary" type="button"><i class="fa fa-save" aria-hidden="true"></i><span>保存实验</span></button>
+		<button id="returnbtn" onclick="returnurl();" class="mqtt-toolbar__btn mqtt-toolbar__btn--neutral" type="button"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+		</div>			
 			</td>
 		</tr>
 		<tr>
@@ -51,8 +104,10 @@
 				主题：<input id ="txtTopic" type="text" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /><br><br>
 				消息：<input id="txtPayload" type="text" value="off" readonly class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" /><br><br>
 				<div >				
-				<button id="btnPublish" disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">发布</button>&nbsp;&nbsp;&nbsp;
-				<button id="btnSub"  disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">订阅</button><br>		
+				<div class="mqtt-toolbar">
+				<button id="btnPublish" disabled="true" class="mqtt-toolbar__btn" type="button"><i class="fa fa-paper-plane" aria-hidden="true"></i><span>发布消息</span></button>
+				<button id="btnSub" disabled="true" class="mqtt-toolbar__btn mqtt-toolbar__btn--secondary" type="button"><i class="fa fa-rss" aria-hidden="true"></i><span>订阅主题</span></button><br>		
+				</div>
 				</div>
 				<div class="sesor">
 				<table>
@@ -94,9 +149,9 @@
 					<select class="subtopics">
 					</select>
 					&nbsp;
-				<button id="btnUnSub" disabled="true" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">取消订阅</button>
-				</div>
-			</td>
+				<button id="btnUnSub" disabled="true" class="mqtt-toolbar__btn mqtt-toolbar__btn--neutral" type="button"><i class="fa fa-ban" aria-hidden="true"></i><span>取消订阅</span></button>
+			</div>
+		</td>
 		</tr>
 		
 	</table>
@@ -120,7 +175,7 @@
     var serverip="<%=serverIp %>";
 
     function returnurl() {
-        if (confirm('确定要返回吗，记得先保存。') == true) {
+        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
             window.location.href = "<%=Fpage %>";
         }
     }

@@ -34,9 +34,18 @@ public partial class Teacher_pixelshow : System.Web.UI.Page
         model = mn.GetModel(Int32.Parse(Mid));
         if (model != null)
         {
+            string category = model.Mcategory.HasValue ? model.Mcategory.Value.ToString() : "11";
+            LearnSite.Common.CustomActivityMeta meta = LearnSite.Common.CustomActivityCatalog.GetMeta(category);
             LabelMfiletype.Text = model.Mfiletype;
             LabelMtitle.Text = model.Mtitle;
             Mcontent.InnerHtml = HttpUtility.HtmlDecode(model.Mcontent);
+            LabelActivityName.Text = meta.DisplayName;
+            LabelActivityDescription.Text = meta.Description;
+            LabelStudentEntry.Text = meta.StudentEntryUrl;
+            LabelEditFocus.Text = meta.EditFocus;
+            ImageActivityIcon.ImageUrl = ResolveUrl(meta.IconUrl);
+            ActivityChip.Style["background"] = meta.BadgeBackground;
+            ActivityChip.Style["color"] = meta.BadgeForeground;
 
             CheckPublish.Checked = model.Mpublish;
             LabelMdate.Text = model.Mdate.ToString();
@@ -44,9 +53,16 @@ public partial class Teacher_pixelshow : System.Web.UI.Page
             int Mgid = model.Mgid.Value;
             if (Mgid != 0)
                 HLMgid.NavigateUrl = "~/teacher/gaugeitem.aspx?gid=" + Mgid.ToString();
+
+            string exampleSummary = LearnSite.Common.CustomActivityCatalog.GetExampleSummary(category, model.Mexample);
+            PanelExampleSummary.Visible = !String.IsNullOrEmpty(exampleSummary);
+            if (PanelExampleSummary.Visible)
+            {
+                LabelExampleSummary.Text = HttpUtility.HtmlEncode(exampleSummary);
+            }
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null)
         {
@@ -73,7 +89,7 @@ public partial class Teacher_pixelshow : System.Web.UI.Page
             Response.Redirect(url, false);
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
         {

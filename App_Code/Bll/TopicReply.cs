@@ -229,64 +229,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.TopicReply> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.TopicReply> modelList = new List<LearnSite.Model.TopicReply>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.TopicReply model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.TopicReply();
-					if(dt.Rows[n]["Rid"].ToString()!="")
-					{
-						model.Rid=int.Parse(dt.Rows[n]["Rid"].ToString());
-					}
-					if(dt.Rows[n]["Rtid"].ToString()!="")
-					{
-						model.Rtid=int.Parse(dt.Rows[n]["Rtid"].ToString());
-					}
-					model.Rsnum=dt.Rows[n]["Rsnum"].ToString();
-					model.Rwords=dt.Rows[n]["Rwords"].ToString();
-					if(dt.Rows[n]["Rtime"].ToString()!="")
-					{
-						model.Rtime=DateTime.Parse(dt.Rows[n]["Rtime"].ToString());
-					}
-					model.Rip=dt.Rows[n]["Rip"].ToString();
-					if(dt.Rows[n]["Rscore"].ToString()!="")
-					{
-						model.Rscore=int.Parse(dt.Rows[n]["Rscore"].ToString());
-					}
-					if(dt.Rows[n]["Rban"].ToString()!="")
-					{
-						if((dt.Rows[n]["Rban"].ToString()=="1")||(dt.Rows[n]["Rban"].ToString().ToLower()=="true"))
-						{
-						model.Rban=true;
-						}
-						else
-						{
-							model.Rban=false;
-						}
-					}
-                    if (dt.Rows[n]["Rgrade"].ToString() != "")
-                    {
-                        model.Rgrade = int.Parse(dt.Rows[n]["Rgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Rterm"].ToString() != "")
-                    {
-                        model.Rterm = int.Parse(dt.Rows[n]["Rterm"].ToString());
-                    }
-                    if (dt.Rows[n]["Rcid"].ToString() != "")
-                    {
-                        model.Rcid = int.Parse(dt.Rows[n]["Rcid"].ToString());
-                    }
-                    if (dt.Rows[n]["Rclass"].ToString() != "")
-                    {
-                        model.Rclass = int.Parse(dt.Rows[n]["Rclass"].ToString());
-                    }
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTopicReplyList(dt);
 		}
 
 		/// <summary>
@@ -397,4 +340,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

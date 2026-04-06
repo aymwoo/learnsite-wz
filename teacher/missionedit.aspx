@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="missionedit.aspx.cs" Inherits="Teacher_missionedit" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="missionedit.aspx.cs" Inherits="Teacher_missionedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <div class="cplace">
@@ -15,10 +15,10 @@
         </div>
     <div >
     <!-- 引入编辑器CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    <script src="../js/vendors/vditor/index.min.js"></script>
+    <script src="../js/vendors/wangeditor/index.js"></script>
 
     <div style="margin-bottom: 10px; margin-left: 10px;">
         <label>编辑器：</label>
@@ -29,8 +29,9 @@
         </select>
     </div>
 
-    <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
+		<script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+		<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
 		<script>
 		    var kindEditorObj;
             var wangEditorObj;
@@ -64,20 +65,44 @@
                 wangEditorObj = createEditor({
                     selector: '#wangeditor-text',
                     html: kindEditorObj ? kindEditorObj.html() : mcontent.value,
-                    config: {
-                        placeholder: '请输入内容...',
-                        MENU_CONF: {
-                            uploadImage: {
-                                server: '../kindeditor/aspnet/upload_json.aspx?dir=image',
-                                customInsert(res, insertFn) {
-                                    if (res.error === 0) {
-                                        insertFn(res.url);
-                                    } else {
-                                        alert(res.message);
+                        config: {
+                            placeholder: '请输入内容...',
+                            MENU_CONF: {
+                                uploadImage: {
+                                    server: upjs,
+                                    customInsert(res, insertFn) {
+                                        if (res.error === 0) {
+                                            insertFn(res.url);
+                                        } else {
+                                            alert(res.message || '图片上传失败');
+                                        }
+                                    }
+                                },
+                                uploadAttachment: {
+                                    server: upjs,
+                                    customInsert(res, insertFn) {
+                                        if (res.error === 0) {
+                                            if (wangEditorObj) {
+                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                            }
+                                        } else {
+                                            alert(res.message || '附件上传失败');
+                                        }
+                                    }
+                                },
+                                uploadFile: {
+                                    server: upjs,
+                                    customInsert(res, insertFn) {
+                                        if (res.error === 0) {
+                                            if (wangEditorObj) {
+                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
+                                            }
+                                        } else {
+                                            alert(res.message || '文件上传失败');
+                                        }
                                     }
                                 }
                             }
-                        }
                     }
                 });
 
@@ -112,6 +137,11 @@
                     height: 400,
                     width: '830px',
                     mode: 'ir',
+                    upload: {
+                        handler: function (files) {
+                            LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
+                        }
+                    },
                     preview: {
                         mode: 'both'
                     },
@@ -216,11 +246,10 @@
         </asp:DropDownList>
                <br />
          <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="修改活动" OnClick="Btnedit_Click" OnClientClick="return syncContent();" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+              <asp:Button ID="Btnedit" runat="server"  Text="修改活动" OnClick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
+              <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
               <br />
          <br />
          </div>           
         </div>
 </asp:Content>
-

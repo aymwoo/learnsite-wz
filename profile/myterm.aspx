@@ -12,15 +12,16 @@
 .pf-term-card__meta{flex:1;min-width:0}
 .pf-term-card__period{font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.75);text-transform:uppercase;margin-bottom:2px}
 .pf-term-card__name{font-size:15px;font-weight:800;color:#fff;letter-spacing:-.01em}
-.pf-term-card__ape{margin-top:2px;font-size:11px;color:rgba(255,255,255,.7)}
+.pf-term-card__ape{margin-top:4px}
+.pf-ape-badge{display:inline-flex;align-items:center;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3)}
 .pf-term-card__body{padding:14px 16px}
-.pf-term-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
+.pf-term-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:13px;gap:8px}
 .pf-term-row:last-child{border-bottom:0}
-.pf-term-row__label{color:#64748b;font-weight:500}
-.pf-term-row__value{font-weight:800;color:#1e293b}
+.pf-term-row__label{color:#64748b;font-weight:500;white-space:nowrap;flex-shrink:0}
+.pf-term-row__value{font-weight:800;color:#1e293b;white-space:nowrap;flex-shrink:0}
 .pf-term-card__footer{padding:10px 16px;background:#f8fafc;border-top:2px solid #dbe6f5;display:flex;justify-content:space-between;align-items:center}
 .pf-term-total-label{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em}
-.pf-term-total-value{font-size:20px;font-weight:900;color:#2563eb;letter-spacing:-.02em}
+.pf-term-total-value{font-size:22px;font-weight:900;color:#2563eb;letter-spacing:-.02em}
 </style>
 <div class="pf-start">
   <h2 class="pf-title">
@@ -37,7 +38,7 @@
               <asp:Label ID="Label1" runat="server" Text='<%# Eval("Tgrade") %>'></asp:Label>年级 · 第<asp:Label ID="Label2" runat="server" Text='<%# Eval("Tterm") %>'></asp:Label>学期
             </div>
             <div class="pf-term-card__name"><asp:Label ID="Label11" runat="server" Text='<%# Eval("Sname") %>'></asp:Label></div>
-            <div class="pf-term-card__ape">综合素质：<asp:Label ID="Label10" runat="server" Text='<%# Eval("Tape") %>'></asp:Label></div>
+            <div class="pf-term-card__ape"><span class="pf-ape-badge">综合素质：<asp:Label ID="Label10" runat="server" Text='<%# Eval("Tape") %>'></asp:Label></span></div>
           </div>
         </div>
         <div class="pf-term-card__body">

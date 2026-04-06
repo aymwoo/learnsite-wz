@@ -150,51 +150,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Pfinger> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Pfinger> modelList = new List<LearnSite.Model.Pfinger>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Pfinger model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Pfinger();
-					if(dt.Rows[n]["Pid"].ToString()!="")
-					{
-						model.Pid=int.Parse(dt.Rows[n]["Pid"].ToString());
-					}
-					model.Psnum=dt.Rows[n]["Psnum"].ToString();
-					if(dt.Rows[n]["Pspd"].ToString()!="")
-					{
-						model.Pspd=decimal.Parse(dt.Rows[n]["Pspd"].ToString());
-					}
-					if(dt.Rows[n]["Pyear"].ToString()!="")
-					{
-						model.Pyear=int.Parse(dt.Rows[n]["Pyear"].ToString());
-					}
-					if(dt.Rows[n]["Pmonth"].ToString()!="")
-					{
-						model.Pmonth=int.Parse(dt.Rows[n]["Pmonth"].ToString());
-					}
-					if(dt.Rows[n]["Pdate"].ToString()!="")
-					{
-						model.Pdate=DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
-					}
-					if(dt.Rows[n]["Pdegree"].ToString()!="")
-					{
-						model.Pdegree=int.Parse(dt.Rows[n]["Pdegree"].ToString());
-					}
-                    if (dt.Rows[n]["Pgrade"].ToString() != "")
-                    {
-                        model.Pgrade = int.Parse(dt.Rows[n]["Pgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Pterm"].ToString() != "")
-                    {
-                        model.Pterm = int.Parse(dt.Rows[n]["Pterm"].ToString());
-                    }
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapPfingerList(dt);
 		}
 
 		/// <summary>
@@ -282,4 +238,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="student.aspx.cs" Inherits="Teacher_student" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="student.aspx.cs" Inherits="Teacher_student" ResponseEncoding="utf-8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
         .stu-page {
@@ -50,7 +50,7 @@
         .stu-list { width: 100%; }
         .stu-list-header, .stu-list-row {
             display: grid;
-            grid-template-columns: 50px 70px 70px 28px 50px 50px 80px 44px 28px 36px 60px 50px 60px 50px;
+            grid-template-columns: 50px 112px 70px 28px 50px 50px 80px 44px 28px 36px 60px 50px 60px 50px;
             align-items: center;
         }
         .stu-list-header {
@@ -73,6 +73,7 @@
             font-size: 13px; color: #334155;
             text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
+        .stu-list-cell--snum { overflow: visible; text-overflow: clip; }
 
         .stu-link { color: #4f46e5; font-weight: 700; text-decoration: none; }
         .stu-link:hover { color: #3730a3; text-decoration: underline; }
@@ -105,6 +106,27 @@
         .stu-btn--danger { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; box-shadow: none; }
         .stu-btn--danger:hover { background: #fecaca; }
         .stu-btn--blue { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; box-shadow: 0 8px 16px rgba(37,99,235,0.2); }
+
+        .stu-mini-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0 8px;
+            border-radius: 0.45rem;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .stu-mini-btn:hover {
+            background: #eef2ff;
+            border-color: #c7d2fe;
+            color: #4338ca;
+        }
 
         .stu-add-link {
             display: inline-flex; align-items: center; gap: 6px;
@@ -199,14 +221,14 @@
                         <ItemTemplate>
                             <div class="stu-list-row">
                                 <div class="stu-list-cell" style="color:#94a3b8;font-size:12px;"><asp:Label ID="LabelRowIndex" runat="server"></asp:Label></div>
-                                <div class="stu-list-cell" style="font-weight:700;color:#4f46e5;font-family:monospace;"><%# Eval("Snum") %></div>
+                                <div class="stu-list-cell stu-list-cell--snum" style="font-weight:700;color:#4f46e5;font-family:monospace;"><%# Eval("Snum") %></div>
                                 <div class="stu-list-cell" style="color:#94a3b8;">
                                     <asp:Label ID="Labelpwd" runat="server" Text="******" ToolTip='<%# Eval("Spwd") %>'></asp:Label>
                                 </div>
                                 <div class="stu-list-cell">
-                                    <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False"
+                                    <asp:Button ID="ImageButton1" runat="server" CausesValidation="False"
                                         CommandArgument='<%# Eval("Sid") %>' CommandName="ChangePwd"
-                                        ImageUrl="~/images/refresh.gif" ToolTip="自动更新密码" />
+                                        Text="重置" ToolTip="自动更新密码" CssClass="stu-mini-btn" />
                                 </div>
                                 <div class="stu-list-cell"><%# Eval("Sgrade") %></div>
                                 <div class="stu-list-cell" style="font-weight:600;"><%# Eval("Sclass") %></div>
@@ -215,9 +237,9 @@
                                 </div>
                                 <div class="stu-list-cell"><%# Eval("Sex") %></div>
                                 <div class="stu-list-cell">
-                                    <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False"
+                                    <asp:Button ID="ImageBtnGroup" runat="server" CausesValidation="False"
                                         CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup"
-                                        ImageUrl="~/images/gcard.gif" />
+                                        Text="分组" CssClass="stu-mini-btn" />
                                 </div>
                                 <div class="stu-list-cell">
                                     <asp:LinkButton ID="LinkBtnQuit" runat="server" CausesValidation="false"

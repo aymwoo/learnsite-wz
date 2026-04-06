@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="style.aspx.cs" Inherits="student_style" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="style.aspx.cs" Inherits="student_style" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -11,9 +11,55 @@
   <script src="../ai/styleml5/libraries/p5.min.js"></script>
   <script src="../ai/styleml5/libraries/p5.dom.min.js"></script>
   <script src="../ai/styleml5/libraries/ml5.min.js"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.style-toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.style-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 118px;
+			height: 40px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.style-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.style-toolbar__btn--secondary {
+			background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+			box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
+		}
+
+		.style-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+	</style>
 
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -34,11 +80,11 @@
     <div class="style-container">
 	  
       <input id="uploader" name="inputImgFile" type="file" accept="image/*">
-	  <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="uploadImg()">上传图片</button>
+	  <button class="style-toolbar__btn" onclick="uploadImg()" type="button"><i class="fa fa-upload" aria-hidden="true"></i><span>上传图片</span></button>
       <div class="hideme" onclick="useWebcam()" >使用我的网络摄像头</div>
     </div>
     <div class="hideme">
-      <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="onPredictClick()">传输我的图像</button>
+	      <button class="style-toolbar__btn style-toolbar__btn--secondary" onclick="onPredictClick()" type="button"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>传输图像</span></button>
     </div>
   </div>
 
@@ -112,10 +158,14 @@
       </div>
     </div>
     <div class="style-container">
-      <button id="savebtn" class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="onProduct()">保存图像</button>
+      <div class="style-toolbar">
+      <button id="savebtn" class="style-toolbar__btn" onclick="onProduct()" type="button"><i class="fa fa-save" aria-hidden="true"></i><span>保存图像</span></button>
+      </div>
     </div>
     <div class="style-container">
-      <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="returnurl()">返回</button>
+      <div class="style-toolbar">
+      <button class="style-toolbar__btn style-toolbar__btn--neutral" onclick="returnurl()" type="button"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+      </div>
     </div>
   </div>
 
@@ -131,7 +181,7 @@ $("#savebtn").attr('disabled', true);
 $("#savebtn").css("background-color", "gray");
 
 function returnurl() {
-    if (confirm('确定要返回吗，记得先保存。') == true) {
+    if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
         window.location.href = "<%=Fpage %>"
     }
 }

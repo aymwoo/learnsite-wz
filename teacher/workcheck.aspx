@@ -1,10 +1,11 @@
-<%@ Page Language="C#"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="workcheck.aspx.cs" Inherits="Teacher_workcheck" %>
+<%@ Page Language="C#"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="workcheck.aspx.cs" Inherits="Teacher_workcheck" ResponseEncoding="utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>作品展示</title>
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+        <meta charset="utf-8" />
+<title>作品展示</title>
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style type="text/css">
         body { background: #f1f5f9; font-family: Arial, sans-serif; }
 
@@ -229,17 +230,17 @@
                 </span>
                 <asp:Label ID="Labelmsg" runat="server" CssClass="ws-grade-dist"></asp:Label>
                 <asp:Image ID="ImageType" runat="server" style="height:20px" />
-                <asp:ImageButton ID="ImgBtnFlasherror" runat="server"
-                    ImageUrl="~/images/flasherror.png" onclick="ImgBtnFlasherror_Click"
-                    ToolTip="Office文档转换异常标志清除重新转换" style="height:18px" />
+                <asp:Button ID="ImgBtnFlasherror" runat="server"
+                    Text="清除异常" OnClick="ImgBtnFlasherror_Click"
+                    ToolTip="Office文档转换异常标志清除重新转换" CssClass="px-3 py-1 bg-rose-600 text-white rounded hover:bg-rose-700 transition shadow-sm border-0 text-sm" />
             </div>
 
             <!-- Actions -->
             <div class="ws-control-row">
                 <div class="ws-actions">
-                    <asp:ImageButton ID="BtnCheck" runat="server" onclick="BtnCheck_Click"
-                        ImageUrl="~/images/check.png" ToolTip="将本班自动得分作品全部设置为已评"
-                        style="width:18px; cursor:pointer" />
+                    <asp:Button ID="BtnCheck" runat="server" Text="批量设为已评" OnClick="BtnCheck_Click"
+                        ToolTip="将本班自动得分作品全部设置为已评"
+                        CssClass="px-3 py-1 bg-amber-500 text-white rounded hover:bg-amber-600 transition shadow-sm border-0 text-sm" />
                     <asp:Button ID="BtnA" runat="server" Text="一键评A" SkinID="BtnSmall"
                         onclick="BtnA_Click" ToolTip="将本班该活动未评的作品，全部评为A"
                         CssClass="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition shadow-sm border-0 text-sm" />
@@ -389,9 +390,9 @@
 
         <!-- Refresh -->
         <div class="ws-refresh-note">
-            <asp:ImageButton ID="Btnreflash" runat="server"
-                ImageUrl="~/images/refresh.gif" onclick="Btnreflash_Click"
-                style="opacity:0.5;width:16px;cursor:pointer" />
+            <asp:Button ID="Btnreflash" runat="server" Text="立即刷新"
+                OnClick="Btnreflash_Click"
+                CssClass="px-3 py-1 bg-slate-600 text-white rounded hover:bg-slate-700 transition shadow-sm border-0 text-sm" />
             每30秒自动刷新
         </div>
     </div>

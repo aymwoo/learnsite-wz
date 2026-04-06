@@ -172,21 +172,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.TxtFormBack> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.TxtFormBack> modelList = new List<LearnSite.Model.TxtFormBack>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.TxtFormBack model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTxtFormBackList(dt);
 		}
 
 		/// <summary>
@@ -314,6 +300,7 @@ namespace LearnSite.BLL
                             kmodel.Klid = Int32.Parse(Lid);
                             kmodel.Ksid = Wsid;
                             kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+                            kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
                             kmodel.Kcheck = false;
                             BLL.MenuWorks kbll = new MenuWorks();
                             kbll.Add(kmodel);
@@ -337,4 +324,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

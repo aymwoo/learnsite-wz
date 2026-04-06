@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webstoresql.aspx.cs" Inherits="student_webstoresql" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webstoresql.aspx.cs" Inherits="student_webstoresql" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,22 +8,39 @@
     <link href="../js/webstore.css" rel="stylesheet" type="text/css" />
     <!-- 引入KindEditor富文本编辑器 -->
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
-	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+    <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.store-toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; }
+		.store-toolbar__brand { display:inline-flex; align-items:center; gap:10px; font-weight:800; font-size:1.05rem; color:#0f172a; }
+		.store-toolbar__actions { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:10px; }
+		.store-toolbar__btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:110px; height:40px; padding:0 16px; border:0; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+		.store-toolbar__btn:hover { transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); }
+		.store-toolbar__btn--neutral { background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
+		.store-subbtn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:96px; height:36px; padding:0 14px; border:0; border-radius:10px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:13px; font-weight:700; white-space:nowrap; box-shadow:0 12px 24px -18px rgba(37,99,235,.75); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+		.store-subbtn:hover { transform:translateY(-1px); box-shadow:0 16px 26px -18px rgba(37,99,235,.86); filter:brightness(1.03); }
+		.store-subbtn--neutral { background:linear-gradient(135deg,#64748b 0%,#475569 100%); box-shadow:0 12px 24px -18px rgba(71,85,105,.72); }
+		.store-subbtn--danger { background:linear-gradient(135deg,#ef4444 0%,#dc2626 100%); box-shadow:0 12px 24px -18px rgba(220,38,38,.78); }
+		.store-subbtn--success { background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 12px 24px -18px rgba(15,118,110,.78); }
+	</style>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- 移除了表单标签，避免按钮点击导致表单提交 -->
     <div id="workHistory"  class="container">
         <div class="header">           
-            <div class="button-container">                
-                <sp class="banner">
-                    🌏 信息科技素材库
+            <div class="button-container store-toolbar">                
+                <sp class="banner store-toolbar__brand">
+                    <span>🌏</span>
+                    <span>信息科技素材库</span>
                 </sp> 
-                <button class="btn return-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  onclick="returnurl();" >返回</button>
-                <button class="btn save-button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="savework();" >保存</button>
+                <div class="store-toolbar__actions">
+                    <button class="btn return-button store-toolbar__btn store-toolbar__btn--neutral" type="button" onclick="returnurl();"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+                    <button class="btn save-button store-toolbar__btn" type="button" onclick="savework();"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+                </div>
             </div>
         </div>
         <hr class ="hrclass"/>
@@ -33,7 +50,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <h3 class="root-title" onclick="goToRoot()">
                     💼 <asp:Label ID="Labelname" runat="server" ></asp:Label>云盘</h3>
-                    <button type="button" class="btn btn-success px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="showCreateFolderModal()">新建文件夹</button>
+	                    <button type="button" class="btn btn-success store-subbtn store-subbtn--success" onclick="showCreateFolderModal()">新建文件夹</button>
                 </div>
                 <div class="folder-tree" id="folderTree">
                     <div class="empty-state">
@@ -45,7 +62,7 @@
                     <i class="file-icon" style="font-size: 48px; color: #007bff;">📄</i>
                     <h3>拖放文件到此处上传</h3>
                     <input type="file" id="fileInput" multiple style="display: none;">                    
-                    <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="document.getElementById('fileInput').click()">选择文件</button>
+	                    <button type="button" class="btn btn-primary store-subbtn" onclick="document.getElementById('fileInput').click()">选择文件</button>
                     <p style="font-size: 13px; ">支持图片、文档、音频、视频文件</p>                        <!-- 新增：上传进度条 -->
                     <div id="uploadProgressContainer" style="display: none; width: 100%; margin-top: 15px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
@@ -75,7 +92,7 @@
                         </div>
                     <h3 id="currentFolderTitle" contenteditable="false" ondblclick="editFolder(this)" onblur="renameFolderOnBlur(this)" ></h3>
                     <div>
-                        <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="showCreateDocModal()">新建文档</button>
+	                        <button type="button" class="btn btn-primary store-subbtn" onclick="showCreateDocModal()">新建文档</button>
                     </div>
                 </div>
                 
@@ -95,14 +112,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>新建文件夹</h3>
-                <button type="button" class="modal-close px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateFolderModal()">&times;</button>
+	                <button type="button" class="modal-close store-subbtn store-subbtn--neutral" onclick="closeCreateFolderModal()">&times;</button>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" id="newFolderName" placeholder="请输入文件夹名称">
             </div>
             <div style="text-align: right;">
-                <button type="button" class="btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateFolderModal()" style="margin-right: 10px;">取消</button>
-                <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="createFolder()">创建</button>
+	                <button type="button" class="btn store-subbtn store-subbtn--neutral" onclick="closeCreateFolderModal()" style="margin-right: 10px;">取消</button>
+	                <button type="button" class="btn btn-primary store-subbtn store-subbtn--success" onclick="createFolder()">创建</button>
             </div>
         </div>
     </div>
@@ -112,7 +129,7 @@
         <div class="modal-content" style="width: 90%; max-width: 1000px; max-height: 90vh; overflow-y: auto;">
             <div class="modal-header">
                 <h3>新建文档</h3>
-                <button type="button" class="modal-close px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateDocModal()">&times;</button>
+	                <button type="button" class="modal-close store-subbtn store-subbtn--neutral" onclick="closeCreateDocModal()">&times;</button>
             </div>
             <div class="form-group">
                 <label for="docTitle">文档标题</label>
@@ -122,8 +139,8 @@
                 <textarea class="form-control" id="docContent" rows="15" placeholder="请输入文档内容..." style="resize: vertical; width: 100%; height: 400px;"></textarea>
             </div>
             <div style="text-align: right;">
-                <button type="button" class="btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="closeCreateDocModal()" style="margin-right: 10px;">取消</button>
-                <button type="button" class="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="saveDocument()">保存文档</button>
+	                <button type="button" class="btn store-subbtn store-subbtn--neutral" onclick="closeCreateDocModal()" style="margin-right: 10px;">取消</button>
+	                <button type="button" class="btn btn-primary store-subbtn store-subbtn--success" onclick="saveDocument()">保存文档</button>
             </div>
         </div>
     </div>
@@ -198,7 +215,8 @@ function showImagePreview(event, fileUrl, fileName) {
     // 创建关闭按钮
     var closeBtn = document.createElement('button');
     closeBtn.innerHTML = '×';
-    closeBtn.className = 'image-preview-close';
+    closeBtn.className = 'image-preview-close store-subbtn store-subbtn--neutral';
+    closeBtn.type = 'button';
     closeBtn.onclick = hideImagePreview;
     
     // 创建图片名称显示
@@ -312,17 +330,17 @@ document.addEventListener('keydown', function(e) {
         }
 
         function returnurl() {
-            if (confirm('是否要离开此页面？') == true) {
+            if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
                 window.location.href = "<%=Fpage %>"
             }
         }
         // 页面加载完成后初始化
-        window.onload = function() {
+        window.addEventListener('load', function() {
             loadFolderTree();
             loadFiles(currentFolderPath);
             setupDragAndDrop();
             document.getElementById('fileInput').onchange = handleFileSelect;
-        };
+        });
         
         // 初始化KindEditor富文本编辑器
         function initKindEditor() {
@@ -513,8 +531,8 @@ document.addEventListener('keydown', function(e) {
                                 </div>
                             </div>
                             <div class="file-actions">
-                                ${isHtml ? `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="viewDocument('${fileUrl}', event)">查看</button>` : `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" title="复制链接" onclick="copyFileLink('${filecopy}', event)">复制</button>`}
-                                <button type="button" class="btn-danger px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteFile('${filedel}')" title="删除">✖</button>
+	                                ${isHtml ? `<button type="button" class="btn-info store-subbtn" onclick="viewDocument('${fileUrl}', event)">查看</button>` : `<button type="button" class="btn-info store-subbtn" title="复制链接" onclick="copyFileLink('${filecopy}', event)">复制</button>`}
+	                                <button type="button" class="btn-danger store-subbtn store-subbtn--danger" onclick="deleteFile('${filedel}')" title="删除">删除</button>
                             </div>
                         </div>`;
                     } else {
@@ -531,8 +549,8 @@ document.addEventListener('keydown', function(e) {
                                 </div>
                             </div>
                             <div class="file-actions">
-                                ${isHtml ? `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="viewDocument('${fileUrl}', event)">查看</button>` : `<button type="button" class="btn-info px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" title="复制链接"  onclick="copyFileLink('${filecopy}', event)">复制</button>`}
-                                <button type="button" class="btn-danger px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteFile('${filedel}')" title="删除">✖</button>
+	                                ${isHtml ? `<button type="button" class="btn-info store-subbtn" onclick="viewDocument('${fileUrl}', event)">查看</button>` : `<button type="button" class="btn-info store-subbtn" title="复制链接"  onclick="copyFileLink('${filecopy}', event)">复制</button>`}
+	                                <button type="button" class="btn-danger store-subbtn store-subbtn--danger" onclick="deleteFile('${filedel}')" title="删除">删除</button>
                             </div>
                         </div>`;
                     }

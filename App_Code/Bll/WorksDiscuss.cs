@@ -113,33 +113,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.WorksDiscuss> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.WorksDiscuss> modelList = new List<LearnSite.Model.WorksDiscuss>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.WorksDiscuss model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.WorksDiscuss();
-					if(dt.Rows[n]["Did"].ToString()!="")
-					{
-						model.Did=int.Parse(dt.Rows[n]["Did"].ToString());
-					}
-					if(dt.Rows[n]["Dwid"].ToString()!="")
-					{
-						model.Dwid=int.Parse(dt.Rows[n]["Dwid"].ToString());
-					}
-					model.Dsnum=dt.Rows[n]["Dsnum"].ToString();
-					model.Dwords=dt.Rows[n]["Dwords"].ToString();
-					if(dt.Rows[n]["Dtime"].ToString()!="")
-					{
-						model.Dtime=DateTime.Parse(dt.Rows[n]["Dtime"].ToString());
-					}
-					model.Dip=dt.Rows[n]["Dip"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapWorksDiscussList(dt);
 		}
 
 		/// <summary>
@@ -170,4 +144,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

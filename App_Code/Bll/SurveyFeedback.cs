@@ -206,66 +206,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.SurveyFeedback> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.SurveyFeedback> modelList = new List<LearnSite.Model.SurveyFeedback>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.SurveyFeedback model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.SurveyFeedback();
-					if(dt.Rows[n]["Fid"]!=null && dt.Rows[n]["Fid"].ToString()!="")
-					{
-						model.Fid=int.Parse(dt.Rows[n]["Fid"].ToString());
-					}
-					if(dt.Rows[n]["Fnum"]!=null && dt.Rows[n]["Fnum"].ToString()!="")
-					{
-					model.Fnum=dt.Rows[n]["Fnum"].ToString();
-					}
-					if(dt.Rows[n]["Fyear"]!=null && dt.Rows[n]["Fyear"].ToString()!="")
-					{
-						model.Fyear=int.Parse(dt.Rows[n]["Fyear"].ToString());
-					}
-					if(dt.Rows[n]["Fgrade"]!=null && dt.Rows[n]["Fgrade"].ToString()!="")
-					{
-						model.Fgrade=int.Parse(dt.Rows[n]["Fgrade"].ToString());
-					}
-					if(dt.Rows[n]["Fclass"]!=null && dt.Rows[n]["Fclass"].ToString()!="")
-					{
-						model.Fclass=int.Parse(dt.Rows[n]["Fclass"].ToString());
-					}
-					if(dt.Rows[n]["Fterm"]!=null && dt.Rows[n]["Fterm"].ToString()!="")
-					{
-						model.Fterm=int.Parse(dt.Rows[n]["Fterm"].ToString());
-					}
-					if(dt.Rows[n]["Fcid"]!=null && dt.Rows[n]["Fcid"].ToString()!="")
-					{
-						model.Fcid=int.Parse(dt.Rows[n]["Fcid"].ToString());
-					}
-					if(dt.Rows[n]["Fvid"]!=null && dt.Rows[n]["Fvid"].ToString()!="")
-					{
-                        model.Fvid = int.Parse(dt.Rows[n]["Fvid"].ToString());
-					}
-					if(dt.Rows[n]["Fvtype"]!=null && dt.Rows[n]["Fvtype"].ToString()!="")
-					{
-						model.Fvtype=int.Parse(dt.Rows[n]["Fvtype"].ToString());
-					}
-					if(dt.Rows[n]["Fselect"]!=null && dt.Rows[n]["Fselect"].ToString()!="")
-					{
-					model.Fselect=dt.Rows[n]["Fselect"].ToString();
-					}
-					if(dt.Rows[n]["Fscore"]!=null && dt.Rows[n]["Fscore"].ToString()!="")
-					{
-						model.Fscore=int.Parse(dt.Rows[n]["Fscore"].ToString());
-					}
-					if(dt.Rows[n]["Fdate"]!=null && dt.Rows[n]["Fdate"].ToString()!="")
-					{
-						model.Fdate=DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSurveyFeedbackList(dt);
 		}
 
 		/// <summary>
@@ -359,4 +300,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

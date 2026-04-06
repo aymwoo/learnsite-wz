@@ -1,12 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="turtleidle.aspx.cs" Inherits="Student_turtleidle" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="turtleidle.aspx.cs" Inherits="Student_turtleidle" ResponseEncoding="utf-8" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head id="Head1" runat="server">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python绘图编程</title>
-
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -17,6 +16,7 @@
 <script src="../code/build/src/ace.js" type="text/javascript"></script>
 <script src="../code/build/src/ext-language_tools.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="../code/idleturtle.css"/>
+<link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
 <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
 <link href="../kindeditor/plugins/code/prettify.css?ver=621" rel="stylesheet" type="text/css" />
 
@@ -45,22 +45,21 @@
 <div id="codexample">
 	<div id="codeplace"></div>
 	<div id="codebutton">
-	<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  id="next">下一页</button>
+	<button type="button" class="btncode idle-subbtn" id="prev">上一页</button><button type="button" class="btncode idle-subbtn" id="next">下一页</button>
 	</div>
 </div>
 
 <form id="form1" runat="server"> 
-
-<span id="btnclear"  onclick="clearcv()" >
-<i class="fa fa-eraser" aria-hidden="true"></i> 整理</span>
-
-<span id="btnrun"  onclick="run()" >
-<i class="fa fa-play-circle" aria-hidden="true"></i> 运行</span>
-
-<span id="btnsave"  onclick="savecode()"  >
-<i class="fa fa-save" aria-hidden="true"></i> 保存</span>  
-<span id="btnreturn" onclick="returnurl()" >
-<i class="fa fa-reply" aria-hidden="true"></i> 返回</span>
+<div class="idle-toolbar">
+<button type="button" id="btnclear" class="idle-toolbar__btn idle-toolbar__btn--neutral" onclick="clearcv()">
+<i class="fa fa-eraser" aria-hidden="true"></i><span>整理画布</span></button>
+<button type="button" id="btnrun" class="idle-toolbar__btn" onclick="run()">
+<i class="fa fa-play-circle" aria-hidden="true"></i><span>运行代码</span></button>
+<button type="button" id="btnsave" class="idle-toolbar__btn idle-toolbar__btn--secondary" onclick="savecode()">
+<i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+<button type="button" id="btnreturn" class="idle-toolbar__btn idle-toolbar__btn--neutral" onclick="returnurl()">
+<i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+</div>
 </form>
 
 <div id="savemsg"></div>
@@ -98,9 +97,9 @@
 	else{		 
 		ide.inCell.setValue(codefile,1);
         getsession();
-	}
+    }
     function returnurl() {
-      if(confirm('确定要返回吗？记得先保存。')==true){
+      if(confirm('是否离开当前活动页面？请先保存作品。')==true){
           window.location.href=fpage;
         }
     }

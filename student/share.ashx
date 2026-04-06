@@ -7,6 +7,9 @@ public class share : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
 
+        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
         string result = "";
         if (context.Request.QueryString["isweb"] != null)
         {

@@ -8,7 +8,9 @@ using System.IO;
 public class uploadmedia : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-        context.Response.ContentType = "text/plain";
+        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
+        context.Response.Charset = "utf-8";
+        context.Response.ContentType = "text/plain; charset=utf-8";
         LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
         Message result = new Message();
         result.url="";

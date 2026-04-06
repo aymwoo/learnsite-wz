@@ -220,42 +220,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.SurveyItem> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.SurveyItem> modelList = new List<LearnSite.Model.SurveyItem>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.SurveyItem model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.SurveyItem();
-					if(dt.Rows[n]["Mid"]!=null && dt.Rows[n]["Mid"].ToString()!="")
-					{
-						model.Mid=int.Parse(dt.Rows[n]["Mid"].ToString());
-					}
-					if(dt.Rows[n]["Mqid"]!=null && dt.Rows[n]["Mqid"].ToString()!="")
-					{
-						model.Mqid=int.Parse(dt.Rows[n]["Mqid"].ToString());
-					}
-					if(dt.Rows[n]["Mvid"]!=null && dt.Rows[n]["Mvid"].ToString()!="")
-					{
-						model.Mvid=int.Parse(dt.Rows[n]["Mvid"].ToString());
-					}
-					if(dt.Rows[n]["Mitem"]!=null && dt.Rows[n]["Mitem"].ToString()!="")
-					{
-					model.Mitem=dt.Rows[n]["Mitem"].ToString();
-					}
-					if(dt.Rows[n]["Mscore"]!=null && dt.Rows[n]["Mscore"].ToString()!="")
-					{
-						model.Mscore=int.Parse(dt.Rows[n]["Mscore"].ToString());
-					}
-					if(dt.Rows[n]["Mcount"]!=null && dt.Rows[n]["Mcount"].ToString()!="")
-					{
-						model.Mcount=int.Parse(dt.Rows[n]["Mcount"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSurveyItemList(dt);
 		}
 
 		/// <summary>
@@ -329,4 +294,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

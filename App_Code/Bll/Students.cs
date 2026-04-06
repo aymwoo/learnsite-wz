@@ -291,95 +291,8 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Students> DataTableToList(DataTable dt)
 		{
-            List<LearnSite.Model.Students> modelList = new List<LearnSite.Model.Students>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Students model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Students();
-                    if (dt.Rows[n]["Sid"].ToString() != "")
-                    {
-                        model.Sid = int.Parse(dt.Rows[n]["Sid"].ToString());
-                    }
-                    model.Snum = dt.Rows[n]["Snum"].ToString();
-                    if (dt.Rows[n]["Syear"].ToString() != "")
-                    {
-                        model.Syear = int.Parse(dt.Rows[n]["Syear"].ToString());
-                    }
-                    if (dt.Rows[n]["Sgrade"].ToString() != "")
-                    {
-                        model.Sgrade = int.Parse(dt.Rows[n]["Sgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Sclass"].ToString() != "")
-                    {
-                        model.Sclass = int.Parse(dt.Rows[n]["Sclass"].ToString());
-                    }
-                    model.Sname = dt.Rows[n]["Sname"].ToString();
-                    model.Spwd = dt.Rows[n]["Spwd"].ToString();
-                    model.Sex = dt.Rows[n]["Sex"].ToString();
-                    model.Saddress = dt.Rows[n]["Saddress"].ToString();
-                    model.Sphone = dt.Rows[n]["Sphone"].ToString();
-                    model.Sparents = dt.Rows[n]["Sparents"].ToString();
-                    model.Sheadtheacher = dt.Rows[n]["Sheadtheacher"].ToString();
-                    if (dt.Rows[n]["Sscore"].ToString() != "")
-                    {
-                        model.Sscore = int.Parse(dt.Rows[n]["Sscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Squiz"].ToString() != "")
-                    {
-                        model.Squiz = int.Parse(dt.Rows[n]["Squiz"].ToString());
-                    }
-                    if (dt.Rows[n]["Sattitude"].ToString() != "")
-                    {
-                        model.Sattitude = int.Parse(dt.Rows[n]["Sattitude"].ToString());
-                    }
-                    model.Sape = dt.Rows[n]["Sape"].ToString();
-                    if (dt.Rows[n]["Swscore"].ToString() != "")
-                    {
-                        model.Swscore = int.Parse(dt.Rows[n]["Swscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Stscore"].ToString() != "")
-                    {
-                        model.Stscore = int.Parse(dt.Rows[n]["Stscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Sallscore"].ToString() != "")
-                    {
-                        model.Sallscore = int.Parse(dt.Rows[n]["Sallscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Spscore"].ToString() != "")
-                    {
-                        model.Spscore = int.Parse(dt.Rows[n]["Spscore"].ToString());
-                    }
-                    if (dt.Rows[n]["Sgroup"].ToString() != "")
-                    {
-                        model.Sgroup = int.Parse(dt.Rows[n]["Sgroup"].ToString());
-                    }
-                    if (dt.Rows[n]["Sleader"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Sleader"].ToString() == "1") || (dt.Rows[n]["Sleader"].ToString().ToLower() == "true"))
-                        {
-                            model.Sleader = true;
-                        }
-                        else
-                        {
-                            model.Sleader = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Svote"].ToString() != "")
-                    {
-                        model.Svote = int.Parse(dt.Rows[n]["Svote"].ToString());
-                    }
-                    if (dt.Rows[n]["Sgscore"].ToString() != "")
-                    {
-                        model.Sgscore = int.Parse(dt.Rows[n]["Sgscore"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
-        }
+            return BllDataTableMappers.MapStudentsList(dt);
+		}
 
 		/// <summary>
 		/// 获得数据列表
@@ -1212,4 +1125,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

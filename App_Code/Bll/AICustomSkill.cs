@@ -50,19 +50,17 @@ namespace LearnSite.BLL
 
         public List<LearnSite.Model.AICustomSkill> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.AICustomSkill> modelList = new List<LearnSite.Model.AICustomSkill>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.AICustomSkill model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = dal.DataRowToModel(dt.Rows[n]);
-                    if (model != null)
-                        modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapAICustomSkillList(dt);
+        }
+
+        public void EnsureDefaultGaugeSkill()
+        {
+            AIGaugeGenerator.EnsureDefaultGaugeSkill();
+        }
+
+        public void EnsureDefaultStudentExamSkill()
+        {
+            AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
         }
 
         #endregion  Method

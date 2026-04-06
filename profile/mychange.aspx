@@ -9,11 +9,10 @@
 .pf-stu-card{border:1px solid #e2e8f0;border-radius:.875rem;background:linear-gradient(180deg,#fff 0%,#f8fafc 100%);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;width:108px;box-shadow:0 4px 12px rgba(15,23,42,.04);transition:box-shadow .2s,transform .2s,border-color .2s;cursor:pointer}
 .pf-stu-card:hover{box-shadow:0 10px 28px rgba(15,23,42,.1);transform:translateY(-3px);border-color:#c7d2fe}
 .pf-stu-card__name{font-size:13px;font-weight:700;color:#1e293b;text-align:center;line-height:1.3;min-height:34px;display:flex;align-items:center;justify-content:center}
-.pf-stu-card__img{width:44px;height:44px;border-radius:.625rem;object-fit:cover;border:2px solid #e2e8f0}
+.pf-stu-card__img{width:44px;height:44px;border-radius:.625rem;object-fit:cover;border:2px solid #e2e8f0;background:#f1f5f9}
 .pf-stu-card__votes{font-size:11px;font-weight:700;color:#64748b;background:#f1f5f9;border-radius:99px;padding:2px 8px}
-.pf-stu-card__vote-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:.5rem;background:#eff6ff;border:1px solid #bfdbfe;cursor:pointer;transition:background .2s,transform .2s}
-.pf-stu-card__vote-btn:hover{background:#dbeafe;transform:scale(1.15)}
-.pf-stu-card__vote-btn img{width:20px;height:20px;object-fit:contain}
+.pf-stu-card__vote-btn{display:inline-flex;align-items:center;justify-content:center;gap:4px;height:30px;padding:0 12px;border-radius:99px;background:#eff6ff;border:1px solid #bfdbfe;cursor:pointer;font-size:11px;font-weight:700;color:#2563eb;transition:background .2s,transform .2s}
+.pf-stu-card__vote-btn:hover{background:#dbeafe;transform:scale(1.08)}
 </style>
 <div class="pf-start">
   <h2 class="pf-title">
@@ -34,12 +33,12 @@
         </div>
         <asp:ImageButton ID="ImageBtnGroup" runat="server" CausesValidation="False"
             CommandArgument='<%# Eval("Sid") %>' CommandName="ChangeGroup"
-            ImageUrl="~/images/gcard.gif" CssClass="pf-stu-card__img" />
+            ImageUrl="~/images/gcard.gif" CssClass="pf-stu-card__img" style="border-radius:.625rem" />
         <span class="pf-stu-card__votes"><asp:Label ID="Labelvote" runat="server" Text='<%# Eval("Steam") %>' ToolTip="组长票数"></asp:Label> 票</span>
         <asp:ImageButton ID="LinkBtnVote" runat="server"
             CommandArgument='<%# Eval("Sid") %>' CommandName="Vote"
             ToolTip="点击推荐组长" ImageUrl="~/images/good.png"
-            CausesValidation="False" CssClass="pf-stu-card__vote-btn" />
+            CausesValidation="False" CssClass="pf-stu-card__vote-btn" style="width:auto;padding:0 10px;" />
       </div>
     </ItemTemplate>
   </asp:DataList>

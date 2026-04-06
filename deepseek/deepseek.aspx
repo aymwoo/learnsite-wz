@@ -18,8 +18,52 @@
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 	
+	<style type="text/css">
+		.ai-toolbar {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+		}
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+		.ai-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 112px;
+			height: 40px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.ai-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.ai-toolbar__btn--secondary {
+			background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+			box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
+		}
+
+		.ai-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+	</style>
+
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container" id="maincontainer">		
@@ -43,9 +87,11 @@
 			<!-- 输入框区域 -->
 			<div class="input-container">
 				<textarea id="userInput" placeholder="输入你的问题..." rows="2" maxlength="500"></textarea>
-				<button id="btnmsg" onclick="sendMessage()" title="人工智能聊天" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">对话</button>
-				<button id="btntran" onclick="sendChinese()" title="中文翻译为英文" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">翻译</button>
-				<button id="btnphoto"  style="display: none;" onclick="sendPhoto()" title="文本生成图片" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">图片</button>
+				<div class="ai-toolbar">
+				<button id="btnmsg" onclick="sendMessage()" title="人工智能聊天" class="ai-toolbar__btn" type="button"><i class="fa fa-comments" aria-hidden="true"></i><span>智能对话</span></button>
+				<button id="btntran" onclick="sendChinese()" title="中文翻译为英文" class="ai-toolbar__btn ai-toolbar__btn--secondary" type="button"><i class="fa fa-language" aria-hidden="true"></i><span>翻译润色</span></button>
+				<button id="btnphoto" style="display: none;" onclick="sendPhoto()" title="文本生成图片" class="ai-toolbar__btn" type="button"><i class="fa fa-image" aria-hidden="true"></i><span>生成图片</span></button>
+				</div>
 			</div>
         </div>	
 		
@@ -58,11 +104,12 @@
 			<div id ="chatbar">			
 			</div>			
             <div id="footbar">
-				<button  type = "button" onclick="savechat()" class="buttonsave px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="保存到服务器上" >
-				<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
-				<span class="sp"></span>
-				<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" title="返回到学案页面">
-				<i class="fa fa-reply" aria-hidden="true"></i> 返回</button>            
+				<div class="ai-toolbar">
+				<button type="button" onclick="savechat()" class="ai-toolbar__btn ai-toolbar__btn--secondary" title="保存作品到服务器" >
+				<i class="fa fa-save" aria-hidden="true"></i> 保存作品</button>
+				<button onclick="returnurl()" class="ai-toolbar__btn ai-toolbar__btn--neutral" title="返回到学案页面" type="button">
+				<i class="fa fa-reply" aria-hidden="true"></i> 返回学案</button>            
+				</div>
             </div>
         </div>
 
@@ -469,7 +516,7 @@ function updateMessage(id, role, content) {
 		var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
 		var id = "<%=Id %>";
         function returnurl() {
-            if (confirm('是否要离开此页面？') == true) {
+            if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
                 window.location.href = "<%=Fpage %>"
             }
         }

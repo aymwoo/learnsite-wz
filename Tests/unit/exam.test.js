@@ -15,6 +15,8 @@ import {
   scoreShortAnswer,
   calculateEarnedScore,
   createQuestionData,
+  parseExamAiSseData,
+  buildExamSseUrl,
 } from './exam-functions.js';
 
 // ============================================================
@@ -539,5 +541,85 @@ describe('边界情况', () => {
   it('checkAnswer - 填空题非数组答案返回 false', () => {
     const q = { type: 'fill_blank', blanks: [{ answer: 'test' }] };
     expect(checkAnswer(q, 'test')).toBe(false);
+  });
+});
+
+// ============================================================
+// parseExamAiSseData - SSE 数据解析
+// ============================================================
+describe('parseExamAiSseData - SSE JSON 数据解析', () => {
+  it('解析有效 JSON 字符串', () => {
+    const result = parseExamAiSseData('{"message":"处理中","progress":50}');
+    expect(result).toEqual({ message: '处理中', progress: 50 });
+  });
+
+  it('解析 done 事件数据（含 summary）', () => {
+    const data = JSON.stringify({
+      message: '提交成功',
+      summary: '本次测验完成较好，基础知识掌握比较扎实。'
+    });
+    const result = parseExamAiSseData(data);
+    expect(result.message).toBe('提交成功');
+    expect(result.summary).toContain('完成较好');
+  });
+
+  it('无效 JSON 返回 null', () => {
+    expect(parseExamAiSseData('not json')).toBeNull();
+    expect(parseExamAiSseData('{broken')).toBeNull();
+    expect(parseExamAiSseData('')).toBeNull();
+  });
+
+  it('嵌套对象正确解析', () => {
+    const data = JSON.stringify({
+      message: 'ok',
+      detail: { analysis: '掌握扎实', suggestions: ['复习', '练习'] }
+    });
+    const result = parseExamAiSseData(data);
+    expect(result.detail.analysis).toBe('掌握扎实');
+    expect(result.detail.suggestions).toHaveLength(2);
+  });
+});
+
+// ============================================================
+// buildExamSseUrl - SSE 提交 URL 构建
+// ============================================================
+describe('buildExamSseUrl - SSE 提交 URL 构建', () => {
+  it('正确拼接所有参数', () => {
+    const url = buildExamSseUrl('uploadanswer.ashx', {
+      lid: '101', cid: '5', eid: '20',
+      score: 85, spend: 12, qcount: 10,
+      adata: '{"answers":[]}'
+    });
+    expect(url).toContain('uploadanswer.ashx?');
+    expect(url).toContain('lid=101');
+    expect(url).toContain('cid=5');
+    expect(url).toContain('eid=20');
+    expect(url).toContain('score=85');
+    expect(url).toContain('spend=12');
+    expect(url).toContain('qcount=10');
+    expect(url).toContain('adata=');
+  });
+
+  it('特殊字符被 URL 编码', () => {
+    const url = buildExamSseUrl('uploadanswer.ashx', {
+      lid: '1', cid: '2', eid: '3',
+      score: 0, spend: 0, qcount: 0,
+      adata: '{"key":"值 & 特殊"}'
+    });
+    // 中文和特殊字符应被编码
+    expect(url).not.toContain(' & ');
+    expect(url).toContain('adata=');
+    // 验证 URL 解码后能还原
+    const adataParam = url.split('adata=')[1];
+    expect(decodeURIComponent(adataParam)).toBe('{"key":"值 & 特殊"}');
+  });
+
+  it('空 adata 不会导致错误', () => {
+    const url = buildExamSseUrl('uploadanswer.ashx', {
+      lid: '1', cid: '2', eid: '3',
+      score: 0, spend: 0, qcount: 0,
+      adata: ''
+    });
+    expect(url).toContain('adata=');
   });
 });

@@ -1,4 +1,7 @@
 const examScore = document.getElementById('examScore');//分值标签
+const examSideAiToggle = document.getElementById('examSideAiToggle');
+const examSideAiStatus = document.getElementById('examSideAiStatus');
+const examSideAiSetting = document.getElementById('examSideAiSetting');
 // 试卷数据结构
 const mycid = document.getElementById('HiddenCid').value;
 const myeid = document.getElementById('HiddenEid').value;
@@ -14,6 +17,7 @@ let examData = {
     timestamp:null,
     title: "",
     description: "",
+    enableAiAssessment: false,
     questions: []
 };
 
@@ -43,6 +47,19 @@ function updateScore(){
     examScore.innerText = total_score+" 分";
 }
 
+function syncExamAiSetting() {
+    const enabled = !!examData.enableAiAssessment;
+    if (examSideAiToggle) {
+        examSideAiToggle.checked = enabled;
+    }
+    if (examSideAiStatus) {
+        examSideAiStatus.innerText = enabled ? '当前试卷已启用' : '当前试卷未启用';
+    }
+    if (examSideAiSetting) {
+        examSideAiSetting.classList.toggle('is-enabled', enabled);
+    }
+}
+
 // 初始化函数
 function init() {
     setupEventListeners();
@@ -63,6 +80,9 @@ function init() {
 function readExamData() {               
     if (myjson) {
         examData = JSON.parse(myjson);
+        if (typeof examData.enableAiAssessment !== 'boolean') {
+            examData.enableAiAssessment = false;
+        }
         console.log("读取数据库",examData);
         saveExamData();
         // 数据加载完成后重新渲染页面
@@ -73,7 +93,10 @@ function readExamData() {
 function loadExamData() {
     const savedData = localStorage.getItem(localStorageFlag);
     if (savedData) {
-        examData = JSON.parse(savedData); 
+        examData = JSON.parse(savedData);
+        if (typeof examData.enableAiAssessment !== 'boolean') {
+            examData.enableAiAssessment = false;
+        }
     }
 }
 
@@ -136,6 +159,12 @@ function updateExamTitle(newTitle) {
 // 更新试卷描述
 function updateExamDescription(newDescription) {
     examData.description = newDescription;
+    saveExamData();
+}
+
+function updateExamAiAssessment(enabled) {
+    examData.enableAiAssessment = !!enabled;
+    syncExamAiSetting();
     saveExamData();
 }
 
@@ -285,6 +314,7 @@ function generateQuickAddSection() {
 function renderQuestions() {
     console.log("开始渲染所有题目");
     const editArea = document.getElementById('editArea');
+    syncExamAiSetting();
     
     // 先渲染试卷信息区域
     const examInfoHTML = `
