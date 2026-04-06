@@ -4,7 +4,7 @@
 <head id="Head1" runat="server">
     <title>新学员注册</title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;

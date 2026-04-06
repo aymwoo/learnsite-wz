@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python绘图编程</title>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />

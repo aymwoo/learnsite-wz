@@ -98,7 +98,7 @@
     <link rel="manifest" href="../Plugins/excalidraw/manifest.webmanifest">
     <script src="../code/jquery.min.js"></script>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 <body>
     <div>

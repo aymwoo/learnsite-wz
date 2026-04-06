@@ -15,6 +15,7 @@
     </PackageReference>
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
   </ItemGroup>
@@ -29,6 +30,7 @@
     <Compile Include="..\..\App_Code\Common\XmlHelpCore.cs" Link="XmlHelpCore.cs" />
     <Compile Include="..\..\App_Code\Common\FileNameInfo.cs" Link="FileNameInfo.cs" />
     <Compile Include="..\..\App_Code\Common\EncodingType.cs" Link="EncodingType.cs" />
+    <Compile Include="..\..\App_Code\Common\AIGaugeSkillHelper.cs" Link="AIGaugeSkillHelper.cs" />
     <Compile Include="..\..\App_Code\Model\Typer.cs" Link="Model.Typer.cs" />
     <Compile Include="..\..\App_Code\Model\QuizGrade.cs" Link="Model.QuizGrade.cs" />
     <Compile Include="..\..\App_Code\Model\TermTotal.cs" Link="Model.TermTotal.cs" />
@@ -63,6 +65,32 @@
     <Compile Include="..\..\App_Code\Model\TurtleAnswer.cs" Link="Model.TurtleAnswer.cs" />
     <Compile Include="..\..\App_Code\Model\TurtleQuestion.cs" Link="Model.TurtleQuestion.cs" />
     <Compile Include="..\..\App_Code\Model\Turtle.cs" Link="Model.Turtle.cs" />
+    <Compile Include="..\..\App_Code\Model\Answers.cs" Link="Model.Answers.cs" />
+    <Compile Include="..\..\App_Code\Model\Game.cs" Link="Model.Game.cs" />
+    <Compile Include="..\..\App_Code\Model\Chinese.cs" Link="Model.Chinese.cs" />
+    <Compile Include="..\..\App_Code\Model\Gauge.cs" Link="Model.Gauge.cs" />
+    <Compile Include="..\..\App_Code\Model\GaugeItem.cs" Link="Model.GaugeItem.cs" />
+    <Compile Include="..\..\App_Code\Model\GaugeFeedback.cs" Link="Model.GaugeFeedback.cs" />
+    <Compile Include="..\..\App_Code\Model\English.cs" Link="Model.English.cs" />
+    <Compile Include="..\..\App_Code\Model\Summary.cs" Link="Model.Summary.cs" />
+    <Compile Include="..\..\App_Code\Model\Pchinese.cs" Link="Model.Pchinese.cs" />
+    <Compile Include="..\..\App_Code\Model\SurveyClass.cs" Link="Model.SurveyClass.cs" />
+    <Compile Include="..\..\App_Code\Model\SurveyFeedback.cs" Link="Model.SurveyFeedback.cs" />
+    <Compile Include="..\..\App_Code\Model\Room.cs" Link="Model.Room.cs" />
+    <Compile Include="..\..\App_Code\Model\Students.cs" Link="Model.Students.cs" />
+    <Compile Include="..\..\App_Code\Model\Ip.cs" Link="Model.Ip.cs" />
+    <Compile Include="..\..\App_Code\Model\House.cs" Link="Model.House.cs" />
+    <Compile Include="..\..\App_Code\Model\Consoles.cs" Link="Model.Consoles.cs" />
+    <Compile Include="..\..\App_Code\Model\Autonomic.cs" Link="Model.Autonomic.cs" />
+    <Compile Include="..\..\App_Code\Model\GroupWork.cs" Link="Model.GroupWork.cs" />
+    <Compile Include="..\..\App_Code\Model\JudgeArg.cs" Link="Model.JudgeArg.cs" />
+    <Compile Include="..\..\App_Code\Model\Computers.cs" Link="Model.Computers.cs" />
+    <Compile Include="..\..\App_Code\Model\Problems.cs" Link="Model.Problems.cs" />
+    <Compile Include="..\..\App_Code\Model\Flection.cs" Link="Model.Flection.cs" />
+    <Compile Include="..\..\App_Code\Model\Pfinger.cs" Link="Model.Pfinger.cs" />
+    <Compile Include="..\..\App_Code\Model\DelStudents.cs" Link="Model.DelStudents.cs" />
+    <Compile Include="..\..\App_Code\Model\NotSign.cs" Link="Model.NotSign.cs" />
+    <Compile Include="..\..\App_Code\Model\Ptyper.cs" Link="Model.Ptyper.cs" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="pixeledit.aspx.cs" Inherits="Teacher_pixeledit" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+<link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="../js/vendors/vditor/index.css" />
 <div  class="cplace">
     <div  class="cleft">
         <asp:DropDownList ID="DDLTitle" runat="server" 
@@ -59,8 +59,8 @@
         </div>
         <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+		<script src="../js/vendors/vditor/index.min.js"></script>
+		<script src="../js/vendors/wangeditor/index.js"></script>
 		<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
 		<script>
 		    var editor;

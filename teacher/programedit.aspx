@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link href="../js/fileupload.css" rel="stylesheet" />
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <style type="text/css">
         .program-edit-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
@@ -62,6 +64,17 @@
         .program-edit-editor-stage .ke-container {
             width: 100% !important;
             max-width: 100%;
+        }
+
+        .program-edit-editor-stage #vditor-container {
+            width: 100%;
+        }
+
+        .program-edit-editor-stage .vditor {
+            border: 1px solid #dbe3f4;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
         }
     </style>
 
@@ -132,8 +145,8 @@
                 </div>
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
                     var editor;

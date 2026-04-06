@@ -1,6 +1,8 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="txtformadd.aspx.cs" Inherits="Teacher_txtformadd" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <style type="text/css">
         .txtform-add-page {
             --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #ecfeff 100%);
@@ -100,8 +102,8 @@
                 </div>
                 <script type="text/javascript" charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script type="text/javascript" charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
                     var editor;

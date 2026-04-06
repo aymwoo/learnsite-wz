@@ -10,7 +10,7 @@
     <script src="../code/jquery.min.js" type="text/javascript"></script>
     <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 <body>
     <!-- 移除了表单标签，避免按钮点击导致表单提交 -->

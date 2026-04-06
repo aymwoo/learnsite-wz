@@ -26,7 +26,7 @@
 	}
 	</script>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
     <style>
         /* ================================================================
            TOPBAR — 精简版，只保留品牌 + 用户信息，不再放学案菜单

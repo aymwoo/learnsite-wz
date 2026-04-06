@@ -62,7 +62,7 @@
         body{margin: 0;}
     </style>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 <body>
     <div style="text-align: right; position: absolute; right: 50px; top: 3px; font-size: 11pt;

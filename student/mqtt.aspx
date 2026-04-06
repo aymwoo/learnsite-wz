@@ -11,7 +11,7 @@
     <link href="../code/mqtt/mqtt.css" rel="stylesheet" type="text/css" />
 	<script src="../code/chart.js"></script>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 
 <body>

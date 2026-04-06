@@ -2,8 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <link href="../js/fileupload.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
+<link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="../js/vendors/vditor/index.css" />
 <div  class="cplace">
     <div  class="cleft">
         表格处理：<asp:TextBox ID="Texttitle" runat="server"  SkinID="TextBoxNormal" 
@@ -25,8 +25,8 @@
         </div>
         <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+		<script src="../js/vendors/vditor/index.min.js"></script>
+		<script src="../js/vendors/wangeditor/index.js"></script>
 		<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
 		<script>
 		    var editor;

@@ -127,10 +127,10 @@
                     </div>
                 </div>
                 
-                <link href="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/css/style.css" rel="stylesheet">
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vditor/dist/index.css" />
-                <script src="https://cdn.jsdelivr.net/npm/vditor/dist/index.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@wangeditor/editor@5.1.23/dist/index.js"></script>
+                <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
+                <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
                 
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>

@@ -6,7 +6,7 @@
     <style type="text/css">
         body { margin: 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; background: #f0f2f5; }
     </style>
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
 </head>
 <body>
 <div class="flex flex-col items-center p-4">

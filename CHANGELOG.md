@@ -12,6 +12,8 @@
 ### 问题修复
 - **量规 AI 重新生成安全性优化**：覆盖模式改为“先生成后替换”，避免 AI 调用失败时先清空原量规项
 - **答题日志可读性提升**：教师端实时动态 modal 不再直接显示原始答题 JSON，而是解析为逐题的正确/错误清单和学生作答内容
+- **教师端富文本编辑器样式修复**：排查所有接入 Vditor 和 WangEditor 的教师页面，补齐缺失的 CSS 引入，修复 `programedit.aspx` 等页面因漏载样式导致的工具栏、按钮和编辑区错位放大问题
+- **静态前端库本地化**：将教师端编辑器资源以及全站使用的 Tailwind utilities、Font Awesome、clipboard.js、FileSaver.js 等静态库切换为本地文件，减少对外部 CDN 的依赖
 
 ### 涉及文件
 - `teacher/gauge.aspx`、`teacher/gauge.aspx.cs`、`teacher/gauge_generate.ashx`

@@ -9,7 +9,7 @@
         document.oncontextmenu = new Function('event.returnValue=false;');
         document.onselectstart = new Function('event.returnValue=false;');
     </script> 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;

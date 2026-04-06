@@ -7,7 +7,7 @@
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />
     <link href="../js/tooltip.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
