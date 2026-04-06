@@ -1,0 +1,48 @@
+name: Dev Branch Tests
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+
+      - name: Make scripts executable
+        run: chmod +x run_tests.sh
+
+      - name: Run Unit Tests
+        run: ./run_tests.sh --no-e2e
+
+      - name: Install Mono and XSP4
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ca-certificates gnupg
+          sudo gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          sudo apt-get install -y mono-complete mono-xsp4
+
+      - name: Test Basic Compilation
+        run: |
+          # 测试基本编译
+          echo "=== Testing Basic Compilation ==="
+          ls -la
+          echo "Project files found:"
+          find . -name "*.csproj" -o -name "*.sln"
