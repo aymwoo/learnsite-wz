@@ -41,7 +41,9 @@ public partial class Teacher_missionshow : System.Web.UI.Page
         {
             LabelMtitle.Text = model.Mtitle;
             CheckPublish.Checked = model.Mpublish;
-            Mcontent.InnerHtml = HttpUtility.HtmlDecode(model.Mcontent);
+            string decodedContent = HttpUtility.HtmlDecode(model.Mcontent);
+            HiddenMissionRaw.Value = decodedContent;
+            Mcontent.InnerHtml = decodedContent;
             LabelMdate.Text = model.Mdate.ToString();
             LabelMfiletype.Text = model.Mfiletype;
             ImageType.ImageUrl = "~/images/filetype/" + LabelMfiletype.Text.ToLower() + ".gif";

@@ -59,7 +59,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null && Request.QueryString["lid"] != null)

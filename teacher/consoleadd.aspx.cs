@@ -50,7 +50,7 @@ public partial class Teacher_consoleadd : System.Web.UI.Page
 
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["cid"] != null)

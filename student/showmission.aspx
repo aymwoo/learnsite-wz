@@ -1029,42 +1029,40 @@
             document.head.appendChild(script);
         }
 
-        function renderMermaid(root) {
+        function renderMermaid(root, forceRerender) {
             var mermaidNodes = root.querySelectorAll('.mermaid');
             if (!mermaidNodes.length) {
                 return;
             }
 
-            function getActiveRevealSlides(revealNode) {
-                if (!revealNode) {
-                    return [];
+            function getOffscreenContainer() {
+                var container = document.getElementById('mermaid-offscreen-render');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'mermaid-offscreen-render';
+                    container.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:2000px;height:2000px;overflow:hidden;visibility:visible;opacity:0;pointer-events:none;z-index:-1;';
+                    document.body.appendChild(container);
                 }
-
-                var current = revealNode.querySelector('.slides section.present');
-                if (!current) {
-                    return [];
-                }
-
-                var nested = current.querySelector('section.present');
-                return nested ? [nested] : [current];
+                container.innerHTML = '';
+                return container;
             }
 
             function renderMermaidSvg(instance, renderId, source, callback) {
                 var result;
+                var offscreen = getOffscreenContainer();
 
                 if (!instance || typeof instance.render !== 'function') {
                     callback(new Error('Mermaid unavailable'));
                     return;
                 }
 
-                if (instance.render.length >= 3) {
-                    instance.render(renderId, source, function (svg) {
-                        callback(null, { svg: svg });
-                    });
+                try {
+                    result = instance.render(renderId, source, offscreen);
+                } catch (syncErr) {
+                    callback(syncErr);
                     return;
                 }
 
-                result = instance.render(renderId, source);
                 if (result && typeof result.then === 'function') {
                     result.then(function (renderResult) {
                         callback(null, renderResult);
@@ -1074,86 +1072,86 @@
                     return;
                 }
 
-                callback(null, result);
+                if (result && result.svg) {
+                    callback(null, result);
+                } else {
+                    callback(new Error('Unexpected render result'));
+                }
             }
 
-            function doRender() {
+            function doRender(forceRerender) {
                 if (!window.mermaid) {
                     return;
                 }
                 var revealNode = root && root.classList && root.classList.contains('reveal')
                     ? root
                     : (root.querySelector ? root.querySelector('.reveal') : null);
-                var activeSlides = getActiveRevealSlides(revealNode);
-                var targetNodes = mermaidNodes;
                 var mermaidTheme = revealNode && isDarkRevealTheme(revealNode.getAttribute('data-theme')) ? 'dark' : 'default';
                 var pendingCount = 0;
-
-                if (activeSlides.length) {
-                    targetNodes = [];
-                    Array.prototype.forEach.call(mermaidNodes, function (node) {
-                        var isInActiveSlide = activeSlides.some(function (slide) {
-                            return slide.contains(node);
-                        });
-
-                        if (isInActiveSlide) {
-                            targetNodes.push(node);
-                        }
-                    });
-                }
-
-                if (!targetNodes.length) {
-                    return;
-                }
+                var renderQueue = [];
 
                 window.mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', theme: mermaidTheme });
 
-                Array.prototype.forEach.call(targetNodes, function (node, index) {
+                Array.prototype.forEach.call(mermaidNodes, function (node, index) {
                     var source = node.getAttribute('data-mermaid-source') || node.textContent || '';
-                    var renderId;
 
                     if (!source.trim()) {
                         return;
                     }
 
                     node.setAttribute('data-mermaid-source', source);
-                    node.removeAttribute('data-processed');
-                    node.removeAttribute('data-mermaid-rendered');
-                    renderId = 'mission-mermaid-' + Date.now() + '-' + index;
 
-                    pendingCount++;
-                    renderMermaidSvg(window.mermaid, renderId, source, function (error, result) {
-                        if (!error && result && result.svg) {
-                            node.innerHTML = result.svg;
-                            if (typeof result.bindFunctions === 'function') {
-                                result.bindFunctions(node);
-                            }
-                            node.setAttribute('data-mermaid-rendered', '1');
-                        } else {
-                            node.textContent = source;
-                        }
+                    if (!forceRerender && node.getAttribute('data-mermaid-rendered') === '1'
+                        && node.getAttribute('data-mermaid-theme') === mermaidTheme) {
+                        return;
+                    }
 
-                        pendingCount--;
-                        if (!pendingCount) {
-                            var revealDeck = revealNode && revealNode.__missionRevealDeck;
-                            if (revealDeck) {
-                                revealDeck.layout();
-                            }
-                        }
-                    });
+                    renderQueue.push({ node: node, source: source, index: index });
                 });
 
-                if (!pendingCount) {
+                if (!renderQueue.length) {
                     return;
                 }
+
+                function processNext(qi) {
+                    if (qi >= renderQueue.length) {
+                        var revealDeck = revealNode && revealNode.__missionRevealDeck;
+                        if (revealDeck) {
+                            revealDeck.layout();
+                        }
+                        return;
+                    }
+
+                    var item = renderQueue[qi];
+                    var renderId = 'mission-mermaid-' + Date.now() + '-' + item.index;
+
+                    item.node.removeAttribute('data-processed');
+
+                    renderMermaidSvg(window.mermaid, renderId, item.source, function (error, result) {
+                        if (!error && result && result.svg) {
+                            item.node.innerHTML = result.svg;
+                            if (typeof result.bindFunctions === 'function') {
+                                result.bindFunctions(item.node);
+                            }
+                            item.node.setAttribute('data-mermaid-rendered', '1');
+                            item.node.setAttribute('data-mermaid-theme', mermaidTheme);
+                        } else {
+                            item.node.textContent = item.source;
+                        }
+
+                        processNext(qi + 1);
+                    });
+                }
+
+                processNext(0);
             }
 
             if (window.mermaid) {
-                doRender();
+                doRender(forceRerender);
                 return;
             }
 
-            loadScript('../js/vendors/mermaid/mermaid.min.js', doRender);
+            loadScript('../js/vendors/mermaid/mermaid.min.js', function() { doRender(forceRerender); });
         }
 
         function convertRevealMermaidBlocks(root) {
@@ -1301,9 +1299,9 @@
                         pageIndicator.innerText = (indices.h + 1) + ' / ' + total;
                     }
 
-                    function renderCurrentSlideMermaid() {
+                    function renderCurrentSlideMermaid(forceRerender) {
                         convertRevealMermaidBlocks(host);
-                        renderMermaid(node);
+                        renderMermaid(node, forceRerender);
                     }
 
                     function applyRevealTheme(theme) {
@@ -1400,7 +1398,7 @@
                         themeSelect.addEventListener('change', function () {
                             applyRevealTheme(themeSelect.value);
                             limitRevealCodeBlocks(host);
-                            renderCurrentSlideMermaid();
+                            renderCurrentSlideMermaid(true);
                             autofitAllSlides();
                             deck.layout();
                         });

@@ -349,6 +349,8 @@
 	var wangEditorObj;
 	var vditorObj;
 	var currentEditor = 'kindeditor';
+	var lastVditorMarkdown = null;
+	var lastVditorHtml = '';
 	var vditorReady = false;
 	var pendingVditorHtml = null;
 	var cid= <%=myCid() %>;
@@ -365,96 +367,154 @@
 			allowFileManager : true,
 			filterMode : false,
 		    allowImageUpload: true,
-		    items: ['fontname', 'fontsize', '|', 'bold', 'italic','removeformat','image','about']
+		    items: ['fontname', 'fontsize', '|', 'bold', 'italic','removeformat','image','about'] ,
+		    afterCreate: function () {
+		        window.setTimeout(autoSelectInitialProblemEditor, 0);
+		    }
 		});
 	});
+  function isProblemHtml(content) {
+      return /<\/?[a-z][\s\S]*>/i.test(content || '');
+  }
 
-	function initProblemWangEditor() {
-		if (wangEditorObj) return;
-		const createEditor = window.wangEditor.createEditor;
-		const createToolbar = window.wangEditor.createToolbar;
-		const mcontent = document.getElementById('mcontent');
-		wangEditorObj = createEditor({
-			selector: '#problem-wangeditor-text',
-			html: keditor ? keditor.html() : mcontent.value,
-			config: {
-				placeholder: '请输入试题内容...',
-				MENU_CONF: {
-					uploadImage: { server: upjs, customInsert: function(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } },
-					uploadAttachment: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } },
-					uploadFile: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } }
-				}
-			}
-		});
-		createToolbar({ editor: wangEditorObj, selector: '#problem-wangeditor-toolbar', config: {} });
-	}
+  function isLikelyProblemMarkdown(content) {
+      if (!content) return false;
+      return /```/.test(content)
+          || /^#{1,6}\s/m.test(content)
+          || /^\s*[-*+]\s/m.test(content)
+          || /^\s*\d+\.\s/m.test(content)
+          || /\[[^\]]+\]\([^)]+\)/.test(content);
+  }
 
-	function safeProblemHtml2Md(html) {
-		try {
-			if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
-			var l = Lute.New();
-			return l.HTML2Md(html);
-		} catch (e) { return html; }
-	}
+  function normalizeProblemContent(content) {
+      return (content || '').replace(/\s+/g, ' ').trim();
+  }
 
-	function initProblemVditor() {
-		if (vditorObj) return;
-		const mcontent = document.getElementById('mcontent');
-		var initialContent = keditor ? keditor.html() : mcontent.value;
-		vditorObj = new Vditor('problem-vditor-container', {
-			height: 260,
-			mode: 'ir',
-			upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } },
-			preview: { mode: 'both' },
-			cache: { enable: false },
-			after: function () {
-				vditorReady = true;
-				var contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-				if (contentToSet) vditorObj.setValue(safeProblemHtml2Md(contentToSet));
-				pendingVditorHtml = null;
-			}
-		});
-	}
+  function getPreferredProblemVditorValue(content) {
+      if (!content) return '';
+      return isProblemHtml(content) ? safeProblemHtml2Md(content) : content;
+  }
 
-	function syncProblemContent() {
-		var mcontent = document.getElementById('mcontent');
-		if (!mcontent) return true;
-		if (currentEditor === 'kindeditor' && keditor) mcontent.value = keditor.html();
-		else if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
-		else if (currentEditor === 'vditor' && vditorObj) {
-			try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
-		}
-		return true;
-	}
+  function rememberProblemVditorState() {
+      if (!vditorObj) return;
+      lastVditorMarkdown = vditorObj.getValue();
+      lastVditorHtml = vditorObj.getHTML();
+  }
 
-	function switchProblemEditor(type) {
-		currentEditor = type;
-		var kindContainer = document.querySelector('.ke-container');
-		var wangContainer = document.getElementById('problem-wangeditor-wrap');
-		var vditorContainer = document.getElementById('problem-vditor-wrap');
-		var currentHtml = '';
-		if (kindContainer && kindContainer.style.display !== 'none' && keditor) currentHtml = keditor.html();
-		else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
-		else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
-			try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } }
-		}
-		if (kindContainer) kindContainer.style.display = 'none';
-		if (wangContainer) wangContainer.style.display = 'none';
-		if (vditorContainer) vditorContainer.style.display = 'none';
-		if (type === 'kindeditor') {
-			if (kindContainer) kindContainer.style.display = 'block';
-			if (keditor && currentHtml) keditor.html(currentHtml);
-		} else if (type === 'wangeditor') {
-			if (wangContainer) wangContainer.style.display = 'block';
-			if (!wangEditorObj) initProblemWangEditor();
-			if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
-		} else if (type === 'vditor') {
-			if (vditorContainer) vditorContainer.style.display = 'block';
-			if (!vditorObj) { pendingVditorHtml = currentHtml; initProblemVditor(); }
-			else if (vditorReady) vditorObj.setValue(safeProblemHtml2Md(currentHtml));
-			else pendingVditorHtml = currentHtml;
-		}
-	}
+  function shouldRestoreProblemMarkdown(currentHtml) {
+      if (lastVditorMarkdown === null) return false;
+      var currentNormalized = normalizeProblemContent(currentHtml);
+      var savedNormalized = normalizeProblemContent(lastVditorHtml);
+      return currentNormalized === '' || currentNormalized === savedNormalized;
+  }
+
+  function autoSelectInitialProblemEditor() {
+      var selector = document.getElementById('editorSelector');
+      var mcontent = document.getElementById('mcontent');
+      if (!selector || !mcontent) return;
+      if (isLikelyProblemMarkdown(mcontent.value)) {
+          selector.value = 'vditor';
+          switchProblemEditor('vditor');
+      }
+  }
+
+  function initProblemWangEditor() {
+      if (wangEditorObj) return;
+      const { createEditor, createToolbar } = window.wangEditor;
+      const mcontent = document.getElementById('mcontent');
+      wangEditorObj = createEditor({
+          selector: '#problem-wangeditor-text',
+          html: keditor ? keditor.html() : mcontent.value,
+          config: {
+              placeholder: '请输入试题内容...',
+              MENU_CONF: {
+                  uploadImage: { server: upjs, customInsert(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } },
+                  uploadAttachment: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } },
+                  uploadFile: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } }
+              }
+          }
+      });
+      createToolbar({ editor: wangEditorObj, selector: '#problem-wangeditor-toolbar', config: {} });
+  }
+
+  function safeProblemHtml2Md(html) {
+      try {
+          if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
+          var l = Lute.New();
+          return l.HTML2Md(html);
+      } catch (e) {
+          return html;
+      }
+  }
+
+  function initProblemVditor() {
+      if (vditorObj) return;
+      const mcontent = document.getElementById('mcontent');
+      var initialContent = getPreferredProblemVditorValue(lastVditorMarkdown !== null ? lastVditorMarkdown : (keditor ? keditor.html() : mcontent.value));
+      vditorObj = new Vditor('problem-vditor-container', {
+          height: 260,
+          mode: 'ir',
+          upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } },
+          preview: { mode: 'both' },
+          cache: { enable: false },
+          after: function () {
+              vditorReady = true;
+              var contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
+              vditorObj.setValue(contentToSet || '');
+              rememberProblemVditorState();
+              pendingVditorHtml = null;
+          }
+      });
+  }
+
+  function syncProblemContent() {
+      var mcontent = document.getElementById('mcontent');
+      if (!mcontent) return true;
+      if (currentEditor === 'kindeditor' && keditor) mcontent.value = keditor.html();
+      else if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
+      else if (currentEditor === 'vditor' && vditorObj) {
+          rememberProblemVditorState();
+          mcontent.value = lastVditorMarkdown || '';
+      }
+      return true;
+  }
+
+  function switchProblemEditor(type) {
+      currentEditor = type;
+      var kindContainer = document.querySelector('.ke-container');
+      var wangContainer = document.getElementById('problem-wangeditor-wrap');
+      var vditorContainer = document.getElementById('problem-vditor-wrap');
+      var currentHtml = '';
+      if (kindContainer && kindContainer.style.display !== 'none' && keditor) currentHtml = keditor.html();
+      else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
+      else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
+          rememberProblemVditorState();
+          currentHtml = lastVditorHtml;
+      }
+      if (kindContainer) kindContainer.style.display = 'none';
+      if (wangContainer) wangContainer.style.display = 'none';
+      if (vditorContainer) vditorContainer.style.display = 'none';
+      if (type === 'kindeditor') {
+          if (kindContainer) kindContainer.style.display = 'block';
+          if (keditor && currentHtml) keditor.html(currentHtml);
+      } else if (type === 'wangeditor') {
+          if (wangContainer) wangContainer.style.display = 'block';
+          initProblemWangEditor();
+          if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
+      } else if (type === 'vditor') {
+          if (vditorContainer) vditorContainer.style.display = 'block';
+          var vditorContent = shouldRestoreProblemMarkdown(currentHtml) ? lastVditorMarkdown : getPreferredProblemVditorValue(currentHtml);
+          if (!vditorObj) {
+              pendingVditorHtml = vditorContent;
+              initProblemVditor();
+          } else if (vditorReady) {
+              vditorObj.setValue(vditorContent || '');
+              rememberProblemVditorState();
+          } else {
+              pendingVditorHtml = vditorContent;
+          }
+      }
+  }
 </script> 
         </div>         
         </div>   

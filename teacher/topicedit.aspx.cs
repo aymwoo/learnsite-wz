@@ -50,7 +50,7 @@ public partial class Teacher_topicedit : System.Web.UI.Page
     {
         if (Request.QueryString["tcid"] != null)
         {
-            string fckstr = mcontent.InnerText;
+            string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
             if (Texttitle.Text != "" && fckstr != "")
             {
 

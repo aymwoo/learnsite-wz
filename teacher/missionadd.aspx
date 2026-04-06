@@ -10,6 +10,74 @@
             --content-add-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
         }
 
+        .mission-add-page .content-add-panel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-add-page .content-add-panel:after {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(99, 102, 241, 0.24) 0%, rgba(99, 102, 241, 0.06) 55%, rgba(99, 102, 241, 0) 100%);
+            pointer-events: none;
+        }
+
+        .mission-add-page .content-add-grid {
+            align-items: end;
+            row-gap: 1.25rem;
+        }
+
+        .mission-add-page .content-add-input,
+        .mission-add-page .content-add-select {
+            width: 100%;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .mission-add-page .content-add-input:hover,
+        .mission-add-page .content-add-select:hover {
+            border-color: #a5b4fc;
+        }
+
+        .mission-add-page .content-add-input:focus,
+        .mission-add-page .content-add-select:focus {
+            transform: translateY(-1px);
+        }
+
+        .mission-add-page .content-add-field-title {
+            grid-column: span 6;
+        }
+
+        .mission-add-page .content-add-field-type,
+        .mission-add-page .content-add-field-rubric {
+            grid-column: span 3;
+        }
+
+        .mission-add-page .content-add-field-options {
+            grid-column: span 12;
+        }
+
+        .mission-add-page .content-add-select-worktype {
+            min-width: 8.5rem;
+        }
+
+        .mission-add-page .content-add-checks {
+            gap: 1rem 1.4rem;
+            border-color: #dbe4f0;
+            background: linear-gradient(180deg, #f8fbff 0%, #f8fafc 100%);
+        }
+
+        @media (max-width: 900px) {
+            .mission-add-page .content-add-field-title,
+            .mission-add-page .content-add-field-type,
+            .mission-add-page .content-add-field-rubric,
+            .mission-add-page .content-add-field-options {
+                grid-column: span 12;
+            }
+        }
+
         .mission-add-editor-stage textarea {
             width: 100%;
             height: 550px;
@@ -211,6 +279,67 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        .mission-toast {
+            position: fixed;
+            right: 1.5rem;
+            bottom: 1.5rem;
+            z-index: 3000;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            min-width: 14rem;
+            max-width: min(24rem, calc(100vw - 2rem));
+            padding: 0.9rem 1rem;
+            border-radius: 0.95rem;
+            background: rgba(15, 23, 42, 0.92);
+            color: #f8fafc;
+            box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.75);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+
+        .mission-toast:before {
+            content: "";
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 4px;
+            border-radius: 0.95rem 0 0 0.95rem;
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        .mission-toast.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mission-toast-icon {
+            flex: 0 0 auto;
+            width: 1.25rem;
+            height: 1.25rem;
+            margin-top: 0.08rem;
+        }
+
+        .mission-toast-message {
+            flex: 1;
+            min-width: 0;
+            line-height: 1.55;
+            font-size: 0.92rem;
+        }
+
+        .mission-toast.is-success {
+            background: rgba(5, 150, 105, 0.96);
+        }
+
+        .mission-toast.is-error {
+            background: rgba(220, 38, 38, 0.96);
+        }
+
+        .mission-toast.is-info {
+            background: rgba(37, 99, 235, 0.96);
+        }
     </style>
 
     <div class="content-add-page mission-add-page">
@@ -227,22 +356,22 @@
                 <h2 class="content-add-section-title">活动设置</h2>
                 <p class="content-add-section-desc">以下字段仍沿用当前后台逻辑与提交方式，创建成功后继续返回当前学案页面。</p>
                 <div class="content-add-grid">
-                    <div class="content-add-field content-add-field-wide">
+                    <div class="content-add-field content-add-field-title">
                         <label class="content-add-label" for="<%= Texttitle.ClientID %>">活动名称</label>
-                        <asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal" Width="200px" CssClass="content-add-input"></asp:TextBox>
+                        <asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal" CssClass="content-add-input"></asp:TextBox>
                     </div>
 
-                    <div class="content-add-field">
+                    <div class="content-add-field content-add-field-type">
                         <label class="content-add-label" for="<%= DDLmfiletype.ClientID %>">作品类型</label>
-                        <asp:DropDownList ID="DDLmfiletype" runat="server" Width="60px" Font-Names="Arial" CssClass="content-add-select"></asp:DropDownList>
+                        <asp:DropDownList ID="DDLmfiletype" runat="server" Font-Names="Arial" CssClass="content-add-select content-add-select-worktype"></asp:DropDownList>
                     </div>
 
-                    <div class="content-add-field">
+                    <div class="content-add-field content-add-field-rubric">
                         <label class="content-add-label" for="<%= DDLMgid.ClientID %>">评价标准</label>
-                        <asp:DropDownList ID="DDLMgid" runat="server" Font-Size="9pt" Width="160px" Font-Names="Arial" CssClass="content-add-select"></asp:DropDownList>
+                        <asp:DropDownList ID="DDLMgid" runat="server" Font-Size="9pt" Font-Names="Arial" CssClass="content-add-select"></asp:DropDownList>
                     </div>
 
-                    <div class="content-add-field content-add-field-wide">
+                    <div class="content-add-field content-add-field-options">
                         <span class="content-add-label">活动选项</span>
                         <div class="content-add-checks">
                             <asp:CheckBox ID="CheckUpload" runat="server" Text="是否提交" Checked="True" />
@@ -280,10 +409,51 @@
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
                 <script>
+                    var missionToastTimer = null;
+                    var missionToastIcons = {
+                        success: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M16.5 5.5 8 14 3.5 9.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+                        error: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6v4" stroke-linecap="round"></path><circle cx="10" cy="13.5" r="0.8" fill="currentColor" stroke="none"></circle><path d="M8.7 3.8 2.9 14a1.5 1.5 0 0 0 1.3 2.2h11.6a1.5 1.5 0 0 0 1.3-2.2L11.3 3.8a1.5 1.5 0 0 0-2.6 0Z" stroke-linejoin="round"></path></svg>',
+                        info: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 8.2v4.3" stroke-linecap="round"></path><circle cx="10" cy="5.6" r="0.9" fill="currentColor" stroke="none"></circle><circle cx="10" cy="10" r="7" stroke-linecap="round"></circle></svg>'
+                    };
+
+                    function showToast(message, type) {
+                        var toast = document.getElementById('mission-toast');
+                        var toastIcon = document.getElementById('mission-toast-icon');
+                        var toastMessage = document.getElementById('mission-toast-message');
+                        var toastType = type === 'success' ? 'success' : (type === 'info' ? 'info' : 'error');
+                        var duration = toastType === 'success' ? 2200 : (toastType === 'info' ? 2400 : 3400);
+
+                        if (!toast || !message) {
+                            return;
+                        }
+
+                        toast.className = 'mission-toast';
+                        toast.classList.add('is-visible');
+                        toast.classList.add('is-' + toastType);
+
+                        if (toastIcon) {
+                            toastIcon.innerHTML = missionToastIcons[toastType];
+                        }
+
+                        if (toastMessage) {
+                            toastMessage.textContent = message;
+                        }
+
+                        if (missionToastTimer) {
+                            clearTimeout(missionToastTimer);
+                        }
+
+                        missionToastTimer = setTimeout(function () {
+                            toast.className = 'mission-toast';
+                        }, duration);
+                    }
+
                     var kindEditorObj;
                     var wangEditorObj;
                     var vditorObj;
                     var currentEditor = 'kindeditor';
+                    var lastVditorMarkdown = null;
+                    var lastVditorHtml = '';
 
                     var cid = <%=myCid() %>;
                     var ty = "Course";
@@ -300,9 +470,55 @@
                             filterMode: false,
                             afterCreate: function () {
                                 this.loadPlugin('autoheight');
+                                window.setTimeout(autoSelectInitialEditor, 0);
                             }
                         });
                     });
+
+                    function isProbablyHtml(content) {
+                        return /<\/?[a-z][\s\S]*>/i.test(content || '');
+                    }
+
+                    function isLikelyMarkdown(content) {
+                        if (!content) return false;
+                        return /```/.test(content)
+                            || /^#{1,6}\s/m.test(content)
+                            || /^\s*[-*+]\s/m.test(content)
+                            || /^\s*\d+\.\s/m.test(content)
+                            || /\[[^\]]+\]\([^)]+\)/.test(content);
+                    }
+
+                    function normalizeEditorContent(content) {
+                        return (content || '').replace(/\s+/g, ' ').trim();
+                    }
+
+                    function getPreferredVditorValue(content) {
+                        if (!content) return '';
+                        return isProbablyHtml(content) ? safeHtml2Md(content) : content;
+                    }
+
+                    function rememberVditorState() {
+                        if (!vditorObj) return;
+                        lastVditorMarkdown = vditorObj.getValue();
+                        lastVditorHtml = vditorObj.getHTML();
+                    }
+
+                    function shouldRestoreSavedMarkdown(currentHtml) {
+                        if (lastVditorMarkdown === null) return false;
+                        var currentNormalized = normalizeEditorContent(currentHtml);
+                        var savedNormalized = normalizeEditorContent(lastVditorHtml);
+                        return currentNormalized === '' || currentNormalized === savedNormalized;
+                    }
+
+                    function autoSelectInitialEditor() {
+                        var selector = document.getElementById('editorSelector');
+                        var ta = document.getElementsByName('textareaItem')[0];
+                        if (!selector || !ta) return;
+                        if (isLikelyMarkdown(ta.value)) {
+                            selector.value = 'vditor';
+                            switchEditor('vditor');
+                        }
+                    }
 
                     function initWangEditor() {
                         if (wangEditorObj) return;
@@ -321,7 +537,7 @@
                                             if (res.error === 0) {
                                                 insertFn(res.url);
                                             } else {
-                                                alert(res.message || '图片上传失败');
+                                                showToast(res.message || '图片上传失败', 'error');
                                             }
                                         }
                                     },
@@ -333,7 +549,7 @@
                                                     LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
                                                 }
                                             } else {
-                                                alert(res.message || '附件上传失败');
+                                                showToast(res.message || '附件上传失败', 'error');
                                             }
                                         }
                                     },
@@ -345,7 +561,7 @@
                                                     LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
                                                 }
                                             } else {
-                                                alert(res.message || '文件上传失败');
+                                                showToast(res.message || '文件上传失败', 'error');
                                             }
                                         }
                                     }
@@ -378,7 +594,7 @@
                     function initVditor() {
                         if (vditorObj) return;
                         const ta = document.getElementsByName('textareaItem')[0];
-                        let initialContent = kindEditorObj ? kindEditorObj.html() : (ta ? ta.value : '');
+                        let initialContent = getPreferredVditorValue(lastVditorMarkdown !== null ? lastVditorMarkdown : (ta ? ta.value : ''));
 
                         vditorObj = new Vditor('vditor-container', {
                             height: 400,
@@ -397,10 +613,9 @@
                             },
                             after: () => {
                                 vditorReady = true;
-                                let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                                if (contentToSet) {
-                                    vditorObj.setValue(safeHtml2Md(contentToSet));
-                                }
+                                let contentToSet = pendingVditorHtml !== null ? getPreferredVditorValue(pendingVditorHtml) : initialContent;
+                                vditorObj.setValue(contentToSet || '');
+                                rememberVditorState();
                                 pendingVditorHtml = null;
                             }
                         });
@@ -418,7 +633,8 @@
                         } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
                             currentHtml = wangEditorObj.getHtml();
                         } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                            currentHtml = vditorObj.getHTML();
+                            rememberVditorState();
+                            currentHtml = lastVditorHtml;
                         }
 
                         if (kindContainer) kindContainer.style.display = 'none';
@@ -440,15 +656,15 @@
                             if (vditorContainer) {
                                 vditorContainer.style.display = 'block';
                             }
+                            var vditorContent = shouldRestoreSavedMarkdown(currentHtml) ? lastVditorMarkdown : getPreferredVditorValue(currentHtml);
                             if (!vditorObj) {
-                                pendingVditorHtml = currentHtml;
+                                pendingVditorHtml = vditorContent;
                                 initVditor();
                             } else if (vditorReady) {
-                                if (currentHtml) {
-                                    vditorObj.setValue(safeHtml2Md(currentHtml));
-                                }
+                                vditorObj.setValue(vditorContent || '');
+                                rememberVditorState();
                             } else {
-                                pendingVditorHtml = currentHtml;
+                                pendingVditorHtml = vditorContent;
                             }
                         }
                     }
@@ -465,7 +681,8 @@
                             }
                         } else if (currentEditor === 'vditor') {
                             if (vditorObj) {
-                                ta.value = vditorObj.getHTML();
+                                rememberVditorState();
+                                ta.value = lastVditorMarkdown || '';
                             }
                         }
                         return true;
@@ -556,7 +773,7 @@
                     function generateAIContent() {
                         var prompt = document.getElementById('ai-prompt').value.trim();
                         if (!prompt) {
-                            alert('请输入提示词');
+                            showToast('请输入提示词', 'info');
                             return;
                         }
                         
@@ -572,7 +789,7 @@
                         setAIProgress(10, '正在提交请求', '已将教学内容需求发送到 AI 服务，请稍候。');
                         
                         var xhr = new XMLHttpRequest();
-                        xhr.timeout = 65000;
+                        xhr.timeout = 125000;
                         xhr.open("POST", "aiprovider_api.ashx", true);
                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                         xhr.onreadystatechange = function() {
@@ -598,17 +815,21 @@
                                             var text = res.data;
                                             resultArea.innerText = text;
                                             setAIProgress(100, '生成完成', 'AI 教学助手已返回内容，可复制或一键插入编辑器。');
+                                            showToast('AI 内容生成完成', 'success');
                                         } else {
-                                            resultArea.innerHTML = '<span style="color:#ef4444;">错误：' + res.msg + '</span>';
+                                            resultArea.innerHTML = '';
                                             setAIProgress(100, '生成失败', 'AI Provider 已返回错误，请检查默认模型配置或稍后重试。');
+                                            showToast(res.msg || '生成失败', 'error');
                                         }
                                     } catch (e) {
-                                        resultArea.innerHTML = '<span style="color:#ef4444;">解析响应失败</span>';
-                                        setAIProgress(100, '解析失败', '已收到响应，但结果格式不符合预期。');
+                                            resultArea.innerHTML = '';
+                                            setAIProgress(100, '解析失败', '已收到响应，但结果格式不符合预期。');
+                                        showToast('解析响应失败', 'error');
                                     }
                                 } else {
-                                    resultArea.innerHTML = '<span style="color:#ef4444;">请求失败，状态码：' + xhr.status + '</span>';
+                                    resultArea.innerHTML = '';
                                     setAIProgress(100, '请求失败', '接口请求未成功完成，请检查网络或服务端状态。');
+                                    showToast('请求失败，状态码：' + xhr.status, 'error');
                                 }
                             }
                         };
@@ -616,15 +837,17 @@
                             btn.disabled = false;
                             btnText.innerText = '生成内容';
                             loading.style.display = 'none';
-                            resultArea.innerHTML = '<span style="color:#ef4444;">网络异常，无法连接 AI 接口</span>';
+                            resultArea.innerHTML = '';
                             setAIProgress(100, '网络异常', '未能连接到 AI Provider 接口，请检查网络或服务器配置。');
+                            showToast('网络异常，无法连接 AI 接口', 'error');
                         };
                         xhr.ontimeout = function() {
                             btn.disabled = false;
                             btnText.innerText = '生成内容';
                             loading.style.display = 'none';
-                            resultArea.innerHTML = '<span style="color:#ef4444;">请求超时，请稍后重试</span>';
-                            setAIProgress(100, '请求超时', 'AI 生成超过 65 秒未返回，可能是模型响应较慢或服务拥堵。');
+                            resultArea.innerHTML = '';
+                            setAIProgress(100, '请求超时', 'AI 生成超过 125 秒未返回，可能是模型响应较慢、提示词较长或服务端繁忙。');
+                            showToast('请求超时，请稍后重试', 'error');
                         };
                         xhr.send("action=chat&prompt=" + encodeURIComponent(prompt));
                     }
@@ -633,14 +856,14 @@
                         var resultArea = document.getElementById('ai-result');
                         var text = resultArea.innerText;
                         if (!text || text.indexOf('生成中，结果完成后会显示在这里。') !== -1 || text.indexOf('错误：') === 0 || text.indexOf('请求失败') === 0 || text.indexOf('网络异常') === 0 || text.indexOf('请求超时') === 0 || text.indexOf('解析响应失败') === 0) {
-                            alert('没有可复制的内容');
+                            showToast('没有可复制的内容', 'info');
                             return;
                         }
                         
                         navigator.clipboard.writeText(text).then(function() {
-                            alert('已复制到剪贴板');
+                            showToast('已复制到剪贴板', 'success');
                         }, function(err) {
-                            alert('复制失败: ' + err);
+                            showToast('复制失败: ' + err, 'error');
                         });
                     }
                     
@@ -652,7 +875,7 @@
                         var resultArea = document.getElementById('ai-result');
                         var text = resultArea.innerText;
                         if (!text || text.indexOf('生成中，结果完成后会显示在这里。') !== -1 || text.indexOf('错误：') === 0 || text.indexOf('请求失败') === 0 || text.indexOf('网络异常') === 0 || text.indexOf('请求超时') === 0 || text.indexOf('解析响应失败') === 0) {
-                            alert('没有可插入的内容');
+                            showToast('没有可插入的内容', 'info');
                             return;
                         }
                         
@@ -670,15 +893,9 @@
                                 vditorObj.insertValue(text);
                             }
                         }
-                        alert('已成功插入到编辑器');
+                        showToast('已成功插入到编辑器', 'success');
                     }
                 </script>
-            </section>
-
-            <section class="content-add-feedback">
-                <h2 class="content-add-section-title">处理反馈</h2>
-                <p class="content-add-section-desc">内容或标题为空时，错误信息仍按原逻辑显示。</p>
-                <asp:Label ID="Labelmsg" runat="server"></asp:Label>
             </section>
 
             <section class="content-add-actions">
@@ -686,5 +903,9 @@
                 <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="content-add-secondary" />
             </section>
         </div>
+    </div>
+    <div id="mission-toast" class="mission-toast" aria-live="polite">
+        <span id="mission-toast-icon" class="mission-toast-icon"></span>
+        <span id="mission-toast-message" class="mission-toast-message"></span>
     </div>
 </asp:Content>

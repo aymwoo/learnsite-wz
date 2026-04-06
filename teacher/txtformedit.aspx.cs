@@ -45,7 +45,7 @@ public partial class Teacher_txtformedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
         string mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
         if (mtitle != "" && fckstr != "")
         {

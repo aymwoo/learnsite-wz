@@ -69,7 +69,7 @@ public partial class Teacher_softedit : System.Web.UI.Page
             soft.Fup = false;
             if (fclass == "教程" || fclass == "微课" || fclass == "课程")
                 soft.Fup = true;
-            soft.Fcontent = HttpUtility.HtmlEncode(mcontent.InnerText);
+            soft.Fcontent = HttpUtility.HtmlEncode(LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText));
             soft.Fdate = DateTime.Now;
             soft.Fhit =Int32.Parse( LabelFhit.Text);
             soft.Ftitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());

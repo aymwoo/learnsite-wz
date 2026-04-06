@@ -33,7 +33,7 @@ public partial class Teacher_courseedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
             if (fckstr != "")
             {
                 if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)

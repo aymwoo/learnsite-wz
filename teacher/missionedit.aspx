@@ -1,7 +1,43 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="missionedit.aspx.cs" Inherits="Teacher_missionedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div class="cplace">
+<style>
+    /* 让本页编辑器宽度自适应屏幕 */
+    .missionedit-page.cplace {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 0 1.2rem;
+    }
+    .missionedit-page .cleft {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 1rem;
+        padding: 1rem 0;
+    }
+    .missionedit-editor-wrap {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap .ke-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap #wangeditor-wrap,
+    .missionedit-editor-wrap #vditor-wrap,
+    .missionedit-editor-wrap textarea {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+    .missionedit-editor-wrap .vditor {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+</style>
+<div class="cplace missionedit-page">
     <div class="cleft">
         活动名称：<asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal"  Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
         作品类型<asp:DropDownList ID="DDLmfiletype" runat="server"  Width="60px" Font-Names="Arial">
@@ -12,22 +48,21 @@
         <asp:CheckBox ID="CheckRemote" runat="server" Text="远程图片" ToolTip="自动下载远程图片，有时失效！" />
         <asp:CheckBox ID="CheckMicoWorld" runat="server" Text="上次作品"  Checked="False" 
             ToolTip="显示上一节课作品提供下载，适合项目学习连续制作"  />
+        <span style="display:inline-flex; align-items:center; gap:4px;">
+            <label>编辑器：</label>
+            <select id="editorSelector" onchange="switchEditor(this.value)" style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
+                <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                <option value="wangeditor">富文本编辑器 (WangEditor)</option>
+                <option value="vditor">Markdown编辑器 (Vditor)</option>
+            </select>
+        </span>
         </div>
-    <div >
+    <div class="missionedit-editor-wrap">
     <!-- 引入编辑器CDN -->
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <script src="../js/vendors/vditor/index.min.js"></script>
     <script src="../js/vendors/wangeditor/index.js"></script>
-
-    <div style="margin-bottom: 10px; margin-left: 10px;">
-        <label>编辑器：</label>
-        <select id="editorSelector" onchange="switchEditor(this.value)" style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
-            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
-            <option value="wangeditor">富文本编辑器 (WangEditor)</option>
-            <option value="vditor">Markdown编辑器 (Vditor)</option>
-        </select>
-    </div>
 
 		<script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
@@ -37,6 +72,8 @@
             var wangEditorObj;
             var vditorObj;
             var currentEditor = 'kindeditor';
+            var lastVditorMarkdown = null;
+            var lastVditorHtml = '';
 
             var cid= <%=myCid() %>;
             var ty="Course";
@@ -50,12 +87,58 @@
 				uploadJson : upjs,
 				fileManagerJson : fmjs,
 				allowFileManager : true,
-                filterMode : false,
+				filterMode : false,
 					afterCreate : function() {
 						this.loadPlugin('autoheight');
+						window.setTimeout(autoSelectInitialEditor, 0);
 					}		            
 		        });
 		    });
+
+            function isProbablyHtml(content) {
+                return /<\/?[a-z][\s\S]*>/i.test(content || '');
+            }
+
+            function isLikelyMarkdown(content) {
+                if (!content) return false;
+                return /```/.test(content)
+                    || /^#{1,6}\s/m.test(content)
+                    || /^\s*[-*+]\s/m.test(content)
+                    || /^\s*\d+\.\s/m.test(content)
+                    || /\[[^\]]+\]\([^)]+\)/.test(content);
+            }
+
+            function normalizeEditorContent(content) {
+                return (content || '').replace(/\s+/g, ' ').trim();
+            }
+
+            function getPreferredVditorValue(content) {
+                if (!content) return '';
+                return isProbablyHtml(content) ? safeHtml2Md(content) : content;
+            }
+
+            function rememberVditorState() {
+                if (!vditorObj) return;
+                lastVditorMarkdown = vditorObj.getValue();
+                lastVditorHtml = vditorObj.getHTML();
+            }
+
+            function shouldRestoreSavedMarkdown(currentHtml) {
+                if (lastVditorMarkdown === null) return false;
+                var currentNormalized = normalizeEditorContent(currentHtml);
+                var savedNormalized = normalizeEditorContent(lastVditorHtml);
+                return currentNormalized === '' || currentNormalized === savedNormalized;
+            }
+
+            function autoSelectInitialEditor() {
+                var selector = document.getElementById('editorSelector');
+                var mcontent = document.getElementById('<%= mcontent.ClientID %>');
+                if (!selector || !mcontent) return;
+                if (isLikelyMarkdown(mcontent.value)) {
+                    selector.value = 'vditor';
+                    switchEditor('vditor');
+                }
+            }
 
             function initWangEditor() {
                 if (wangEditorObj) return;
@@ -131,11 +214,11 @@
             function initVditor() {
                 if (vditorObj) return;
                 const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                let initialContent = kindEditorObj ? kindEditorObj.html() : mcontent.value;
+                let initialContent = getPreferredVditorValue(lastVditorMarkdown !== null ? lastVditorMarkdown : mcontent.value);
 
                 vditorObj = new Vditor('vditor-container', {
                     height: 400,
-                    width: '830px',
+                    width: '100%',
                     mode: 'ir',
                     upload: {
                         handler: function (files) {
@@ -150,10 +233,9 @@
                     },
                     after: () => {
                         vditorReady = true;
-                        let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                        if (contentToSet) {
-                            vditorObj.setValue(safeHtml2Md(contentToSet));
-                        }
+                        let contentToSet = pendingVditorHtml !== null ? getPreferredVditorValue(pendingVditorHtml) : initialContent;
+                        vditorObj.setValue(contentToSet || '');
+                        rememberVditorState();
                         pendingVditorHtml = null;
                     }
                 });
@@ -165,22 +247,20 @@
                 var wangContainer = document.getElementById('wangeditor-wrap');
                 var vditorContainer = document.getElementById('vditor-wrap');
 
-                // Sync current content before switching
                 var currentHtml = '';
                 if (kindContainer && kindContainer.style.display !== 'none' && kindEditorObj) {
                     currentHtml = kindEditorObj.html();
                 } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
                     currentHtml = wangEditorObj.getHtml();
                 } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                    currentHtml = vditorObj.getHTML();
+                    rememberVditorState();
+                    currentHtml = lastVditorHtml;
                 }
 
-                // Hide all
                 if (kindContainer) kindContainer.style.display = 'none';
                 if (wangContainer) wangContainer.style.display = 'none';
                 if (vditorContainer) vditorContainer.style.display = 'none';
 
-                // Show and update selected
                 if (type === 'kindeditor') {
                     if (kindContainer) kindContainer.style.display = 'block';
                     if (kindEditorObj && currentHtml) kindEditorObj.html(currentHtml);
@@ -196,15 +276,15 @@
                     if (vditorContainer) {
                         vditorContainer.style.display = 'block';
                     }
+                    var vditorContent = shouldRestoreSavedMarkdown(currentHtml) ? lastVditorMarkdown : getPreferredVditorValue(currentHtml);
                     if (!vditorObj) {
-                        pendingVditorHtml = currentHtml;
+                        pendingVditorHtml = vditorContent;
                         initVditor();
                     } else if (vditorReady) {
-                        if (currentHtml) {
-                            vditorObj.setValue(safeHtml2Md(currentHtml));
-                        }
+                        vditorObj.setValue(vditorContent || '');
+                        rememberVditorState();
                     } else {
-                        pendingVditorHtml = currentHtml;
+                        pendingVditorHtml = vditorContent;
                     }
                 }
             }
@@ -221,22 +301,23 @@
                     }
                 } else if (currentEditor === 'vditor') {
                     if (vditorObj) {
-                        mcontent.value = vditorObj.getHTML();
+                        rememberVditorState();
+                        mcontent.value = lastVditorMarkdown || '';
                     }
                 }
                 return true;
             }
 		</script>
-    <div id="wangeditor-wrap" style="display:none; width: 830px; left:10px; position:relative; border: 1px solid #ccc; z-index: 100;">
+    <div id="wangeditor-wrap" style="display:none; width: 100%; position:relative; border: 1px solid #ccc; z-index: 100;">
         <div id="wangeditor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
         <div id="wangeditor-text" style="height: 350px;"></div>
     </div>
 
-    <div id="vditor-wrap" style="display:none; width: 830px; left:10px; position:relative; margin-bottom: 10px;">
+    <div id="vditor-wrap" style="display:none; width: 100%; position:relative; margin-bottom: 10px;">
         <div id="vditor-container"></div>
     </div>
 
-    <textarea  id ="mcontent" runat ="server" style="width: 830px; height:550px;" ></textarea>  
+    <textarea  id ="mcontent" runat ="server" style="width: 100%; height:550px; box-sizing:border-box;" ></textarea>  
     </div>
      <div class="placehold">
                <asp:Label ID="Labelmsg" runat="server" Width="300px"></asp:Label>

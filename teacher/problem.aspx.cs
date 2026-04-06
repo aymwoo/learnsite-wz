@@ -46,7 +46,7 @@ public partial class Teacher_problem : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string title = mcontent.InnerText; 
+        string title = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText); 
         string mycode = code.Value;
         string ouput = print.Value;
         if (title.Length > 0 && mycode.Length > 0)
