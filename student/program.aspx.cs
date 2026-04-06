@@ -157,7 +157,7 @@ public partial class Student_program : System.Web.UI.Page
                 url = "~/student/mxgraph.aspx?lid=" + Lid;
                 break;
             case "11":
-                url = "~/student/pixel.aspx?lid=" + Lid;
+                url = LearnSite.Common.CustomActivityCatalog.GetStudentEntryUrlByLid(Ltype, Lid);
                 break;
             case "12":
                 url = "~/student/htmleditor.aspx?lid=" + Lid;
@@ -169,67 +169,27 @@ public partial class Student_program : System.Web.UI.Page
                 url = "~/student/excel.aspx?lid=" + Lid;
                 break;
             case "17":
-                url = "~/student/qrcode.aspx?lid=" + Lid;
-                break;
             case "18":
-                url = "~/student/word.aspx?lid=" + Lid;
-                break;
             case "19":
-                url = "~/student/pptist.aspx?lid=" + Lid;
-                break;
             case "20":
-                url = "~/fabriceditor/poster.aspx?lid=" + Lid;
-                break;
             case "21":
-                url = "~/student/style.aspx?lid=" + Lid;
-                break;
             case "22":
-                url = "~/machine/imageclass.aspx?lid=" + Lid;
-                break;
             case "23":
-                url = "~/faceai/face.aspx?lid=" + Lid;
-                break;
             case "24":
-                url = "~/student/mqtt.aspx?lid=" + Lid;
-                break;
             case "25":
-                url = "~/student/draw.aspx?lid=" + Lid;
-                break;
             case "26":
-                url = "~/student/sokoban.aspx?lid=" + Lid;
-                break;
             case "27":
-                url = "~/deepseek/deepseek.aspx?lid=" + Lid;
-                break;
             case "28":
-                url = "~/deepseek/speek.aspx?lid=" + Lid;
-                break;
             case "29":
-                url = "~/deepseek/ocr.aspx?lid=" + Lid;
-                break;
             case "30":
-                url = "~/deepseek/soundlab.aspx?lid=" + Lid;
-                break;
             case "31":
-                url = "~/deepseek/tic-tac-toe.aspx?lid=" + Lid;
-                break;
             case "32":
-                url = "~/student/handnum.aspx?lid=" + Lid;
-                break;
             case "33":
-                url = "~/student/markdown.aspx?lid=" + Lid;
-                break;
             case "34":
-                url = "~/student/iframe.aspx?lid=" + Lid;
-                break;
             case "35":
-                url = "~/deepseek/aidraw.aspx?lid=" + Lid;
-                break;
             case "36":
-                url = "~/student/webstore.aspx?lid=" + Lid;
-                break;
             case "37":
-                url = "~/student/website.aspx?lid=" + Lid;
+                url = LearnSite.Common.CustomActivityCatalog.GetStudentEntryUrlByLid(Ltype, Lid);
                 break;
             default:
                 url = "#";

@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 
 public partial class student_iframe : System.Web.UI.Page
 {
+    private const string DefaultIframeUrl = "https://image.baidu.com";
     protected string Id = "";
     protected string Owner = "";
     protected string Fpage = "#";
@@ -13,7 +14,7 @@ public partial class student_iframe : System.Web.UI.Page
     protected string codefile = "";
     protected string Snum = "";
     protected string Mypage = "";
-    protected string Mexample = "https://image.baidu.com";
+    protected string Mexample = DefaultIframeUrl;
     protected string Lid = "";
     protected string Ext = "psd";
 
@@ -58,11 +59,25 @@ public partial class student_iframe : System.Web.UI.Page
             {
                 if (!String.IsNullOrEmpty(model.Mexample))
                 {
-                    Mexample = model.Mexample;
+                    string missionUrl = model.Mexample.Trim();
+                    if (LearnSite.Common.IframeUrlHelper.IsAllowed(missionUrl))
+                    {
+                        Mexample = ResolveIframeUrl(missionUrl);
+                    }
                 }
                 Mcontents = model.Mcontent;
                 //Ext = model.Mfiletype;
             }
         }
+    }
+
+    private string ResolveIframeUrl(string url)
+    {
+        if (url.StartsWith("~/"))
+        {
+            return ResolveUrl(url);
+        }
+
+        return url;
     }
 }

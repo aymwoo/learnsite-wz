@@ -237,8 +237,7 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     hl.NavigateUrl = "graphshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "11"://像素画  
-                    img.ImageUrl = "~/images/pixel.png";
-                    lbl.Text = "像素";
+                    ApplyCustomActivityVisual(img, lbl, "11");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "12"://网页
@@ -267,108 +266,87 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     hl.NavigateUrl = "excelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "17"://二维码 
-                    img.ImageUrl = "~/images/qrcode.png";
-                    lbl.Text = "二维码";
+                    ApplyCustomActivityVisual(img, lbl, "17");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "18"://在线文档 
-                    img.ImageUrl = "~/images/word.png";
-                    lbl.Text = "在线文档";
+                    ApplyCustomActivityVisual(img, lbl, "18");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "19"://在线演示文稿
-                    img.ImageUrl = "~/images/pptist.png";
-                    lbl.Text = "演示文稿";
+                    ApplyCustomActivityVisual(img, lbl, "19");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "20"://在线海报设计
-                    img.ImageUrl = "~/images/poster.png";
-                    lbl.Text = "海报设计";
+                    ApplyCustomActivityVisual(img, lbl, "20");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "21"://风格迁移 图像分类
-                    img.ImageUrl = "~/images/style.png";
-                    lbl.Text = "风格迁移";
+                    ApplyCustomActivityVisual(img, lbl, "21");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "22"://图像分类
-                    img.ImageUrl = "~/images/mlimg.png";
-                    lbl.Text = "图像分类";
+                    ApplyCustomActivityVisual(img, lbl, "22");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "23"://人脸识别
-                    img.ImageUrl = "~/images/face.png";
-                    lbl.Text = "人脸识别";
+                    ApplyCustomActivityVisual(img, lbl, "23");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "24"://物联网mqtt
-                    img.ImageUrl = "~/images/mqtt.png";
-                    lbl.Text = "物联网";
+                    ApplyCustomActivityVisual(img, lbl, "24");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "25"://手绘画布
-                    img.ImageUrl = "~/images/excalidraw.png";
-                    lbl.Text = "手绘画布";
+                    ApplyCustomActivityVisual(img, lbl, "25");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "26"://推箱子地图
-                    img.ImageUrl = "~/images/sokoban.png";
-                    lbl.Text = "推箱子地图";
+                    ApplyCustomActivityVisual(img, lbl, "26");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "27"://人工智能对话
-                    img.ImageUrl = "~/images/ai.png";
-                    lbl.Text = "人工智能对话";
+                    ApplyCustomActivityVisual(img, lbl, "27");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "28"://语音合成
-                    img.ImageUrl = "~/images/speek.png";
-                    lbl.Text = "语音合成";
+                    ApplyCustomActivityVisual(img, lbl, "28");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "29"://文字识别
-                    img.ImageUrl = "~/images/ocr.png";
-                    lbl.Text = "文字识别";
+                    ApplyCustomActivityVisual(img, lbl, "29");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "30"://声音分析
-                    img.ImageUrl = "~/images/sound.png";
-                    lbl.Text = "声音分析";
+                    ApplyCustomActivityVisual(img, lbl, "30");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "31"://井字棋
-                    img.ImageUrl = "~/images/tic-tac-toe.png";
-                    lbl.Text = "井字棋";
+                    ApplyCustomActivityVisual(img, lbl, "31");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "32"://手写数字识别
-                    img.ImageUrl = "~/images/handnum.png";
-                    lbl.Text = "手写数字识别";
+                    ApplyCustomActivityVisual(img, lbl, "32");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "33"://markdown写作
-                    img.ImageUrl = "~/images/markdown.png";
-                    lbl.Text = "markdown写作";
+                    ApplyCustomActivityVisual(img, lbl, "33");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "34"://iframe嵌入网页
-                    img.ImageUrl = "~/images/iframe.png";
-                    lbl.Text = "嵌入网页";
+                    ApplyCustomActivityVisual(img, lbl, "34");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "35"://文生图
-                    img.ImageUrl = "~/images/text-to-image.png";
-                    lbl.Text = "文生图";
+                    ApplyCustomActivityVisual(img, lbl, "35");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "36"://素材库
-                    img.ImageUrl = "~/images/web.png";
-                    lbl.Text = "素材库";
+                    ApplyCustomActivityVisual(img, lbl, "36");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "37"://网站设计
-                    img.ImageUrl = "~/images/website.png";
-                    lbl.Text = "网站设计";
+                    ApplyCustomActivityVisual(img, lbl, "37");
                     hl.NavigateUrl = "pixelshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
                 case "38"://网页课件
@@ -559,5 +537,12 @@ public partial class Teacher_courseshow : System.Web.UI.Page
 
         lbll.Lsortsncy(cid);
         return true;
+    }
+
+    private void ApplyCustomActivityVisual(Image img, Label lbl, string category)
+    {
+        LearnSite.Common.CustomActivityMeta meta = LearnSite.Common.CustomActivityCatalog.GetMeta(category);
+        img.ImageUrl = meta.IconUrl;
+        lbl.Text = meta.DisplayName;
     }
 }

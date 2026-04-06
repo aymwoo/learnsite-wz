@@ -77,6 +77,70 @@
             align-items: center;
             margin-bottom: 0.45rem;
         }
+
+        .pixel-add-type-note {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            padding: 1rem 1.1rem;
+            border: 1px solid #dbeafe;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #eff6ff 0%, #f8fbff 100%);
+        }
+
+        .pixel-add-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 2rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .pixel-add-chip img {
+            width: 1.15rem;
+            height: 1.15rem;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .pixel-add-type-copy {
+            flex: 1;
+            min-width: 220px;
+            color: #334155;
+            line-height: 1.75;
+        }
+
+        .pixel-add-type-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: .85rem;
+            margin-top: 1rem;
+        }
+
+        .pixel-add-type-item {
+            padding: .9rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.75;
+        }
+
+        .pixel-add-type-item strong {
+            display: block;
+            margin-bottom: .35rem;
+            color: #0f172a;
+        }
+
+        .pixel-add-route {
+            color: #2563eb;
+            font-weight: 700;
+            word-break: break-all;
+        }
     </style>
 
     <div class="content-add-page pixel-add-page">
@@ -119,6 +183,26 @@
                             <asp:ListItem Value="34">嵌入本地网页</asp:ListItem>
                             <asp:ListItem Value="35">文生图</asp:ListItem>
                         </asp:DropDownList>
+                    </div>
+
+                    <div class="content-add-field content-add-field-wide">
+                        <div class="pixel-add-type-note">
+                            <span class="pixel-add-chip" style='background:<%= GetActivityBadgeBackground() %>;color:<%= GetActivityBadgeForeground() %>;'>
+                                <img src="<%= GetActivityIconUrl() %>" alt="" />
+                                <%= GetActivityDisplayName() %>
+                            </span>
+                            <div class="pixel-add-type-copy"><%= GetActivityDescription() %></div>
+                        </div>
+                        <div class="pixel-add-type-list">
+                            <div class="pixel-add-type-item">
+                                <strong>学生端入口</strong>
+                                <span class="pixel-add-route"><%= GetStudentEntryUrl() %></span>
+                            </div>
+                            <div class="pixel-add-type-item">
+                                <strong>创建重点</strong>
+                                <%= GetEditFocusText() %>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="content-add-field content-add-field-wide">

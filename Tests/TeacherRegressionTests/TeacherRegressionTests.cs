@@ -9,6 +9,7 @@ public class TeacherRegressionTests
 {
     private static readonly string RepoRoot = GetRepoRoot();
     private static readonly string TeacherRoot = Path.Combine(RepoRoot, "teacher");
+    private static readonly string CommonRoot = Path.Combine(RepoRoot, "App_Code", "Common");
 
     private static readonly string[] ThreeEditorPages =
     {
@@ -216,6 +217,20 @@ public class TeacherRegressionTests
 
         var guard = "if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)";
         Assert.True(CountOccurrences(content, guard) >= 4, "Expected item-type guards on all critical ItemDataBound handlers.");
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_ShouldKeepUnifiedRoutingAndExampleHelpers()
+    {
+        var content = File.ReadAllText(Path.Combine(CommonRoot, "CustomActivityCatalog.cs"));
+
+        Assert.Contains("public static string GetStudentEntryUrlByLid", content, StringComparison.Ordinal);
+        Assert.Contains("public static string GetFileType", content, StringComparison.Ordinal);
+        Assert.Contains("public static CustomActivityExampleResult BuildExampleValue", content, StringComparison.Ordinal);
+        Assert.Contains("public static string GetExampleSummary", content, StringComparison.Ordinal);
+        Assert.Contains("\"iframe\"", content, StringComparison.Ordinal);
+        Assert.Contains("\"mqtt\"", content, StringComparison.Ordinal);
+        Assert.Contains("\"~/student/iframe.aspx?lid={0}\"", content, StringComparison.Ordinal);
     }
 
     [Fact]

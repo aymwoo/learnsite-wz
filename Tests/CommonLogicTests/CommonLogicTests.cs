@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web.UI.WebControls;
 using LearnSite.Common;
 
 namespace CommonLogicTests;
@@ -172,6 +173,82 @@ public class CommonLogicTests : IDisposable
     {
         var result = WordProcessCore.GetRandomNum(10);
         Assert.InRange(result, 0, 9);
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_GetMeta_ReturnsConfiguredCustomActivity()
+    {
+        var meta = CustomActivityCatalog.GetMeta("34");
+
+        Assert.Equal("嵌入本地网页", meta.DisplayName);
+        Assert.Equal("iframe", meta.FileType);
+        Assert.Equal("iframe-url", meta.ExampleMode);
+        Assert.Equal("~/student/iframe.aspx?lid={0}", meta.StudentEntryFormat);
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_GetMeta_UsesDefaultForUnknownCategory()
+    {
+        var meta = CustomActivityCatalog.GetMeta("999");
+
+        Assert.Equal("11", meta.Category);
+        Assert.Equal("pxl", meta.FileType);
+        Assert.Equal("~/student/pixel.aspx?lid={0}", meta.StudentEntryFormat);
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_GetStudentEntryUrlByLid_FormatsRoute()
+    {
+        var url = CustomActivityCatalog.GetStudentEntryUrlByLid("24", "321");
+
+        Assert.Equal("~/student/mqtt.aspx?lid=321", url);
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_BuildExampleValue_ReturnsSelectedDevices()
+    {
+        var deviceList = new CheckBoxList();
+        deviceList.Items.Add(new ListItem("小灯", "led") { Selected = true });
+        deviceList.Items.Add(new ListItem("风扇", "fan") { Selected = false });
+        deviceList.Items.Add(new ListItem("水泵", "pump") { Selected = true });
+
+        var result = CustomActivityCatalog.BuildExampleValue("24", deviceList, String.Empty);
+
+        Assert.True(result.IsValid);
+        Assert.Equal("led,pump,", result.ExampleValue);
+        Assert.Equal("当前已启用设备：led、pump。", CustomActivityCatalog.GetExampleSummary("24", result.ExampleValue));
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_BuildExampleValue_RejectsUnsafeIframeUrl()
+    {
+        var result = CustomActivityCatalog.BuildExampleValue("34", null, "javascript:alert(1)");
+
+        Assert.False(result.IsValid);
+        Assert.Equal(String.Empty, result.ExampleValue);
+        Assert.Contains("嵌入地址格式不正确", result.ErrorMessage, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void CustomActivityCatalog_BuildExampleValue_AcceptsSafeIframeUrlAndSummary()
+    {
+        var result = CustomActivityCatalog.BuildExampleValue("34", null, "~/student/demo.aspx");
+
+        Assert.True(result.IsValid);
+        Assert.Equal("~/student/demo.aspx", result.ExampleValue);
+        Assert.Equal("当前嵌入地址：~/student/demo.aspx。", CustomActivityCatalog.GetExampleSummary("34", result.ExampleValue));
+    }
+
+    [Theory]
+    [InlineData("https://example.com/tool", true)]
+    [InlineData("~/student/demo.aspx", true)]
+    [InlineData("../pages/demo.html", true)]
+    [InlineData("javascript:alert(1)", false)]
+    [InlineData("data:text/html;base64,abc", false)]
+    [InlineData("https://bad url.com", false)]
+    public void IframeUrlHelper_IsAllowed_ReturnsExpectedResult(string url, bool expected)
+    {
+        Assert.Equal(expected, IframeUrlHelper.IsAllowed(url));
     }
 
     [Fact]

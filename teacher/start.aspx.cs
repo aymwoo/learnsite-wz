@@ -750,7 +750,7 @@ public partial class Teacher_start : System.Web.UI.Page
                             imgurl = "~/images/mxgraph.png";
                             break;
                         case "11"://像素画
-                            imgurl = "~/images/pixel.png";
+                            imgurl = GetCustomActivityIconUrl("11");
                             break;
                         case "12"://单网页
                             imgurl = "~/images/html.png";
@@ -768,67 +768,67 @@ public partial class Teacher_start : System.Web.UI.Page
                             imgurl = "~/images/sheet.png";
                             break;
                         case "17"://二维码
-                            imgurl = "~/images/qrcode.png";
+                            imgurl = GetCustomActivityIconUrl("17");
                             break;
                         case "18"://在线文档
-                            imgurl = "~/images/word.png";
+                            imgurl = GetCustomActivityIconUrl("18");
                             break;
                         case "19"://在线演示文稿
-                            imgurl = "~/images/pptist.png";
+                            imgurl = GetCustomActivityIconUrl("19");
                             break;
                         case "20"://在线海报设计
-                            imgurl = "~/images/poster.png";
+                            imgurl = GetCustomActivityIconUrl("20");
                             break;
                         case "21"://风格迁移
-                            imgurl = "~/images/style.png";
+                            imgurl = GetCustomActivityIconUrl("21");
                             break;
                         case "22"://图像分类
-                            imgurl = "~/images/mlimg.png";
+                            imgurl = GetCustomActivityIconUrl("22");
                             break;
                         case "23"://人脸识别
-                            imgurl = "~/images/face.png";
+                            imgurl = GetCustomActivityIconUrl("23");
                             break;
                         case "24"://物联网
-                            imgurl = "~/images/mqtt.png";
+                            imgurl = GetCustomActivityIconUrl("24");
                             break;
                         case "25"://手绘画布
-                            imgurl = "~/images/excalidraw.png";
+                            imgurl = GetCustomActivityIconUrl("25");
                             break;
                         case "26"://推箱子地图
-                            imgurl = "~/images/sokoban.png";
+                            imgurl = GetCustomActivityIconUrl("26");
                             break;
                         case "27"://人工智能对话
-                            imgurl = "~/images/ai.png";
+                            imgurl = GetCustomActivityIconUrl("27");
                             break;
                         case "28"://人工智能对话
-                            imgurl = "~/images/speek.png";
+                            imgurl = GetCustomActivityIconUrl("28");
                             break;
                         case "29"://文字识别
-                            imgurl = "~/images/ocr.png";
+                            imgurl = GetCustomActivityIconUrl("29");
                             break;
                         case "30"://声音分析
-                            imgurl = "~/images/sound.png";
+                            imgurl = GetCustomActivityIconUrl("30");
                             break;
                         case "31"://井字棋
-                            imgurl = "~/images/tic-tac-toe.png";
+                            imgurl = GetCustomActivityIconUrl("31");
                             break;
                         case "32"://手写数字识别
-                            imgurl = "~/images/handnum.png";
+                            imgurl = GetCustomActivityIconUrl("32");
                             break;
                         case "33"://Markdown写作
-                            imgurl = "~/images/markdown.png";
+                            imgurl = GetCustomActivityIconUrl("33");
                             break;
                         case "34"://iframe嵌入网页
-                            imgurl = "~/images/iframe.png";
+                            imgurl = GetCustomActivityIconUrl("34");
                             break;
                         case "35"://文生图
-                            imgurl = "~/images/text-to-image.png";
+                            imgurl = GetCustomActivityIconUrl("35");
                             break;
                         case "36"://素材库
-                            imgurl = "~/images/web.png";
+                            imgurl = GetCustomActivityIconUrl("36");
                             break;
                         case "37"://网站设计
-                            imgurl = "~/images/website.png";
+                            imgurl = GetCustomActivityIconUrl("37");
                             break;
                         case "38"://网页课件
                             imgurl = "~/images/ware.png";
@@ -934,5 +934,10 @@ public partial class Teacher_start : System.Web.UI.Page
         LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
         bool rpass = CheckBoxPass.Checked;
         rm.UpdateRpass(Rgrade, Rclass, rpass);
+    }
+
+    private string GetCustomActivityIconUrl(string category)
+    {
+        return LearnSite.Common.CustomActivityCatalog.GetMeta(category).IconUrl;
     }
 }
