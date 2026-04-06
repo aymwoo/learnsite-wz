@@ -20,6 +20,7 @@ namespace LearnSite.BLL
         public bool Success { get; set; }
         public bool UsedFallback { get; set; }
         public string Message { get; set; }
+        public string ProviderDisplayName { get; set; }
         public List<LearnSite.Model.GaugeItem> Items { get; set; }
     }
 
@@ -50,6 +51,11 @@ namespace LearnSite.BLL
             }
         }
 
+        public static string GetDefaultProviderDisplayName()
+        {
+            return BuildProviderDisplayName(GetDefaultProvider());
+        }
+
         public GaugeGenerationResult Generate(string gaugeType, string gaugeTitle)
         {
             return Generate(gaugeType, gaugeTitle, null);
@@ -61,10 +67,11 @@ namespace LearnSite.BLL
             ReportProgress(progressReporter, "prepare", "正在检查 AI Provider 与默认技能配置...");
 
             LearnSite.Model.AIProvider provider = GetDefaultProvider();
+            string providerName = BuildProviderDisplayName(provider);
             if (provider == null || string.IsNullOrEmpty(provider.BaseUrl) || string.IsNullOrEmpty(provider.ModelName))
             {
                 ReportProgress(progressReporter, "fallback", "未配置默认 AI Provider，改为使用默认推荐模板。");
-                return BuildFallbackResult(gaugeType, gaugeTitle, "未配置默认 AI Provider，已使用默认量规项。");
+                return BuildFallbackResult(gaugeType, gaugeTitle, "未配置默认 AI Provider，已使用默认量规项。", providerName);
             }
 
             LearnSite.Model.AICustomSkill skill = GetGaugeSkill();
@@ -81,7 +88,7 @@ namespace LearnSite.BLL
                 if (items.Count == 0)
                 {
                     ReportProgress(progressReporter, "fallback", "AI 返回内容无法解析，改为使用默认推荐模板。");
-                    return BuildFallbackResult(gaugeType, gaugeTitle, "AI 返回内容无法解析，已使用默认量规项。");
+                    return BuildFallbackResult(gaugeType, gaugeTitle, "AI 返回内容无法解析，已使用默认量规项。", providerName);
                 }
 
                 ReportProgress(progressReporter, "ai_done", "AI 已生成 " + items.Count + " 条量规项。");
@@ -90,13 +97,14 @@ namespace LearnSite.BLL
                     Success = true,
                     UsedFallback = false,
                     Message = "已自动生成 " + items.Count + " 条量规项。",
+                    ProviderDisplayName = providerName,
                     Items = items
                 };
             }
             catch (Exception ex)
             {
                 ReportProgress(progressReporter, "fallback", "AI 生成失败，改为使用默认推荐模板。");
-                return BuildFallbackResult(gaugeType, gaugeTitle, "AI 生成失败，已使用默认量规项。" + CleanErrorMessage(ex.Message));
+                return BuildFallbackResult(gaugeType, gaugeTitle, "AI 生成失败，已使用默认量规项。" + CleanErrorMessage(ex.Message), providerName);
             }
         }
 
@@ -141,7 +149,7 @@ namespace LearnSite.BLL
             return defaultSkill ?? skills[0];
         }
 
-        private LearnSite.Model.AIProvider GetDefaultProvider()
+        private static LearnSite.Model.AIProvider GetDefaultProvider()
         {
             LearnSite.BLL.AIProvider providerBll = new LearnSite.BLL.AIProvider();
             List<LearnSite.Model.AIProvider> providers = providerBll.GetModelList("");
@@ -152,6 +160,17 @@ namespace LearnSite.BLL
 
             LearnSite.Model.AIProvider provider = providers.FirstOrDefault(p => p.IsDefault);
             return provider ?? providers[0];
+        }
+
+        private static string BuildProviderDisplayName(LearnSite.Model.AIProvider provider)
+        {
+            if (provider == null)
+                return "未配置 AI Provider";
+            if (!string.IsNullOrEmpty(provider.DisplayName))
+                return provider.DisplayName;
+            if (!string.IsNullOrEmpty(provider.ProviderName))
+                return provider.ProviderName;
+            return provider.ModelName ?? "默认模型";
         }
 
         private string BuildUserPrompt(string gaugeType, string gaugeTitle)
@@ -212,13 +231,14 @@ namespace LearnSite.BLL
             }
         }
 
-        private GaugeGenerationResult BuildFallbackResult(string gaugeType, string gaugeTitle, string message)
+        private GaugeGenerationResult BuildFallbackResult(string gaugeType, string gaugeTitle, string message, string providerName)
         {
             return new GaugeGenerationResult
             {
                 Success = false,
                 UsedFallback = true,
                 Message = message,
+                ProviderDisplayName = providerName,
                 Items = AIGaugeSkillHelper.BuildFallbackItems(gaugeType, gaugeTitle)
             };
         }

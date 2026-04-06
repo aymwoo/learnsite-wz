@@ -1,5 +1,33 @@
 # 更新日志 (CHANGELOG)
 
+## 2026-04-06
+
+### 新功能
+- **AI 量规生成 skill 场景落地**：`teacher/gauge.aspx` 新增量规创建 AI 流程，点击“添加量规”后通过 SSE 实时显示后端真实进度，自动调用默认 AI Provider 生成量规项，并在 `teacher/gaugeitem.aspx` 中展示生成结果、Provider 名称和明细预览
+- **量规 AI 二次生成增强**：`teacher/gaugeitem.aspx` 新增“重新用AI生成一次”和“追加AI生成”两个入口，支持覆盖生成与保留原量规后追加生成，过程同样使用 SSE 实时进度
+- **学生测验 AI 评估 skill**：新增默认 `student_exam` 场景 skill“AI测验评估助手”，学生在 `student/myexam.aspx` 提交测验后会自动调用默认 AI Provider 生成评估摘要、分析建议和学习日志，并把结果入库
+- **教师端实时动态 AI 详情 modal**：`teacher/start.aspx` 的实时动态学生卡片支持点击查看详情，modal 中展示学生 AI 测验评估概览、Provider、Skill、生成时间、学习日志和可读化答题记录
+- **学生测验 AI 评估存储表**：新增 `AIStudentExamAssessment` 表及迁移 `1.9.1.1`，用于保存学生测验 AI 分析结果、答题日志与学习日志
+
+### 问题修复
+- **量规 AI 重新生成安全性优化**：覆盖模式改为“先生成后替换”，避免 AI 调用失败时先清空原量规项
+- **答题日志可读性提升**：教师端实时动态 modal 不再直接显示原始答题 JSON，而是解析为逐题的正确/错误清单和学生作答内容
+
+### 涉及文件
+- `teacher/gauge.aspx`、`teacher/gauge.aspx.cs`、`teacher/gauge_generate.ashx`
+- `teacher/gaugeitem.aspx`、`teacher/gaugeitem.aspx.cs`
+- `teacher/start.aspx`、`teacher/learnprogress.ashx`
+- `student/myexam.aspx`、`student/uploadexam.ashx`
+- `teacher/aiconfig.aspx`、`teacher/aiprovider_api.ashx`
+- `App_Code/Bll/AIGaugeGenerator.cs`
+- `App_Code/Bll/AIStudentExamGenerator.cs`
+- `App_Code/Bll/AIStudentExamAssessment.cs`
+- `App_Code/Common/AIGaugeSkillHelper.cs`
+- `App_Code/Common/AIStudentExamSkillHelper.cs`
+- `App_Code/Dal/AIStudentExamAssessment.cs`
+- `App_Code/Model/AIStudentExamAssessment.cs`
+- `App_Code/Utility/UpdateGrade.cs`、`App_Code/Utility/DbMigration.cs`
+
 ## 2026-04-05
 
 ### UI 重构

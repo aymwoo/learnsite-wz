@@ -53,6 +53,20 @@
     </div>
 </div>
 
+<div id="examAiLoading" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.45);backdrop-filter:blur(3px);align-items:center;justify-content:center;">
+    <div style="width:min(92vw,420px);padding:28px 24px;border-radius:20px;background:rgba(255,255,255,.98);box-shadow:0 24px 50px rgba(15,23,42,.22);text-align:center;">
+        <div style="width:56px;height:56px;margin:0 auto 16px;border-radius:999px;border:5px solid #dbeafe;border-top-color:#2563eb;animation:gaugeitem-spin .9s linear infinite;"></div>
+        <p style="margin:0;font-size:18px;font-weight:800;color:#0f172a;">正在提交测验并生成 AI 评估</p>
+        <p id="examAiLoadingDesc" style="margin:10px 0 0;font-size:14px;line-height:1.7;color:#64748b;">系统正在提交测验结果，请稍候。</p>
+        <p id="examAiProvider" style="margin:10px 0 0;font-size:12px;color:#475569;">当前 AI Provider：<%= LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() %></p>
+    </div>
+</div>
+
+<div id="examAiSummary" style="display:none;max-width:980px;margin:16px auto 0;padding:14px 16px;border-radius:16px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#eff6ff 0%,#f8fbff 100%);color:#1e3a8a;box-shadow:0 10px 24px rgba(37,99,235,.08);">
+    <div style="font-size:12px;font-weight:700;color:#475569;">AI 简短反馈</div>
+    <div id="examAiSummaryText" style="margin-top:8px;font-size:14px;line-height:1.7;color:#1d4ed8;"></div>
+</div>
+
 <script type="text/javascript" > 
 	var jsonstr = "<%=questionList %>";    
 	var isclose = "<%=isClose %>";   
@@ -68,6 +82,8 @@
 	var div = document.getElementById('questionPage');//渲染区域
     var btnupload = document.getElementById('btnupload');
 	var htmlstr="";//渲染内容
+	var examEventSource = null;
+	var examStreamFinished = false;
 
 	var idList = [];
 	var scoreList = [];
@@ -166,35 +182,97 @@
 		    noticewrong(wrongList);//提示错误题目
             //提交答案
             btnupload.disabled = true;
-			uploadscore(answer.toString(),allscore);
+			uploadscore(answer.toString(),allscore, buildAnswerLog(dict, wrongList, allscore));
         }
 	}
 
-    function uploadscore(selectstr,score){
-        var urls = 'uploadexam.ashx' ;
-        var formData = new FormData();
-        formData.append('selectstr', selectstr);
-        formData.append('score', score);
-        formData.append('lidstr', lidstr);
-        formData.append('cidstr', cidstr);
-        formData.append('vidstr', vidstr);
-        formData.append('vtypestr', vtypestr);
+    function showExamLoading(message) {
+        var loading = document.getElementById('examAiLoading');
+        var desc = document.getElementById('examAiLoadingDesc');
+        if (desc && message) desc.innerHTML = message;
+        if (loading) loading.style.display = 'flex';
+    }
 
-        $.ajax({
-            url: urls,
-            type: 'POST',
-            cache: false,
-            data: formData,
-            processData: false,
-            contentType: false
-        }).done(function (res) {
+    function closeExamLoading() {
+        var loading = document.getElementById('examAiLoading');
+        if (loading) loading.style.display = 'none';
+    }
+
+    function parseExamSseData(data) {
+        try { return JSON.parse(data); } catch (e) { return null; }
+    }
+
+    function buildAnswerLog(dict, wrongList, allscore) {
+        var entries = [];
+        for (var i = 0; i < dict.length; i++) {
+            var item = dict[i];
+            if (!item) continue;
+            entries.push({ name: item.name, value: item.value, isWrong: wrongList.indexOf(item.name) > -1 });
+        }
+        return JSON.stringify({ score: allscore, total: qcount, answers: entries });
+    }
+
+    function uploadscore(selectstr,score,answerLog){
+        if (!window.EventSource) {
+            alert('当前浏览器不支持实时评估进度，请更换浏览器后再试。');
+            btnupload.disabled = false;
+            return;
+        }
+
+        showExamLoading('系统正在提交测验结果，请稍候。');
+        examStreamFinished = false;
+        if (examEventSource) {
+            examEventSource.close();
+        }
+        var urls = 'uploadexam.ashx?selectstr=' + encodeURIComponent(selectstr)
+            + '&score=' + encodeURIComponent(score)
+            + '&lidstr=' + encodeURIComponent(lidstr)
+            + '&cidstr=' + encodeURIComponent(cidstr)
+            + '&vidstr=' + encodeURIComponent(vidstr)
+            + '&vtypestr=' + encodeURIComponent(vtypestr)
+            + '&qcount=' + encodeURIComponent(qcount)
+            + '&answerlog=' + encodeURIComponent(answerLog);
+
+        examEventSource = new EventSource(urls);
+        examEventSource.addEventListener('progress', function (event) {
+            var payload = parseExamSseData(event.data);
+            if (!payload) return;
+            showExamLoading(payload.message || '系统正在处理中，请稍候。');
+        });
+
+        examEventSource.addEventListener('done', function (event) {
+            var payload = parseExamSseData(event.data);
+            examStreamFinished = true;
+            examEventSource.close();
             if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
                 window.LearnStatus.submitted();
             }
-            alert("提交成功！");
-			location.reload();
+            showExamLoading(payload && payload.message ? payload.message : '提交成功，AI 测验评估已生成。');
+            var summaryBox = document.getElementById('examAiSummary');
+            var summaryText = document.getElementById('examAiSummaryText');
+            if (summaryBox && summaryText && payload && payload.summary) {
+                summaryText.innerHTML = payload.summary;
+                summaryBox.style.display = 'block';
+            }
+            window.setTimeout(function(){ location.reload(); }, 1500);
         });
-    
+
+        examEventSource.addEventListener('failed', function (event) {
+            var payload = event && event.data ? parseExamSseData(event.data) : null;
+            examStreamFinished = true;
+            if (examEventSource) examEventSource.close();
+            closeExamLoading();
+            btnupload.disabled = false;
+            alert(payload && payload.message ? payload.message : '提交失败，请稍后重试。');
+        });
+
+        examEventSource.onerror = function () {
+            if (!examEventSource || examStreamFinished) return;
+            if (examEventSource) examEventSource.close();
+            closeExamLoading();
+            btnupload.disabled = false;
+            alert('提交连接已中断，请稍后重试。');
+        };
     }
 
 

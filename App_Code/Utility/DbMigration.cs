@@ -114,6 +114,7 @@ namespace LearnSite.DBUtility
             new MigrationEntry { Version = "1.7.0",  Description = "新增 AIProvider 表及默认数据",                         Apply = UpdateGrade.UpdateTable1700 },
             new MigrationEntry { Version = "1.8.0",  Description = "新增 AISkill 表",                                      Apply = UpdateGrade.UpdateTable1800 },
             new MigrationEntry { Version = "1.9.0",  Description = "新增 AICustomSkill 表",                                 Apply = UpdateGrade.UpdateTable1900 },
+            new MigrationEntry { Version = "1.9.1.1",  Description = "新增学生测验 AI 评估表",                             Apply = UpdateGrade.UpdateTable1911 },
         };
 
         // ---------------------------------------------------------------

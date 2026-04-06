@@ -2590,6 +2590,39 @@ namespace LearnSite.DBUtility
                 string defaultPrompt = LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillPrompt().Replace("'", "''");
                 string seedSql = "INSERT INTO [dbo].[AICustomSkill] (SkillName,PromptContent,SkillScope,IsActive) VALUES (N'" + LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillName().Replace("'", "''") + "',N'" + defaultPrompt + "',N'gauge',1)";
                 DbHelperSQL.ExecuteSql(seedSql);
+
+                string examPrompt = LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillPrompt().Replace("'", "''");
+                string examSeedSql = "INSERT INTO [dbo].[AICustomSkill] (SkillName,PromptContent,SkillScope,IsActive) VALUES (N'" + LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillName().Replace("'", "''") + "',N'" + examPrompt + "',N'student_exam',1)";
+                DbHelperSQL.ExecuteSql(examSeedSql);
+            }
+        }
+
+        public static void UpdateTable1911()
+        {
+            if (!DbHelperSQL.TabExists("AIStudentExamAssessment"))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(" CREATE TABLE [dbo].[AIStudentExamAssessment] (");
+                sb.Append(" [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,");
+                sb.Append(" [Fid] INT NULL,");
+                sb.Append(" [Sid] INT NULL,");
+                sb.Append(" [Snum] NVARCHAR(50) NULL,");
+                sb.Append(" [Sname] NVARCHAR(50) NULL,");
+                sb.Append(" [Cid] INT NULL,");
+                sb.Append(" [Lid] INT NULL,");
+                sb.Append(" [Vid] INT NULL,");
+                sb.Append(" [ProviderName] NVARCHAR(100) NULL,");
+                sb.Append(" [SkillName] NVARCHAR(100) NULL,");
+                sb.Append(" [Summary] NVARCHAR(500) NULL,");
+                sb.Append(" [AssessmentContent] NVARCHAR(MAX) NULL,");
+                sb.Append(" [LearningLog] NVARCHAR(MAX) NULL,");
+                sb.Append(" [AnswerLog] NVARCHAR(MAX) NULL,");
+                sb.Append(" [Score] INT NULL,");
+                sb.Append(" [QuestionCount] INT NULL,");
+                sb.Append(" [IsFallback] BIT NOT NULL DEFAULT 0,");
+                sb.Append(" [CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()");
+                sb.Append(" )");
+                DbHelperSQL.ExecuteSql(sb.ToString());
             }
         }
 

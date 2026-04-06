@@ -576,6 +576,7 @@ public class aiprovider_api : IHttpHandler {
     private void GetCustomSkillList(HttpContext context)
     {
         LearnSite.BLL.AIGaugeGenerator.EnsureDefaultGaugeSkill();
+        LearnSite.BLL.AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
         LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
         List<LearnSite.Model.AICustomSkill> list = bll.GetModelList("");
         string json = JsonConvert.SerializeObject(new { success = true, data = list });

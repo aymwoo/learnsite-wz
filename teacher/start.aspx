@@ -1153,6 +1153,7 @@
             min-width: 72px;
             text-align: center;
             transition: border-color 0.2s;
+            cursor: pointer;
         }
 
         .ls-rt-stu--working { border-color: #86efac; background: #f0fdf4; }
@@ -1199,6 +1200,111 @@
         .ls-rt-stu__time {
             font-size: 10px;
             color: #94a3b8;
+        }
+
+        .ls-rt-stu__badge {
+            margin-top: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid #bfdbfe;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .ls-rt-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(3px);
+        }
+
+        .ls-rt-modal.is-open {
+            display: flex;
+        }
+
+        .ls-rt-modal__dialog {
+            width: min(92vw, 760px);
+            max-height: 86vh;
+            overflow: auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.24);
+            padding: 24px;
+        }
+
+        .ls-rt-modal__head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ls-rt-modal__title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .ls-rt-modal__close {
+            border: none;
+            background: #f1f5f9;
+            color: #334155;
+            border-radius: 999px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .ls-rt-modal__section {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 16px;
+            background: #f8fafc;
+            margin-top: 14px;
+        }
+
+        .ls-rt-modal__label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .ls-rt-modal__content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #1e293b;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .ls-rt-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4338ca;
+            border: 1px solid #c7d2fe;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 8px;
         }
     </style>
 
@@ -1431,6 +1537,16 @@
                             <div style="margin-top:16px;">
                                 <div class="lesson-label">学生详细状态</div>
                                 <div id="ls-rt-students" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:8px;"></div>
+                            </div>
+                        </div>
+
+                        <div id="lsStudentModal" class="ls-rt-modal" aria-hidden="true">
+                            <div class="ls-rt-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="lsStudentModalTitle">
+                                <div class="ls-rt-modal__head">
+                                    <h3 id="lsStudentModalTitle" class="ls-rt-modal__title">学生学习详情</h3>
+                                    <button type="button" class="ls-rt-modal__close" onclick="lsCloseStudentModal();">×</button>
+                                </div>
+                                <div id="lsStudentModalBody" class="ls-rt-modal__content">正在加载...</div>
                             </div>
                         </div>
                     </div>
@@ -1713,15 +1829,139 @@
                     var ltitle = lsDecodeMaybe(s.Ltitle || "");
                     var ltype = stepTypeLabels[s.Ltype] || (s.Ltype ? ("类型" + s.Ltype) : "未知类型");
                     var meta = "学案#" + (s.Cid || 0) + " · " + ltype;
-                    html += '<div class="ls-rt-stu ls-rt-stu--' + st + '">' +
+                    var aiBadge = '';
+                    if (s.HasAssessment) {
+                        var badgeClass = s.AssessmentFallback ? 'ls-rt-stu__badge ls-rt-stu__badge--fallback' : 'ls-rt-stu__badge';
+                        var badgeText = s.AssessmentFallback ? '模板评估' : 'AI评估';
+                        aiBadge = '<span class="' + badgeClass + '" title="最近评估：' + (s.AssessmentTime || '-') + '">' + badgeText + '</span>';
+                    }
+                    html += '<div class="ls-rt-stu ls-rt-stu--' + st + '" onclick="lsOpenStudentDetail(' + (s.Sid || 0) + ')">' +
                         '<span class="ls-rt-stu__name">' + sname + '</span>' +
                         '<span class="ls-rt-stu__step" title="' + ltitle + '">' + (ltitle || "-") + '</span>' +
                         '<span class="ls-rt-stu__meta" title="' + meta + '">' + meta + '</span>' +
                         '<span class="ls-rt-stu__status ls-rt-stu__status--' + st + '">' + label + '</span>' +
+                        aiBadge +
                         '<span class="ls-rt-stu__time">' + (s.UpdateTime || "") + '</span>' +
                         '</div>';
                 }
                 container.innerHTML = html;
+            }
+
+            function lsCloseStudentModal() {
+                var modal = document.getElementById('lsStudentModal');
+                if (!modal) return;
+                modal.className = modal.className.replace(/\s?is-open/g, '');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+
+            function lsEscapeHtml(text) {
+                if (text === null || text === undefined) return '';
+                return String(text)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            function lsRenderAnswerLog(answerLog) {
+                if (!answerLog) {
+                    return '<div class="ls-rt-modal__content">暂无答题记录。</div>';
+                }
+                try {
+                    var parsed = JSON.parse(answerLog);
+                    if (!parsed || !parsed.answers || !parsed.answers.length) {
+                        return '<div class="ls-rt-modal__content">暂无答题记录。</div>';
+                    }
+                    var titleMap = window.lsStudentQuestionTitles || {};
+                    var optionMap = window.lsStudentOptionTexts || {};
+                    var blankMap = window.lsStudentBlankAnswers || {};
+                    var html = '<div class="ls-rt-modal__content">本次记录共 ' + (parsed.total || 0) + ' 题，得分 ' + (parsed.score || 0) + '。</div>';
+                    html += '<div style="margin-top:12px;display:grid;gap:10px;">';
+                    for (var i = 0; i < parsed.answers.length; i++) {
+                        var item = parsed.answers[i];
+                        var state = item.isWrong ? '错误' : '正确';
+                        var stateColor = item.isWrong ? '#b91c1c' : '#047857';
+                        var qid = '';
+                        if (item.name && item.name.indexOf('-') > -1) {
+                            qid = item.name.split('-')[1] || '';
+                        }
+                        var displayTitle = titleMap[qid] || item.name || ('第' + (i + 1) + '题');
+                        var answerValue = item.value || '-';
+                        var answerMeta = '';
+                        if (optionMap[answerValue]) {
+                            answerValue = optionMap[answerValue] + '（选项ID:' + answerValue + '）';
+                        }
+                        if (item.name && item.name.indexOf('填空-') === 0) {
+                            var blankMid = item.name.split('-')[2] || '';
+                            if (blankMap[blankMid]) {
+                                answerMeta = '<div style="margin-top:6px;color:#64748b;font-size:12px;">标准答案：' + lsEscapeHtml(blankMap[blankMid]) + '</div>';
+                            }
+                        }
+                        html += '<div style="border:1px solid #e2e8f0;border-radius:12px;padding:12px;background:#fff;">'
+                            + '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">'
+                            + '<strong style="color:#0f172a;">' + lsEscapeHtml(displayTitle) + '</strong>'
+                            + '<span style="font-size:12px;font-weight:700;color:' + stateColor + ';">' + state + '</span>'
+                            + '</div>'
+                            + '<div style="margin-top:6px;color:#475569;font-size:13px;">学生答案：' + lsEscapeHtml(answerValue) + '</div>'
+                            + answerMeta
+                            + '</div>';
+                    }
+                    html += '</div>';
+                    return html;
+                } catch (e) {
+                    return '<div class="ls-rt-modal__content">' + lsEscapeHtml(answerLog).replace(/\n/g, '<br>') + '</div>';
+                }
+            }
+
+            function lsOpenStudentDetail(sid) {
+                if (!sid) return;
+                var modal = document.getElementById('lsStudentModal');
+                var body = document.getElementById('lsStudentModalBody');
+                if (!modal || !body) return;
+                body.innerHTML = '正在加载学生学习详情...';
+                if (modal.className.indexOf('is-open') < 0) modal.className += ' is-open';
+                modal.setAttribute('aria-hidden', 'false');
+
+                $.ajax({
+                    url: '../teacher/learnprogress.ashx',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { action: 'studentdetail', sid: sid, cid: lsCid, sgrade: lsGrade, sclass: lsClass },
+                    timeout: 6000,
+                    success: function (resp) {
+                        if (!resp || !resp.ok || !resp.data) {
+                            body.innerHTML = '未获取到学生详情。';
+                            return;
+                        }
+                        var data = resp.data;
+                        window.lsStudentQuestionTitles = data.questionTitles || {};
+                        window.lsStudentOptionTexts = data.optionTexts || {};
+                        window.lsStudentBlankAnswers = data.blankAnswers || {};
+                        var assessment = data.assessment;
+                        if (!assessment) {
+                            body.innerHTML = '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">学生信息</span><div class="ls-rt-modal__content">' + (data.sname || '') + '（' + (data.snum || '') + '）</div></div>' +
+                                '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">AI 测验评估</span><div class="ls-rt-modal__content">当前学案下暂无该学生的 AI 测验评估记录。</div></div>';
+                            return;
+                        }
+                        var chips = '<span class="ls-rt-chip">Provider：' + (assessment.providerName || '-') + '</span>' +
+                            '<span class="ls-rt-chip">Skill：' + (assessment.skillName || '-') + '</span>' +
+                            '<span class="ls-rt-chip">得分：' + (assessment.score || 0) + ' / ' + (assessment.questionCount || 0) + '</span>' +
+                            '<span class="ls-rt-chip">生成时间：' + (assessment.createdAt || '-') + '</span>';
+                        if (assessment.isFallback) {
+                            chips += '<span class="ls-rt-chip">默认模板兜底</span>';
+                        }
+                        var answerLogHtml = lsRenderAnswerLog(assessment.answerLog || '');
+                        body.innerHTML = '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">学生信息</span><div class="ls-rt-modal__content">' + (data.sname || '') + '（' + (data.snum || '') + '）</div></div>' +
+                            '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">AI 测验评估概览</span><div class="ls-rt-modal__content">' + chips + '</div><div class="ls-rt-modal__content" style="margin-top:12px;">' + (assessment.summary || '') + '</div></div>' +
+                            '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">AI 分析与建议</span><div class="ls-rt-modal__content">' + (assessment.assessmentContent || '').replace(/\n/g, '<br>') + '</div></div>' +
+                            '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">学习日志</span><div class="ls-rt-modal__content">' + (assessment.learningLog || '').replace(/\n/g, '<br>') + '</div></div>' +
+                            '<div class="ls-rt-modal__section"><span class="ls-rt-modal__label">答题记录</span>' + answerLogHtml + '</div>';
+                    },
+                    error: function () {
+                        body.innerHTML = '加载学生详情失败，请稍后重试。';
+                    }
+                });
             }
         </script>
     </div>

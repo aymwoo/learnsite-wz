@@ -1,7 +1,10 @@
 <%@ WebHandler Language="C#" Class="learnprogress" %>
 
 using System;
+using System.Collections.Generic;
 using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// 教师端轮询接口：获取指定班级学生的实时学习状态
@@ -47,9 +50,13 @@ public class learnprogress : IHttpHandler
 
                 case "all":
                     // 返回完整数据（状态列表 + 进度统计）
-                    string allStatus = LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls, cid);
+                    string allStatus = EnhanceStudentsWithAssessment(LearnSite.Common.LearnStatus.GetClassStatusJson(grade, cls, cid), cid);
                     string allProgress = LearnSite.Common.LearnStatus.GetClassProgressJson(grade, cls, cid);
                     context.Response.Write("{\"ok\":true,\"students\":" + allStatus + ",\"progress\":" + allProgress + "}");
+                    break;
+
+                case "studentdetail":
+                    GetStudentDetail(context, cid);
                     break;
 
                 default:
@@ -66,5 +73,100 @@ public class learnprogress : IHttpHandler
     public bool IsReusable
     {
         get { return false; }
+    }
+
+    private void GetStudentDetail(HttpContext context, int cid)
+    {
+        int sid;
+        if (!int.TryParse(context.Request.QueryString["sid"], out sid) || sid <= 0)
+        {
+            context.Response.Write("{\"ok\":false,\"msg\":\"invalid sid\"}");
+            return;
+        }
+
+        LearnSite.BLL.Students stuBll = new LearnSite.BLL.Students();
+        LearnSite.Model.Students stu = stuBll.GetModel(sid);
+        if (stu == null)
+        {
+            context.Response.Write("{\"ok\":false,\"msg\":\"student not found\"}");
+            return;
+        }
+
+        LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
+        LearnSite.Model.AIStudentExamAssessment assessment = assessmentBll.GetLatestByStudentCourse(sid, cid);
+        Dictionary<string, string> questionTitles = new Dictionary<string, string>();
+        Dictionary<string, string> optionTexts = new Dictionary<string, string>();
+        Dictionary<string, string> blankAnswers = new Dictionary<string, string>();
+        if (assessment != null && assessment.Vid.HasValue && assessment.Vid.Value > 0)
+        {
+            LearnSite.BLL.SurveyQuestion qBll = new LearnSite.BLL.SurveyQuestion();
+            LearnSite.BLL.SurveyItem itemBll = new LearnSite.BLL.SurveyItem();
+            List<LearnSite.Model.SurveyQuestion> questions = qBll.GetModelList("Qvid=" + assessment.Vid.Value + " order by Qid asc");
+            foreach (LearnSite.Model.SurveyQuestion question in questions)
+            {
+                if (question != null)
+                {
+                    questionTitles[question.Qid.ToString()] = HttpUtility.HtmlDecode(question.Qtitle ?? string.Empty);
+                    List<LearnSite.Model.SurveyItem> items = itemBll.GetModelList("Mqid=" + question.Qid + " order by Mid asc");
+                    foreach (LearnSite.Model.SurveyItem item in items)
+                    {
+                        if (item != null)
+                        {
+                            optionTexts[item.Mid.ToString()] = HttpUtility.HtmlDecode(item.Mitem ?? string.Empty);
+                            blankAnswers[item.Mid.ToString()] = HttpUtility.HtmlDecode(item.Mitem ?? string.Empty);
+                        }
+                    }
+                }
+            }
+        }
+        var data = new
+        {
+            sid = sid,
+            snum = stu.Snum,
+            sname = stu.Sname,
+            hasAssessment = assessment != null,
+            questionTitles = questionTitles,
+            optionTexts = optionTexts,
+            blankAnswers = blankAnswers,
+            assessment = assessment == null ? null : new
+            {
+                providerName = assessment.ProviderName,
+                skillName = assessment.SkillName,
+                summary = assessment.Summary,
+                assessmentContent = assessment.AssessmentContent,
+                learningLog = assessment.LearningLog,
+                answerLog = assessment.AnswerLog,
+                score = assessment.Score,
+                questionCount = assessment.QuestionCount,
+                isFallback = assessment.IsFallback,
+                createdAt = assessment.CreatedAt.HasValue ? assessment.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") : ""
+            }
+        };
+        context.Response.Write("{\"ok\":true,\"data\":" + JsonConvert.SerializeObject(data) + "}");
+    }
+
+    private string EnhanceStudentsWithAssessment(string studentsJson, int cid)
+    {
+        JArray students = JsonConvert.DeserializeObject<JArray>(studentsJson);
+        if (students == null || students.Count == 0)
+        {
+            return studentsJson;
+        }
+
+        LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
+        foreach (JToken token in students)
+        {
+            int sid = token["Sid"] == null ? 0 : token["Sid"].Value<int>();
+            LearnSite.Model.AIStudentExamAssessment assessment = sid > 0 ? assessmentBll.GetLatestByStudentCourse(sid, cid) : null;
+            bool hasAssessment = assessment != null;
+            if (token is JObject)
+            {
+                ((JObject)token)["HasAssessment"] = hasAssessment;
+                ((JObject)token)["AssessmentTime"] = assessment != null && assessment.CreatedAt.HasValue ? assessment.CreatedAt.Value.ToString("MM-dd HH:mm") : string.Empty;
+                ((JObject)token)["AssessmentFallback"] = assessment != null && assessment.IsFallback;
+            }
+        }
+
+        return students.ToString(Formatting.None);
     }
 }

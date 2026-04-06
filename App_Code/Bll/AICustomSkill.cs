@@ -58,6 +58,11 @@ namespace LearnSite.BLL
             AIGaugeGenerator.EnsureDefaultGaugeSkill();
         }
 
+        public void EnsureDefaultStudentExamSkill()
+        {
+            AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
+        }
+
         #endregion  Method
     }
 }

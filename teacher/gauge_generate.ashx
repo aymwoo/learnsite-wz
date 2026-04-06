@@ -24,6 +24,7 @@ public class gauge_generate : IHttpHandler
         string gaugeType = (context.Request["gtype"] ?? string.Empty).Trim();
         string gaugeTitle = HttpUtility.HtmlEncode((context.Request["gtitle"] ?? string.Empty).Trim());
         string mode = (context.Request["mode"] ?? "create").Trim().ToLower();
+        string regenBehavior = (context.Request["regenBehavior"] ?? "replace").Trim().ToLower();
         int gaugeId = 0;
         if (string.IsNullOrEmpty(gaugeTitle))
         {
@@ -54,8 +55,8 @@ public class gauge_generate : IHttpHandler
                 }
                 gaugeType = currentGauge.Gtype ?? gaugeType;
                 gaugeTitle = currentGauge.Gtitle ?? gaugeTitle;
-                clearBeforeSave = true;
-                WriteProgress(context, 1, "正在读取当前量规并准备重新生成...");
+                clearBeforeSave = regenBehavior != "append";
+                WriteProgress(context, 1, clearBeforeSave ? "正在读取当前量规并准备重新生成..." : "正在读取当前量规并准备追加生成...");
             }
             else
             {
@@ -76,7 +77,7 @@ public class gauge_generate : IHttpHandler
             }
 
             LearnSite.BLL.AIGaugeGenerator generator = new LearnSite.BLL.AIGaugeGenerator();
-            WriteProgress(context, 2, "正在调用 AI 生成评价项...");
+            WriteProgress(context, 2, "正在调用 AI Provider “" + LearnSite.BLL.AIGaugeGenerator.GetDefaultProviderDisplayName() + "” 生成评价项...");
             LearnSite.BLL.GaugeGenerationResult result = generator.Generate(gaugeType, gaugeTitle, delegate(string stage, string message)
             {
                 if (stage == "ai" || stage == "parse" || stage == "fallback" || stage == "ai_done")
@@ -91,6 +92,15 @@ public class gauge_generate : IHttpHandler
                 WriteProgress(context, 3, "AI 结果已生成，正在覆盖旧量规项...");
                 LearnSite.BLL.GaugeItem clearBll = new LearnSite.BLL.GaugeItem();
                 clearBll.DeleteByMgid(gaugeId);
+            }
+            else if (mode == "regen")
+            {
+                WriteProgress(context, 3, "AI 结果已生成，正在追加新量规项...");
+                int currentCount = new LearnSite.BLL.GaugeItem().GetModelList("Mgid=" + gaugeId + " order by Msort asc").Count;
+                for (int i = 0; i < result.Items.Count; i++)
+                {
+                    result.Items[i].Msort = currentCount + i + 1;
+                }
             }
             int savedCount = generator.SaveItems(gaugeId, result.Items, delegate(string stage, string message)
             {
@@ -107,14 +117,15 @@ public class gauge_generate : IHttpHandler
                 msg += " 评价项写入失败，请手动补充。";
 
             string itemPreview = string.Join("|", result.Items.Select(item => (item.Msort ?? 0).ToString() + "." + (item.Mitem ?? string.Empty) + "（" + (item.Mscore ?? 0).ToString() + "分）"));
-            string redirectUrl = string.Format("teacher/gaugeitem.aspx?gid={0}&aimsg={1}&aiitems={2}&aifallback={3}",
+            string redirectUrl = string.Format("teacher/gaugeitem.aspx?gid={0}&aimsg={1}&aiitems={2}&aifallback={3}&provider={4}",
                 gaugeId,
                 HttpUtility.UrlEncode(msg),
                 HttpUtility.UrlEncode(itemPreview),
-                result.UsedFallback ? "1" : "0");
+                result.UsedFallback ? "1" : "0",
+                HttpUtility.UrlEncode(result.ProviderDisplayName ?? string.Empty));
 
             string doneJson = "{" +
-                JsonPair("message", savedCount > 0 ? (mode == "regen" ? "量规项已重新生成，正在刷新页面。" : "量规已创建，正在跳转到编辑页。") : (mode == "regen" ? "量规项已清空，但新内容未成功写入。" : "量规已创建，但评价项未成功写入。")) + "," +
+                JsonPair("message", savedCount > 0 ? (mode == "regen" ? (clearBeforeSave ? "量规项已重新生成，正在刷新页面。" : "量规项已追加生成，正在刷新页面。") : "量规已创建，正在跳转到编辑页。") : (mode == "regen" ? "量规项处理未成功完成。" : "量规已创建，但评价项未成功写入。")) + "," +
                 JsonPair("redirectUrl", ResolveAppRelative(context, "~/" + redirectUrl)) + "," +
                 JsonPair("fallback", result.UsedFallback ? "1" : "0") +
                 "}";

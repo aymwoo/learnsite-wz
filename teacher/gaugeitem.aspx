@@ -6,8 +6,18 @@
         margin: 0 auto 16px;
         width: 680px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
         gap: 10px;
+    }
+
+    .gaugeitem-provider {
+        font-size: 12px;
+        color: #475569;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        padding: 8px 12px;
     }
 
     .gaugeitem-ai-btn {
@@ -187,7 +197,11 @@
 <div class="centerdiv">
 <div style=" margin: auto; width: 680px; font-size:11pt; text-align:center">
                     <div class="gaugeitem-toolbar">
-                        <input id="BtnRegenerateAI" type="button" value="重新用AI生成一次" class="gaugeitem-ai-btn" onclick="return startGaugeRegenerate();" />
+                        <span class="gaugeitem-provider"><asp:Label ID="LabelProviderName" runat="server"></asp:Label></span>
+                        <div style="display:flex;gap:10px;">
+                            <input id="BtnAppendAI" type="button" value="追加AI生成" class="gaugeitem-ai-btn" onclick="return startGaugeRegenerate('append');" />
+                            <input id="BtnRegenerateAI" type="button" value="重新用AI生成一次" class="gaugeitem-ai-btn" onclick="return startGaugeRegenerate('replace');" />
+                        </div>
                     </div>
                     <asp:Panel ID="PanelAIGenerated" runat="server" Visible="false" CssClass="gauge-ai-notice">
                         <p class="gauge-ai-notice__title"><asp:Label ID="LabelAIGeneratedTitle" runat="server"></asp:Label></p>
@@ -321,12 +335,17 @@
         }
     }
 
-    function openGaugeItemLoading() {
+    function openGaugeItemLoading(mode) {
         var loading = document.getElementById('gaugeItemLoading');
         var button = document.getElementById('BtnRegenerateAI');
+        var appendButton = document.getElementById('BtnAppendAI');
         if (button) {
             button.disabled = true;
             button.value = '正在重新生成...';
+        }
+        if (appendButton) {
+            appendButton.disabled = true;
+            appendButton.value = mode === 'append' ? '正在追加生成...' : '追加AI生成';
         }
         if (loading && loading.className.indexOf('is-active') < 0) {
             loading.className += ' is-active';
@@ -335,9 +354,14 @@
 
     function resetGaugeItemButton() {
         var button = document.getElementById('BtnRegenerateAI');
+        var appendButton = document.getElementById('BtnAppendAI');
         if (button) {
             button.disabled = false;
             button.value = '重新用AI生成一次';
+        }
+        if (appendButton) {
+            appendButton.disabled = false;
+            appendButton.value = '追加AI生成';
         }
     }
 
@@ -357,8 +381,11 @@
         }
     }
 
-    function startGaugeRegenerate() {
-        if (!confirm('重新生成会清空当前已有量规项，并使用 AI 重新写入，是否继续？')) {
+    function startGaugeRegenerate(mode) {
+        var confirmText = mode === 'append'
+            ? '追加生成会保留现有量规项，并在后面新增 AI 生成内容，是否继续？'
+            : '重新生成会清空当前已有量规项，并使用 AI 重新写入，是否继续？';
+        if (!confirm(confirmText)) {
             return false;
         }
 
@@ -367,11 +394,11 @@
             return false;
         }
 
-        var requestUrl = '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>' + '?mode=regen&gid=<%= Request.QueryString["gid"] %>';
-        openGaugeItemLoading();
+        var requestUrl = '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>' + '?mode=regen&gid=<%= Request.QueryString["gid"] %>&regenBehavior=' + encodeURIComponent(mode || 'replace');
+        openGaugeItemLoading(mode || 'replace');
         gaugeItemStreamFinished = false;
         setGaugeItemProgressStep(0);
-        setGaugeItemProgressMessage('系统正在读取当前量规并准备重新生成。');
+        setGaugeItemProgressMessage(mode === 'append' ? '系统正在读取当前量规并准备追加生成。' : '系统正在读取当前量规并准备重新生成。');
         closeGaugeItemEventSource();
 
         gaugeItemEventSource = new EventSource(requestUrl);

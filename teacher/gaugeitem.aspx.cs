@@ -22,7 +22,9 @@ public partial class Teacher_gaugeitem : System.Web.UI.Page
     {
         string message = Request.QueryString["aimsg"];
         string items = Request.QueryString["aiitems"];
+        string provider = Request.QueryString["provider"];
         bool isFallback = Request.QueryString["aifallback"] == "1";
+        LabelProviderName.Text = "当前 AI Provider：" + (string.IsNullOrEmpty(provider) ? LearnSite.BLL.AIGaugeGenerator.GetDefaultProviderDisplayName() : HttpUtility.UrlDecode(provider));
         if (string.IsNullOrEmpty(message) && string.IsNullOrEmpty(items))
         {
             PanelAIGenerated.Visible = false;

@@ -1038,6 +1038,9 @@
                         <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
                             <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="gauge"> 量规生成
                         </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
+                            <input type="checkbox" class="custom-scope-cb h-4 w-4 text-purple-600 rounded border-gray-300" value="student_exam"> 学生测验评估
+                        </label>
                     </div>
                 </div>
 
@@ -1088,7 +1091,8 @@
             'writing': '写作助手',
             'quiz':    '习题解析',
             'review':  '作品点评',
-            'gauge':   '量规生成'
+            'gauge':   '量规生成',
+            'student_exam': '学生测验评估'
         };
 
         function renderCustomSkills(data) {
