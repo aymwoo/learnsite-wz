@@ -1,4 +1,7 @@
 const examScore = document.getElementById('examScore');//分值标签
+const examSideAiToggle = document.getElementById('examSideAiToggle');
+const examSideAiStatus = document.getElementById('examSideAiStatus');
+const examSideAiSetting = document.getElementById('examSideAiSetting');
 // 试卷数据结构
 const mycid = document.getElementById('HiddenCid').value;
 const myeid = document.getElementById('HiddenEid').value;
@@ -42,6 +45,19 @@ let submissionResult = null;
 function updateScore(){
     const total_score = examData.questions.reduce((sum, q) => sum + q.score, 0);
     examScore.innerText = total_score+" 分";
+}
+
+function syncExamAiSetting() {
+    const enabled = !!examData.enableAiAssessment;
+    if (examSideAiToggle) {
+        examSideAiToggle.checked = enabled;
+    }
+    if (examSideAiStatus) {
+        examSideAiStatus.innerText = enabled ? '当前试卷已启用' : '当前试卷未启用';
+    }
+    if (examSideAiSetting) {
+        examSideAiSetting.classList.toggle('is-enabled', enabled);
+    }
 }
 
 // 初始化函数
@@ -148,6 +164,7 @@ function updateExamDescription(newDescription) {
 
 function updateExamAiAssessment(enabled) {
     examData.enableAiAssessment = !!enabled;
+    syncExamAiSetting();
     saveExamData();
 }
 
@@ -297,6 +314,7 @@ function generateQuickAddSection() {
 function renderQuestions() {
     console.log("开始渲染所有题目");
     const editArea = document.getElementById('editArea');
+    syncExamAiSetting();
     
     // 先渲染试卷信息区域
     const examInfoHTML = `
@@ -309,12 +327,6 @@ function renderQuestions() {
             <textarea class="exam-desc-edit" id="examDescEdit" 
                     onchange="updateExamDescription(this.value)"
                     placeholder="请输入测验描述">${examData.description}</textarea>
-            <label style="display:flex;align-items:center;gap:8px;margin-top:12px;font-size:14px;color:#334155;">
-                <input type="checkbox" ${examData.enableAiAssessment ? 'checked' : ''}
-                    onchange="updateExamAiAssessment(this.checked)">
-                <span>启用 AI 评估</span>
-                <span style="font-size:12px;color:#64748b;">默认关闭，关闭时仅生成规则评估摘要</span>
-            </label>
         </div>
     `;
     

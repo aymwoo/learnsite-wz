@@ -12,6 +12,21 @@ namespace LearnSite.DAL
 	{
 		public Survey()
 		{}
+
+		private static bool HasEnableAiColumn()
+		{
+			return DbHelperSQL.ColumnExists("Survey", "Venableai");
+		}
+
+		private static string GetSelectFields()
+		{
+			string fields = "Vid,Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vaverage,Vclose,Vpoint,Vdate";
+			if (HasEnableAiColumn())
+			{
+				fields += ",Venableai";
+			}
+			return fields;
+		}
 		#region  Method
 
 		/// <summary>
@@ -43,13 +58,40 @@ namespace LearnSite.DAL
         /// </summary>
         public int Addsurvey(LearnSite.Model.Survey model)
         {
+            bool hasEnableAiColumn = HasEnableAiColumn();
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Survey(");
-            strSql.Append("Vcid,Vhid,Vtitle,Vcontent,Vtype,Vclose,Vpoint,Vdate)");
+            strSql.Append("Vcid,Vhid,Vtitle,Vcontent,Vtype,Vclose,Vpoint");
+            if (hasEnableAiColumn)
+            {
+                strSql.Append(",Venableai");
+            }
+            strSql.Append(",Vdate)");
             strSql.Append(" values (");
-            strSql.Append("@Vcid,@Vhid,@Vtitle,@Vcontent,@Vtype,@Vclose,@Vpoint,@Vdate)");
+            strSql.Append("@Vcid,@Vhid,@Vtitle,@Vcontent,@Vtype,@Vclose,@Vpoint");
+            if (hasEnableAiColumn)
+            {
+                strSql.Append(",@Venableai");
+            }
+            strSql.Append(",@Vdate)");
             strSql.Append(";select @@IDENTITY");
-            SqlParameter[] parameters = {
+            SqlParameter[] parameters;
+            if (hasEnableAiColumn)
+            {
+                parameters = new SqlParameter[] {
+					new SqlParameter("@Vcid", SqlDbType.Int,4),
+					new SqlParameter("@Vhid", SqlDbType.Int,4),
+					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
+					new SqlParameter("@Vcontent", SqlDbType.NText),
+					new SqlParameter("@Vtype", SqlDbType.Int,4),
+					new SqlParameter("@Vclose", SqlDbType.Bit,1),
+					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
+					new SqlParameter("@Venableai", SqlDbType.Bit,1),
+					new SqlParameter("@Vdate", SqlDbType.DateTime)};
+            }
+            else
+            {
+                parameters = new SqlParameter[] {
 					new SqlParameter("@Vcid", SqlDbType.Int,4),
 					new SqlParameter("@Vhid", SqlDbType.Int,4),
 					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
@@ -58,6 +100,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@Vclose", SqlDbType.Bit,1),
 					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
 					new SqlParameter("@Vdate", SqlDbType.DateTime)};
+            }
             parameters[0].Value = model.Vcid;
             parameters[1].Value = model.Vhid;
             parameters[2].Value = model.Vtitle;
@@ -65,7 +108,15 @@ namespace LearnSite.DAL
             parameters[4].Value = model.Vtype;
             parameters[5].Value = model.Vclose;
             parameters[6].Value = model.Vpoint;
-            parameters[7].Value = model.Vdate;
+            if (hasEnableAiColumn)
+            {
+                parameters[7].Value = model.Venableai;
+                parameters[8].Value = model.Vdate;
+            }
+            else
+            {
+                parameters[7].Value = model.Vdate;
+            }
 
             object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
             if (obj == null)
@@ -82,13 +133,42 @@ namespace LearnSite.DAL
 		/// </summary>
 		public int Add(LearnSite.Model.Survey model)
 		{
+			bool hasEnableAiColumn = HasEnableAiColumn();
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into Survey(");
-			strSql.Append("Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vclose,Vpoint,Vdate)");
+			strSql.Append("Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vclose,Vpoint");
+			if (hasEnableAiColumn)
+			{
+				strSql.Append(",Venableai");
+			}
+			strSql.Append(",Vdate)");
 			strSql.Append(" values (");
-			strSql.Append("@Vcid,@Vhid,@Vtitle,@Vcontent,@Vtype,@Vtotal,@Vscore,@Vclose,@Vpoint,@Vdate)");
+			strSql.Append("@Vcid,@Vhid,@Vtitle,@Vcontent,@Vtype,@Vtotal,@Vscore,@Vclose,@Vpoint");
+			if (hasEnableAiColumn)
+			{
+				strSql.Append(",@Venableai");
+			}
+			strSql.Append(",@Vdate)");
 			strSql.Append(";select @@IDENTITY");
-			SqlParameter[] parameters = {
+			SqlParameter[] parameters;
+			if (hasEnableAiColumn)
+			{
+				parameters = new SqlParameter[] {
+					new SqlParameter("@Vcid", SqlDbType.Int,4),
+					new SqlParameter("@Vhid", SqlDbType.Int,4),
+					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
+					new SqlParameter("@Vcontent", SqlDbType.NText),
+					new SqlParameter("@Vtype", SqlDbType.Int,4),
+					new SqlParameter("@Vtotal", SqlDbType.Int,4),
+					new SqlParameter("@Vscore", SqlDbType.Int,4),
+					new SqlParameter("@Vclose", SqlDbType.Bit,1),
+					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
+					new SqlParameter("@Venableai", SqlDbType.Bit,1),
+					new SqlParameter("@Vdate", SqlDbType.DateTime)};
+			}
+			else
+			{
+				parameters = new SqlParameter[] {
 					new SqlParameter("@Vcid", SqlDbType.Int,4),
 					new SqlParameter("@Vhid", SqlDbType.Int,4),
 					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
@@ -99,6 +179,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@Vclose", SqlDbType.Bit,1),
 					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
 					new SqlParameter("@Vdate", SqlDbType.DateTime)};
+			}
 			parameters[0].Value = model.Vcid;
 			parameters[1].Value = model.Vhid;
 			parameters[2].Value = model.Vtitle;
@@ -108,7 +189,15 @@ namespace LearnSite.DAL
 			parameters[6].Value = model.Vscore;
 			parameters[7].Value = model.Vclose;
 			parameters[8].Value = model.Vpoint;
-			parameters[9].Value = model.Vdate;
+			if (hasEnableAiColumn)
+			{
+				parameters[9].Value = model.Venableai;
+				parameters[10].Value = model.Vdate;
+			}
+			else
+			{
+				parameters[9].Value = model.Vdate;
+			}
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -134,6 +223,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public bool Update(LearnSite.Model.Survey model)
 		{
+			bool hasEnableAiColumn = HasEnableAiColumn();
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Survey set ");
 			strSql.Append("Vcid=@Vcid,");
@@ -146,9 +236,33 @@ namespace LearnSite.DAL
 			strSql.Append("Vaverage=@Vaverage,");
 			strSql.Append("Vclose=@Vclose,");
 			strSql.Append("Vpoint=@Vpoint,");
+			if (hasEnableAiColumn)
+			{
+				strSql.Append("Venableai=@Venableai,");
+			}
 			strSql.Append("Vdate=@Vdate");
 			strSql.Append(" where Vid=@Vid");
-			SqlParameter[] parameters = {
+			SqlParameter[] parameters;
+			if (hasEnableAiColumn)
+			{
+				parameters = new SqlParameter[] {
+					new SqlParameter("@Vcid", SqlDbType.Int,4),
+					new SqlParameter("@Vhid", SqlDbType.Int,4),
+					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
+					new SqlParameter("@Vcontent", SqlDbType.NText),
+					new SqlParameter("@Vtype", SqlDbType.Int,4),
+					new SqlParameter("@Vtotal", SqlDbType.Int,4),
+					new SqlParameter("@Vscore", SqlDbType.Int,4),
+					new SqlParameter("@Vaverage", SqlDbType.Int,4),
+					new SqlParameter("@Vclose", SqlDbType.Bit,1),
+					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
+					new SqlParameter("@Venableai", SqlDbType.Bit,1),
+					new SqlParameter("@Vdate", SqlDbType.DateTime),
+					new SqlParameter("@Vid", SqlDbType.Int,4)};
+			}
+			else
+			{
+				parameters = new SqlParameter[] {
 					new SqlParameter("@Vcid", SqlDbType.Int,4),
 					new SqlParameter("@Vhid", SqlDbType.Int,4),
 					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
@@ -161,6 +275,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
 					new SqlParameter("@Vdate", SqlDbType.DateTime),
 					new SqlParameter("@Vid", SqlDbType.Int,4)};
+			}
 			parameters[0].Value = model.Vcid;
 			parameters[1].Value = model.Vhid;
 			parameters[2].Value = model.Vtitle;
@@ -171,8 +286,17 @@ namespace LearnSite.DAL
 			parameters[7].Value = model.Vaverage;
 			parameters[8].Value = model.Vclose;
 			parameters[9].Value = model.Vpoint;
-			parameters[10].Value = model.Vdate;
-			parameters[11].Value = model.Vid;
+			if (hasEnableAiColumn)
+			{
+				parameters[10].Value = model.Venableai;
+				parameters[11].Value = model.Vdate;
+				parameters[12].Value = model.Vid;
+			}
+			else
+			{
+				parameters[10].Value = model.Vdate;
+				parameters[11].Value = model.Vid;
+			}
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -189,6 +313,7 @@ namespace LearnSite.DAL
         /// </summary>
         public bool UpdateSurvey(LearnSite.Model.Survey model)
         {
+            bool hasEnableAiColumn = HasEnableAiColumn();
             StringBuilder strSql = new StringBuilder();
             strSql.Append("update Survey set ");
             strSql.Append("Vcid=@Vcid,");
@@ -198,9 +323,30 @@ namespace LearnSite.DAL
             strSql.Append("Vtype=@Vtype,");
             strSql.Append("Vclose=@Vclose,");
             strSql.Append("Vpoint=@Vpoint,");
+            if (hasEnableAiColumn)
+            {
+                strSql.Append("Venableai=@Venableai,");
+            }
             strSql.Append("Vdate=@Vdate");
             strSql.Append(" where Vid=@Vid");
-            SqlParameter[] parameters = {
+            SqlParameter[] parameters;
+            if (hasEnableAiColumn)
+            {
+                parameters = new SqlParameter[] {
+					new SqlParameter("@Vcid", SqlDbType.Int,4),
+					new SqlParameter("@Vhid", SqlDbType.Int,4),
+					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
+					new SqlParameter("@Vcontent", SqlDbType.NText),
+					new SqlParameter("@Vtype", SqlDbType.Int,4),
+					new SqlParameter("@Vclose", SqlDbType.Bit,1),
+					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
+					new SqlParameter("@Venableai", SqlDbType.Bit,1),
+					new SqlParameter("@Vdate", SqlDbType.DateTime),
+					new SqlParameter("@Vid", SqlDbType.Int,4)};
+            }
+            else
+            {
+                parameters = new SqlParameter[] {
 					new SqlParameter("@Vcid", SqlDbType.Int,4),
 					new SqlParameter("@Vhid", SqlDbType.Int,4),
 					new SqlParameter("@Vtitle", SqlDbType.NVarChar,50),
@@ -210,6 +356,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@Vpoint", SqlDbType.Bit,1),
 					new SqlParameter("@Vdate", SqlDbType.DateTime),
 					new SqlParameter("@Vid", SqlDbType.Int,4)};
+            }
             parameters[0].Value = model.Vcid;
             parameters[1].Value = model.Vhid;
             parameters[2].Value = model.Vtitle;
@@ -217,8 +364,17 @@ namespace LearnSite.DAL
             parameters[4].Value = model.Vtype;
             parameters[5].Value = model.Vclose;
             parameters[6].Value = model.Vpoint;
-            parameters[7].Value = model.Vdate;
-            parameters[8].Value = model.Vid;
+            if (hasEnableAiColumn)
+            {
+                parameters[7].Value = model.Venableai;
+                parameters[8].Value = model.Vdate;
+                parameters[9].Value = model.Vid;
+            }
+            else
+            {
+                parameters[7].Value = model.Vdate;
+                parameters[8].Value = model.Vid;
+            }
 
             int rows = DbHelperSQL.ExecuteSql(strSql.ToString(), parameters);
             if (rows > 0)
@@ -344,7 +500,7 @@ namespace LearnSite.DAL
 		{
 			
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select  top 1 Vid,Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vaverage,Vclose,Vpoint,Vdate from Survey ");
+			strSql.Append("select  top 1 " + GetSelectFields() + " from Survey ");
 			strSql.Append(" where Vid=@Vid");
 			SqlParameter[] parameters = {
 					new SqlParameter("@Vid", SqlDbType.Int,4)
@@ -411,6 +567,17 @@ namespace LearnSite.DAL
 					else
 					{
 						model.Vpoint=false;
+					}
+				}
+				if(ds.Tables[0].Columns.Contains("Venableai") && ds.Tables[0].Rows[0]["Venableai"]!=null && ds.Tables[0].Rows[0]["Venableai"].ToString()!="")
+				{
+					if((ds.Tables[0].Rows[0]["Venableai"].ToString()=="1")||(ds.Tables[0].Rows[0]["Venableai"].ToString().ToLower()=="true"))
+					{
+						model.Venableai=true;
+					}
+					else
+					{
+						model.Venableai=false;
 					}
 				}
 				if(ds.Tables[0].Rows[0]["Vdate"]!=null && ds.Tables[0].Rows[0]["Vdate"].ToString()!="")
@@ -494,6 +661,17 @@ namespace LearnSite.DAL
                             model.Vpoint = false;
                         }
                     }
+                    if (dt.Columns.Contains("Venableai") && dt.Rows[Tsort]["Venableai"] != null && dt.Rows[Tsort]["Venableai"].ToString() != "")
+                    {
+                        if ((dt.Rows[Tsort]["Venableai"].ToString() == "1") || (dt.Rows[Tsort]["Venableai"].ToString().ToLower() == "true"))
+                        {
+                            model.Venableai = true;
+                        }
+                        else
+                        {
+                            model.Venableai = false;
+                        }
+                    }
                     if (dt.Rows[Tsort]["Vdate"] != null && dt.Rows[Tsort]["Vdate"].ToString() != "")
                     {
                         model.Vdate = DateTime.Parse(dt.Rows[Tsort]["Vdate"].ToString());
@@ -516,7 +694,7 @@ namespace LearnSite.DAL
 		public DataSet GetList(string strWhere)
 		{
 			StringBuilder strSql=new StringBuilder();
-			strSql.Append("select Vid,Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vaverage,Vclose,Vpoint,Vdate ");
+			strSql.Append("select " + GetSelectFields() + " ");
 			strSql.Append(" FROM Survey ");
 			if(strWhere.Trim()!="")
 			{
@@ -536,7 +714,7 @@ namespace LearnSite.DAL
 			{
 				strSql.Append(" top "+Top.ToString());
 			}
-			strSql.Append(" Vid,Vcid,Vhid,Vtitle,Vcontent,Vtype,Vtotal,Vscore,Vaverage,Vclose,Vpoint,Vdate ");
+			strSql.Append(" " + GetSelectFields() + " ");
 			strSql.Append(" FROM Survey ");
 			if(strWhere.Trim()!="")
 			{
@@ -621,4 +799,3 @@ namespace LearnSite.DAL
 		#endregion  Method
 	}
 }
-

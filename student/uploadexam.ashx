@@ -32,10 +32,11 @@ public class uploadexam : IHttpHandler
         string vtypestr = HttpContext.Current.Request.QueryString["vtypestr"] ?? "0";
         string answerlog = HttpContext.Current.Request.QueryString["answerlog"] ?? string.Empty;
         string qcount = HttpContext.Current.Request.QueryString["qcount"] ?? "0";
+        int vid = Int32.Parse(vidstr);
+        bool enableAiAssessment = IsSurveyAiAssessmentEnabled(vid);
 
         try
         {
-            LearnSite.BLL.AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
             WriteProgress(context, 1, "正在提交测验结果...");
             string Wtime = cook.LoginTime;
             DateTime Wdate = DateTime.Now;
@@ -71,7 +72,6 @@ public class uploadexam : IHttpHandler
             LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
             kbll.Add(kmodel);
 
-            WriteProgress(context, 2, "正在调用 AI Provider “" + LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() + "” 生成测验评估...");
             LearnSite.BLL.AIStudentExamGenerator generator = new LearnSite.BLL.AIStudentExamGenerator();
             LearnSite.BLL.StudentExamAssessmentContext assessContext = new LearnSite.BLL.StudentExamAssessmentContext();
             assessContext.Fid = fid;
@@ -80,24 +80,35 @@ public class uploadexam : IHttpHandler
             assessContext.Sname = HttpUtility.UrlDecode(cook.Sname);
             assessContext.Cid = Int32.Parse(cidstr);
             assessContext.Lid = Int32.Parse(lidstr);
-            assessContext.Vid = Int32.Parse(vidstr);
-            assessContext.ExamTitle = GetSurveyTitle(Int32.Parse(vidstr));
+            assessContext.Vid = vid;
+            assessContext.ExamTitle = GetSurveyTitle(vid);
             assessContext.Score = Int32.Parse(score);
             assessContext.QuestionCount = Int32.Parse(qcount);
             assessContext.AnswerLogJson = answerlog;
             assessContext.LearningLog = BuildLearningLog(assessContext, Wtime, Wdate, answerlog);
 
-            LearnSite.BLL.StudentExamAssessmentResult result = generator.Generate(assessContext, delegate(string stage, string message)
+            LearnSite.BLL.StudentExamAssessmentResult result;
+            if (enableAiAssessment)
             {
-                if (stage == "ai" || stage == "fallback")
+                LearnSite.BLL.AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
+                WriteProgress(context, 2, "正在调用 AI Provider “" + LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() + "” 生成测验评估...");
+                result = generator.Generate(assessContext, delegate(string stage, string message)
                 {
-                    WriteProgress(context, 2, message);
-                }
-            });
+                    if (stage == "ai" || stage == "fallback")
+                    {
+                        WriteProgress(context, 2, message);
+                    }
+                });
+            }
+            else
+            {
+                WriteProgress(context, 2, "当前测验未启用 AI 评价，正在生成规则评估摘要...");
+                result = generator.GenerateRuleBasedAssessment(assessContext);
+            }
 
             if (DbHelperSQL.TabExists("AIStudentExamAssessment"))
             {
-                WriteProgress(context, 3, "正在保存 AI 测验评估结果...");
+                WriteProgress(context, 3, enableAiAssessment ? "正在保存 AI 测验评估结果..." : "正在保存规则评估摘要...");
                 generator.SaveAssessment(assessContext, result);
             }
             else
@@ -106,7 +117,7 @@ public class uploadexam : IHttpHandler
             }
 
             string doneJson = "{" +
-                JsonPair("message", DbHelperSQL.TabExists("AIStudentExamAssessment") ? "提交成功，AI 测验评估已生成。" : "提交成功，但当前数据库尚未启用 AI 测验评估存储，请执行 upgrade.aspx 完成升级。") + "," +
+                JsonPair("message", DbHelperSQL.TabExists("AIStudentExamAssessment") ? (enableAiAssessment ? "提交成功，AI 测验评估已生成。" : "提交成功，规则评估摘要已生成。") : "提交成功，但当前数据库尚未启用 AI 测验评估存储，请执行 upgrade.aspx 完成升级。") + "," +
                 JsonPair("provider", result.ProviderDisplayName ?? string.Empty) + "," +
                 JsonPair("summary", result.Summary ?? string.Empty) + "," +
                 JsonPair("fallback", result.UsedFallback ? "1" : "0") +
@@ -124,6 +135,16 @@ public class uploadexam : IHttpHandler
         LearnSite.BLL.Survey bll = new LearnSite.BLL.Survey();
         LearnSite.Model.Survey model = bll.GetModel(vid);
         return model == null ? "课堂测验" : model.Vtitle;
+    }
+
+    private static bool IsSurveyAiAssessmentEnabled(int vid)
+    {
+        if (!DbHelperSQL.ColumnExists("Survey", "Venableai"))
+            return false;
+
+        LearnSite.BLL.Survey bll = new LearnSite.BLL.Survey();
+        LearnSite.Model.Survey model = bll.GetModel(vid);
+        return model != null && model.Venableai;
     }
 
     private static string BuildLearningLog(LearnSite.BLL.StudentExamAssessmentContext context, string loginTime, DateTime submitTime, string answerLog)

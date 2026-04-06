@@ -39,10 +39,34 @@ const startTimestamp = Date.now();
 // 初始化
 document.addEventListener('DOMContentLoaded', function() {
     loadExamData();
+    syncAssessmentCopy();
     renderExam();
     setupEventListeners();
     initCodeHighlighting();
 });
+
+function getAssessmentCopy(enableAi) {
+    return enableAi ? {
+        loadingTitle: '正在提交测验并生成 AI 评估',
+        loadingDesc: '系统正在提交测验结果，请稍候。',
+        summaryLabel: 'AI 简短反馈'
+    } : {
+        loadingTitle: '正在提交测验并生成规则评估摘要',
+        loadingDesc: '系统正在提交测验结果，并生成规则评估摘要，请稍候。',
+        summaryLabel: '规则评估摘要'
+    };
+}
+
+function syncAssessmentCopy() {
+    var copy = getAssessmentCopy(!!examData.enableAiAssessment);
+    var loadingTitle = document.getElementById('examAiLoadingTitle');
+    var loadingDesc = document.getElementById('examAiLoadingDesc');
+    var summaryLabel = document.getElementById('examAiSummaryLabel');
+
+    if (loadingTitle) loadingTitle.textContent = copy.loadingTitle;
+    if (loadingDesc) loadingDesc.textContent = copy.loadingDesc;
+    if (summaryLabel) summaryLabel.textContent = copy.summaryLabel;
+}
 
 // 从localStorage加载试卷数据
 function loadExamData() {
@@ -66,6 +90,9 @@ function renderExam() {
     const emptyState = document.getElementById('emptyState');
 
     const total_score = examData.questions.reduce((sum, q) => sum + q.score, 0);
+    if (examTitle) {
+        examTitle.textContent = examData.title || '课堂测验';
+    }
     examDescription.textContent = examData.description +"    满分为"+total_score+"分";
 
     if (examData.questions.length === 0) {
@@ -1044,7 +1071,7 @@ function submitExam() {
 }
 
 function submitExamWithoutAi(score, spend, qcount, adataStr) {
-    showExamAiLoading('系统正在提交测验结果，并生成规则评估摘要，请稍候。');
+    showExamAiLoading('系统正在提交测验结果，并生成规则评估摘要，请稍候。', false);
     submitExamWithAi(score, spend, qcount, adataStr, false);
 }
 
@@ -1085,7 +1112,7 @@ function submitExamWithAi(score, spend, qcount, adataStr, enableAi) {
             window.LearnStatus.submitted();
         }
 
-        showExamAiLoading(payload.message || (enableAi ? '提交成功，AI 测验评估已生成。' : '提交成功，规则评估摘要已生成。'));
+        showExamAiLoading(payload.message || (enableAi ? '提交成功，AI 测验评估已生成。' : '提交成功，规则评估摘要已生成。'), enableAi);
 
         var summaryBox = document.getElementById('examAiSummary');
         var summaryText = document.getElementById('examAiSummaryText');
@@ -1136,8 +1163,14 @@ function submitExamXhr(score, spend, adataStr) {
 // AI 评估加载遮罩层
 function showExamAiLoading(message) {
     var loading = document.getElementById('examAiLoading');
+    var title = document.getElementById('examAiLoadingTitle');
     var desc = document.getElementById('examAiLoadingDesc');
+    var enableAi = examData && typeof examData.enableAiAssessment === 'boolean' ? examData.enableAiAssessment : false;
+    if (arguments.length > 1) enableAi = !!arguments[1];
+    var copy = getAssessmentCopy(enableAi);
+    if (title) title.textContent = copy.loadingTitle;
     if (desc && message) desc.innerHTML = message;
+    else if (desc) desc.textContent = copy.loadingDesc;
     if (loading) loading.style.display = 'flex';
 }
 

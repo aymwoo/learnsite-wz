@@ -201,6 +201,11 @@ public partial class Teacher_courseshow : System.Web.UI.Page
                     lbl.Text = "练习";
                     hl.NavigateUrl = "missionshow.aspx?mcid=" + Cid + "&mid=" + lxid + "&lid=" + lid + Cold;
                     break;
+                case "2":
+                    img.ImageUrl = "~/images/survey.png";
+                    lbl.Text = "调查";
+                    hl.NavigateUrl = "surveysettings.aspx?cid=" + Cid + "&vid=" + lxid + "&lid=" + lid + Cold;
+                    break;
                 case "6"://描述
                     img.ImageUrl = "~/images/description.png";
                     lbl.Text = "阅读";

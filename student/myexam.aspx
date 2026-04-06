@@ -1,14 +1,303 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" CodeFile="myexam.aspx.cs" Inherits="student_myexam" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
-<div class="w-full max-w-5xl mx-auto space-y-6">
-    <!-- Exam Header Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-hidden">
+<style type="text/css">
+    .survey-exam-page {
+        width: min(1180px, calc(100% - 24px));
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .survey-exam-toolbar {
+        position: sticky;
+        top: 16px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 18px 22px;
+        border-radius: 20px;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
+        backdrop-filter: blur(14px);
+    }
+
+    .survey-exam-toolbar__intro {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 320px;
+    }
+
+    .survey-exam-toolbar__eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #2563eb;
+    }
+
+    .survey-exam-toolbar__title {
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 1.2;
+        color: #0f172a;
+    }
+
+    .survey-exam-toolbar__meta {
+        font-size: 14px;
+        color: #475569;
+        line-height: 1.6;
+    }
+
+    .survey-exam-toolbar__actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 12px;
+        flex: 0 1 auto;
+    }
+
+    .survey-toolbar-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-width: 126px;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 14px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+        cursor: pointer;
+    }
+
+    .survey-toolbar-btn:hover {
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    .survey-toolbar-btn--analysis {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: #eff6ff;
+    }
+
+    .survey-toolbar-btn--analysis:hover {
+        color: #eff6ff;
+    }
+
+    .survey-toolbar-btn--neutral {
+        background: linear-gradient(135deg, #64748b, #475569);
+        color: #f8fafc;
+    }
+
+    .survey-toolbar-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 118px;
+        padding: 12px 16px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: #fff7ed;
+        font-size: 14px;
+        font-weight: 800;
+        box-shadow: 0 12px 24px rgba(217, 119, 6, 0.2);
+    }
+
+    .survey-header-card,
+    .survey-assessment-card,
+    .survey-content-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    .survey-header-card {
+        padding: 24px;
+        overflow: hidden;
+    }
+
+    .survey-check-tag {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 78px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .survey-check-tag--done {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .survey-check-tag--pending {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .survey-content-card {
+        padding: 24px;
+        color: #334155;
+        line-height: 1.8;
+    }
+
+    .survey-assessment-card {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding: 20px 24px;
+        background: linear-gradient(135deg, #f8fbff 0%, #f1f5f9 100%);
+    }
+
+    .survey-assessment-card__info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 1 1 260px;
+    }
+
+    .survey-assessment-card__label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #475569;
+    }
+
+    .survey-assessment-card__title {
+        font-size: 18px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .survey-assessment-card__desc {
+        font-size: 14px;
+        line-height: 1.7;
+        color: #475569;
+    }
+
+    .survey-assessment-card__status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 148px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+    .survey-quiz-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .survey-quiz-head__title {
+        font-size: 18px;
+        font-weight: 800;
+        color: #0f172a;
+    }
+
+    .survey-quiz-head__meta {
+        font-size: 14px;
+        color: #64748b;
+    }
+
+    .survey-submit-note {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #64748b;
+        text-align: center;
+        line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+        .survey-exam-page {
+            width: calc(100% - 12px);
+        }
+
+        .survey-exam-toolbar {
+            top: 12px;
+            padding: 16px;
+        }
+
+        .survey-exam-toolbar__intro,
+        .survey-exam-toolbar__actions {
+            flex: 1 1 100%;
+        }
+
+        .survey-exam-toolbar__actions {
+            justify-content: flex-start;
+        }
+
+        .survey-toolbar-btn,
+        .survey-toolbar-badge {
+            min-width: 112px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .survey-toolbar-btn,
+        .survey-toolbar-badge {
+            width: calc(50% - 6px);
+            min-width: 0;
+        }
+
+        .survey-assessment-card,
+        .survey-quiz-head {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+<div class="survey-exam-page">
+    <div class="survey-exam-toolbar">
+        <div class="survey-exam-toolbar__intro">
+            <div class="survey-exam-toolbar__eyebrow">课堂测验</div>
+            <div class="survey-exam-toolbar__title">旧版 Survey 作答</div>
+            <div class="survey-exam-toolbar__meta">完成后提交答卷，系统会按当前测验设置生成 AI 评价或规则评估摘要。</div>
+        </div>
+        <div class="survey-exam-toolbar__actions">
+            <div class="survey-toolbar-badge">当前得分 <%=Lbfscore.Text %> 分</div>
+            <asp:HyperLink ID="Hkscore" runat="server" Target="_blank" Visible="False" Text="查看统计"
+                CssClass="survey-toolbar-btn survey-toolbar-btn--analysis"></asp:HyperLink>
+            <button type="button" class="survey-toolbar-btn survey-toolbar-btn--neutral" onclick="returnurl();">
+                <span>返回学案</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="survey-header-card">
         <div class="course-node-head flex items-center gap-3 mb-4" style="padding:24px 24px 20px;margin:-24px -24px 16px;">
             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/clock.gif" CssClass="w-8 h-8" />
             <asp:Label runat="server" ID="Lbtitle" CssClass="course-node-title text-xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
         </div>
-        
+
         <div class="flex flex-wrap gap-x-6 gap-y-2 items-center py-3 px-4 bg-slate-50 rounded-xl border border-slate-100 text-sm text-slate-600">
             <div class="flex items-center gap-1.5">
                 <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
@@ -30,25 +319,37 @@
                 <span class="text-slate-500">类型</span>
                 <asp:Label runat="server" ID="Lbtypecn" CssClass="font-semibold text-slate-800"></asp:Label>
             </div>
+            <asp:Label runat="server" ID="Lbcheck"></asp:Label>
             <asp:Label runat="server" ID="Lbtype" Visible="False"></asp:Label>
-            <asp:Label runat="server" ID="Lbcheck" ></asp:Label>
 			<asp:Label ID="LabelCid" runat="server" Visible="False"></asp:Label>
 			<asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
             <asp:Label ID="LabelVid" runat="server" Visible="False"></asp:Label> 
             <asp:Label ID="LabelVtotal" runat="server" Visible="False"></asp:Label>
-            <asp:HyperLink ID="Hkscore" runat="server" Target="_blank" Visible="False" 
-                CssClass="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 font-semibold rounded-lg hover:bg-emerald-100 transition text-sm border border-emerald-200" ImageUrl="~/images/vote.png" ToolTip="成绩分析"></asp:HyperLink>
         </div>
     </div>
-    
-    <!-- Rich Content Area -->
-    <div id="vcontent" runat="server" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 text-slate-700 leading-relaxed" ></div>
-    
-    <!-- Quiz Questions Area -->
-    <div class="quizarea">   
+
+    <div class="survey-content-card">
+        <div id="vcontent" runat="server" class="text-slate-700 leading-relaxed"></div>
+    </div>
+
+    <div class="survey-assessment-card">
+        <div class="survey-assessment-card__info">
+            <div class="survey-assessment-card__label">评价方式</div>
+            <div class="survey-assessment-card__title"><%= EnableAiAssessment ? "AI 评价" : "规则评估摘要" %></div>
+            <div class="survey-assessment-card__desc"><%= EnableAiAssessment ? ("当前测验已启用 AI 评价，提交后会调用 AI Provider 生成测验反馈。") : "当前测验未启用 AI 评价，提交后会生成规则评估摘要。" %></div>
+        </div>
+        <div class="survey-assessment-card__status"><%= EnableAiAssessment ? "AI 已启用" : "规则模式" %></div>
+    </div>
+
+    <div class="quizarea">
+        <div class="survey-quiz-head">
+            <div class="survey-quiz-head__title">开始答题</div>
+            <div class="survey-quiz-head__meta">共 <%=LabelVtotal.Text %> 题，请完成后再提交答卷。</div>
+        </div>
         <div id="questionPage"></div>
         <div class="btnsubmit">
-            <input id="btnupload" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" type="button" value="提交" /> 
+            <input id="btnupload" class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold rounded-xl hover:from-blue-600 hover:to-indigo-700 transition duration-300 shadow-md border-0 cursor-pointer" type="button" value="提交答卷" />
+            <div class="survey-submit-note"><%= isDone ? "你已完成本次测验，如需更新结果请联系教师。" : (isClose ? "当前测验尚未开始或已关闭，请等待教师开启后再提交。" : "提交后会自动生成当前测验对应的评估结果。") %></div>
         </div>   
     </div>
 </div>
@@ -56,14 +357,14 @@
 <div id="examAiLoading" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,.45);backdrop-filter:blur(3px);align-items:center;justify-content:center;">
     <div style="width:min(92vw,420px);padding:28px 24px;border-radius:20px;background:rgba(255,255,255,.98);box-shadow:0 24px 50px rgba(15,23,42,.22);text-align:center;">
         <div style="width:56px;height:56px;margin:0 auto 16px;border-radius:999px;border:5px solid #dbeafe;border-top-color:#2563eb;animation:gaugeitem-spin .9s linear infinite;"></div>
-        <p style="margin:0;font-size:18px;font-weight:800;color:#0f172a;">正在提交测验并生成 AI 评估</p>
+        <p id="examAiLoadingTitle" style="margin:0;font-size:18px;font-weight:800;color:#0f172a;">正在提交测验并生成 AI 评估</p>
         <p id="examAiLoadingDesc" style="margin:10px 0 0;font-size:14px;line-height:1.7;color:#64748b;">系统正在提交测验结果，请稍候。</p>
-        <p id="examAiProvider" style="margin:10px 0 0;font-size:12px;color:#475569;">当前 AI Provider：<%= LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() %></p>
+        <p id="examAiProvider" style="margin:10px 0 0;font-size:12px;color:#475569;">当前评估方式：<%= EnableAiAssessment ? ("AI Provider - " + LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName()) : "规则评估摘要" %></p>
     </div>
 </div>
 
 <div id="examAiSummary" style="display:none;max-width:980px;margin:16px auto 0;padding:14px 16px;border-radius:16px;border:1px solid #bfdbfe;background:linear-gradient(135deg,#eff6ff 0%,#f8fbff 100%);color:#1e3a8a;box-shadow:0 10px 24px rgba(37,99,235,.08);">
-    <div style="font-size:12px;font-weight:700;color:#475569;">AI 简短反馈</div>
+    <div id="examAiSummaryLabel" style="font-size:12px;font-weight:700;color:#475569;">AI 简短反馈</div>
     <div id="examAiSummaryText" style="margin-top:8px;font-size:14px;line-height:1.7;color:#1d4ed8;"></div>
 </div>
 
@@ -75,6 +376,7 @@
 	var vidstr = "<%=Vidstr %>";
 	var vtypestr = "<%=Vtypestr %>";   
 	var isdone = "<%=isDone %>";   
+	var enableAiAssessment = <%= EnableAiAssessment ? "true" : "false" %>;
 
 	//console.log(jsonstr);//获取所有试题数据
 	var jsonquestion=JSON.parse(Decode64(jsonstr));//base64解码
@@ -84,6 +386,34 @@
 	var htmlstr="";//渲染内容
 	var examEventSource = null;
 	var examStreamFinished = false;
+
+	function getAssessmentCopy(enableAi) {
+		return enableAi ? {
+			loadingTitle: '正在提交测验并生成 AI 评估',
+			loadingDesc: '系统正在提交测验结果，请稍候。',
+			summaryLabel: 'AI 简短反馈',
+			providerText: '当前评估方式：AI Provider - <%= LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() %>'
+		} : {
+			loadingTitle: '正在提交测验并生成规则评估摘要',
+			loadingDesc: '系统正在提交测验结果，并生成规则评估摘要，请稍候。',
+			summaryLabel: '规则评估摘要',
+			providerText: '当前评估方式：规则评估摘要'
+		};
+	}
+
+	function syncAssessmentCopy(message) {
+		var copy = getAssessmentCopy(enableAiAssessment);
+		var title = document.getElementById('examAiLoadingTitle');
+		var desc = document.getElementById('examAiLoadingDesc');
+		var summaryLabel = document.getElementById('examAiSummaryLabel');
+		var provider = document.getElementById('examAiProvider');
+		if (title) title.textContent = copy.loadingTitle;
+		if (desc) desc[message ? 'innerHTML' : 'textContent'] = message || copy.loadingDesc;
+		if (summaryLabel) summaryLabel.textContent = copy.summaryLabel;
+		if (provider) provider.textContent = copy.providerText;
+	}
+
+	syncAssessmentCopy();
 
 	var idList = [];
 	var scoreList = [];
@@ -190,8 +520,7 @@
 
     function showExamLoading(message) {
         var loading = document.getElementById('examAiLoading');
-        var desc = document.getElementById('examAiLoadingDesc');
-        if (desc && message) desc.innerHTML = message;
+        syncAssessmentCopy(message);
         if (loading) loading.style.display = 'flex';
     }
 
@@ -214,14 +543,14 @@
         return JSON.stringify({ score: allscore, total: qcount, answers: entries });
     }
 
-    function uploadscore(selectstr,score,answerLog){
+	function uploadscore(selectstr,score,answerLog){
         if (!window.EventSource) {
             alert('当前浏览器不支持实时评估进度，请更换浏览器后再试。');
             btnupload.disabled = false;
             return;
         }
 
-        showExamLoading('系统正在提交测验结果，请稍候。');
+		showExamLoading(enableAiAssessment ? '系统正在提交测验结果，请稍候。' : '系统正在提交测验结果，并生成规则评估摘要，请稍候。');
         examStreamFinished = false;
         if (examEventSource) {
             examEventSource.close();
@@ -246,15 +575,15 @@
             var payload = parseExamSseData(event.data);
             examStreamFinished = true;
             examEventSource.close();
-            if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
-                window.LearnStatus.submitted();
-            }
-            showExamLoading(payload && payload.message ? payload.message : '提交成功，AI 测验评估已生成。');
-            var summaryBox = document.getElementById('examAiSummary');
-            var summaryText = document.getElementById('examAiSummaryText');
-            if (summaryBox && summaryText && payload && payload.summary) {
-                summaryText.innerHTML = payload.summary;
-                summaryBox.style.display = 'block';
+			if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
+				window.LearnStatus.submitted();
+			}
+			showExamLoading(payload && payload.message ? payload.message : (enableAiAssessment ? '提交成功，AI 测验评估已生成。' : '提交成功，规则评估摘要已生成。'));
+			var summaryBox = document.getElementById('examAiSummary');
+			var summaryText = document.getElementById('examAiSummaryText');
+			if (summaryBox && summaryText && payload && payload.summary) {
+				summaryText.innerHTML = payload.summary;
+				summaryBox.style.display = 'block';
             }
             window.setTimeout(function(){ location.reload(); }, 1500);
         });
@@ -391,6 +720,12 @@
 		 return decodeURIComponent(atob(str).split('').map(function (c) {
 			 return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 		 }).join(''));
+	 }
+
+	 function returnurl() {
+		 if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
+			 window.location.href = '<%=Fpage %>';
+		 }
 	 }
 
 </script>

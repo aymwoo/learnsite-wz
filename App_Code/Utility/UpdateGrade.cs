@@ -36,13 +36,15 @@ namespace LearnSite.DBUtility
 
         public static string GetTargetVersion()
         {
-            return "1910";
+            return "1912";
         }
 
         public static string GetCurrentVersion()
         {
             try
             {
+                if (DbHelperSQL.ColumnExists("Survey", "Venableai")) return "1912";
+                if (DbHelperSQL.TabExists("AIStudentExamAssessment")) return "1911";
                 if (DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return "1910";
                 if (DbHelperSQL.TabExists("AICustomSkill")) return "1900";
                 if (DbHelperSQL.TabExists("AISkill")) return "1800";
@@ -80,6 +82,7 @@ namespace LearnSite.DBUtility
                         if (!DbHelperSQL.TabExists("AISkill")) return false;
                         if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
                         if (!DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return false;
+                        if (!DbHelperSQL.ColumnExists("Survey", "Venableai")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
                     }
                     catch
@@ -892,6 +895,7 @@ namespace LearnSite.DBUtility
                 Vstr.Append(" Vaverage int,");
                 Vstr.Append(" Vclose bit DEFAULT 0,");
                 Vstr.Append(" Vpoint bit DEFAULT 0,");
+                Vstr.Append(" Venableai bit DEFAULT 0,");
                 Vstr.Append(" Vdate datetime");
                 Vstr.Append(" )");
 
@@ -2623,6 +2627,17 @@ namespace LearnSite.DBUtility
                 sb.Append(" [CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()");
                 sb.Append(" )");
                 DbHelperSQL.ExecuteSql(sb.ToString());
+            }
+        }
+
+        public static void UpdateTable1912()
+        {
+            string surveyTable = "Survey";
+            string enableAi = "Venableai";
+            if (!DbHelperSQL.ColumnExists(surveyTable, enableAi))
+            {
+                DbHelperSQL.AddColumn(surveyTable, enableAi, "bit", 0);
+                DbHelperSQL.ExecuteSql("update Survey set Venableai = 0 where Venableai is null");
             }
         }
 

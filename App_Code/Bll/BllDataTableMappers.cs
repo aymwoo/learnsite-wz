@@ -839,6 +839,10 @@ namespace LearnSite.BLL
                     {
                         model.Vpoint = dt.Rows[n]["Vpoint"].ToString() == "1" || dt.Rows[n]["Vpoint"].ToString().ToLower() == "true";
                     }
+                    if (dt.Columns.Contains("Venableai") && dt.Rows[n]["Venableai"] != null && dt.Rows[n]["Venableai"].ToString() != "")
+                    {
+                        model.Venableai = dt.Rows[n]["Venableai"].ToString() == "1" || dt.Rows[n]["Venableai"].ToString().ToLower() == "true";
+                    }
                     if (dt.Rows[n]["Vdate"] != null && dt.Rows[n]["Vdate"].ToString() != "")
                     {
                         model.Vdate = DateTime.Parse(dt.Rows[n]["Vdate"].ToString());

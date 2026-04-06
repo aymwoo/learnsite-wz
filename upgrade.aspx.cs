@@ -141,6 +141,7 @@ public partial class UpGrade : System.Web.UI.Page
         bool hasMigrationTable = LearnSite.DBUtility.DbHelperSQL.TabExists("_DbMigrations");
         bool hasAICustomSkill = LearnSite.DBUtility.DbHelperSQL.TabExists("AICustomSkill");
         bool hasAIStudentExamAssessment = LearnSite.DBUtility.DbHelperSQL.TabExists("AIStudentExamAssessment");
+        bool hasSurveyEnableAi = LearnSite.DBUtility.DbHelperSQL.ColumnExists("Survey", "Venableai");
         bool hasKseconds = LearnSite.DBUtility.DbHelperSQL.ColumnExists("MenuWorks", "Kseconds");
         bool hasIndex = false;
         try
@@ -187,6 +188,11 @@ public partial class UpGrade : System.Web.UI.Page
         if (!hasAIStudentExamAssessment)
         {
             summary.Add("缺少 `AIStudentExamAssessment` 表，升级后学生测验 AI 评估才能入库并在教师端查看。");
+        }
+
+        if (!hasSurveyEnableAi)
+        {
+            summary.Add("旧版 `Survey` 测验尚未具备独立 AI 评价开关字段，升级后才能按单个测验控制是否启用 AI 评价。");
         }
 
         if (!hasKseconds)
