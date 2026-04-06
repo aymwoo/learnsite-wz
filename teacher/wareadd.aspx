@@ -212,7 +212,9 @@
      <div  class="placehold">
         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded shadow-sm text-left">
             <div class="flex items-center mb-2">
-                <i class="bi bi-info-circle-fill text-blue-500 mr-2"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-blue-500 mr-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-11.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
                 <h4 class="text-blue-800 font-bold m-0">学习平台成绩采集集成指南</h4>
             </div>
             <p class="text-sm text-blue-900 mb-2">
