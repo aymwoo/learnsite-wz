@@ -115,7 +115,7 @@ public partial class Student_program : System.Web.UI.Page
         }
         if (Snum.StartsWith("s") && cook.Sid < 0)
         {
-            BtnBegin.Visible = true;
+            BtnBegin.Visible = false;
             ButtonClear.Visible = true;
             BtnScratch.Visible = true;
         }
@@ -270,15 +270,30 @@ public partial class Student_program : System.Web.UI.Page
     }
     protected void ButtonClear_Click(object sender, EventArgs e)
     {
+        // 仅允许教师模拟学生账号清除当前登录学生自己的提交记录
+        if (!(cook.Snum.StartsWith("s") && cook.Sid < 0))
+        {
+            return;
+        }
+
         if (Request.QueryString["lid"] != null)
         {
+            string Lid = Request.QueryString["lid"].ToString();
+            if (!LearnSite.Common.WordProcess.IsNum(Lid) || !LearnSite.Common.WordProcess.IsNum(LabelMid.Text))
+            {
+                return;
+            }
+
             LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
             string Snum = cook.Snum;
-            string Wmid = LabelMid.Text;
-            wbll.Delmywork(Int32.Parse(Wmid), Snum);
+            int wmid = Int32.Parse(LabelMid.Text);
+            LearnSite.Model.Works mywork = wbll.GetModelByStu(wmid, Snum);
+            if (mywork != null)
+            {
+                wbll.Delmywork(wmid, Snum);
+            }
 
             LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
-            string Lid = Request.QueryString["lid"].ToString();
             kbll.DeleteMenuWork(cook.Sid, Int32.Parse(Lid));
 
             System.Threading.Thread.Sleep(200);

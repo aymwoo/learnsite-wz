@@ -7,14 +7,14 @@
     <title></title>
     	<meta charset=utf-8>
 	<!-- bower:css -->
-	<link rel="stylesheet" href="../../Plugins/km/bower_components/bootstrap/dist/css/bootstrap.css" />
-	<link rel="stylesheet" href="../../Plugins/km/bower_components/codemirror/lib/codemirror.css" />
-	<link rel="stylesheet" href="../../Plugins/km/bower_components/hotbox/hotbox.css" />
-	<link rel="stylesheet" href="../../Plugins/km/bower_components/kityminder-core/dist/kityminder.core.css" />
-	<link rel="stylesheet" href="../../Plugins/km/bower_components/color-picker/dist/color-picker.min.css" />
+	<link rel="stylesheet" href="../../plugins/km/bower_components/bootstrap/dist/css/bootstrap.css" />
+	<link rel="stylesheet" href="../../plugins/km/bower_components/codemirror/lib/codemirror.css" />
+	<link rel="stylesheet" href="../../plugins/km/bower_components/hotbox/hotbox.css" />
+	<link rel="stylesheet" href="../../plugins/km/bower_components/kityminder-core/dist/kityminder.core.css" />
+	<link rel="stylesheet" href="../../plugins/km/bower_components/color-picker/dist/color-picker.min.css" />
 	<!-- endbower -->
 
-	<link rel="stylesheet" href="../../Plugins/km/kityminder.editor.css">
+	<link rel="stylesheet" href="../../plugins/km/kityminder.editor.css">
 		<style>
 		div.minder-editor-container {
 			top: 0px;
@@ -48,28 +48,28 @@
 <kityminder-editor on-init="initEditor(editor, minder)" data-theme="fresh-green"></kityminder-editor>
 
 <!-- bower:js -->
-<script src="../../Plugins/km/bower_components/jquery/dist/jquery.js"></script>
-<script src="../../Plugins/km/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="../../Plugins/km/bower_components/angular/angular.js"></script>
-<script src="../../Plugins/km/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/lib/codemirror.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/xml/xml.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/javascript/javascript.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/css/css.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/markdown/markdown.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/addon/mode/overlay.js"></script>
-<script src="../../Plugins/km/bower_components/codemirror/mode/gfm/gfm.js"></script>
-<script src="../../Plugins/km/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
-<script src="../../Plugins/km/bower_components/marked/lib/marked.js"></script>
-<script src="../../Plugins/km/bower_components/kity/dist/kity.min.js"></script>
-<script src="../../Plugins/km/bower_components/hotbox/hotbox.js"></script>
-<script src="../../Plugins/km/bower_components/json-diff/json-diff.js"></script>
-<script src="../../Plugins/km/bower_components/kityminder-core/dist/kityminder.core.min.js"></script>
-<script src="../../Plugins/km/bower_components/color-picker/dist/color-picker.min.js"></script>
+<script src="../../plugins/km/bower_components/jquery/dist/jquery.js"></script>
+<script src="../../plugins/km/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../../plugins/km/bower_components/angular/angular.js"></script>
+<script src="../../plugins/km/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/lib/codemirror.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/xml/xml.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/javascript/javascript.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/css/css.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/markdown/markdown.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/addon/mode/overlay.js"></script>
+<script src="../../plugins/km/bower_components/codemirror/mode/gfm/gfm.js"></script>
+<script src="../../plugins/km/bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+<script src="../../plugins/km/bower_components/marked/lib/marked.js"></script>
+<script src="../../plugins/km/bower_components/kity/dist/kity.min.js"></script>
+<script src="../../plugins/km/bower_components/hotbox/hotbox.js"></script>
+<script src="../../plugins/km/bower_components/json-diff/json-diff.js"></script>
+<script src="../../plugins/km/bower_components/kityminder-core/dist/kityminder.core.min.js"></script>
+<script src="../../plugins/km/bower_components/color-picker/dist/color-picker.min.js"></script>
 <!-- endbower -->
 
-<script src="../../Plugins/km/kityminder.editor.js"></script>
+<script src="../../plugins/km/kityminder.editor.js"></script>
 <script >
     window.__learnStatus = {
         snum: "<%= Snum %>",
