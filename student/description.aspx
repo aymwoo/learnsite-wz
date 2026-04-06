@@ -3,9 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div class="w-full max-w-5xl mx-auto space-y-6">
     <!-- Title Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10">
-        <div class="text-center pb-6 border-b border-slate-100">
-            <asp:Label ID="LabelMtitle" runat="server" CssClass="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-10 overflow-hidden">
+        <div class="course-node-head text-center border-b border-slate-100" style="padding:24px 24px 28px;margin:-24px -24px 0;">
+            <asp:Label ID="LabelMtitle" runat="server" CssClass="course-node-title text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
         </div>
         
         <link href="../kindeditor/plugins/syntaxhighlighter/styles/shCore.css" rel="stylesheet" type="text/css" />

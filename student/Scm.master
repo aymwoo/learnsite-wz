@@ -311,6 +311,41 @@
         }
         @media (min-width: 640px)  { .scm-content-card { padding: 2rem; } }
 
+        .course-node-head {
+            position: relative;
+            overflow: hidden;
+        }
+        .has-course-banner .course-node-head {
+            background-image: linear-gradient(135deg, rgba(15, 23, 42, 0.28), rgba(30, 41, 59, 0.18)), var(--course-banner-image);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .has-course-banner .course-node-head::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.2));
+            pointer-events: none;
+        }
+        .has-course-banner .course-node-head > * {
+            position: relative;
+            z-index: 1;
+        }
+        .has-course-banner .course-node-title {
+            color: #ffffff !important;
+            text-shadow: 0 2px 12px rgba(15,23,42,0.45);
+        }
+        .has-course-banner .course-node-head .topictext,
+        .has-course-banner .course-node-head #Topics,
+        .has-course-banner .course-node-head #TopicsResult {
+            color: rgba(255,255,255,0.94) !important;
+            text-shadow: 0 1px 8px rgba(15,23,42,0.35);
+        }
+        .has-course-banner .course-node-head img {
+            filter: drop-shadow(0 2px 6px rgba(15,23,42,0.35));
+        }
+
         /* custom-menu-wrapper overrides for topbar brand only */
         .scm-topbar-inner table { margin: 0; }
         .scm-topbar-inner td { padding: 0 2px; }
@@ -402,6 +437,8 @@
         /* ── Banner 背景 ── */
         var cbanner = "<%=Cbanner %>";
         if (cbanner !== "") {
+            document.body.className += (document.body.className ? " " : "") + "has-course-banner";
+            document.body.style.setProperty("--course-banner-image", "url('" + cbanner + "')");
             $(".banner").css({
                 "background-image": "url(" + cbanner + ")",
                 "opacity": "0.15"

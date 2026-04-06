@@ -48,6 +48,7 @@ public partial class Student_ware : System.Web.UI.Page
             model = mn.GetModel(Int32.Parse(Mid));
             if (model != null)
             {
+                LabelMtitle.Text = model.Mtitle;
                 if (!String.IsNullOrEmpty(model.Mback))
                 {
                     WareUrl = model.Mback;

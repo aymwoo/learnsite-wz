@@ -324,8 +324,8 @@
                     <asp:Label ID="LabelLtype" runat="server" Visible="False"></asp:Label>
                 </div>
 
-                <div class="prog-main-title">
-                    <asp:Label ID="LabelMtitle" runat="server"></asp:Label>
+                <div class="prog-main-title course-node-head">
+                    <asp:Label ID="LabelMtitle" runat="server" CssClass="course-node-title"></asp:Label>
                 </div>
 
                 <div id="Mcontent" class="prog-content-area" style="word-wrap:break-word; word-break:break-word;" runat="server">

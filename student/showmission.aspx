@@ -36,8 +36,8 @@
     <!-- Main Mission Content -->
     <div class="prog-card" style="background:linear-gradient(160deg,#fff 0%,#f0f7ff 100%);">
         <div class="prog-card__body">
-            <div style="text-align:center;padding-bottom:20px;border-bottom:1px solid #e2e8f0;margin-bottom:16px;">
-                <asp:Label ID="LabelMtitle" runat="server" style="font-size:clamp(18px,2.5vw,24px);font-weight:800;color:#0f172a;letter-spacing:-0.02em;"></asp:Label>
+            <div class="course-node-head" style="text-align:center;padding:20px 20px 24px;border-bottom:1px solid #e2e8f0;margin:-14px -20px 16px; border-radius:0.75rem 0.75rem 0 0;">
+                <asp:Label ID="LabelMtitle" runat="server" CssClass="course-node-title" style="font-size:clamp(18px,2.5vw,24px);font-weight:800;color:#0f172a;letter-spacing:-0.02em;"></asp:Label>
             </div>
             <div class="hidden" style="display:none;">
                 <asp:Label ID="LabelSnum" runat="server" Visible="False"></asp:Label>

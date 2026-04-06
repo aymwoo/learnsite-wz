@@ -3,10 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 <div class="w-full max-w-5xl mx-auto space-y-6">
     <!-- Exam Header Card -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-        <div class="flex items-center gap-3 mb-4">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 overflow-hidden">
+        <div class="course-node-head flex items-center gap-3 mb-4" style="padding:24px 24px 20px;margin:-24px -24px 16px;">
             <asp:Image ID="Image1" runat="server" ImageUrl="~/images/clock.gif" CssClass="w-8 h-8" />
-            <asp:Label runat="server" ID="Lbtitle" CssClass="text-xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
+            <asp:Label runat="server" ID="Lbtitle" CssClass="course-node-title text-xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
         </div>
         
         <div class="flex flex-wrap gap-x-6 gap-y-2 items-center py-3 px-4 bg-slate-50 rounded-xl border border-slate-100 text-sm text-slate-600">

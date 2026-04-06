@@ -109,8 +109,8 @@
     <!-- Main Content -->
     <div class="prog-card" style="background:linear-gradient(160deg,#fff 0%,#f0f7ff 100%);">
         <div class="prog-card__body">
-        <div class="text-center pb-5 border-b border-slate-100 flex items-center justify-center gap-3" style="margin-bottom:16px;">
-            <asp:Label ID="LabelMtitle" runat="server" style="font-size:clamp(18px,2.5vw,24px);font-weight:800;color:#0f172a;letter-spacing:-0.02em;"></asp:Label>
+        <div class="course-node-head text-center border-b border-slate-100 flex items-center justify-center gap-3" style="padding:20px 20px 24px;margin:-14px -20px 16px; border-radius:0.75rem 0.75rem 0 0;">
+            <asp:Label ID="LabelMtitle" runat="server" CssClass="course-node-title" style="font-size:clamp(18px,2.5vw,24px);font-weight:800;color:#0f172a;letter-spacing:-0.02em;"></asp:Label>
             <img id="connected" alt="" src="../images/topictitle.png" style="display:none;" title="小组协作填表已开启" class="w-6 h-6" />
         </div>
         <div id="Mcontent" class="coursecontent" runat="server" style="color:#334155;line-height:1.9;font-size:16px;word-wrap:break-word;word-break:break-word;"></div>

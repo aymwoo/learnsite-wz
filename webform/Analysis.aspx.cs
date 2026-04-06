@@ -40,10 +40,10 @@ public partial class webform_Analysis : System.Web.UI.Page
         RepeaterList.DataBind();
         Persons = dt.Rows.Count;
 
-        DataSet dsNo = abll.GetListClassSname(Eid, cook.Sgrade, cook.Sclass);//获得未参加班级测验的学生列表
-        RepeaterNo.DataSource = dsNo;
+        DataTable dtNo = abll.GetListClassSname(Eid, cook.Sgrade, cook.Sclass);//获得未参加班级测验的学生列表
+        RepeaterNo.DataSource = dtNo;
         RepeaterNo.DataBind();
-        NoPersons = dsNo.Tables[0].Rows.Count;
+        NoPersons = dtNo.Rows.Count;
 
         // 创建一个DataTable来存储题目分析结果
         DataTable dtAnalysis = new DataTable();

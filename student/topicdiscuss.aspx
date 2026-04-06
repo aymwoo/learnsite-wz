@@ -27,16 +27,18 @@
 
 <div id="topper" class="w-full max-w-5xl mx-auto space-y-6">
     <!-- Topic Title -->
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="course-node-head p-6 sm:p-8">
         <div class="flex items-center gap-3 mb-4">
             <asp:ImageButton ID="Btnclock" runat="server" ImageUrl="~/images/clock.gif" 
                 onclick="Btnclock_Click" Enabled="False" CssClass="w-6 h-6 opacity-70 hover:opacity-100 transition" />        
-            <anthem:Label ID="Labeltopic" runat="server" CssClass="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight"></anthem:Label>
+            <anthem:Label ID="Labeltopic" runat="server" CssClass="course-node-title text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight"></anthem:Label>
             <anthem:CheckBox ID="TcloseCheck" runat="server" Visible="False" />
         </div>
         
         <div ID="Topics" runat="server" class="text-slate-700 leading-relaxed text-base p-2"></div>
         <div ID="TopicsResult" runat="server" class="topictext mt-4"></div>
+        </div>
     </div>
     
     <!-- Post List Header -->

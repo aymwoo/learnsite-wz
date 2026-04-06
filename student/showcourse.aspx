@@ -17,12 +17,18 @@
         text-align: center;
         position: relative;
     }
+    .has-course-banner .student-doc-head {
+        border-bottom-color: rgba(255,255,255,0.2);
+    }
     .student-doc-head::before {
         content: '';
         position: absolute;
         top: 0; left: 0; right: 0;
         height: 5px;
         background: linear-gradient(90deg, #6366f1, #3b82f6, #0ea5e9, #10b981);
+    }
+    .has-course-banner .student-doc-head::before {
+        background: linear-gradient(90deg, rgba(255,255,255,0.92), rgba(191,219,254,0.92), rgba(167,243,208,0.9));
     }
     .student-doc-title {
         font-size: 2rem;
@@ -31,6 +37,10 @@
         letter-spacing: -0.025em;
         line-height: 1.3;
         margin: 0;
+    }
+    .has-course-banner .student-doc-title {
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(15,23,42,0.45);
     }
     .student-doc-meta {
         margin-top: 0.75rem;
@@ -41,6 +51,11 @@
         justify-content: center;
         align-items: center;
         gap: 0.5rem;
+    }
+    .has-course-banner .student-doc-meta,
+    .has-course-banner .courseother {
+        color: rgba(255,255,255,0.88) !important;
+        text-shadow: 0 1px 8px rgba(15,23,42,0.35);
     }
     /* Intelligent Content Rendering Rules */
     .student-doc-body {
@@ -84,8 +99,8 @@
 <div class="w-full max-w-[900px] mx-auto">
     <div class="student-doc-wrap">
         <!-- Course Title Header -->
-        <div class="student-doc-head">
-            <asp:Label ID="LabelCtitle" runat="server" CssClass="student-doc-title"></asp:Label>
+        <div class="student-doc-head course-node-head">
+            <asp:Label ID="LabelCtitle" runat="server" CssClass="student-doc-title course-node-title"></asp:Label>
             <div class="student-doc-meta">
                 <i class="bi bi-journal-text"></i> 学案正文浏览
             </div>

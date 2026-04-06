@@ -6,6 +6,17 @@
     <!-- Main Content (Iframe Preview) -->
     <div class="lg:col-span-4">
         <div id="previewArea" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="course-node-head px-6 py-5 sm:px-8 sm:py-6 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-indigo-500 flex items-center justify-center text-white flex-shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1-1-1 1 .75-3M15 6.75H9m6 3H9m8 8H7a2 2 0 01-2-2V6a2 2 0 012-2h10l5 5v6.75a2 2 0 01-2 2h-3"></path></svg>
+                    </div>
+                    <div class="min-w-0">
+                        <div class="text-sm text-slate-500 font-medium">课件任务</div>
+                        <asp:Label ID="LabelMtitle" runat="server" CssClass="course-node-title block text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight"></asp:Label>
+                    </div>
+                </div>
+            </div>
             <iframe id="wareframe" src="<%=WareUrl %>" style="width:100%;min-height:80vh; border: none; border-radius: 1rem;"></iframe>
         </div>
     </div>
