@@ -176,6 +176,70 @@
             font-size: 14px;
         }
 
+        .upgrade-check-grid {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .upgrade-check-card {
+            padding: 16px 18px;
+            border-radius: 14px;
+            border: 1px solid #dbeafe;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        }
+
+        .upgrade-check-card--warn {
+            border-color: #fde68a;
+            background: linear-gradient(180deg, #fffbeb 0%, #fff7ed 100%);
+        }
+
+        .upgrade-check-card--danger {
+            border-color: #fecaca;
+            background: linear-gradient(180deg, #fff1f2 0%, #fff7f7 100%);
+        }
+
+        .upgrade-check-card__label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 8px;
+        }
+
+        .upgrade-check-card__value {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1d4ed8;
+            line-height: 1.4;
+        }
+
+        .upgrade-check-card--warn .upgrade-check-card__value {
+            color: #b45309;
+        }
+
+        .upgrade-check-card--danger .upgrade-check-card__value {
+            color: #dc2626;
+        }
+
+        .upgrade-check-list,
+        .upgrade-risk-list,
+        .upgrade-pending-list {
+            margin: 0;
+            padding-left: 18px;
+            color: #334155;
+            line-height: 1.9;
+            font-size: 14px;
+        }
+
+        .upgrade-check-empty {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
         .upgrade-actions {
             display: flex;
             flex-wrap: wrap;
@@ -259,7 +323,7 @@
         }
     </style>
 
-    <link href="js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
        <form id="form1" runat="server" > 
@@ -301,6 +365,14 @@
 
                         <div class="upgrade-version-grid">
                             <div class="upgrade-version-card">
+                                <span class="upgrade-version-card__label">当前连接数据库</span>
+                                <div class="upgrade-version-card__value" style="font-size:20px;"><%= ConnectedDatabaseName %></div>
+                            </div>
+                            <div class="upgrade-version-card">
+                                <span class="upgrade-version-card__label">最近预检查时间</span>
+                                <div class="upgrade-version-card__value" style="font-size:20px;"><%= LastAnalyzeTime %></div>
+                            </div>
+                            <div class="upgrade-version-card">
                                 <span class="upgrade-version-card__label">当前数据库迁移版本</span>
                                 <div class="upgrade-version-card__value"><%= CurrentDbVersion %></div>
                             </div>
@@ -308,6 +380,54 @@
                                 <span class="upgrade-version-card__label">即将更新到版本</span>
                                 <div class="upgrade-version-card__value"><%= TargetDbVersion %></div>
                             </div>
+                        </div>
+
+                        <div class="upgrade-check-grid">
+                            <div class="upgrade-check-card">
+                                <span class="upgrade-check-card__label">数据库识别结果</span>
+                                <div class="upgrade-check-card__value"><%= UpgradeMode %></div>
+                            </div>
+                            <div class="upgrade-check-card <%=(RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : "")) %>">
+                                <span class="upgrade-check-card__label">升级结论</span>
+                                <div class="upgrade-check-card__value"><%= UpgradeDecision %></div>
+                            </div>
+                            <div class="upgrade-check-card <%=(RiskLevel == "高" ? "upgrade-check-card--danger" : (RiskLevel == "中" ? "upgrade-check-card--warn" : "")) %>">
+                                <span class="upgrade-check-card__label">风险等级</span>
+                                <div class="upgrade-check-card__value"><%= RiskLevel %></div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:18px; text-align:left; max-width:760px; margin-left:auto; margin-right:auto;">
+                            <div class="upgrade-card__title" style="font-size:16px; margin-bottom:10px;">升级前检查结果</div>
+                            <%= UpgradeSummaryHtml %>
+                        </div>
+
+                        <div style="margin-top:18px; text-align:left; max-width:760px; margin-left:auto; margin-right:auto;">
+                            <div class="upgrade-card__title" style="font-size:16px; margin-bottom:10px;">待执行迁移</div>
+                            <%= PendingMigrationHtml %>
+                        </div>
+
+                        <div style="margin-top:18px; text-align:left; max-width:760px; margin-left:auto; margin-right:auto;">
+                            <div class="upgrade-card__title" style="font-size:16px; margin-bottom:10px;">待执行迁移分组</div>
+                            <div class="upgrade-check-grid">
+                                <div class="upgrade-check-card">
+                                    <span class="upgrade-check-card__label">结构变更</span>
+                                    <%= PendingStructureHtml %>
+                                </div>
+                                <div class="upgrade-check-card">
+                                    <span class="upgrade-check-card__label">初始化数据</span>
+                                    <%= PendingDataHtml %>
+                                </div>
+                                <div class="upgrade-check-card">
+                                    <span class="upgrade-check-card__label">性能优化</span>
+                                    <%= PendingPerformanceHtml %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:18px; text-align:left; max-width:760px; margin-left:auto; margin-right:auto;">
+                            <div class="upgrade-card__title" style="font-size:16px; margin-bottom:10px; color:#b45309;">风险提示</div>
+                            <%= UpgradeRiskHtml %>
                         </div>
 
                         <div style="margin-top:18px; text-align:left; max-width:760px; margin-left:auto; margin-right:auto;">
@@ -321,7 +441,11 @@
                         </div>
 
                         <div class="upgrade-actions">
-                            <asp:Button ID="Btnupgrade" runat="server" Font-Size="9pt" Text="执行更新" 
+                            <asp:Button ID="BtnAnalyze" runat="server" Font-Size="9pt" Text="重新检查数据库"
+                                onclick="BtnAnalyze_Click" CssClass="upgrade-btn-secondary" />
+                            <asp:Button ID="BtnExportReport" runat="server" Font-Size="9pt" Text="导出检查报告"
+                                onclick="BtnExportReport_Click" CssClass="upgrade-btn-secondary" />
+                            <asp:Button ID="Btnupgrade" runat="server" Font-Size="9pt" Text="确认后执行升级" OnClientClick="return confirm('请确认你已经完成数据库备份，并且当前连接的是需要升级的旧库。是否继续执行升级？');"
                                 onclick="Btnupgrade_Click" CssClass="upgrade-btn-primary" />
                             <asp:Button ID="BtnCreateTable" runat="server" onclick="BtnCreateTable_Click" 
                                 Text="创建数据表" CssClass="upgrade-btn-secondary" />
