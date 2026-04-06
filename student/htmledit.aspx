@@ -46,37 +46,55 @@
 		#tooltip{
 			position: absolute;
 			top: 8px;
-			height:24px;
 			left:155px;
 			user-select: none;
-			padding-left:8px;
-			padding-right:8px;
+			display:flex;
+			flex-wrap:wrap;
+			gap:8px;
+			align-items:center;
+			padding:8px 12px;
 			z-index:666;
 			font-size:14px;
+			border-radius:14px;
+			background:rgba(255,255,255,.92);
+			box-shadow:0 14px 28px -22px rgba(15,23,42,.45);
+			max-width:calc(100% - 380px);
 		}
 		.keyword{
 			display:inline-block;		
 			margin:auto;
-			padding:2px;
-			color:#666;	
+			padding:4px 10px;
+			color:#334155;	
 			cursor: hand;
-			min-width:30px;
+			min-width:auto;
 			text-align:center;
-			box-shadow: 1px 1px 1px #999;
-			border-radius:2px;
+			box-shadow:none;
+			border-radius:999px;
+			background:linear-gradient(135deg,#e2e8f0 0%,#cbd5e1 100%);
+			font-weight:700;
 		}
 		.keyword:hover{
 			cursor: hand;
 			color:#fff;
-			background-color: #333;
+			background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%);
 		}
 		
+		#tool{ display:flex; flex-direction:column; gap:14px; }
 		#tool i{
-			color:#999;
+			display:inline-flex;
+			align-items:center;
+			justify-content:center;
+			width:38px;
+			height:38px;
+			color:#e2e8f0;
+			background:linear-gradient(135deg,#475569 0%,#334155 100%);
+			border-radius:12px;
+			box-shadow:0 12px 24px -18px rgba(15,23,42,.75);
 		}
 		#tool i:hover{
 			cursor: hand;
-			color:#000;
+			color:#fff;
+			filter:brightness(1.08);
 		}
 		
 		#sidebyleft{
@@ -154,6 +172,14 @@
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 <script src="../code/build/src/ace.js" type="text/javascript"></script>
 <script src="../code/build/src/ext-language_tools.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.html-toolbar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:flex-end; }
+		.html-toolbar__btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:112px; height:40px; padding:0 16px; border:0 !important; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+		.html-toolbar__btn:hover { transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%) !important; color:#fff !important; }
+		.html-toolbar__btn--secondary { background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 14px 28px -18px rgba(15,118,110,.78); }
+		.html-toolbar__btn--neutral { background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
+	</style>
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
@@ -183,10 +209,10 @@
 	<span class="keyword" title="提交按钮">submit</span>
 </div>	
 <div id="tool">
-	<i class="fa fa-plus" aria-hidden="true"  onclick="fontbig()" title="放大代码" /></i><br><br>
-	<i class="fa fa-minus" aria-hidden="true" onclick="fontsmall()" title="缩小代码" /></i><br><br><br>
-	<i class="fa fa-undo" aria-hidden="true"  onclick="backward()" title="撤销" /></i><br><br>
-	<i class="fa fa-rotate-right" aria-hidden="true" onclick="forward()" title="重做" /></i>
+	<i class="fa fa-plus" aria-hidden="true"  onclick="fontbig()" title="放大代码"></i>
+	<i class="fa fa-minus" aria-hidden="true" onclick="fontsmall()" title="缩小代码"></i>
+	<i class="fa fa-undo" aria-hidden="true"  onclick="backward()" title="撤销"></i>
+	<i class="fa fa-rotate-right" aria-hidden="true" onclick="forward()" title="重做"></i>
 </div>
 	
         <div id="main">
@@ -199,16 +225,13 @@
 <div  id="sidebyleft">
 </div>
 
-<div  id="sideby">
-<button  onclick="showMission()" class="buttonshow px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="查看学案">
-<i class="fa fa-book" aria-hidden="true"></i> 学案</button>
-<span class="sp"></span>
-<button  type = "button" onclick="savehtml()" class="buttonsave px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="立即保存到服务器上" >
-<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
-<span class="sp"></span>
-<button  onclick="closePage()" class="buttonshow px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  title="离开页面">
-<i class="fa fa-close" aria-hidden="true"></i> 离开</button>
-<span class="sp"></span>
+<div id="sideby" class="html-toolbar">
+<button onclick="showMission()" class="html-toolbar__btn" title="查看学案" type="button">
+<i class="fa fa-book" aria-hidden="true"></i><span>查看学案</span></button>
+<button type="button" onclick="savehtml()" class="html-toolbar__btn html-toolbar__btn--secondary buttonsave" title="保存作品到服务器" >
+<i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+<button onclick="closePage()" class="html-toolbar__btn html-toolbar__btn--neutral" title="返回学案页面" type="button">
+<i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
 </div>
 
    <div id="mcontext" style="display: none; background: #D1D1D1; overflow-y: auto; overflow-x: hidden;
@@ -271,7 +294,9 @@
 	    var sessionkey = "htmlcode" + snum + "-" + htmllid + "-" + mypage;
 
         function closePage(){
-            window.close();
+            if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
+                window.close();
+            }
         }
         
             function getFileNameFromUrl(url) {

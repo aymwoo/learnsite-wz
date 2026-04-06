@@ -92,18 +92,75 @@
 		.mybtn {
 			position:absolute; width:60px;right:20px;top:20px; z-index:1000;
 		}
+
+		.draw-toolbar {
+			position: fixed;
+			top: 14px;
+			right: 16px;
+			z-index: 1000;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: 10px;
+			max-width: calc(100vw - 32px);
+		}
+
+		.draw-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 110px;
+			height: 42px;
+			padding: 0 16px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.draw-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.draw-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+
+		@media (max-width: 768px) {
+			.draw-toolbar {
+				left: 10px;
+				right: 10px;
+				justify-content: stretch;
+			}
+
+			.draw-toolbar__btn {
+				flex: 1 1 120px;
+				min-width: 0;
+			}
+		}
     </style>
   <script type="module" crossorigin src="../Plugins/excalidraw/assets/index-DMdoekNJ.js"></script>
     <link rel="stylesheet" crossorigin href="../Plugins/excalidraw/assets/index.css">
     <link rel="manifest" href="../Plugins/excalidraw/manifest.webmanifest">
     <script src="../code/jquery.min.js"></script>
+    <link rel="stylesheet" href="../deepseek/all.min.css">
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
-    <div>
-    <button class="mybtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" style="right:120px;" onclick="savework();" >保存</button>&nbsp;
-    <button class="mybtn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" style="right:20px;" onclick="returnurl();" >返回</button>
+    <div class="draw-toolbar">
+    <button class="draw-toolbar__btn" type="button" onclick="savework();"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+    <button class="draw-toolbar__btn draw-toolbar__btn--neutral" type="button" onclick="returnurl();"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
     </div>
     <div id="drawUrl" class="hide"><%=Wurl %></div>
     <div id="root">
@@ -113,7 +170,7 @@
 var id = "<%=Id %>";
 
 function returnurl() {
-    if (confirm('是否要离开此页面？') == true) {
+    if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
         window.location.href = "<%=Fpage %>"
     }
 }

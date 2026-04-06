@@ -6,6 +6,71 @@
 <title>Pixel Art Maker 像素艺术画</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="../pixelartmaker/style.css"/>  
+  <link rel="stylesheet" href="../deepseek/all.min.css">
+	<style type="text/css">
+		.pixel-toolbar {
+			display: inline-flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			align-items: center;
+			margin-left: 18px;
+			vertical-align: middle;
+		}
+
+		.pixel-toolbar__btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			min-width: 110px;
+			height: 40px;
+			padding: 0 14px;
+			border: 0;
+			border-radius: 12px;
+			background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+			color: #ffffff;
+			font-size: 14px;
+			font-weight: 700;
+			white-space: nowrap;
+			box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+			cursor: pointer;
+			transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+		}
+
+		.pixel-toolbar__btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+			filter: brightness(1.03);
+		}
+
+		.pixel-toolbar__btn--secondary {
+			background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+			box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
+		}
+
+		.pixel-toolbar__btn--neutral {
+			background: linear-gradient(135deg, #475569 0%, #334155 100%);
+			box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		}
+
+		.pixel-toolbar__btn:disabled {
+			opacity: .68;
+			cursor: wait;
+			transform: none;
+		}
+
+		@media (max-width: 900px) {
+			.pixel-toolbar {
+				display: flex;
+				margin: 14px 0 0;
+			}
+
+			.pixel-toolbar__btn {
+				flex: 1 1 110px;
+				min-width: 0;
+			}
+		}
+	</style>
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
@@ -18,10 +83,12 @@
 	  </div>
 	  <div class="right">
 		<h1 > 
-		Pixel Art Maker 像素画 <input type="color" id="colorPicker"/>&nbsp;&nbsp;&nbsp;&nbsp;	
-		<button id="savebtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >保存</button>&nbsp;	&nbsp;&nbsp;
-		<button id="playbtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >播放</button>&nbsp;	&nbsp;&nbsp;
-		<button id="returnbtn"  class="savetext px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" >返回</button>
+		Pixel Art Maker 像素画 <input type="color" id="colorPicker"/>
+		<span class="pixel-toolbar">
+			<button id="savebtn" class="pixel-toolbar__btn" type="button"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+			<button id="playbtn" class="pixel-toolbar__btn pixel-toolbar__btn--secondary" type="button"><i class="fa fa-play" aria-hidden="true"></i><span>播放预览</span></button>
+			<button id="returnbtn" class="pixel-toolbar__btn pixel-toolbar__btn--neutral" type="button"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+		</span>
 		 </h1>
 			<table id="palette"></table> 		 
 	  </div>
@@ -48,7 +115,7 @@
     var pixfile = "<%=PixFile %>";
 
     function returnurl() {
-        if (confirm('是否要离开此页面？') == true) {
+        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
             window.location.href = "<%=Fpage %>"
         }
     }

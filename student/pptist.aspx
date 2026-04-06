@@ -5,7 +5,7 @@
 <html lang="zh-CN">
 	<head id="Head1" runat="server">
     <meta charset="UTF-8">
-    <link rel="icon" href="../../Plugins/pptist/favicon.ico">        
+    <link rel="icon" href="/plugins/PPTist/favicon.ico">        
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,11 +48,66 @@
       .hide {
         display: none;
       }
+
+	  .ppt-toolbar {
+		position: fixed;
+		top: 14px;
+		right: 16px;
+		z-index: 1000;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: 10px;
+		max-width: calc(100vw - 32px);
+	  }
+
+	  .ppt-toolbar__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-width: 112px;
+		height: 42px;
+		padding: 0 16px;
+		border: 0;
+		border-radius: 12px;
+		background: linear-gradient(135deg, #475569 0%, #334155 100%);
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 700;
+		white-space: nowrap;
+		box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+		cursor: pointer;
+		transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+	  }
+
+	  .ppt-toolbar__btn:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 18px 30px -18px rgba(51, 65, 85, 0.82);
+		filter: brightness(1.03);
+	  }
+
+	  @media (max-width: 768px) {
+		.ppt-toolbar {
+			left: 10px;
+			right: 10px;
+			justify-content: stretch;
+		}
+
+		.ppt-toolbar__btn {
+			flex: 1 1 120px;
+			min-width: 0;
+		}
+	  }
     </style>
+    <link rel="stylesheet" href="../deepseek/all.min.css">
   
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
   <body>
+      <div class="ppt-toolbar">
+        <button type="button" onclick="returnurl()" class="ppt-toolbar__btn"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+      </div>
       <div id="pptId" class="hide"><%=Id %></div>
       <div id="pptUrl" class="hide"><%=Ppturl %></div>
       <div id="stuNum" class="hide"><%=Snum %></div>
@@ -64,8 +119,8 @@
     </div>
   </body>
 
-    <script type="module" crossorigin src="../../Plugins/pptist/assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="../../Plugins/pptist/assets/index.css">
+    <script type="module" crossorigin src="/plugins/PPTist/assets/index.js"></script>
+    <link rel="stylesheet" crossorigin href="/plugins/PPTist/assets/index.css">
 <script type="text/javascript" >
     function returnurl() {
         window.location.href = "<%=Fpage %>"

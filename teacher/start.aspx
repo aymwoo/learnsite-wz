@@ -1649,7 +1649,7 @@
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div class="lesson-footer">
+                        <div class="lesson-footer" id="LessonQuitFooter" runat="server" visible="false">
                             <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn lesson-btn--danger" />
                             <div class="lesson-footer__meta">
                                 <span>该操作会让当前上课班级学生全部退出登录，建议仅在下课时使用。</span>

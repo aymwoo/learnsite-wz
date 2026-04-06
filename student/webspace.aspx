@@ -25,24 +25,12 @@
 	.del{opacity:0.02;}
 	.del:hover{opacity:0.9;}
 	       
-    .btn-info {
-        background: #17a2b8;
-        color: white;
-        opacity:0.8;
-        
-        padding: 2px 4px;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
-        width:80px;
-    }  
-    .btn-info:hover {
-        opacity: 1;
-    }
     </style>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/dropzone/dropzone-min.js" type="text/javascript"></script>
     <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../js/fileupload.css" rel="stylesheet" type="text/css" />
+    <link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
@@ -64,8 +52,8 @@
                             <asp:HyperLink ID="HLtype" runat="server"  ImageUrl='<%# Eval("Kftpe") %>' CssClass="nomenu"></asp:HyperLink>
                             <asp:HyperLink ID="HLfname" runat="server" NavigateUrl='<%# Eval("Kfurl") %>' Target="_blank" Text='<%# Eval("KfnameShort") %>' Font-Underline="False" ></asp:HyperLink>                             
                            </div>
-						   <div class="rightlist">	
-                            <button type="button" class="btn-info" title="复制链接" onclick="copyFileLink('<%# Eval("KfnameShort") %>')">复制链接</button>			
+					   <div class="rightlist">	
+                            <button type="button" class="space-subbtn" title="复制链接" onclick="copyFileLink('<%# Eval("KfnameShort") %>', event)"><i class="fa fa-link" aria-hidden="true"></i><span>复制链接</span></button>			
                             <asp:Label ID="Labelnum" runat="server" Text='<%# Eval("Kfnum") %>'  Visible="false"></asp:Label> 
                             <asp:ImageButton ID="ImgBtnDelete" runat="server" CommandArgument='<%# Eval("Kfurl") %>' 
                                 CommandName="D" ImageUrl="~/images/delete.gif" ToolTip="删除"  CssClass="del" />
@@ -75,10 +63,10 @@
                     <SeparatorStyle BorderColor="Silver" BorderStyle="Dotted" BorderWidth="1px" />
                 </asp:DataList>        
         </div>
-		<div id="up_area" style="padding-top:10px;">
-		  <button type="button" id="btnupload" class="btnup px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"> <i class="fa fa-upload" aria-hidden="true"></i> 文件上传</button>
-          <span id="message"></span>
-		<div>
+		<div id="up_area" class="space-toolbar" style="padding-top:10px;">
+		  <button type="button" id="btnupload" class="btnup space-toolbar__btn"><i class="fa fa-upload" aria-hidden="true"></i><span>上传文件</span></button>
+          <span id="message" class="space-message"></span>
+		</div>
      </div>    
     </div>
     </div>
@@ -102,7 +90,7 @@
             }
         });
 
-        function copyFileLink(fileUrl) {
+        function copyFileLink(fileUrl, event) {
             // 阻止事件冒泡和默认行为，避免页面刷新
             if (event) {
                 event.preventDefault();

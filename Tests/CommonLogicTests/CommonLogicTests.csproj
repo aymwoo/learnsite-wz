@@ -30,6 +30,8 @@
     <Compile Include="..\..\App_Code\Common\XmlHelpCore.cs" Link="XmlHelpCore.cs" />
     <Compile Include="..\..\App_Code\Common\FileNameInfo.cs" Link="FileNameInfo.cs" />
     <Compile Include="..\..\App_Code\Common\EncodingType.cs" Link="EncodingType.cs" />
+    <Compile Include="..\..\App_Code\Common\IframeUrlHelper.cs" Link="IframeUrlHelper.cs" />
+    <Compile Include="..\..\App_Code\Common\CustomActivityCatalog.cs" Link="CustomActivityCatalog.cs" />
     <Compile Include="..\..\App_Code\Common\AIGaugeSkillHelper.cs" Link="AIGaugeSkillHelper.cs" />
     <Compile Include="..\..\App_Code\Common\AIStudentExamSkillHelper.cs" Link="AIStudentExamSkillHelper.cs" />
     <Compile Include="..\..\App_Code\Model\Typer.cs" Link="Model.Typer.cs" />

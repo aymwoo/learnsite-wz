@@ -11,7 +11,13 @@
     <script type="text/javascript" src="../../Plugins/luckysheet/static/plugin.js"></script>
     <script type="text/javascript" src="../../Plugins/luckysheet/static/luckysheet.umd.js"></script>
     <script type="text/javascript" src="../../Plugins/luckysheet/static/luckyexcel.umd.js"></script>
+	<link rel="stylesheet" href="../deepseek/all.min.css">
 	<style>
+		.excel-toolbar{ position:absolute; z-index:999; top:13px; right:40px; display:flex; gap:10px; align-items:center; }
+		.excel-toolbar__btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:112px; height:40px; padding:0 16px; border:0; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+		.excel-toolbar__btn:hover{ transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); }
+		.excel-toolbar__btn--secondary{ background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 14px 28px -18px rgba(15,118,110,.78); }
+		.excel-toolbar__btn--neutral{ background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
 		.save{
             position: absolute;
             z-index: 999;
@@ -34,8 +40,10 @@
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body> 
-<button  onclick="save()" class="save px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  > 立即保存</button> 
-<button  onclick="returnurl()" class="returnurl px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  > 返回学案</button> 
+<div class="excel-toolbar">
+<button  onclick="save()" class="excel-toolbar__btn excel-toolbar__btn--secondary" type="button"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button> 
+<button  onclick="returnurl()" class="excel-toolbar__btn excel-toolbar__btn--neutral" type="button"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+</div>
 <div id="lucky" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px; font-size:16px;"></div>
 </body>
 
@@ -71,7 +79,9 @@
     //window.luckysheet.create(options);
 
     function returnurl() {
-        window.location.href = "<%=Fpage %>";    
+        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
+            window.location.href = "<%=Fpage %>";
+        }
     }
 
     function save(){

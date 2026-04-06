@@ -15,6 +15,7 @@
 <script src="../ai/handnum/js/jquery-3.1.1.js"></script>
 <script src="../ai/handnum/js/neural.js"></script>
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../deepseek/all.min.css">
 <style>
 	.prediction-canvas{
         width: 80px;
@@ -38,6 +39,49 @@
         width: 80px;
         margin: 10px;
       }
+
+	  .handnum-tools {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding: 0 8px;
+	  }
+
+	  .handnum-toolbtn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-width: 96px;
+		height: 42px;
+		padding: 0 14px;
+		border: 0;
+		border-radius: 12px;
+		background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: 700;
+		white-space: nowrap;
+		box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+		cursor: pointer;
+		transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+	  }
+
+	  .handnum-toolbtn:hover {
+		transform: translateY(-1px);
+		box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+		filter: brightness(1.03);
+	  }
+
+	  .handnum-toolbtn--secondary {
+		background: linear-gradient(135deg, #0f766e 0%, #0f766e 100%);
+		box-shadow: 0 14px 28px -18px rgba(15, 118, 110, 0.78);
+	  }
+
+	  .handnum-toolbtn--neutral {
+		background: linear-gradient(135deg, #475569 0%, #334155 100%);
+		box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+	  }
 
 </style>
 
@@ -97,9 +141,11 @@
 							<div id="hand" class="divsxsr_1"></div>
 						</td>
 						<td>
-							<botton class="btn btn4" onclick="doClear()" title="清空画布"></botton>
-							<botton class="btn btn5" onclick="test()" title="识别手写数字"></botton>
-							<botton class="btn btn6" onclick="returnurl()" title="返回学案"></botton>
+							<div class="handnum-tools">
+								<button type="button" class="handnum-toolbtn" onclick="doClear()" title="清空画布"><i class="fa fa-eraser" aria-hidden="true"></i><span>清空</span></button>
+								<button type="button" class="handnum-toolbtn handnum-toolbtn--secondary" onclick="test()" title="识别手写数字"><i class="fa fa-search" aria-hidden="true"></i><span>识别</span></button>
+								<button type="button" class="handnum-toolbtn handnum-toolbtn--neutral" onclick="returnurl()" title="返回学案"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -499,7 +545,7 @@
     var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
     var id = "<%=Id %>";
     function returnurl() {
-        if (confirm('是否要离开此页面？') == true) {
+        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
             window.location.href = "<%=Fpage %>"
         }
     }
@@ -555,6 +601,3 @@
 	</script>
 
 </html>
-
-
-

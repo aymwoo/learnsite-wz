@@ -104,7 +104,8 @@ public partial class Teacher_start : System.Web.UI.Page
             TBpwd.ToolTip = "个人模式：学生使用个人密码登录";
         }
 
-        BtnaAllQuit.Visible = true;
+        BtnaAllQuit.Visible = rmodel.Rset;
+        LessonQuitFooter.Visible = rmodel.Rset;
 
     }
 

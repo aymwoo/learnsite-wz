@@ -10,6 +10,7 @@
 </head>
 
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 <script src="../code/skulpt.min.js" type="text/javascript"></script>
@@ -53,14 +54,15 @@
 <div id="colorbox"></div>
 
 <form id="form1" runat="server"> 
-
-<input id="title"  type="text"  value="未命名" disabled="disabled"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />	
-<span id="btnerase"  onclick="clearcv();" >
-<i class="fa fa-eraser" aria-hidden="true"></i> 整理</span>
-<span id="btnupload"  onclick="savecode();" >
-<i class="fa fa-save" aria-hidden="true"></i> 保存</span>  
-<span id="btnreturn" onclick="returnurl();" >
-<i class="fa fa-reply" aria-hidden="true"></i> 返回</span>
+<div class="idle-toolbar">
+<input id="title" type="text" value="未命名" disabled="disabled" class="idle-toolbar__title px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
+<button type="button" id="btnerase" class="idle-toolbar__btn idle-toolbar__btn--neutral" onclick="clearcv();">
+<i class="fa fa-eraser" aria-hidden="true"></i><span>整理画布</span></button>
+<button type="button" id="btnupload" class="idle-toolbar__btn idle-toolbar__btn--secondary" onclick="savecode();">
+<i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+<button type="button" id="btnreturn" class="idle-toolbar__btn idle-toolbar__btn--neutral" onclick="returnurl();">
+<i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+</div>
 </form>
 
 <div class="maplock"><img class="mapimg" src="<%=Midurl %>" alt=""/></div>
@@ -102,9 +104,9 @@
 	else{	 
 		ide.inCell.setValue(codefile,1);
         getsession();
-	}
+    }
     function returnurl() {
-      if(confirm('确定要返回吗？记得先保存。')==true){
+      if(confirm('是否离开当前活动页面？请先保存作品。')==true){
           window.location.href=fpage;
         }
     }

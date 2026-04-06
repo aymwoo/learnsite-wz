@@ -99,14 +99,16 @@
 	        align-items: center;
 	        justify-content: center;
 	        gap: 8px;
-	        min-height: 46px;
+	        min-width: 112px;
+	        min-height: 42px;
 	        padding: 0 16px;
 	        border: 0;
-	        border-radius: 14px;
+	        border-radius: 12px;
 	        background: #ffffff;
 	        color: #1d4ed8;
 	        font-size: 14px;
 	        font-weight: 700;
+	        white-space: nowrap;
 	        cursor: pointer;
 	        box-shadow: 0 16px 32px -22px rgba(15, 23, 42, 0.55);
 	        transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
@@ -121,6 +123,15 @@
 	    .iframe-btn-primary {
 	        background: #1d4ed8;
 	        color: #ffffff;
+	    }
+
+	    .iframe-btn-neutral {
+	        background: linear-gradient(135deg, #475569 0%, #334155 100%);
+	        color: #ffffff;
+	    }
+
+	    .iframe-btn-neutral:hover {
+	        background: linear-gradient(135deg, #334155 0%, #1f2937 100%);
 	    }
 
 	    .iframe-btn-primary:hover {
@@ -225,7 +236,7 @@
                     <button onclick="backward()" class="iframe-btn"><i class="fa fa-arrow-left" aria-hidden="true"></i> 后退</button>
                     <button onclick="forward()" class="iframe-btn"><i class="fa fa-arrow-right" aria-hidden="true"></i> 前进</button>
                     <button id="savebtn" type="button" class="iframe-btn iframe-btn-primary" title="将PSD格式图片上传到服务器上"><i class="fa fa-upload" aria-hidden="true"></i> 提交作品</button>
-                    <button onclick="returnurl()" class="iframe-btn"><i class="fa fa-reply" aria-hidden="true"></i> 返回学案</button>
+                    <button onclick="returnurl()" class="iframe-btn iframe-btn-neutral"><i class="fa fa-reply" aria-hidden="true"></i> 返回学案</button>
                 </div>
             </div>
         </section>
@@ -276,7 +287,7 @@
 		var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
 		
         function returnurl() {
-            if (confirm('是否要离开此页面？') == true) {
+            if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
                 window.location.href = courseurl;
             }
         }

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python交互解释器WEB-IDLE</title>
+  <link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
   <style type="text/css">
       body.console-preview-page {
           margin: 0;
@@ -38,6 +39,10 @@
           color: #cbd5e1;
           line-height: 1.7;
       }
+
+      .console-preview-toolbar {
+          margin-top: 1rem;
+      }
   </style>
 </head>
 
@@ -61,6 +66,9 @@
     <div class="console-preview-hero">
         <h1 class="console-preview-title">Python 交互解释器预览</h1>
         <p class="console-preview-desc">这里保留原有 WEB-IDLE 交互功能，仅补充一个更清晰的页面外壳，方便教师从学案中返回。</p>
+        <div class="ls-toolbar console-preview-toolbar">
+            <a id="btnreturn" href="#" class="ls-toolbar__btn ls-toolbar__btn--neutral"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></a>
+        </div>
     </div>
     <div class="container ">
         <div id="editor" class="ace-gruvbox ace_editor" > </div>
@@ -73,7 +81,6 @@
         <asp:HiddenField ID="hidencid" runat="server" />
         <asp:HiddenField ID="hidenlid" runat="server" />
     </div>
-<a id="btnreturn" href="#" class="button" >返回学案</a>
     </form>
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 <script src="../code/ipython.js?ver=20211015"  type="text/javascript"></script>

@@ -8,16 +8,109 @@
         <title>Markdown写作</title>
         <link rel="stylesheet" href="../markdown/css/editormd.css" />
         <link rel="shortcut icon" href="../markdown/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="../deepseek/all.min.css">
+		<style type="text/css">
+			.markdown-toolbar {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 12px;
+				padding-bottom: 8px;
+			}
+
+			.markdown-toolbar__brand {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				min-width: 0;
+				flex: 1 1 320px;
+			}
+
+			.markdown-toolbar__brand img {
+				width: 32px;
+				height: 32px;
+				flex-shrink: 0;
+			}
+
+			.markdown-toolbar__actions {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+				gap: 10px;
+			}
+
+			.markdown-toolbar__btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				min-width: 110px;
+				height: 40px;
+				padding: 0 16px;
+				border: 0;
+				border-radius: 12px;
+				background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+				color: #ffffff;
+				font-size: 14px;
+				font-weight: 700;
+				white-space: nowrap;
+				box-shadow: 0 14px 28px -18px rgba(37, 99, 235, 0.82);
+				cursor: pointer;
+				transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+			}
+
+			.markdown-toolbar__btn:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 18px 30px -18px rgba(37, 99, 235, 0.9);
+				filter: brightness(1.03);
+			}
+
+			.markdown-toolbar__btn--neutral {
+				background: linear-gradient(135deg, #475569 0%, #334155 100%);
+				box-shadow: 0 14px 28px -18px rgba(51, 65, 85, 0.72);
+			}
+
+			#mdTitle {
+				min-width: 0;
+				flex: 1 1 auto;
+				font-size: 1.3rem;
+				font-weight: 700;
+				line-height: 1.4;
+				padding: 4px 8px;
+				border-radius: 10px;
+			}
+
+			#mdTitle:focus {
+				outline: none;
+				background: #eff6ff;
+			}
+
+			@media (max-width: 768px) {
+				.markdown-toolbar__actions {
+					width: 100%;
+					justify-content: stretch;
+				}
+
+				.markdown-toolbar__btn {
+					flex: 1 1 120px;
+					min-width: 0;
+				}
+			}
+		</style>
     
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
     <body>
         <div id="layout">
-            <div style="display:flex;padding-bottom:6px;">
-				<img src="../markdown/favicon.png" />
-				<div id="mdTitle" contenteditable="true"><%=Mytitle%></div>
-				<button style="margin-left: auto;width:60px;" onclick="savemd()" title="保存写作" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">保存</button>
-				<button style="margin-left:20px;width:60px;" onclick="returnurl()" title="返回学案" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">返回</button>
+	            <div class="markdown-toolbar">
+				<div class="markdown-toolbar__brand">
+					<img src="../markdown/favicon.png" alt="Markdown" />
+					<div id="mdTitle" contenteditable="true"><%=Mytitle%></div>
+				</div>
+				<div class="markdown-toolbar__actions">
+					<button type="button" onclick="savemd()" title="保存作品" class="markdown-toolbar__btn"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+					<button type="button" onclick="returnurl()" title="返回学案" class="markdown-toolbar__btn markdown-toolbar__btn--neutral"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+				</div>
             </div>
 			<div >
 				<div id="editormd" >
@@ -52,7 +145,7 @@
     var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
     var id = "<%=Id %>";
     function returnurl() {
-        if (confirm('是否要离开此页面？') == true) {
+        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
             window.location.href = "<%=Fpage %>"
         }
     }

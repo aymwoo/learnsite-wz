@@ -6,6 +6,7 @@
 <head runat="server">
     <title></title>    
     <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
     #editor{
       position: absolute;
@@ -49,7 +50,21 @@
 
     #title
     {
-      text-align:center;  
+      text-align:center;
+      position: relative;
+    }
+
+    .question-toolbar {
+      margin-top: 16px;
+      justify-content: center;
+    }
+
+    .question-toolbar .ls-toolbar__btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      filter: grayscale(0.12);
+      box-shadow: none;
+      transform: none;
     }
     #output{
       padding: 10px;  
@@ -86,10 +101,15 @@
 <div id="title">
 <h2 style="text-align:center;"> 
     题目：<asp:TextBox ID="TextBoxTitle" runat="server" Width="80%" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-    </h2>&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnRun" type="button" value="运行" style=" width:100px;" onclick="passcheck()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnSave" type="button" value="保存" style=" width:100px;" onclick="save()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input id="BtnReturn" type="button" value="返回" style=" width:100px;" onclick="back()" onclick="return BtnReturn_onclick()"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+    </h2>
+<div class="ls-toolbar question-toolbar">
+<button id="BtnRun" type="button" onclick="passcheck()" class="ls-toolbar__btn">
+<i class="fa fa-play-circle" aria-hidden="true"></i><span>运行代码</span></button>
+<button id="BtnSave" type="button" onclick="save()" class="ls-toolbar__btn ls-toolbar__btn--secondary">
+<i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+<button id="BtnReturn" type="button" onclick="back()" class="ls-toolbar__btn ls-toolbar__btn--neutral">
+<i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+</div>
 
 <div id="savemsg"></div>
 </div>
@@ -446,11 +466,9 @@ function upload(codevalue,resimg,Cover){
 }
 
 function back(){
-    window.location.href="<%=Fpage %>";
-}
-
-function BtnReturn_onclick() {
-
+    if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
+        window.location.href="<%=Fpage %>";
+    }
 }
 
 </script>

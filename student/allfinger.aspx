@@ -1,6 +1,21 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="allfinger.aspx.cs" Inherits="Student_allfinger" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
+<style type="text/css">
+    .finger-rank-link,
+    .finger-rank-link:link,
+    .finger-rank-link:visited {
+        color: #ffffff !important;
+        text-decoration: none;
+    }
+
+    .finger-rank-link:hover,
+    .finger-rank-link:focus {
+        color: #ffffff !important;
+        text-decoration: none;
+        filter: brightness(1.03);
+    }
+</style>
 <div class="w-full max-w-6xl mx-auto space-y-6">
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 p-6 sm:p-10 text-center">
         <h2 class="text-3xl font-extrabold text-slate-800 mb-6 flex items-center justify-center gap-3">
@@ -78,13 +93,12 @@
         
         <div class="mt-8">
             <asp:HyperLink ID="HLtyperank" runat="server" NavigateUrl="~/student/typerank.aspx" 
-                Target="_blank" CssClass="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold text-lg rounded-xl shadow-lg hover:from-emerald-500 hover:to-teal-600 transition-all transform hover:scale-105">
+                Target="_blank" CssClass="finger-rank-link inline-flex items-center justify-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-400 to-teal-500 text-white font-bold text-lg rounded-xl shadow-lg hover:from-emerald-500 hover:to-teal-600 transition-all transform hover:scale-105">
                 ⚔️ 打字擂台榜
             </asp:HyperLink>
         </div>
     </div>
 </div>
 </asp:Content>
-
 
 
