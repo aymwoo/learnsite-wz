@@ -45,21 +45,31 @@ public partial class Teacher_student : System.Web.UI.Page
 
         string snum = ((Label)e.Item.FindControl("LabelSnum")).Text;
         string strjs = "if(confirm('您确定更新" + snum + "学号的密码吗?'))return true;else return false; ";
-        ((ImageButton)e.Item.FindControl("ImageButton1")).OnClientClick = strjs;
+        Button pwdBtn = (Button)e.Item.FindControl("ImageButton1");
+        if (pwdBtn != null)
+        {
+            pwdBtn.OnClientClick = strjs;
+        }
 
         string sleader = ((Label)e.Item.FindControl("LabelSleader")).Text.ToLower();
-        ImageButton mbtn = (ImageButton)e.Item.FindControl("ImageBtnGroup");
+        Button mbtn = (Button)e.Item.FindControl("ImageBtnGroup");
+        if (mbtn == null)
+        {
+            return;
+        }
         if (sleader == "true")
         {
-            mbtn.ImageUrl = "~/images/gflag.gif?temp=" + DateTime.Now.Millisecond.ToString();
+            mbtn.Text = "组长";
             mbtn.OnClientClick = "if(confirm('您确定撤销" + snum + "学号的组长任命吗?'))return true;else return false; ";
             mbtn.ToolTip = "点击卸任这位组长职位";
+            mbtn.CssClass = "stu-mini-btn";
         }
         else
         {
-            mbtn.ImageUrl = "~/images/gcard.gif?temp=" + DateTime.Now.Millisecond.ToString();
+            mbtn.Text = "分组";
             mbtn.OnClientClick = "if(confirm('您确定任命" + snum + "学号的同学为组长吗?'))return true;else return false; ";
             mbtn.ToolTip = "点击任命这位同学为组长";
+            mbtn.CssClass = "stu-mini-btn";
 
             LinkButton lbtn = (LinkButton)e.Item.FindControl("LinkBtnQuit");
             if (lbtn != null && lbtn.Text != "")

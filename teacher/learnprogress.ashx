@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using LearnSite.DBUtility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -92,8 +93,12 @@ public class learnprogress : IHttpHandler
             return;
         }
 
-        LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
-        LearnSite.Model.AIStudentExamAssessment assessment = assessmentBll.GetLatestByStudentCourse(sid, cid);
+        LearnSite.Model.AIStudentExamAssessment assessment = null;
+        if (DbHelperSQL.TabExists("AIStudentExamAssessment"))
+        {
+            LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();
+            assessment = assessmentBll.GetLatestByStudentCourse(sid, cid);
+        }
         Dictionary<string, string> questionTitles = new Dictionary<string, string>();
         Dictionary<string, string> optionTexts = new Dictionary<string, string>();
         Dictionary<string, string> blankAnswers = new Dictionary<string, string>();
@@ -151,6 +156,20 @@ public class learnprogress : IHttpHandler
         if (students == null || students.Count == 0)
         {
             return studentsJson;
+        }
+
+        if (!DbHelperSQL.TabExists("AIStudentExamAssessment"))
+        {
+            foreach (JToken token in students)
+            {
+                if (token is JObject)
+                {
+                    ((JObject)token)["HasAssessment"] = false;
+                    ((JObject)token)["AssessmentTime"] = string.Empty;
+                    ((JObject)token)["AssessmentFallback"] = false;
+                }
+            }
+            return students.ToString(Formatting.None);
         }
 
         LearnSite.BLL.AIStudentExamAssessment assessmentBll = new LearnSite.BLL.AIStudentExamAssessment();

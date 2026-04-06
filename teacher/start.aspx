@@ -1447,7 +1447,7 @@
                             </div>
 
                             <div style="margin-top: 14px; overflow-x: auto;">
-                                <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatColumns="8" RepeatDirection="Vertical" HorizontalAlign="Center" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand" RepeatLayout="Flow">
+                                <asp:DataList ID="DLonline" runat="server" CssClass="lesson-online-list" RepeatDirection="Horizontal" HorizontalAlign="Left" DataKeyField="Qid" onitemdatabound="DLonline_ItemDataBound" onitemcommand="DLonline_ItemCommand" RepeatLayout="Flow">
                                     <ItemTemplate>
                                         <div class="divonline student-card">
                                             <div class="student-card__num"><asp:Label ID="Labelqnum" runat="server" Text='<%# Eval("Qnum") %>'></asp:Label></div>
@@ -1771,10 +1771,18 @@
                         if (resp && resp.ok) {
                             lsRenderProgress(resp.progress);
                             lsRenderStudents(resp.students);
+                        } else {
+                            var container = document.getElementById("ls-rt-students");
+                            if (container) {
+                                container.innerHTML = '<span style="color:#ef4444;font-size:13px;">实时动态加载失败</span>';
+                            }
                         }
                     },
                     error: function () {
-                        // 静默失败
+                        var container = document.getElementById("ls-rt-students");
+                        if (container) {
+                            container.innerHTML = '<span style="color:#ef4444;font-size:13px;">实时动态加载失败</span>';
+                        }
                     }
                 });
             }

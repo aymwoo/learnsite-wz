@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using LearnSite.DBUtility;
 using Newtonsoft.Json;
 
 public class uploadexam : IHttpHandler
@@ -34,6 +35,7 @@ public class uploadexam : IHttpHandler
 
         try
         {
+            LearnSite.BLL.AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
             WriteProgress(context, 1, "正在提交测验结果...");
             string Wtime = cook.LoginTime;
             DateTime Wdate = DateTime.Now;
@@ -93,11 +95,18 @@ public class uploadexam : IHttpHandler
                 }
             });
 
-            WriteProgress(context, 3, "正在保存 AI 测验评估结果...");
-            generator.SaveAssessment(assessContext, result);
+            if (DbHelperSQL.TabExists("AIStudentExamAssessment"))
+            {
+                WriteProgress(context, 3, "正在保存 AI 测验评估结果...");
+                generator.SaveAssessment(assessContext, result);
+            }
+            else
+            {
+                WriteProgress(context, 3, "当前数据库尚未创建 AI 测验评估表，本次只完成测验提交。请先执行 upgrade.aspx 升级数据库，升级后即可在教师端查看 AI 评估。");
+            }
 
             string doneJson = "{" +
-                JsonPair("message", "提交成功，AI 测验评估已生成。") + "," +
+                JsonPair("message", DbHelperSQL.TabExists("AIStudentExamAssessment") ? "提交成功，AI 测验评估已生成。" : "提交成功，但当前数据库尚未启用 AI 测验评估存储，请执行 upgrade.aspx 完成升级。") + "," +
                 JsonPair("provider", result.ProviderDisplayName ?? string.Empty) + "," +
                 JsonPair("summary", result.Summary ?? string.Empty) + "," +
                 JsonPair("fallback", result.UsedFallback ? "1" : "0") +
