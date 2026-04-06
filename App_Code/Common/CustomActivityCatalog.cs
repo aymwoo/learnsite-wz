@@ -5,24 +5,24 @@ namespace LearnSite.Common
 {
     public sealed class CustomActivityMeta
     {
-        public string Category { get; set; }
-        public string DisplayName { get; set; }
-        public string Description { get; set; }
-        public string StudentEntryUrl { get; set; }
-        public string StudentEntryFormat { get; set; }
-        public string EditFocus { get; set; }
-        public string FileType { get; set; }
-        public string IconUrl { get; set; }
-        public string BadgeBackground { get; set; }
-        public string BadgeForeground { get; set; }
-        public string ExampleMode { get; set; }
+        public string Category { get; set; } = String.Empty;
+        public string DisplayName { get; set; } = String.Empty;
+        public string Description { get; set; } = String.Empty;
+        public string StudentEntryUrl { get; set; } = String.Empty;
+        public string StudentEntryFormat { get; set; } = String.Empty;
+        public string EditFocus { get; set; } = String.Empty;
+        public string FileType { get; set; } = String.Empty;
+        public string IconUrl { get; set; } = String.Empty;
+        public string BadgeBackground { get; set; } = String.Empty;
+        public string BadgeForeground { get; set; } = String.Empty;
+        public string ExampleMode { get; set; } = String.Empty;
     }
 
     public sealed class CustomActivityExampleResult
     {
         public bool IsValid { get; set; }
-        public string ExampleValue { get; set; }
-        public string ErrorMessage { get; set; }
+        public string ExampleValue { get; set; } = String.Empty;
+        public string ErrorMessage { get; set; } = String.Empty;
     }
 
     public sealed class CustomActivityCatalog

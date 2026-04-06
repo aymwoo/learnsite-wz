@@ -1,9 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.UI.WebControls;
 using LearnSite.Common;
 
 namespace CommonLogicTests;
@@ -207,12 +207,9 @@ public class CommonLogicTests : IDisposable
     [Fact]
     public void CustomActivityCatalog_BuildExampleValue_ReturnsSelectedDevices()
     {
-        var deviceList = new CheckBoxList();
-        deviceList.Items.Add(new ListItem("小灯", "led") { Selected = true });
-        deviceList.Items.Add(new ListItem("风扇", "fan") { Selected = false });
-        deviceList.Items.Add(new ListItem("水泵", "pump") { Selected = true });
+        var deviceValues = new List<string> { "led", "pump" };
 
-        var result = CustomActivityCatalog.BuildExampleValue("24", deviceList, String.Empty);
+        var result = CustomActivityCatalog.BuildExampleValue("24", deviceValues, String.Empty);
 
         Assert.True(result.IsValid);
         Assert.Equal("led,pump,", result.ExampleValue);
@@ -222,7 +219,7 @@ public class CommonLogicTests : IDisposable
     [Fact]
     public void CustomActivityCatalog_BuildExampleValue_RejectsUnsafeIframeUrl()
     {
-        var result = CustomActivityCatalog.BuildExampleValue("34", null, "javascript:alert(1)");
+        var result = CustomActivityCatalog.BuildExampleValue("34", Array.Empty<string>(), "javascript:alert(1)");
 
         Assert.False(result.IsValid);
         Assert.Equal(String.Empty, result.ExampleValue);
@@ -232,7 +229,7 @@ public class CommonLogicTests : IDisposable
     [Fact]
     public void CustomActivityCatalog_BuildExampleValue_AcceptsSafeIframeUrlAndSummary()
     {
-        var result = CustomActivityCatalog.BuildExampleValue("34", null, "~/student/demo.aspx");
+        var result = CustomActivityCatalog.BuildExampleValue("34", Array.Empty<string>(), "~/student/demo.aspx");
 
         Assert.True(result.IsValid);
         Assert.Equal("~/student/demo.aspx", result.ExampleValue);

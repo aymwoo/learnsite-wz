@@ -417,7 +417,7 @@ public class TeacherRegressionTests
         Assert.Contains("case \"38\"://网页课件", content, StringComparison.Ordinal);
         Assert.Contains("imgurl = \"~/images/ware.png\";", content, StringComparison.Ordinal);
         Assert.Contains("case \"25\"://手绘画布", content, StringComparison.Ordinal);
-        Assert.Contains("imgurl = \"~/images/excalidraw.png\";", content, StringComparison.Ordinal);
+        Assert.Contains("imgurl = GetCustomActivityIconUrl(\"25\");", content, StringComparison.Ordinal);
         Assert.Contains("dt.Rows[i][\"Limgurl\"] = imgurl;", content, StringComparison.Ordinal);
         Assert.Contains("DataListMenu.DataSource = dt;", content, StringComparison.Ordinal);
         Assert.Contains("DataListMenu.DataBind();", content, StringComparison.Ordinal);
@@ -778,7 +778,7 @@ public class TeacherRegressionTests
     {
         var content = File.ReadAllText(Path.Combine(TeacherRoot, relativePath));
 
-        Assert.True(content.Contains("预览当前", StringComparison.Ordinal) || content.Contains("当前", StringComparison.Ordinal), $"Expected preview-focused copy in {relativePath}.");
+        Assert.True(content.IndexOf("预览当前", StringComparison.Ordinal) >= 0 || content.IndexOf("当前", StringComparison.Ordinal) >= 0, $"Expected preview-focused copy in {relativePath}.");
         Assert.DoesNotContain("并可进入编辑页面", content, StringComparison.Ordinal);
         Assert.DoesNotContain("继续维护", content, StringComparison.Ordinal);
         Assert.DoesNotContain("保留原有", content, StringComparison.Ordinal);

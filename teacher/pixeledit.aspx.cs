@@ -52,7 +52,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
                 mission.Mpublish = CheckPublish.Checked;
                 mission.Mcontent = HttpUtility.HtmlEncode(fckstr);
                 string titleValue = DDLTitle.SelectedValue;
-                LearnSite.Common.CustomActivityExampleResult exampleResult = LearnSite.Common.CustomActivityCatalog.BuildExampleValue(titleValue, Ckdevice, Texturl.Text);
+                LearnSite.Common.CustomActivityExampleResult exampleResult = LearnSite.Common.CustomActivityCatalog.BuildExampleValue(titleValue, GetSelectedDeviceValues(), Texturl.Text);
                 if (!exampleResult.IsValid)
                 {
                     Labelmsg.Text = exampleResult.ErrorMessage;
@@ -189,6 +189,17 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
     private LearnSite.Common.CustomActivityMeta GetCurrentActivityMeta()
     {
         return LearnSite.Common.CustomActivityCatalog.GetMeta(DDLTitle.SelectedValue);
+    }
+
+    private IEnumerable<string> GetSelectedDeviceValues()
+    {
+        foreach (ListItem li in Ckdevice.Items)
+        {
+            if (li.Selected)
+            {
+                yield return li.Value;
+            }
+        }
     }
 
     /// <param name="str">字符串，格式要求为“A,B,C”</param>
