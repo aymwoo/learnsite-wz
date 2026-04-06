@@ -8,7 +8,7 @@
     <title>信息技术学习网站</title>   
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />    
     
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body style="margin:0;padding:0;">
     <form id="form1" runat="server">

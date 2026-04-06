@@ -10,7 +10,7 @@ CodeFile="index.aspx.cs" Inherits="index" %>
       type="text/css"
     />
     <link
-      href="js/css/tailwind-utilities.css"
+      href="js/css/tailwind-utilities-2.2.19.min.css"
       rel="stylesheet"
     />
 <style>

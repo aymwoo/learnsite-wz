@@ -8,7 +8,7 @@
   <script type="application/x-javascript" src="../faceai/face-api.js"></script>
   <link rel="stylesheet" href="../faceai/index.css">
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="main">

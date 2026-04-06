@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="../markdown/css/editormd.css" />
         <link rel="shortcut icon" href="../markdown/favicon.ico" type="image/x-icon" />
     
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
     <body>
         <div id="layout">

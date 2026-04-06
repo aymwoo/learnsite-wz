@@ -10,7 +10,7 @@
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
     <link href="../kindeditor/plugins/code/prettify.css?ver=621" rel="stylesheet" type="text/css" />
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body  onload="prettyPrint(); ">

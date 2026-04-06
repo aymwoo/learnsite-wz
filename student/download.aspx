@@ -6,7 +6,7 @@
 <head runat="server">
     <title>专用下载输出页面</title>
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server" >

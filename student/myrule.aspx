@@ -4,7 +4,7 @@
 <head id="Head1" runat="server">
     <title>课堂守则</title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style>
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;

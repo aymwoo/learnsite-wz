@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../plugins/canvas-editor/assets/index.9f94c3a2.css">
 <script src="../code/jquery.min.js"></script>
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body>

@@ -10,7 +10,7 @@
     <script src="../js/flot/excanvas.min.js" type="text/javascript"></script> 
     <script src="../js/flot/jquery.flot.min.js" type="text/javascript"></script>    
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">

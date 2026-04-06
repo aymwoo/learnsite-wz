@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style type="text/css">
         .swc-nav-btn,
         .swc-tool-btn {

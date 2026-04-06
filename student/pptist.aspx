@@ -50,7 +50,7 @@
       }
     </style>
   
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
   <body>
       <div id="pptId" class="hide"><%=Id %></div>

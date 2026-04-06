@@ -93,7 +93,7 @@
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/index.css">
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/animate.css">
 
-    <link href="../js/css/tailwind-utilities.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app"></div>
