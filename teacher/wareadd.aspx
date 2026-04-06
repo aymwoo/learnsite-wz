@@ -301,13 +301,74 @@
                  </div>
              </div>
             </div>
-        </section>
+        </div>
+     <div  class="placehold">
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded shadow-sm text-left">
+            <div class="flex items-center mb-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="text-blue-500 mr-2" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-11.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 4.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </svg>
+                <h4 class="text-blue-800 font-bold m-0">学习平台成绩采集集成指南</h4>
+            </div>
+            <p class="text-sm text-blue-900 mb-2">
+                为方便学习平台准确获取并采集HTML课件中产生的学生评估分数，请将以下代码放入交互网页（如游戏、测验）的<strong>提交按钮事件</strong>或<strong>分数生成事件</strong>中：
+            </p>
+            <div class="bg-slate-800 rounded p-3 relative group">
+                <code class="text-green-400 text-sm font-mono block">
+                    const message = { name: "测验名称", value: score }; // 消息字典为测验名称和score成绩<br/>
+                    window.parent.postMessage(JSON.stringify(message), "*"); // 向父页面发送消息
+                </code>
+                <script type="text/javascript">
+                    function fallbackCopyText(text) {
+                        var textArea = document.createElement('textarea');
+                        textArea.value = text;
+                        textArea.setAttribute('readonly', '');
+                        textArea.style.position = 'absolute';
+                        textArea.style.left = '-9999px';
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        textArea.setSelectionRange(0, textArea.value.length);
 
-        <section class="admin-form-panel">
-        <div class="ware-note">
-            将以下两行代码放置在交互网页的提交按钮事件里：<br />
-   			const message = { name: "标签游戏", value: score };// 消息字典为游戏标题和score成绩<br />
-			window.parent.postMessage(JSON.stringify(message), "*");// 向父页面发送消息
+                        var copied = false;
+                        try {
+                            copied = document.execCommand('copy');
+                        } catch (err) {
+                            copied = false;
+                        }
+
+                        document.body.removeChild(textArea);
+                        return copied;
+                    }
+
+                    function copyIntegrationCode() {
+                        var codeText = 'const message = { name: \\'测验名称\\', value: score };\\nwindow.parent.postMessage(JSON.stringify(message), \\'*\\');';
+
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(codeText)
+                                .then(function () {
+                                    alert('代码已复制到剪贴板');
+                                })
+                                .catch(function () {
+                                    if (fallbackCopyText(codeText)) {
+                                        alert('代码已复制到剪贴板');
+                                    } else {
+                                        alert('复制失败，请手动复制代码');
+                                    }
+                                });
+                        } else if (fallbackCopyText(codeText)) {
+                            alert('代码已复制到剪贴板');
+                        } else {
+                            alert('复制失败，请手动复制代码');
+                        }
+                    }
+                </script>
+                <button type="button" onclick="copyIntegrationCode();" class="absolute top-2 right-2 bg-slate-600 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer border-0">
+                    复制代码
+                </button>
+            </div>
+            <p class="text-xs text-blue-700 mt-2">
+                <strong>说明：</strong> <code>score</code> 变量必须是数值类型。当触发此代码时，平台会自动捕获分数，学生点击保存时即可将成绩汇总至教师端。
+            </p>
         </div>
         </section>
 
