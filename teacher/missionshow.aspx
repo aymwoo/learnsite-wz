@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
     <link href="../App_Themes/Teacher/course-content-add.css" rel="stylesheet" />
+    <link href="../App_Themes/Teacher/content-show-markdown.css" rel="stylesheet" />
     <link href="../kindeditor/plugins/code/prettify.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../js/vendors/reveal/dist/reveal.css" />
     <link rel="stylesheet" href="../js/vendors/reveal/dist/theme/white.css" />
@@ -64,7 +65,7 @@
                                 <div class="mission-show-toggle-title">Markdown 渲染</div>
                                 <div class="mission-show-toggle-desc">开启后自动解析 Markdown、Mermaid 和代码高亮。</div>
                             </div>
-                            <button type="button" id="markdownToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false" onclick="toggleMissionMarkdown()"><span class="mission-show-toggle-knob"></span></button>
+                            <button type="button" id="markdownToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false"><span class="mission-show-toggle-knob"></span></button>
                         </div>
                         <div id="markdownToggleStatus" runat="server" class="mission-show-toggle-status">当前：关闭</div>
                     </div>
@@ -74,7 +75,7 @@
                                 <div class="mission-show-toggle-title">Reveal 演示文稿</div>
                                 <div class="mission-show-toggle-desc">检测到幻灯片分隔符时，允许按 Reveal.js 方式渲染。</div>
                             </div>
-                            <button type="button" id="revealToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false" onclick="toggleMissionReveal()"><span class="mission-show-toggle-knob"></span></button>
+                            <button type="button" id="revealToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false"><span class="mission-show-toggle-knob"></span></button>
                         </div>
                         <div id="revealToggleStatus" runat="server" class="mission-show-toggle-status">当前：关闭</div>
                     </div>
@@ -91,4 +92,16 @@
         </div>
     </div>
     
+    <script type="text/javascript">
+        window.__missionshowConfig = {
+            mcontentId: '<%= Mcontent.ClientID %>',
+            hiddenMissionRawId: '<%= HiddenMissionRaw.ClientID %>',
+            markdownToggleId: '<%= markdownToggle.ClientID %>',
+            markdownToggleStatusId: '<%= markdownToggleStatus.ClientID %>',
+            revealToggleId: '<%= revealToggle.ClientID %>',
+            revealToggleStatusId: '<%= revealToggleStatus.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/content-show-markdown.js"></script>
+    <script type="text/javascript" src="../js/missionshow.js"></script>
 </asp:Content>

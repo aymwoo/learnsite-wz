@@ -1,6 +1,12 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="kitymindshow.aspx.cs" Inherits="teacher_kitymindshow" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <script src="../markdown/lib/marked.min.js"></script>
+    <link rel="stylesheet" href="../js/vendors/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="../js/vendors/reveal/dist/theme/white.css" />
+    <link rel="stylesheet" href="../js/vendors/highlight/github.min.css" />
+    <script src="../webform/highlight.min.js"></script>
+    <link href="../App_Themes/Teacher/content-show-markdown.css" rel="stylesheet" />
     <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
     <link href="../App_Themes/Teacher/course-content-add.css" rel="stylesheet" />
     <style type="text/css">
@@ -81,4 +87,10 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__contentShowMarkdown = {
+            contentId: '<%= Mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/content-show-markdown.js"></script>
 </asp:Content>

@@ -1311,3 +1311,110 @@
             font-weight: 700;
             margin-right: 8px;
         }
+
+        /* Restore pre-refactor page-local lesson layout under theme-wide CSS loading. */
+        .lesson-start .lesson-shell {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lesson-start .lesson-hero {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            padding: 24px 28px;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 38%),
+                radial-gradient(circle at right center, rgba(14, 165, 233, 0.16), transparent 26%),
+                linear-gradient(135deg, #0f172a 0%, #1d4ed8 52%, #38bdf8 100%);
+            color: #eff6ff;
+            box-shadow: 0 28px 60px rgba(37, 99, 235, 0.2);
+        }
+
+        .lesson-start .lesson-hero__content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .lesson-start .lesson-hero__title {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .lesson-start .lesson-hero__subtitle {
+            max-width: 760px;
+            margin: 8px 0 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: rgba(239, 246, 255, 0.88);
+        }
+
+        .lesson-start .lesson-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+        }
+
+        .lesson-start .lesson-card {
+            min-width: 0;
+            border: 1px solid var(--ls-border);
+            border-radius: 0.75rem;
+            background: var(--ls-card);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .lesson-start .lesson-card--span-12 { grid-column: span 12; }
+        .lesson-start .lesson-card--span-8 { grid-column: span 8; }
+        .lesson-start .lesson-card--span-7 { grid-column: span 7; }
+        .lesson-start .lesson-card--span-6 { grid-column: span 6; }
+        .lesson-start .lesson-card--span-5 { grid-column: span 5; }
+        .lesson-start .lesson-card--span-4 { grid-column: span 4; }
+
+        .lesson-start .lesson-theme--blue { background: linear-gradient(160deg, #ffffff 0%, #f0f7ff 100%); }
+        .lesson-start .lesson-theme--purple { background: linear-gradient(160deg, #ffffff 0%, #f5f3ff 100%); }
+        .lesson-start .lesson-theme--orange { background: linear-gradient(160deg, #ffffff 0%, #fffbeb 100%); }
+        .lesson-start .lesson-theme--teal { background: linear-gradient(160deg, #ffffff 0%, #f0fdfa 100%); }
+        .lesson-start .lesson-theme--green { background: linear-gradient(160deg, #ffffff 0%, #f0fdf4 100%); }
+        .lesson-start .lesson-theme--red { background: linear-gradient(160deg, #ffffff 0%, #fff1f2 100%); }
+        .lesson-start .lesson-theme--indigo { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
+        .lesson-start .lesson-theme--slate { background: linear-gradient(160deg, #ffffff 0%, #f8fafc 100%); }
+        .lesson-start .lesson-theme--cyan { background: linear-gradient(160deg, #ffffff 0%, #ecfeff 100%); }
+
+        .lesson-start .lesson-card__head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 20px 24px 0;
+        }
+
+        .lesson-start .lesson-card__title {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: var(--ls-text);
+        }
+
+        .lesson-start .lesson-card__desc {
+            margin: 6px 0 0;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--ls-muted);
+        }
+
+        .lesson-start .lesson-card__body {
+            padding: 18px 24px 22px;
+        }

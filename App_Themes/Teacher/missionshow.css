@@ -246,3 +246,145 @@
             font-size: 12px;
             color: #64748b;
         }
+
+        .mission-show-page .mission-markdown {
+            color: #334155;
+            line-height: 1.85;
+            font-size: 1.05rem;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .mission-show-page .mission-markdown .vditor-reset {
+            padding: 0;
+            font-size: inherit;
+            line-height: inherit;
+            color: inherit;
+        }
+
+        .mission-show-page .mission-markdown .vditor-reset pre {
+            position: relative;
+            padding-left: 56px;
+            overflow: auto;
+        }
+
+        .mission-show-page .mission-markdown .code-block-wrap {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .mission-show-page .mission-markdown .code-line-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 44px;
+            padding: 16px 8px 16px 0;
+            border-right: 1px solid rgba(148, 163, 184, 0.35);
+            color: #94a3b8;
+            background: rgba(15, 23, 42, 0.04);
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.5;
+            user-select: none;
+            white-space: pre;
+            box-sizing: border-box;
+        }
+
+        .mission-show-page .mission-markdown .mermaid-host,
+        .mission-show-page .mission-markdown .reveal-host {
+            margin: 1rem 0;
+            border: 1px solid #dbeafe;
+            border-radius: 0.75rem;
+            background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+            overflow: hidden;
+        }
+
+        .mission-show-page .mission-markdown .reveal-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #eff6ff;
+            border-bottom: 1px solid #dbeafe;
+        }
+
+        .mission-show-page .mission-markdown .reveal-toolbar-title,
+        .mission-show-page .mission-markdown .reveal-page-indicator {
+            font-size: 12px;
+            color: #1e3a8a;
+        }
+
+        .mission-show-page .mission-markdown .reveal-toolbar-title {
+            font-weight: 700;
+        }
+
+        .mission-show-page .mission-markdown .reveal-toolbar-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-wrap: wrap;
+        }
+
+        .mission-show-page .mission-markdown .reveal-theme-select,
+        .mission-show-page .mission-markdown .reveal-fullscreen-btn,
+        .mission-show-page .mission-markdown .reveal-nav-btn {
+            min-height: 32px;
+            padding: 0 12px;
+            border: 1px solid #bfdbfe;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #1d4ed8;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .mission-show-page .mission-markdown .reveal-stage {
+            position: relative;
+            width: 100%;
+            max-width: min(100%, 1280px);
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            min-height: 360px;
+            max-height: 78vh;
+            background: #0f172a;
+        }
+
+        .mission-show-page .mission-markdown .reveal {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #0f172a;
+            color: #e2e8f0;
+            --r-main-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            --r-heading-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            --r-code-font: "Cascadia Mono", "Consolas", monospace;
+            --r-main-font-size: 32px;
+        }
+
+        .mission-show-page .mission-markdown .reveal .slides {
+            text-align: left;
+        }
+
+        .mission-show-page .mission-markdown .reveal .slides section {
+            box-sizing: border-box;
+            padding: 28px 40px;
+        }
+
+        .mission-show-page .mission-markdown .reveal pre {
+            font-size: 0.72em;
+            padding: 0.7em 0.9em;
+            border-radius: 0.4em;
+            background: rgba(15, 23, 42, 0.35);
+            color: inherit;
+        }
+
+        .mission-show-page .mission-markdown .render-note {
+            margin-top: 0.75rem;
+            font-size: 12px;
+            color: #64748b;
+        }

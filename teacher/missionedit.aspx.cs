@@ -59,7 +59,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null && Request.QueryString["lid"] != null)
@@ -131,7 +131,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
             LearnSite.Model.Mission mission = new LearnSite.Model.Mission();
             LearnSite.BLL.Mission missionbll = new LearnSite.BLL.Mission();
             mission = missionbll.GetModel(Mid);
-            mcontent.InnerText = HttpUtility.HtmlDecode(mission.Mcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(mission.Mcontent);
             CheckMicoWorld.Checked = mission.Microworld;
 
             DDLmfiletype.SelectedValue = mission.Mfiletype;

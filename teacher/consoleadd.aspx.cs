@@ -44,13 +44,13 @@ public partial class Teacher_consoleadd : System.Web.UI.Page
             nmodel = nbll.GetModel(Int32.Parse(nid));
             Texttitle.Text = nmodel.Ntitle;
             Publish.Checked = nmodel.Npublish;
-            mcontent.InnerText = HttpUtility.HtmlDecode(nmodel.Ncontent);
+            mcontent.Value = HttpUtility.HtmlDecode(nmodel.Ncontent);
         }
     }
 
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText);
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["cid"] != null)

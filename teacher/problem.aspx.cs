@@ -28,7 +28,7 @@ public partial class Teacher_problem : System.Web.UI.Page
             LearnSite.Model.Problems model = new LearnSite.Model.Problems();
             LearnSite.BLL.Problems bll = new LearnSite.BLL.Problems();
             model = bll.GetModel(Int32.Parse(pid));
-            mcontent.InnerText = HttpUtility.HtmlDecode(model.Ptitle);
+            mcontent.Value = HttpUtility.HtmlDecode(model.Ptitle);
             code.Value = model.Pcode;
             print.Value = model.Pouput;
         }    
@@ -46,7 +46,7 @@ public partial class Teacher_problem : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string title = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.InnerText); 
+        string title = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value); 
         string mycode = code.Value;
         string ouput = print.Value;
         if (title.Length > 0 && mycode.Length > 0)
