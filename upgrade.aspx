@@ -163,7 +163,7 @@
                 <asp:Panel ID="Panel1" runat="server" Visible="False" CssClass="upgrade-card">
                     <div class="upgrade-card__head">
                         <h2 class="upgrade-card__title">数据库连接配置</h2>
-                        <p class="upgrade-card__desc">如果系统还没有正确连接数据库，请先在下面修改数据库服务器和账号信息。</p>
+                        <p class="upgrade-card__desc">如果首页或教师页跳到了这里，通常就是数据库连接失败。请先在下面修改数据库服务器、实例名和账号信息。</p>
                     </div>
                     <div class="upgrade-card__body">
                         <div class="upgrade-form">
@@ -186,7 +186,7 @@
                             </div>
                             <div class="upgrade-actions" style="margin-top:8px;">
                                 <asp:Button ID="Buttonedit" runat="server" Font-Size="9pt"
-                                    onclick="Buttonedit_Click" Text="保存配置" Visible="False" CssClass="upgrade-btn-primary" />
+                                    onclick="Buttonedit_Click" Text="保存配置" CssClass="upgrade-btn-primary" />
                             </div>
                         </div>
                     </div>

@@ -11,12 +11,16 @@ public partial class Teacher_index : System.Web.UI.Page
         if (LearnSite.Common.CookieHelp.IsTeacherLogin())
         {
             Response.Redirect("~/teacher/infomation.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return;
         }
         else
         {
             if (LearnSite.Common.CookieHelp.IsManagerLogin())
             {
                 Response.Redirect("~/manager/index.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return;
             }
             else {
                 Request.Cookies.Clear();
@@ -26,7 +30,8 @@ public partial class Teacher_index : System.Web.UI.Page
         {
             this.Page.Title = "教师登录页面";
             Textname.Focus();
-            verChecking();
+            if (!verChecking())
+                return;
         }
     }
     protected void Btnlogin_Click(object sender, EventArgs e)
@@ -100,13 +105,15 @@ public partial class Teacher_index : System.Web.UI.Page
     /// <summary>
     /// 检测数据库和表
     /// </summary>
-    private void verChecking()
+    private bool verChecking()
     {
         if (!LearnSite.DBUtility.SqlHelper.DatabaseExist())
         {
             string cc = "你的数据库连接不上，现在将跳转到更新程序UpGrade.aspx，修改后请执行更新！";
             LearnSite.Common.WordProcess.Alert(cc, this.Page);
             Response.Redirect("~/upgrade.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return false;
         }
         else
         {
@@ -117,7 +124,11 @@ public partial class Teacher_index : System.Web.UI.Page
                 string ch = "您的数据库未更新，现在将跳到更新程序UpGrade.aspx，请执行更新，不影响原有数据！";
                 LearnSite.Common.WordProcess.Alert(ch, this.Page);
                 Response.Redirect("~/upgrade.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+                return false;
             }
         }
+
+        return true;
     }
 }

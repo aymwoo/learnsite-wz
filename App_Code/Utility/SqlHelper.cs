@@ -663,8 +663,8 @@ namespace LearnSite.DBUtility
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
             StringBuilder str = new StringBuilder();
 
-            //读取.sql脚本文件
-            using (StreamReader sr = new StreamReader(varFileName, System.Text.Encoding.GetEncoding("gb2312")))
+            // 兼容新版 UTF-8 脚本，保留对旧编码脚本的自动识别
+            using (StreamReader sr = new StreamReader(varFileName, true))
             {
                 string varLine = "";
                 while ((varLine = sr.ReadLine()) != null)

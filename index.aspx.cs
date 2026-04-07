@@ -17,7 +17,8 @@ public partial class index : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
-                verChecking();//增加数据库检测
+                if (!verChecking())
+                    return;
                 ShowFoot();
                 Btnlogin.Attributes["onClick"] = "return doubleCheck()";
                 this.Page.Title = LearnSite.Common.CookieHelp.SetMainPageTitle();
@@ -274,13 +275,24 @@ public partial class index : System.Web.UI.Page
             Response.Redirect(myurl, true);
         }
     }
-    private void verChecking()
+    private bool verChecking()
     {
+        if (!LearnSite.DBUtility.SqlHelper.DatabaseExist())
+        {
+            Response.Redirect("~/upgrade.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return false;
+        }
+
         if (!LearnSite.DBUtility.UpdateGrade.TableCheck())
         {
-            string ch = "您的数据库未创建或版本更新，现在将跳到更新程序UpGrade.aspx，请执行更新，不影响原有数据！";
+            string ch = "您的数据库未创建、连接失败或版本需要更新，现在将跳到更新程序UpGrade.aspx，请执行检查或修改配置，不影响原有数据！";
             LearnSite.Common.WordProcess.Alert(ch, this.Page);
-            Response.Redirect("~/upgrade.aspx", true);
+            Response.Redirect("~/upgrade.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return false;
         }
+
+        return true;
     }
 }
