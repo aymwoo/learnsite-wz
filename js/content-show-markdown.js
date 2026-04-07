@@ -1,8 +1,16 @@
 (function () {
-    var singleRevealThemeOptions = [
-        { value: 'white', label: 'White' }
+    var officialRevealThemeOptions = [
+        { value: 'white', label: 'White' },
+        { value: 'black', label: 'Black' },
+        { value: 'sky', label: 'Sky' },
+        { value: 'beige', label: 'Beige' },
+        { value: 'simple', label: 'Simple' },
+        { value: 'serif', label: 'Serif' },
+        { value: 'moon', label: 'Moon' },
+        { value: 'night', label: 'Night' },
+        { value: 'solarized', label: 'Solarized' }
     ];
-    var multiRevealThemeOptions = [
+    var studentRevealThemeOptions = [
         { value: 'default', label: '默认主题' },
         { value: 'white', label: 'White' },
         { value: 'sky', label: 'Sky' },
@@ -14,8 +22,12 @@
         { value: 'solarized', label: 'Solarized' }
     ];
 
+    function useStudentRevealThemes() {
+        return !!window.__showmissionConfig;
+    }
+
     function getRevealThemeOptions() {
-        return window.__showmissionConfig ? multiRevealThemeOptions : singleRevealThemeOptions;
+        return useStudentRevealThemes() ? studentRevealThemeOptions : officialRevealThemeOptions;
     }
 
     function normalizeRevealTheme(theme) {
@@ -108,6 +120,55 @@
         }).join('');
     }
 
+    function applyRevealThemeClass(node, theme) {
+        var nextTheme = normalizeRevealTheme(theme);
+        var options = getRevealThemeOptions();
+        var i;
+
+        for (i = 0; i < options.length; i++) {
+            node.classList.remove('reveal-theme-' + options[i].value);
+        }
+
+        node.classList.add('reveal-theme-' + nextTheme);
+        node.setAttribute('data-theme', nextTheme);
+
+        return nextTheme;
+    }
+
+    function getRevealThemeHref(theme) {
+        return '../js/vendors/reveal/dist/theme/' + normalizeRevealTheme(theme) + '.css';
+    }
+
+    function ensureRevealThemeStylesheet(theme) {
+        var href = getRevealThemeHref(theme);
+        var link = document.querySelector('link[data-reveal-theme-stylesheet="1"]')
+            || document.querySelector('link[href*="/js/vendors/reveal/dist/theme/"]')
+            || document.querySelector('link[href*="../js/vendors/reveal/dist/theme/"]')
+            || document.querySelector('link[href*="js/vendors/reveal/dist/theme/"]');
+
+        if (!link) {
+            link = document.createElement('link');
+            link.rel = 'stylesheet';
+            document.head.appendChild(link);
+        }
+
+        link.setAttribute('data-reveal-theme-stylesheet', '1');
+        if (link.getAttribute('href') !== href) {
+            link.setAttribute('href', href);
+        }
+    }
+
+    function applyRevealTheme(node, theme) {
+        if (useStudentRevealThemes()) {
+            return applyRevealThemeClass(node, theme);
+        }
+
+        var nextTheme = normalizeRevealTheme(theme);
+        node.setAttribute('data-theme', nextTheme);
+        ensureRevealThemeStylesheet(nextTheme);
+        return nextTheme;
+    }
+
     function parseRevealMarkdown(blockText) {
         var cleaned = blockText.replace(/^```(?:reveal|revealjs)?\s*/i, '').replace(/```\s*$/, '').trim();
         var slidesHtml = cleaned.split(/^---$/m).map(function (section) {
@@ -125,7 +186,7 @@
         }).filter(Boolean).join('');
 
         var initialTheme = getRevealThemeOptions()[0].value;
-        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="' + escapeHtml(initialTheme) + '"><div class="slides">' + slidesHtml + '</div></div></div>';
+        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal reveal-theme-' + escapeHtml(initialTheme) + '" data-theme="' + escapeHtml(initialTheme) + '"><div class="slides">' + slidesHtml + '</div></div></div>';
     }
 
     function looksLikeMermaidDocument(text) {
@@ -389,8 +450,9 @@
                 }
 
                 deck.initialize().then(function () {
+                    var activeTheme = applyRevealTheme(node, node.getAttribute('data-theme'));
                     if (themeSelect) {
-                        themeSelect.value = normalizeRevealTheme(node.getAttribute('data-theme'));
+                        themeSelect.value = activeTheme;
                     }
                     updateIndicator();
                     node.setAttribute('data-reveal-ready', '1');
@@ -437,7 +499,7 @@
                 if (themeSelect && !themeSelect.getAttribute('data-bound')) {
                     themeSelect.setAttribute('data-bound', '1');
                     themeSelect.addEventListener('change', function () {
-                        node.setAttribute('data-theme', normalizeRevealTheme(themeSelect.value));
+                        themeSelect.value = applyRevealTheme(node, themeSelect.value);
                         deck.layout();
                     });
                 }
