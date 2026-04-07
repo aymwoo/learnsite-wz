@@ -1,10 +1,9 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="error.aspx.cs" Inherits="error" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="error, App_Web_gedajv3v" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta charset="UTF-8" />
     <title></title>
     <style type="text/css">
         .style1
@@ -12,8 +11,6 @@
             text-align: center;
         }
     </style>
-
-    <link href="js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">

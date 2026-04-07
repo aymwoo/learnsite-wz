@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="en.aspx.cs" Inherits="en" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="en, App_Web_gedajv3v" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -11,8 +11,6 @@
             color: #006666;
         }
     </style>
-
-    <link href="js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -39,7 +37,7 @@
             <br />
             <asp:Button ID="Buttonen" runat="server" BackColor="#EBEBEB" 
                 BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" 
-                onclick="Buttonen_Click" Text="英文字典重新导入" ToolTip="将清空原字典，请导入新字典！"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+                onclick="Buttonen_Click" Text="英文字典重新导入" ToolTip="将清空原字典，请导入新字典！" />
             <br />
             <br />
             <br />

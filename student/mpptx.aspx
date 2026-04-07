@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="mpptx.aspx.cs" Inherits="student_mpptx" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="student_mpptx, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -92,8 +92,6 @@
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/ant-design-vue.css">
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/index.css">
   <link rel="stylesheet" href="../../plugins/canvas-ppt/assets/css/animate.css">
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div id="app"></div>
@@ -116,9 +114,9 @@
             ppt.command.loadppt(ppturl);
         }
     }
-    window.addEventListener('load', function () {
+    window.onload = function () {
         document.getElementById("pptId").innerText = id;
-    });
+    }
 
     setTimeout(readppt, 1000);
 

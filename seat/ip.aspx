@@ -1,15 +1,11 @@
-<%@ Page Language="C#" ResponseEncoding="utf-8" AutoEventWireup="true" CodeFile="ip.aspx.cs" Inherits="Seat_ip" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Seat_ip, App_Web_lrcroygz" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <link href="../js/fileupload.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -18,13 +14,13 @@
         <b>电脑编号跟IP对应表</b><br />
         <br />
         请填写网段：<asp:TextBox ID="TextBoxIpGate" runat="server" BorderColor="Silver" 
-            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="80px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">192.168.0</asp:TextBox>
+            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="80px">192.168.0</asp:TextBox>
         &nbsp;IP范围从<asp:TextBox ID="TextBoxIpBegin" runat="server" BorderColor="Silver" 
-            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="30px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">11</asp:TextBox>
+            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="30px">11</asp:TextBox>
         到<asp:TextBox ID="TextBoxIpEnd" runat="server" BorderColor="Silver" 
-            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="30px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">50</asp:TextBox>
+            BorderStyle="Solid" BorderWidth="1px" Font-Size="9pt" Width="30px">50</asp:TextBox>
 &nbsp;<asp:Button ID="ButtonIpAdd" runat="server" Font-Size="9pt" Text="根据范围创建IP列表" 
-            ToolTip="点击后将清除原机房IP列表，并自动创建新IP列表" onclick="ButtonIp_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            ToolTip="点击后将清除原机房IP列表，并自动创建新IP列表" onclick="ButtonIp_Click" />
         <br />
         <br />
                 <asp:GridView ID="GVip" runat="server" 
@@ -59,15 +55,14 @@
                 </asp:GridView>   
         <br />
         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Seat/getip.aspx" 
-            Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">右健复制快捷方式将此超链接用极域用远程命令在学生机打开，显示IP后记录参考!</asp:HyperLink>
+            Target="_blank">右健复制快捷方式将此超链接用极域用远程命令在学生机打开，显示IP后记录参考!</asp:HyperLink>
         <br />
         <hr style="border: 1px dashed #CCCCCC" />
         <br />
-        <div class="ls-upload" data-accept=".xls,.xlsx" data-label="点击或拖拽上传 Excel 文件" data-hint="支持 xls / xlsx 格式">
-            <asp:FileUpload ID="FileUploadip" runat="server" />
-        </div>
+        请选择：<asp:FileUpload 
+            ID="FileUploadip" runat="server" Font-Size="9pt" />
 &nbsp;<asp:Button ID="ButtonIpExcel" runat="server" Font-Size="9pt" Text="从Excel导入IP列表" 
-            ToolTip="点击后将清除原机房IP列表，并自动创建新IP列表" onclick="ButtonIpExcel_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            ToolTip="点击后将清除原机房IP列表，并自动创建新IP列表" onclick="ButtonIpExcel_Click" />
         <br />
         <br />
             <asp:Label ID="Labelmsg" runat="server" ForeColor="#000099"></asp:Label>
@@ -98,6 +93,5 @@
     </div>
     </div>
     </form>
-<script src="../js/fileupload.js"></script>
 </body>
 </html>

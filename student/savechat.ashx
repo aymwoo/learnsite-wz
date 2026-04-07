@@ -6,9 +6,7 @@ using System.Web;
 public class savechat : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
-        context.Response.Charset = "utf-8";
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentType = "text/plain";
 
         string dic = HttpContext.Current.Request.Form["dic"];
         string result = LearnSite.Common.chathistory.add(dic).ToString();

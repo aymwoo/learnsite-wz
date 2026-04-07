@@ -1,31 +1,181 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Analysis.aspx.cs" Inherits="webform_Analysis" ResponseEncoding="utf-8" Culture="zh-CN" UICulture="zh-CN" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="webform_Analysis, App_Web_szqk0oi5" %>
+
+<!DOCTYPE html PUBLIC "-W3CDTD XHTML 1.0 TransitionalEN" "http:www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <head id="Head1" runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta charset="utf-8" />
     <title>学生成绩表</title>
-    
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/Analysis.css" />
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        }
+        
+        .header {
+            padding: 2px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .header h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .table-container {
+            padding: 24px 32px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        
+        thead {
+            background: #f8fafc;
+        }
+        
+        th {
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background: #f8fafc;
+        }
+        
+        .number-cell {
+            width: 80px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .name-cell {
+            font-weight: 500;
+            color: #1e293b;
+        }
+        
+        .score-cell {
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .time-cell {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            padding: 24px 32px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 6px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-item h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+        
+        .stat-item p {
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .footer {
+            padding: 16px 32px;
+            font-size: 12px;
+            color: #94a3b8;
+            border-top: 1px solid #f1f5f9;
+        }
+        .sizesmall
+        {
+            width:60px;   
+            text-align:center;  
+        }
+        .size
+        {
+            width:80px; 
+            text-align:center;   
+        }
+        .txtcenter
+        {
+            text-align:center;
+        }
+        .snameno
+        {            
+            padding:10px;
+            margin:auto;
+            cursor:pointer;
+        }
+        .snameno:hover
+        {
+            font-weight: 600;           
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="page-shell">
-            <div class="hero">
-                <h1>学生成绩分析</h1>
-                <p>查看班级测验得分、用时、题目正确率与未参加名单。</p>
-            </div>
-
         <div class="container">
             <div class="header">
                 <h2 class ="txtcenter">学生成绩表</h2>
-                <p class ="txtcenter">实时成绩、平均分与用时统计</p>
-                <div class="txtcenter">
-                    <span class="page-status"><%=PageStatus %></span>
-                </div>
+                <p class ="txtcenter">实时成绩与用时统计</p>
             </div>
             
             <div class="table-container">
@@ -72,10 +222,10 @@
                 </div>
             </div>
             <div class="table-container">
-                <h3 class="analysis-title">详题分析</h3>
+                <h3>详题分析</h3>
                  <asp:Repeater ID="RepeaterAnalysis" runat="server">
                     <HeaderTemplate>
-                        <table style="width:100%;">
+                        <table border="1" style="width:100%;">
                         <tr>
                             <th>序号</th>
                             <th>题型</th>
@@ -97,15 +247,16 @@
                  </asp:Repeater>
             </div>
             <div class="footer">
-            <h3>未测验学生名单</h3>
+            <h3>未测验学生名单</h3>            
                  <asp:Repeater ID="RepeaterNo" runat="server">
                     <ItemTemplate>                        
                             <span class="snameno" ><%# Eval("Sname")%></span>
                     </ItemTemplate>
+                     <FooterTemplate></table></FooterTemplate>
                  </asp:Repeater>
             </div>
-        </div>
         </div>
     </form>
 </body>
 </html>
+

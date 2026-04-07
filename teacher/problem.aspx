@@ -1,19 +1,73 @@
-<%@ Page Title="" Language="C#"  Validaterequest="false"  AutoEventWireup="true" CodeFile="problem.aspx.cs" Inherits="Teacher_problem" ResponseEncoding="utf-8" %>
+﻿<%@ page title="" language="C#" validaterequest="false" autoeventwireup="true" inherits="Teacher_problem, App_Web_qxp4kcg3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-        <meta charset="utf-8" />
-<link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
-    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
     <script src="../js/MenuCookie.js" type="text/javascript"></script>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
-    
+    <style type="text/css">
 
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/problem.css" />
+#editor{
+  top:  8px;
+  left: 0px;
+  height:320px;
+  background-color: #fef8e4;
+  max-width:980px;
+}
+
+.btn{
+  border: 1px solid #e0dbcb; 
+  text-decoration: none;
+  background-color: #f1ebd4;
+   width:80px;
+}
+
+#savemsg
+{  
+  bottom: 60px;
+  margin: 10px;
+  z-index: 999;
+  color:#ed7d31; 
+  font-size:32px; 
+  width: 100%;
+  text-align:center;  
+}
+#result{ 
+  top:  0px;
+  left: 600px;
+  height:160px;
+  min-width:550px;  
+  background-color: #666;
+  color:#ccc;
+  max-width:980px;
+}
+#output{ 
+    text-align:left;
+    padding:10px;
+}
+
+.input
+{
+	font-size:14px;
+    height:20px;
+	border:1px solid #ccc;
+}
+.input:focus{
+    height:20px;
+	outline: none;
+	border:1px solid #ccc;
+}
+#centerbar{
+  position: absolute;
+  margin: 10px;
+  z-index: 999;
+  top: 250px;  
+  width: 800px;
+  text-align:right;
+}
+</style>
 </head>
 <body >
        <form id="form1" runat="server" > 
@@ -60,22 +114,7 @@
                 <asp:ListItem>4</asp:ListItem>
                 <asp:ListItem>5</asp:ListItem>
             </asp:DropDownList>分<br />
-<div class="problem-editor-switch">
-    <span style="font-size:13px;font-weight:700;color:#334155;">编辑器：</span>
-    <select id="editorSelector" onchange="switchProblemEditor(this.value)">
-        <option value="kindeditor" selected>KindEditor</option>
-        <option value="wangeditor">WangEditor</option>
-        <option value="vditor">Vditor</option>
-    </select>
-</div>
-<div id="problem-wangeditor-wrap" style="display:none; position:relative; border:1px solid #ccc; z-index:100; margin-bottom:10px;">
-    <div id="problem-wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
-    <div id="problem-wangeditor-text" style="height:220px;"></div>
-</div>
-<div id="problem-vditor-wrap" style="display:none; position:relative; margin-bottom:10px;">
-    <div id="problem-vditor-container"></div>
-</div>
-&nbsp;<textarea id ="mcontent" runat ="server" ClientIDMode="Static" name="textareaWord" style="width: 980px; height:120px;" ></textarea>
+&nbsp;<textarea id ="mcontent" runat ="server" name="textareaWord" style="width: 980px; height:120px;" ></textarea>
         </div>
 
 <div id="editor"></div>
@@ -85,31 +124,55 @@
 <div style="margin: auto; ">
     <br />
     &nbsp;&nbsp;
-    <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" OnClientClick="return syncProblemContent();"
-        Text="添加题目"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-    &nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" OnClick="Btnreturn_Click"
-        Text="返回测评"   CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+    <asp:Button ID="Btnadd" runat="server" OnClick="Btnadd_Click" SkinID="BtnSmall" 
+        Text="添加" />
+    &nbsp; &nbsp;<asp:Button ID="Btnreturn" runat="server" OnClick="Btnreturn_Click" 
+        SkinID="BtnSmall" Text="返回"  />
     <br />
     <br />
 </div>     
-    <asp:HiddenField ID="code" runat="server" ClientIDMode="Static" />
-    <asp:HiddenField ID="print" runat="server" ClientIDMode="Static" />
+    <asp:HiddenField ID="code" runat="server" />
+    <asp:HiddenField ID="print" runat="server" />
 <div id="centerbar">
-<button  onclick="runit()" type="button"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"> 
+<button  onclick="runit()" type="button" > 
 <i class="fa fa-play" aria-hidden="true"></i>运行
 </button>
 &nbsp; &nbsp;
-<button  onclick="clearit()" type="button"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"> 
+<button  onclick="clearit()" type="button" > 
 <i class="fa fa-play" aria-hidden="true"></i>清空
 </button>
 </div>
     </div>
+
+    </form>
+
+</body>
   <!-- 主要文件 -->
   <script src="../code/build/src/ace.js" type="text/javascript"></script>
   <!-- 用来提供代码提示和自动补全的插件 -->
   <script src="../code/build/src/ext-language_tools.js" type="text/javascript"></script>
   <script src="../code/build/src/ext-beautify.js" type="text/javascript"></script>
-  
+  <script type="text/javascript">
+    // ace.require("ace/ext/language_tools");
+    // 初始化editor(）
+    var aeditor = ace.edit("editor");
+    aeditor.setOptions({
+      // 默认:false
+      wrap: true, // 换行
+      // autoScrollEditorIntoView: false, // 自动滚动编辑器视图
+      enableLiveAutocompletion: true, // 智能补全
+      enableSnippets: true, // 启用代码段
+      //enableBasicAutocompletion: true, // 启用基本完成 不推荐使用
+    });
+    // 设置主题  cobalt monokai vscode xcode textmate sqlserver  twilight
+    aeditor.setTheme("ace/theme/textmate");
+    // 设置编辑语言
+    aeditor.getSession().setMode("ace/mode/python");
+    aeditor.setFontSize(24);
+    aeditor.setReadOnly(false)
+    aeditor.getSession().setTabSize(4);
+
+  </script>
 
 
 <script src="../code/skulpt.min.js" type="text/javascript"></script>
@@ -117,23 +180,150 @@
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+    var mycode = document.getElementById("code");
+    var pprint = document.getElementById("print");
 
+    var mypre = document.getElementById("output");
+    var result = document.getElementById("result");
+    var savemsg = document.getElementById("savemsg");
+
+    function outf(text) {
+        mypre.innerText = mypre.innerText + text;
+    }
+    function builtinRead(x) {
+        if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+            throw "File not found: '" + x + "'";
+        return Sk.builtinFiles["files"][x];
+    }
+
+    result.onclick = function () {
+        output.focus();
+    }
+
+    function initedit() {
+        var cc = mycode.value;
+        var pp = pprint.value;
+        if (cc.length > 0) {
+            aeditor.setValue(cc);
+            mypre.innerText = pp;
+        }
+    }
+
+    window.onload = function () {
+        mycode = document.getElementById("code");
+        pprint = document.getElementById("print");
+        console.log(mycode);
+        console.log(pprint);
+        initedit();
+    }
+
+    function myfun() {
+        return new Promise(function (resolve, reject) {
+            var myinput = document.createElement("input");
+            myinput.setAttribute("type", "text");
+            myinput.setAttribute("class", "input");
+            mypre.appendChild(myinput);
+            myinput.focus();
+            result.onclick = function () {
+                myinput.focus();
+            }
+
+            myinput.onkeypress = function () {
+                if (event.keyCode == 13) {
+                    args = myinput.value;
+                    console.log(args);
+                    resolve(args);
+                    mypre.removeChild(myinput);
+                    temp = mypre.innerText;
+                    temp = temp + args;
+                    mypre.innerHTML = temp + "\n";
+                }
+            }
+        })
+    }
+    function clearit() {
+        output.innerHTML = '';
+        mypre.innerHTML = '';
+        pprint.value = '';
+    }
+    function runit() {
+        var prog = aeditor.getValue();
+        mypre.innerHTML = '';
+        output.innerHTML = '';
+        Sk.pre = "output";
+        Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, inputfun: myfun });
+
+        var myPromise = Sk.misceval.asyncToPromise(function () {
+            return Sk.importMainWithBody("<stdin>", false, prog, true);
+        });
+
+        myPromise.then(function (mod) {
+            console.log('运行成功!');
+            mycode.value = prog;
+            pprint.value = output.innerText;
+            console.log('代码：');
+            console.log(mycode.value);
+            console.log('输出结果：');
+            console.log(pprint.value);
+            //getsvg();
+        },
+    function (err) {
+        var msg = err.toString();
+        console.log(msg);
+        mypre.innerHTML = msg;
+    });
+    }
+
+    function getsvg() {
+        var op = output.innerHTML;
+        if (op == '') {
+            var canvas = document.createElement("canvas");
+            if (canvas != null) {
+                var dataUrl = canvas.toDataURL('image/jpeg');
+                pprint.value = dataUrl;
+                console.log(dataUrl);
+            }
+        }
+    }
+
+    document.onkeyup = keyUp;
+    function keyUp() {
+        var prog = aeditor.getValue();
+        mycode.value = prog;
+        voice();
+    }
+    function voice() {
+        var audio = document.createElement("audio");
+        audio.src = '../code/code.ogg';
+        audio.play();
+    }
+</script>
 <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>
 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js" type="text/javascript"></script>
-<script src="../js/vendors/vditor/index.min.js"></script>
-<script src="../js/vendors/wangeditor/index.js"></script>
-<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
- 
+<script>
+	var keditor;
+	var cid= <%=myCid() %>;
+	var ty="Course";
+	var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&ty='+ty;
+	var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&ty='+ty;
+	KindEditor.ready(function (K) {
+		keditor = K.create('textarea[name="mcontent"]', {
+		    resizeType: 1,
+		    pasteType: 1,
+		    newlineTag: "br",				
+			uploadJson : upjs,
+			fileManagerJson : fmjs,
+			allowFileManager : true,
+		    allowImageUpload: true,
+		    items: ['fontname', 'fontsize', '|', 'bold', 'italic','removeformat','image','about']
+		});
+	});
+</script> 
         </div>         
         </div>   
         </div>
     </div>    
-    <script type="text/javascript">
-        window.__problemConfig = {
-            myCid: "<%=myCid() %>"
-        };
-    </script>
-    <script type="text/javascript" src="../js/problem.js"></script>
     </form>
 </body>
 </html>

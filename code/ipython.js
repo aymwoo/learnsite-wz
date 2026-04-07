@@ -384,42 +384,22 @@ var difflib = {
 
 
 
-var hjsonElement = document.getElementById("hidenjson");
-var hnidElement = document.getElementById("hidennid");
-var hcidElement = document.getElementById("hidencid");
-var hlidElement = document.getElementById("hidenlid");
-var btnreturn = document.getElementById("btnreturn");
+var hjson = document.getElementById("hidenjson").value;
+var jsonstr = hjson;
 
-var hjson = hjsonElement ? hjsonElement.value : "[]";
-var jsonstr = hjson && hjson !== "" ? hjson : "[]";
-
-var hnid = hnidElement ? hnidElement.value : "";
-var hcid = hcidElement ? hcidElement.value : "";
-var hlid = hlidElement ? hlidElement.value : "";
+var hnid = document.getElementById("hidennid").value;  
+var hcid = document.getElementById("hidencid").value; 
+var hlid = document.getElementById("hidenlid").value;         
 var docurl = document.URL;
 var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
-var pathname = (window.location && window.location.pathname ? window.location.pathname : "").toLowerCase();
-var isTeacherPreview = pathname.indexOf("/teacher/") !== -1;
-var returnurl = ipurl + "/console.aspx?lid=" + hlid;
-
-if (isTeacherPreview) {
-    returnurl = ipurl + "/consoleshow.aspx?nid=" + hnid + "&ncid=" + hcid + "&lid=" + hlid;
+var returnurl=ipurl+"/console.aspx?lid="+hlid;
+if(returnurl.indexOf("Teacher")!=-1){
+    returnurl="#";
 }
+$("#btnreturn").attr('href',returnurl);
+$("#btnreturn").hide(); 
 
-if (btnreturn) {
-    $(btnreturn).attr('href', returnurl);
-    $(btnreturn).hide();
-}
-
-var obj = [];
-try {
-    obj = JSON.parse(jsonstr);
-    if (!obj || !obj.length) {
-        obj = [];
-    }
-} catch (e) {
-    obj = [];
-}
+var obj = JSON.parse(jsonstr);
 var len = obj.length;
 console.log("题目数："+len);
 var problems = new Array();
@@ -580,7 +560,7 @@ $("#player").click(function(){
     ipythonExample.prototype.savepass=function(){
 		var pid=pids[prognum];
 		var score=scores[prognum];
-		if(isTeacherPreview){
+		if(ipurl.indexOf("Teacher")!=-1){
 			console.log("Teacher");
 		}
 		else{
@@ -619,15 +599,6 @@ $("#player").click(function(){
 	ipythonExample.prototype.initprogram=function(){
 		var key="prognum";
 		prognum=0;
-		if(len<1){
-			msg="当前测评暂无试题，请先返回继续编辑。";
-			var cname="divprog";
-			this.addCell(msg,cname);
-			if(btnreturn!=null){
-				$(btnreturn).show();
-			}
-			return;
-		}
 		msg=this.problem(prognum);
 		var cname="divprog";
 		this.addCell(msg,cname);	
@@ -1005,9 +976,7 @@ $("#player").click(function(){
 			var cname="divprog";
 			this.addCell(msg,cname);
 			notice(2);            
-	            if(btnreturn!=null){
-	            	$(btnreturn).show();
-	            }
+            $("#btnreturn").show();
 		}
 	}
 	

@@ -1,15 +1,12 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeFile="prescm.master.cs" Inherits="Lessons_prescm" %>
+﻿<%@ master language="C#" autoeventwireup="true" inherits="Lessons_prescm, App_Web_zslqvwen" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
-    <meta charset="UTF-8" />
     <title></title>   
     <link href="../App_Themes/Student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-</head>
+    </head>
 <body>
     <form id="form1" runat="server">
     <center>
@@ -22,17 +19,17 @@
             </script> 
                 </div>
                 <center>
-            <div class="menu w-full bg-gradient-to-r from-blue-700 to-blue-900 shadow-lg flex items-center justify-center h-14 min-w-[1200px]">
+            <div  class="menu">
             <asp:Menu ID="Menuact" runat="server" DynamicHorizontalOffset="2"  
-                    ForeColor="White" Orientation="Horizontal" Height="24px"  Font-Size="9pt" 
+                    ForeColor="Black" Orientation="Horizontal" Height="24px"  Font-Size="9pt" 
                     SkipLinkText="">
                 <StaticMenuItemStyle HorizontalPadding="2px" VerticalPadding="2px" />
-                <DynamicHoverStyle BackColor="#1e3a8a" ForeColor="White" />
+                <DynamicHoverStyle BackColor="#79A0FD" ForeColor="White" />
                 <DynamicMenuStyle BackColor="#E3EAEB" />
-                <StaticSelectedStyle BackColor="#1e40af" ForeColor="White" />
-                <DynamicSelectedStyle BackColor="#1e40af" ForeColor="White" />
+                <StaticSelectedStyle BackColor="#6A96FD" ForeColor="White" />
+                <DynamicSelectedStyle BackColor="#FFE0C0" />
                 <DynamicMenuItemStyle HorizontalPadding="2px" VerticalPadding="2px" />
-                <StaticHoverStyle BackColor="#1e3a8a" ForeColor="White" />
+                <StaticHoverStyle BackColor="#79A0FD" ForeColor="#F7F7F7" />
             </asp:Menu>
             </div>
             </center>

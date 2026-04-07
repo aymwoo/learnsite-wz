@@ -1,68 +1,103 @@
-<%@ Page Title="" Language="C#" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myrule.aspx.cs" Inherits="Student_myrule" ResponseEncoding="utf-8" %>
+﻿<%@ page title="" language="C#" stylesheettheme="Student" autoeventwireup="true" inherits="Student_myrule, App_Web_sef0j2m2" %>
     
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
-        <meta charset="utf-8" />
-<title>课堂守则</title>   
+    <title></title>   
     <link href="../App_Themes/student/StyleSheet.css" rel="stylesheet" type="text/css" />
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-            -webkit-font-smoothing: antialiased;
-            margin: 0; min-height: 100vh;
-        }
-    </style>
-</head>
-<body>
+    </head>
+<body class="ground">
     <form id="form1" runat="server">
-    <div class="studmasterhead">
-        <div class="banner"></div>
-        <div class="flex flex-col items-center justify-center p-4 sm:p-8">
-            <div class="w-full max-w-2xl bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-6">
-                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xl font-extrabold py-4 px-6 text-center tracking-tight">
-                    课堂守则
+    <center>
+      <div  class="studmasterhead">
+            <div  class="banner" > 
                 </div>
-                <div class="p-6 space-y-4">
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">1.</span>
-                        <span class="text-slate-700">无请假缺席：每人扣1分</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">2.</span>
-                        <span class="text-slate-700">迟到：每人扣0.1分</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">3.</span>
-                        <span class="text-slate-700">吃零食带饮料：每人扣0.1分</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">4.</span>
-                        <span class="text-slate-700">乱丢垃圾：每人扣0.1分且负责拖地一次</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">5.</span>
-                        <span class="text-slate-700">未经老师允许玩游戏：每人扣0.1分</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">6.</span>
-                        <span class="text-slate-700">带存储设备（mp3、U盘）并使用：每人扣0.1分</span>
-                    </div>
-                    <div class="flex items-start pb-3 border-b border-slate-100 hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">7.</span>
-                        <span class="text-slate-700">故意搞乱电脑硬件，扣1分</span>
-                    </div>
-                    <div class="flex items-start hover:bg-slate-50 rounded-lg px-3 py-2 transition">
-                        <span class="text-indigo-500 font-bold mr-3 text-lg">8.</span>
-                        <span class="text-slate-700">未经老师允许，私自下座位或换座位，扣1分。</span>
-                    </div>
-                </div>
+                <center>
+            <div  class="menu">
+            
             </div>
-            <asp:Button ID="Btnreturn" runat="server" Text="关闭" BorderStyle="None" 
-                CssClass="px-8 py-2.5 bg-slate-100 text-slate-600 font-semibold rounded-xl hover:bg-slate-200 transition duration-300 border border-slate-300 cursor-pointer" />
+            </center>
+            <center>
+            <div class="placeauto" >
+            <div >
+            <div  class="path"> 
+            &nbsp;
+            </div>
+         <div id="student">
+        <br />
+        <br /><center>
+        <table   class="ruletabel"
+            cellpadding="3">
+            <tr>
+                <td  class="rulehead" >
+                    课堂守则</td>
+            </tr>
+            <tr>
+                <td  align="left"  class="ruletd">
+                    1、
+
+
+ 无请假缺席：每人扣1分</td>
+            </tr>
+            <tr>
+                <td  align="left"  class="ruletd">
+
+                     2、
+
+
+ 迟到：每人扣0.1分 </td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    3、
+
+
+ 吃零食带饮料：每人扣0.1分</td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    4、
+
+
+ 乱丢垃圾：每人扣0.1分且负责拖地一次 </td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    5、
+
+
+ 未经老师允许玩游戏：每人扣0.1分 </td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    6、
+
+
+ 带存储设备（mp3、U盘） 并使用：每人扣0.1分 </td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    7、
+
+
+ 故意搞乱电脑硬件，扣1分</td>
+            </tr>
+            <tr>
+                <td  align="left" class="ruletd">
+                    8、 未经老师允许，私自下座位或换座位，扣1分。</td>
+            </tr>
+            <tr>
+                <td >&nbsp;
+              </td>
+            </tr>
+            </table>
+        <br /></center>
+        <br />
+        <asp:Button ID="Btnreturn" runat="server"  Text="关闭" BorderStyle="None" 
+                 CssClass="buttonimg" Width="80px"/>
         </div>
-    </div>
+        </div>
+        </center>        
+        </div>
     </form>
 </body>
 </html>

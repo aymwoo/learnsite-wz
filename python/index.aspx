@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="Python_index" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Python_index, App_Web_2qgwxnpp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -23,8 +23,6 @@
 			box-shadow:2px 2px 8px #666;
 		}
 	</style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">

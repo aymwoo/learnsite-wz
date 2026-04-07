@@ -1,15 +1,13 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="programing.aspx.cs" Inherits="Student_programing" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Student_programing, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-        <meta charset="utf-8" />
-<title></title>
+    <title></title>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../Statics/swfobject.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="../deepseek/all.min.css">
     <script type="text/javascript">
-        window.onbeforeunload = function () { return "是否离开当前活动页面？请先保存作品。"; }
+        window.onbeforeunload = function () { return "您确定要关闭页面吗？记得先保存作品!"; }
         var fwidth = "100%";
         var fheight = "100%";
         // （scratch目录不能为根目录，否则读不出）
@@ -62,23 +60,21 @@
     <style type="text/css">
         html, body { height:100%; overflow:hidden;}
         body{margin: 0;}
-		.scratch-toolbar { display:inline-flex; flex-wrap:wrap; gap:10px; align-items:center; }
-		.scratch-toolbar__btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:112px; height:40px; padding:0 16px; border:0; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
-		.scratch-toolbar__btn:hover { transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); }
-		.scratch-toolbar__btn--secondary { background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 14px 28px -18px rgba(15,118,110,.78); }
-		.scratch-toolbar__btn--neutral { background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
     </style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div style="text-align: right; position: absolute; right: 50px; top: 3px; font-size: 11pt;
         z-index: 2;">
-        <div id="barbtn" class="scratch-toolbar">
+        <div id="barbtn">
         <span id="uploading" style="color:#fff; font-weight:bold;"></span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <img id="bill" src="../images/bill.png" alt="学习单" />
-            <button id="savebtn" class="scratch-toolbar__btn scratch-toolbar__btn--secondary" type="button"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
-            <button id="returnbtn" class="scratch-toolbar__btn scratch-toolbar__btn--neutral" type="button"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="savebtn">
+                立即保存</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="returnbtn">
+                返回学案</button>
         </div>
     </div>
     <div id="scratch">

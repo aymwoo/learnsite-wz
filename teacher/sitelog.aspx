@@ -1,11 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sitelog.aspx.cs" Inherits="Teacher_sitelog" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Teacher_sitelog, App_Web_qxp4kcg3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-        <meta charset="utf-8" />
-<title>网站异常信息记录页面</title>
+    <title>网站异常信息记录页面</title>
     <style type="text/css">
         body{font-size: 11pt; font-family: Arial;}
         .syl
@@ -15,8 +14,6 @@
         .note
         { text-align:left; padding:2px; margin:10px;  color:Red;}
     </style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">

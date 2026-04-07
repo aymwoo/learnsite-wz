@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="face.aspx.cs" Inherits="faceai_face" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="faceai_face, App_Web_jnw2ax4f" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,6 @@
   <meta charset="UTF-8" />
   <script type="application/x-javascript" src="../faceai/face-api.js"></script>
   <link rel="stylesheet" href="../faceai/index.css">
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="main">
@@ -39,7 +37,7 @@
     <div class="container">
       <div class="showarea">
         <div class="left">
-          <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="faceDetector()">人脸检测</button>
+          <button class="start-btn" onclick="faceDetector()">人脸检测</button>
           <input type="checkbox" id="scales"  checked  title="轮廓" />
         </div>
         <div class="right">

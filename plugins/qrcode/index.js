@@ -51,66 +51,6 @@ const themes = {
     colorOut: '#0000FF',
     colorIn: '#0000FF',
   },
-  紫码: {
-    colorFore: '#6A0DAD',
-    colorBack: '#ffffff',
-    colorOut: '#6A0DAD',
-    colorIn: '#6A0DAD',
-  },
-  橙码: {
-    colorFore: '#FF7A00',
-    colorBack: '#ffffff',
-    colorOut: '#FF7A00',
-    colorIn: '#FF7A00',
-  },
-  青码: {
-    colorFore: '#00A6A6',
-    colorBack: '#ffffff',
-    colorOut: '#00A6A6',
-    colorIn: '#00A6A6',
-  },
-  粉码: {
-    colorFore: '#E91E63',
-    colorBack: '#ffffff',
-    colorOut: '#E91E63',
-    colorIn: '#E91E63',
-  },
-  金码: {
-    colorFore: '#C69214',
-    colorBack: '#fff8e1',
-    colorOut: '#A36D00',
-    colorIn: '#E0A800',
-  },
-  夜空: {
-    colorFore: '#E2E8F0',
-    colorBack: '#0F172A',
-    colorOut: '#38BDF8',
-    colorIn: '#F8FAFC',
-  },
-  森林: {
-    colorFore: '#1B4332',
-    colorBack: '#F1FAEE',
-    colorOut: '#2D6A4F',
-    colorIn: '#40916C',
-  },
-  樱花: {
-    colorFore: '#9D174D',
-    colorBack: '#FFF1F2',
-    colorOut: '#E11D48',
-    colorIn: '#FB7185',
-  },
-  海洋: {
-    colorFore: '#0F4C81',
-    colorBack: '#F0F9FF',
-    colorOut: '#0369A1',
-    colorIn: '#38BDF8',
-  },
-  石墨: {
-    colorFore: '#2F3640',
-    colorBack: '#F5F6FA',
-    colorOut: '#353B48',
-    colorIn: '#718093',
-  },
 };
 
 const correctLevels = ['L', 'M', 'Q', 'H'];

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="word.aspx.cs" Inherits="student_word" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="student_word, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -12,11 +12,6 @@
   <link rel="modulepreload" href="../plugins/canvas-editor/assets/vendor.6929ec82.js">
   <link rel="stylesheet" href="../plugins/canvas-editor/assets/index.9f94c3a2.css">
 <script src="../code/jquery.min.js"></script>
-	<link rel="stylesheet" href="../deepseek/all.min.css">
-	
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../App_Themes/Student/word.css" />
 </head>
 
 <body>
@@ -327,7 +322,7 @@
         </div>
         <div class="menu-item__search__collapse" data-menu="search">
           <div class="menu-item__search__collapse__search">
-            <input type="text"  class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" />
+            <input type="text" />
             <label class="search-result"></label>
             <div class="arrow-left">
               <i></i>
@@ -338,18 +333,16 @@
             <span>×</span>
           </div>
           <div class="menu-item__search__collapse__replace">
-            <input type="text" class="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300">
-            <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">替换</button>
+            <input type="text">
+            <button>替换</button>
           </div>
         </div>
         <div class="menu-item__print" data-menu="print" style=" display:none;">
           <i></i>
         </div>
       </div>
-	    <span class="word-toolbar">
-	    <button id="savebtn" type="button" onclick="savework();" class="word-toolbar__btn"><i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
-	    <button id="returnbtn" type="button" onclick="returnurl();" class="word-toolbar__btn word-toolbar__btn--neutral"><i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
-	    </span>
+	    <button id="savebtn" style="width:40px;" onclick="savework();" >保存</button>&nbsp;&nbsp;
+	    <button id="returnbtn" style="width:40px;" onclick="returnurl();" >返回</button>
     </div>
     <div class="catalog" editor-component="catalog" style=" display:none;">
       <div class="catalog__header">
@@ -428,14 +421,100 @@
     </div>
   </div>
   
-    <script type="text/javascript">
-        window.__wordConfig = {
-            id: "<%=Id %>",
-            words: "<%=Words %>",
-            fpage: "<%=Fpage %>"
-        };
-    </script>
-    <script type="text/javascript" src="../js/word.js"></script>
 </body>
+<script type="text/javascript" >
+    var id = "<%=Id %>";
+    var key = "word" + id;
+    var words = "<%=Words %>";
 
+    function returnurl() {
+        if (confirm('是否要离开此页面？') == true) {
+            window.location.href = "<%=Fpage %>"
+        }
+    }
+
+    function savework() {
+        var title = "";
+        var canvas = document.getElementsByTagName('canvas')[0];
+        var Cover = blob(canvas.toDataURL());
+        var Content = window.btoa(encodeURIComponent(JSON.stringify(editor.command.getValue())));
+        var Extension = "word";
+        var urls = 'uploadtopic.ashx?id=' + id;
+        var formData = new FormData();
+        formData.append('title', title);
+        formData.append('cover', Cover);
+        formData.append('content', Content);
+        formData.append('ext', Extension);
+
+        $.ajax({
+            url: urls,
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function (res) {
+            alert("保存成功！");
+            console.log(res)
+        });
+    }
+
+    function showwork() {
+        if (words != "") {
+            var savedoc = JSON.parse(decodeURIComponent(atob(words)));
+            //console.log(savedoc);
+            editor.command.executeSetValue(savedoc.data);
+            console.log("恢复文档");
+        }
+        else {
+            var value = localStorage.getItem(key);
+            if (value != null) {
+                var docvalue = JSON.parse(value);
+                editor.command.executeSetValue(docvalue.data);
+                console.log("读取缓存");
+            }
+            else {
+                console.log("新建文档");
+            }
+        }
+    }
+    setTimeout(showwork, 1000); //延迟执行加载文档
+    function blob(dataURI) {
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var byteString = atob(dataURI.split(',')[1]);
+        var arrayBuffer = new ArrayBuffer(byteString.length);
+        var intArray = new Uint8Array(arrayBuffer);
+
+        for (var i = 0; i < byteString.length; i++) {
+            intArray[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([intArray], { type: mimeString });
+    }
+
+    // 设置定时器，每隔10秒调用一次saveToLocalStorage()函数
+    setInterval(function () {
+        var value = editor.command.getValue();
+        saveToLocalStorage(key, value); // 调用保存到本地存储的函数
+    }, 10000);
+
+    // 保存到本地存储的函数
+    function saveToLocalStorage(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+        console.log("自动缓存");
+    }
+
+    function test() {
+        console.log("字符串");
+        var newWords = editor.command.getValue();
+        var a = JSON.stringify(newWords.data);
+        a = window.btoa(encodeURIComponent(a))
+        console.log(a);
+        b = decodeURIComponent(atob(a));
+        b = JSON.parse(b);
+        console.log("原格式");
+        console.log(b);
+
+        var words = '{"header":[],"main":[],"footer":[]}';
+    }
+</script>
 </html>

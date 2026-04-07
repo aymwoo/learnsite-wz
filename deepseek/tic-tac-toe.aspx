@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="tic-tac-toe.aspx.cs" Inherits="deepseek_tic_tac_toe" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="deepseek_tic_tac_toe, App_Web_k12fcxah" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -29,26 +29,17 @@
 	#footbar button:hover {
 	  background: #3D89DA;
 	}
-	.ttt-toolbar { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; align-items:center; }
-	.ttt-toolbar__btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-width:112px; height:40px; padding:0 16px; border:0; border-radius:12px; background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); color:#fff; font-size:14px; font-weight:700; white-space:nowrap; box-shadow:0 14px 28px -18px rgba(37,99,235,.82); cursor:pointer; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
-	.ttt-toolbar__btn:hover { transform:translateY(-1px); box-shadow:0 18px 30px -18px rgba(37,99,235,.9); filter:brightness(1.03); background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%); }
-	.ttt-toolbar__btn--secondary { background:linear-gradient(135deg,#0f766e 0%,#0f766e 100%); box-shadow:0 14px 28px -18px rgba(15,118,110,.78); }
-	.ttt-toolbar__btn--neutral { background:linear-gradient(135deg,#475569 0%,#334155 100%); box-shadow:0 14px 28px -18px rgba(51,65,85,.72); }
 	</style>
 	<script type="text/javascript" src="tic-tac-toe.js"></script>
     <script src="../code/jquery.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="all.min.css">
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>						
             <div id="footbar">
-				<div class="ttt-toolbar">
-				<button  type = "button" onclick="savechat()" class="ttt-toolbar__btn ttt-toolbar__btn--secondary"  title="保存作品到服务器" >
-				<i class="fa fa-save" aria-hidden="true"></i> 保存作品</button>
-				<button  onclick="returnurl()" class="ttt-toolbar__btn ttt-toolbar__btn--neutral" title="返回到学案页面" type="button">
-				<i class="fa fa-reply" aria-hidden="true"></i> 返回学案</button>            
-				</div>
+				<button  type = "button" onclick="savechat()" class="buttonsave"  title="保存到服务器上" >
+				<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
+				<span class="sp"></span>
+				<button  onclick="returnurl()" class="button" title="返回到学案页面">
+				<i class="fa fa-reply" aria-hidden="true"></i> 返回</button>            
             </div>
 		<div class="descript">
 		<strong>❖ 井字棋</strong>：英文名叫Tic-Tac-Toe，是一种在3*3格子上进行的连珠游戏，和五子棋类似，由于棋盘一般不画边框，格线排成井字故得名。游戏需要的工具仅为纸和笔，然后由分别代表O和X的两个游戏者轮流在格子里留下标记（一般来说先手者为X），任意三个标记形成一条直线，则为获胜。
@@ -69,7 +60,7 @@
     var ipurl = docurl.substring(0, docurl.lastIndexOf("/"));
     var id = "<%=Id %>";
     function returnurl() {
-        if (confirm('是否离开当前活动页面？请先保存作品。') == true) {
+        if (confirm('是否要离开此页面？') == true) {
             window.location.href = "<%=Fpage %>"
         }
     }

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="matchshow.aspx.cs" Inherits="python_matchshow" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="python_matchshow, App_Web_2qgwxnpp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,8 +18,6 @@
 	        filter:invert(30%);
         }
 	</style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -40,10 +38,10 @@
 
     <div style="margin: auto; width: 90%; ">
          <asp:Button ID="Btnadd" runat="server" onclick="Btnadd_Click" 
-             SkinID="BtnNormal" Text="添加试题"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+             SkinID="BtnNormal" Text="添加试题" />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" 
-             SkinID="BtnNormal" Text="返回"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+             SkinID="BtnNormal" Text="返回" />
 		 <p style="text-align:right;">
 		 <asp:Label ID="Labeldate" runat="server" ></asp:Label>
             <asp:CheckBox ID="Checkcpublish" runat="server" Text="已发布"  Checked="True" Enabled="False" />
@@ -95,7 +93,7 @@
                                 </asp:BoundField>
                                 <asp:TemplateField>
                                     <ItemTemplate>
-                                        <asp:HyperLink ID="HyperLinkPid" runat="server"  Text="编辑" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+                                        <asp:HyperLink ID="HyperLinkPid" runat="server"  Text="编辑"></asp:HyperLink>
                                     </ItemTemplate>
                                     <HeaderStyle Width="40px" />
                                 </asp:TemplateField>

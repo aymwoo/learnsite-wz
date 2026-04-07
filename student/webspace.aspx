@@ -1,11 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="webspace.aspx.cs" Inherits="student_webspace" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="student_webspace, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-        <meta charset="utf-8" />
-<title></title>
+    <title></title>
     <style type="text/css">
     .by {margin: 0px;background-color: #E6F0E7}
     .disk{margin: auto; text-align: center; width: 550px; font-size: 11pt; font-family: 宋体, Arial, Helvetica, sans-serif;}
@@ -25,14 +24,24 @@
 	.del{opacity:0.02;}
 	.del:hover{opacity:0.9;}
 	       
+    .btn-info {
+        background: #17a2b8;
+        color: white;
+        opacity:0.8;
+        
+        padding: 2px 4px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        width:80px;
+    }  
+    .btn-info:hover {
+        opacity: 1;
+    }
     </style>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
     <script src="../js/dropzone/dropzone-min.js" type="text/javascript"></script>
     <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="../js/fileupload.css" rel="stylesheet" type="text/css" />
-    <link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body  class="by">
     <form id="form1" class="dropzone" runat="server">
@@ -52,8 +61,8 @@
                             <asp:HyperLink ID="HLtype" runat="server"  ImageUrl='<%# Eval("Kftpe") %>' CssClass="nomenu"></asp:HyperLink>
                             <asp:HyperLink ID="HLfname" runat="server" NavigateUrl='<%# Eval("Kfurl") %>' Target="_blank" Text='<%# Eval("KfnameShort") %>' Font-Underline="False" ></asp:HyperLink>                             
                            </div>
-					   <div class="rightlist">	
-                            <button type="button" class="space-subbtn" title="复制链接" onclick="copyFileLink('<%# Eval("KfnameShort") %>', event)"><i class="fa fa-link" aria-hidden="true"></i><span>复制链接</span></button>			
+						   <div class="rightlist">	
+                            <button type="button" class="btn-info" title="复制链接" onclick="copyFileLink('<%# Eval("KfnameShort") %>')">复制链接</button>			
                             <asp:Label ID="Labelnum" runat="server" Text='<%# Eval("Kfnum") %>'  Visible="false"></asp:Label> 
                             <asp:ImageButton ID="ImgBtnDelete" runat="server" CommandArgument='<%# Eval("Kfurl") %>' 
                                 CommandName="D" ImageUrl="~/images/delete.gif" ToolTip="删除"  CssClass="del" />
@@ -63,10 +72,10 @@
                     <SeparatorStyle BorderColor="Silver" BorderStyle="Dotted" BorderWidth="1px" />
                 </asp:DataList>        
         </div>
-		<div id="up_area" class="space-toolbar" style="padding-top:10px;">
-		  <button type="button" id="btnupload" class="btnup space-toolbar__btn"><i class="fa fa-upload" aria-hidden="true"></i><span>上传文件</span></button>
-          <span id="message" class="space-message"></span>
-		</div>
+		<div id="up_area" style="padding-top:10px;">
+		  <button type="button" id="btnupload" class="btnup"> <i class="fa fa-upload" aria-hidden="true"></i> 文件上传</button>
+          <span id="message"></span>
+		<div>
      </div>    
     </div>
     </div>
@@ -90,7 +99,7 @@
             }
         });
 
-        function copyFileLink(fileUrl, event) {
+        function copyFileLink(fileUrl) {
             // 阻止事件冒泡和默认行为，避免页面刷新
             if (event) {
                 event.preventDefault();

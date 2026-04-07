@@ -1,1 +1,1 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="autoupload.aspx.cs" Inherits="Student_autoupload" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Student_autoupload, App_Web_sef0j2m2" %>

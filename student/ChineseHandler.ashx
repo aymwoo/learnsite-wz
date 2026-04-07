@@ -7,9 +7,7 @@ public class ChineseHandler : IHttpHandler
 {
     public void ProcessRequest(HttpContext context)
     {
-        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
-        context.Response.Charset = "utf-8";
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentType = "text/plain";
         string Nid = context.Request.QueryString["Nid"].ToString();
         string ChineseWords = GetWords(Nid);
 

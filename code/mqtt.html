@@ -10,21 +10,19 @@
     <script src="../code/jquery.min.js"></script>
     <link href="mqtt/mqtt.css" rel="stylesheet" type="text/css" />
 	<script src="../code/chart.js"></script>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body>
 	<div class="banner"></div>
 	<div class="mqttset">
 		<img class="broker" src="mqtt/ready.png" title="Mqtt状态" />
-		MQTT地址：<input class ="txtIp px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text"  readonly/>
-		MQTT端口：<input class ="txtPort px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" readonly/>
-		客户端ID：<input class ="txtId px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" readonly/>
-		用户账号：<input class ="txtUser px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text"  readonly/>
-		用户密码：<input class ="txtPwd px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text"  readonly/>
+		MQTT地址：<input class ="txtIp" type="text"  readonly/>
+		MQTT端口：<input class ="txtPort" type="text" readonly/>
+		客户端ID：<input class ="txtId" type="text" readonly/>
+		用户账号：<input class ="txtUser" type="text"  readonly/>
+		用户密码：<input class ="txtPwd" type="text"  readonly/>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;							
-		<input class="btnConnect px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="button" value="点击连接"/><br>			
+		<input class="btnConnect" type="button" value="点击连接"/><br>			
 	
 	<table>
 		<tr>
@@ -34,9 +32,9 @@
 			<td>
 				<div class="center">				
 				<img class="led" src="mqtt/ledoff.png" title="灯光控制 led" /><br>
-				主题：<input class ="txtTopic px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" /><br><br>
-				消息：<input class="txtPayload px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" value="off"/><br><br>
-				<input class="btnPublish px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="button" value="发布" disabled="true"/><br><br>
+				主题：<input class ="txtTopic" type="text" /><br><br>
+				消息：<input class="txtPayload" type="text" value="off"/><br><br>
+				<input class="btnPublish" type="button" value="发布" disabled="true"/><br><br>
 				
 				<table>
 				<tr style="display:none;">
@@ -57,8 +55,8 @@
 								
 				
 				</div><br>
-				订阅主题：<input class ="txtSubTopic px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300" type="text" /><br><br>		
-				<input class="btnSub px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="button" value="订阅" disabled="true"/>
+				订阅主题：<input class ="txtSubTopic" type="text" /><br><br>		
+				<input class="btnSub" type="button" value="订阅" disabled="true"/>
 				
 				</div>
 			</td>
@@ -69,7 +67,7 @@
 					<select class="subtopics">
 					</select>
 					&nbsp;
-				<input class="btnUnSub px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" type="button" value="取消订阅" disabled="true"/>
+				<input class="btnUnSub" type="button" value="取消订阅" disabled="true"/>
 				</div>
 			</td>
 		</tr>

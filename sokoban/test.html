@@ -88,17 +88,15 @@
 		}
 		
 		</style>
-	
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-</head>
+	</head>
 	<body onkeydown="doKeyDown(event)"><!--身体-->
 	<div id="main" >
 		<div class="banner">
 			<div id="msg"></div>
 			<div id="btntool">
-				<input id="btnmove" type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" value="历史记录" onclick="automove()">
-				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" value="上一关卡" onclick="NextLevel(-1)">
-				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  value="游戏说明" onclick="showHelp()">		
+				<input id="btnmove" type="button" class="button" value="历史记录" onclick="automove()">
+				<input type="button" class="button" value="上一关卡" onclick="NextLevel(-1)">
+				<input type="button" class="button"  value="游戏说明" onclick="showHelp()">		
 			</div>
 		</div>
 		<div class="game">

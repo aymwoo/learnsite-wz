@@ -1,17 +1,14 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="studentworks.aspx.cs" Inherits="Workshow_studentworks" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Workshow_studentworks, App_Web_qxp4kcg3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-        <meta charset="utf-8" />
-<title></title>
+    <title></title>
     <link href="../js/flot/examples.css" rel="stylesheet" type="text/css" />
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../js/flot/excanvas.min.js" type="text/javascript"></script> 
     <script src="../js/flot/jquery.flot.min.js" type="text/javascript"></script>    
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -49,7 +46,7 @@
             </asp:TemplateField>            
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:HyperLink ID="HyperLinkView" runat="server" NavigateUrl="" Text="预览" Target="_blank" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+                    <asp:HyperLink ID="HyperLinkView" runat="server" NavigateUrl="" Text="预览" Target="_blank"></asp:HyperLink>
                 </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="日期">
@@ -68,7 +65,7 @@
     </div>
      <asp:Button ID="Btnclose" runat="server"   Text="关闭" BackColor="WhiteSmoke" 
             BorderColor="#CCCCCC" BorderStyle="None" Font-Size="9pt" Height="20px" 
-            Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            Width="60px" />
         <br />
     </div>
     </form>
