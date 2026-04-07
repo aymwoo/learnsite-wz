@@ -12,6 +12,23 @@
                         <h1 class="lesson-hero__title">课堂启动中心</h1>
                         <p class="lesson-hero__subtitle">选择班级与学案，启动课堂后实时查看学生进度与各项功能控制。</p>
                     </div>
+                    <div class="lesson-hero-panel">
+                        <div class="lesson-hero-panel__label">课堂状态</div>
+                        <div class="lesson-hero-panel__grid">
+                            <div class="lesson-hero-panel__item">
+                                <span class="lesson-hero-panel__value"><%= Server.HtmlEncode(Labelsigin.Text) %></span>
+                                <span class="lesson-hero-panel__text">已签到</span>
+                            </div>
+                            <div class="lesson-hero-panel__item">
+                                <span class="lesson-hero-panel__value"><%= Server.HtmlEncode(Labelsigno.Text) %></span>
+                                <span class="lesson-hero-panel__text">未签到</span>
+                            </div>
+                            <div class="lesson-hero-panel__item lesson-hero-panel__item--wide">
+                                <span class="lesson-hero-panel__meta"><%= Server.HtmlEncode(LabelToday.Text) %></span>
+                                <span class="lesson-hero-panel__text">服务器时间</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -19,6 +36,7 @@
                 <section class="lesson-card lesson-card--span-8 lesson-theme--blue">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Setup</span>
                             <h2 class="lesson-card__title">课堂准备</h2>
                         </div>
                     </div>
@@ -53,6 +71,7 @@
                 <section class="lesson-card lesson-card--span-4 lesson-theme--purple">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Overview</span>
                             <h2 class="lesson-card__title">课堂速览</h2>
                         </div>
                     </div>
@@ -88,6 +107,7 @@
                 <section class="lesson-card lesson-card--span-12 lesson-theme--orange">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Activity</span>
                             <h2 class="lesson-card__title">学案活动开关</h2>
                             <p class="lesson-card__desc">可逐项切换当前学案活动，也可使用快捷按钮一次全部打开或关闭。</p>
                         </div>
@@ -251,6 +271,7 @@
                 <section class="lesson-card lesson-card--span-6 lesson-theme--indigo">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Control</span>
                             <h2 class="lesson-card__title">课堂控制</h2>
                         </div>
                     </div>
@@ -282,6 +303,7 @@
                 <section class="lesson-card lesson-card--span-6 lesson-theme--cyan">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Lab</span>
                             <h2 class="lesson-card__title">机房与资源</h2>
                         </div>
                     </div>
@@ -309,6 +331,7 @@
                 <section class="lesson-card lesson-card--span-12 lesson-theme--slate">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Attendance</span>
                             <h2 class="lesson-card__title">未签到学生</h2>
                         </div>
                     </div>
@@ -331,6 +354,7 @@
                 <section class="lesson-card lesson-card--span-12 lesson-theme--red">
                     <div class="lesson-card__head">
                         <div>
+                            <span class="lesson-section-kicker">Finish</span>
                             <h2 class="lesson-card__title">课堂收尾</h2>
                         </div>
                     </div>
