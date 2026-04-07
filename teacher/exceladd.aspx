@@ -1,28 +1,9 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="exceladd.aspx.cs" Inherits="teacher_exceladd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../App_Themes/Teacher/exceladd.css" rel="stylesheet" />
 <link href="../js/fileupload.css" rel="stylesheet" />
-<style type="text/css">
-    .exceladd-page {
-        --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #ecfdf5 100%);
-        --content-add-hero-bg: linear-gradient(135deg, #065f46 0%, #059669 52%, #34d399 100%);
-        --content-add-hero-shadow: 0 22px 45px -28px rgba(5, 150, 105, 0.65);
-        --content-add-primary-bg: #059669;
-        --content-add-primary-hover: #047857;
-        --content-add-primary-shadow: 0 14px 24px -18px rgba(5, 150, 105, 0.85);
-        --content-add-secondary-bg: #ecfdf5;
-        --content-add-secondary-hover: #d1fae5;
-        --content-add-secondary-border: #6ee7b7;
-        --content-add-secondary-fg: #064e3b;
-        --content-add-focus: #059669;
-        --content-add-focus-ring: rgba(5, 150, 105, 0.14);
-    }
 
-    .exceladd-page .content-add-editor-stage textarea {
-        width: 100%;
-        height: 450px;
-    }
-</style>
 
 <div class="content-add-page exceladd-page">
     <div class="content-add-shell is-medium">
@@ -94,179 +75,7 @@
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-                <script>
-                var kindEditorObj;
-                var wangEditorObj;
-                var vditorObj;
-                var currentEditor = 'kindeditor';
-
-                var cid = <%=myCid() %>;
-                var ty = "Course";
-                var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-
-                KindEditor.ready(function (K) {
-                    kindEditorObj = K.create('textarea[name="textareaItem"]', {
-                        resizeType: 1,
-                        newlineTag: "br",
-                        uploadJson: upjs,
-                        fileManagerJson: fmjs,
-                        allowFileManager: true,
-                        filterMode: false,
-                        afterCreate: function () {
-                            this.loadPlugin('autoheight');
-                        }
-                    });
-                });
-
-                function initWangEditor() {
-                    if (wangEditorObj) return;
-                    const { createEditor, createToolbar } = window.wangEditor;
-                    const ta = document.getElementsByName('textareaItem')[0];
-
-                    wangEditorObj = createEditor({
-                        selector: '#wangeditor-text',
-                        html: kindEditorObj ? kindEditorObj.html() : (ta ? ta.value : ''),
-                        config: {
-                            placeholder: '请输入活动说明...',
-                            MENU_CONF: {
-                                uploadImage: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            insertFn(res.url);
-                                        } else {
-                                            alert(res.message || '图片上传失败');
-                                        }
-                                    }
-                                },
-                                uploadAttachment: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            if (wangEditorObj) {
-                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
-                                            }
-                                        } else {
-                                            alert(res.message || '附件上传失败');
-                                        }
-                                    }
-                                },
-                                uploadFile: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            if (wangEditorObj) {
-                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
-                                            }
-                                        } else {
-                                            alert(res.message || '文件上传失败');
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-
-                    createToolbar({
-                        editor: wangEditorObj,
-                        selector: '#wangeditor-toolbar',
-                        config: {}
-                    });
-                }
-
-                let pendingVditorHtml = null;
-                let vditorReady = false;
-
-                function safeHtml2Md(html) {
-                    try {
-                        if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) {
-                            return vditorObj.vditor.lute.HTML2Md(html);
-                        }
-                        var l = Lute.New();
-                        return l.HTML2Md(html);
-                    } catch (e) {
-                        return html;
-                    }
-                }
-
-                function initVditor() {
-                    if (vditorObj) return;
-                    const ta = document.getElementsByName('textareaItem')[0];
-                    let initialContent = kindEditorObj ? kindEditorObj.html() : (ta ? ta.value : '');
-
-                    vditorObj = new Vditor('vditor-container', {
-                        height: 400,
-                        mode: 'ir',
-                        upload: {
-                            handler: function (files) {
-                                LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
-                            }
-                        },
-                        preview: { mode: 'both' },
-                        cache: { enable: false },
-                        after: () => {
-                            vditorReady = true;
-                            let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                            if (contentToSet) {
-                                vditorObj.setValue(safeHtml2Md(contentToSet));
-                            }
-                            pendingVditorHtml = null;
-                        }
-                    });
-                }
-
-                function switchEditor(type) {
-                    currentEditor = type;
-                    var kindContainer = document.querySelector('.ke-container');
-                    var wangContainer = document.getElementById('wangeditor-wrap');
-                    var vditorContainer = document.getElementById('vditor-wrap');
-
-                    var currentHtml = '';
-                    if (kindContainer && kindContainer.style.display !== 'none' && kindEditorObj) {
-                        currentHtml = kindEditorObj.html();
-                    } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
-                        currentHtml = wangEditorObj.getHtml();
-                    } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                        currentHtml = vditorObj.getHTML();
-                    }
-
-                    if (kindContainer) kindContainer.style.display = 'none';
-                    if (wangContainer) wangContainer.style.display = 'none';
-                    if (vditorContainer) vditorContainer.style.display = 'none';
-
-                    if (type === 'kindeditor') {
-                        if (kindContainer) kindContainer.style.display = 'block';
-                        if (kindEditorObj && currentHtml) kindEditorObj.html(currentHtml);
-                    } else if (type === 'wangeditor') {
-                        if (wangContainer) wangContainer.style.display = 'block';
-                        initWangEditor();
-                        if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
-                    } else if (type === 'vditor') {
-                        if (vditorContainer) vditorContainer.style.display = 'block';
-                        if (!vditorObj) {
-                            pendingVditorHtml = currentHtml;
-                            initVditor();
-                        } else if (vditorReady) {
-                            if (currentHtml) vditorObj.setValue(safeHtml2Md(currentHtml));
-                        } else {
-                            pendingVditorHtml = currentHtml;
-                        }
-                    }
-                }
-
-                function syncContent() {
-                    var ta = document.getElementsByName('textareaItem')[0];
-                    if (currentEditor === 'kindeditor') {
-                        if (kindEditorObj) ta.value = kindEditorObj.html();
-                    } else if (currentEditor === 'wangeditor') {
-                        if (wangEditorObj) ta.value = wangEditorObj.getHtml();
-                    } else if (currentEditor === 'vditor') {
-                        if (vditorObj) ta.value = vditorObj.getHTML();
-                    }
-                    return true;
-                }
-            </script>
+                
 
             <div class="content-add-editor-stage exceladd-page">
                 <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
@@ -297,4 +106,10 @@
 </div>
 
 <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__exceladdConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/exceladd.js"></script>
 </asp:Content>

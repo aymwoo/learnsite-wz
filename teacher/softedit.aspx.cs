@@ -41,7 +41,7 @@ public partial class Teacher_softedit : System.Web.UI.Page
         LearnSite.BLL.Soft bll = new LearnSite.BLL.Soft();
         model = bll.GetModel(int.Parse(fid));
         DDLclass.SelectedValue = model.Fclass;
-        mcontent.InnerText = HttpUtility.HtmlDecode(model.Fcontent);
+        mcontent.Value = HttpUtility.HtmlDecode(model.Fcontent);
         Texttitle.Text = model.Ftitle;
         Linkold.CommandArgument = model.Furl;
         Linkold.Text = model.Furl.Substring(model.Furl.LastIndexOf("/") + 1);
@@ -69,7 +69,7 @@ public partial class Teacher_softedit : System.Web.UI.Page
             soft.Fup = false;
             if (fclass == "教程" || fclass == "微课" || fclass == "课程")
                 soft.Fup = true;
-            soft.Fcontent = HttpUtility.HtmlEncode(mcontent.InnerText);
+            soft.Fcontent = HttpUtility.HtmlEncode(LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value));
             soft.Fdate = DateTime.Now;
             soft.Fhit =Int32.Parse( LabelFhit.Text);
             soft.Ftitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());

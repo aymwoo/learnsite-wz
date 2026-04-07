@@ -706,3 +706,23 @@ table {border-collapse:collapse;}
 	width: 60px;
 	font-size:16px;
 }
+
+/* Keep rich text editors left-aligned even inside centered teacher layouts. */
+#wangeditor-wrap,
+#wangeditor-wrap .w-e-bar,
+#wangeditor-wrap .w-e-text-container,
+#wangeditor-wrap .w-e-scroll,
+#wangeditor-wrap .w-e-text,
+#wangeditor-wrap .w-e-text-container [data-slate-editor],
+#wangeditor-wrap .w-e-text-container [contenteditable="true"],
+#vditor-wrap,
+#vditor-wrap .vditor,
+#vditor-wrap .vditor-content,
+#vditor-wrap .vditor-ir,
+#vditor-wrap .vditor-ir__editor,
+#vditor-wrap .vditor-wysiwyg,
+#vditor-wrap .vditor-reset,
+#vditor-wrap .vditor-preview,
+#vditor-wrap .vditor-preview__action {
+    text-align: left !important;
+}

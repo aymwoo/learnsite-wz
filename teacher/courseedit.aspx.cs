@@ -33,7 +33,7 @@ public partial class Teacher_courseedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
             if (fckstr != "")
             {
                 if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
@@ -91,7 +91,7 @@ public partial class Teacher_courseedit : System.Web.UI.Page
         DDLcobj.SelectedValue = course.Cobj.ToString();
         DDLCterm.SelectedValue = course.Cterm.ToString();
         DDLCks.SelectedValue = course.Cks.ToString();
-        mcontent.InnerText = HttpUtility.HtmlDecode(course.Ccontent);
+        mcontent.Value = HttpUtility.HtmlDecode(course.Ccontent);
         CheckPublish.Checked = course.Cpublish;
         HLbanner.NavigateUrl = course.Cbanner;
         HiddenBannerUrl.Value = course.Cbanner;

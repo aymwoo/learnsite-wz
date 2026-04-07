@@ -7,23 +7,6 @@
 			<asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
             <asp:Label ID="LabelTid" runat="server" Visible="False"></asp:Label> 
 
-<style>
-	.topictext { user-select: none; }
-	.topictext:hover { background-color:#FFF8EB; }
-	.topictext img {
-		max-height:200px; height:auto;
-		-webkit-user-drag: none;
-		cursor:pointer;
-		border-radius: 0.5rem;
-	}
-	.imgstu {
-	    width:28px; height:28px; border-radius:50%;
-	    opacity:0.85; object-fit:cover;
-	    border: 2px solid #e0e7ff;
-	    transition: all 0.2s;
-	}
-	.imgstu:hover { opacity:1; transform: scale(1.15); border-color: #4f46e5; }
-</style>
 
 <div id="topper" class="w-full max-w-5xl mx-auto space-y-6">
     <!-- Topic Title -->
@@ -149,75 +132,9 @@
             <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>
             <script charset="utf-8" src="../kindeditor/lang/zh_CN.js" type="text/javascript"></script>
             <script src="../code/jquery.min.js" type="text/javascript"></script>
-            <script>
-                var editor;
-                var ty = "Topic";
-                var cid = "<%=myCid %>";
-                var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                KindEditor.ready(function (K) {
-                    editor = K.create('textarea[name="textareaWord"]', {
-                        filterMode: false,
-                        resizeType: 1,
-                        pasteType: 1,
-                        newlineTag: "br",
-                        allowPreviewEmoticons: false,
-                        uploadJson: upjs,
-                        allowImageUpload: true,
-                        items: ['formatblock', 'fontname', 'fontsize', '|', 'bold', 'italic', 'forecolor', 'hilitecolor', 'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'image'],
-                        afterChange: function () {
-                            K('.word_count').html(this.count('text'));
-                        }
-                    });
-                });
-            </script>
+            
 
-            <script>
-                $(".topictext img").click(function () {
-                    console.log("图片点击");
-                    var _this = $(this);
-                    imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
-                });
-
-                $(".topictext img").each(function (i) {
-                    $(this).attr("oncontextmenu", "return false;");
-                });
-
-                function imgShow(outerdiv, innerdiv, bigimg, _this) {
-                    debugger
-                    var src = _this.attr("src");
-                    $(bigimg).attr("src", src);
-                    $("<img/>").attr("src", src).on('load', function () {
-                        debugger
-                        var windowW = $(window).width()
-                        var windowH = $(window).height();
-                        var realWidth = this.width;
-                        var readHeight = this.height;
-                        var imgWidth, imgHeight;
-                        var scale = 0.8;
-                        if (realWidth > windowW + scale) {
-                            imgHeight = windowH * scale;
-                            imgWidth = imgHeight / readHeight * realWidth;
-                            if (imgWidth > windowW * scale) {
-                                imgWidth = windowW * scale;
-                            }
-                        } else if (realWidth > windowW * scale) {
-                            imgWidth = windowW * scale;
-                            imgHeight = imgWidth / realWidth * readHeight;
-                        } else {
-                            imgWidth = realWidth;
-                            imgHeight = readHeight;
-                        }
-                        $(bigimg).css("width", imgWidth);
-                        var w = (windowW - imgWidth) / 2;
-                        var h = (windowH - imgHeight) / 2;
-                        $(innerdiv).css({ "top": h, "left": w });
-                        $(outerdiv).fadeIn("fast");
-                    });
-                    $(outerdiv).click(function () {
-                        $(this).fadeOut("fast");
-                    });
-                };
-            </script>
+            
             
             <div class="flex items-center justify-between flex-wrap gap-3">
                 <div class="text-sm text-slate-500">
@@ -243,4 +160,10 @@
         <img id="bigimg" style="pointer-events: none; border-radius: 8px;" src="" />
     </div>
 </div>
+    <script type="text/javascript">
+        window.__topicdiscussConfig = {
+            myCid: '<%=myCid %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/topicdiscuss.js"></script>
 </asp:Content>

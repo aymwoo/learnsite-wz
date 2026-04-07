@@ -1,255 +1,131 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="missionedit.aspx.cs" Inherits="Teacher_missionedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-<div class="cplace">
-    <div class="cleft">
-        活动名称：<asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal"  Width="200px"  CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-        作品类型<asp:DropDownList ID="DDLmfiletype" runat="server"  Width="60px" Font-Names="Arial">
-        </asp:DropDownList>
-        <asp:CheckBox ID="CheckUpload" runat="server" Text="是否提交" Checked="True" />
-        &nbsp;<asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" Checked="True" />
-        &nbsp;<asp:CheckBox ID="CheckGroup" runat="server" Text="小组合作" />
-        <asp:CheckBox ID="CheckRemote" runat="server" Text="远程图片" ToolTip="自动下载远程图片，有时失效！" />
-        <asp:CheckBox ID="CheckMicoWorld" runat="server" Text="上次作品"  Checked="False" 
-            ToolTip="显示上一节课作品提供下载，适合项目学习连续制作"  />
+    <link href="../App_Themes/Teacher/course-content-add.css" rel="stylesheet" />
+    <link href="../App_Themes/Teacher/missionedit.css" rel="stylesheet" />
+
+    <div class="content-add-page mission-add-page missionedit-page">
+        <div class="content-add-shell is-medium">
+            <section class="content-add-hero">
+                <div class="content-add-hero-content">
+                    <span class="content-add-eyebrow">Edit Learning Activity</span>
+                    <h1 class="content-add-title">编辑学习活动</h1>
+                    <p class="content-add-subtitle">保持现有活动标题、提交方式、分组协作、远程图片和评价量规逻辑不变，同时兼容 KindEditor、WangEditor 和 Vditor 的稳定保存。</p>
+                </div>
+            </section>
+
+            <section class="content-add-panel">
+                <h2 class="content-add-section-title">活动设置</h2>
+                <p class="content-add-section-desc">修改后将更新当前活动内容，并返回活动详情页查看效果。</p>
+                <div class="content-add-grid">
+                    <div class="content-add-field content-add-field-title">
+                        <label class="content-add-label" for="<%= Texttitle.ClientID %>">活动名称</label>
+                        <asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal" CssClass="content-add-input"></asp:TextBox>
+                    </div>
+
+                    <div class="content-add-field content-add-field-type">
+                        <label class="content-add-label" for="<%= DDLmfiletype.ClientID %>">作品类型</label>
+                        <asp:DropDownList ID="DDLmfiletype" runat="server" Font-Names="Arial" CssClass="content-add-select content-add-select-worktype"></asp:DropDownList>
+                    </div>
+
+                    <div class="content-add-field content-add-field-rubric">
+                        <label class="content-add-label" for="<%= DDLMgid.ClientID %>">评价标准</label>
+                        <asp:DropDownList ID="DDLMgid" runat="server" Font-Size="9pt" Font-Names="Arial" CssClass="content-add-select"></asp:DropDownList>
+                    </div>
+
+                    <div class="content-add-field content-add-field-options">
+                        <span class="content-add-label">活动选项</span>
+                        <div class="content-add-checks">
+                            <asp:CheckBox ID="CheckUpload" runat="server" Text="是否提交" Checked="True" />
+                            <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" Checked="True" />
+                            <asp:CheckBox ID="CheckGroup" runat="server" Text="小组合作" />
+                            <asp:CheckBox ID="CheckRemote" runat="server" Text="远程图片" ToolTip="自动下载远程图片，有时失效！" />
+                            <asp:CheckBox ID="CheckMicoWorld" runat="server" Text="上次作品" Checked="False" ToolTip="显示上一节课作品提供下载，适合项目学习连续制作" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-add-editor">
+                <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
+                <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
+
+                <div class="content-add-editor-toolbar">
+                    <div>
+                        <h2 class="content-add-section-title">活动说明</h2>
+                        <p class="content-add-section-desc">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换，保存时会自动同步当前编辑器内容。</p>
+                    </div>
+                    <div class="mission-add-toolbar-actions">
+                        <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
+                        <select id="editorSelector" onchange="switchEditor(this.value)" class="content-add-editor-select">
+                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                            <option value="wangeditor">富文本编辑器 (WangEditor)</option>
+                            <option value="vditor">Markdown编辑器 (Vditor)</option>
+                        </select>
+                        <div id="vditorPasteControls" class="mission-add-paste-controls" style="display:none;">
+                            <span class="mission-add-paste-label">Vditor 粘贴</span>
+                            <label class="mission-add-paste-option"><input type="radio" name="vditorPasteMode" value="keep" checked="checked" /> 保持原样</label>
+                            <label class="mission-add-paste-option"><input type="radio" name="vditorPasteMode" value="plain" /> 清理格式</label>
+                            <button type="button" class="mission-add-paste-btn" onclick="pastePlainTextToVditor()">粘贴纯文本</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
+                <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
+
+                <div class="missionedit-editor-wrap">
+                    <div class="content-add-editor-stage mission-add-editor-stage custom-scrollbar">
+                        <div id="wangeditor-wrap" style="display:none; width: 100%; position:relative; border: 1px solid #ccc; z-index: 100;">
+                            <div id="wangeditor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
+                            <div id="wangeditor-text" style="height: 350px;"></div>
+                        </div>
+
+                        <div id="vditor-wrap" style="display:none; width: 100%; position:relative; margin-bottom: 10px;">
+                            <div id="vditor-container"></div>
+                        </div>
+
+                        <textarea id="mcontent" runat="server" style="width: 100%; height:550px; box-sizing:border-box;"></textarea>
+                        <input type="hidden" id="editorContentPayload" name="editorContentPayload" />
+                        <input type="hidden" id="editorSyncSource" name="editorSyncSource" />
+                        <input type="hidden" id="editorSyncLength" name="editorSyncLength" />
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-add-feedback">
+                <h2 class="content-add-section-title">保存反馈</h2>
+                <p class="content-add-section-desc">如果标题或活动说明为空，将在这里显示明确提示。</p>
+                <asp:Label ID="Labelmsg" runat="server" CssClass="missionedit-message"></asp:Label>
+            </section>
+
+            <section class="content-add-actions">
+                <asp:Button ID="Btnedit" runat="server" Text="修改活动" OnClick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="content-add-primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="content-add-secondary" />
+            </section>
         </div>
-    <div >
-    <!-- 引入编辑器CDN -->
-    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
-    <script src="../js/vendors/vditor/index.min.js"></script>
-    <script src="../js/vendors/wangeditor/index.js"></script>
-
-    <div style="margin-bottom: 10px; margin-left: 10px;">
-        <label>编辑器：</label>
-        <select id="editorSelector" onchange="switchEditor(this.value)" style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
-            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
-            <option value="wangeditor">富文本编辑器 (WangEditor)</option>
-            <option value="vditor">Markdown编辑器 (Vditor)</option>
-        </select>
     </div>
-
-		<script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
-		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-		<script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-		<script>
-		    var kindEditorObj;
-            var wangEditorObj;
-            var vditorObj;
-            var currentEditor = 'kindeditor';
-
-            var cid= <%=myCid() %>;
-            var ty="Course";
-            var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&Ty='+ty;
-            var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&Ty='+ty;
-
-		    KindEditor.ready(function (K) {
-		        kindEditorObj = K.create('textarea[name="ctl00$Content$mcontent"]', {
-		            resizeType: 1,
-		            newlineTag: "br", 
-				uploadJson : upjs,
-				fileManagerJson : fmjs,
-				allowFileManager : true,
-                filterMode : false,
-					afterCreate : function() {
-						this.loadPlugin('autoheight');
-					}		            
-		        });
-		    });
-
-            function initWangEditor() {
-                if (wangEditorObj) return;
-                const { createEditor, createToolbar } = window.wangEditor;
-                const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-
-                wangEditorObj = createEditor({
-                    selector: '#wangeditor-text',
-                    html: kindEditorObj ? kindEditorObj.html() : mcontent.value,
-                        config: {
-                            placeholder: '请输入内容...',
-                            MENU_CONF: {
-                                uploadImage: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            insertFn(res.url);
-                                        } else {
-                                            alert(res.message || '图片上传失败');
-                                        }
-                                    }
-                                },
-                                uploadAttachment: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            if (wangEditorObj) {
-                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
-                                            }
-                                        } else {
-                                            alert(res.message || '附件上传失败');
-                                        }
-                                    }
-                                },
-                                uploadFile: {
-                                    server: upjs,
-                                    customInsert(res, insertFn) {
-                                        if (res.error === 0) {
-                                            if (wangEditorObj) {
-                                                LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res);
-                                            }
-                                        } else {
-                                            alert(res.message || '文件上传失败');
-                                        }
-                                    }
-                                }
-                            }
-                    }
-                });
-
-                createToolbar({
-                    editor: wangEditorObj,
-                    selector: '#wangeditor-toolbar',
-                    config: {}
-                });
-            }
-
-            let pendingVditorHtml = null;
-            let vditorReady = false;
-
-            function safeHtml2Md(html) {
-                try {
-                    if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) {
-                        return vditorObj.vditor.lute.HTML2Md(html);
-                    }
-                    var l = Lute.New();
-                    return l.HTML2Md(html);
-                } catch(e) {
-                    return html;
-                }
-            }
-
-            function initVditor() {
-                if (vditorObj) return;
-                const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                let initialContent = kindEditorObj ? kindEditorObj.html() : mcontent.value;
-
-                vditorObj = new Vditor('vditor-container', {
-                    height: 400,
-                    width: '830px',
-                    mode: 'ir',
-                    upload: {
-                        handler: function (files) {
-                            LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files);
-                        }
-                    },
-                    preview: {
-                        mode: 'both'
-                    },
-                    cache: {
-                        enable: false
-                    },
-                    after: () => {
-                        vditorReady = true;
-                        let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                        if (contentToSet) {
-                            vditorObj.setValue(safeHtml2Md(contentToSet));
-                        }
-                        pendingVditorHtml = null;
+    <script type="text/javascript">
+        window.__missioneditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/missionedit.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var form = document.forms[0];
+            if (form && !form.getAttribute('data-missionedit-sync-bound')) {
+                form.setAttribute('data-missionedit-sync-bound', '1');
+                form.addEventListener('submit', function () {
+                    if (typeof syncContent === 'function') {
+                        syncContent();
                     }
                 });
             }
-
-            function switchEditor(type) {
-                currentEditor = type;
-                var kindContainer = document.querySelector('.ke-container');
-                var wangContainer = document.getElementById('wangeditor-wrap');
-                var vditorContainer = document.getElementById('vditor-wrap');
-
-                // Sync current content before switching
-                var currentHtml = '';
-                if (kindContainer && kindContainer.style.display !== 'none' && kindEditorObj) {
-                    currentHtml = kindEditorObj.html();
-                } else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) {
-                    currentHtml = wangEditorObj.getHtml();
-                } else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj) {
-                    currentHtml = vditorObj.getHTML();
-                }
-
-                // Hide all
-                if (kindContainer) kindContainer.style.display = 'none';
-                if (wangContainer) wangContainer.style.display = 'none';
-                if (vditorContainer) vditorContainer.style.display = 'none';
-
-                // Show and update selected
-                if (type === 'kindeditor') {
-                    if (kindContainer) kindContainer.style.display = 'block';
-                    if (kindEditorObj && currentHtml) kindEditorObj.html(currentHtml);
-                } else if (type === 'wangeditor') {
-                    if (wangContainer) {
-                        wangContainer.style.display = 'block';
-                    }
-                    initWangEditor();
-                    if (wangEditorObj && currentHtml) {
-                        wangEditorObj.setHtml(currentHtml);
-                    }
-                } else if (type === 'vditor') {
-                    if (vditorContainer) {
-                        vditorContainer.style.display = 'block';
-                    }
-                    if (!vditorObj) {
-                        pendingVditorHtml = currentHtml;
-                        initVditor();
-                    } else if (vditorReady) {
-                        if (currentHtml) {
-                            vditorObj.setValue(safeHtml2Md(currentHtml));
-                        }
-                    } else {
-                        pendingVditorHtml = currentHtml;
-                    }
-                }
-            }
-
-            function syncContent() {
-                var mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                if (currentEditor === 'kindeditor') {
-                    if (kindEditorObj) {
-                        mcontent.value = kindEditorObj.html();
-                    }
-                } else if (currentEditor === 'wangeditor') {
-                    if (wangEditorObj) {
-                        mcontent.value = wangEditorObj.getHtml();
-                    }
-                } else if (currentEditor === 'vditor') {
-                    if (vditorObj) {
-                        mcontent.value = vditorObj.getHTML();
-                    }
-                }
-                return true;
-            }
-		</script>
-    <div id="wangeditor-wrap" style="display:none; width: 830px; left:10px; position:relative; border: 1px solid #ccc; z-index: 100;">
-        <div id="wangeditor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
-        <div id="wangeditor-text" style="height: 350px;"></div>
-    </div>
-
-    <div id="vditor-wrap" style="display:none; width: 830px; left:10px; position:relative; margin-bottom: 10px;">
-        <div id="vditor-container"></div>
-    </div>
-
-    <textarea  id ="mcontent" runat ="server" style="width: 830px; height:550px;" ></textarea>  
-    </div>
-     <div class="placehold">
-               <asp:Label ID="Labelmsg" runat="server" Width="300px"></asp:Label>
-               <br />
-               选择自定义评价标准：<asp:DropDownList ID="DDLMgid" runat="server" Font-Size="9pt"
-            Width="120px" Font-Names="Arial">
-        </asp:DropDownList>
-               <br />
-         <br />
-              <asp:Button ID="Btnedit" runat="server"  Text="修改活动" OnClick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />&nbsp;&nbsp;&nbsp;
-              <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
-              <br />
-         <br />
-         </div>           
-        </div>
+        })();
+    </script>
 </asp:Content>

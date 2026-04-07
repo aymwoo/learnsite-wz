@@ -6,130 +6,8 @@
         <meta charset="utf-8" />
 <title>学生文档作品自动展示</title>
     <script src="../js/jquery.min.js" type="text/javascript"></script>
-    <style type="text/css">
-        body.circle-page {
-            margin: 0;
-            background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            font-family: Arial, "Microsoft YaHei", sans-serif;
-            color: #0f172a;
-        }
-
-        .circle-shell {
-            padding: 1rem;
-        }
-
-        .circle-hero,
-        .circle-panel,
-        .circle-viewer {
-            background: rgba(255, 255, 255, 0.92);
-            border: 1px solid rgba(148, 163, 184, 0.18);
-            border-radius: 1rem;
-            box-shadow: 0 12px 28px -24px rgba(15, 23, 42, 0.35);
-            margin-bottom: 1rem;
-        }
-
-        .circle-hero {
-            padding: 1.25rem 1.5rem;
-            background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #38bdf8 100%);
-            color: #eff6ff;
-        }
-
-        .circle-title {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        .circle-subtitle {
-            margin: 0.5rem 0 0;
-            color: rgba(239, 246, 255, 0.88);
-            line-height: 1.7;
-        }
-
-        .circle-panel {
-            padding: 1rem 1.25rem;
-        }
-
-        .circle-toolbar,
-        .circle-controls,
-        .circle-filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
-        }
-
-        .circle-toolbar {
-            justify-content: space-between;
-        }
-
-        .circle-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 2.5rem;
-            padding: 0 1rem;
-            border: 0;
-            border-radius: 0.75rem;
-            background: #2563eb;
-            color: #ffffff;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
-        }
-
-        .circle-btn:hover {
-            filter: brightness(1.05);
-        }
-
-        .circle-btn--secondary {
-            background: #eff6ff;
-            color: #1d4ed8;
-            border: 1px solid #bfdbfe;
-            box-shadow: none;
-        }
-
-        .circle-btn--ghost {
-            background: #ffffff;
-            color: #334155;
-            border: 1px solid #cbd5e1;
-            box-shadow: none;
-        }
-
-        .circle-btn--danger {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-            box-shadow: none;
-        }
-
-        .circle-select,
-        .circle-input {
-            min-height: 2.5rem;
-            padding: 0 0.85rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.75rem;
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        .circle-input {
-            min-width: 220px;
-        }
-
-        .circle-student-name {
-            display: none;
-            font-size: 2rem;
-            font-weight: 800;
-            color: #1d4ed8;
-        }
-
-        .circle-viewer {
-            min-height: 80vh;
-            padding: 0.75rem;
-            overflow: auto;
-        }
-    </style>
+    
+    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/circleshow.css" />
 </head>
 <body class="circle-page">
     <form id="form1" runat="server">
@@ -199,19 +77,14 @@
             <asp:HyperLink ID="Hlcode" runat="server" Font-Size="11pt" Target="_blank" Visible="False" CssClass="circle-btn">查看脚本</asp:HyperLink>
         </section>
     </div>
-    </form>
-    <script type ="text/javascript" >
-        function myrefresh() {
-            var stxt = document.getElementById("<%= Btnstop.ClientID %>").value;
-            if (stxt == "暂停") {
-                document.getElementById("<%= ImgBtn.ClientID %>").click();
-            }
-        }
-        setTimeout("myrefresh()", 8000);
-
-        $("#showname").click(function () {
-            $("#stuname").slideToggle();
-        });
+    <script type="text/javascript">
+        window.__circleshowConfig = {
+            btnstopId: "<%= Btnstop.ClientID %>",
+            imgBtnId: "<%= ImgBtn.ClientID %>"
+        };
     </script>
+    <script type="text/javascript" src="../js/circleshow.js"></script>
+    </form>
+    
 </body>
 </html>

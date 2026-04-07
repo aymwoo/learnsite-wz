@@ -15,13 +15,10 @@
 	<!-- endbower -->
 
 	<link rel="stylesheet" href="../../plugins/km/kityminder.editor.css">
-		<style>
-		div.minder-editor-container {
-			top: 0px;
-		}
-	</style>
+		
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../App_Themes/Student/kitymind.css" />
 </head>
 
 <body ng-app="kityminderDemo" >
@@ -34,6 +31,23 @@
             <%=Mcontents %>
             </div>
         </div>
+    <script type="text/javascript">
+        window.__kitymindConfig = {
+            snum: "<%= Snum %>",
+            lsSname: "<%= LsSname %>",
+            lsSgrade: "<%= LsSgrade %>",
+            lsSclass: "<%= LsSclass %>",
+            lsSid: "<%= LsSid %>",
+            lsCid: "<%= LsCid %>",
+            lsLid: "<%= LsLid %>",
+            lsLtitle: "<%= LsLtitle %>",
+            lsLtype: "<%= LsLtype %>",
+            codefile: "<%=codefile %>",
+            fpage: "<%=Fpage %>",
+            id: "<%=Id %>"
+        };
+    </script>
+    <script type="text/javascript" src="../js/kitymind.js"></script>
     </form>
 <div class="fixed top-3 right-6 z-[9999] flex items-center gap-3">
     <a href="#" onclick="return downfile(this);" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-bold rounded-lg shadow-md hover:from-emerald-600 hover:to-teal-600 hover:shadow-lg transition-all duration-300 flex items-center gap-2 border border-emerald-400">
@@ -70,114 +84,9 @@
 <!-- endbower -->
 
 <script src="../../plugins/km/kityminder.editor.js"></script>
-<script >
-    window.__learnStatus = {
-        snum: "<%= Snum %>",
-        sname: "<%= LsSname %>",
-        sgrade: "<%= LsSgrade %>",
-        sclass: "<%= LsSclass %>",
-        sid: "<%= LsSid %>",
-        cid: "<%= LsCid %>",
-        lid: "<%= LsLid %>",
-        ltitle: "<%= LsLtitle %>",
-        ltype: "<%= LsLtype %>"
-    };
 
-    window.addEventListener('load', function () {
-        var codefile = "<%=codefile %>";
-        if (codefile != "") {
-            codefile = decodeURIComponent(codefile);
-            console.log(codefile);
-            var fileType = 'json'
-            editor.minder.importData(fileType, codefile).then(function (data) {
-                console.log(data)
-            });
-        }
-    });
-    var fpage = "<%=Fpage %>";
-    function returnurl() {
-        if (confirm('是否要离开此页面？') == true) {
-            window.location.href = "<%=Fpage %>"
-        }
-    }
-    //点击导出链接自动下载
-    function downfile(link) {
-        var title = editor.minder.getRoot().getData("text");
-        exportType = 'json';
-        console.log("保存信息");
-
-        var content = editor.minder.exportData(exportType);
-        var strJson = content.fulfillValue;
-
-        exportType = 'png';
-        editor.minder.exportData(exportType).then(function (content) {
-            var blob = new Blob();
-            blob = dataURLtoBlob(content); //将base64编码转换为blob对象
-
-            var id = "<%=Id %>";
-            var urls = 'uploadkitymind.ashx?id=' + id;
-            var formData = new FormData();
-            //console.log("编码信息");
-            var km = encodeURIComponent(strJson);
-
-            formData.append('title', title);
-            formData.append('km', km);
-            formData.append('thumb', blob);
-            //console.log(km);
-            //console.log(blob);
-
-            $.ajax({
-                url: urls,
-                type: 'POST',
-                cache: false,
-                data: formData,
-                processData: false,
-                contentType: false
-            }).done(function (res) {
-                if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
-                    window.LearnStatus.submitted();
-                }
-                alert("保存成功！");
-                $(".export").attr("disabled", "false");
-                console.log(res)
-            }).fail(function (res) {
-                alert("保存失败！");
-                console.log(res)
-            });
-
-        });
-    }
-
-    //base64转换为图片blob
-    function dataURLtoBlob(dataurl) {
-        var arr = dataurl.split(',');
-        //注意base64的最后面中括号和引号是不转译的
-        var _arr = arr[1].substring(0, arr[1].length - 2);
-        var mime = arr[0].match(/:(.*?);/)[1],
-    bstr = atob(_arr),
-    n = bstr.length,
-    u8arr = new Uint8Array(n);
-        while (n--) {
-            u8arr[n] = bstr.charCodeAt(n);
-        }
-        return new Blob([u8arr], {
-            type: mime
-        });
-    }
-
-</script>
 
 <script src="../js/learnstatus.js" type="text/javascript"></script>
-
-<script>
-    angular.module('kityminderDemo', ['kityminderEditor'])
-	.controller('MainController', function ($scope) {
-	    $scope.initEditor = function (editor, minder) {
-	        window.editor = editor;
-	        window.minder = minder;
-	    };
-	});
-</script>
 
 
 </body>

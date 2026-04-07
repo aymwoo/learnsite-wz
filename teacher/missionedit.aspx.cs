@@ -59,8 +59,17 @@ public partial class Teacher_missionedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
-        if (Texttitle.Text != "" && fckstr != "")
+        string payloadEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        string formTextareaContent = Request.Form[mcontent.UniqueID] ?? string.Empty;
+        string serverTextareaContent = mcontent.Value ?? string.Empty;
+        string rawEditorContent = !string.IsNullOrWhiteSpace(payloadEditorContent)
+            ? payloadEditorContent
+            : (!string.IsNullOrWhiteSpace(formTextareaContent) ? formTextareaContent : serverTextareaContent);
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
+        string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
+        string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();
+
+        if (title != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null && Request.QueryString["lid"] != null)
             {
@@ -74,7 +83,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
 
                 LearnSite.Model.Mission mission = new LearnSite.Model.Mission();
                 mission.Mid = Int32.Parse(Mid);
-                mission.Mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
+                mission.Mtitle = HttpUtility.HtmlEncode(title);
                 bool uploadcan = CheckUpload.Checked;
                 mission.Mupload = uploadcan;
                 if (uploadcan)
@@ -106,7 +115,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
                 else
                     lmodel.Ltype = 6;//描述页面
                 lmodel.Lshow = CheckPublish.Checked;
-                lmodel.Ltitle = Texttitle.Text.Trim();
+                lmodel.Ltitle = title;
                 lbll.UpdateMenuMission(lmodel);//专用活动分类更新
 
                 System.Threading.Thread.Sleep(500);
@@ -120,7 +129,16 @@ public partial class Teacher_missionedit : System.Web.UI.Page
         }
         else
         {
-            Labelmsg.Text = "内容及标题不能为空！";
+            if (string.IsNullOrEmpty(title))
+            {
+                Labelmsg.Text = "活动标题不能为空！";
+            }
+            else
+            {
+                string syncSource = Request.Form["editorSyncSource"] ?? "unknown";
+                string syncLength = Request.Form["editorSyncLength"] ?? "0";
+                Labelmsg.Text = "活动说明不能为空！当前同步来源：" + syncSource + "，同步长度：" + syncLength + "，payload长度：" + payloadEditorContent.Length + "，form长度：" + formTextareaContent.Length + "，server长度：" + serverTextareaContent.Length + "。";
+            }
         }
     }
     private void missionview()
@@ -131,7 +149,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
             LearnSite.Model.Mission mission = new LearnSite.Model.Mission();
             LearnSite.BLL.Mission missionbll = new LearnSite.BLL.Mission();
             mission = missionbll.GetModel(Mid);
-            mcontent.InnerText = HttpUtility.HtmlDecode(mission.Mcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(mission.Mcontent);
             CheckMicoWorld.Checked = mission.Microworld;
 
             DDLmfiletype.SelectedValue = mission.Mfiletype;

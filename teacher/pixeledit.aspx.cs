@@ -36,7 +36,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
@@ -117,7 +117,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
             mission = missionbll.GetModel(Mid);
             CheckPublish.Checked = mission.Mpublish;
             Texttitle.Text = mission.Mtitle;
-            mcontent.InnerText = HttpUtility.HtmlDecode(mission.Mcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(mission.Mcontent);
             DDLTitle.SelectedValue = mission.Mcategory.ToString();
             string mgid = mission.Mgid.ToString();
                 string exampleurl = mission.Mexample;

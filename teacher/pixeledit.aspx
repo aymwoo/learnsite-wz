@@ -4,181 +4,7 @@
     <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
-    <style type="text/css">
-        .pixel-edit-page {
-            --admin-form-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            --admin-form-hero-bg: linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #38bdf8 100%);
-            --admin-form-hero-shadow: 0 22px 45px -28px rgba(37, 99, 235, 0.78);
-            --admin-form-primary-bg: #2563eb;
-            --admin-form-primary-hover: #1d4ed8;
-            --admin-form-primary-shadow: 0 14px 24px -18px rgba(37, 99, 235, 0.85);
-            --admin-form-secondary-border: #bfdbfe;
-            --admin-form-secondary-bg: #eff6ff;
-            --admin-form-secondary-hover: #dbeafe;
-            --admin-form-secondary-fg: #1d4ed8;
-        }
-
-        .pixel-edit-page .admin-form-grid {
-            align-items: start;
-        }
-
-        .pixel-edit-page .admin-form-checks {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            min-height: 2.95rem;
-            padding: 0.85rem 0.95rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.9rem;
-            background: #ffffff;
-            box-sizing: border-box;
-            align-items: center;
-        }
-
-        .pixel-edit-page .admin-form-checks input {
-            margin-right: 0.35rem;
-        }
-
-        .pixel-edit-page .admin-form-checks label {
-            display: inline-flex;
-            align-items: center;
-            min-height: 1.4rem;
-            margin: 0;
-            color: #0f172a;
-            font-weight: 600;
-        }
-
-        .pixel-edit-page .admin-form-type-note {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
-            margin-top: 1rem;
-            padding: 1rem 1.1rem;
-            border: 1px solid #dbeafe;
-            border-radius: 1rem;
-            background: linear-gradient(135deg, #eff6ff 0%, #f8fbff 100%);
-        }
-
-        .pixel-edit-page .admin-form-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            min-height: 2rem;
-            padding: 0.2rem 0.8rem;
-            border-radius: 9999px;
-            font-size: 0.82rem;
-            font-weight: 700;
-        }
-
-        .pixel-edit-page .admin-form-chip-icon {
-            width: 1.15rem;
-            height: 1.15rem;
-            object-fit: contain;
-            flex-shrink: 0;
-        }
-
-        .pixel-edit-page .admin-form-type-copy {
-            flex: 1;
-            min-width: 220px;
-            color: #334155;
-            line-height: 1.75;
-        }
-
-        .pixel-edit-page .admin-form-hint {
-            margin: 0;
-            color: #64748b;
-            font-size: 0.88rem;
-            line-height: 1.7;
-        }
-
-        .pixel-edit-page .admin-form-list-item strong {
-            display: block;
-            margin-bottom: 0.35rem;
-            color: #0f172a;
-        }
-
-        .pixel-edit-page .admin-form-device-list {
-            padding: 1rem 1.05rem;
-            border: 1px solid #dbeafe;
-            border-radius: 1rem;
-            background: #f8fbff;
-        }
-
-        .pixel-edit-page .admin-form-device-list table,
-        .pixel-edit-page .admin-form-device-list tbody,
-        .pixel-edit-page .admin-form-device-list tr,
-        .pixel-edit-page .admin-form-device-list td {
-            display: block;
-        }
-
-        .pixel-edit-page .admin-form-device-list label {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 1rem;
-            margin-bottom: 0.55rem;
-            color: #334155;
-        }
-
-        .pixel-edit-page .admin-form-device-list input {
-            margin-right: 0.35rem;
-        }
-
-        .pixel-edit-page .admin-form-editor-toolbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .pixel-edit-page .admin-form-editor-select {
-            min-height: 2.6rem;
-            padding: 0 2rem 0 0.9rem;
-            border: 1px solid #bfdbfe;
-            border-radius: 0.9rem;
-            background: #eff6ff;
-            color: #1d4ed8;
-            font-size: 0.88rem;
-            font-weight: 700;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.8rem center;
-        }
-
-        .pixel-edit-page .admin-form-editor-stage #wangeditor-wrap,
-        .pixel-edit-page .admin-form-editor-stage #vditor-wrap,
-        .pixel-edit-page .admin-form-editor-stage textarea,
-        .pixel-edit-page .admin-form-editor-stage .ke-container {
-            width: 100% !important;
-            max-width: 100%;
-        }
-
-        .pixel-edit-page .admin-form-editor-stage textarea {
-            min-height: 520px;
-        }
-
-        .pixel-edit-page .admin-form-link-inline {
-            color: #2563eb;
-            font-weight: 700;
-            text-decoration: none;
-            word-break: break-all;
-        }
-
-        .pixel-edit-page .admin-form-link-inline:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .pixel-edit-page .admin-form-editor-select {
-                width: 100%;
-            }
-        }
-    </style>
+    
 
     <div class="admin-form-page pixel-edit-page">
         <div class="admin-form-shell">
@@ -325,83 +151,7 @@
                 <script src="../js/vendors/vditor/index.min.js"></script>
                 <script src="../js/vendors/wangeditor/index.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-                <script>
-                    var editor;
-                    var wangEditorObj;
-                    var vditorObj;
-                    var currentEditor = 'kindeditor';
-                    var vditorReady = false;
-                    var pendingVditorHtml = null;
-                    var cid = <%=myCid() %>;
-                    var ty = 'Course';
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
-                            resizeType: 1,
-                            newlineTag: 'br',
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false,
-                            afterCreate: function () {
-                                this.loadPlugin('autoheight');
-                            }
-                        });
-                    });
-
-                    function initWangEditor() {
-                        if (wangEditorObj) return;
-                        const { createEditor, createToolbar } = window.wangEditor;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        wangEditorObj = createEditor({ selector: '#wangeditor-text', html: editor ? editor.html() : mcontent.value, config: { placeholder: '请输入内容...', MENU_CONF: { uploadImage: { server: upjs, customInsert(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } }, uploadAttachment: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } }, uploadFile: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } } } } });
-                        createToolbar({ editor: wangEditorObj, selector: '#wangeditor-toolbar', config: {} });
-                    }
-
-                    function safeHtml2Md(html) {
-                        try {
-                            if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
-                            var l = Lute.New();
-                            return l.HTML2Md(html);
-                        } catch (e) { return html; }
-                    }
-
-                    function initVditor() {
-                        if (vditorObj) return;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        let initialContent = editor ? editor.html() : mcontent.value;
-                        vditorObj = new Vditor('vditor-container', { height: 420, mode: 'ir', upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } }, preview: { mode: 'both' }, cache: { enable: false }, after: () => { vditorReady = true; let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent; if (contentToSet) vditorObj.setValue(safeHtml2Md(contentToSet)); pendingVditorHtml = null; } });
-                    }
-
-                    function switchEditor(type) {
-                        currentEditor = type;
-                        var kindContainer = document.querySelector('.ke-container');
-                        var wangContainer = document.getElementById('wangeditor-wrap');
-                        var vditorContainer = document.getElementById('vditor-wrap');
-                        var currentHtml = '';
-                        if (kindContainer && kindContainer.style.display !== 'none' && editor) currentHtml = editor.html();
-                        else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
-                        else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) { try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } } }
-                        if (kindContainer) kindContainer.style.display = 'none';
-                        if (wangContainer) wangContainer.style.display = 'none';
-                        if (vditorContainer) vditorContainer.style.display = 'none';
-                        if (type === 'kindeditor') { if (kindContainer) kindContainer.style.display = 'block'; if (editor && currentHtml) editor.html(currentHtml); }
-                        else if (type === 'wangeditor') { if (wangContainer) wangContainer.style.display = 'block'; if (!wangEditorObj) initWangEditor(); if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml); }
-                        else if (type === 'vditor') { if (vditorContainer) vditorContainer.style.display = 'block'; if (!vditorObj) { pendingVditorHtml = currentHtml; initVditor(); } else if (vditorReady) vditorObj.setValue(safeHtml2Md(currentHtml)); else pendingVditorHtml = currentHtml; }
-                    }
-
-                    function syncContent() {
-                        if (editor) editor.sync();
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        if (!mcontent) return true;
-                        if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
-                        else if (currentEditor === 'vditor' && vditorObj) {
-                            try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
-                        }
-                        return true;
-                    }
-                </script>
+                
 
                 <div class="admin-form-editor-stage">
                     <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #cbd5e1; z-index:100; margin-bottom:10px; border-radius:14px; overflow:hidden;">
@@ -429,4 +179,11 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__pixeleditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pixeledit.js"></script>
 </asp:Content>

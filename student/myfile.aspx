@@ -1,47 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="myfile.aspx.cs" Inherits="Student_myfile" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
-<style>
-    /* File type badge colors */
-    .ft-badge {
-        display: inline-block; padding: 2px 8px; border-radius: 6px;
-        font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
-        text-transform: uppercase; font-family: monospace;
-    }
-    .ft-zip  { background:#fef3c7; color:#92400e; }
-    .ft-exe  { background:#fee2e2; color:#991b1b; }
-    .ft-pdf  { background:#fde8d8; color:#c2410c; }
-    .ft-doc,.ft-docx { background:#dbeafe; color:#1e40af; }
-    .ft-xls,.ft-xlsx { background:#dcfce7; color:#166534; }
-    .ft-ppt,.ft-pptx { background:#fce7f3; color:#9d174d; }
-    .ft-mp4,.ft-avi,.ft-mov { background:#ede9fe; color:#5b21b6; }
-    .ft-mp3,.ft-wav { background:#d1fae5; color:#065f46; }
-    .ft-png,.ft-jpg,.ft-gif { background:#e0f2fe; color:#0c4a6e; }
-    .ft-default { background:#f1f5f9; color:#475569; }
 
-    /* Category sidebar button */
-    .cat-btn {
-        display: flex; align-items: center; gap: 8px; width: 100%;
-        padding: 8px 12px; border-radius: 10px; text-align: left;
-        font-size: 14px; font-weight: 500; color: #3730a3;
-        background: transparent; transition: all 0.18s ease;
-        text-decoration: none !important;
-        border-bottom: 1px solid rgba(99,102,241,0.08);
-    }
-    .cat-btn:hover, .cat-btn:visited { color: #3730a3 !important; }
-    .cat-btn:hover { background: rgba(99,102,241,0.08); color: #312e81 !important; }
-    .cat-btn-icon { color: #6366f1; flex-shrink: 0; }
-
-    /* GridView row hover override from code-behind inline styles */
-    #GVSoftWrapper table tr:hover td { background-color: #f0f4ff !important; }
-
-    /* Download count badge */
-    .dl-count {
-        display: inline-flex; align-items: center; gap: 3px;
-        background: #ecfdf5; color: #065f46;
-        padding: 2px 8px; border-radius: 20px; font-size: 12px; font-weight: 600;
-    }
-</style>
 
 <div class="space-y-6 w-full">
     <!-- Page Header -->
@@ -189,53 +149,12 @@
     </div>
 </div>
 
-<script type="text/javascript">
-// Render file type badges with color coding
-(function() {
-    var colorMap = {
-        'zip':'ft-zip','rar':'ft-zip','7z':'ft-zip',
-        'exe':'ft-exe','msi':'ft-exe',
-        'pdf':'ft-pdf',
-        'doc':'ft-doc','docx':'ft-docx',
-        'xls':'ft-xls','xlsx':'ft-xlsx',
-        'ppt':'ft-ppt','pptx':'ft-pptx',
-        'mp4':'ft-mp4','avi':'ft-avi','mov':'ft-mov',
-        'mp3':'ft-mp3','wav':'ft-wav',
-        'png':'ft-png','jpg':'ft-png','gif':'ft-gif','jpeg':'ft-png'
-    };
-    // Target the 4th column (index 3) cells in GVSoft
-    var table = document.getElementById('<%= GVSoft.ClientID %>');
-    if (!table) return;
-    var rows = table.rows;
-    for (var i = 1; i < rows.length; i++) {
-        var cells = rows[i].cells;
-        if (cells.length < 4) continue;
-        // File type cell (col index 3)
-        var ftCell = cells[3];
-        var ext = (ftCell.innerText || ftCell.textContent || '').trim().toLowerCase().replace('.','');
-        var cls = colorMap[ext] || 'ft-default';
-        if (ext) {
-            ftCell.innerHTML = '<span class="ft-badge ' + cls + '">' + ext + '</span>';
-        }
-        // Download count cell (col index 4)
-        var dlCell = cells[4];
-        var count = (dlCell.innerText || dlCell.textContent || '').trim();
-        if (count !== '') {
-            dlCell.innerHTML = '<span class="dl-count"><svg style="width:11px;height:11px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>' + count + '</span>';
-        }
-    }
-    // Style category hyperlinks as cat-btn
-    var catTable = document.getElementById('<%= GVcategory.ClientID %>');
-    if (catTable) {
-        var catRows = catTable.rows;
-        for (var j = 0; j < catRows.length; j++) {
-            var links = catRows[j].getElementsByTagName('a');
-            for (var k = 0; k < links.length; k++) {
-                links[k].className = 'cat-btn';
-                links[k].innerHTML = '<svg class="cat-btn-icon" style="width:14px;height:14px;flex-shrink:0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>' + links[k].textContent;
-            }
-        }
-    }
-})();
-</script>
+
+    <script type="text/javascript">
+        window.__myfileConfig = {
+            gVSoftId: '<%= GVSoft.ClientID %>',
+            gVcategoryId: '<%= GVcategory.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/myfile.js"></script>
 </asp:Content>

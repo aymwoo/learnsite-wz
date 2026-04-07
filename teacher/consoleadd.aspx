@@ -4,28 +4,7 @@
     <link href="../App_Themes/Teacher/course-content-add.css" rel="stylesheet" />
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
-    <style type="text/css">
-        .console-add-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #f0f4ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #1e1b4b 0%, #4338ca 55%, #7c3aed 100%);
-            --content-add-hero-shadow: 0 22px 45px -28px rgba(109, 40, 217, 0.75);
-            --content-add-primary-bg: #7c3aed;
-            --content-add-primary-hover: #6d28d9;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(124, 58, 237, 0.85);
-        }
-        .console-add-editor-stage textarea {
-            width: 100%;
-            height: 500px;
-        }
-
-        .console-add-editor-stage #wangeditor-wrap,
-        .console-add-editor-stage #vditor-wrap,
-        .console-add-editor-stage textarea,
-        .console-add-editor-stage .ke-container {
-            width: 100% !important;
-            max-width: 100%;
-        }
-    </style>
+    
 
     <div class="content-add-page console-add-page">
         <div class="content-add-shell is-medium">
@@ -79,80 +58,7 @@
                 <script src="../js/vendors/vditor/index.min.js"></script>
                 <script src="../js/vendors/wangeditor/index.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-                <script type="text/javascript">
-                    var editor;
-                    var wangEditorObj;
-                    var vditorObj;
-                    var currentEditor = 'kindeditor';
-                    var vditorReady = false;
-                    var pendingVditorHtml = null;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false
-                        });
-                    });
-                    function syncContent() {
-                        if (editor) {
-                            editor.sync();
-                        }
-                        var mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        if (currentEditor === 'wangeditor' && wangEditorObj) {
-                            mcontent.value = wangEditorObj.getHtml();
-                        } else if (currentEditor === 'vditor' && vditorObj) {
-                            try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
-                        }
-                        return true;
-                    }
-
-                    function initWangEditor() {
-                        if (wangEditorObj) return;
-                        const { createEditor, createToolbar } = window.wangEditor;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        wangEditorObj = createEditor({ selector: '#wangeditor-text', html: editor ? editor.html() : mcontent.value, config: { placeholder: '请输入内容...', MENU_CONF: { uploadImage: { server: upjs, customInsert(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } }, uploadAttachment: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } }, uploadFile: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } } } } });
-                        createToolbar({ editor: wangEditorObj, selector: '#wangeditor-toolbar', config: {} });
-                    }
-
-                    function safeHtml2Md(html) {
-                        try {
-                            if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
-                            var l = Lute.New();
-                            return l.HTML2Md(html);
-                        } catch (e) { return html; }
-                    }
-
-                    function initVditor() {
-                        if (vditorObj) return;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        let initialContent = editor ? editor.html() : mcontent.value;
-                        vditorObj = new Vditor('vditor-container', { height: 460, mode: 'ir', upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } }, preview: { mode: 'both' }, cache: { enable: false }, after: () => { vditorReady = true; let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent; if (contentToSet) vditorObj.setValue(safeHtml2Md(contentToSet)); pendingVditorHtml = null; } });
-                    }
-
-                    function switchEditor(type) {
-                        currentEditor = type;
-                        var kindContainer = document.querySelector('.ke-container');
-                        var wangContainer = document.getElementById('wangeditor-wrap');
-                        var vditorContainer = document.getElementById('vditor-wrap');
-                        var currentHtml = '';
-                        if (kindContainer && kindContainer.style.display !== 'none' && editor) currentHtml = editor.html();
-                        else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
-                        else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) { try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } } }
-                        if (kindContainer) kindContainer.style.display = 'none';
-                        if (wangContainer) wangContainer.style.display = 'none';
-                        if (vditorContainer) vditorContainer.style.display = 'none';
-                        if (type === 'kindeditor') { if (kindContainer) kindContainer.style.display = 'block'; if (editor && currentHtml) editor.html(currentHtml); }
-                        else if (type === 'wangeditor') { if (wangContainer) wangContainer.style.display = 'block'; if (!wangEditorObj) initWangEditor(); if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml); }
-                        else if (type === 'vditor') { if (vditorContainer) vditorContainer.style.display = 'block'; if (!vditorObj) { pendingVditorHtml = currentHtml; initVditor(); } else if (vditorReady) vditorObj.setValue(safeHtml2Md(currentHtml)); else pendingVditorHtml = currentHtml; }
-                    }
-                </script>
+                
 
                 <div class="content-add-editor-stage console-add-editor-stage">
                     <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100; margin-bottom:10px;">
@@ -184,4 +90,11 @@
 
         </div>
     </div>
+    <script type="text/javascript">
+        window.__consoleaddConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/consoleadd.js"></script>
 </asp:Content>

@@ -23,6 +23,7 @@ public partial class UpGrade : System.Web.UI.Page
     protected string PendingPerformanceHtml = "";
     protected bool CanUpgrade = false;
     private int CollapsibleListSeed = 0;
+    private bool? DatabaseAvailable;
 
     protected void BtnAnalyze_Click(object sender, EventArgs e)
     {
@@ -45,8 +46,16 @@ public partial class UpGrade : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        CurrentDbVersion = LearnSite.DBUtility.UpdateGrade.GetCurrentVersion();
         TargetDbVersion = GetDisplayTargetVersion();
+        if (IsDatabaseAvailable())
+        {
+            CurrentDbVersion = LearnSite.DBUtility.UpdateGrade.GetCurrentVersion();
+        }
+        else
+        {
+            CurrentDbVersion = "无法连接";
+        }
+
         if (!IsPostBack)
             checkdatabase();
     }
@@ -367,21 +376,38 @@ public partial class UpGrade : System.Web.UI.Page
 
     private void checkdatabase()
     {
-        if (!LearnSite.DBUtility.SqlHelper.DatabaseExist())//如果数据库不存在
+        if (!IsDatabaseAvailable())//如果数据库不存在
         {
+            LastAnalyzeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            ConnectedDatabaseName = GetCurrentDatabaseName();
+            CurrentDbVersion = "无法连接";
+            UpgradeMode = "数据库连接失败";
+            UpgradeDecision = "请先修改连接配置";
+            RiskLevel = "高";
+            UpgradeSummaryHtml = BuildListHtml(new List<string>
+            {
+                "当前程序还没有连上 SQL Server，暂时无法读取数据库版本、数据表和迁移状态。",
+                "请先检查数据库服务器地址、实例名、数据库名称、账号和密码是否正确。",
+                "保存配置成功后，请点击“重新检查数据库”，确认连接恢复正常。"
+            }, "upgrade-check-list");
+            UpgradeRiskHtml = BuildListHtml(new List<string>
+            {
+                "如果连接串仍指向错误服务器或错误实例，首页和教师页都会继续跳转到本页。",
+                "如果 SQL Server 未启动、未开启 TCP/IP，或 sa 账号不可用，保存配置后仍然无法连接。"
+            }, "upgrade-risk-list");
+            PendingMigrationHtml = BuildListHtml(new List<string>
+            {
+                "连接数据库成功后，系统才会显示待执行迁移和升级建议。"
+            }, "upgrade-pending-list");
+            PendingStructureHtml = BuildListHtml(new List<string>(), "upgrade-pending-list");
+            PendingDataHtml = BuildListHtml(new List<string>(), "upgrade-pending-list");
+            PendingPerformanceHtml = BuildListHtml(new List<string>(), "upgrade-pending-list");
             Panel1.Visible = true;
             showPanel();
             Btnupgrade.Enabled = false;
-            string msgstr = "";
-            if (MasterDbExist(TextBoxSqlServer.Text, TextBoxDbUser.Text, TextBoxDbPwd.Text))
-            {
-                msgstr = "数据库服务名称、账号、密码正确！<br/><br/>如果数据库已创建，请在下面修改为正确数据库名称！<br/><br/>如果未创建新数据库，请填写你的新数据库名称！";
-            }
-            else
-            {
-                msgstr = "数据库服务名称、账号、密码不正确！请改修改正确！";
-            }
-            Labelmsg.Text = msgstr;
+            Btnupgrade.Visible = false;
+            BtnCreateTable.Visible = false;
+            Labelmsg.Text = "当前程序还没有连接上 SQL Server。请先检查数据库服务器名称或实例名、数据库名称、账号和密码；如果 SQL Server 未启动或未开启 TCP/IP，也会导致这里无法连接。";
         }
         else
         {
@@ -400,6 +426,15 @@ public partial class UpGrade : System.Web.UI.Page
                 Labelmsg.Text = "数据库连接正常！第一次安装请点击创建数据表按钮后，然后执行更新进行初始化！";
             }
         }
+    }
+
+    private bool IsDatabaseAvailable()
+    {
+        if (!DatabaseAvailable.HasValue)
+        {
+            DatabaseAvailable = LearnSite.DBUtility.SqlHelper.DatabaseExist();
+        }
+        return DatabaseAvailable.Value;
     }
 
     private void showPanel()

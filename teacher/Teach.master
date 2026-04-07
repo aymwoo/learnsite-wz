@@ -98,7 +98,7 @@
 
                 <!-- Content Area -->
                 <main class="flex-1 overflow-y-auto bg-slate-50/50 p-4 md:p-6 lg:p-8 relative custom-scrollbar">
-                    <div class="mx-auto min-h-full">
+                    <div class="mx-auto min-h-full w-full max-w-[1600px]">
                         <div class="bg-white shadow-sm ring-1 ring-slate-200/50 rounded-2xl min-h-[calc(100vh-8rem)] overflow-hidden">
                             <asp:ContentPlaceHolder id="Content" runat="server">
                             </asp:ContentPlaceHolder>
@@ -111,6 +111,68 @@
             html, body, #form1 {
                 max-width: 100vw;
                 overflow-x: hidden;
+            }
+            main .course-hero-content,
+            main .course-old-hero-content,
+            main .course-create-hero-content,
+            main .course-import-hero-content,
+            main .course-edit-hero-content,
+            main .content-add-hero-content,
+            main .admin-form-hero-content,
+            main .course-show-hero-content,
+            main [class$='-hero-content'],
+            main [class*=' hero-content'],
+            main [class$='__hero-content'],
+            main [class*=' hero__content'] {
+                text-align: left !important;
+            }
+            main .course-title,
+            main .course-old-title,
+            main .course-create-title,
+            main .course-import-title,
+            main .course-edit-title,
+            main .content-add-title,
+            main .admin-form-title,
+            main .course-show-title,
+            main [class$='-hero__title'],
+            main [class*=' hero__title'],
+            main [class$='-hero-title'],
+            main [class*=' hero-title'],
+            main .survey-settings-title,
+            main .survey-settings-toolbar-title,
+            main .typing-admin-title {
+                color: #ffffff !important;
+                text-align: left !important;
+            }
+            main .course-subtitle,
+            main .course-old-subtitle,
+            main .course-create-subtitle,
+            main .course-import-subtitle,
+            main .course-edit-subtitle,
+            main .content-add-subtitle,
+            main .admin-form-subtitle,
+            main [class$='-hero__subtitle'],
+            main [class*=' hero__subtitle'],
+            main [class$='-hero-subtitle'],
+            main [class*=' hero-subtitle'],
+            main .survey-settings-subtitle,
+            main .typing-admin-subtitle {
+                color: rgba(255, 255, 255, 0.88) !important;
+                text-align: left !important;
+            }
+            main .course-eyebrow,
+            main .course-old-eyebrow,
+            main .course-create-eyebrow,
+            main .course-import-eyebrow,
+            main .course-edit-eyebrow,
+            main .content-add-eyebrow,
+            main .admin-form-eyebrow,
+            main [class$='-hero__eyebrow'],
+            main [class*=' hero__eyebrow'],
+            main .survey-settings-toolbar-eyebrow,
+            main .presurvey-toolbar__eyebrow,
+            main .typing-admin-eyebrow {
+                text-align: left !important;
             }
             /* Reset Sidebar legacy styles */
             #MenuDiv ul, #MenuDiv li {

@@ -10,93 +10,10 @@
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     <script src="../js/MenuCookie.js" type="text/javascript"></script>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
-    <style type="text/css">
-
-#editor{
-  top:  8px;
-  left: 0px;
-  height:320px;
-  background-color: #fef8e4;
-  max-width:980px;
-}
-
-.btn{
-  border: 1px solid #e0dbcb; 
-  text-decoration: none;
-  background-color: #f1ebd4;
-   width:80px;
-}
-
-#savemsg
-{  
-  bottom: 60px;
-  margin: 10px;
-  z-index: 999;
-  color:#ed7d31; 
-  font-size:32px; 
-  width: 100%;
-  text-align:center;  
-}
-#result{ 
-  top:  0px;
-  left: 600px;
-  height:160px;
-  min-width:550px;  
-  background-color: #666;
-  color:#ccc;
-  max-width:980px;
-}
-#output{ 
-    text-align:left;
-    padding:10px;
-}
-
-.input
-{
-	font-size:14px;
-    height:20px;
-	border:1px solid #ccc;
-}
-.input:focus{
-    height:20px;
-	outline: none;
-	border:1px solid #ccc;
-}
-#centerbar{
-  position: absolute;
-  margin: 10px;
-  z-index: 999;
-  top: 250px;  
-  width: 800px;
-  text-align:right;
-}
-
-.problem-editor-switch {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin:8px 0;
-}
-
-.problem-editor-switch select {
-  min-height:36px;
-  padding:0 28px 0 10px;
-  border:1px solid #cbd5e1;
-  border-radius:8px;
-  background:#fff;
-  color:#0f172a;
-}
-
-#problem-wangeditor-wrap,
-#problem-vditor-wrap,
-#mcontent,
-.ke-container {
-  max-width:980px;
-  width:980px !important;
-}
-</style>
+    
 
     <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/problem.css" />
 </head>
 <body >
        <form id="form1" runat="server" > 
@@ -192,27 +109,7 @@
   <!-- 用来提供代码提示和自动补全的插件 -->
   <script src="../code/build/src/ext-language_tools.js" type="text/javascript"></script>
   <script src="../code/build/src/ext-beautify.js" type="text/javascript"></script>
-  <script type="text/javascript">
-    // ace.require("ace/ext/language_tools");
-    // 初始化editor(）
-    var aeditor = ace.edit("editor");
-    aeditor.setOptions({
-      // 默认:false
-      wrap: true, // 换行
-      // autoScrollEditorIntoView: false, // 自动滚动编辑器视图
-      enableLiveAutocompletion: true, // 智能补全
-      enableSnippets: true, // 启用代码段
-      //enableBasicAutocompletion: true, // 启用基本完成 不推荐使用
-    });
-    // 设置主题  cobalt monokai vscode xcode textmate sqlserver  twilight
-    aeditor.setTheme("ace/theme/textmate");
-    // 设置编辑语言
-    aeditor.getSession().setMode("ace/mode/python");
-    aeditor.setFontSize(24);
-    aeditor.setReadOnly(false)
-    aeditor.getSession().setTabSize(4);
-
-  </script>
+  
 
 
 <script src="../code/skulpt.min.js" type="text/javascript"></script>
@@ -220,246 +117,23 @@
 <script src="../code/html2canvas.min.js" type="text/javascript"></script>
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-    var mycode = document.getElementById("code");
-    var pprint = document.getElementById("print");
 
-    var mypre = document.getElementById("output");
-    var result = document.getElementById("result");
-    var savemsg = document.getElementById("savemsg");
-
-    function outf(text) {
-        mypre.innerText = mypre.innerText + text;
-    }
-    function builtinRead(x) {
-        if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-            throw "File not found: '" + x + "'";
-        return Sk.builtinFiles["files"][x];
-    }
-
-    result.onclick = function () {
-        output.focus();
-    }
-
-    function initedit() {
-        var cc = mycode.value;
-        var pp = pprint.value;
-        if (cc.length > 0) {
-            aeditor.setValue(cc);
-            mypre.innerText = pp;
-        }
-    }
-
-    window.addEventListener('load', function () {
-        mycode = document.getElementById("code");
-        pprint = document.getElementById("print");
-        console.log(mycode);
-        console.log(pprint);
-        initedit();
-    });
-
-    function myfun() {
-        return new Promise(function (resolve, reject) {
-            var myinput = document.createElement("input");
-            myinput.setAttribute("type", "text");
-            myinput.setAttribute("class", "input");
-            mypre.appendChild(myinput);
-            myinput.focus();
-            result.onclick = function () {
-                myinput.focus();
-            }
-
-            myinput.onkeypress = function () {
-                if (event.keyCode == 13) {
-                    args = myinput.value;
-                    console.log(args);
-                    resolve(args);
-                    mypre.removeChild(myinput);
-                    temp = mypre.innerText;
-                    temp = temp + args;
-                    mypre.innerHTML = temp + "\n";
-                }
-            }
-        })
-    }
-    function clearit() {
-        output.innerHTML = '';
-        mypre.innerHTML = '';
-        pprint.value = '';
-    }
-    function runit() {
-        var prog = aeditor.getValue();
-        mypre.innerHTML = '';
-        output.innerHTML = '';
-        Sk.pre = "output";
-        Sk.configure({ output: outf, read: builtinRead, __future__: Sk.python3, inputfun: myfun });
-
-        var myPromise = Sk.misceval.asyncToPromise(function () {
-            return Sk.importMainWithBody("<stdin>", false, prog, true);
-        });
-
-        myPromise.then(function (mod) {
-            console.log('运行成功!');
-            mycode.value = prog;
-            pprint.value = output.innerText;
-            console.log('代码：');
-            console.log(mycode.value);
-            console.log('输出结果：');
-            console.log(pprint.value);
-            //getsvg();
-        },
-    function (err) {
-        var msg = err.toString();
-        console.log(msg);
-        mypre.innerHTML = msg;
-    });
-    }
-
-    function getsvg() {
-        var op = output.innerHTML;
-        if (op == '') {
-            var canvas = document.createElement("canvas");
-            if (canvas != null) {
-                var dataUrl = canvas.toDataURL('image/jpeg');
-                pprint.value = dataUrl;
-                console.log(dataUrl);
-            }
-        }
-    }
-
-    document.onkeyup = keyUp;
-    function keyUp() {
-        var prog = aeditor.getValue();
-        mycode.value = prog;
-        voice();
-    }
-    function voice() {
-        var audio = document.createElement("audio");
-        audio.src = '../code/code.ogg';
-        audio.play();
-    }
-</script>
 <script charset="utf-8" src="../kindeditor/kindeditor-min.js" type="text/javascript"></script>
 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js" type="text/javascript"></script>
 <script src="../js/vendors/vditor/index.min.js"></script>
 <script src="../js/vendors/wangeditor/index.js"></script>
 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-<script>
-	var keditor;
-	var wangEditorObj;
-	var vditorObj;
-	var currentEditor = 'kindeditor';
-	var vditorReady = false;
-	var pendingVditorHtml = null;
-	var cid= <%=myCid() %>;
-	var ty="Course";
-	var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&ty='+ty;
-	var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&ty='+ty;
-	KindEditor.ready(function (K) {
-		keditor = K.create('#mcontent', {
-		    resizeType: 1,
-		    pasteType: 1,
-		    newlineTag: "br",				
-			uploadJson : upjs,
-			fileManagerJson : fmjs,
-			allowFileManager : true,
-			filterMode : false,
-		    allowImageUpload: true,
-		    items: ['fontname', 'fontsize', '|', 'bold', 'italic','removeformat','image','about']
-		});
-	});
-
-	function initProblemWangEditor() {
-		if (wangEditorObj) return;
-		const createEditor = window.wangEditor.createEditor;
-		const createToolbar = window.wangEditor.createToolbar;
-		const mcontent = document.getElementById('mcontent');
-		wangEditorObj = createEditor({
-			selector: '#problem-wangeditor-text',
-			html: keditor ? keditor.html() : mcontent.value,
-			config: {
-				placeholder: '请输入试题内容...',
-				MENU_CONF: {
-					uploadImage: { server: upjs, customInsert: function(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } },
-					uploadAttachment: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } },
-					uploadFile: { server: upjs, customInsert: function(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } }
-				}
-			}
-		});
-		createToolbar({ editor: wangEditorObj, selector: '#problem-wangeditor-toolbar', config: {} });
-	}
-
-	function safeProblemHtml2Md(html) {
-		try {
-			if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
-			var l = Lute.New();
-			return l.HTML2Md(html);
-		} catch (e) { return html; }
-	}
-
-	function initProblemVditor() {
-		if (vditorObj) return;
-		const mcontent = document.getElementById('mcontent');
-		var initialContent = keditor ? keditor.html() : mcontent.value;
-		vditorObj = new Vditor('problem-vditor-container', {
-			height: 260,
-			mode: 'ir',
-			upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } },
-			preview: { mode: 'both' },
-			cache: { enable: false },
-			after: function () {
-				vditorReady = true;
-				var contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-				if (contentToSet) vditorObj.setValue(safeProblemHtml2Md(contentToSet));
-				pendingVditorHtml = null;
-			}
-		});
-	}
-
-	function syncProblemContent() {
-		var mcontent = document.getElementById('mcontent');
-		if (!mcontent) return true;
-		if (currentEditor === 'kindeditor' && keditor) mcontent.value = keditor.html();
-		else if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
-		else if (currentEditor === 'vditor' && vditorObj) {
-			try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
-		}
-		return true;
-	}
-
-	function switchProblemEditor(type) {
-		currentEditor = type;
-		var kindContainer = document.querySelector('.ke-container');
-		var wangContainer = document.getElementById('problem-wangeditor-wrap');
-		var vditorContainer = document.getElementById('problem-vditor-wrap');
-		var currentHtml = '';
-		if (kindContainer && kindContainer.style.display !== 'none' && keditor) currentHtml = keditor.html();
-		else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
-		else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
-			try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } }
-		}
-		if (kindContainer) kindContainer.style.display = 'none';
-		if (wangContainer) wangContainer.style.display = 'none';
-		if (vditorContainer) vditorContainer.style.display = 'none';
-		if (type === 'kindeditor') {
-			if (kindContainer) kindContainer.style.display = 'block';
-			if (keditor && currentHtml) keditor.html(currentHtml);
-		} else if (type === 'wangeditor') {
-			if (wangContainer) wangContainer.style.display = 'block';
-			if (!wangEditorObj) initProblemWangEditor();
-			if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
-		} else if (type === 'vditor') {
-			if (vditorContainer) vditorContainer.style.display = 'block';
-			if (!vditorObj) { pendingVditorHtml = currentHtml; initProblemVditor(); }
-			else if (vditorReady) vditorObj.setValue(safeProblemHtml2Md(currentHtml));
-			else pendingVditorHtml = currentHtml;
-		}
-	}
-</script> 
+ 
         </div>         
         </div>   
         </div>
     </div>    
+    <script type="text/javascript">
+        window.__problemConfig = {
+            myCid: "<%=myCid() %>"
+        };
+    </script>
+    <script type="text/javascript" src="../js/problem.js"></script>
     </form>
 </body>
 </html>

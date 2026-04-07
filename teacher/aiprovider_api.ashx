@@ -373,6 +373,8 @@ public class aiprovider_api : IHttpHandler {
     
     private void Chat(HttpContext context)
     {
+        context.Server.ScriptTimeout = 180;
+
         string prompt = context.Request["prompt"];
         if (string.IsNullOrEmpty(prompt))
         {
@@ -408,6 +410,8 @@ public class aiprovider_api : IHttpHandler {
             var requestBody = new
             {
                 model = modelName,
+                temperature = 0.7,
+                max_tokens = 1200,
                 messages = new[]
                 {
                     new { role = "user", content = prompt }
@@ -419,7 +423,8 @@ public class aiprovider_api : IHttpHandler {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(chatUrl);
             request.Method = "POST";
             request.ContentType = "application/json";
-            request.Timeout = 60000; // 60 seconds timeout for generation
+            request.Timeout = 120000; // 120 seconds timeout for generation
+            request.ReadWriteTimeout = 120000;
             
             if (!string.IsNullOrEmpty(apiKey))
             {

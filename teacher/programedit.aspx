@@ -4,79 +4,7 @@
     <link href="../js/fileupload.css" rel="stylesheet" />
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
-    <style type="text/css">
-        .program-edit-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #818cf8 100%);
-            --content-add-primary-bg: #4f46e5;
-            --content-add-primary-hover: #4338ca;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
-        }
-
-        .program-edit-example {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 2.95rem;
-            padding: 0 0.95rem;
-            border-radius: 0.375rem;
-            border: 1px solid #bbf7d0;
-            background: #ecfdf5;
-            color: #166534;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .program-edit-editor-stage textarea {
-            width: 830px;
-            height: 450px;
-        }
-
-        .program-edit-editor-wrap {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 1rem;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .program-edit-editor-select {
-            min-height: 38px;
-            padding: 0 32px 0 12px;
-            border: 1px solid #c7d2fe;
-            border-radius: .75rem;
-            background: #eef2ff;
-            color: #312e81;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364738b' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-
-        .program-edit-editor-stage #wangeditor-wrap,
-        .program-edit-editor-stage #vditor-wrap,
-        .program-edit-editor-stage textarea,
-        .program-edit-editor-stage .ke-container {
-            width: 100% !important;
-            max-width: 100%;
-        }
-
-        .program-edit-editor-stage #vditor-container {
-            width: 100%;
-        }
-
-        .program-edit-editor-stage .vditor {
-            border: 1px solid #dbe3f4;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #fff;
-        }
-    </style>
+    
 
     <div class="content-add-page program-edit-page">
         <div class="content-add-shell is-medium">
@@ -148,117 +76,7 @@
                 <script src="../js/vendors/vditor/index.min.js"></script>
                 <script src="../js/vendors/wangeditor/index.js"></script>
                 <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
-                <script>
-                    var editor;
-                    var wangEditorObj;
-                    var vditorObj;
-                    var currentEditor = 'kindeditor';
-                    var vditorReady = false;
-                    var pendingVditorHtml = null;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false,
-                            afterCreate: function () {
-                                this.loadPlugin('autoheight');
-                            }
-                        });
-                    });
-
-                    function initWangEditor() {
-                        if (wangEditorObj) return;
-                        const { createEditor, createToolbar } = window.wangEditor;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        wangEditorObj = createEditor({
-                            selector: '#wangeditor-text',
-                            html: editor ? editor.html() : mcontent.value,
-                            config: {
-                                placeholder: '请输入内容...',
-                                MENU_CONF: {
-                                    uploadImage: { server: upjs, customInsert(res, insertFn) { if (res.error === 0) insertFn(res.url); else alert(res.message || '图片上传失败'); } },
-                                    uploadAttachment: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '附件上传失败'); } },
-                                    uploadFile: { server: upjs, customInsert(res) { if (res.error === 0) LearnSiteEditorUploadHelper.insertUploadedLinkToWangEditor(wangEditorObj, res); else alert(res.message || '文件上传失败'); } }
-                                }
-                            }
-                        });
-                        createToolbar({ editor: wangEditorObj, selector: '#wangeditor-toolbar', config: {} });
-                    }
-
-                    function safeHtml2Md(html) {
-                        try {
-                            if (vditorObj && vditorObj.vditor && vditorObj.vditor.lute) return vditorObj.vditor.lute.HTML2Md(html);
-                            var l = Lute.New();
-                            return l.HTML2Md(html);
-                        } catch (e) { return html; }
-                    }
-
-                    function initVditor() {
-                        if (vditorObj) return;
-                        const mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        let initialContent = editor ? editor.html() : mcontent.value;
-                        vditorObj = new Vditor('vditor-container', {
-                            height: 400,
-                            mode: 'ir',
-                            upload: { handler: function (files) { LearnSiteEditorUploadHelper.handleVditorUpload(vditorObj, upjs, files); } },
-                            preview: { mode: 'both' },
-                            cache: { enable: false },
-                            after: () => {
-                                vditorReady = true;
-                                let contentToSet = pendingVditorHtml !== null ? pendingVditorHtml : initialContent;
-                                if (contentToSet) vditorObj.setValue(safeHtml2Md(contentToSet));
-                                pendingVditorHtml = null;
-                            }
-                        });
-                    }
-
-                    function switchEditor(type) {
-                        currentEditor = type;
-                        var kindContainer = document.querySelector('.ke-container');
-                        var wangContainer = document.getElementById('wangeditor-wrap');
-                        var vditorContainer = document.getElementById('vditor-wrap');
-                        var currentHtml = '';
-                        if (kindContainer && kindContainer.style.display !== 'none' && editor) currentHtml = editor.html();
-                        else if (wangContainer && wangContainer.style.display !== 'none' && wangEditorObj) currentHtml = wangEditorObj.getHtml();
-                        else if (vditorContainer && vditorContainer.style.display !== 'none' && vditorObj && vditorReady) {
-                            try { currentHtml = vditorObj.getHTML(); } catch (e) { try { currentHtml = vditorObj.getValue(); } catch (e2) { currentHtml = ''; } }
-                        }
-                        if (kindContainer) kindContainer.style.display = 'none';
-                        if (wangContainer) wangContainer.style.display = 'none';
-                        if (vditorContainer) vditorContainer.style.display = 'none';
-                        if (type === 'kindeditor') {
-                            if (kindContainer) kindContainer.style.display = 'block';
-                            if (editor && currentHtml) editor.html(currentHtml);
-                        } else if (type === 'wangeditor') {
-                            if (wangContainer) wangContainer.style.display = 'block';
-                            if (!wangEditorObj) initWangEditor();
-                            if (wangEditorObj && currentHtml) wangEditorObj.setHtml(currentHtml);
-                        } else if (type === 'vditor') {
-                            if (vditorContainer) vditorContainer.style.display = 'block';
-                            if (!vditorObj) { pendingVditorHtml = currentHtml; initVditor(); }
-                            else if (vditorReady) vditorObj.setValue(safeHtml2Md(currentHtml));
-                            else pendingVditorHtml = currentHtml;
-                        }
-                    }
-
-                    function syncContent() {
-                        if (editor) editor.sync();
-                        var mcontent = document.getElementById('<%= mcontent.ClientID %>');
-                        if (!mcontent) return true;
-                        if (currentEditor === 'wangeditor' && wangEditorObj) mcontent.value = wangEditorObj.getHtml();
-                        else if (currentEditor === 'vditor' && vditorObj) {
-                            try { mcontent.value = vditorObj.getHTML(); } catch (e) { try { mcontent.value = vditorObj.getValue(); } catch (e2) {} }
-                        }
-                        return true;
-                    }
-                </script>
+                
                 <div class="content-add-editor-stage program-edit-editor-stage custom-scrollbar">
                     <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
                         <div id="wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
@@ -284,4 +102,11 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__programeditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/programedit.js"></script>
 </asp:Content>

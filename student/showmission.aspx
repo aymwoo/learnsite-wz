@@ -1,35 +1,14 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true"  StylesheetTheme="Student"  CodeFile="showmission.aspx.cs" Inherits="Student_showmission" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
-<style>
-    .prog-wrap * { box-sizing: border-box; }
-    .prog-grid { display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; width: 100%; }
-    @media (max-width: 1024px) { .prog-grid { grid-template-columns: 1fr; } .prog-sidebar { position: static !important; } }
-    .prog-card { border: 1px solid #dbe6f5; border-radius: 0.75rem; background: rgba(255,255,255,0.97); box-shadow: 0 12px 30px rgba(15,23,42,0.05); min-width: 0; }
-    .prog-sidebar { position: sticky; top: 116px; }
-    .prog-sidebar-card { background: linear-gradient(160deg, #ffffff 0%, #eef2ff 100%); }
-    .prog-card__head { display: flex; align-items: center; gap: 10px; padding: 16px 20px 0; }
-    .prog-card__title { margin: 0; font-size: 15px; font-weight: 800; color: #0f172a; flex: 1; }
-    .prog-sidebar-icon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 0.5rem; background: #e0e7ff; color: #4338ca; flex-shrink: 0; }
-    .prog-sidebar-icon svg { width: 15px; height: 15px; }
-    .prog-card__body { padding: 14px 20px 18px; }
-    .prog-divider { border: none; border-top: 1px solid #e2e8f0; margin: 12px 0; }
-    .prog-btn-stack { display: flex; flex-direction: column; gap: 8px; }
-    .prog-btn-secondary { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 38px; padding: 0 14px; border-radius: 0.375rem; font-size: 13px; font-weight: 700; cursor: pointer; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; transition: transform 0.18s; }
-    .prog-btn-secondary:hover { transform: translateY(-1px); background: #dbeafe; }
-    .prog-btn-outline { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 38px; padding: 0 14px; border-radius: 0.375rem; font-size: 13px; font-weight: 700; text-decoration: none; cursor: pointer; background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; transition: transform 0.18s; }
-    .prog-btn-outline:hover { transform: translateY(-1px); background: #dcfce7; }
-    /* skin overrides */
-    .prog-card__body .prog-btn-stack a.prog-btn-outline { width: 100% !important; min-height: 38px !important; height: auto !important; font-size: 13px !important; font-weight: 700 !important; background: #f0fdf4 !important; color: #14532d !important; border: 1px solid #bbf7d0 !important; box-sizing: border-box !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; }
-    /* sub-panels */
-    .prog-subpanel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.5rem; padding: 12px 14px; margin-top: 10px; }
-    .prog-subpanel-title { font-size: 12px; font-weight: 700; color: #475569; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-    .prog-subpanel-title svg { width: 13px; height: 13px; }
-    .upload-btn { display: inline-flex; align-items: center; justify-content: center; padding: 6px 16px; background: #2563eb; color: #fff; border: none; border-radius: 0.375rem; font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.18s; }
-    .upload-btn:hover { background: #1d4ed8; }
-    .prog-filetype { font-size: 11px; color: #64748b; text-align: center; margin-top: 6px; }
-    .prog-errmsg { font-size: 12px; font-weight: 700; color: #b91c1c; text-align: center; margin-top: 4px; }
-</style>
+<link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+<link rel="stylesheet" href="../js/vendors/reveal/dist/reveal.css" />
+<link rel="stylesheet" href="../js/vendors/reveal/dist/theme/white.css" />
+<link rel="stylesheet" href="../js/vendors/highlight/github.min.css" />
+<script src="../markdown/lib/marked.min.js"></script>
+<script src="../webform/highlight.min.js"></script>
+<link rel="stylesheet" href="../App_Themes/Teacher/content-show-markdown.css" />
+    <link rel="stylesheet" type="text/css" href="/App_Themes/Student/showmission.css" />
 <div class="prog-wrap">
 <div id="showcontent" class="prog-grid">
 
@@ -48,6 +27,7 @@
                 <asp:Label ID="LabelMcid" runat="server" Visible="False"></asp:Label>
                 <asp:Label ID="LabelMsort" runat="server" Visible="False"></asp:Label>
                 <asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
+                <asp:HiddenField ID="HiddenMissionRaw" runat="server" />
             </div>
             <div id="Mcontent" style="color:#334155;line-height:1.85;font-size:1.05rem;word-wrap:break-word;word-break:break-word;" runat="server"></div>
         </div>
@@ -68,6 +48,26 @@
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
 
                 <div class="prog-btn-stack">
+                    <div class="prog-subpanel prog-toggle-card">
+                        <div class="prog-toggle-row">
+                            <div class="prog-toggle-copy">
+                                <div class="prog-toggle-title">Markdown 渲染</div>
+                                <div class="prog-toggle-desc">打开后，自动解析 Markdown、Mermaid、Reveal.js 和代码高亮。</div>
+                            </div>
+                            <button type="button" id="markdownToggle" runat="server" class="prog-toggle-switch" aria-pressed="false" title="切换 Markdown 渲染" onclick="toggleMissionMarkdown()"><span class="prog-toggle-knob"></span></button>
+                        </div>
+                        <div id="markdownToggleStatus" runat="server" class="prog-toggle-status">当前：开启</div>
+                    </div>
+                    <div class="prog-subpanel prog-toggle-card">
+                        <div class="prog-toggle-row">
+                            <div class="prog-toggle-copy">
+                                <div class="prog-toggle-title">Reveal 演示文稿</div>
+                                <div class="prog-toggle-desc">检测到幻灯片分隔符时，允许按 Reveal.js 方式渲染。</div>
+                            </div>
+                            <button type="button" id="revealToggle" runat="server" class="prog-toggle-switch" aria-pressed="false" title="切换 Reveal 演示文稿"><span class="prog-toggle-knob"></span></button>
+                        </div>
+                        <div id="revealToggleStatus" runat="server" class="prog-toggle-status">当前：关闭</div>
+                    </div>
                     <input type="button" class="prog-btn-secondary" id="share" value="我的网盘" onclick="showShare()" />
                     <asp:HyperLink ID="VoteLink" runat="server" Target="_blank"
                         CssClass="prog-btn-outline" SkinID="HyperLinkPink">作品互评</asp:HyperLink>
@@ -86,29 +86,6 @@
                                 style="width:100%;padding:6px 10px;background:#f1f5f9;color:#2563eb;font-size:12px;font-weight:600;border-radius:0.375rem;border:1px solid #e2e8f0;text-align:center;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">[upFileUrl]</asp:HyperLink>
                             <asp:Panel ID="Panelswfupload" runat="server" style="width:100%;">
                                 <div id="swfu_container" style="display:flex;justify-content:center;">
-                                    <script type="text/javascript">
-                                        var lid = "<%=LabelLid.Text %>";
-                                        var urlstr = "uploadworkm.aspx?lid=" + lid;
-                                        KindEditor.ready(function (K) {
-                                            var uploadbutton = K.uploadbutton({
-                                                button: K('#uploadButton')[0],
-                                                fieldName: 'imgFile',
-                                                url: urlstr,
-                                                afterUpload: function (data) {
-                                                    if (data.error === 0) {
-                                                        if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
-                                                            window.LearnStatus.submitted();
-                                                        }
-                                                        alert("作品已经提交成功！");
-                                                        location.reload();
-                                                    }
-                                                    else { alert(data.message); }
-                                                },
-                                                afterError: function (str) { alert('出错信息: ' + str); }
-                                            });
-                                            uploadbutton.fileBox.change(function (e) { uploadbutton.submit(); });
-                                        });
-                                    </script>
                                     <input type="button" id="uploadButton" value="作品提交" class="upload-btn" />
                                 </div>
                                 <div class="prog-filetype">
@@ -180,29 +157,6 @@
                                 style="width:100%;padding:6px 10px;background:#f1f5f9;color:#2563eb;font-size:12px;font-weight:600;border-radius:0.375rem;border:1px solid #e2e8f0;text-align:center;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">[upFileUrlGroup]</asp:HyperLink>
                             <asp:Panel ID="PanelGroupUp" runat="server" style="width:100%;">
                                 <div id="swfu_containerTwo" style="display:flex;justify-content:center;">
-                                    <script type="text/javascript">
-                                        var lid = "<%=LabelLid.Text %>";
-                                        var gurlstr = "uploadgroupm.aspx?lid=" + lid;
-                                        KindEditor.ready(function (K) {
-                                            var uploadgroupbutton = K.uploadbutton({
-                                                button: K('#uploadgroupButton')[0],
-                                                fieldName: 'imgFilegroup',
-                                                url: gurlstr,
-                                                afterUpload: function (data) {
-                                                    if (data.error === 0) {
-                                                        if (window.LearnStatus && typeof window.LearnStatus.submitted === "function") {
-                                                            window.LearnStatus.submitted();
-                                                        }
-                                                        alert("小组作品已经提交成功！");
-                                                        location.reload(true);
-                                                    }
-                                                    else { alert(data.message); }
-                                                },
-                                                afterError: function (str) { alert('出错信息: ' + str); }
-                                            });
-                                            uploadgroupbutton.fileBox.change(function (e) { uploadgroupbutton.submit(); });
-                                        });
-                                    </script>
                                     <input type="button" id="uploadgroupButton" value="小组合作" class="upload-btn" />
                                 </div>
                             </asp:Panel>
@@ -217,10 +171,16 @@
 </div>
 </div>
 <script type="text/javascript">
-    function jsCopy(contentid) {
-        var e = document.getElementById(contentid);
-        e.select();
-        document.execCommand("Copy");
-    }
+    window.__showmissionConfig = {
+        lid: '<%=LabelLid.Text %>',
+        mContentId: '<%= Mcontent.ClientID %>',
+        markdownToggleId: '<%= markdownToggle.ClientID %>',
+        markdownToggleStatusId: '<%= markdownToggleStatus.ClientID %>',
+        hiddenMissionRawId: '<%= HiddenMissionRaw.ClientID %>',
+        revealToggleId: '<%= revealToggle.ClientID %>',
+        revealToggleStatusId: '<%= revealToggleStatus.ClientID %>'
+    };
 </script>
+<script type="text/javascript" src="../js/content-show-markdown.js"></script>
+<script src="../js/showmission.js" type="text/javascript"></script>
 </asp:Content>

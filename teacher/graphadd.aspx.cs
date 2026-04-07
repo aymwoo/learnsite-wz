@@ -36,7 +36,7 @@ public partial class Teacher_graphadd : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = Request.Form["textareaItem"].Trim();
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(Request.Form["textareaItem"].Trim());
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null)

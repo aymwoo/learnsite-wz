@@ -50,7 +50,7 @@ public partial class Teacher_softadd : System.Web.UI.Page
             soft.Fup = false;
             if (fclass == "教程" || fclass == "微课" || fclass == "课程")
                 soft.Fup = true;
-            soft.Fcontent = HttpUtility.HtmlEncode(Request.Form["textareaItem"].Trim());
+            soft.Fcontent = HttpUtility.HtmlEncode(LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(Request.Form["textareaItem"].Trim()));
             soft.Fdate = DateTime.Now;
             soft.Ffiletype = "";
             soft.Fhit = 0;
@@ -97,5 +97,4 @@ public partial class Teacher_softadd : System.Web.UI.Page
         Response.Redirect("~/teacher/soft.aspx", false);
     }
 }
-
 

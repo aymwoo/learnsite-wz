@@ -3,34 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
     <link href="../App_Themes/Teacher/course-content-add.css" rel="stylesheet" />
+    <link href="../App_Themes/Teacher/content-show-markdown.css" rel="stylesheet" />
     <link href="../kindeditor/plugins/code/prettify.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../js/vendors/reveal/dist/reveal.css" />
+    <link rel="stylesheet" href="../js/vendors/reveal/dist/theme/white.css" />
+    <link rel="stylesheet" href="../js/vendors/highlight/github.min.css" />
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
-    <style type="text/css">
-        .mission-show-page {
-            --admin-form-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            --admin-form-hero-bg: linear-gradient(135deg, #0f766e 0%, #0f9b8e 55%, #22c55e 100%);
-            --admin-form-hero-shadow: 0 22px 45px -28px rgba(15, 118, 110, 0.72);
-            --admin-form-primary-bg: #0f766e;
-            --admin-form-primary-hover: #0d675f;
-            --admin-form-primary-shadow: 0 14px 24px -18px rgba(15, 118, 110, 0.85);
-            --admin-form-secondary-border: #99f6e4;
-            --admin-form-secondary-bg: #ecfeff;
-            --admin-form-secondary-hover: #cffafe;
-            --admin-form-secondary-fg: #115e59;
-        }
-
-        .mission-show-content {
-            line-height: 1.8;
-            word-break: break-word;
-        }
-
-        .mission-show-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            align-items: center;
-        }
-    </style>
+    <script src="../markdown/lib/marked.min.js"></script>
+    <script src="../webform/highlight.min.js"></script>
+    
 
     <div class="admin-form-page mission-show-page">
         <div class="admin-form-shell">
@@ -77,6 +58,29 @@
             <section class="admin-form-panel">
                 <h2 class="admin-form-section-title">活动内容</h2>
                 <p class="admin-form-section-desc">以下为当前学案活动正文内容。</p>
+                <div class="mission-show-toggle-grid">
+                    <div class="mission-show-toggle-card">
+                        <div class="mission-show-toggle-row">
+                            <div class="mission-show-toggle-copy">
+                                <div class="mission-show-toggle-title">Markdown 渲染</div>
+                                <div class="mission-show-toggle-desc">开启后自动解析 Markdown、Mermaid 和代码高亮。</div>
+                            </div>
+                            <button type="button" id="markdownToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false"><span class="mission-show-toggle-knob"></span></button>
+                        </div>
+                        <div id="markdownToggleStatus" runat="server" class="mission-show-toggle-status">当前：关闭</div>
+                    </div>
+                    <div class="mission-show-toggle-card">
+                        <div class="mission-show-toggle-row">
+                            <div class="mission-show-toggle-copy">
+                                <div class="mission-show-toggle-title">Reveal 演示文稿</div>
+                                <div class="mission-show-toggle-desc">检测到幻灯片分隔符时，允许按 Reveal.js 方式渲染。</div>
+                            </div>
+                            <button type="button" id="revealToggle" runat="server" class="mission-show-toggle-switch" aria-pressed="false"><span class="mission-show-toggle-knob"></span></button>
+                        </div>
+                        <div id="revealToggleStatus" runat="server" class="mission-show-toggle-status">当前：关闭</div>
+                    </div>
+                </div>
+                <asp:HiddenField ID="HiddenMissionRaw" runat="server" />
                 <div id="Mcontent" class="mission-show-content" runat="server"></div>
             </section>
 
@@ -87,4 +91,17 @@
             </section>
         </div>
     </div>
+    
+    <script type="text/javascript">
+        window.__missionshowConfig = {
+            mcontentId: '<%= Mcontent.ClientID %>',
+            hiddenMissionRawId: '<%= HiddenMissionRaw.ClientID %>',
+            markdownToggleId: '<%= markdownToggle.ClientID %>',
+            markdownToggleStatusId: '<%= markdownToggleStatus.ClientID %>',
+            revealToggleId: '<%= revealToggle.ClientID %>',
+            revealToggleStatusId: '<%= revealToggleStatus.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/content-show-markdown.js"></script>
+    <script type="text/javascript" src="../js/missionshow.js"></script>
 </asp:Content>
