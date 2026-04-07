@@ -1,7 +1,33 @@
 (function () {
-    var revealThemeOptions = [
+    var singleRevealThemeOptions = [
         { value: 'white', label: 'White' }
     ];
+    var multiRevealThemeOptions = [
+        { value: 'default', label: '默认主题' },
+        { value: 'white', label: 'White' },
+        { value: 'sky', label: 'Sky' },
+        { value: 'beige', label: 'Beige' },
+        { value: 'simple', label: 'Simple' },
+        { value: 'serif', label: 'Serif' },
+        { value: 'moon', label: 'Moon' },
+        { value: 'night', label: 'Night' },
+        { value: 'solarized', label: 'Solarized' }
+    ];
+
+    function getRevealThemeOptions() {
+        return window.__showmissionConfig ? multiRevealThemeOptions : singleRevealThemeOptions;
+    }
+
+    function normalizeRevealTheme(theme) {
+        var value = (theme || '').toLowerCase();
+        var options = getRevealThemeOptions();
+        for (var i = 0; i < options.length; i++) {
+            if (options[i].value === value) {
+                return value;
+            }
+        }
+        return options[0].value;
+    }
 
     function getConfig() {
         return window.__contentShowMarkdown || null;
@@ -77,7 +103,7 @@
     }
 
     function getRevealThemeOptionsHtml() {
-        return revealThemeOptions.map(function (theme) {
+        return getRevealThemeOptions().map(function (theme) {
             return '<option value="' + escapeHtml(theme.value) + '">' + escapeHtml(theme.label) + '</option>';
         }).join('');
     }
@@ -98,7 +124,8 @@
             return '<section>' + marked.parse(section.trim()) + '</section>';
         }).filter(Boolean).join('');
 
-        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="white"><div class="slides">' + slidesHtml + '</div></div></div>';
+        var initialTheme = getRevealThemeOptions()[0].value;
+        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="' + escapeHtml(initialTheme) + '"><div class="slides">' + slidesHtml + '</div></div></div>';
     }
 
     function looksLikeMermaidDocument(text) {
@@ -363,7 +390,7 @@
 
                 deck.initialize().then(function () {
                     if (themeSelect) {
-                        themeSelect.value = node.getAttribute('data-theme') || 'white';
+                        themeSelect.value = normalizeRevealTheme(node.getAttribute('data-theme'));
                     }
                     updateIndicator();
                     node.setAttribute('data-reveal-ready', '1');
@@ -410,8 +437,7 @@
                 if (themeSelect && !themeSelect.getAttribute('data-bound')) {
                     themeSelect.setAttribute('data-bound', '1');
                     themeSelect.addEventListener('change', function () {
-                        themeSelect.value = 'white';
-                        node.setAttribute('data-theme', 'white');
+                        node.setAttribute('data-theme', normalizeRevealTheme(themeSelect.value));
                         deck.layout();
                     });
                 }

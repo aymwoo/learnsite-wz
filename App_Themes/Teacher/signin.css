@@ -65,7 +65,11 @@
         .filter-group {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
             gap: 12px;
+            width: fit-content;
+            max-width: 100%;
             background: rgba(255, 255, 255, 0.12);
             padding: 8px 16px;
             border-radius: 1rem;
@@ -240,6 +244,7 @@
         @media (max-width: 768px) {
             .signin-page { padding: 16px; }
             .lesson-hero__content { flex-direction: column; align-items: flex-start; }
+            .filter-group { width: 100%; justify-content: flex-start; }
             .action-bar { flex-direction: column; }
             .signin-btn { width: 100%; }
         }
