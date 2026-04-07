@@ -19,7 +19,8 @@
         box-shadow: 0 4px 16px rgba(37,99,235,.08);
         margin-bottom: 24px;
     }
-    .info-hero__title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+    .info-hero__title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #0f172a; }
+    .info-hero__title span { color: #0f172a !important; }
     .info-hero__sub   { margin: 6px 0 0; font-size: 14px; color: #1e40af; }
 
     .info-card {
@@ -145,4 +146,3 @@
 })();
 </script>
 </asp:Content>
-

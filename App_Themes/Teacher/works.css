@@ -12,7 +12,12 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            flex-wrap: nowrap;
             gap: 0.8rem;
+        }
+
+        .course-hero-action > * {
+            flex: 0 0 auto;
         }
 
         .course-toolbar-grid {
