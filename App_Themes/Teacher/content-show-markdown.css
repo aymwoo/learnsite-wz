@@ -253,7 +253,7 @@
     aspect-ratio: 16 / 9;
     min-height: 360px;
     max-height: 78vh;
-    background: #0f172a;
+    background: var(--r-background-color, #0f172a);
 }
 
 .content-show-markdown .reveal {

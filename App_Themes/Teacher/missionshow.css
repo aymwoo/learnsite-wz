@@ -207,7 +207,7 @@
             aspect-ratio: 16 / 9;
             min-height: 360px;
             max-height: 78vh;
-            background: #0f172a;
+            background: var(--r-background-color, #0f172a);
         }
 
         .mission-markdown .reveal {
@@ -216,8 +216,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #0f172a;
-            color: #e2e8f0;
+            background: var(--r-background-color, #0f172a);
+            color: var(--r-main-color, #e2e8f0);
             --r-main-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             --r-heading-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             --r-code-font: "Cascadia Mono", "Consolas", monospace;
@@ -349,7 +349,7 @@
             aspect-ratio: 16 / 9;
             min-height: 360px;
             max-height: 78vh;
-            background: #0f172a;
+            background: var(--r-background-color, #0f172a);
         }
 
         .mission-show-page .mission-markdown .reveal {
@@ -358,8 +358,8 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #0f172a;
-            color: #e2e8f0;
+            background: var(--r-background-color, #0f172a);
+            color: var(--r-main-color, #e2e8f0);
             --r-main-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             --r-heading-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
             --r-code-font: "Cascadia Mono", "Consolas", monospace;
