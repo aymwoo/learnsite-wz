@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.IO;
 using System.Collections;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 namespace LearnSite.DBUtility
@@ -19,6 +20,232 @@ namespace LearnSite.DBUtility
             //
         }
         static string savedir = "~/backupdb";
+        static string backupPathKey = "DbBackupPhysicalPath";
+
+        private static string GetWebBackupDirectory()
+        {
+            return HttpContext.Current.Server.MapPath(savedir);
+        }
+
+        private static string GetConfiguredBackupDirectory()
+        {
+            string configPath = ConfigurationManager.AppSettings[backupPathKey];
+            if (string.IsNullOrWhiteSpace(configPath))
+            {
+                return string.Empty;
+            }
+            return configPath.Trim();
+        }
+
+        private static void AddDirectory(ArrayList dirs, string dir)
+        {
+            if (string.IsNullOrWhiteSpace(dir))
+            {
+                return;
+            }
+            foreach (string item in dirs)
+            {
+                if (string.Equals(item, dir, StringComparison.OrdinalIgnoreCase))
+                {
+                    return;
+                }
+            }
+            dirs.Add(dir);
+        }
+
+        private static string GetSqlBackupDirectory(SqlConnection con)
+        {
+            string configuredDir = GetConfiguredBackupDirectory();
+            if (!string.IsNullOrEmpty(configuredDir))
+            {
+                return configuredDir;
+            }
+
+            string sql = "select convert(nvarchar(4000), serverproperty('InstanceDefaultBackupPath'))";
+            object result = new SqlCommand(sql, con).ExecuteScalar();
+            if (result == null || result == DBNull.Value)
+            {
+                return string.Empty;
+            }
+            return result.ToString().Trim();
+        }
+
+        private static ArrayList GetBackupDirectories()
+        {
+            ArrayList dirs = new ArrayList();
+            AddDirectory(dirs, GetConfiguredBackupDirectory());
+            AddDirectory(dirs, GetWebBackupDirectory());
+
+            string connstr = SqlHelper.connectionString;
+            using (SqlConnection con = new SqlConnection(connstr))
+            {
+                try
+                {
+                    con.Open();
+                    AddDirectory(dirs, GetSqlBackupDirectory(con));
+                }
+                catch
+                {
+                }
+            }
+
+            return dirs;
+        }
+
+        private static ArrayList GetPreferredBackupDirectories(SqlConnection con)
+        {
+            ArrayList dirs = new ArrayList();
+            AddDirectory(dirs, GetConfiguredBackupDirectory());
+            AddDirectory(dirs, GetWebBackupDirectory());
+            AddDirectory(dirs, GetSqlBackupDirectory(con));
+            return dirs;
+        }
+
+        private static bool CanEnsureDirectory(string dir)
+        {
+            if (string.IsNullOrEmpty(dir))
+            {
+                return false;
+            }
+
+            string configuredDir = GetConfiguredBackupDirectory();
+            if (!string.IsNullOrEmpty(configuredDir) && string.Equals(dir, configuredDir, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+
+            return string.Equals(dir, GetWebBackupDirectory(), StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static ArrayList GetBackupFiles()
+        {
+            ArrayList fileList = new ArrayList();
+            Hashtable exists = new Hashtable(StringComparer.OrdinalIgnoreCase);
+            ArrayList dirs = GetBackupDirectories();
+            foreach (string dir in dirs)
+            {
+                if (!Directory.Exists(dir))
+                {
+                    continue;
+                }
+                DirectoryInfo di = new DirectoryInfo(dir);
+                FileInfo[] fis = di.GetFiles("*.bak");
+                foreach (FileInfo fi in fis)
+                {
+                    if (exists.ContainsKey(fi.FullName))
+                    {
+                        continue;
+                    }
+                    exists.Add(fi.FullName, true);
+                    fileList.Add(fi);
+                }
+            }
+            return fileList;
+        }
+
+        private static string ResolveBackupFilePath(string dbFileUrl)
+        {
+            if (Path.IsPathRooted(dbFileUrl))
+            {
+                return dbFileUrl;
+            }
+            return HttpContext.Current.Server.MapPath(dbFileUrl);
+        }
+
+        private static string CombineBackupPath(string dir, string fileName)
+        {
+            if (string.IsNullOrEmpty(dir))
+            {
+                return fileName;
+            }
+            if (dir.EndsWith("\\") || dir.EndsWith("/"))
+            {
+                return dir + fileName;
+            }
+            if (dir.IndexOf('\\') >= 0 && dir.IndexOf('/') < 0)
+            {
+                return dir + "\\" + fileName;
+            }
+            return dir + "/" + fileName;
+        }
+
+        private static string EscapeSqlString(string value)
+        {
+            return value.Replace("'", "''");
+        }
+
+        private static string EscapeSqlIdentifier(string value)
+        {
+            return "[" + value.Replace("]", "]]") + "]";
+        }
+
+        private static void EnsureWebBackupDirectory()
+        {
+            string webBackupDir = GetWebBackupDirectory();
+            if (!Directory.Exists(webBackupDir))
+            {
+                Directory.CreateDirectory(webBackupDir);
+            }
+        }
+
+        private static string TryCopyBackupToWebDirectory(string sourceFile)
+        {
+            if (string.IsNullOrEmpty(sourceFile) || !File.Exists(sourceFile))
+            {
+                return string.Empty;
+            }
+
+            string webBackupDir = GetWebBackupDirectory();
+            string webBackupFile = Path.Combine(webBackupDir, Path.GetFileName(sourceFile));
+            if (string.Equals(sourceFile, webBackupFile, StringComparison.OrdinalIgnoreCase))
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                EnsureWebBackupDirectory();
+                File.Copy(sourceFile, webBackupFile, true);
+                return webBackupFile;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private static DataView BuildBackupFileView(ArrayList files)
+        {
+            DataView dv = new DataView();
+            DataSet ds = new DataSet();
+            ds.Tables.Add();
+            ds.Tables[0].TableName = "filetable";
+            ds.Tables[0].Columns.Add("fid", typeof(Int32));
+            ds.Tables[0].Columns.Add("fname", typeof(String));
+            ds.Tables[0].Columns.Add("fsize", typeof(String));
+            ds.Tables[0].Columns.Add("furl", typeof(String));
+            ds.Tables[0].Columns.Add("fread", typeof(String));
+            ds.Tables[0].Columns.Add("fdate", typeof(DateTime));
+
+            int i = 0;
+            foreach (FileInfo fi in files)
+            {
+                DataRow row = ds.Tables[0].NewRow();
+                i++;
+                row[0] = i;
+                row[1] = fi.Name;
+                row[2] = (fi.Length / 1024).ToString() + "kb";
+                row[3] = fi.FullName;
+                row[4] = fi.IsReadOnly.ToString().Substring(0, 1);
+                row[5] = fi.CreationTime;
+                ds.Tables[0].Rows.Add(row);
+            }
+            ds.AcceptChanges();
+            dv = ds.Tables[0].DefaultView;
+            dv.Sort = "fdate desc";
+            ds.Dispose();
+            return dv;
+        }
         /// <summary>
         /// 备份列表
         /// </summary>
@@ -26,15 +253,10 @@ namespace LearnSite.DBUtility
         public static ArrayList Dblist()
         {
             ArrayList arl = new ArrayList();
-            string saverealpath = HttpContext.Current.Server.MapPath(savedir);
-            if (Directory.Exists(saverealpath))
+            ArrayList files = GetBackupFiles();
+            foreach (FileInfo fi in files)
             {
-                DirectoryInfo di = new DirectoryInfo(saverealpath);
-                FileInfo[] fis = di.GetFiles();
-                foreach (FileInfo fi in fis)
-                {
-                    arl.Add(fi.Name);
-                }
+                arl.Add(fi.Name);
             }
             return arl;
         }
@@ -46,20 +268,15 @@ namespace LearnSite.DBUtility
         public static bool IsTodayBackUp()
         {
             bool isright = false;
-            string saverealpath = HttpContext.Current.Server.MapPath(savedir);
             DateTime dt = DateTime.Now;
 
-            if (Directory.Exists(saverealpath))
+            ArrayList files = GetBackupFiles();
+            foreach (FileInfo fi in files)
             {
-                DirectoryInfo di = new DirectoryInfo(saverealpath);
-                FileInfo[] fis = di.GetFiles();
-                foreach (FileInfo fi in fis)
+                if (dt.Day == fi.LastWriteTime.Day && dt.Month == fi.LastWriteTime.Month)
                 {
-                    if (dt.Day == fi.LastWriteTime.Day && dt.Month == fi.LastWriteTime.Month)
-                    {
-                        isright = true;
-                        break;
-                    }
+                    isright = true;
+                    break;
                 }
             }
             return isright;
@@ -72,26 +289,22 @@ namespace LearnSite.DBUtility
         public static bool IsWeeksBackUp()
         {
             bool isright = false;
-            string saverealpath = HttpContext.Current.Server.MapPath(savedir);
             DateTime dt1 = DateTime.Now.AddDays(-6);
             DateTime dtlimit = DateTime.Now.AddMonths(-6);
-            if (Directory.Exists(saverealpath))
+
+            ArrayList files = GetBackupFiles();
+            int fc = files.Count;
+            foreach (FileInfo fi in files)
             {
-                DirectoryInfo di = new DirectoryInfo(saverealpath);
-                FileInfo[] fis = di.GetFiles();
-                int fc = fis.Length;
-                foreach (FileInfo fi in fis)
+                DateTime fctime=fi.CreationTime;
+                if (DateTime.Compare(fctime, dt1) > 0)
                 {
-                    DateTime fctime=fi.CreationTime;
-                    if (DateTime.Compare(fctime, dt1) > 0)
+                    isright = true;//如果备份日期大于上周日期，说明有备份
+                    if (fc > 3)
                     {
-                        isright = true;//如果备份日期大于上周日期，说明有备份
-                        if (fc > 3)
+                        if (DateTime.Compare(fctime, dtlimit) < 0)
                         {
-                            if (DateTime.Compare(fctime, dtlimit) < 0)
-                            {
-                                fi.Delete();//如果备份数大于3个，且存在6个月前的数据库，则自动删除
-                            }
+                            fi.Delete();//如果备份数大于3个，且存在6个月前的数据库，则自动删除
                         }
                     }
                 }
@@ -104,7 +317,7 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         public static DataView BackUpFileList()
         {
-            return FileList(savedir);
+            return BuildBackupFileView(GetBackupFiles());
         }
         /// <summary>
         /// 获取子目录中日期最新的这个
@@ -139,7 +352,11 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         public static DataView FileList(string strdir)
         {
-            if (!string.IsNullOrEmpty(strdir))
+            if (string.Equals(strdir, savedir, StringComparison.OrdinalIgnoreCase))
+            {
+                return BuildBackupFileView(GetBackupFiles());
+            }
+            if (!string.IsNullOrEmpty(strdir) && !string.Equals(strdir, savedir, StringComparison.OrdinalIgnoreCase))
             {
                 string saverealpath = HttpContext.Current.Server.MapPath(strdir);
                 DataView dv = new DataView();
@@ -212,27 +429,47 @@ namespace LearnSite.DBUtility
             string OldDbName = GetMyDbName();
             DateTime dt = DateTime.Now;
             string fname = string.Format("{0:yyyyMMddHHmmss}", dt);
-            string BackDbName = savedir + "/" +fname + ".bak";
-            string BackDbNamePath = HttpContext.Current.Server.MapPath(BackDbName);
-            if (File.Exists(BackDbNamePath))
-            {
-                File.Delete(BackDbNamePath);
-                System.Threading.Thread.Sleep(200);
-            }
-            string SqlBackStr = "backup database " + OldDbName + " to  disk='" + BackDbNamePath + "'";
             using (SqlConnection con = new SqlConnection(connstr))
             {
-                con.Open();
+                Exception lastError = null;
                 try
                 {
-                    SqlCommand com = new SqlCommand(SqlBackStr, con);
-                    com.ExecuteNonQuery();
-                    return "数据库备份成功！";
+                    con.Open();
+                    ArrayList backupDirs = GetPreferredBackupDirectories(con);
+                    foreach (string backupDir in backupDirs)
+                    {
+                        try
+                        {
+                            if (CanEnsureDirectory(backupDir) && !Directory.Exists(backupDir))
+                            {
+                                Directory.CreateDirectory(backupDir);
+                            }
+                            string BackDbNamePath = CombineBackupPath(backupDir, fname + ".bak");
+                            string SqlBackStr = "backup database " + EscapeSqlIdentifier(OldDbName) + " to disk = N'" + EscapeSqlString(BackDbNamePath) + "' with init";
+                            SqlCommand com = new SqlCommand(SqlBackStr, con);
+                            com.ExecuteNonQuery();
+                            string copiedPath = TryCopyBackupToWebDirectory(BackDbNamePath);
+                            if (!string.IsNullOrEmpty(copiedPath) || string.Equals(backupDir, saverealpath, StringComparison.OrdinalIgnoreCase))
+                            {
+                                return "数据库备份成功！";
+                            }
+                            return "数据库备份成功！备份文件位置：" + BackDbNamePath;
+                        }
+                        catch (Exception error)
+                        {
+                            lastError = error;
+                        }
+                    }
+                    if (lastError != null)
+                    {
+                        return "数据库备份失败！" + lastError.Message;
+                    }
+                    return "数据库备份失败！未找到可用的备份目录。";
                 }
                 catch (Exception error)
                 {
                     con.Close();
-                    return "数据库备份失败！" + error.Message + "<br>" + SqlBackStr;
+                    return "数据库备份失败！" + error.Message;
                 }
                 finally
                 {
@@ -248,7 +485,7 @@ namespace LearnSite.DBUtility
         public static string RestoreMyDb(string dbFileUrl)
         {
             string msg = "无信息";
-            string dbFile = HttpContext.Current.Server.MapPath(dbFileUrl);
+            string dbFile = ResolveBackupFilePath(dbFileUrl);
             if (File.Exists(dbFile))
             {
                 //sql数据库名   
@@ -258,7 +495,7 @@ namespace LearnSite.DBUtility
                 using (SqlConnection conn = new SqlConnection(connstr))
                 {
                     //还原指定的数据库文件   
-                    string sql = string.Format("use master ;declare @s varchar(8000);select @s=isnull(@s,'')+' kill '+rtrim(spID) from master..sysprocesses where dbid=db_id('{0}');select @s;exec(@s) ;RESTORE DATABASE {1} FROM DISK = N'{2}' with replace", dbName, dbName, dbFile);
+                    string sql = string.Format("use master ;declare @s varchar(8000);select @s=isnull(@s,'')+' kill '+rtrim(spID) from master..sysprocesses where dbid=db_id('{0}');select @s;exec(@s) ;RESTORE DATABASE {1} FROM DISK = N'{2}' with replace", EscapeSqlString(dbName), EscapeSqlIdentifier(dbName), EscapeSqlString(dbFile));
                     SqlCommand sqlcmd = new SqlCommand(sql, conn);
                     sqlcmd.CommandType = CommandType.Text;
                     try
@@ -288,13 +525,13 @@ namespace LearnSite.DBUtility
         public static string RestoreDb(string dbFileUrl)
         {
             string msg = "无信息";
-            string dbFile = HttpContext.Current.Server.MapPath(dbFileUrl);
+            string dbFile = ResolveBackupFilePath(dbFileUrl);
             if (File.Exists(dbFile))
             {
                 string connstr = SqlHelper.connectionString;
                 string DBName = GetMyDbName();
                 //使远程数据库转入单用户模式，断开所有已连接数据库的用户的连接并回退它们的事务。
-                string RecoveryStr = string.Format("Alter DATABASE {0} set single_user with rollback immediate use master RESTORE DATABASE {1} from disk = N'{2}' with replace", DBName, DBName, dbFile);
+                string RecoveryStr = string.Format("Alter DATABASE {0} set single_user with rollback immediate use master RESTORE DATABASE {1} from disk = N'{2}' with replace", EscapeSqlIdentifier(DBName), EscapeSqlIdentifier(DBName), EscapeSqlString(dbFile));
                 using (SqlConnection conn = new SqlConnection(connstr))
                 {
                     try
@@ -304,14 +541,14 @@ namespace LearnSite.DBUtility
                         comm1.ExecuteNonQuery(); //执行远程数据库恢复命令 
 
                         msg = "数据库还原成功!";
-                        RecoveryStr = "Alter DATABASE " + DBName + " set multi_user";
+                        RecoveryStr = "Alter DATABASE " + EscapeSqlIdentifier(DBName) + " set multi_user";
                         SqlCommand comm2 = new SqlCommand(RecoveryStr, conn);
                         comm2.ExecuteNonQuery();
                         //使远程数据库转入多用户模式 
                     }
                     catch
                     {
-                        RecoveryStr = "Alter DATABASE " + DBName + " set multi_user";
+                        RecoveryStr = "Alter DATABASE " + EscapeSqlIdentifier(DBName) + " set multi_user";
                         SqlCommand comm2 = new SqlCommand(RecoveryStr, conn);
                         comm2.ExecuteNonQuery();
                         msg = "数据库还原失败!数据库的平台版本不一致.";

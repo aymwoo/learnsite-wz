@@ -60,6 +60,10 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string MapPathFile(string FileName)
         {
+            if (Path.IsPathRooted(FileName))
+            {
+                return FileName;
+            }
             return HttpContext.Current.Server.MapPath(FileName);
         }
         public static string DownLoadSelectff(string FileName)
