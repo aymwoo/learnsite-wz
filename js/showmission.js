@@ -12,6 +12,9 @@
     var lid = cfg.lid || '';
     var urlstr = "uploadworkm.aspx?lid=" + lid;
     KindEditor.ready(function (K) {
+        if (!K('#uploadButton')[0]) {
+            return;
+        }
         var uploadbutton = K.uploadbutton({
             button: K('#uploadButton')[0],
             fieldName: 'imgFile',
@@ -40,6 +43,9 @@
     var lid = cfg.lid || '';
     var gurlstr = "uploadgroupm.aspx?lid=" + lid;
     KindEditor.ready(function (K) {
+        if (!K('#uploadgroupButton')[0]) {
+            return;
+        }
         var uploadgroupbutton = K.uploadbutton({
             button: K('#uploadgroupButton')[0],
             fieldName: 'imgFilegroup',
@@ -69,43 +75,11 @@
     var markdownToggleId = cfg.markdownToggleId || '';
     var markdownToggleStatusId = cfg.markdownToggleStatusId || '';
     var hiddenMissionRawId = cfg.hiddenMissionRawId || '';
+    var revealToggleId = cfg.revealToggleId || '';
+    var revealToggleStatusId = cfg.revealToggleStatusId || '';
 
     var markdownStorageKey = 'showmission-markdown-enabled';
-    var revealThemeOptions = [
-        { value: 'default', label: '默认主题' },
-        { value: 'white', label: 'White' },
-        { value: 'sky', label: 'Sky' },
-        { value: 'beige', label: 'Beige' },
-        { value: 'simple', label: 'Simple' },
-        { value: 'serif', label: 'Serif' },
-        { value: 'moon', label: 'Moon' },
-        { value: 'night', label: 'Night' },
-        { value: 'solarized', label: 'Solarized' }
-    ];
-    var revealDarkThemes = {
-        default: true,
-        moon: true,
-        night: true
-    };
-
-    function getRevealThemeOptionsHtml() {
-        return revealThemeOptions.map(function (theme) {
-            return '<option value="' + escapeHtml(theme.value) + '">' + escapeHtml(theme.label) + '</option>';
-        }).join('');
-    }
-
-    function normalizeRevealTheme(theme) {
-        for (var i = 0; i < revealThemeOptions.length; i++) {
-            if (revealThemeOptions[i].value === theme) {
-                return theme;
-            }
-        }
-        return 'default';
-    }
-
-    function isDarkRevealTheme(theme) {
-        return !!revealDarkThemes[normalizeRevealTheme(theme)];
-    }
+    var revealStorageKey = 'showmission-reveal-enabled';
 
     function getContentElement() {
         return document.getElementById(mContentId);
@@ -117,6 +91,30 @@
 
     function getToggleStatusElement() {
         return document.getElementById(markdownToggleStatusId);
+    }
+
+    function getRevealToggleElement() {
+        return document.getElementById(revealToggleId);
+    }
+
+    function getRevealStatusElement() {
+        return document.getElementById(revealToggleStatusId);
+    }
+
+    function getStoredFlagOrNull(key) {
+        try {
+            var stored = localStorage.getItem(key);
+            return stored === null ? null : stored === '1';
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function setStoredFlag(key, enabled) {
+        try {
+            localStorage.setItem(key, enabled ? '1' : '0');
+        } catch (e) {
+        }
     }
 
     function stripHtmlToText(html) {
@@ -836,6 +834,30 @@
                     }
                 }
 
+                function getRevealViewport() {
+                    if (node.closest) {
+                        return node.closest('.reveal-viewport');
+                    }
+                    return null;
+                }
+
+                function syncFullscreenState() {
+                    var viewport = getRevealViewport();
+                    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || null;
+                    var isFullscreen = !!(fullscreenElement && viewport && (fullscreenElement === viewport || viewport.contains(fullscreenElement)));
+
+                    deck.configure({
+                        embedded: !isFullscreen
+                    });
+
+                    setTimeout(function () {
+                        limitRevealCodeBlocks(host);
+                        renderCurrentSlideMermaid(isFullscreen);
+                        autofitAllSlides();
+                        deck.layout();
+                    }, 60);
+                }
+
                 var deckSize = getDeckSize();
                 var deck = new window.Reveal(node, {
                     embedded: true,
@@ -865,6 +887,7 @@
                     deck.layout();
                     updateIndicator(deck);
                     node.setAttribute('data-reveal-ready', '1');
+                    syncFullscreenState();
                 });
 
                 deck.on('slidechanged', function () {
@@ -924,23 +947,25 @@
                 if (fullscreenBtn && !fullscreenBtn.getAttribute('data-bound')) {
                     fullscreenBtn.setAttribute('data-bound', '1');
                     fullscreenBtn.addEventListener('click', function () {
-                        if (!node) {
+                        var viewport = getRevealViewport();
+                        if (!viewport) {
                             return;
                         }
 
-                        if (node.requestFullscreen) {
-                            node.requestFullscreen();
-                        } else if (node.webkitRequestFullscreen) {
-                            node.webkitRequestFullscreen();
+                        if (viewport.requestFullscreen) {
+                            viewport.requestFullscreen();
+                        } else if (viewport.webkitRequestFullscreen) {
+                            viewport.webkitRequestFullscreen();
                         }
 
-                        setTimeout(function () {
-                            limitRevealCodeBlocks(host);
-                            renderCurrentSlideMermaid();
-                            autofitAllSlides();
-                            deck.layout();
-                        }, 200);
+                        setTimeout(syncFullscreenState, 200);
                     });
+                }
+
+                if (!host.getAttribute('data-fullscreen-bound')) {
+                    host.setAttribute('data-fullscreen-bound', '1');
+                    document.addEventListener('fullscreenchange', syncFullscreenState);
+                    document.addEventListener('webkitfullscreenchange', syncFullscreenState);
                 }
             });
         }
@@ -998,6 +1023,15 @@
         content.innerHTML = originalHtml;
     }
 
+    function restoreOriginalHtml(content) {
+        if (window.ContentShowMarkdown && window.ContentShowMarkdown.restoreOriginalHtml) {
+            window.ContentShowMarkdown.restoreOriginalHtml(content, 'mission-show-content');
+            return;
+        }
+        content.className = 'mission-show-content';
+        content.innerHTML = content.getAttribute('data-original-html') || '';
+    }
+
     function renderMissionMarkdown(forceEnabled) {
         var content = getContentElement();
         var hidden = document.getElementById(hiddenMissionRawId);
@@ -1010,70 +1044,105 @@
             content.setAttribute('data-original-html', content.innerHTML || '');
         }
 
-        var enabled = typeof forceEnabled === 'boolean' ? forceEnabled : getMarkdownEnabled();
+        var markdownSource = getMissionSource(content, hidden);
+        var storedMarkdown = getStoredFlagOrNull(markdownStorageKey);
+        var storedReveal = getStoredFlagOrNull(revealStorageKey);
+        var autoMarkdown = window.ContentShowMarkdown && window.ContentShowMarkdown.looksLikeMarkdown
+            ? window.ContentShowMarkdown.looksLikeMarkdown(markdownSource, true)
+            : looksLikeMarkdown(markdownSource);
+        var autoReveal = window.ContentShowMarkdown && window.ContentShowMarkdown.isRevealMarkdownDocument
+            ? window.ContentShowMarkdown.isRevealMarkdownDocument(markdownSource)
+            : false;
+        var enabled = typeof forceEnabled === 'boolean' ? forceEnabled : (storedMarkdown === null ? autoMarkdown : storedMarkdown);
+        var revealEnabled = storedReveal === null ? autoReveal : storedReveal;
         updateToggleUI(enabled);
+        updateRevealToggleUI(revealEnabled);
 
         if (!enabled) {
-            restoreMissionHtml(content, content.getAttribute('data-original-html') || '');
+            restoreOriginalHtml(content);
             setToggleStatusText('当前：关闭');
             return;
         }
 
         if (!window.marked) {
-            restoreMissionHtml(content, content.getAttribute('data-original-html') || '');
+            restoreOriginalHtml(content);
             setToggleStatusText('当前：开启，未加载解析器');
             return;
         }
 
-        var markdownSource = getMissionSource(content, hidden);
-        if (!looksLikeMarkdown(markdownSource)) {
-            restoreMissionHtml(content, content.getAttribute('data-original-html') || '');
+        if (!autoMarkdown) {
+            restoreOriginalHtml(content);
             setToggleStatusText('当前：开启，未检测到 Markdown');
             return;
         }
 
-        try {
-            marked.setOptions({
-                breaks: true,
-                gfm: true
+        if (window.ContentShowMarkdown && window.ContentShowMarkdown.renderIntoContent) {
+            window.ContentShowMarkdown.renderIntoContent(content, {
+                source: markdownSource,
+                enableReveal: revealEnabled,
+                renderedClass: 'mission-markdown',
+                originalClass: 'mission-show-content',
+                wrapInVditorReset: true
             });
-
-            content.className = 'mission-markdown';
-            if (isRevealMarkdownDocument(markdownSource)) {
-                content.innerHTML = '<div class="vditor-reset"><div class="reveal-host">' + parseRevealMarkdown(markdownSource) + '<div class="render-note">检测到 `---` 或 `--` 分隔符，已按 Reveal.js 演示文稿模式渲染。</div></div></div>';
-                applyCodeHighlight(content);
-                renderMermaid(content);
-                renderReveal(content);
-            } else {
-                content.innerHTML = '<div class="vditor-reset">' + marked.parse(markdownSource) + '</div>';
-                wrapSpecialBlocks(content);
-                applyCodeHighlight(content);
-                applyCodeLineNumbers(content);
-                renderMermaid(content);
-                renderReveal(content);
-            }
-
-            setToggleStatusText('当前：开启');
-        } catch (e) {
-            restoreMissionHtml(content, content.getAttribute('data-original-html') || '');
+            setToggleStatusText(storedMarkdown === null && autoMarkdown ? '当前：自动开启' : '当前：开启');
+            setRevealStatusText(storedReveal === null && revealEnabled ? '当前：自动开启' : (revealEnabled ? '当前：开启' : '当前：关闭'));
+        } else {
+            restoreOriginalHtml(content);
             setToggleStatusText('当前：开启，渲染失败');
         }
     }
 
     window.toggleMissionMarkdown = function () {
-        var nextEnabled = !getMarkdownEnabled();
-        setMarkdownEnabled(nextEnabled);
+        var current = getStoredFlagOrNull(markdownStorageKey);
+        if (current === null) {
+            current = looksLikeMarkdown(getMissionSource(getContentElement(), document.getElementById(hiddenMissionRawId)));
+        }
+        var nextEnabled = !current;
+        setStoredFlag(markdownStorageKey, nextEnabled);
         renderMissionMarkdown(nextEnabled);
+    };
+
+    function updateRevealToggleUI(enabled) {
+        var toggle = getRevealToggleElement();
+        var status = getRevealStatusElement();
+        if (toggle) {
+            toggle.className = enabled ? 'prog-toggle-switch is-on' : 'prog-toggle-switch';
+            toggle.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+        }
+        if (status) {
+            status.innerText = enabled ? '当前：开启' : '当前：关闭';
+        }
+    }
+
+    function setRevealStatusText(text) {
+        var status = getRevealStatusElement();
+        if (status) {
+            status.innerText = text;
+        }
+    }
+
+    window.toggleMissionReveal = function () {
+        var current = getStoredFlagOrNull(revealStorageKey);
+        if (current === null) {
+            current = window.ContentShowMarkdown && window.ContentShowMarkdown.isRevealMarkdownDocument
+                ? window.ContentShowMarkdown.isRevealMarkdownDocument(getMissionSource(getContentElement(), document.getElementById(hiddenMissionRawId)))
+                : false;
+        }
+        var nextEnabled = !current;
+        setStoredFlag(revealStorageKey, nextEnabled);
+        renderMissionMarkdown();
     };
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
-            updateToggleUI(getMarkdownEnabled());
-            renderMissionMarkdown(getMarkdownEnabled());
+            updateToggleUI(getStoredFlagOrNull(markdownStorageKey) === true);
+            updateRevealToggleUI(getStoredFlagOrNull(revealStorageKey) === true);
+            renderMissionMarkdown();
         });
     } else {
-        updateToggleUI(getMarkdownEnabled());
-        renderMissionMarkdown(getMarkdownEnabled());
+        updateToggleUI(getStoredFlagOrNull(markdownStorageKey) === true);
+        updateRevealToggleUI(getStoredFlagOrNull(revealStorageKey) === true);
+        renderMissionMarkdown();
     }
 })();
 

@@ -106,7 +106,7 @@
             return '<section>' + marked.parse(section.trim()) + '</section>';
         }).filter(Boolean).join('');
 
-        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="default"><div class="slides">' + slidesHtml + '</div></div></div>';
+        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn"><span class="reveal-nav-icon" aria-hidden="true">&larr;</span><span class="reveal-nav-text">上一页</span></button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn"><span class="reveal-nav-text">下一页</span><span class="reveal-nav-icon" aria-hidden="true">&rarr;</span></button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="default"><div class="slides">' + slidesHtml + '</div></div></div>';
     }
 
     function looksLikeMermaidDocument(text) {
@@ -116,7 +116,7 @@
         }
 
         if (/^```(?:mermaid|mmd)\b/i.test(normalized)) {
-            return true;
+            return false;
         }
 
         if (!/^(?:graph\s+(?:TB|BT|RL|LR|TD)|flowchart\s+(?:TB|BT|RL|LR|TD)|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|requirementDiagram|gitGraph|c4Context|c4Container|c4Component|c4Dynamic|c4Deployment)\b/i.test(normalized)) {
@@ -164,7 +164,7 @@
             }
 
             var className = code.className || '';
-            var langMatch = className.match(/language-([\w-]+)/i);
+            var langMatch = className.match(/(?:language|lang)-([\w-]+)/i);
             var lang = langMatch ? langMatch[1].toLowerCase() : '';
             var rawCode = code.textContent || '';
 
@@ -196,6 +196,10 @@
 
         var blocks = root.querySelectorAll('pre code');
         Array.prototype.forEach.call(blocks, function (block) {
+            var className = block.className || '';
+            if (/(?:language|lang)-(?:mermaid|mmd)\b/i.test(className)) {
+                return;
+            }
             window.hljs.highlightElement(block);
         });
     }

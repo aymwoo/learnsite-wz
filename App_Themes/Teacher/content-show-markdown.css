@@ -239,6 +239,25 @@
     font-weight: 700;
 }
 
+.content-show-markdown .reveal-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.content-show-markdown .reveal-nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.content-show-markdown .reveal-nav-text {
+    line-height: 1;
+}
+
 .content-show-markdown .reveal-stage {
     position: relative;
     width: 100%;

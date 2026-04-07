@@ -13,9 +13,9 @@
                         <p class="course-subtitle">按年级筛选当前发布的学案，快速预览并评价各班级学生提交的作品情况。</p>
                     </div>
                     <div class="course-hero-action">
-                        <span id="pg" onclick="package()" class="course-secondary-btn" style="color: #4f46e5; border-color: #c7d2fe; display: inline-flex; align-items: center; gap: 0.4rem;">
+                        <button type="button" id="pg" onclick="package()" class="course-secondary-btn" style="color: #4f46e5; border-color: #c7d2fe; display: inline-flex; align-items: center; gap: 0.4rem;">
                             <i class="bi bi-box-seam"></i> 作品打包
-                        </span>
+                        </button>
                         <asp:Button ID="Btnterm" runat="server" Text="学期总评" onclick="Btnterm_Click"
                             ToolTip="跳转到学期总评页面" CssClass="course-primary-btn" />
                     </div>

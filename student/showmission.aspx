@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../js/vendors/highlight/github.min.css" />
 <script src="../markdown/lib/marked.min.js"></script>
 <script src="../webform/highlight.min.js"></script>
+<link rel="stylesheet" href="../App_Themes/Teacher/content-show-markdown.css" />
     <link rel="stylesheet" type="text/css" href="/App_Themes/Student/showmission.css" />
 <div class="prog-wrap">
 <div id="showcontent" class="prog-grid">
@@ -56,6 +57,16 @@
                             <button type="button" id="markdownToggle" runat="server" class="prog-toggle-switch" aria-pressed="false" title="切换 Markdown 渲染" onclick="toggleMissionMarkdown()"><span class="prog-toggle-knob"></span></button>
                         </div>
                         <div id="markdownToggleStatus" runat="server" class="prog-toggle-status">当前：开启</div>
+                    </div>
+                    <div class="prog-subpanel prog-toggle-card">
+                        <div class="prog-toggle-row">
+                            <div class="prog-toggle-copy">
+                                <div class="prog-toggle-title">Reveal 演示文稿</div>
+                                <div class="prog-toggle-desc">检测到幻灯片分隔符时，允许按 Reveal.js 方式渲染。</div>
+                            </div>
+                            <button type="button" id="revealToggle" runat="server" class="prog-toggle-switch" aria-pressed="false" title="切换 Reveal 演示文稿"><span class="prog-toggle-knob"></span></button>
+                        </div>
+                        <div id="revealToggleStatus" runat="server" class="prog-toggle-status">当前：关闭</div>
                     </div>
                     <input type="button" class="prog-btn-secondary" id="share" value="我的网盘" onclick="showShare()" />
                     <asp:HyperLink ID="VoteLink" runat="server" Target="_blank"
@@ -165,8 +176,11 @@
         mContentId: '<%= Mcontent.ClientID %>',
         markdownToggleId: '<%= markdownToggle.ClientID %>',
         markdownToggleStatusId: '<%= markdownToggleStatus.ClientID %>',
-        hiddenMissionRawId: '<%= HiddenMissionRaw.ClientID %>'
+        hiddenMissionRawId: '<%= HiddenMissionRaw.ClientID %>',
+        revealToggleId: '<%= revealToggle.ClientID %>',
+        revealToggleStatusId: '<%= revealToggleStatus.ClientID %>'
     };
 </script>
+<script type="text/javascript" src="../js/content-show-markdown.js"></script>
 <script src="../js/showmission.js" type="text/javascript"></script>
 </asp:Content>
