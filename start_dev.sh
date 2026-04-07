@@ -9,6 +9,8 @@ SA_PASSWORD="YourStrong!Passw0rd"
 DB_NAME="learnsite"
 MSSQL_IMAGE="mcr.azure.cn/mssql/server:2022-latest"
 SQL_INIT_FILE="$SCRIPT_DIR/sql/learnsite.sql"
+BACKUP_DIR="$SCRIPT_DIR/backupdb"
+BACKUP_MOUNT_DIR="/app/backupdb"
 
 echo "Starting development environment setup for Arch Linux..."
 
@@ -70,6 +72,9 @@ fi
 echo "Pulling MSSQL image ($MSSQL_IMAGE)..."
 sudo docker pull $MSSQL_IMAGE
 
+# 5.1 Ensure backup directory exists on host
+mkdir -p "$BACKUP_DIR"
+
 # 6. Start MSSQL container
 echo "Starting MSSQL container..."
 sudo docker run -d \
@@ -78,7 +83,7 @@ sudo docker run -d \
   -e "MSSQL_SA_PASSWORD=$SA_PASSWORD" \
   -p 1433:1433 \
   --restart unless-stopped \
-  -v "$SCRIPT_DIR/backupdb:$SCRIPT_DIR/backupdb" \
+  -v "$BACKUP_DIR:$BACKUP_MOUNT_DIR" \
   $MSSQL_IMAGE
 
 # 7. Wait for SQL Server to be ready
