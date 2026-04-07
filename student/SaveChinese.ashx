@@ -8,9 +8,7 @@ public class SaveChinese : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
-        context.Response.Charset = "utf-8";
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentType = "text/plain";
         string Ptotal = context.Request.QueryString["Apples"].ToString();
         string Pspeed = context.Request.QueryString["Speed"].ToString();
         int result = 0;

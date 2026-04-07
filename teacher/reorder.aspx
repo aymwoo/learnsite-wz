@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="reorder.aspx.cs" Inherits="Teacher_reorder" ResponseEncoding="utf-8" %>
+﻿<%@ page title="" language="C#" masterpagefile="~/teacher/Teach.master" autoeventwireup="true" inherits="Teacher_reorder, App_Web_fwgio5h2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <p>
@@ -40,7 +40,7 @@
         &nbsp;</p>
     <p>
         <asp:Button ID="Btnorder" runat="server" Text="对当前两个班级进行重新分班" 
-            onclick="Btnorder_Click"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            onclick="Btnorder_Click" />
     </p>
     <p style="font-size: large">
         <strong>请慎重考虑操作！仅用于两个班级内重新分配学生！</strong></p>

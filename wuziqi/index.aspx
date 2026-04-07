@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="wuziqi_index" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="wuziqi_index, App_Web_dhbfxtxn" %>
 <!DOCTYPE html>
 <html >
 <head>
@@ -22,8 +22,6 @@
 	<script src='js/layout.js' type='text/javascript'></script>
 	<script src='js/interface.js' type='text/javascript'></script>
 	<script src='js/storage.js' type='text/javascript'></script>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body ontouchstart="">
 <div class='fullscreen-wrapper' id='happy-outer'>
@@ -69,7 +67,7 @@
 			你赢了! 再来一局?
 		</div>
 		<fieldset class="ui-grid-a">
-			<div class="ui-block-a"><button class='back-to-game px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0'  data-theme='c'>返回</button></div>
+			<div class="ui-block-a"><button class='back-to-game'  data-theme='c'>返回</button></div>
 			<div class="ui-block-b">
 				<a href='#new-game' data-rel='dialog' data-role='button' data-icon="grid">
 					开始新的一局
@@ -115,8 +113,8 @@
 				
 		</fieldset>
 		<fieldset class="ui-grid-a">
-			<div class="ui-block-a"><button class='back-to-game px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0'  data-theme='c'>返回</button></div>
-			<div class="ui-block-b"><button id='start-game'  data-theme='b' class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">开始</button></div>	   
+			<div class="ui-block-a"><button class='back-to-game'  data-theme='c'>返回</button></div>
+			<div class="ui-block-b"><button id='start-game'  data-theme='b'>开始</button></div>	   
 		</fieldset>
 	</div>
 </div>

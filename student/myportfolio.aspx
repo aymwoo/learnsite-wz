@@ -1,11 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="myportfolio.aspx.cs" Inherits="student_myportfolio" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="student_myportfolio, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-          <meta charset="utf-8" />
-<title>作品集</title>
+      <title>作品集</title>
   <style>
     .box {
         display: flex;  
@@ -31,8 +30,6 @@
 		background-color:rgba(255, 199, 123, 0.1);
       }
   </style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -58,3 +55,4 @@
     </form>
 </body>
 </html>
+

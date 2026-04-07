@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="meme.aspx.cs" Inherits="faceai_meme" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="faceai_meme, App_Web_jnw2ax4f" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,8 +7,6 @@
   <meta charset="UTF-8" />
   <script type="application/x-javascript" src="../faceai/face-api.js"></script>
   <link rel="stylesheet" href="../faceai/index.css">
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <script type="text/javascript" >
     var id = "<%=Id %>";
@@ -58,8 +56,8 @@
             </div>
             <div class="half">
                 <div id="landmarks" title="68个特征点坐标(x,y)"></div>
-                <button class="start-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="faceDetector()">人脸检测</button>
-                <button class="save-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="faceSave()">保存表情</button>
+                <button class="start-btn" onclick="faceDetector()">人脸检测</button>
+                <button class="save-btn" onclick="faceSave()">保存表情</button>
             </div>
         </div>
         <div>          

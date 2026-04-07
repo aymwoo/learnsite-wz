@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="match.aspx.cs" Inherits="python_match" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="python_match, App_Web_2qgwxnpp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -14,8 +14,6 @@
              text-align:center;
         }
 	</style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">
@@ -29,7 +27,7 @@
         </div>
         <div class="col-md-4">
             <p style=" text-align:right;">
-                <asp:HyperLink ID="Hlmatch" class="btn btn-default" runat="server" NavigateUrl="~/python/matchnew.aspx" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">创建比赛</asp:HyperLink>
+                <asp:HyperLink ID="Hlmatch" class="btn btn-default" runat="server" NavigateUrl="~/python/matchnew.aspx">创建比赛</asp:HyperLink>
             </p>  
         </div>
     </div>

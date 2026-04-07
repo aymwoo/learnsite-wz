@@ -47,12 +47,13 @@ font-family: 宋体, Arial, Helvetica, sans-serif;
                     <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />  
                     <RowStyle BackColor="#E1E8E1" Font-Names="Arial" Font-Size="13pt" />                    
 </asp:GridView>
-<asp:GridView SkinId="GridViewTopicsk" runat="server" AutoGenerateColumns="False" BorderColor="#E6E6E6" BorderWidth="0px" ForeColor="#111111" GridLines="None">
-    <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-    <RowStyle BackColor="#F9EFE8" Font-Names="Arial" Font-Size="13pt" />
-</asp:GridView>
+ <asp:GridView SkinId="GridViewTopicsk" runat="server"  AutoGenerateColumns="False" BorderColor="#E6E6E6" BorderWidth="0px" 
+                     ForeColor="#111111" GridLines="None" >
+                    <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />  
+                    <RowStyle BackColor="#F9EFE8" Font-Names="Arial" Font-Size="13pt" />                    
+</asp:GridView>         
 <asp:Label  SkinId="LabelFileShow" runat="server" BorderColor="#E0E0E0" BorderWidth="1px"
-                         Font-Names="宋体, Arial, Helvetica, sans-serif"  ></asp:Label>                
+                         Font-Family="宋体, Arial, Helvetica, sans-serif"  ></asp:Label>                
 <asp:Label  SkinId="LabelShow" runat="server" BorderColor="#E0E0E0" BorderWidth="1px"
                          Font-Names="Arial" Font-Size="11pt" ></asp:Label>
 <asp:Label SkinId="LabelMsgBlack" runat="server" Font-Names="Arial" Font-Size="11pt"></asp:Label>
@@ -60,7 +61,7 @@ font-family: 宋体, Arial, Helvetica, sans-serif;
 <asp:Label SkinId="LabelLightBlue" runat="server" BackColor="#DEE7F1" BorderColor="LightSteelBlue" BorderWidth="1px" Font-Names="Arial" 
         Font-Size="11pt" ></asp:Label>        
 <asp:Label  SkinId="LabelSize8" runat="server" Font-Names="Arial" Font-Size="8pt" ></asp:Label>        
-<asp:LinkButton SkinId="LinkButtonType" runat="server" BackColor="#EEEEEE" Height="16px" Font-Names="宋体, Arial, Helvetica, sans-serif"
+<asp:LinkButton SkinId="LinkButtonType" runat="server" BackColor="#EEEEEE" Height="16px" Font-Family="宋体, Arial, Helvetica, sans-serif"
             BorderColor="#CCCCCC" BorderStyle="Solid" BorderWidth="1px" Font-Size="12pt" 
             Font-Underline="False" ForeColor="Black" 
             Width="80px"></asp:LinkButton>

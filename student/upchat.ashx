@@ -6,9 +6,7 @@ using System.Web;
 public class upchat : IHttpHandler {
     
     public void ProcessRequest (HttpContext context) {
-        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
-        context.Response.Charset = "utf-8";
-        context.Response.ContentType = "application/json; charset=utf-8";
+        context.Response.ContentType = "application/json";
         string result = LearnSite.Common.chathistory.UpChatFile();
         context.Response.Write(result);
     }

@@ -8,9 +8,7 @@ public class FingerHandler : IHttpHandler
 
     public void ProcessRequest(HttpContext context)
     {
-        context.Response.ContentEncoding = System.Text.Encoding.UTF8;
-        context.Response.Charset = "utf-8";
-        context.Response.ContentType = "text/plain; charset=utf-8";
+        context.Response.ContentType = "text/plain";
         string myelevel = context.Request.QueryString["MyElevel"].ToString();
         string eh = "";
         if (!string.IsNullOrEmpty(myelevel))

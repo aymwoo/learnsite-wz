@@ -175,8 +175,6 @@
 }
     </style>
 
-
-    <link href="js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -199,12 +197,12 @@
             </div>
         </div>
         <div class="controls">
-            <button id="startBtn" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">开始录音</button>
-            <button id="stopBtn" disabled class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">停止录音</button>
-            <button  type = "button" onclick="savechat()"   title="保存到服务器上"  class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
+            <button id="startBtn">开始录音</button>
+            <button id="stopBtn" disabled>停止录音</button>
+            <button  type = "button" onclick="savechat()"   title="保存到服务器上" >
 			<i class="fa fa-save" aria-hidden="true"></i> 保存</button>
 			<span class="sp"></span>
-			<button  onclick="returnurl()" title="返回到学案页面" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
+			<button  onclick="returnurl()" title="返回到学案页面">
 			<i class="fa fa-reply" aria-hidden="true"></i> 返回</button>  
 
         </div>
@@ -226,7 +224,7 @@
 					<select id="recording2">
 						<option value="">选择第二个录音</option>
 					</select>
-					<button onclick="compareRecordings()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">开始比较</button>
+					<button onclick="compareRecordings()">开始比较</button>
 				</div>
 				<div id="result" class="result-box"></div>
 			</div>
@@ -497,8 +495,8 @@
                         <img src="${rec.mfcc}"  title="倒谱图：音色"/> <!-- 显示 MFCC 图像 -->
                     </div>
                     <div  class="recording-tool">
-                        <button onclick="playRecording(${rec.id})" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">播放</button>
-                        <button class="delete-btn px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" onclick="deleteRecording(${rec.id})">删除</button>
+                        <button onclick="playRecording(${rec.id})">播放</button>
+                        <button class="delete-btn" onclick="deleteRecording(${rec.id})">删除</button>
                     </div>
                 </div>
             `).join('');

@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="matchrank.aspx.cs" Inherits="python_matchrank" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="python_matchrank, App_Web_2qgwxnpp" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -11,8 +11,6 @@
     margin-left: 0px;
 }
     </style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
 <form id="form1" runat="server">
@@ -35,7 +33,7 @@
                         </asp:GridView>
                 <br />
              <asp:Button ID="Btnreturn" runat="server" onclick="Btnreturn_Click" 
-             SkinID="BtnNormal" Text="返回"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+             SkinID="BtnNormal" Text="返回" />
 
 </center>
 </div>

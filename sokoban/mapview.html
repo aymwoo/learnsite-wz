@@ -66,9 +66,7 @@
 			box-shadow:0px 0px 2px #ddd;			
 		}
 		</style>
-	
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-</head>
+	</head>
 	<body onkeydown="doKeyDown(event)"><!--身体-->
 	<div id="main" >
 		<div  class="game" >
@@ -99,9 +97,9 @@
 			</tr>
 		</table><br><br>
 			<div id="btntool">
-				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" value="重新开始" onclick="NextLevel(0)">
-				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  value="撤消一步" onclick="showBack()">	
-				<input type="button" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  value="自动播放" onclick="automove()">	
+				<input type="button" class="button" value="重新开始" onclick="NextLevel(0)">
+				<input type="button" class="button"  value="撤消一步" onclick="showBack()">	
+				<input type="button" class="button"  value="自动播放" onclick="automove()">	
 			</div><br>
 		<table id="mapTable" class="map"></table>
 		</div>

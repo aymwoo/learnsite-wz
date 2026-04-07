@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="softview.aspx.cs" Inherits="Teacher_softview" ResponseEncoding="utf-8" %>
+﻿<%@ page title="" language="C#" masterpagefile="~/teacher/Teach.master" stylesheettheme="Teacher" autoeventwireup="true" inherits="Teacher_softview, App_Web_fwgio5h2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <div class="left">
@@ -14,10 +14,12 @@
     更新日期：<asp:Label ID="Labeldate" runat="server"  ></asp:Label>
     学分：<asp:Label ID="Labelopen" runat="server"  ></asp:Label>
             &nbsp;
-            <asp:Button ID="BtnEdit" runat="server" Text="编辑内容" ToolTip="点击修改"
-            OnClick="BtnEdit_Click" CssClass="admin-form-btn admin-form-btn--primary" />
-        &nbsp;&nbsp;&nbsp;&nbsp; <asp:Button ID="BtnReturnSmall" runat="server" Text="返回列表" ToolTip="返回"
-            OnClick="BtnReturnSmall_Click" CssClass="admin-form-btn admin-form-btn--secondary" />
+            <asp:ImageButton ID="BtnEdit" runat="server" ToolTip="点击修改" 
+            ImageUrl="~/images/edit.gif" onclick="BtnEdit_Click" 
+           style="width: 16px" />
+        &nbsp;&nbsp;&nbsp;&nbsp; <asp:ImageButton ID="BtnReturnSmall" runat="server" ToolTip="返回" 
+            ImageUrl="~/images/return.gif" onclick="BtnReturnSmall_Click" 
+           style="width: 16px" />
         </div>
         <br />
         <center>
@@ -37,14 +39,15 @@
         BorderColor="#7DBF80" BorderStyle="Dashed" BorderWidth="1px" 
         CssClass="txtszcenter" Height="18px" BackColor="#E2F3E3" Width="80px">点击下载</asp:LinkButton>
         <br />
-    <asp:HyperLink ID="HLurl" runat="server" Visible="false"  CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+    <asp:HyperLink ID="HLurl" runat="server" Visible="false" ></asp:HyperLink>
         <br />
         <br />
-              <asp:Button ID="Btnreturn" runat="server"  Text="返回列表" OnClick="Btnreturn_Click"
-                  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+              <asp:Button ID="Btnreturn" runat="server"  Text="返回" OnClick="Btnreturn_Click"  
+                  SkinID="BtnNormal" />
         <br />
         <br />
         <br />
         </div>
     </div>
 </asp:Content>
+

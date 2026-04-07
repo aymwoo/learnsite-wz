@@ -1,13 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="download.aspx.cs" Inherits="Plugins_download" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Plugins_download, App_Web_sef0j2m2" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-        <meta charset="utf-8" />
-<title>专用下载输出页面</title>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
+    <title>专用下载输出页面</title>
 </head>
 <body>
     <form id="form1" runat="server" >

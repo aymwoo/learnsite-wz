@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/lessons/prescm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="pretopicdiscuss.aspx.cs" Inherits="Lessons_pretopicdiscuss" %>
+﻿<%@ page title="" language="C#" masterpagefile="~/lessons/prescm.master" stylesheettheme="Student" validaterequest="false" autoeventwireup="true" inherits="Lessons_pretopicdiscuss, App_Web_pimyr0dr" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Ppcm" Runat="Server">
  <div id="student">
@@ -34,7 +34,7 @@
             ImageUrl="~/images/refresh2.gif" ToolTip="刷新贴子" />
       <asp:HyperLink ID="HLbottom" runat="server" BorderStyle="None" 
              BorderWidth="0px" ImageUrl="~/images/bottom.png" NavigateUrl="#bottom" 
-            ToolTip="跳到底部" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+            ToolTip="跳到底部"></asp:HyperLink>
             </div>
             </div>
             <br />
@@ -49,7 +49,7 @@
         <asp:imagebutton ID="ImageBtnFreshtwo" runat="server" 
             ImageUrl="~/images/refresh2.gif"  ToolTip="刷新贴子" />
      <asp:HyperLink ID="HLtop" runat="server" BorderStyle="None" BorderWidth="0px" 
-            ImageUrl="~/images/top.png" NavigateUrl="#topper" ToolTip="跳到顶部" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block"></asp:HyperLink>
+            ImageUrl="~/images/top.png" NavigateUrl="#topper" ToolTip="跳到顶部"></asp:HyperLink>
             </div>
       </div>
     <div style="width: 600px;">  
@@ -79,7 +79,7 @@
     您当前输入了 <span class="word_count">0</span> 个文字（最多为120汉字）
     <br /><br />
             <asp:Button ID="Btnword" runat="server" Text="发表讨论" 
-             BorderStyle="None" CssClass="buttonimg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  Width="80px" />
+             BorderStyle="None" CssClass="buttonimg"  Width="80px" />
     <br />
     <asp:Label ID="Labeldiscuss" runat="server"  SkinID="LabelMsgRed"></asp:Label>
             <br />

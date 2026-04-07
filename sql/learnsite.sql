@@ -419,7 +419,6 @@ CREATE TABLE [dbo].[MenuWorks](
 	[ksid] [int] NULL,
 	[klid] [int] NULL,
 	[ktime] [int] NULL,
-	[kseconds] [int] NULL,
 	[kcheck] [bit] NULL,
 	[kstar] [int] NULL,
 PRIMARY KEY CLUSTERED 
@@ -1370,8 +1369,6 @@ CREATE TABLE [dbo].[WorksDiscuss](
 	[Did] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
-
 GO
 ALTER TABLE [dbo].[Autonomic] ADD  DEFAULT ((0)) FOR [Ascore]
 GO
@@ -1440,21 +1437,6 @@ GO
 ALTER TABLE [dbo].[ListMenu] ADD  DEFAULT ((1)) FOR [Lshow]
 GO
 ALTER TABLE [dbo].[MenuWorks] ADD  DEFAULT ((0)) FOR [kcheck]
-GO
-IF COL_LENGTH('dbo.MenuWorks', 'kseconds') IS NULL
-BEGIN
-    ALTER TABLE [dbo].[MenuWorks] ADD [kseconds] [int] NULL
-END
-GO
-IF NOT EXISTS (
-    SELECT 1 FROM sys.indexes 
-    WHERE name = 'IX_MenuWorks_Klid_Ksid' AND object_id = OBJECT_ID('dbo.MenuWorks')
-)
-BEGIN
-    CREATE NONCLUSTERED INDEX [IX_MenuWorks_Klid_Ksid]
-    ON [dbo].[MenuWorks]([Klid] ASC, [Ksid] ASC)
-    INCLUDE ([Ktime], [Kseconds], [Kcheck], [Kstar])
-END
 GO
 ALTER TABLE [dbo].[Mission] ADD  CONSTRAINT [DF_Mission_Mhit]  DEFAULT ((0)) FOR [Mhit]
 GO
@@ -1750,35 +1732,6 @@ ALTER TABLE [dbo].[Works] ADD  DEFAULT ((0)) FOR [Wpass]
 GO
 ALTER TABLE [dbo].[WorksDiscuss] ADD  DEFAULT ((0)) FOR [Dsid]
 GO
-CREATE TABLE [dbo].[AIProvider](
-
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-
-	[DisplayName] [nvarchar](50) NULL,
-
-	[ProviderName] [nvarchar](50) NULL,
-
-	[ModelName] [nvarchar](50) NULL,
-
-	[ApiKey] [nvarchar](200) NULL,
-
-	[BaseUrl] [nvarchar](200) NULL,
-
-	[IsDefault] [bit] DEFAULT ((0)) NULL,
-
-PRIMARY KEY CLUSTERED 
-
-(
-
-	[Id] ASC
-
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
-) ON [PRIMARY]
-
-GO
-
-
 
 BEGIN
 insert into Teacher(Hname,Hpwd,Hpermiss,Hnote) values ('admin','12345','1','管理员')

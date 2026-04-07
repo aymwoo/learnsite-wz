@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="sketch.aspx.cs" Inherits="Python_sketch" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Python_sketch, App_Web_2qgwxnpp" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -22,8 +22,6 @@
 			background-color: #fef8de;
 		}
 	</style>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form1" runat="server">

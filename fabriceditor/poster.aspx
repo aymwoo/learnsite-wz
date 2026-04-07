@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="poster.aspx.cs" Inherits="fabriceditor_poster" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="fabriceditor_poster, App_Web_strl1qn3" %>
 <!doctype html>
 <html lang="en" style="overflow: hidden">
 <head runat="server">
@@ -28,8 +28,6 @@
     </style>
     <script type="module" crossorigin src="/fabriceditor/js/index.js"></script>
     <link rel="stylesheet" href="/fabriceditor/assets/index-b3d4c966.css">
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
     <form id="form2" runat="server">

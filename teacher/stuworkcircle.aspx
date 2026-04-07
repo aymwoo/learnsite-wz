@@ -1,35 +1,10 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="stuworkcircle.aspx.cs" Inherits="Teacher_stuworkcircle" ResponseEncoding="utf-8" %>
+﻿<%@ page language="C#" autoeventwireup="true" inherits="Teacher_stuworkcircle, App_Web_qxp4kcg3" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-        <meta charset="utf-8" />
-<title></title>
-
-    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
-    <style type="text/css">
-        .swc-nav-btn,
-        .swc-tool-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 2.2rem;
-            padding: 0 0.9rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.6rem;
-            background: #ffffff;
-            color: #334155;
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .swc-tool-btn {
-            background: #eff6ff;
-            color: #1d4ed8;
-            border-color: #bfdbfe;
-        }
-    </style>
+    <title></title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -44,19 +19,19 @@
         <div style="margin: auto; width: 98%;">
 <center>
     <div style="font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 9pt">
-        <asp:Button ID="ImgBtnLeft" runat="server" Text="上一项"
-            OnClick="ImgBtnLeft_Click" CssClass="swc-nav-btn" />
+        <asp:ImageButton ID="ImgBtnLeft" runat="server" ImageUrl="~/images/left.png" 
+            onclick="ImgBtnLeft_Click" Width="16px" />
     <asp:DropDownList ID="DDLstore" runat="server" 
             Font-Bold="True" Width="300px" AutoPostBack="True" Font-Size="12pt" 
             onselectedindexchanged="DDLstore_SelectedIndexChanged">
         <asp:ListItem></asp:ListItem>
         </asp:DropDownList>
-        <asp:Button ID="ImgBtnright" runat="server"
-            Text="下一项" OnClick="ImgBtnright_Click" CssClass="swc-nav-btn" />
+        <asp:ImageButton ID="ImgBtnright" runat="server" 
+            ImageUrl="~/images/right.png" onclick="ImgBtnright_Click" />
          <br />
             <asp:Label ID="lbcount" runat="server"></asp:Label>
-        <asp:Button ID="ImgBtn" runat="server" Text="刷新展播"
-            OnClick="ImgBtn_Click" ToolTip="循环展播专用刷新" CssClass="swc-tool-btn" />
+        <asp:ImageButton ID="ImgBtn" runat="server" ImageUrl="~/images/refresh.gif" 
+            onclick="ImgBtn_Click" ToolTip="循环展播专用刷新" />
          <br />
         </div>        
         <div style=" font-family: 宋体, Arial, Helvetica, sans-serif; font-size: 11pt; margin: 2px; " >
@@ -70,7 +45,7 @@
         <br />
      <asp:Button ID="Btnclose" runat="server"   Text="关闭" BackColor="WhiteSmoke" 
             BorderColor="#CCCCCC" BorderStyle="None" Font-Size="9pt" Height="20px" 
-            Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+            Width="60px" />
         <br />
         <br />
         <asp:Label ID="Labelmsg" runat="server"></asp:Label>

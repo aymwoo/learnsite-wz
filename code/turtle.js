@@ -1185,7 +1185,7 @@ $(window).resize(function() {
 });
 
 function returnurl() {
-  if(confirm('是否离开当前活动页面？请先保存作品。')==true){
+  if(confirm('确定要返回吗？记得先保存。')==true){
       window.location.href=fpage;
     }
 }
