@@ -119,7 +119,11 @@
             return true;
         }
 
-        return /^(?:graph\s+(?:TB|BT|RL|LR|TD)|flowchart\s+(?:TB|BT|RL|LR|TD)|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|requirementDiagram|gitGraph|c4Context|c4Container|c4Component|c4Dynamic|c4Deployment)\b/im.test(normalized);
+        if (!/^(?:graph\s+(?:TB|BT|RL|LR|TD)|flowchart\s+(?:TB|BT|RL|LR|TD)|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|requirementDiagram|gitGraph|c4Context|c4Container|c4Component|c4Dynamic|c4Deployment)\b/i.test(normalized)) {
+            return false;
+        }
+
+        return !/(^|\n)```|(^|\n)---\s*$|(^|\n)#{1,6}\s|(^|\n)>\s|\[[^\]]+\]\([^)]+\)/m.test(normalized);
     }
 
     function wrapBareMermaidDocument(content, source) {
@@ -255,6 +259,11 @@
             return;
         }
 
+        function showMermaidError(node, source, error) {
+            var message = error && error.message ? error.message : '未知错误';
+            node.innerHTML = '<div class="mermaid-error-card"><div class="mermaid-error-title">Mermaid 图表解析失败</div><div class="mermaid-error-message">' + escapeHtml(message) + '</div><details class="mermaid-error-details"><summary>查看原始 Mermaid 源码</summary><pre><code>' + escapeHtml(source) + '</code></pre></details></div>';
+        }
+
         function doRender() {
             if (!window.mermaid) {
                 return;
@@ -275,12 +284,14 @@
                             if (rendered && rendered.svg) {
                                 node.innerHTML = rendered.svg;
                             }
+                        }).catch(function (error) {
+                            showMermaidError(node, source, error);
                         });
                     } else if (result && result.svg) {
                         node.innerHTML = result.svg;
                     }
                 } catch (e) {
-                    node.textContent = source;
+                    showMermaidError(node, source, e);
                 }
             });
         }

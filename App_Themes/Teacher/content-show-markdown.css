@@ -161,6 +161,42 @@
     overflow-x: auto;
 }
 
+.content-show-markdown .mermaid-error-card {
+    padding: 1rem;
+    border: 1px solid #fecaca;
+    border-radius: 0.85rem;
+    background: linear-gradient(180deg, #fff7f7 0%, #fff1f2 100%);
+    color: #7f1d1d;
+}
+
+.content-show-markdown .mermaid-error-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #b91c1c;
+}
+
+.content-show-markdown .mermaid-error-message {
+    margin-top: 0.45rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #7f1d1d;
+}
+
+.content-show-markdown .mermaid-error-details {
+    margin-top: 0.85rem;
+}
+
+.content-show-markdown .mermaid-error-details summary {
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #991b1b;
+}
+
+.content-show-markdown .mermaid-error-details pre {
+    margin-top: 0.75rem;
+}
+
 .content-show-markdown .reveal-toolbar {
     display: flex;
     align-items: center;

@@ -60,11 +60,10 @@ public partial class Teacher_missionadd : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string rawEditorContent = Request.Form["textareaItem"] ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(rawEditorContent))
-        {
-            rawEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
-        }
+        string payloadEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        string rawEditorContent = !string.IsNullOrWhiteSpace(payloadEditorContent)
+            ? payloadEditorContent
+            : (Request.Form["textareaItem"] ?? string.Empty);
         string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
         string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
         string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();

@@ -59,11 +59,12 @@ public partial class Teacher_missionedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string rawEditorContent = mcontent.Value ?? string.Empty;
-        if (string.IsNullOrWhiteSpace(rawEditorContent))
-        {
-            rawEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
-        }
+        string payloadEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        string formTextareaContent = Request.Form[mcontent.UniqueID] ?? string.Empty;
+        string serverTextareaContent = mcontent.Value ?? string.Empty;
+        string rawEditorContent = !string.IsNullOrWhiteSpace(payloadEditorContent)
+            ? payloadEditorContent
+            : (!string.IsNullOrWhiteSpace(formTextareaContent) ? formTextareaContent : serverTextareaContent);
         string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
         string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
         string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();
@@ -128,7 +129,16 @@ public partial class Teacher_missionedit : System.Web.UI.Page
         }
         else
         {
-            Labelmsg.Text = string.IsNullOrEmpty(title) ? "活动标题不能为空！" : "活动说明不能为空！";
+            if (string.IsNullOrEmpty(title))
+            {
+                Labelmsg.Text = "活动标题不能为空！";
+            }
+            else
+            {
+                string syncSource = Request.Form["editorSyncSource"] ?? "unknown";
+                string syncLength = Request.Form["editorSyncLength"] ?? "0";
+                Labelmsg.Text = "活动说明不能为空！当前同步来源：" + syncSource + "，同步长度：" + syncLength + "，payload长度：" + payloadEditorContent.Length + "，form长度：" + formTextareaContent.Length + "，server长度：" + serverTextareaContent.Length + "。";
+            }
         }
     }
     private void missionview()

@@ -50,8 +50,11 @@ var kindEditorObj;
 
             function rememberVditorState() {
                 if (!vditorObj) return;
-                lastVditorMarkdown = vditorObj.getValue();
-                lastVditorHtml = vditorObj.getHTML();
+                lastVditorMarkdown = vditorObj.getValue() || '';
+                lastVditorHtml = vditorObj.getHTML() || '';
+                if (!lastVditorMarkdown && lastVditorHtml) {
+                    lastVditorMarkdown = safeHtml2Md(lastVditorHtml);
+                }
             }
 
             function getSelectedVditorPasteMode() {
@@ -304,30 +307,43 @@ var kindEditorObj;
             function syncContent() {
                 var mcontent = document.getElementById(window.__missioneditConfig.mcontentId);
                 var payload = document.getElementById('editorContentPayload');
+                var syncSourceField = document.getElementById('editorSyncSource');
+                var syncLengthField = document.getElementById('editorSyncLength');
                 if (!mcontent) {
                     return true;
                 }
 
                 var content = '';
+                var syncSource = currentEditor + '-empty';
                 if (currentEditor === 'kindeditor') {
                     if (kindEditorObj) {
                         kindEditorObj.sync();
                         content = kindEditorObj.html() || '';
+                        syncSource = 'kindeditor-html';
                     }
                 } else if (currentEditor === 'wangeditor') {
                     if (wangEditorObj) {
                         content = wangEditorObj.getHtml() || '';
+                        syncSource = 'wangeditor-html';
                     }
                 } else if (currentEditor === 'vditor') {
                     if (vditorObj) {
+                        var liveTextarea = getVditorTextarea();
                         rememberVditorState();
-                        content = lastVditorMarkdown || vditorObj.getValue() || vditorObj.getHTML() || '';
+                        content = lastVditorMarkdown || vditorObj.getValue() || ((liveTextarea && liveTextarea.value) ? liveTextarea.value : '') || vditorObj.getHTML() || '';
+                        syncSource = lastVditorMarkdown ? 'vditor-markdown' : ((liveTextarea && liveTextarea.value) ? 'vditor-dom' : 'vditor-html');
                     }
                 }
 
                 mcontent.value = content;
                 if (payload) {
                     payload.value = content;
+                }
+                if (syncSourceField) {
+                    syncSourceField.value = syncSource;
+                }
+                if (syncLengthField) {
+                    syncLengthField.value = String((content || '').length);
                 }
                 return true;
             }

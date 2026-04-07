@@ -90,8 +90,11 @@ var missionToastTimer = null;
 
                     function rememberVditorState() {
                         if (!vditorObj) return;
-                        lastVditorMarkdown = vditorObj.getValue();
-                        lastVditorHtml = vditorObj.getHTML();
+                        lastVditorMarkdown = vditorObj.getValue() || '';
+                        lastVditorHtml = vditorObj.getHTML() || '';
+                        if (!lastVditorMarkdown && lastVditorHtml) {
+                            lastVditorMarkdown = safeHtml2Md(lastVditorHtml);
+                        }
                     }
 
                     function getSelectedVditorPasteMode() {
@@ -365,8 +368,9 @@ var missionToastTimer = null;
                             }
                         } else if (currentEditor === 'vditor') {
                             if (vditorObj) {
+                                var liveTextarea = getVditorTextarea();
                                 rememberVditorState();
-                                content = lastVditorMarkdown || vditorObj.getValue() || vditorObj.getHTML() || '';
+                                content = lastVditorMarkdown || vditorObj.getValue() || ((liveTextarea && liveTextarea.value) ? liveTextarea.value : '') || vditorObj.getHTML() || '';
                             }
                         }
 
