@@ -663,11 +663,12 @@ public partial class UpGrade : System.Web.UI.Page
                 && !LearnSite.DBUtility.DatabaseSetupHelper.TargetDbExist(settings))
             {
                 LearnSite.DBUtility.DatabaseSetupHelper.CreateDatabase(settings);
+                LearnSite.DBUtility.DatabaseSetupHelper.WaitForTargetDatabaseReady(settings, 8, 800);
                 createdDatabase = true;
             }
 
             DatabaseAvailable = null;
-            int n = LearnSite.DBUtility.SqlHelper.CreateTable();
+            int n = LearnSite.DBUtility.DatabaseSetupHelper.CreateTableWithRetry(settings, 5, 800);
             List<LearnSite.DBUtility.MigrationResult> pendingResults = LearnSite.DBUtility.DbMigration.RunAllPending();
             StringBuilder resultSummary = new StringBuilder();
             foreach (LearnSite.DBUtility.MigrationResult result in pendingResults)

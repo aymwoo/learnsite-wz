@@ -649,7 +649,14 @@ namespace LearnSite.DBUtility
         public static int CreateTable(){
             string sqlurl = "sql/learnsite.sql";
             string sqlpath = HttpContext.Current.Server.MapPath(sqlurl);
-            return ExeSqlTextSetup(ExecuteSqlFile(sqlpath));
+            return ExeSqlTextSetup(connectionString, ExecuteSqlFile(sqlpath));
+        }
+
+        public static int CreateTable(string targetConnectionString)
+        {
+            string sqlurl = "sql/learnsite.sql";
+            string sqlpath = HttpContext.Current.Server.MapPath(sqlurl);
+            return ExeSqlTextSetup(targetConnectionString, ExecuteSqlFile(sqlpath));
         }
 
 
@@ -699,10 +706,10 @@ namespace LearnSite.DBUtility
         /// 采用事务处理sql脚本
         /// </summary>
         /// <param name="arr">sql脚本数组</param>
-        private static int ExeSqlTextSetup(ArrayList arr)
+        private static int ExeSqlTextSetup(string targetConnectionString, ArrayList arr)
         {
             int i = 0;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(targetConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {

@@ -18,10 +18,11 @@ public partial class Manager_DbUpgrade : System.Web.UI.Page
                 && !DatabaseSetupHelper.TargetDbExist(settings))
             {
                 DatabaseSetupHelper.CreateDatabase(settings);
+                DatabaseSetupHelper.WaitForTargetDatabaseReady(settings, 8, 800);
                 createdDatabase = true;
             }
 
-            int n = SqlHelper.CreateTable();
+            int n = DatabaseSetupHelper.CreateTableWithRetry(settings, 5, 800);
             List<MigrationResult> results = DbMigration.RunAllPending();
             StringBuilder sb = new StringBuilder();
             sb.Append("<div class='dbu-divider'></div><div class='dbu-log'>");
