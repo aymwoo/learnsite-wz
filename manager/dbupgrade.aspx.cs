@@ -7,6 +7,50 @@ using LearnSite.DBUtility;
 
 public partial class Manager_DbUpgrade : System.Web.UI.Page
 {
+    protected void BtnInitialize_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            DatabaseConnectionSettings settings;
+            bool createdDatabase = false;
+            if (DatabaseSetupHelper.TryGetCurrentConnectionSettings(out settings)
+                && DatabaseSetupHelper.MasterDbExist(settings)
+                && !DatabaseSetupHelper.TargetDbExist(settings))
+            {
+                DatabaseSetupHelper.CreateDatabase(settings);
+                createdDatabase = true;
+            }
+
+            int n = SqlHelper.CreateTable();
+            List<MigrationResult> results = DbMigration.RunAllPending();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<div class='dbu-divider'></div><div class='dbu-log'>");
+            sb.Append("<div class='dbu-log-line--ok'>✔ ");
+            sb.Append(createdDatabase ? "数据库已创建并导入基础表结构" : "基础表结构已导入");
+            sb.Append("，影响行数 ").Append(n).Append("。</div>");
+            foreach (MigrationResult r in results)
+            {
+                string cls = r.Success ? "dbu-log-line--ok" : "dbu-log-line--err";
+                string icon = r.Success ? "✔" : "✘";
+                sb.AppendFormat(
+                    "<div class='{0}'>{1} [{2}] {3}  -  {4}</div>",
+                    cls, icon,
+                    System.Web.HttpUtility.HtmlEncode(r.Version),
+                    System.Web.HttpUtility.HtmlEncode(r.Description),
+                    System.Web.HttpUtility.HtmlEncode(r.Message));
+                if (!r.Success) break;
+            }
+            sb.Append("</div>");
+            LitRunResult.Text = sb.ToString();
+        }
+        catch (Exception ex)
+        {
+            LitRunResult.Text = "<div class='dbu-divider'></div><div class='dbu-alert dbu-alert--err'>初始化失败：" + System.Web.HttpUtility.HtmlEncode(ex.Message) + "</div>";
+        }
+
+        RefreshUI();
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -60,7 +104,12 @@ public partial class Manager_DbUpgrade : System.Web.UI.Page
     // ------------------------------------------------------------------
     private void RefreshUI()
     {
+        DatabaseConnectionSettings settings;
+        bool hasCurrentConfig = DatabaseSetupHelper.TryGetCurrentConnectionSettings(out settings);
+        bool masterAvailable = hasCurrentConfig && DatabaseSetupHelper.MasterDbExist(settings);
+        bool targetDatabaseExists = masterAvailable && DatabaseSetupHelper.TargetDbExist(settings);
         bool dbOk = SqlHelper.DatabaseExist();
+        bool isEmptyDatabase = dbOk && SqlHelper.CountTable() == 0;
         int totalCount = DbMigration.AllMigrations.Count;
         HashSet<string> applied = dbOk ? DbMigration.GetAppliedVersions() : new HashSet<string>();
         List<MigrationEntry> pending = new List<MigrationEntry>();
@@ -73,15 +122,25 @@ public partial class Manager_DbUpgrade : System.Web.UI.Page
 
         // DB status badge
         bool versionOk = dbOk && UpdateGrade.VersionCheck();
-        if (!dbOk)
+        if (!dbOk && masterAvailable && !targetDatabaseExists)
+        {
+            LabelStatus.Text = "<span class='dbu-badge dbu-badge--warn'>数据库不存在</span>";
+            LitDbAlert.Text = "<div class='dbu-alert dbu-alert--warn'>当前已连接到 SQL Server，但数据库 <code>" + System.Web.HttpUtility.HtmlEncode(settings.Database) + "</code> 不存在。可以直接点击下方“创建数据库并初始化”。</div>";
+        }
+        else if (!dbOk)
         {
             LabelStatus.Text = "<span class='dbu-badge dbu-badge--danger'>数据库不可用</span>";
             LitDbAlert.Text  = "<div class='dbu-alert dbu-alert--err'>无法连接到数据库，请检查连接设置。</div>";
         }
+        else if (isEmptyDatabase)
+        {
+            LabelStatus.Text = "<span class='dbu-badge dbu-badge--warn'>空库未初始化</span>";
+            LitDbAlert.Text  = "<div class='dbu-alert dbu-alert--warn'>当前数据库已存在，但还没有业务表。可以直接点击下方“创建数据表并初始化”。</div>";
+        }
         else if (!versionOk)
         {
             LabelStatus.Text = "<span class='dbu-badge dbu-badge--warn'>需要升级</span>";
-            LitDbAlert.Text  = "<div class='dbu-alert dbu-alert--warn'>数据库结构需要更新，请点击"一键升级"。</div>";
+            LitDbAlert.Text  = "<div class='dbu-alert dbu-alert--warn'>数据库结构需要更新，请点击“一键升级数据库”。</div>";
         }
         else
         {
@@ -90,7 +149,15 @@ public partial class Manager_DbUpgrade : System.Web.UI.Page
         }
 
         // Pending list summary
-        if (pending.Count == 0)
+        if (!dbOk && masterAvailable && !targetDatabaseExists)
+        {
+            LitPendingList.Text = "<div class='dbu-alert dbu-alert--warn'>目标数据库尚不存在。初始化时将自动创建数据库、导入基础表，并执行全部迁移。</div>";
+        }
+        else if (isEmptyDatabase)
+        {
+            LitPendingList.Text = "<div class='dbu-alert dbu-alert--warn'>当前为空库。初始化时将导入基础表，并执行全部迁移。</div>";
+        }
+        else if (pending.Count == 0)
         {
             LitPendingList.Text = "<div class='dbu-alert dbu-alert--ok'>当前没有待执行的迁移。</div>";
         }
@@ -164,7 +231,11 @@ public partial class Manager_DbUpgrade : System.Web.UI.Page
         allSb.Append("</tbody></table>");
         LitAllMigrations.Text = allSb.ToString();
 
-        BtnRunAll.Enabled    = dbOk && pending.Count > 0;
-        BtnBackfill.Enabled  = dbOk;
+        BtnInitialize.Visible = (!dbOk && masterAvailable && !targetDatabaseExists) || isEmptyDatabase;
+        BtnInitialize.Text = (!dbOk && masterAvailable && !targetDatabaseExists) ? "创建数据库并初始化" : "创建数据表并初始化";
+        BtnInitialize.Enabled = BtnInitialize.Visible;
+        BtnRunAll.Enabled = dbOk && !isEmptyDatabase && pending.Count > 0;
+        BtnBackfill.Enabled = dbOk && !isEmptyDatabase;
     }
+
 }

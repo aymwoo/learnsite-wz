@@ -376,10 +376,63 @@ public partial class UpGrade : System.Web.UI.Page
 
     private void checkdatabase()
     {
+        LastAnalyzeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        ConnectedDatabaseName = GetCurrentDatabaseName();
+        LearnSite.DBUtility.DatabaseConnectionSettings settings;
+        bool hasCurrentConfig = LearnSite.DBUtility.DatabaseSetupHelper.TryGetCurrentConnectionSettings(out settings);
+        bool masterAvailable = hasCurrentConfig && LearnSite.DBUtility.DatabaseSetupHelper.MasterDbExist(settings);
+        bool targetDatabaseExists = masterAvailable && LearnSite.DBUtility.DatabaseSetupHelper.TargetDbExist(settings);
+
         if (!IsDatabaseAvailable())//如果数据库不存在
         {
-            LastAnalyzeTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            ConnectedDatabaseName = GetCurrentDatabaseName();
+            if (masterAvailable && !targetDatabaseExists)
+            {
+                CurrentDbVersion = "未创建";
+                UpgradeMode = "SQL Server 已连接 / 数据库不存在";
+                UpgradeDecision = "可以初始化新库";
+                RiskLevel = "中";
+                UpgradeSummaryHtml = BuildListHtml(new List<string>
+                {
+                    "当前已经能够连接到 SQL Server，但目标数据库 `" + settings.Database + "` 还不存在。",
+                    "可以直接点击“创建数据库并初始化”，系统会自动创建 `" + settings.Database + "` 数据库、导入基础表结构，并补齐当前版本所需初始化数据。",
+                    "如果这不是你想使用的数据库名称，也可以先修改下方连接配置，再重新检查。"
+                }, "upgrade-check-list");
+                UpgradeRiskHtml = BuildListHtml(new List<string>
+                {
+                    "初始化前仍建议确认服务器地址、实例名和数据库名称是否正确，避免在错误服务器上新建库。",
+                    "执行初始化的账号需要具备创建数据库、建表和写入数据权限。",
+                    "如果当前 SQL Server 磁盘空间不足或账号权限受限，初始化过程可能失败。"
+                }, "upgrade-risk-list");
+                PendingMigrationHtml = BuildListHtml(new List<string>
+                {
+                    "系统将自动创建数据库。",
+                    "系统将导入 `sql/learnsite.sql` 基础表结构。",
+                    "系统将执行当前版本所需的初始化迁移与默认数据补齐。"
+                }, "upgrade-pending-list");
+                PendingStructureHtml = BuildListHtml(new List<string>
+                {
+                    "创建 learnsite 数据库。",
+                    "导入基础数据表。",
+                    "补齐迁移记录表和新增业务表。"
+                }, "upgrade-pending-list");
+                PendingDataHtml = BuildListHtml(new List<string>
+                {
+                    "初始化英文词库和默认数据。"
+                }, "upgrade-pending-list");
+                PendingPerformanceHtml = BuildListHtml(new List<string>
+                {
+                    "补齐当前版本要求的索引与性能优化项。"
+                }, "upgrade-pending-list");
+                Panel1.Visible = true;
+                showPanel();
+                Btnupgrade.Enabled = false;
+                Btnupgrade.Visible = false;
+                BtnCreateTable.Visible = true;
+                BtnCreateTable.Text = "创建数据库并初始化";
+                Labelmsg.Text = "当前已连接到 SQL Server，但数据库“" + settings.Database + "”不存在。可以直接点击“创建数据库并初始化”。";
+                return;
+            }
+
             CurrentDbVersion = "无法连接";
             UpgradeMode = "数据库连接失败";
             UpgradeDecision = "请先修改连接配置";
@@ -407,6 +460,7 @@ public partial class UpGrade : System.Web.UI.Page
             Btnupgrade.Enabled = false;
             Btnupgrade.Visible = false;
             BtnCreateTable.Visible = false;
+            BtnCreateTable.Text = "创建数据表并初始化";
             Labelmsg.Text = "当前程序还没有连接上 SQL Server。请先检查数据库服务器名称或实例名、数据库名称、账号和密码；如果 SQL Server 未启动或未开启 TCP/IP，也会导致这里无法连接。";
         }
         else
@@ -415,6 +469,7 @@ public partial class UpGrade : System.Web.UI.Page
             {
                 AnalyzeUpgradeState();
                 BtnCreateTable.Visible = false;
+                BtnCreateTable.Text = "创建数据表并初始化";
                 Panel1.Visible = false;
                 Btnupgrade.Enabled = true;
                 Btnupgrade.Visible = true;
@@ -422,8 +477,42 @@ public partial class UpGrade : System.Web.UI.Page
             }
             else {
                 BtnCreateTable.Visible = true;
+                BtnCreateTable.Text = "创建数据表并初始化";
                 Btnupgrade.Visible = false;
-                Labelmsg.Text = "数据库连接正常！第一次安装请点击创建数据表按钮后，然后执行更新进行初始化！";
+                Panel1.Visible = false;
+                UpgradeMode = "空库 / 未初始化数据库";
+                UpgradeDecision = "可以初始化新库";
+                RiskLevel = "中";
+                CurrentDbVersion = "未初始化";
+                UpgradeSummaryHtml = BuildListHtml(new List<string>
+                {
+                    "当前数据库已经存在，但还是空库，没有任何业务数据表。",
+                    "点击“创建数据表并初始化”后，系统会导入基础表结构，并自动执行当前版本初始化迁移。"
+                }, "upgrade-check-list");
+                UpgradeRiskHtml = BuildListHtml(new List<string>
+                {
+                    "初始化前仍建议确认当前连接的是目标数据库，避免误操作到其他空库。",
+                    "初始化过程中需要建表和写入默认数据权限。"
+                }, "upgrade-risk-list");
+                PendingMigrationHtml = BuildListHtml(new List<string>
+                {
+                    "导入 `sql/learnsite.sql` 基础表结构。",
+                    "执行当前版本所需初始化迁移与默认数据补齐。"
+                }, "upgrade-pending-list");
+                PendingStructureHtml = BuildListHtml(new List<string>
+                {
+                    "创建业务基础表。",
+                    "补齐迁移记录表和新增业务表。"
+                }, "upgrade-pending-list");
+                PendingDataHtml = BuildListHtml(new List<string>
+                {
+                    "初始化英文词库和默认数据。"
+                }, "upgrade-pending-list");
+                PendingPerformanceHtml = BuildListHtml(new List<string>
+                {
+                    "补齐当前版本要求的索引与性能优化项。"
+                }, "upgrade-pending-list");
+                Labelmsg.Text = "数据库连接正常！当前是空库，可以直接点击“创建数据表并初始化”。";
             }
         }
     }
@@ -565,9 +654,42 @@ public partial class UpGrade : System.Web.UI.Page
     }
     protected void BtnCreateTable_Click(object sender, EventArgs e)
     {
-        int n = LearnSite.DBUtility.SqlHelper.CreateTable();
-        Labelmsg.Text = "创建数据表成功！"+n.ToString();
-        LearnSite.Common.WordProcess.Alert("创建数据表成功！可以执行更新，导入打字英文字典", this.Page);
-        Response.Redirect("~/upgrade.aspx", false);
+        try
+        {
+            LearnSite.DBUtility.DatabaseConnectionSettings settings;
+            bool createdDatabase = false;
+            if (LearnSite.DBUtility.DatabaseSetupHelper.TryGetCurrentConnectionSettings(out settings)
+                && LearnSite.DBUtility.DatabaseSetupHelper.MasterDbExist(settings)
+                && !LearnSite.DBUtility.DatabaseSetupHelper.TargetDbExist(settings))
+            {
+                LearnSite.DBUtility.DatabaseSetupHelper.CreateDatabase(settings);
+                createdDatabase = true;
+            }
+
+            DatabaseAvailable = null;
+            int n = LearnSite.DBUtility.SqlHelper.CreateTable();
+            List<LearnSite.DBUtility.MigrationResult> pendingResults = LearnSite.DBUtility.DbMigration.RunAllPending();
+            StringBuilder resultSummary = new StringBuilder();
+            foreach (LearnSite.DBUtility.MigrationResult result in pendingResults)
+            {
+                if (!result.Success)
+                {
+                    resultSummary.Append(" 初始化迁移 ").Append(result.Version).Append(" 失败：").Append(result.Message);
+                    break;
+                }
+            }
+
+            string actionText = createdDatabase ? "数据库创建并初始化完成" : "数据表创建并初始化完成";
+            Labelmsg.Text = actionText + "！" + n.ToString() + resultSummary.ToString();
+            if (resultSummary.Length == 0)
+            {
+                LearnSite.Common.WordProcess.Alert(actionText + "，系统已自动补齐当前版本所需数据。", this.Page);
+                Response.Redirect("~/upgrade.aspx", false);
+            }
+        }
+        catch (Exception ex)
+        {
+            Labelmsg.Text = "初始化失败：" + ex.Message;
+        }
     }
 }

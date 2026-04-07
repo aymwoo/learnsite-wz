@@ -54,6 +54,9 @@
             <div class="dbu-card__body">
                 <asp:Literal ID="LitPendingList" runat="server" />
                 <div class="dbu-divider"></div>
+                <asp:Button ID="BtnInitialize" runat="server" Text="创建数据库并初始化" CssClass="dbu-btn dbu-btn--slate"
+                    OnClick="BtnInitialize_Click" OnClientClick="return confirm('确认执行数据库初始化？系统会在需要时自动创建数据库、导入基础表结构并执行全部迁移。');" />
+                &nbsp;
                 <asp:Button ID="BtnRunAll" runat="server" Text="一键升级数据库" CssClass="dbu-btn dbu-btn--primary"
                     OnClick="BtnRunAll_Click" OnClientClick="return confirm('确认执行所有待升级迁移？');" />
                 &nbsp;
