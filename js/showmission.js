@@ -80,6 +80,38 @@
 
     var markdownStorageKey = 'showmission-markdown-enabled';
     var revealStorageKey = 'showmission-reveal-enabled';
+    var revealThemeOptions = [
+        { value: 'default', label: '默认主题' },
+        { value: 'white', label: 'White' },
+        { value: 'sky', label: 'Sky' },
+        { value: 'beige', label: 'Beige' },
+        { value: 'simple', label: 'Simple' },
+        { value: 'serif', label: 'Serif' },
+        { value: 'moon', label: 'Moon' },
+        { value: 'night', label: 'Night' },
+        { value: 'solarized', label: 'Solarized' }
+    ];
+
+    function getRevealThemeOptionsHtml() {
+        return revealThemeOptions.map(function (theme) {
+            return '<option value="' + escapeHtml(theme.value) + '">' + escapeHtml(theme.label) + '</option>';
+        }).join('');
+    }
+
+    function normalizeRevealTheme(theme) {
+        var value = (theme || '').toLowerCase();
+        for (var i = 0; i < revealThemeOptions.length; i++) {
+            if (revealThemeOptions[i].value === value) {
+                return value;
+            }
+        }
+        return 'default';
+    }
+
+    function isDarkRevealTheme(theme) {
+        var value = normalizeRevealTheme(theme);
+        return value === 'default' || value === 'moon' || value === 'night';
+    }
 
     function getContentElement() {
         return document.getElementById(mContentId);
