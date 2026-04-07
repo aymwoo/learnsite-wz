@@ -150,4 +150,10 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__pixeladdConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pixeladd.js"></script>
 </asp:Content>

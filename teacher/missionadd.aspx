@@ -136,4 +136,10 @@
         <span id="mission-toast-icon" class="mission-toast-icon"></span>
         <span id="mission-toast-message" class="mission-toast-message"></span>
     </div>
+    <script type="text/javascript">
+        window.__missionaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/missionadd.js"></script>
 </asp:Content>

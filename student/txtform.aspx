@@ -42,4 +42,16 @@
 </div>
 </div>
 <asp:HiddenField ID="hiddencount" runat="server" />
+    <script type="text/javascript">
+        window.__txtformConfig = {
+            snum: '<%=Snum %>',
+            sname: '<%=Sname %>',
+            sgroup: '<%=Sgroup %>',
+            collabo: '<%=Collabo %>',
+            serverIp: '<%=serverIp %>',
+            lid: '<%=Lid %>',
+            done: '<%=Done %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/txtform.js"></script>
 </asp:Content>

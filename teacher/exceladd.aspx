@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="exceladd.aspx.cs" Inherits="teacher_exceladd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../App_Themes/Teacher/exceladd.css" rel="stylesheet" />
 <link href="../js/fileupload.css" rel="stylesheet" />
 
 
@@ -105,4 +106,10 @@
 </div>
 
 <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__exceladdConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/exceladd.js"></script>
 </asp:Content>

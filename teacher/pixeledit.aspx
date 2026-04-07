@@ -179,4 +179,11 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__pixeleditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pixeledit.js"></script>
 </asp:Content>

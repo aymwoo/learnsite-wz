@@ -60,4 +60,11 @@
          </div>
            
         </div>
+    <script type="text/javascript">
+        window.__htmleditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/htmledit.js"></script>
 </asp:Content>

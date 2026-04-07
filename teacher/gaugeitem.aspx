@@ -121,4 +121,11 @@
 </div>
 
 
+    <script type="text/javascript">
+        window.__gaugeitemConfig = {
+            gauge_generateUrl: '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>',
+            request_QueryString_gid: '<%= Request.QueryString["gid"] %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/gaugeitem.js"></script>
 </asp:Content>

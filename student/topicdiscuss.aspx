@@ -160,4 +160,10 @@
         <img id="bigimg" style="pointer-events: none; border-radius: 8px;" src="" />
     </div>
 </div>
+    <script type="text/javascript">
+        window.__topicdiscussConfig = {
+            myCid: '<%=myCid %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/topicdiscuss.js"></script>
 </asp:Content>

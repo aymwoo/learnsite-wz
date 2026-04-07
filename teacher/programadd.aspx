@@ -97,4 +97,10 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__programaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/programadd.js"></script>
 </asp:Content>

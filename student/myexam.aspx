@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" AutoEventWireup="true" CodeFile="myexam.aspx.cs" Inherits="student_myexam" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
+<link href="../App_Themes/Student/myexam.css" rel="stylesheet" />
 
 
 <div class="survey-exam-page">
@@ -97,4 +98,19 @@
 </div>
 
 
+    <script type="text/javascript">
+        window.__myexamConfig = {
+            questionList: <%=questionList %>,
+            isClose: <%=isClose.ToString().ToLower() %>,
+            isDone: <%=isDone.ToString().ToLower() %>,
+            enableAiAssessment: <%=EnableAiAssessment.ToString().ToLower() %>,
+            lidstr: '<%=Lidstr %>',
+            cidstr: '<%=Cidstr %>',
+            vidstr: '<%=Vidstr %>',
+            vtypestr: '<%=Vtypestr %>',
+            fpage: '<%=Fpage %>',
+            learnSite_BLL_AIStudentExamGenerator_GetDefaultProviderDisplayName: '<%= LearnSite.BLL.AIStudentExamGenerator.GetDefaultProviderDisplayName() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/myexam.js"></script>
 </asp:Content>

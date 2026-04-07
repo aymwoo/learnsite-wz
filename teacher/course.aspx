@@ -163,4 +163,5 @@
 
         
     </div>
+    <script type="text/javascript" src="../js/course.js"></script>
 </asp:Content>

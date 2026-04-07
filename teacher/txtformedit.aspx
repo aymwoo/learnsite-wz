@@ -46,4 +46,11 @@
          </div>
            
         </div>
+    <script type="text/javascript">
+        window.__txtformeditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/txtformedit.js"></script>
 </asp:Content>

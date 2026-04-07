@@ -114,4 +114,14 @@
     </div>
 
     
+    <script type="text/javascript">
+        window.__gaugeConfig = {
+            btnaddId: '<%= Btnadd.ClientID %>',
+            textBoxGtitleId: '<%= TextBoxGtitle.ClientID %>',
+            dDLtypeId: '<%= DDLtype.ClientID %>',
+            gauge_generateUrl: '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>',
+            btnaddUniqueId: '<%= Btnadd.UniqueID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/gauge.js"></script>
 </asp:Content>

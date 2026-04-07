@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" AutoEventWireup="true" CodeFile="judgeedit.aspx.cs" Inherits="Teacher_judgeedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../App_Themes/Teacher/judgeedit.css" rel="stylesheet" />
 <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <div id="divmain">
@@ -52,4 +53,17 @@
 <script src="../code/jquery.min.js" type="text/javascript"></script>
 
 
+    <script type="text/javascript">
+        window.__judgeeditConfig = {
+            id: '<%=Id %>',
+            cid: '<%=Cid %>',
+            mid: '<%=Mid %>',
+            code: '<%=code %>',
+            arg1: '<%=arg1 %>',
+            arg2: '<%=arg2 %>',
+            arg3: '<%=arg3 %>',
+            fpage: '<%=Fpage %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/judgeedit.js"></script>
 </asp:Content>

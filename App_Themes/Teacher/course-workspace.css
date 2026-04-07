@@ -114,6 +114,8 @@
     margin: 0.85rem 0 0.5rem;
     line-height: 1.2;
     font-weight: 700;
+    text-align: left;
+    color: #ffffff;
 }
 
 .course-title,

@@ -90,4 +90,5 @@
             注意：调查测验限时 8 分钟，每超 1 分钟扣除 1 学分。
         </div>
     </div>
+    <script type="text/javascript" src="../js/presurvey.js"></script>
 </asp:Content>

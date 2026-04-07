@@ -90,4 +90,10 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__graphaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/graphadd.js"></script>
 </asp:Content>

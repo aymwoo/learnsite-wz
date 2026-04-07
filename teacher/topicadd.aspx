@@ -75,4 +75,10 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__topicaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/topicadd.js"></script>
 </asp:Content>

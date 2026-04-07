@@ -48,4 +48,10 @@
            
         </div>
 
+    <script type="text/javascript">
+        window.__qrcodeaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/qrcodeadd.js"></script>
 </asp:Content>

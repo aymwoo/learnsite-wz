@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="wareedit.aspx.cs" Inherits="teacher_wareedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<link href="../App_Themes/Teacher/wareedit.css" rel="stylesheet" />
 <link href="../App_Themes/Teacher/admin-form.css" rel="stylesheet" />
 
 <div class="admin-form-page ware-page">
@@ -103,4 +104,11 @@
 </div>
 
 
+    <script type="text/javascript">
+        window.__wareeditConfig = {
+            cid: '<%=Cid %>',
+            textBoxHtmlId: '<%= TextBoxHtml.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/wareedit.js"></script>
 </asp:Content>

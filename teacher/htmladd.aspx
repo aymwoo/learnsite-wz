@@ -1,6 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  Validaterequest="false" AutoEventWireup="true" CodeFile="htmladd.aspx.cs" Inherits="teacher_htmladd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link href="../App_Themes/Teacher/htmladd.css" rel="stylesheet" />
     <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
     
@@ -98,4 +99,10 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__htmladdConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/htmladd.js"></script>
 </asp:Content>

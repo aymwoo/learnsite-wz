@@ -43,4 +43,11 @@
          </div>
            
         </div>
+    <script type="text/javascript">
+        window.__topiceditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/topicedit.js"></script>
 </asp:Content>

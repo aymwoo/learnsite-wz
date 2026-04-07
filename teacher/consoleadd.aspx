@@ -90,4 +90,11 @@
 
         </div>
     </div>
+    <script type="text/javascript">
+        window.__consoleaddConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/consoleadd.js"></script>
 </asp:Content>

@@ -196,4 +196,5 @@
     </div>
 
     
+    <script type="text/javascript" src="../js/student.js"></script>
 </asp:Content>

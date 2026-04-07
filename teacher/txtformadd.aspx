@@ -76,4 +76,10 @@
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__txtformaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/txtformadd.js"></script>
 </asp:Content>

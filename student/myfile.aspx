@@ -150,4 +150,11 @@
 </div>
 
 
+    <script type="text/javascript">
+        window.__myfileConfig = {
+            gVSoftId: '<%= GVSoft.ClientID %>',
+            gVcategoryId: '<%= GVcategory.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/myfile.js"></script>
 </asp:Content>

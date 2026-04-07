@@ -117,4 +117,5 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript" src="../js/softadd.js"></script>
 </asp:Content>

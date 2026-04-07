@@ -152,4 +152,13 @@
     </div>
 
     
+    <script type="text/javascript">
+        window.__courseeditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>',
+            hiddenBannerUrlId: '<%= HiddenBannerUrl.ClientID %>',
+            hLbannerId: '<%= HLbanner.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/courseedit.js"></script>
 </asp:Content>

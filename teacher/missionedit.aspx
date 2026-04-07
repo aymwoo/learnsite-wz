@@ -58,4 +58,11 @@
          <br />
          </div>           
         </div>
+    <script type="text/javascript">
+        window.__missioneditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/missionedit.js"></script>
 </asp:Content>

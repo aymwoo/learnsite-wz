@@ -101,4 +101,10 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__pythonaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pythonadd.js"></script>
 </asp:Content>

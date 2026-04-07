@@ -95,4 +95,11 @@
         </div>
     </div>
     <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__kitymindeditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/kitymindedit.js"></script>
 </asp:Content>

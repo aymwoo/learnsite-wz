@@ -335,4 +335,15 @@
             
         </div>
     </div>
+    <script type="text/javascript">
+        window.__myinfoConfig = {
+            imagefaceId: '<%= Imageface.ClientID %>',
+            snameId: '<%= sname.ClientID %>',
+            snumId: '<%= snum.ClientID %>',
+            sclassId: '<%= sclass.ClientID %>',
+            labelRankId: '<%= LabelRank.ClientID %>',
+            btnExitId: '<%= BtnExit.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/myinfo.js"></script>
 </asp:Content>

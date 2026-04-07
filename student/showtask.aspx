@@ -81,4 +81,13 @@
 </div>
 </div>
 
+    <script type="text/javascript">
+        window.__showtaskConfig = {
+            labelMid_Text: '<%= LabelMid.Text %>',
+            labelLid_Text: '<%= LabelLid.Text %>',
+            labelSnum_Text: '<%= LabelSnum.Text %>',
+            labelUploadType_Text: '<%= LabelUploadType.Text %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/showtask.js"></script>
 </asp:Content>
