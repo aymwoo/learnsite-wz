@@ -4,6 +4,7 @@ var kindEditorObj;
             var currentEditor = 'kindeditor';
             var lastVditorMarkdown = null;
             var lastVditorHtml = '';
+            var vditorPasteMode = 'keep';
 
             var cid= window.__missioneditConfig.myCid;
             var ty="Course";
@@ -52,6 +53,84 @@ var kindEditorObj;
                 lastVditorMarkdown = vditorObj.getValue();
                 lastVditorHtml = vditorObj.getHTML();
             }
+
+            function getSelectedVditorPasteMode() {
+                var checked = document.querySelector('input[name="vditorPasteMode"]:checked');
+                return checked ? checked.value : 'keep';
+            }
+
+            function updateVditorPasteControls(type) {
+                var controls = document.getElementById('vditorPasteControls');
+                if (!controls) return;
+                controls.style.display = type === 'vditor' ? 'inline-flex' : 'none';
+            }
+
+            function insertTextAtCursor(target, text) {
+                if (!target) return;
+                var start = target.selectionStart || 0;
+                var end = target.selectionEnd || 0;
+                var value = target.value || '';
+                target.value = value.slice(0, start) + text + value.slice(end);
+                var cursor = start + text.length;
+                target.selectionStart = cursor;
+                target.selectionEnd = cursor;
+            }
+
+            function getVditorTextarea() {
+                var container = document.getElementById('vditor-container');
+                if (!container) return null;
+                return container.querySelector('.vditor-ir textarea, .vditor-sv textarea, .vditor-wysiwyg textarea');
+            }
+
+            function attachVditorPasteHandler() {
+                var textarea = getVditorTextarea();
+                if (!textarea || textarea.dataset.pasteBound === 'true') return;
+
+                textarea.dataset.pasteBound = 'true';
+                textarea.addEventListener('paste', function (event) {
+                    vditorPasteMode = getSelectedVditorPasteMode();
+                    if (vditorPasteMode !== 'plain') {
+                        return;
+                    }
+
+                    var clipboard = event.clipboardData || window.clipboardData;
+                    if (!clipboard) {
+                        return;
+                    }
+
+                    var text = clipboard.getData('text/plain');
+                    if (typeof text !== 'string') {
+                        return;
+                    }
+
+                    event.preventDefault();
+                    insertTextAtCursor(textarea, text);
+                    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+            }
+
+            function pastePlainTextToVditor() {
+                if (currentEditor !== 'vditor') {
+                    return;
+                }
+
+                navigator.clipboard.readText().then(function (text) {
+                    if (!text) {
+                        return;
+                    }
+
+                    var textarea = getVditorTextarea();
+                    if (!textarea) {
+                        return;
+                    }
+
+                    insertTextAtCursor(textarea, text);
+                    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                }, function () {
+                });
+            }
+
+            window.pastePlainTextToVditor = pastePlainTextToVditor;
 
             function shouldRestoreSavedMarkdown(currentHtml) {
                 if (lastVditorMarkdown === null) return false;
@@ -167,12 +246,14 @@ var kindEditorObj;
                         vditorObj.setValue(contentToSet || '');
                         rememberVditorState();
                         pendingVditorHtml = null;
+                        window.setTimeout(attachVditorPasteHandler, 0);
                     }
                 });
             }
 
             function switchEditor(type) {
                 currentEditor = type;
+                updateVditorPasteControls(type);
                 var kindContainer = document.querySelector('.ke-container');
                 var wangContainer = document.getElementById('wangeditor-wrap');
                 var vditorContainer = document.getElementById('vditor-wrap');
@@ -213,6 +294,7 @@ var kindEditorObj;
                     } else if (vditorReady) {
                         vditorObj.setValue(vditorContent || '');
                         rememberVditorState();
+                        window.setTimeout(attachVditorPasteHandler, 0);
                     } else {
                         pendingVditorHtml = vditorContent;
                     }
@@ -221,19 +303,31 @@ var kindEditorObj;
 
             function syncContent() {
                 var mcontent = document.getElementById(window.__missioneditConfig.mcontentId);
+                var payload = document.getElementById('editorContentPayload');
+                if (!mcontent) {
+                    return true;
+                }
+
+                var content = '';
                 if (currentEditor === 'kindeditor') {
                     if (kindEditorObj) {
-                        mcontent.value = kindEditorObj.html();
+                        kindEditorObj.sync();
+                        content = kindEditorObj.html() || '';
                     }
                 } else if (currentEditor === 'wangeditor') {
                     if (wangEditorObj) {
-                        mcontent.value = wangEditorObj.getHtml();
+                        content = wangEditorObj.getHtml() || '';
                     }
                 } else if (currentEditor === 'vditor') {
                     if (vditorObj) {
                         rememberVditorState();
-                        mcontent.value = lastVditorMarkdown || '';
+                        content = lastVditorMarkdown || vditorObj.getValue() || vditorObj.getHTML() || '';
                     }
+                }
+
+                mcontent.value = content;
+                if (payload) {
+                    payload.value = content;
                 }
                 return true;
             }

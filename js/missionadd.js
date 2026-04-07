@@ -43,6 +43,7 @@ var missionToastTimer = null;
                     var currentEditor = 'kindeditor';
                     var lastVditorMarkdown = null;
                     var lastVditorHtml = '';
+                    var vditorPasteMode = 'keep';
 
                     var cid = window.__missionaddConfig.myCid;
                     var ty = "Course";
@@ -51,6 +52,7 @@ var missionToastTimer = null;
 
                     KindEditor.ready(function (K) {
                         kindEditorObj = K.create('textarea[name="textareaItem"]', {
+                            width: '100%',
                             resizeType: 1,
                             newlineTag: "br",
                             uploadJson: upjs,
@@ -91,6 +93,89 @@ var missionToastTimer = null;
                         lastVditorMarkdown = vditorObj.getValue();
                         lastVditorHtml = vditorObj.getHTML();
                     }
+
+                    function getSelectedVditorPasteMode() {
+                        var checked = document.querySelector('input[name="vditorPasteMode"]:checked');
+                        return checked ? checked.value : 'keep';
+                    }
+
+                    function updateVditorPasteControls(type) {
+                        var controls = document.getElementById('vditorPasteControls');
+                        if (!controls) return;
+                        controls.style.display = type === 'vditor' ? 'flex' : 'none';
+                    }
+
+                    function insertTextAtCursor(target, text) {
+                        if (!target) return;
+                        var start = target.selectionStart || 0;
+                        var end = target.selectionEnd || 0;
+                        var value = target.value || '';
+                        target.value = value.slice(0, start) + text + value.slice(end);
+                        var cursor = start + text.length;
+                        target.selectionStart = cursor;
+                        target.selectionEnd = cursor;
+                    }
+
+                    function getVditorTextarea() {
+                        var container = document.getElementById('vditor-container');
+                        if (!container) return null;
+                        return container.querySelector('.vditor-ir textarea, .vditor-sv textarea, .vditor-wysiwyg textarea');
+                    }
+
+                    function attachVditorPasteHandler() {
+                        var textarea = getVditorTextarea();
+                        if (!textarea || textarea.dataset.pasteBound === 'true') return;
+
+                        textarea.dataset.pasteBound = 'true';
+                        textarea.addEventListener('paste', function (event) {
+                            vditorPasteMode = getSelectedVditorPasteMode();
+                            if (vditorPasteMode !== 'plain') {
+                                return;
+                            }
+
+                            var clipboard = event.clipboardData || window.clipboardData;
+                            if (!clipboard) {
+                                return;
+                            }
+
+                            var text = clipboard.getData('text/plain');
+                            if (typeof text !== 'string') {
+                                return;
+                            }
+
+                            event.preventDefault();
+                            insertTextAtCursor(textarea, text);
+                            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                        });
+                    }
+
+                    function pastePlainTextToVditor() {
+                        if (currentEditor !== 'vditor') {
+                            showToast('请先切换到 Vditor 编辑器', 'info');
+                            return;
+                        }
+
+                        navigator.clipboard.readText().then(function(text) {
+                            if (!text) {
+                                showToast('剪贴板里没有可粘贴的文本', 'info');
+                                return;
+                            }
+
+                            var textarea = getVditorTextarea();
+                            if (!textarea) {
+                                showToast('当前还未找到 Vditor 输入区', 'error');
+                                return;
+                            }
+
+                            insertTextAtCursor(textarea, text);
+                            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                            showToast('已按纯文本粘贴到 Vditor', 'success');
+                        }, function() {
+                            showToast('浏览器不允许读取剪贴板，请使用 Ctrl+Shift+V 或切换清理格式后直接粘贴', 'info');
+                        });
+                    }
+
+                    window.pastePlainTextToVditor = pastePlainTextToVditor;
 
                     function shouldRestoreSavedMarkdown(currentHtml) {
                         if (lastVditorMarkdown === null) return false;
@@ -187,7 +272,7 @@ var missionToastTimer = null;
 
                         vditorObj = new Vditor('vditor-container', {
                             height: 400,
-                            width: '830px',
+                            width: '100%',
                             mode: 'ir',
                             upload: {
                                 handler: function (files) {
@@ -206,12 +291,14 @@ var missionToastTimer = null;
                                 vditorObj.setValue(contentToSet || '');
                                 rememberVditorState();
                                 pendingVditorHtml = null;
+                                window.setTimeout(attachVditorPasteHandler, 0);
                             }
                         });
                     }
 
                     function switchEditor(type) {
                         currentEditor = type;
+                        updateVditorPasteControls(type);
                         var kindContainer = document.querySelector('.ke-container');
                         var wangContainer = document.getElementById('wangeditor-wrap');
                         var vditorContainer = document.getElementById('vditor-wrap');
@@ -252,6 +339,7 @@ var missionToastTimer = null;
                             } else if (vditorReady) {
                                 vditorObj.setValue(vditorContent || '');
                                 rememberVditorState();
+                                window.setTimeout(attachVditorPasteHandler, 0);
                             } else {
                                 pendingVditorHtml = vditorContent;
                             }
@@ -260,19 +348,31 @@ var missionToastTimer = null;
 
                     function syncContent() {
                         var ta = document.getElementsByName('textareaItem')[0];
+                        var payload = document.getElementById('editorContentPayload');
+                        if (!ta) {
+                            return true;
+                        }
+
+                        var content = '';
                         if (currentEditor === 'kindeditor') {
                             if (kindEditorObj) {
-                                ta.value = kindEditorObj.html();
+                                kindEditorObj.sync();
+                                content = kindEditorObj.html() || '';
                             }
                         } else if (currentEditor === 'wangeditor') {
                             if (wangEditorObj) {
-                                ta.value = wangEditorObj.getHtml();
+                                content = wangEditorObj.getHtml() || '';
                             }
                         } else if (currentEditor === 'vditor') {
                             if (vditorObj) {
                                 rememberVditorState();
-                                ta.value = lastVditorMarkdown || '';
+                                content = lastVditorMarkdown || vditorObj.getValue() || vditorObj.getHTML() || '';
                             }
+                        }
+
+                        ta.value = content;
+                        if (payload) {
+                            payload.value = content;
                         }
                         return true;
                     }

@@ -60,8 +60,14 @@ public partial class Teacher_missionadd : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences((Request.Form["textareaItem"] ?? string.Empty).Trim());
-        string title = (Texttitle.Text ?? string.Empty).Trim();
+        string rawEditorContent = Request.Form["textareaItem"] ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(rawEditorContent))
+        {
+            rawEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        }
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
+        string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
+        string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();
         string fileType = DDLmfiletype.SelectedValue ?? string.Empty;
         string gaugeId = DDLMgid.SelectedValue ?? string.Empty;
 
@@ -119,7 +125,10 @@ public partial class Teacher_missionadd : System.Web.UI.Page
         }
         else
         {
-            string toastScript = "window.setTimeout(function(){if(window.showToast){window.showToast('内容及标题不能为空！', 'error');}}, 0);";
+            string toastMessage = string.IsNullOrEmpty(title)
+                ? "活动标题不能为空！"
+                : "活动说明不能为空！";
+            string toastScript = "window.setTimeout(function(){if(window.showToast){window.showToast('" + toastMessage + "', 'error');}}, 0);";
             ClientScript.RegisterStartupScript(GetType(), "missionadd-empty", toastScript, true);
         }
     }

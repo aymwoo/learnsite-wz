@@ -13,13 +13,19 @@
         <asp:CheckBox ID="CheckRemote" runat="server" Text="远程图片" ToolTip="自动下载远程图片，有时失效！" />
         <asp:CheckBox ID="CheckMicoWorld" runat="server" Text="上次作品"  Checked="False" 
             ToolTip="显示上一节课作品提供下载，适合项目学习连续制作"  />
-        <span style="display:inline-flex; align-items:center; gap:4px;">
+        <span style="display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap;">
             <label>编辑器：</label>
             <select id="editorSelector" onchange="switchEditor(this.value)" style="padding: 4px 8px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 14px;">
                 <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
                 <option value="wangeditor">富文本编辑器 (WangEditor)</option>
                 <option value="vditor">Markdown编辑器 (Vditor)</option>
             </select>
+            <span id="vditorPasteControls" style="display:none; align-items:center; gap:8px; flex-wrap:wrap; margin-left:8px;">
+                <span style="font-size:12px; font-weight:700; color:#4338ca;">Vditor 粘贴</span>
+                <label style="display:inline-flex; align-items:center; gap:4px; font-size:12px; color:#475569;"><input type="radio" name="vditorPasteMode" value="keep" checked="checked" /> 保持原样</label>
+                <label style="display:inline-flex; align-items:center; gap:4px; font-size:12px; color:#475569;"><input type="radio" name="vditorPasteMode" value="plain" /> 清理格式</label>
+                <button type="button" onclick="pastePlainTextToVditor()" style="padding:4px 10px; border:1px solid #c7d2fe; border-radius:8px; background:#eef2ff; color:#3730a3; font-size:12px; font-weight:700; cursor:pointer;">粘贴纯文本</button>
+            </span>
         </span>
         </div>
     <div class="missionedit-editor-wrap">
@@ -43,6 +49,7 @@
     </div>
 
     <textarea  id ="mcontent" runat ="server" style="width: 100%; height:550px; box-sizing:border-box;" ></textarea>  
+    <input type="hidden" id="editorContentPayload" name="editorContentPayload" />
     </div>
      <div class="placehold">
                <asp:Label ID="Labelmsg" runat="server" Width="300px"></asp:Label>
@@ -65,4 +72,17 @@
         };
     </script>
     <script type="text/javascript" src="../js/missionedit.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var form = document.forms[0];
+            if (form && !form.getAttribute('data-missionedit-sync-bound')) {
+                form.setAttribute('data-missionedit-sync-bound', '1');
+                form.addEventListener('submit', function () {
+                    if (typeof syncContent === 'function') {
+                        syncContent();
+                    }
+                });
+            }
+        })();
+    </script>
 </asp:Content>

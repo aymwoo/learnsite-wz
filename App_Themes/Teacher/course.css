@@ -46,6 +46,23 @@
             min-width: 980px;
         }
 
+        .course-grid th,
+        .course-grid td {
+            vertical-align: middle;
+        }
+
+        .course-grid th {
+            line-height: 1.2;
+        }
+
+        .course-grid th > span,
+        .course-grid td > a,
+        .course-grid td > span,
+        .course-grid td > input,
+        .course-grid td > button {
+            vertical-align: middle;
+        }
+
         .course-grid td:first-child,
         .course-grid th:first-child {
             padding-left: 1.1rem;
@@ -77,6 +94,7 @@
             justify-content: center;
             width: 32px;
             height: 32px;
+            line-height: 1;
             border-radius: 50%;
             font-size: 1.1rem;
             transition: all 0.2s ease;
@@ -84,6 +102,29 @@
             background: #ffffff;
             border: 1px solid #e2e8f0;
             color: #64748b;
+        }
+
+        .course-icon-btn i,
+        .course-icon-btn svg {
+            display: block;
+            line-height: 1;
+        }
+
+        .course-grid th:nth-child(4),
+        .course-grid th:nth-child(5),
+        .course-grid th:nth-child(6),
+        .course-grid th:nth-child(7),
+        .course-grid th:nth-child(8),
+        .course-grid th:nth-child(9),
+        .course-grid th:nth-child(11),
+        .course-grid td:nth-child(4),
+        .course-grid td:nth-child(5),
+        .course-grid td:nth-child(6),
+        .course-grid td:nth-child(7),
+        .course-grid td:nth-child(8),
+        .course-grid td:nth-child(9),
+        .course-grid td:nth-child(11) {
+            text-align: center;
         }
 
         .course-icon-btn:hover {

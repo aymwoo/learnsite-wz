@@ -59,8 +59,16 @@ public partial class Teacher_missionedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
-        if (Texttitle.Text != "" && fckstr != "")
+        string rawEditorContent = mcontent.Value ?? string.Empty;
+        if (string.IsNullOrWhiteSpace(rawEditorContent))
+        {
+            rawEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        }
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
+        string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
+        string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();
+
+        if (title != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null && Request.QueryString["lid"] != null)
             {
@@ -74,7 +82,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
 
                 LearnSite.Model.Mission mission = new LearnSite.Model.Mission();
                 mission.Mid = Int32.Parse(Mid);
-                mission.Mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
+                mission.Mtitle = HttpUtility.HtmlEncode(title);
                 bool uploadcan = CheckUpload.Checked;
                 mission.Mupload = uploadcan;
                 if (uploadcan)
@@ -106,7 +114,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
                 else
                     lmodel.Ltype = 6;//描述页面
                 lmodel.Lshow = CheckPublish.Checked;
-                lmodel.Ltitle = Texttitle.Text.Trim();
+                lmodel.Ltitle = title;
                 lbll.UpdateMenuMission(lmodel);//专用活动分类更新
 
                 System.Threading.Thread.Sleep(500);
@@ -120,7 +128,7 @@ public partial class Teacher_missionedit : System.Web.UI.Page
         }
         else
         {
-            Labelmsg.Text = "内容及标题不能为空！";
+            Labelmsg.Text = string.IsNullOrEmpty(title) ? "活动标题不能为空！" : "活动说明不能为空！";
         }
     }
     private void missionview()

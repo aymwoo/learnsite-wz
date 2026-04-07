@@ -109,6 +109,31 @@
         return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="default"><div class="slides">' + slidesHtml + '</div></div></div>';
     }
 
+    function looksLikeMermaidDocument(text) {
+        var normalized = (text || '').replace(/\r/g, '').trim();
+        if (!normalized) {
+            return false;
+        }
+
+        if (/^```(?:mermaid|mmd)\b/i.test(normalized)) {
+            return true;
+        }
+
+        return /^(?:graph\s+(?:TB|BT|RL|LR|TD)|flowchart\s+(?:TB|BT|RL|LR|TD)|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|requirementDiagram|gitGraph|c4Context|c4Container|c4Component|c4Dynamic|c4Deployment)\b/im.test(normalized);
+    }
+
+    function wrapBareMermaidDocument(content, source) {
+        var mermaidHost = document.createElement('div');
+        var mermaidNode = document.createElement('div');
+        mermaidHost.className = 'mermaid-host';
+        mermaidNode.className = 'mermaid';
+        mermaidNode.setAttribute('data-mermaid-source', source);
+        mermaidNode.textContent = source;
+        mermaidHost.appendChild(mermaidNode);
+        content.innerHTML = '';
+        content.appendChild(mermaidHost);
+    }
+
     function getMarkdownSource(content, preferredSource) {
         if (preferredSource && looksLikeMarkdown(preferredSource, true)) {
             return preferredSource;
@@ -397,6 +422,13 @@
 
         if (enableReveal && isRevealMarkdownDocument(source)) {
             content.innerHTML = '<div class="vditor-reset"><div class="reveal-host">' + parseRevealMarkdown(source) + '<div class="render-note">当前已按 Reveal.js 演示文稿模式渲染。</div></div></div>';
+        } else if (looksLikeMermaidDocument(source) && !/^```(?:mermaid|mmd)\b/i.test(source.replace(/\r/g, '').trim())) {
+            if (options.wrapInVditorReset) {
+                content.innerHTML = '<div class="vditor-reset"></div>';
+                wrapBareMermaidDocument(content.firstChild, source);
+            } else {
+                wrapBareMermaidDocument(content, source);
+            }
         } else if (options.wrapInVditorReset) {
             content.innerHTML = '<div class="vditor-reset">' + marked.parse(source) + '</div>';
         } else {
@@ -440,6 +472,7 @@
         hasMeaningfulHtml: hasMeaningfulHtml,
         stripHtmlToText: stripHtmlToText,
         looksLikeMarkdown: looksLikeMarkdown,
+        looksLikeMermaidDocument: looksLikeMermaidDocument,
         isRevealMarkdownDocument: isRevealMarkdownDocument,
         getMarkdownSource: getMarkdownSource,
         restoreOriginalHtml: restoreOriginalHtml,

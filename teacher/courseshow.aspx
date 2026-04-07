@@ -9,9 +9,9 @@
     <link href="../App_Themes/Teacher/content-show-markdown.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/App_Themes/Teacher/courseshow.css" />
 
-    <div class="course-show-page">
-        <div class="course-show-shell">
-            <section id="HeroSection" runat="server" class="course-show-hero">
+    <div class="course-show-page course-page">
+        <div class="course-show-shell course-shell">
+            <section id="HeroSection" runat="server" class="course-show-hero course-hero">
                 <div class="course-show-hero-overlay" aria-hidden="true"></div>
                 <div class="course-show-hero-content">
                     <div class="course-show-hero-header">
@@ -22,7 +22,7 @@
                                     <span class="course-show-hero-kicker">学案详情</span>
                                 </div>
                                 <div class="course-show-title-wrap">
-                                    <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title"></asp:Label>
+                                    <asp:Label ID="LabelCtitle" runat="server" CssClass="course-show-title course-title"></asp:Label>
                                 </div>
                                 <div class="course-show-meta">
                                     <span class="course-show-meta-chip">
@@ -64,11 +64,11 @@
                 </div>
             </section>
 
-            <section class="course-show-preview-panel">
+            <section class="course-show-preview-panel course-table-panel">
                 <div class="course-show-preview-head">
                     <div>
-                        <h2 class="course-show-preview-title">学案预览</h2>
-                        <p class="course-show-preview-desc">下方内容继续沿用原有学案正文输出，只优化首屏阅读层次。</p>
+                        <h2 class="course-show-preview-title course-show-section-title">学案预览</h2>
+                        <p class="course-show-preview-desc course-show-section-desc">下方内容继续沿用原有学案正文输出，只优化首屏阅读层次。</p>
                     </div>
                 </div>
                 <div id="Ccontent" class="course-show-content course-show-preview-content" runat="server"></div>
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <section class="course-show-tools">
+            <section class="course-show-tools course-table-panel">
                 <div class="course-show-tools-head">
                     <div>
                         <h2 class="course-show-section-title">添加课堂内容</h2>
@@ -198,7 +198,7 @@
                 </div>
             </section>
 
-            <section class="course-show-menu-panel">
+            <section class="course-show-menu-panel course-table-panel">
                 <div class="course-show-menu-head">
                     <div>
                         <h2 class="course-show-section-title">导航栏目</h2>
@@ -206,7 +206,7 @@
                     </div>
                     <div class="course-show-menu-toolbar">
                         <span class="course-show-menu-hint">可拖动左侧手柄调整顺序</span>
-                        <button id="MenuSortSaveButton" type="button" class="course-show-save-btn" style="display:none;">保存排序</button>
+                        <button id="MenuSortSaveButton" type="button" class="course-show-save-btn course-primary-btn" style="display:none;">保存排序</button>
                     </div>
                 </div>
 

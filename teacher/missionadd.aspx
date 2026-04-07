@@ -56,13 +56,19 @@
                         <h2 class="content-add-section-title">活动说明</h2>
                         <p class="content-add-section-desc">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换，仍通过原有 `textareaItem` 完成内容提交。</p>
                     </div>
-                    <div>
+                    <div class="mission-add-toolbar-actions">
                         <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
                         <select id="editorSelector" onchange="switchEditor(this.value)" class="content-add-editor-select">
                             <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
                             <option value="wangeditor">富文本编辑器 (WangEditor)</option>
                             <option value="vditor">Markdown编辑器 (Vditor)</option>
                         </select>
+                        <div id="vditorPasteControls" class="mission-add-paste-controls" style="display:none;">
+                            <span class="mission-add-paste-label">Vditor 粘贴</span>
+                            <label class="mission-add-paste-option"><input type="radio" name="vditorPasteMode" value="keep" checked="checked" /> 保持原样</label>
+                            <label class="mission-add-paste-option"><input type="radio" name="vditorPasteMode" value="plain" /> 清理格式</label>
+                            <button type="button" class="mission-add-paste-btn" onclick="pastePlainTextToVditor()">粘贴纯文本</button>
+                        </div>
                     </div>
                 </div>
 
@@ -73,7 +79,7 @@
 
                 <div class="editor-ai-layout">
                     <div class="editor-container">
-                        <div class="content-add-editor-stage mission-add-editor-stage custom-scrollbar" style="width: 100%; max-width: 830px;">
+                        <div class="content-add-editor-stage mission-add-editor-stage custom-scrollbar">
                             <div id="wangeditor-wrap" style="display:none; width: 100%; position:relative; border: 1px solid #ccc; z-index: 100;">
                                 <div id="wangeditor-toolbar" style="border-bottom: 1px solid #ccc;"></div>
                                 <div id="wangeditor-text" style="height: 350px;"></div>
@@ -84,6 +90,7 @@
                             </div>
 
                             <textarea name="textareaItem"></textarea>
+                            <input type="hidden" id="editorContentPayload" name="editorContentPayload" />
                         </div>
                     </div>
                     
