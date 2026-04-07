@@ -242,20 +242,7 @@
 .content-show-markdown .reveal-nav-btn {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-}
-
-.content-show-markdown .reveal-nav-icon {
-    display: inline-flex;
-    align-items: center;
     justify-content: center;
-    width: 14px;
-    font-size: 14px;
-    line-height: 1;
-}
-
-.content-show-markdown .reveal-nav-text {
-    line-height: 1;
 }
 
 .content-show-markdown .reveal-stage {
@@ -275,30 +262,6 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #0f172a;
-    color: #e2e8f0;
-    --r-main-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    --r-heading-font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    --r-code-font: "Cascadia Mono", "Consolas", monospace;
-    --r-main-font-size: 32px;
-}
-
-.content-show-markdown .reveal .slides {
-    text-align: left;
-}
-
-.content-show-markdown .reveal .slides section {
-    box-sizing: border-box;
-    padding: 28px 40px;
-}
-
-.content-show-markdown .reveal pre {
-    font-size: 0.72em;
-    padding: 0.7em 0.9em;
-    border-radius: 0.4em;
-    background: rgba(15, 23, 42, 0.35);
-    color: inherit;
-    box-shadow: none;
 }
 
 .content-show-markdown .render-note {
@@ -317,7 +280,4 @@
         margin-left: 0;
     }
 
-    .content-show-markdown .reveal .slides section {
-        padding: 20px 24px;
-    }
 }

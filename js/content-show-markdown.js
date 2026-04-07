@@ -1,14 +1,6 @@
 (function () {
     var revealThemeOptions = [
-        { value: 'default', label: '默认主题' },
-        { value: 'white', label: 'White' },
-        { value: 'sky', label: 'Sky' },
-        { value: 'beige', label: 'Beige' },
-        { value: 'simple', label: 'Simple' },
-        { value: 'serif', label: 'Serif' },
-        { value: 'moon', label: 'Moon' },
-        { value: 'night', label: 'Night' },
-        { value: 'solarized', label: 'Solarized' }
+        { value: 'white', label: 'White' }
     ];
 
     function getConfig() {
@@ -106,7 +98,7 @@
             return '<section>' + marked.parse(section.trim()) + '</section>';
         }).filter(Boolean).join('');
 
-        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn"><span class="reveal-nav-icon" aria-hidden="true">&larr;</span><span class="reveal-nav-text">上一页</span></button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn"><span class="reveal-nav-text">下一页</span><span class="reveal-nav-icon" aria-hidden="true">&rarr;</span></button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="default"><div class="slides">' + slidesHtml + '</div></div></div>';
+        return '<div class="reveal-toolbar"><span class="reveal-toolbar-title">Reveal.js 幻灯片</span><div class="reveal-toolbar-actions"><select class="reveal-theme-select">' + getRevealThemeOptionsHtml() + '</select><button type="button" class="reveal-nav-btn reveal-prev-btn">上一页</button><span class="reveal-page-indicator">1 / 1</span><button type="button" class="reveal-nav-btn reveal-next-btn">下一页</button><button type="button" class="reveal-fullscreen-btn">放映</button></div></div><div class="reveal-stage"><div class="reveal" data-theme="white"><div class="slides">' + slidesHtml + '</div></div></div>';
     }
 
     function looksLikeMermaidDocument(text) {
@@ -346,6 +338,22 @@
                     maxScale: 1.2
                 });
 
+                function getRevealViewport() {
+                    if (node.closest) {
+                        return node.closest('.reveal-viewport');
+                    }
+                    return null;
+                }
+
+                function syncFullscreenState() {
+                    var viewport = getRevealViewport();
+                    var fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement || null;
+                    var isFullscreen = !!(fullscreenElement && viewport && (fullscreenElement === viewport || viewport.contains(fullscreenElement)));
+
+                    deck.configure({ embedded: !isFullscreen });
+                    deck.layout();
+                }
+
                 function updateIndicator() {
                     if (pageIndicator) {
                         var indices = deck.getIndices();
@@ -354,8 +362,12 @@
                 }
 
                 deck.initialize().then(function () {
+                    if (themeSelect) {
+                        themeSelect.value = node.getAttribute('data-theme') || 'white';
+                    }
                     updateIndicator();
                     node.setAttribute('data-reveal-ready', '1');
+                    syncFullscreenState();
                 });
 
                 deck.on('slidechanged', updateIndicator);
@@ -380,17 +392,34 @@
                 if (fullscreenBtn && !fullscreenBtn.getAttribute('data-bound')) {
                     fullscreenBtn.setAttribute('data-bound', '1');
                     fullscreenBtn.addEventListener('click', function () {
-                        if (node.requestFullscreen) {
-                            node.requestFullscreen();
+                        var viewport = getRevealViewport();
+                        if (!viewport) {
+                            return;
                         }
+
+                        if (viewport.requestFullscreen) {
+                            viewport.requestFullscreen();
+                        } else if (viewport.webkitRequestFullscreen) {
+                            viewport.webkitRequestFullscreen();
+                        }
+
+                        setTimeout(syncFullscreenState, 200);
                     });
                 }
 
                 if (themeSelect && !themeSelect.getAttribute('data-bound')) {
                     themeSelect.setAttribute('data-bound', '1');
                     themeSelect.addEventListener('change', function () {
-                        node.className = 'reveal reveal-theme-' + themeSelect.value;
+                        themeSelect.value = 'white';
+                        node.setAttribute('data-theme', 'white');
+                        deck.layout();
                     });
+                }
+
+                if (!host.getAttribute('data-fullscreen-bound')) {
+                    host.setAttribute('data-fullscreen-bound', '1');
+                    document.addEventListener('fullscreenchange', syncFullscreenState);
+                    document.addEventListener('webkitfullscreenchange', syncFullscreenState);
                 }
             });
         }
