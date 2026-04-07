@@ -104,15 +104,14 @@ public partial class UpGrade : System.Web.UI.Page
                 LearnSite.Common.CookieHelp.ClearTeacherCookies();
                 LearnSite.Common.CookieHelp.ClearStudentCookies();//教师退出的话把本机模拟学生角色登录的学生平台也退出
                 System.Threading.Thread.Sleep(500);
-                LearnSite.Common.WordProcess.Alert(ch, this.Page);
-                HttpRuntime.Close();//清除缓存，释放资源
-                Response.Redirect("~/teacher/index.aspx", false);
+                LearnSite.Common.WordProcess.AlertJump(ch, "teacher/index.aspx", this.Page);
+                return;
             }
             else
             {                
                 string ch = "已经更新过了！请点击跳回教师首页！\n若要求运行一次则补丁已经修正！";
-                LearnSite.Common.WordProcess.Alert(ch, this.Page);
-                Response.Redirect("~/teacher/index.aspx", false);
+                LearnSite.Common.WordProcess.AlertJump(ch, "teacher/index.aspx", this.Page);
+                return;
             }
         }
         else
