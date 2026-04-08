@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -47,6 +48,24 @@ public class aiprovider_api : IHttpHandler {
                     break;
                 case "chat":
                     Chat(context);
+                    break;
+                case "listSkills":
+                    GetSkillList(context);
+                    break;
+                case "saveSkill":
+                    SaveSkill(context);
+                    break;
+                case "deleteSkill":
+                    DeleteSkill(context);
+                    break;
+                case "listCustomSkills":
+                    GetCustomSkillList(context);
+                    break;
+                case "saveCustomSkill":
+                    SaveCustomSkill(context);
+                    break;
+                case "deleteCustomSkill":
+                    DeleteCustomSkill(context);
                     break;
                 default:
                     context.Response.Write("{\"success\":false,\"msg\":\"Unknown action\"}");
@@ -210,6 +229,23 @@ public class aiprovider_api : IHttpHandler {
         string apiKey = context.Request["apiKey"];
         string baseUrl = context.Request["baseUrl"];
         string modelName = context.Request["modelName"];
+        string idStr = context.Request["id"];
+
+        // If apiKey is the obscured placeholder, fetch the real key from DB
+        if (!string.IsNullOrEmpty(apiKey) && apiKey.StartsWith("********"))
+        {
+            int id = 0;
+            int.TryParse(idStr, out id);
+            if (id > 0)
+            {
+                var bll = new LearnSite.BLL.AIProvider();
+                var existing = bll.GetModel(id);
+                if (existing != null)
+                {
+                    apiKey = existing.ApiKey;
+                }
+            }
+        }
         
         if (string.IsNullOrEmpty(baseUrl))
         {
@@ -251,8 +287,8 @@ public class aiprovider_api : IHttpHandler {
                         {
                             string responseFromServer = reader.ReadToEnd();
                             // Parse response just to check if it's valid JSON from OpenAI format
-                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
-                            if (jsonResp != null && jsonResp.choices != null)
+                            JObject jsonResp = JsonConvert.DeserializeObject<JObject>(responseFromServer);
+                            if (jsonResp != null && jsonResp["choices"] != null)
                             {
                                 context.Response.Write("{\"success\":true,\"msg\":\"Connection successful!\"}");
                             }
@@ -337,6 +373,8 @@ public class aiprovider_api : IHttpHandler {
     
     private void Chat(HttpContext context)
     {
+        context.Server.ScriptTimeout = 180;
+
         string prompt = context.Request["prompt"];
         if (string.IsNullOrEmpty(prompt))
         {
@@ -372,6 +410,8 @@ public class aiprovider_api : IHttpHandler {
             var requestBody = new
             {
                 model = modelName,
+                temperature = 0.7,
+                max_tokens = 1200,
                 messages = new[]
                 {
                     new { role = "user", content = prompt }
@@ -383,7 +423,8 @@ public class aiprovider_api : IHttpHandler {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(chatUrl);
             request.Method = "POST";
             request.ContentType = "application/json";
-            request.Timeout = 60000; // 60 seconds timeout for generation
+            request.Timeout = 120000; // 120 seconds timeout for generation
+            request.ReadWriteTimeout = 120000;
             
             if (!string.IsNullOrEmpty(apiKey))
             {
@@ -407,10 +448,10 @@ public class aiprovider_api : IHttpHandler {
                         using (StreamReader reader = new StreamReader(responseStream))
                         {
                             string responseFromServer = reader.ReadToEnd();
-                            dynamic jsonResp = JsonConvert.DeserializeObject(responseFromServer);
-                            if (jsonResp != null && jsonResp.choices != null && jsonResp.choices.Count > 0)
+                            JObject jsonResp = JsonConvert.DeserializeObject<JObject>(responseFromServer);
+                            if (jsonResp != null && jsonResp["choices"] != null && ((JArray)jsonResp["choices"]).Count > 0)
                             {
-                                string contentResult = jsonResp.choices[0].message.content;
+                                string contentResult = jsonResp["choices"][0]["message"]["content"].ToString();
                                 string safeContent = JsonConvert.SerializeObject(new { success = true, data = contentResult });
                                 context.Response.Write(safeContent);
                             }
@@ -456,6 +497,153 @@ public class aiprovider_api : IHttpHandler {
         {
             string respStr = JsonConvert.SerializeObject(new { success = false, msg = "Chat error: " + ex.Message });
             context.Response.Write(respStr);
+        }
+    }
+
+    private void GetSkillList(HttpContext context)
+    {
+        LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+        List<LearnSite.Model.AISkill> list = bll.GetModelList("");
+
+        string json = JsonConvert.SerializeObject(new { success = true, data = list });
+        context.Response.Write(json);
+    }
+
+    private void SaveSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        string skillName = context.Request["skillName"];
+        string promptContent = context.Request["promptContent"];
+        string isActiveStr = context.Request["isActive"];
+
+        if (string.IsNullOrEmpty(skillName) || string.IsNullOrEmpty(promptContent))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Skill Name and Prompt Content are required.\"}");
+            return;
+        }
+
+        LearnSite.Model.AISkill model = new LearnSite.Model.AISkill();
+        model.SkillName = skillName;
+        model.PromptContent = promptContent;
+        model.IsActive = string.IsNullOrEmpty(isActiveStr) ? true : (isActiveStr.ToLower() == "true" || isActiveStr == "1");
+
+        LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+
+        if (string.IsNullOrEmpty(idStr) || idStr == "0")
+        {
+            int id = bll.Add(model);
+            if (id > 0)
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Added successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to add.\"}");
+            }
+        }
+        else
+        {
+            int id = int.Parse(idStr);
+            model.Id = id;
+            if (bll.Update(model))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Updated successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to update.\"}");
+            }
+        }
+    }
+
+    private void DeleteSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AISkill bll = new LearnSite.BLL.AISkill();
+            if (bll.Delete(id))
+            {
+                context.Response.Write("{\"success\":true,\"msg\":\"Deleted successfully.\"}");
+            }
+            else
+            {
+                context.Response.Write("{\"success\":false,\"msg\":\"Failed to delete.\"}");
+            }
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"Invalid ID.\"}");
+        }
+    }
+
+    private void GetCustomSkillList(HttpContext context)
+    {
+        LearnSite.BLL.AIGaugeGenerator.EnsureDefaultGaugeSkill();
+        LearnSite.BLL.AIStudentExamGenerator.EnsureDefaultStudentExamSkill();
+        LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+        List<LearnSite.Model.AICustomSkill> list = bll.GetModelList("");
+        string json = JsonConvert.SerializeObject(new { success = true, data = list });
+        context.Response.Write(json);
+    }
+
+    private void SaveCustomSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        string skillName = context.Request["skillName"];
+        string promptContent = context.Request["promptContent"];
+        string skillScope = context.Request["skillScope"] ?? "";
+        string isActiveStr = context.Request["isActive"];
+
+        if (string.IsNullOrEmpty(skillName) || string.IsNullOrEmpty(promptContent))
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"技能名称和提示词内容不能为空。\"}");
+            return;
+        }
+
+        LearnSite.Model.AICustomSkill model = new LearnSite.Model.AICustomSkill();
+        model.SkillName = skillName;
+        model.PromptContent = promptContent;
+        model.SkillScope = skillScope;
+        model.IsActive = string.IsNullOrEmpty(isActiveStr) ? true : (isActiveStr.ToLower() == "true" || isActiveStr == "1");
+
+        LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+
+        if (string.IsNullOrEmpty(idStr) || idStr == "0")
+        {
+            int id = bll.Add(model);
+            if (id > 0)
+                context.Response.Write("{\"success\":true,\"msg\":\"添加成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"添加失败。\"}");
+        }
+        else
+        {
+            int id = int.Parse(idStr);
+            model.Id = id;
+            if (bll.Update(model))
+                context.Response.Write("{\"success\":true,\"msg\":\"更新成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"更新失败。\"}");
+        }
+    }
+
+    private void DeleteCustomSkill(HttpContext context)
+    {
+        string idStr = context.Request["id"];
+        if (!string.IsNullOrEmpty(idStr))
+        {
+            int id = int.Parse(idStr);
+            LearnSite.BLL.AICustomSkill bll = new LearnSite.BLL.AICustomSkill();
+            if (bll.Delete(id))
+                context.Response.Write("{\"success\":true,\"msg\":\"删除成功。\"}");
+            else
+                context.Response.Write("{\"success\":false,\"msg\":\"删除失败。\"}");
+        }
+        else
+        {
+            context.Response.Write("{\"success\":false,\"msg\":\"无效 ID。\"}");
         }
     }
 

@@ -1,76 +1,101 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="mythware.aspx.cs" Inherits="Teacher_mythware" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="mythware.aspx.cs" Inherits="Teacher_mythware" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
- <div   class="placehold">   
-     <div style="padding: 2px; margin: 0px">
-         <br />
-     极域班级模型ClassModel
-     </div>
-     <br />
-     <div style="margin: auto; border: 1px solid #EBEBEB; padding: 2px; width: 680px; background-color: #F8FEFC;">
-         最新模型文件夹列表<asp:ImageButton 
-             ID="ImgBtnDown" runat="server" 
-             ImageUrl="~/images/down.gif" onclick="ImgBtnDown_Click" ToolTip="点击打包下载" 
-             style="width: 16px" />
-         <br />
-                <asp:DataList ID="Dlfilelist" runat="server" 
-                    RepeatColumns="3" RepeatDirection="Horizontal" CellPadding="3" CellSpacing="3" Width="100%" >
-                    <ItemTemplate>
-                        <div  style="text-align: left;">
-                            <asp:Label ID="Labelfid" runat="server" Text='<%# Eval("fid") %>' ></asp:Label>&nbsp;
-                            <asp:HyperLink ID="HLfname" runat="server" Target="_blank" Text='<%# Eval("fname") %>' ></asp:HyperLink>&nbsp;                            
-                            <asp:Label ID="Labelfsize" runat="server" Text='<%# Eval("fsize") %>' ></asp:Label>
-                            <asp:Label ID="Labelfread" runat="server" Text='<%#  Eval("fread") %>'  ToolTip="是否只读（T：只读 | F：可写）"  ForeColor="#00A279"></asp:Label>
-                            <asp:Label ID="Labelurl" runat="server" Text='<%# Eval("furl") %>' Visible="false" ></asp:Label>                        
-                        </div>
-                    </ItemTemplate>
-                </asp:DataList>
-     </div>
-     <br />
-     <asp:Label ID="Labeldirhid" runat="server" Visible="False"></asp:Label>
-     <asp:Label ID="Labeldir" runat="server" Visible="False"></asp:Label>
-     <br />
-     <br />
-     <div>请选择你原有的班级模型xml或cls格式文件：<asp:FileUpload ID="FuClassModel" runat="server" 
-             Font-Size="9pt" />
-&nbsp;<br />
-         <br />
-         <asp:CheckBox ID="CkMachine" runat="server" Text="空余学生机是否预处理为主机名" 
-             ToolTip="主机名与IP对应表有记录则有效" Checked="True" />
-         <br />
-         <br />
-         <br />
-         选择签到时间：<asp:DropDownList ID="DDLmonth" runat="server" 
-             Font-Size="9pt">
-             <asp:ListItem Value="1" Selected="True">1周内</asp:ListItem>
-             <asp:ListItem Value="2">2周内</asp:ListItem>
-             <asp:ListItem Value="3">3周内</asp:ListItem>
-             <asp:ListItem Value="4">4周内</asp:ListItem>
-             <asp:ListItem Value="5">5周内</asp:ListItem>
-             <asp:ListItem Value="6">6周内</asp:ListItem>
-         </asp:DropDownList>
-         <br />
-         <br />
-         <br />
-         <asp:HyperLink ID="Hlkroom" runat="server" ImageUrl="~/images/zoom.gif" 
-             NavigateUrl="~/teacher/myseat.aspx" Target="_blank" ToolTip="机房视图预览" CssClass="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 shadow-md text-center inline-block">HyperLink</asp:HyperLink>
-         电脑室名称：<asp:TextBox ID="TextBoxRoom" runat="server" 
-             Width="60px" CssClass="px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"></asp:TextBox>
-         <br />
-         <br />
-         <br />
-         <br />
-        <asp:Button ID="BtnBuild" runat="server" onclick="BtnBuild_Click" 
-            SkinID="BtnLong" Text="生成任教班级模型"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
-         <br />
-         <br />
-         <asp:Label ID="Labelmsg" runat="server" SkinID="LabelMsgRed" Width="98%"></asp:Label>
-         <br />
-         <br />
-         <span style="color: #1480EB">说明：根据最近几个月内的签到表的姓名与IP对应，生成所教班级模型，可点击打包按钮下载。</span></div>
-     <br />
-     <br />
-     
- </div>
-</asp:Content>
+    <link href="../js/fileupload.css" rel="stylesheet" />
+    
 
+    <div class="myth-page">
+        <div class="myth-shell">
+            <div class="myth-hero">
+                <h1 class="myth-hero__title">极域班级模型</h1>
+                <p class="myth-hero__subtitle">根据签到记录生成极域ClassModel班级模型文件，支持上传原有模型并自动匹配学生座位。</p>
+            </div>
+
+            <div class="myth-grid">
+                <div class="myth-card myth-card--span-5 myth-card--files">
+                    <div class="myth-card__head">
+                        <h2 class="myth-card__title">模型文件</h2>
+                        <asp:Button ID="ImgBtnDown" runat="server"
+                            Text="打包下载" OnClick="ImgBtnDown_Click"
+                            ToolTip="点击打包下载" CssClass="myth-download-btn" />
+                    </div>
+                    <div class="myth-card__body">
+                        <asp:DataList ID="Dlfilelist" runat="server"
+                            RepeatColumns="1" RepeatDirection="Vertical" RepeatLayout="Flow"
+                            CssClass="myth-file-list" CellPadding="0" CellSpacing="0">
+                            <ItemTemplate>
+                                <div class="myth-file-item">
+                                    <span class="myth-file-id"><asp:Label ID="Labelfid" runat="server" Text='<%# Eval("fid") %>'></asp:Label></span>
+                                    <asp:HyperLink ID="HLfname" runat="server" Target="_blank" Text='<%# Eval("fname") %>'></asp:HyperLink>
+                                    <span class="myth-file-size"><asp:Label ID="Labelfsize" runat="server" Text='<%# Eval("fsize") %>'></asp:Label></span>
+                                    <span class="myth-file-flag"><asp:Label ID="Labelfread" runat="server" Text='<%# Eval("fread") %>' ToolTip="是否只读（T：只读 | F：可写）"></asp:Label></span>
+                                    <asp:Label ID="Labelurl" runat="server" Text='<%# Eval("furl") %>' CssClass="myth-hidden"></asp:Label>
+                                </div>
+                            </ItemTemplate>
+                        </asp:DataList>
+                    </div>
+                </div>
+
+                <div class="myth-card myth-card--span-7 myth-card--build">
+                    <div class="myth-card__head">
+                        <h2 class="myth-card__title">生成模型</h2>
+                    </div>
+                    <div class="myth-card__body">
+                        <div class="myth-form">
+                            <div class="myth-field">
+                                <span class="myth-label">上传原有班级模型（xml/cls格式）</span>
+                                <div class="ls-upload" data-accept=".xml,.cls" data-label="点击或拖拽上传班级模型" data-hint="支持 xml / cls 格式">
+                                    <asp:FileUpload ID="FuClassModel" runat="server" />
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="myth-check-group">
+                                    <asp:CheckBox ID="CkMachine" runat="server" Text="空余学生机预处理为主机名"
+                                        ToolTip="主机名与IP对应表有记录则有效" Checked="True" />
+                                </span>
+                            </div>
+
+                            <div class="myth-field">
+                                <span class="myth-label">签到时间范围</span>
+                                <asp:DropDownList ID="DDLmonth" runat="server" CssClass="myth-select">
+                                    <asp:ListItem Value="1" Selected="True">1周内</asp:ListItem>
+                                    <asp:ListItem Value="2">2周内</asp:ListItem>
+                                    <asp:ListItem Value="3">3周内</asp:ListItem>
+                                    <asp:ListItem Value="4">4周内</asp:ListItem>
+                                    <asp:ListItem Value="5">5周内</asp:ListItem>
+                                    <asp:ListItem Value="6">6周内</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+
+                            <div class="myth-field">
+                                <span class="myth-label">电脑室名称</span>
+                                <div class="myth-room-row">
+                                    <asp:TextBox ID="TextBoxRoom" runat="server" CssClass="myth-input" style="width: 120px;"></asp:TextBox>
+                                    <asp:HyperLink ID="Hlkroom" runat="server"
+                                        NavigateUrl="~/teacher/myseat.aspx" Target="_blank"
+                                        ToolTip="机房视图预览" CssClass="myth-room-preview">
+                                        <img src="../images/zoom.gif" alt="预览" />
+                                    </asp:HyperLink>
+                                </div>
+                            </div>
+
+                            <div>
+                                <asp:Button ID="BtnBuild" runat="server" onclick="BtnBuild_Click"
+                                    Text="生成任教班级模型" CssClass="myth-btn" />
+                            </div>
+
+                            <asp:Label ID="Labelmsg" runat="server" CssClass="myth-msg"></asp:Label>
+
+                            <div class="myth-hint">根据最近几周内签到表的姓名与IP对应，生成所教班级模型，完成后可点击打包按钮下载。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <asp:Label ID="Labeldirhid" runat="server" CssClass="myth-hidden"></asp:Label>
+            <asp:Label ID="Labeldir" runat="server" CssClass="myth-hidden"></asp:Label>
+        </div>
+    </div>
+    <script src="../js/fileupload.js"></script>
+</asp:Content>

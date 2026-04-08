@@ -1,10 +1,11 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="codeproject.aspx.cs" Inherits="Student_codeproject" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="codeproject.aspx.cs" Inherits="Student_codeproject" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>Scratch3在线编程</title>
+        <meta charset="utf-8" />
+<title>Scratch3在线编程</title>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
 <script type="text/javascript">
     window.scratchConfig = {
@@ -34,7 +35,7 @@
   </script>
 
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 <body>
    

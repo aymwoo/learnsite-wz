@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="coursecreate.aspx.cs" Inherits="Teacher_coursecreate" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="coursecreate.aspx.cs" Inherits="Teacher_coursecreate" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
@@ -47,7 +47,7 @@
             font-size: 15px;
             font-weight: 800;
             border: none;
-            border-radius: 12px;
+            border-radius: 0.375rem;
             box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -64,7 +64,7 @@
             font-size: 15px;
             font-weight: 700;
             border: 1px solid #cbd5e1;
-            border-radius: 12px;
+            border-radius: 0.375rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -137,7 +137,7 @@
 
             <section class="course-create-actions">
                 <asp:Button ID="BtnCreate" runat="server" Text="创建学案" onclick="BtnCreate_Click" CssClass="course-create-primary-btn" />
-                <asp:Button ID="Btnreturn" runat="server" Text="学案返回" onclick="Btnreturn_Click" CssClass="course-create-secondary-btn" />
+                <asp:Button ID="Btnreturn" runat="server" Text="返回学案" onclick="Btnreturn_Click" CssClass="course-create-secondary-btn" />
             </section>
 
             <section class="course-create-feedback">

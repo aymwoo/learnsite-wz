@@ -1,62 +1,10 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="pythonedit.aspx.cs"  inherits="Teacher_pythonedit" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false" AutoEventWireup="true" CodeFile="pythonedit.aspx.cs"  inherits="Teacher_pythonedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <style type="text/css">
-        .python-edit-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #1d4ed8 0%, #2563eb 55%, #60a5fa 100%);
-            --content-add-hero-shadow: 0 22px 45px -28px rgba(37, 99, 235, 0.72);
-            --content-add-primary-bg: #2563eb;
-            --content-add-primary-hover: #1d4ed8;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(37, 99, 235, 0.85);
-            --content-add-secondary-bg: #eff6ff;
-            --content-add-secondary-fg: #1d4ed8;
-            --content-add-secondary-border: #bfdbfe;
-            --content-add-secondary-hover: #dbeafe;
-            --content-add-focus: #2563eb;
-            --content-add-focus-ring: rgba(37, 99, 235, 0.14);
-        }
-
-        .python-edit-upload input[type="file"] {
-            width: 100%;
-        }
-
-        .python-edit-example {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 2.95rem;
-            padding: 0 0.95rem;
-            border-radius: 0.9rem;
-            border: 1px solid #bfdbfe;
-            background: #eff6ff;
-            color: #1d4ed8;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .python-edit-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 0.5rem 0.8rem;
-            border-radius: 9999px;
-            background: #dbeafe;
-            color: #1d4ed8;
-            font-size: 0.84rem;
-            font-weight: 700;
-        }
-
-        .python-edit-badge img {
-            width: 18px;
-            height: 18px;
-        }
-
-        .python-edit-editor-stage textarea {
-            width: 830px;
-            height: 450px;
-        }
-    </style>
+    <link href="../js/fileupload.css" rel="stylesheet" />
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    
 
     <div class="content-add-page python-edit-page">
         <div class="content-add-shell is-medium">
@@ -107,8 +55,8 @@
 
                     <div class="content-add-field">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">替换示例文件</label>
-                        <div class="content-add-static python-edit-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+                        <div class="ls-upload" data-accept=".py" data-label="点击或拖拽上传示例文件" data-hint="支持 py 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -117,30 +65,31 @@
 
             <section class="content-add-editor">
                 <h2 class="content-add-section-title">编程说明</h2>
-                <p class="content-add-section-desc">正文继续使用 KindEditor，并保持现有 `mcontent` 字段提交方式。</p>
+                <div class="python-edit-editor-wrap">
+                    <p class="content-add-section-desc" style="margin:0;">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换。</p>
+                    <div>
+                        <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
+                        <select id="editorSelector" onchange="switchEditor(this.value)" class="python-edit-editor-select">
+                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                            <option value="wangeditor">WangEditor</option>
+                            <option value="vditor">Vditor</option>
+                        </select>
+                    </div>
+                </div>
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script>
-                    var editor;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false,
-                            afterCreate: function () {
-                                this.loadPlugin('autoheight');
-                            }
-                        });
-                    });
-                </script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
+                
                 <div class="content-add-editor-stage python-edit-editor-stage custom-scrollbar">
+                    <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
+                        <div id="wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
+                        <div id="wangeditor-text" style="height:350px;"></div>
+                    </div>
+                    <div id="vditor-wrap" style="display:none; width:100%; position:relative; margin-bottom:10px;">
+                        <div id="vditor-container"></div>
+                    </div>
                     <textarea id="mcontent" runat="server"></textarea>
                 </div>
             </section>
@@ -152,9 +101,17 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="Btnedit" runat="server" Text="修改主题" OnClick="Btnedit_Click" SkinID="BtnNormal" CssClass="content-add-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="content-add-secondary" />
+                <asp:Button ID="Btnedit" runat="server" Text="修改主题" OnClick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="content-add-primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="content-add-secondary" />
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__pythoneditConfig = {
+            myCid: '<%=myCid() %>',
+            mcontentId: '<%= mcontent.ClientID %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pythonedit.js"></script>
 </asp:Content>

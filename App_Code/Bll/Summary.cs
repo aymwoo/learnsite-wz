@@ -129,58 +129,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Summary> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Summary> modelList = new List<LearnSite.Model.Summary>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Summary model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Summary();
-					if(dt.Rows[n]["Sid"].ToString()!="")
-					{
-						model.Sid=int.Parse(dt.Rows[n]["Sid"].ToString());
-					}
-					if(dt.Rows[n]["Scid"].ToString()!="")
-					{
-						model.Scid=int.Parse(dt.Rows[n]["Scid"].ToString());
-					}
-					if(dt.Rows[n]["Shid"].ToString()!="")
-					{
-						model.Shid=int.Parse(dt.Rows[n]["Shid"].ToString());
-					}
-					model.Scontent=dt.Rows[n]["Scontent"].ToString();
-					if(dt.Rows[n]["Sdate"].ToString()!="")
-					{
-						model.Sdate=DateTime.Parse(dt.Rows[n]["Sdate"].ToString());
-					}
-					if(dt.Rows[n]["Sgrade"].ToString()!="")
-					{
-						model.Sgrade=int.Parse(dt.Rows[n]["Sgrade"].ToString());
-					}
-					if(dt.Rows[n]["Sclass"].ToString()!="")
-					{
-						model.Sclass=int.Parse(dt.Rows[n]["Sclass"].ToString());
-					}
-					if(dt.Rows[n]["Syear"].ToString()!="")
-					{
-						model.Syear=int.Parse(dt.Rows[n]["Syear"].ToString());
-					}
-					if(dt.Rows[n]["Sshow"].ToString()!="")
-					{
-						if((dt.Rows[n]["Sshow"].ToString()=="1")||(dt.Rows[n]["Sshow"].ToString().ToLower()=="true"))
-						{
-						model.Sshow=true;
-						}
-						else
-						{
-							model.Sshow=false;
-						}
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSummaryList(dt);
 		}
 
 		/// <summary>
@@ -202,4 +151,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

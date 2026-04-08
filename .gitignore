@@ -23,3 +23,5 @@ web.config.docker.local
 /mssql/data
 Tests/SharpZipTests/bin/
 Tests/SharpZipTests/obj/
+/store
+/upexcel

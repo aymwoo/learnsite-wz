@@ -166,53 +166,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Consoles> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Consoles> modelList = new List<LearnSite.Model.Consoles>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Consoles model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Consoles();
-					if(dt.Rows[n]["Nid"]!=null && dt.Rows[n]["Nid"].ToString()!="")
-					{
-						model.Nid=int.Parse(dt.Rows[n]["Nid"].ToString());
-					}
-					if(dt.Rows[n]["Nhid"]!=null && dt.Rows[n]["Nhid"].ToString()!="")
-					{
-						model.Nhid=int.Parse(dt.Rows[n]["Nhid"].ToString());
-					}
-					if(dt.Rows[n]["Ncid"]!=null && dt.Rows[n]["Ncid"].ToString()!="")
-					{
-						model.Ncid=int.Parse(dt.Rows[n]["Ncid"].ToString());
-					}
-					if(dt.Rows[n]["Ntitle"]!=null && dt.Rows[n]["Ntitle"].ToString()!="")
-					{
-					model.Ntitle=dt.Rows[n]["Ntitle"].ToString();
-					}
-					if(dt.Rows[n]["Ncontent"]!=null && dt.Rows[n]["Ncontent"].ToString()!="")
-					{
-					model.Ncontent=dt.Rows[n]["Ncontent"].ToString();
-					}
-					if(dt.Rows[n]["Npublish"]!=null && dt.Rows[n]["Npublish"].ToString()!="")
-					{
-						if((dt.Rows[n]["Npublish"].ToString()=="1")||(dt.Rows[n]["Npublish"].ToString().ToLower()=="true"))
-						{
-						model.Npublish=true;
-						}
-						else
-						{
-							model.Npublish=false;
-						}
-					}
-					if(dt.Rows[n]["Ndate"]!=null && dt.Rows[n]["Ndate"].ToString()!="")
-					{
-						model.Ndate=DateTime.Parse(dt.Rows[n]["Ndate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapConsolesList(dt);
 		}
 
 		/// <summary>
@@ -248,4 +202,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

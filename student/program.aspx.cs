@@ -115,7 +115,7 @@ public partial class Student_program : System.Web.UI.Page
         }
         if (Snum.StartsWith("s") && cook.Sid < 0)
         {
-            BtnBegin.Visible = true;
+            BtnBegin.Visible = false;
             ButtonClear.Visible = true;
             BtnScratch.Visible = true;
         }
@@ -157,7 +157,7 @@ public partial class Student_program : System.Web.UI.Page
                 url = "~/student/mxgraph.aspx?lid=" + Lid;
                 break;
             case "11":
-                url = "~/student/pixel.aspx?lid=" + Lid;
+                url = LearnSite.Common.CustomActivityCatalog.GetStudentEntryUrlByLid(Ltype, Lid);
                 break;
             case "12":
                 url = "~/student/htmleditor.aspx?lid=" + Lid;
@@ -169,67 +169,27 @@ public partial class Student_program : System.Web.UI.Page
                 url = "~/student/excel.aspx?lid=" + Lid;
                 break;
             case "17":
-                url = "~/student/qrcode.aspx?lid=" + Lid;
-                break;
             case "18":
-                url = "~/student/word.aspx?lid=" + Lid;
-                break;
             case "19":
-                url = "~/student/pptist.aspx?lid=" + Lid;
-                break;
             case "20":
-                url = "~/fabriceditor/poster.aspx?lid=" + Lid;
-                break;
             case "21":
-                url = "~/student/style.aspx?lid=" + Lid;
-                break;
             case "22":
-                url = "~/machine/imageclass.aspx?lid=" + Lid;
-                break;
             case "23":
-                url = "~/faceai/face.aspx?lid=" + Lid;
-                break;
             case "24":
-                url = "~/student/mqtt.aspx?lid=" + Lid;
-                break;
             case "25":
-                url = "~/student/draw.aspx?lid=" + Lid;
-                break;
             case "26":
-                url = "~/student/sokoban.aspx?lid=" + Lid;
-                break;
             case "27":
-                url = "~/deepseek/deepseek.aspx?lid=" + Lid;
-                break;
             case "28":
-                url = "~/deepseek/speek.aspx?lid=" + Lid;
-                break;
             case "29":
-                url = "~/deepseek/ocr.aspx?lid=" + Lid;
-                break;
             case "30":
-                url = "~/deepseek/soundlab.aspx?lid=" + Lid;
-                break;
             case "31":
-                url = "~/deepseek/tic-tac-toe.aspx?lid=" + Lid;
-                break;
             case "32":
-                url = "~/student/handnum.aspx?lid=" + Lid;
-                break;
             case "33":
-                url = "~/student/markdown.aspx?lid=" + Lid;
-                break;
             case "34":
-                url = "~/student/iframe.aspx?lid=" + Lid;
-                break;
             case "35":
-                url = "~/deepseek/aidraw.aspx?lid=" + Lid;
-                break;
             case "36":
-                url = "~/student/webstore.aspx?lid=" + Lid;
-                break;
             case "37":
-                url = "~/student/website.aspx?lid=" + Lid;
+                url = LearnSite.Common.CustomActivityCatalog.GetStudentEntryUrlByLid(Ltype, Lid);
                 break;
             default:
                 url = "#";
@@ -270,15 +230,30 @@ public partial class Student_program : System.Web.UI.Page
     }
     protected void ButtonClear_Click(object sender, EventArgs e)
     {
+        // 仅允许教师模拟学生账号清除当前登录学生自己的提交记录
+        if (!(cook.Snum.StartsWith("s") && cook.Sid < 0))
+        {
+            return;
+        }
+
         if (Request.QueryString["lid"] != null)
         {
+            string Lid = Request.QueryString["lid"].ToString();
+            if (!LearnSite.Common.WordProcess.IsNum(Lid) || !LearnSite.Common.WordProcess.IsNum(LabelMid.Text))
+            {
+                return;
+            }
+
             LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
             string Snum = cook.Snum;
-            string Wmid = LabelMid.Text;
-            wbll.Delmywork(Int32.Parse(Wmid), Snum);
+            int wmid = Int32.Parse(LabelMid.Text);
+            LearnSite.Model.Works mywork = wbll.GetModelByStu(wmid, Snum);
+            if (mywork != null)
+            {
+                wbll.Delmywork(wmid, Snum);
+            }
 
             LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
-            string Lid = Request.QueryString["lid"].ToString();
             kbll.DeleteMenuWork(cook.Sid, Int32.Parse(Lid));
 
             System.Threading.Thread.Sleep(200);

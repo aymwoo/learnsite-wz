@@ -116,21 +116,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.TurtleMatch> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.TurtleMatch> modelList = new List<LearnSite.Model.TurtleMatch>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.TurtleMatch model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTurtleMatchList(dt);
 		}
 
 		/// <summary>
@@ -185,4 +171,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

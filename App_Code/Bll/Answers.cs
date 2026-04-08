@@ -124,21 +124,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Answers> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Answers> modelList = new List<LearnSite.Model.Answers>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Answers model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapAnswersList(dt);
 		}
 
 		/// <summary>
@@ -177,4 +163,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

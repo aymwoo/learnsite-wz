@@ -139,65 +139,7 @@ namespace LearnSite.BLL
         /// </summary>
         public List<LearnSite.Model.QuizGrade> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.QuizGrade> modelList = new List<LearnSite.Model.QuizGrade>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.QuizGrade model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.QuizGrade();
-                    if (dt.Rows[n]["Qid"].ToString() != "")
-                    {
-                        model.Qid = int.Parse(dt.Rows[n]["Qid"].ToString());
-                    }
-                    if (dt.Rows[n]["Qobj"].ToString() != "")
-                    {
-                        model.Qobj = int.Parse(dt.Rows[n]["Qobj"].ToString());
-                    }
-                    model.Qclass = dt.Rows[n]["Qclass"].ToString();
-                    if (dt.Rows[n]["Qhid"].ToString() != "")
-                    {
-                        model.Qhid = int.Parse(dt.Rows[n]["Qhid"].ToString());
-                    }
-                    if (dt.Rows[n]["Qonly"].ToString() != "")
-                    {
-                        model.Qonly = int.Parse(dt.Rows[n]["Qonly"].ToString());
-                    }
-                    if (dt.Rows[n]["Qmore"].ToString() != "")
-                    {
-                        model.Qmore = int.Parse(dt.Rows[n]["Qmore"].ToString());
-                    }
-                    if (dt.Rows[n]["Qjudge"].ToString() != "")
-                    {
-                        model.Qjudge = int.Parse(dt.Rows[n]["Qjudge"].ToString());
-                    }
-                    if (dt.Rows[n]["Qopen"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Qopen"].ToString() == "1") || (dt.Rows[n]["Qopen"].ToString().ToLower() == "true"))
-                        {
-                            model.Qopen = true;
-                        }
-                        else
-                        {
-                            model.Qopen = false;
-                        }
-                    }
-                    if (dt.Rows[n]["Qanswer"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Qanswer"].ToString() == "1") || (dt.Rows[n]["Qanswer"].ToString().ToLower() == "true"))
-                        {
-                            model.Qanswer = true;
-                        }
-                        else
-                        {
-                            model.Qanswer = false;
-                        }
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapQuizGradeList(dt);
         }
 
 		/// <summary>
@@ -238,4 +180,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

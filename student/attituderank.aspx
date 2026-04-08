@@ -1,11 +1,12 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="attituderank.aspx.cs" Inherits="Student_attituderank" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="attituderank.aspx.cs" Inherits="Student_attituderank" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>课堂小测验班级排行</title>
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+        <meta charset="utf-8" />
+<title>课堂小测验班级排行</title>
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 

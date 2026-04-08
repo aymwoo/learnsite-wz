@@ -44,13 +44,13 @@ public partial class Teacher_consoleadd : System.Web.UI.Page
             nmodel = nbll.GetModel(Int32.Parse(nid));
             Texttitle.Text = nmodel.Ntitle;
             Publish.Checked = nmodel.Npublish;
-            mcontent.InnerText = HttpUtility.HtmlDecode(nmodel.Ncontent);
+            mcontent.Value = HttpUtility.HtmlDecode(nmodel.Ncontent);
         }
     }
 
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["cid"] != null)
@@ -86,6 +86,10 @@ public partial class Teacher_consoleadd : System.Web.UI.Page
                     lmodel.Lxid = nid;
                     lbll.UpdateLtitle(lmodel);//更新到导航中
                     url = "~/teacher/consoleshow.aspx?ncid=" + Ncid + "&nid=" + nid;
+                    if (Request.QueryString["lid"] != null)
+                    {
+                        url += "&lid=" + Request.QueryString["lid"].ToString();
+                    }
 
                     System.Threading.Thread.Sleep(500);
                 }
@@ -115,6 +119,10 @@ public partial class Teacher_consoleadd : System.Web.UI.Page
             {
                 string nid = Request.QueryString["nid"].ToString();
                 url = "~/teacher/consoleshow.aspx?ncid=" + Cid + "&nid=" + nid;
+                if (Request.QueryString["lid"] != null)
+                {
+                    url += "&lid=" + Request.QueryString["lid"].ToString();
+                }
             }
             Response.Redirect(url, false);
         }

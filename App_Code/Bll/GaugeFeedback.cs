@@ -170,73 +170,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.GaugeFeedback> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.GaugeFeedback> modelList = new List<LearnSite.Model.GaugeFeedback>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.GaugeFeedback model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.GaugeFeedback();
-					if(dt.Rows[n]["Fid"]!=null && dt.Rows[n]["Fid"].ToString()!="")
-					{
-						model.Fid=int.Parse(dt.Rows[n]["Fid"].ToString());
-					}
-					if(dt.Rows[n]["Fnum"]!=null && dt.Rows[n]["Fnum"].ToString()!="")
-					{
-					model.Fnum=dt.Rows[n]["Fnum"].ToString();
-					}
-					if(dt.Rows[n]["Fgrade"]!=null && dt.Rows[n]["Fgrade"].ToString()!="")
-					{
-						model.Fgrade=int.Parse(dt.Rows[n]["Fgrade"].ToString());
-					}
-					if(dt.Rows[n]["Fclass"]!=null && dt.Rows[n]["Fclass"].ToString()!="")
-					{
-						model.Fclass=int.Parse(dt.Rows[n]["Fclass"].ToString());
-					}
-					if(dt.Rows[n]["Fcid"]!=null && dt.Rows[n]["Fcid"].ToString()!="")
-					{
-						model.Fcid=int.Parse(dt.Rows[n]["Fcid"].ToString());
-					}
-					if(dt.Rows[n]["Fmid"]!=null && dt.Rows[n]["Fmid"].ToString()!="")
-					{
-						model.Fmid=int.Parse(dt.Rows[n]["Fmid"].ToString());
-					}
-					if(dt.Rows[n]["Fwid"]!=null && dt.Rows[n]["Fwid"].ToString()!="")
-					{
-						model.Fwid=int.Parse(dt.Rows[n]["Fwid"].ToString());
-					}
-					if(dt.Rows[n]["Fgid"]!=null && dt.Rows[n]["Fgid"].ToString()!="")
-					{
-						model.Fgid=int.Parse(dt.Rows[n]["Fgid"].ToString());
-					}
-					if(dt.Rows[n]["Fselect"]!=null && dt.Rows[n]["Fselect"].ToString()!="")
-					{
-					model.Fselect=dt.Rows[n]["Fselect"].ToString();
-					}
-					if(dt.Rows[n]["Fscore"]!=null && dt.Rows[n]["Fscore"].ToString()!="")
-					{
-						model.Fscore=int.Parse(dt.Rows[n]["Fscore"].ToString());
-					}
-					if(dt.Rows[n]["Fgood"]!=null && dt.Rows[n]["Fgood"].ToString()!="")
-					{
-						if((dt.Rows[n]["Fgood"].ToString()=="1")||(dt.Rows[n]["Fgood"].ToString().ToLower()=="true"))
-						{
-						model.Fgood=true;
-						}
-						else
-						{
-							model.Fgood=false;
-						}
-					}
-					if(dt.Rows[n]["Fdate"]!=null && dt.Rows[n]["Fdate"].ToString()!="")
-					{
-						model.Fdate=DateTime.Parse(dt.Rows[n]["Fdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapGaugeFeedbackList(dt);
 		}
 
 		/// <summary>
@@ -272,4 +206,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

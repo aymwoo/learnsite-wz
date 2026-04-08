@@ -92,5 +92,31 @@ namespace ImageCheckTests
             Assert.False(result);
         }
 
+        [Fact]
+        public void CheckImageType_ByteArrayNull_ReturnsFalse()
+        {
+            Assert.False(ImageCheck.CheckImageType((byte[])null));
+        }
+
+        [Fact]
+        public void CheckImageType_ByteArrayPngHeader_ReturnsTrue()
+        {
+            byte[] pngHeader = new byte[] { 0x89, 0x50 };
+
+            bool result = ImageCheck.CheckImageType(pngHeader);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void CheckImageType_ByteArrayUnknownHeader_ReturnsFalse()
+        {
+            byte[] header = new byte[] { 0x01, 0x02 };
+
+            bool result = ImageCheck.CheckImageType(header);
+
+            Assert.False(result);
+        }
+
     }
 }

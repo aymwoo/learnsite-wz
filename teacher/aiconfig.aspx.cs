@@ -1,7 +1,7 @@
 using System;
 using System.Web.UI;
 
-public partial class Teacher_aiprovider : System.Web.UI.Page
+public partial class Teacher_aiconfig : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

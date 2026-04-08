@@ -1,20 +1,9 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="topicadd.aspx.cs" Inherits="Teacher_topicadd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"  StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="topicadd.aspx.cs" Inherits="Teacher_topicadd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <style type="text/css">
-        .topic-add-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #4338ca 0%, #4f46e5 55%, #818cf8 100%);
-            --content-add-primary-bg: #4f46e5;
-            --content-add-primary-hover: #4338ca;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
-        }
-
-        .topic-add-editor-stage textarea {
-            width: 800px;
-            height: 500px;
-        }
-    </style>
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    
 
     <div class="content-add-page topic-add-page">
         <div class="content-add-shell is-medium">
@@ -45,27 +34,31 @@
 
             <section class="content-add-editor">
                 <h2 class="content-add-section-title">讨论说明</h2>
-                <p class="content-add-section-desc">正文继续使用 KindEditor 编辑，并保持原有图片上传和文件管理接口。</p>
+                <div class="topic-add-editor-wrap">
+                    <p class="content-add-section-desc" style="margin:0;">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换。</p>
+                    <div>
+                        <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
+                        <select id="editorSelector" onchange="switchEditor(this.value)" class="topic-add-editor-select">
+                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                            <option value="wangeditor">WangEditor</option>
+                            <option value="vditor">Vditor</option>
+                        </select>
+                    </div>
+                </div>
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script>
-                    var editor;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="textareaItem"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false
-                        });
-                    });
-                </script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
+                
                 <div class="content-add-editor-stage topic-add-editor-stage custom-scrollbar">
+                    <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
+                        <div id="wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
+                        <div id="wangeditor-text" style="height:380px;"></div>
+                    </div>
+                    <div id="vditor-wrap" style="display:none; width:100%; position:relative; margin-bottom:10px;">
+                        <div id="vditor-container"></div>
+                    </div>
                     <textarea name="textareaItem"></textarea>
                 </div>
             </section>
@@ -77,9 +70,15 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" SkinID="BtnNormal" CssClass="content-add-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="content-add-secondary" />
+                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" OnClientClick="return syncContent();" CssClass="topic-btn topic-btn--primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="topic-btn topic-btn--secondary" />
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__topicaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/topicadd.js"></script>
 </asp:Content>

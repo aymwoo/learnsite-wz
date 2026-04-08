@@ -9,6 +9,7 @@ using System.Data;
 public partial class Student_showmission : System.Web.UI.Page
 {
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (LearnSite.Common.CookieHelp.IsStudentLogin())
@@ -55,7 +56,9 @@ public partial class Student_showmission : System.Web.UI.Page
                 string sWfiletype = model.Mfiletype;
                 LabelMtitle.Text = model.Mtitle;
                 LabelMcid.Text = model.Mcid.ToString();
-                Mcontent.InnerHtml = HttpUtility.HtmlDecode(model.Mcontent);
+                string decodedContent = HttpUtility.HtmlDecode(model.Mcontent);
+                HiddenMissionRaw.Value = decodedContent;
+                Mcontent.InnerHtml = decodedContent;
                 LabelSnum.Text = sSnum;
                 LabelMfiletype.Text = sWfiletype;
                 bool isupload = model.Mupload;
@@ -150,6 +153,7 @@ public partial class Student_showmission : System.Web.UI.Page
             }
             else
             {
+                HiddenMissionRaw.Value = string.Empty;
                 Mcontent.InnerHtml = "此学案活动不存在！";
                 Panelworks.Visible = false;
             }
@@ -179,6 +183,11 @@ public partial class Student_showmission : System.Web.UI.Page
 
         string Wcid = LabelMcid.Text;
         string Wmid = LabelMid.Text;
+
+        // Guard: if labels were not populated (e.g. model was null), bail out early to avoid FormatException
+        if (!LearnSite.Common.WordProcess.IsNum(Wcid) || !LearnSite.Common.WordProcess.IsNum(Wmid))
+            return;
+
         LearnSite.BLL.Works ws = new LearnSite.BLL.Works();
         string Wid = ws.WorkDone(Snum, Int32.Parse(Wcid), Int32.Parse(Wmid));//返回空字符表示不存在该记录
         string SnumDone = ws.IpWorkDoneSnum(Sgrade, Sclass, Int32.Parse(Wcid), Int32.Parse(Wmid), Wip);
@@ -243,7 +252,10 @@ public partial class Student_showmission : System.Web.UI.Page
         else
         {
             LearnSite.BLL.Mission mbll = new LearnSite.BLL.Mission();
-            int minMsort = mbll.GetLastMaxMsort(Int32.Parse(Wcid), Int32.Parse(LabelMsort.Text));//任务活动中查询
+            string Wmsort = LabelMsort.Text;
+            if (!LearnSite.Common.WordProcess.IsNum(Wmsort))
+                return;
+            int minMsort = mbll.GetLastMaxMsort(Int32.Parse(Wcid), Int32.Parse(Wmsort));//任务活动中查询
             bool isExitFirstWork = ws.ExistsMyFirstWork(Int32.Parse(Wcid), Snum, minMsort);
 
             if (LearnSite.Common.XmlHelp.GetWorkIpLimit())//判断有无进行IP限制

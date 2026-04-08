@@ -1,47 +1,9 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="pixeladd.aspx.cs" Inherits="Teacher_pixeladd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="pixeladd.aspx.cs" Inherits="Teacher_pixeladd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <style type="text/css">
-        .pixel-add-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #1e293b 0%, #3730a3 55%, #4f46e5 100%);
-            --content-add-hero-shadow: 0 22px 45px -28px rgba(79, 70, 229, 0.72);
-            --content-add-primary-bg: #4f46e5;
-            --content-add-primary-hover: #4338ca;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(79, 70, 229, 0.85);
-        }
-
-        .pixel-add-editor-stage textarea {
-            width: 930px;
-            height: 450px;
-        }
-
-        .pixel-add-device-list {
-            padding: 0.9rem 1rem;
-            border: 1px solid #dbeafe;
-            border-radius: 0.9rem;
-            background: #f8fbff;
-            color: #334155;
-        }
-
-        .pixel-add-device-list table,
-        .pixel-add-device-list tbody,
-        .pixel-add-device-list tr,
-        .pixel-add-device-list td {
-            display: block;
-        }
-
-        .pixel-add-device-list input {
-            margin-right: 0.35rem;
-        }
-
-        .pixel-add-device-list label {
-            margin-right: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            margin-bottom: 0.45rem;
-        }
-    </style>
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    
 
     <div class="content-add-page pixel-add-page">
         <div class="content-add-shell is-medium">
@@ -86,6 +48,26 @@
                     </div>
 
                     <div class="content-add-field content-add-field-wide">
+                        <div class="pixel-add-type-note">
+                            <span class="pixel-add-chip" style='background:<%= GetActivityBadgeBackground() %>;color:<%= GetActivityBadgeForeground() %>;'>
+                                <img src="<%= GetActivityIconUrl() %>" alt="" />
+                                <%= GetActivityDisplayName() %>
+                            </span>
+                            <div class="pixel-add-type-copy"><%= GetActivityDescription() %></div>
+                        </div>
+                        <div class="pixel-add-type-list">
+                            <div class="pixel-add-type-item">
+                                <strong>学生端入口</strong>
+                                <span class="pixel-add-route"><%= GetStudentEntryUrl() %></span>
+                            </div>
+                            <div class="pixel-add-type-item">
+                                <strong>创建重点</strong>
+                                <%= GetEditFocusText() %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-add-field content-add-field-wide">
                         <label class="content-add-label" for="<%= Texttitle.ClientID %>">主题名称</label>
                         <asp:TextBox ID="Texttitle" runat="server" SkinID="TextBoxNormal" Width="300px" CssClass="content-add-input"></asp:TextBox>
                     </div>
@@ -127,30 +109,31 @@
 
             <section class="content-add-editor">
                 <h2 class="content-add-section-title">主题说明</h2>
-                <p class="content-add-section-desc">说明内容继续使用 KindEditor，保留原有上传接口与自动高度逻辑。</p>
+                <div class="pixel-add-editor-wrap">
+                    <p class="content-add-section-desc" style="margin:0;">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换。</p>
+                    <div>
+                        <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
+                        <select id="editorSelector" onchange="switchEditor(this.value)" class="pixel-add-editor-select">
+                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                            <option value="wangeditor">WangEditor</option>
+                            <option value="vditor">Vditor</option>
+                        </select>
+                    </div>
+                </div>
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script>
-                    var editor;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="textareaItem"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false,
-                            afterCreate: function () {
-                                this.loadPlugin('autoheight');
-                            }
-                        });
-                    });
-                </script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
+                
                 <div class="content-add-editor-stage pixel-add-editor-stage custom-scrollbar">
+                    <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
+                        <div id="wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
+                        <div id="wangeditor-text" style="height:350px;"></div>
+                    </div>
+                    <div id="vditor-wrap" style="display:none; width:100%; position:relative; margin-bottom:10px;">
+                        <div id="vditor-container"></div>
+                    </div>
                     <textarea name="textareaItem"></textarea>
                 </div>
             </section>
@@ -162,9 +145,15 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" SkinID="BtnNormal" CssClass="content-add-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="content-add-secondary" />
+                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" OnClientClick="return syncContent();" CssClass="content-add-primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="content-add-secondary" />
             </section>
         </div>
     </div>
+    <script type="text/javascript">
+        window.__pixeladdConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/pixeladd.js"></script>
 </asp:Content>

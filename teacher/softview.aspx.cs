@@ -61,7 +61,7 @@ public partial class Teacher_softview : System.Web.UI.Page
             }
         }
     }
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["fid"] != null)
         {
@@ -81,7 +81,7 @@ public partial class Teacher_softview : System.Web.UI.Page
             LearnSite.Common.FileDown.DownLoadOut(HLurl.NavigateUrl);
         }
     }
-    protected void BtnReturnSmall_Click(object sender, ImageClickEventArgs e)
+    protected void BtnReturnSmall_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/teacher/soft.aspx", false);
     }

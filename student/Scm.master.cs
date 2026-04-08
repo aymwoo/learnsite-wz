@@ -7,9 +7,30 @@ using System.Data;
 public partial class Student_Scm : System.Web.UI.MasterPage
 {
     protected string Cbanner = "";
+    protected string SiteTitle = "";
+    // 学习状态上报所需的学生信息
+    protected string LsSnum = "";
+    protected string LsSname = "";
+    protected string LsSgrade = "0";
+    protected string LsSclass = "0";
+    protected string LsSid = "0";
+    protected string LsCid = "0";
+    protected string LsLid = "0";
+    protected string LsLtitle = "";
+    protected string LsLtype = "";
     LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
     protected void Page_Load(object sender, EventArgs e)
     {
+        SiteTitle = LearnSite.Common.XmlHelp.SiteTitle();
+        // 初始化学生学习状态上报信息
+        if (cook.IsExist())
+        {
+            LsSnum = cook.Snum;
+            LsSname = cook.Sname;
+            LsSgrade = cook.Sgrade.ToString();
+            LsSclass = cook.Sclass.ToString();
+            LsSid = cook.Sid.ToString();
+        }
         if (!IsPostBack)
         {
             ShowListMenu();
@@ -48,14 +69,23 @@ public partial class Student_Scm : System.Web.UI.MasterPage
             if (Request.QueryString["lid"] != null)
             {
                 Lidstr = Request.QueryString["lid"].ToString();
-                LearnSite.Model.ListMenu lmodel = new LearnSite.Model.ListMenu();
-                LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
-                lmodel = lbll.GetModel(Int32.Parse(Lidstr));
-                myCid = lmodel.Lcid.ToString();
+                if (LearnSite.Common.WordProcess.IsNum(Lidstr))
+                {
+                    LearnSite.Model.ListMenu lmodel = new LearnSite.Model.ListMenu();
+                    LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
+                    lmodel = lbll.GetModel(Int32.Parse(Lidstr));
+                    if (lmodel != null)
+                    {
+                        myCid = lmodel.Lcid.ToString();
+                    }
+                }
             }
         }
         if (LearnSite.Common.WordProcess.IsNum(myCid))
         {
+            // 设置当前课程ID，供学习状态上报使用
+            LsCid = myCid;
+
             string Uploadmode = LearnSite.Common.XmlHelp.GetUploadMode();
             string mUrl;
             switch (Uploadmode)
@@ -163,7 +193,7 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "11"://像素画
-                            ma.ImageUrl = "~/images/pixel.png";
+                            ApplyCustomActivityVisual(ma, "11");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "12"://单网页
@@ -187,87 +217,87 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "17"://二维码
-                            ma.ImageUrl = "~/images/qrcode.png";
+                            ApplyCustomActivityVisual(ma, "17");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "18"://在线文档
-                            ma.ImageUrl = "~/images/word.png";
+                            ApplyCustomActivityVisual(ma, "18");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "19"://演示文稿
-                            ma.ImageUrl = "~/images/pptist.png";
+                            ApplyCustomActivityVisual(ma, "19");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "20"://海报设计
-                            ma.ImageUrl = "~/images/poster.png";
+                            ApplyCustomActivityVisual(ma, "20");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "21"://风格迁移
-                            ma.ImageUrl = "~/images/style.png";
+                            ApplyCustomActivityVisual(ma, "21");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "22"://图像分类
-                            ma.ImageUrl = "~/images/mlimg.png";
+                            ApplyCustomActivityVisual(ma, "22");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "23"://人脸识别
-                            ma.ImageUrl = "~/images/face.png";
+                            ApplyCustomActivityVisual(ma, "23");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "24"://物联网mqtt
-                            ma.ImageUrl = "~/images/mqtt.png";
+                            ApplyCustomActivityVisual(ma, "24");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "25"://手绘画布
-                            ma.ImageUrl = "~/images/excalidraw.png";
+                            ApplyCustomActivityVisual(ma, "25");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "26"://推箱子地图
-                            ma.ImageUrl = "~/images/sokoban.png";
+                            ApplyCustomActivityVisual(ma, "26");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "27"://人工智能对话
-                            ma.ImageUrl = "~/images/ai.png";
+                            ApplyCustomActivityVisual(ma, "27");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "28"://语音合成
-                            ma.ImageUrl = "~/images/speek.png";
+                            ApplyCustomActivityVisual(ma, "28");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "29"://文字识别
-                            ma.ImageUrl = "~/images/ocr.png";
+                            ApplyCustomActivityVisual(ma, "29");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "30"://声音分析
-                            ma.ImageUrl = "~/images/sound.png";
+                            ApplyCustomActivityVisual(ma, "30");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "31"://井字棋
-                            ma.ImageUrl = "~/images/tic-tac-toe.png";
+                            ApplyCustomActivityVisual(ma, "31");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "32"://手写数字识别
-                            ma.ImageUrl = "~/images/handnum.png";
+                            ApplyCustomActivityVisual(ma, "32");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "33"://Markdown写作
-                            ma.ImageUrl = "~/images/markdown.png";
+                            ApplyCustomActivityVisual(ma, "33");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "34"://iframe嵌入网页
-                            ma.ImageUrl = "~/images/iframe.png";
+                            ApplyCustomActivityVisual(ma, "34");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "35"://文生图
-                            ma.ImageUrl = "~/images/text-to-image.png";
+                            ApplyCustomActivityVisual(ma, "35");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "36"://素材库
-                            ma.ImageUrl = "~/images/web.png";
+                            ApplyCustomActivityVisual(ma, "36");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "37"://网站设计
-                            ma.ImageUrl = "~/images/website.png";
+                            ApplyCustomActivityVisual(ma, "37");
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
                         case "38"://网页课件
@@ -283,9 +313,12 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                     {
                         if (i < lcount)
                         {
-                            bool codepass = wbll.WorkPass(cook.Sid, Int32.Parse(Lxidstr));
-                            if(codepass)
-                                ma.ImageUrl = urlfinish;
+                            if (LearnSite.Common.WordProcess.IsNum(Lxidstr))
+                            {
+                                bool codepass = wbll.WorkPass(cook.Sid, Int32.Parse(Lxidstr));
+                                if(codepass)
+                                    ma.ImageUrl = urlfinish;
+                            }
                         }
                         if (i > lcount)
                         {
@@ -298,6 +331,11 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                     {
                         CurWay = Ltitlestr;
                         ma.Selected = true;
+                        // 设置当前学案环节信息，供学习状态上报使用
+                        LsCid = myCid;
+                        LsLid = Lid;
+                        LsLtitle = Ltitlestr;
+                        LsLtype = Ltype;
                     }
                     Menuact.Items.Add(ma);//添加活动菜单
                 }
@@ -310,5 +348,11 @@ public partial class Student_Scm : System.Web.UI.MasterPage
 
         }
 
+    }
+
+    private void ApplyCustomActivityVisual(MenuItem menuItem, string category)
+    {
+        LearnSite.Common.CustomActivityMeta meta = LearnSite.Common.CustomActivityCatalog.GetMeta(category);
+        menuItem.ImageUrl = meta.IconUrl;
     }
 }

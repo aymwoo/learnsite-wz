@@ -14,6 +14,14 @@ public partial class student_kitymind : System.Web.UI.Page
     protected string codefile = "";
     protected string Snum = "";
     protected string mback = "";
+    protected string LsSname = "";
+    protected string LsSgrade = "0";
+    protected string LsSclass = "0";
+    protected string LsSid = "0";
+    protected string LsCid = "0";
+    protected string LsLid = "0";
+    protected string LsLtitle = "";
+    protected string LsLtype = "";
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -43,6 +51,19 @@ public partial class student_kitymind : System.Web.UI.Page
             LearnSite.Model.ListMenu lmodel = new LearnSite.Model.ListMenu();
             lmodel = lbll.GetModel(Int32.Parse(Lid));
 
+            LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
+            if (cook.IsExist())
+            {
+                LsSname = cook.Sname;
+                LsSgrade = cook.Sgrade.ToString();
+                LsSclass = cook.Sclass.ToString();
+                LsSid = cook.Sid.ToString();
+                LsCid = lmodel.Lcid.ToString();
+                LsLid = Lid;
+                LsLtitle = lmodel.Ltitle;
+                LsLtype = lmodel.Ltype.ToString();
+            }
+
             string Cid = lmodel.Lcid.ToString();
             string Mid = lmodel.Lxid.ToString();
             Id = Cid + "-" + Mid + "-" + Lid;
@@ -54,7 +75,6 @@ public partial class student_kitymind : System.Web.UI.Page
             model = mn.GetModel(Int32.Parse(Mid));
             if (model != null)
             {
-                LearnSite.Model.Cook cook = new LearnSite.Model.Cook();
                 string Sname = cook.Sname;
                 Snum = cook.Snum;
 

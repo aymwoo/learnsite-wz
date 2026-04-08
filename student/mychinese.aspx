@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="mychinese.aspx.cs" Inherits="Student_mychinese" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="mychinese.aspx.cs" Inherits="Student_mychinese" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
  <link href="../images/fingering/finger.css" rel="stylesheet" type="text/css" />
@@ -109,4 +109,3 @@
     <script src="../js/Chinese.js" type="text/javascript"></script>
 </div>
 </asp:Content>
-

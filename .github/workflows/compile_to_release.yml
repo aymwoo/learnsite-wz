@@ -6,6 +6,7 @@ on:
     types: [completed]
     branches: [master, main]
   workflow_dispatch:
+    branches: [master, main]
     inputs:
       release_type:
         description: 'Release Type (latest / alpha)'

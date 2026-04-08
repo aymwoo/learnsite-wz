@@ -143,62 +143,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.DelStudents> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.DelStudents> modelList = new List<LearnSite.Model.DelStudents>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.DelStudents model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.DelStudents();
-					if(dt.Rows[n]["Did"]!=null && dt.Rows[n]["Did"].ToString()!="")
-					{
-						model.Did=int.Parse(dt.Rows[n]["Did"].ToString());
-					}
-					if(dt.Rows[n]["Dnum"]!=null && dt.Rows[n]["Dnum"].ToString()!="")
-					{
-					model.Dnum=dt.Rows[n]["Dnum"].ToString();
-					}
-					if(dt.Rows[n]["Dyear"]!=null && dt.Rows[n]["Dyear"].ToString()!="")
-					{
-						model.Dyear=int.Parse(dt.Rows[n]["Dyear"].ToString());
-					}
-					if(dt.Rows[n]["Dgrade"]!=null && dt.Rows[n]["Dgrade"].ToString()!="")
-					{
-						model.Dgrade=int.Parse(dt.Rows[n]["Dgrade"].ToString());
-					}
-					if(dt.Rows[n]["Dclass"]!=null && dt.Rows[n]["Dclass"].ToString()!="")
-					{
-						model.Dclass=int.Parse(dt.Rows[n]["Dclass"].ToString());
-					}
-					if(dt.Rows[n]["Dname"]!=null && dt.Rows[n]["Dname"].ToString()!="")
-					{
-					model.Dname=dt.Rows[n]["Dname"].ToString();
-					}
-					if(dt.Rows[n]["Dsex"]!=null && dt.Rows[n]["Dsex"].ToString()!="")
-					{
-					model.Dsex=dt.Rows[n]["Dsex"].ToString();
-					}
-					if(dt.Rows[n]["Daddress"]!=null && dt.Rows[n]["Daddress"].ToString()!="")
-					{
-					model.Daddress=dt.Rows[n]["Daddress"].ToString();
-					}
-					if(dt.Rows[n]["Dphone"]!=null && dt.Rows[n]["Dphone"].ToString()!="")
-					{
-					model.Dphone=dt.Rows[n]["Dphone"].ToString();
-					}
-					if(dt.Rows[n]["Dparents"]!=null && dt.Rows[n]["Dparents"].ToString()!="")
-					{
-					model.Dparents=dt.Rows[n]["Dparents"].ToString();
-					}
-					if(dt.Rows[n]["Dheadtheacher"]!=null && dt.Rows[n]["Dheadtheacher"].ToString()!="")
-					{
-					model.Dheadtheacher=dt.Rows[n]["Dheadtheacher"].ToString();
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapDelStudentsList(dt);
 		}
 
 		/// <summary>
@@ -234,4 +179,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

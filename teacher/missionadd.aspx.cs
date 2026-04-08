@@ -60,8 +60,17 @@ public partial class Teacher_missionadd : System.Web.UI.Page
     }
     protected void Btnadd_Click(object sender, EventArgs e)
     {
-        string fckstr = Request.Form["textareaItem"].Trim();
-        if (Texttitle.Text != "" && fckstr != "")
+        string payloadEditorContent = Request.Form["editorContentPayload"] ?? string.Empty;
+        string rawEditorContent = !string.IsNullOrWhiteSpace(payloadEditorContent)
+            ? payloadEditorContent
+            : (Request.Form["textareaItem"] ?? string.Empty);
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(rawEditorContent.Trim());
+        string formTitle = Request.Form[Texttitle.UniqueID] ?? string.Empty;
+        string title = !string.IsNullOrEmpty(formTitle) ? formTitle.Trim() : (Texttitle.Text ?? string.Empty).Trim();
+        string fileType = DDLmfiletype.SelectedValue ?? string.Empty;
+        string gaugeId = DDLMgid.SelectedValue ?? string.Empty;
+
+        if (title != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null)
             {
@@ -75,7 +84,7 @@ public partial class Teacher_missionadd : System.Web.UI.Page
                 LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
                 int maxSort = lbll.GetMaxLsort(Mcid) + 1;
                 mission.Mcid = Mcid;
-                mission.Mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
+                mission.Mtitle = HttpUtility.HtmlEncode(title);
                 mission.Msort = maxSort;
                 bool uploadcan= CheckUpload.Checked;
                 mission.Mupload = uploadcan;
@@ -88,12 +97,12 @@ public partial class Teacher_missionadd : System.Web.UI.Page
 
                 mission.Mpublish = CheckPublish.Checked;
                 mission.Mcontent = HttpUtility.HtmlEncode(fckstr);
-                mission.Mfiletype = DDLmfiletype.SelectedValue;
+                mission.Mfiletype = fileType;
                 mission.Mdate = DateTime.Now;
                 mission.Mhit = 0;
                 mission.Mgroup = CheckGroup.Checked;
-                if (DDLMgid.SelectedValue != "")
-                    mission.Mgid = Int32.Parse(DDLMgid.SelectedValue);
+                if (gaugeId != "")
+                    mission.Mgid = Int32.Parse(gaugeId);
                 else
                     mission.Mgid = 0;
                 int mid= missionbll.Add(mission);
@@ -101,7 +110,7 @@ public partial class Teacher_missionadd : System.Web.UI.Page
                 lmodel.Lcid = Mcid;
                 lmodel.Lshow = CheckPublish.Checked;
                 lmodel.Lsort = maxSort;
-                lmodel.Ltitle = Texttitle.Text.Trim();
+                lmodel.Ltitle = title;
                 if (uploadcan)
                     lmodel.Ltype = 1;
                 else
@@ -109,14 +118,17 @@ public partial class Teacher_missionadd : System.Web.UI.Page
                 lmodel.Lxid = mid;
                 lbll.Add(lmodel);
                 System.Threading.Thread.Sleep(500);
-                //Labelmsg.Text = "添加学案活动成功";
                 string url = "~/teacher/courseshow.aspx?cid=" + Mcid.ToString();
                 Response.Redirect(url, false);
             }
         }
         else
         {
-            Labelmsg.Text = "内容及标题不能为空！";
+            string toastMessage = string.IsNullOrEmpty(title)
+                ? "活动标题不能为空！"
+                : "活动说明不能为空！";
+            string toastScript = "window.setTimeout(function(){if(window.showToast){window.showToast('" + toastMessage + "', 'error');}}, 0);";
+            ClientScript.RegisterStartupScript(GetType(), "missionadd-empty", toastScript, true);
         }
     }
     protected void BtnCourse_Click(object sender, EventArgs e)

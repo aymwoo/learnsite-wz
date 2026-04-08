@@ -42,7 +42,7 @@ public partial class Teacher_topicedit : System.Web.UI.Page
             LearnSite.Model.TopicDiscuss model = new LearnSite.Model.TopicDiscuss();
             model = bll.GetModel(tid);
             Texttitle.Text = model.Ttitle;
-            mcontent.InnerText = HttpUtility.HtmlDecode(model.Tcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(model.Tcontent);
             CheckClose.Checked = model.Tclose;
         }
     }
@@ -50,7 +50,7 @@ public partial class Teacher_topicedit : System.Web.UI.Page
     {
         if (Request.QueryString["tcid"] != null)
         {
-            string fckstr = mcontent.InnerText;
+            string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
             if (Texttitle.Text != "" && fckstr != "")
             {
 

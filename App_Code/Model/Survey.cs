@@ -21,6 +21,7 @@ namespace LearnSite.Model
 		private int? _vaverage;
 		private bool _vclose= false;
 		private bool _vpoint= false;
+		private bool _venableai = false;
 		private DateTime? _vdate;
 		/// <summary>
 		/// 
@@ -113,6 +114,14 @@ namespace LearnSite.Model
 		/// <summary>
 		/// 
 		/// </summary>
+		public bool Venableai
+		{
+			set{ _venableai=value;}
+			get{return _venableai;}
+		}
+		/// <summary>
+		/// 
+		/// </summary>
 		public DateTime? Vdate
 		{
 			set{ _vdate=value;}
@@ -122,4 +131,3 @@ namespace LearnSite.Model
 
 	}
 }
-

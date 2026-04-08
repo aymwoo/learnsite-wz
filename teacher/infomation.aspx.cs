@@ -11,7 +11,8 @@ public partial class Teacher_infomation : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            verChecking();
+            if (!verChecking())
+                return;
             Master.Page.Title = LearnSite.Common.CookieHelp.SetMainPageTitle() + "教师基本信息页面";
             if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
             {
@@ -134,13 +135,24 @@ public partial class Teacher_infomation : System.Web.UI.Page
 
         }
     }
-    private void verChecking()
+    private bool verChecking()
     {
+        if (!LearnSite.DBUtility.SqlHelper.DatabaseExist())
+        {
+            Response.Redirect("~/upgrade.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return false;
+        }
+
         if (!LearnSite.DBUtility.UpdateGrade.TableCheck())
         {
             string ch = "您的数据库未更新，现在将跳到更新程序UpGrade.aspx，请执行更新，不影响原有数据！";
             LearnSite.Common.WordProcess.Alert(ch, this.Page);
             Response.Redirect("~/upgrade.aspx", false);
+            Context.ApplicationInstance.CompleteRequest();
+            return false;
         }
+
+        return true;
     }
 }

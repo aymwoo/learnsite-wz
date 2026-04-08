@@ -154,42 +154,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Gauge> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Gauge> modelList = new List<LearnSite.Model.Gauge>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Gauge model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Gauge();
-					if(dt.Rows[n]["Gid"]!=null && dt.Rows[n]["Gid"].ToString()!="")
-					{
-						model.Gid=int.Parse(dt.Rows[n]["Gid"].ToString());
-					}
-					if(dt.Rows[n]["Ghid"]!=null && dt.Rows[n]["Ghid"].ToString()!="")
-					{
-						model.Ghid=int.Parse(dt.Rows[n]["Ghid"].ToString());
-					}
-					if(dt.Rows[n]["Gtype"]!=null && dt.Rows[n]["Gtype"].ToString()!="")
-					{
-					model.Gtype=dt.Rows[n]["Gtype"].ToString();
-					}
-					if(dt.Rows[n]["Gtitle"]!=null && dt.Rows[n]["Gtitle"].ToString()!="")
-					{
-					model.Gtitle=dt.Rows[n]["Gtitle"].ToString();
-					}
-					if(dt.Rows[n]["Gcount"]!=null && dt.Rows[n]["Gcount"].ToString()!="")
-					{
-						model.Gcount=int.Parse(dt.Rows[n]["Gcount"].ToString());
-					}
-					if(dt.Rows[n]["Gdate"]!=null && dt.Rows[n]["Gdate"].ToString()!="")
-					{
-						model.Gdate=DateTime.Parse(dt.Rows[n]["Gdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapGaugeList(dt);
 		}
 
 		/// <summary>
@@ -225,4 +190,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

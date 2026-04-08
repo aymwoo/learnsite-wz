@@ -45,7 +45,7 @@ public partial class Teacher_txtformedit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         string mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
         if (mtitle != "" && fckstr != "")
         {
@@ -103,7 +103,7 @@ public partial class Teacher_txtformedit : System.Web.UI.Page
             LearnSite.BLL.TxtForm tbll = new LearnSite.BLL.TxtForm();
             tmodel = tbll.GetModel(Mid);
 
-            mcontent.InnerText = HttpUtility.HtmlDecode(tmodel.Mcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(tmodel.Mcontent);
             CheckPublish.Checked = tmodel.Mpublish;
             Texttitle.Text = tmodel.Mtitle;
             CheckCollabo.Checked = tmodel.Mcollabo;

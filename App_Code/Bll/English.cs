@@ -186,28 +186,7 @@ namespace LearnSite.BLL
         /// </summary>
         public List<LearnSite.Model.English> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.English> modelList = new List<LearnSite.Model.English>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.English model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.English();
-                    if (dt.Rows[n]["Eid"].ToString() != "")
-                    {
-                        model.Eid = int.Parse(dt.Rows[n]["Eid"].ToString());
-                    }
-                    model.Eword = dt.Rows[n]["Eword"].ToString();
-                    model.Emeaning = dt.Rows[n]["Emeaning"].ToString();
-                    if (dt.Rows[n]["Elevel"].ToString() != "")
-                    {
-                        model.Elevel = int.Parse(dt.Rows[n]["Elevel"].ToString());
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapEnglishList(dt);
         }
 
 		/// <summary>
@@ -237,4 +216,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

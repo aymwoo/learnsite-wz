@@ -1,38 +1,7 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/profile/Pf.master"  StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="mygroup.aspx.cs" Inherits="Profile_mygroup" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cstu" Runat="Server">
-<style>
-.pf-start{padding:20px 16px;background:linear-gradient(180deg,#f8fbff 0%,#f3f7ff 100%);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#0f172a}
-.pf-start *{box-sizing:border-box}
-.pf-card{border:1px solid #dbe6f5;border-radius:1rem;background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.06);overflow:hidden;margin-bottom:16px}
-.pf-card__head{padding:14px 18px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:10px}
-.pf-card__icon{width:34px;height:34px;border-radius:.75rem;background:#eef2ff;border:1px solid #c7d2fe;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
-.pf-card__title{margin:0;font-size:15px;font-weight:800;color:#0f172a;letter-spacing:-.02em}
-.pf-card__body{padding:16px 18px 18px}
-/* GridView table */
-.pf-grid-wrap{overflow-x:auto;border-radius:.75rem;border:1px solid #e2e8f0}
-.pf-grid-wrap table{width:100%;border-collapse:collapse;font-size:13px}
-.pf-grid-wrap th{background:#f8fafc;padding:9px 12px;font-weight:700;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid #e2e8f0;text-align:left;white-space:nowrap}
-.pf-grid-wrap td{padding:10px 12px;border-bottom:1px solid #f1f5f9;color:#1e293b;vertical-align:middle}
-.pf-grid-wrap tr:last-child td{border-bottom:0}
-.pf-grid-wrap tr:hover td{background:#f8fafc}
-/* action links in GridView */
-.pf-grid-wrap a{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 10px;border-radius:.5rem;font-size:12px;font-weight:700;text-decoration:none;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;margin-right:4px;cursor:pointer;transition:background .2s}
-.pf-grid-wrap a:hover{background:#dbeafe}
-/* pager */
-.pf-pager{display:flex;align-items:center;gap:6px;padding:10px 12px;background:#f8fafc;font-size:12px;color:#64748b;flex-wrap:wrap}
-.pf-pager a{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:0 10px;border-radius:.5rem;border:1px solid #e2e8f0;background:#fff;color:#475569;font-size:11px;font-weight:700;text-decoration:none;cursor:pointer;transition:background .2s}
-.pf-pager a:hover{background:#eff6ff;border-color:#bfdbfe;color:#2563eb}
-/* edit name row */
-.pf-name-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 0}
-.pf-name-label{font-size:12px;font-weight:700;color:#475569;white-space:nowrap}
-.pf-input{min-height:38px!important;padding:0 12px!important;border:1px solid #cbd5e1!important;border-radius:.625rem!important;background:#f8fafc!important;color:#0f172a!important;font-size:13px!important;transition:border-color .2s!important}
-.pf-input:focus{border-color:#60a5fa!important;outline:none!important;background:#fff!important;box-shadow:0 0 0 3px rgba(96,165,250,.18)!important}
-.pf-btn-sm{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:36px!important;padding:0 16px!important;border-radius:.625rem!important;border:0!important;font-size:13px!important;font-weight:700!important;cursor:pointer!important;color:#fff!important;background:linear-gradient(135deg,#2563eb 0%,#1d4ed8 100%)!important;box-shadow:0 4px 12px rgba(37,99,235,.2)!important;white-space:nowrap!important;transition:transform .18s!important}
-.pf-btn-sm:hover{transform:translateY(-1px)!important}
-.pf-free-box{padding:12px 14px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:.75rem;font-size:13px;color:#0369a1;line-height:1.8}
-.pf-free-title{font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
-</style>
+
 <div class="pf-start">
   <!-- 小组列表 -->
   <div class="pf-card">
@@ -56,8 +25,10 @@
                   <asp:BoundField DataField="Sgtitle" HeaderText="小组名称"><ItemStyle Width="120px" HorizontalAlign="Left" /></asp:BoundField>
                   <asp:TemplateField HeaderText="组长">
                       <ItemTemplate>
-                          <asp:Image ID="Imageflag" runat="server" ImageUrl="~/images/gflag.gif" style="vertical-align:middle;margin-right:4px" />
-                          <asp:Label ID="Label1" runat="server" Text='<%# Bind("Sname") %>'></asp:Label>
+                          <span style="display:inline-flex;align-items:center;gap:4px;">
+                            <svg width="13" height="13" fill="#f59e0b" viewBox="0 0 20 20" style="flex-shrink:0;vertical-align:middle"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            <asp:Label ID="Label1" runat="server" Text='<%# Bind("Sname") %>'></asp:Label>
+                          </span>
                       </ItemTemplate>
                       <ItemStyle Width="90px" HorizontalAlign="Left" />
                   </asp:TemplateField>

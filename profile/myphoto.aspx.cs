@@ -64,12 +64,10 @@ public partial class Profile_myphoto : System.Web.UI.Page
     {
         if (LearnSite.Common.CookieHelp.IsStudentLogin())
         {
-
             string mynum = cook.Snum;
             string mysex = cook.Sex;
             string imgurl = LearnSite.Common.Photo.GetStudentPhotoUrl(mynum, mysex);
             Imageface.ImageUrl = imgurl + "?temp=" + DateTime.Now.Millisecond.ToString();
-            ((Image)Master.FindControl("Imageface")).ImageUrl = imgurl;
         }
     }
     private void CanUpload()

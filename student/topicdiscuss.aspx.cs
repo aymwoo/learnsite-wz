@@ -104,6 +104,7 @@ public partial class Student_topicdiscuss : System.Web.UI.Page
             kmodel.Klid = Lid;
             kmodel.Ksid = rsid;
             kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(Wtime), Wdate);
+            kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(Wtime), Wdate));
             kmodel.Kcheck = false;
             LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
 

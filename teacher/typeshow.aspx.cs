@@ -34,7 +34,7 @@ public partial class Teacher_typeshow : System.Web.UI.Page
         }
     }
 
-    protected void BtnEdit_Click(object sender, ImageClickEventArgs e)
+    protected void BtnEdit_Click(object sender, EventArgs e)
     {
         if (Request.QueryString["tid"] != null)
         {

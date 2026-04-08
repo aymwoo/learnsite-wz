@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="infomation.aspx.cs" Inherits="Teacher_infomation" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="infomation.aspx.cs" Inherits="Teacher_infomation" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <style type="text/css">
@@ -19,7 +19,8 @@
         box-shadow: 0 4px 16px rgba(37,99,235,.08);
         margin-bottom: 24px;
     }
-    .info-hero__title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+    .info-hero__title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; color: #0f172a; }
+    .info-hero__title span { color: #0f172a !important; }
     .info-hero__sub   { margin: 6px 0 0; font-size: 14px; color: #1e40af; }
 
     .info-card {
@@ -88,7 +89,7 @@
 
     .info-btn {
         display: inline-flex; align-items: center; justify-content: center;
-        min-height: 44px; padding: 0 24px; border: 0; border-radius: 1rem;
+        min-height: 44px; padding: 0 24px; border: 0; border-radius: 0.375rem;
         font-size: 14px; font-weight: 700; color: #fff; cursor: pointer;
         background: linear-gradient(135deg,#dc2626 0%,#b91c1c 100%);
         box-shadow: 0 8px 16px rgba(220,38,38,.2);
@@ -145,4 +146,3 @@
 })();
 </script>
 </asp:Content>
-

@@ -33,6 +33,32 @@ namespace LearnSite.DBUtility
             else
                 return TableCheck();//检测数据库表是否完整并最新
         }
+
+        public static string GetTargetVersion()
+        {
+            return "1912";
+        }
+
+        public static string GetCurrentVersion()
+        {
+            try
+            {
+                if (DbHelperSQL.ColumnExists("Survey", "Venableai")) return "1912";
+                if (DbHelperSQL.TabExists("AIStudentExamAssessment")) return "1911";
+                if (DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return "1910";
+                if (DbHelperSQL.TabExists("AICustomSkill")) return "1900";
+                if (DbHelperSQL.TabExists("AISkill")) return "1800";
+                if (DbHelperSQL.TabExists("AIProvider")) return "1700";
+                if (DbHelperSQL.TabExists("Answers")) return "1600";
+                if (DbHelperSQL.TabExists("Folders")) return "1500";
+                if (DbHelperSQL.ColumnExists("Mission", "Microworld")) return "1365";
+                return "1.10以下";
+            }
+            catch
+            {
+                return "未知";
+            }
+        }
         public static bool TableExistCheck()
         {
             string CheckTabel = "Students";
@@ -53,6 +79,10 @@ namespace LearnSite.DBUtility
                 {
                     try
                     {
+                        if (!DbHelperSQL.TabExists("AISkill")) return false;
+                        if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
+                        if (!DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return false;
+                        if (!DbHelperSQL.ColumnExists("Survey", "Venableai")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
                     }
                     catch
@@ -865,6 +895,7 @@ namespace LearnSite.DBUtility
                 Vstr.Append(" Vaverage int,");
                 Vstr.Append(" Vclose bit DEFAULT 0,");
                 Vstr.Append(" Vpoint bit DEFAULT 0,");
+                Vstr.Append(" Venableai bit DEFAULT 0,");
                 Vstr.Append(" Vdate datetime");
                 Vstr.Append(" )");
 
@@ -2528,6 +2559,103 @@ namespace LearnSite.DBUtility
                 defaultStr.Append(" ('DeepSeek', 'DeepSeek', 'deepseek-chat', '', 'https://api.deepseek.com/v1', 1),");
                 defaultStr.Append(" ('智谱GLM', 'ZhipuAI', 'glm-4', '', 'https://open.bigmodel.cn/api/paas/v4', 0);");
                 DbHelperSQL.ExecuteSql(defaultStr.ToString());
+            }
+        }
+
+        public static void UpdateTable1800()
+        {
+            if (!DbHelperSQL.TabExists("AISkill"))
+            {
+                StringBuilder aiStr = new StringBuilder();
+                aiStr.Append(" CREATE TABLE [dbo].[AISkill] (");
+                aiStr.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                aiStr.Append(" [SkillName] NVARCHAR(100) NULL, ");
+                aiStr.Append(" [PromptContent] NVARCHAR(MAX) NULL, ");
+                aiStr.Append(" [IsActive] BIT DEFAULT 1 ");
+                aiStr.Append(" )");
+                DbHelperSQL.ExecuteSql(aiStr.ToString());
+            }
+        }
+
+        public static void UpdateTable1900()
+        {
+            if (!DbHelperSQL.TabExists("AICustomSkill"))
+            {
+                StringBuilder aiStr = new StringBuilder();
+                aiStr.Append(" CREATE TABLE [dbo].[AICustomSkill] (");
+                aiStr.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                aiStr.Append(" [SkillName] NVARCHAR(100) NOT NULL, ");
+                aiStr.Append(" [PromptContent] NVARCHAR(MAX) NOT NULL, ");
+                aiStr.Append(" [SkillScope] NVARCHAR(200) NOT NULL DEFAULT '', ");
+                aiStr.Append(" [IsActive] BIT NOT NULL DEFAULT 1 ");
+                aiStr.Append(" )");
+                DbHelperSQL.ExecuteSql(aiStr.ToString());
+
+                string defaultPrompt = LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillPrompt().Replace("'", "''");
+                string seedSql = "INSERT INTO [dbo].[AICustomSkill] (SkillName,PromptContent,SkillScope,IsActive) VALUES (N'" + LearnSite.Common.AIGaugeSkillHelper.GetDefaultGaugeSkillName().Replace("'", "''") + "',N'" + defaultPrompt + "',N'gauge',1)";
+                DbHelperSQL.ExecuteSql(seedSql);
+
+                string examPrompt = LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillPrompt().Replace("'", "''");
+                string examSeedSql = "INSERT INTO [dbo].[AICustomSkill] (SkillName,PromptContent,SkillScope,IsActive) VALUES (N'" + LearnSite.Common.AIStudentExamSkillHelper.GetDefaultSkillName().Replace("'", "''") + "',N'" + examPrompt + "',N'student_exam',1)";
+                DbHelperSQL.ExecuteSql(examSeedSql);
+            }
+        }
+
+        public static void UpdateTable1911()
+        {
+            if (!DbHelperSQL.TabExists("AIStudentExamAssessment"))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append(" CREATE TABLE [dbo].[AIStudentExamAssessment] (");
+                sb.Append(" [Id] INT IDENTITY(1,1) NOT NULL PRIMARY KEY,");
+                sb.Append(" [Fid] INT NULL,");
+                sb.Append(" [Sid] INT NULL,");
+                sb.Append(" [Snum] NVARCHAR(50) NULL,");
+                sb.Append(" [Sname] NVARCHAR(50) NULL,");
+                sb.Append(" [Cid] INT NULL,");
+                sb.Append(" [Lid] INT NULL,");
+                sb.Append(" [Vid] INT NULL,");
+                sb.Append(" [ProviderName] NVARCHAR(100) NULL,");
+                sb.Append(" [SkillName] NVARCHAR(100) NULL,");
+                sb.Append(" [Summary] NVARCHAR(500) NULL,");
+                sb.Append(" [AssessmentContent] NVARCHAR(MAX) NULL,");
+                sb.Append(" [LearningLog] NVARCHAR(MAX) NULL,");
+                sb.Append(" [AnswerLog] NVARCHAR(MAX) NULL,");
+                sb.Append(" [Score] INT NULL,");
+                sb.Append(" [QuestionCount] INT NULL,");
+                sb.Append(" [IsFallback] BIT NOT NULL DEFAULT 0,");
+                sb.Append(" [CreatedAt] DATETIME NOT NULL DEFAULT GETDATE()");
+                sb.Append(" )");
+                DbHelperSQL.ExecuteSql(sb.ToString());
+            }
+        }
+
+        public static void UpdateTable1912()
+        {
+            string surveyTable = "Survey";
+            string enableAi = "Venableai";
+            if (!DbHelperSQL.ColumnExists(surveyTable, enableAi))
+            {
+                DbHelperSQL.AddColumn(surveyTable, enableAi, "bit", 0);
+                DbHelperSQL.ExecuteSql("update Survey set Venableai = 0 where Venableai is null");
+            }
+        }
+
+        public static void UpdateTable1910()
+        {
+            string menuWorksTable = "MenuWorks";
+            string kseconds = "Kseconds";
+            if (!DbHelperSQL.ColumnExists(menuWorksTable, kseconds))
+            {
+                DbHelperSQL.AddColumn(menuWorksTable, kseconds, "int", 0);
+                DbHelperSQL.ExecuteSql("update MenuWorks set Kseconds = isnull(Ktime, 0) * 60 where Kseconds is null or Kseconds = 0");
+            }
+
+            string checkIndexSql = "select count(1) from sys.indexes where name='IX_MenuWorks_Klid_Ksid' and object_id = object_id('MenuWorks')";
+            if (DbHelperSQL.FindNum(checkIndexSql) == 0)
+            {
+                string createIndexSql = "create nonclustered index IX_MenuWorks_Klid_Ksid on MenuWorks (Klid asc, Ksid asc) include (Ktime, Kseconds, Kcheck, Kstar)";
+                DbHelperSQL.ExecuteSql(createIndexSql);
             }
         }
     }

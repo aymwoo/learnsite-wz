@@ -114,7 +114,7 @@ public partial class Teacher_courseanalyse : System.Web.UI.Page
             Literal1.Text = "当前没有学生作品";
         }
     }
-    protected void ImgBtnLeft_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnLeft_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx > 0)
@@ -123,7 +123,7 @@ public partial class Teacher_courseanalyse : System.Web.UI.Page
         }
         ShowFlash();
     }
-    protected void ImgBtnright_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnright_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx < DDLstore.Items.Count - 1)
@@ -136,7 +136,7 @@ public partial class Teacher_courseanalyse : System.Web.UI.Page
     {
         ShowFlash();
     }
-    protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+    protected void ImageButton1_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/teacher/course.aspx", false);
     }

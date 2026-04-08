@@ -152,21 +152,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.SoftCategory> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.SoftCategory> modelList = new List<LearnSite.Model.SoftCategory>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.SoftCategory model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = dal.DataRowToModel(dt.Rows[n]);
-					if (model != null)
-					{
-						modelList.Add(model);
-					}
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapSoftCategoryList(dt);
 		}
 
 		/// <summary>
@@ -215,4 +201,3 @@ namespace LearnSite.BLL
 		#endregion  ExtensionMethod
 	}
 }
-

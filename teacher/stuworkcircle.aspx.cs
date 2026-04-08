@@ -80,7 +80,7 @@ public partial class Teacher_stuworkcircle : System.Web.UI.Page
     {
         showflash();
     }
-    protected void ImgBtnLeft_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnLeft_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx > 0)
@@ -89,7 +89,7 @@ public partial class Teacher_stuworkcircle : System.Web.UI.Page
         }
         showflash();
     }
-    protected void ImgBtnright_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnright_Click(object sender, EventArgs e)
     {
         int sdx = DDLstore.SelectedIndex;
         if (sdx < DDLstore.Items.Count - 1)
@@ -98,7 +98,7 @@ public partial class Teacher_stuworkcircle : System.Web.UI.Page
         }
         showflash();
     }
-    protected void ImgBtn_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtn_Click(object sender, EventArgs e)
     {
         lbcount.Text = "0";
         int curindex = DDLstore.SelectedIndex;//保存当前索引位置

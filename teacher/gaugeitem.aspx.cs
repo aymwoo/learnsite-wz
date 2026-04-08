@@ -12,8 +12,40 @@ public partial class Teacher_gaugeitem : System.Web.UI.Page
         if (!IsPostBack)
         {
             Master.Page.Title = LearnSite.Common.CookieHelp.SetMainPageTitle() + "自定义评价描述页面";
+            ShowAIGeneratedNotice();
             showGauge();
             showGaugeItem();
+        }
+    }
+
+    private void ShowAIGeneratedNotice()
+    {
+        string message = Request.QueryString["aimsg"];
+        string items = Request.QueryString["aiitems"];
+        string provider = Request.QueryString["provider"];
+        bool isFallback = Request.QueryString["aifallback"] == "1";
+        LabelProviderName.Text = "当前 AI Provider：" + (string.IsNullOrEmpty(provider) ? LearnSite.BLL.AIGaugeGenerator.GetDefaultProviderDisplayName() : HttpUtility.UrlDecode(provider));
+        if (string.IsNullOrEmpty(message) && string.IsNullOrEmpty(items))
+        {
+            PanelAIGenerated.Visible = false;
+            return;
+        }
+
+        PanelAIGenerated.Visible = true;
+        LabelAIGeneratedTitle.Text = isFallback ? "已创建量规，并套用默认推荐模板" : "AI 已为当前量规生成评价项";
+        if (isFallback)
+        {
+            PanelAIGenerated.CssClass = "gauge-ai-notice gauge-ai-notice--fallback";
+        }
+        LabelAIGeneratedMsg.Text = HttpUtility.HtmlEncode(message ?? string.Empty);
+        BulletedListAIItems.Items.Clear();
+        if (!string.IsNullOrEmpty(items))
+        {
+            string[] previewItems = HttpUtility.UrlDecode(items).Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string previewItem in previewItems)
+            {
+                BulletedListAIItems.Items.Add(HttpUtility.HtmlEncode(previewItem));
+            }
         }
     }
 

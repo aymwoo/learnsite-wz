@@ -176,36 +176,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Teacher> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Teacher> modelList = new List<LearnSite.Model.Teacher>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Teacher model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Teacher();
-					if(dt.Rows[n]["Hid"].ToString()!="")
-					{
-						model.Hid=int.Parse(dt.Rows[n]["Hid"].ToString());
-					}
-					model.Hname=dt.Rows[n]["Hname"].ToString();
-					model.Hpwd=dt.Rows[n]["Hpwd"].ToString();
-					if(dt.Rows[n]["Hpermiss"].ToString()!="")
-					{
-						if((dt.Rows[n]["Hpermiss"].ToString()=="1")||(dt.Rows[n]["Hpermiss"].ToString().ToLower()=="true"))
-						{
-						model.Hpermiss=true;
-						}
-						else
-						{
-							model.Hpermiss=false;
-						}
-					}
-					model.Hnote=dt.Rows[n]["Hnote"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTeacherList(dt);
 		}
 
 		/// <summary>
@@ -269,4 +240,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

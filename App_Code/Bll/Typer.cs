@@ -138,32 +138,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Typer> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Typer> modelList = new List<LearnSite.Model.Typer>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Typer model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Typer();
-					if(dt.Rows[n]["Tid"].ToString()!="")
-					{
-						model.Tid=int.Parse(dt.Rows[n]["Tid"].ToString());
-					}
-					if(dt.Rows[n]["Ttype"].ToString()!="")
-					{
-						model.Ttype=int.Parse(dt.Rows[n]["Ttype"].ToString());
-					}
-					if(dt.Rows[n]["Tuse"].ToString()!="")
-					{
-						model.Tuse=int.Parse(dt.Rows[n]["Tuse"].ToString());
-					}
-					model.Ttitle=dt.Rows[n]["Ttitle"].ToString();
-					model.Tcontent=dt.Rows[n]["Tcontent"].ToString();
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapTyperList(dt);
 		}
 
 		/// <summary>
@@ -225,4 +200,3 @@ namespace LearnSite.BLL
 		#endregion  成员方法
 	}
 }
-

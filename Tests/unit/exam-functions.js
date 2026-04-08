@@ -257,3 +257,32 @@ export function createQuestionData(type) {
 
   return newQuestion;
 }
+
+// ================================================================
+// SSE 提交相关纯函数 (来自 preview.js 新增的 AI 评估功能)
+// ================================================================
+
+/**
+ * 解析 SSE 事件中的 JSON 数据 (来自 preview.js:1147)
+ */
+export function parseExamAiSseData(data) {
+  try { return JSON.parse(data); } catch (e) { return null; }
+}
+
+/**
+ * 构建 SSE 提交的 URL 查询字符串 (从 preview.js:1042-1048 提取)
+ *
+ * @param {string} baseUrl - 基础 URL (如 'uploadanswer.ashx')
+ * @param {{lid:string, cid:string, eid:string, score:number, spend:number, qcount:number, adata:string}} params
+ * @returns {string} 带查询参数的完整 URL
+ */
+export function buildExamSseUrl(baseUrl, params) {
+  return baseUrl
+    + '?lid=' + encodeURIComponent(params.lid)
+    + '&cid=' + encodeURIComponent(params.cid)
+    + '&eid=' + encodeURIComponent(params.eid)
+    + '&score=' + encodeURIComponent(params.score)
+    + '&spend=' + encodeURIComponent(params.spend)
+    + '&qcount=' + encodeURIComponent(params.qcount)
+    + '&adata=' + encodeURIComponent(params.adata);
+}

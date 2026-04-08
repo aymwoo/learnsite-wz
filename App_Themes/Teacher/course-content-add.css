@@ -12,8 +12,7 @@
 }
 
 .content-add-shell.is-medium {
-    max-width: 1120px;
-    margin: 0 auto;
+    /* max-width removed for full-width layout */
 }
 
 .content-add-hero {
@@ -52,6 +51,7 @@
 .content-add-hero-content {
     position: relative;
     z-index: 1;
+    text-align: left;
 }
 
 .content-add-eyebrow {
@@ -71,6 +71,8 @@
     font-size: 1.9rem;
     line-height: 1.2;
     font-weight: 700;
+    text-align: left;
+    color: #ffffff;
 }
 
 .content-add-subtitle {

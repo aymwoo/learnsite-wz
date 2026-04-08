@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#"  MasterPageFile="~/manager/Manage.master" AutoEventWireup="true" CodeFile="house.aspx.cs" Inherits="Seat_house" %>
+<%@ Page Title="" Language="C#" ResponseEncoding="utf-8" MasterPageFile="~/manager/Manage.master" AutoEventWireup="true" CodeFile="house.aspx.cs" Inherits="Seat_house" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
 <style type="text/css">
@@ -140,4 +140,3 @@
 
 </div>
 </asp:Content>
-

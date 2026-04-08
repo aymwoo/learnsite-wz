@@ -264,69 +264,7 @@ namespace LearnSite.BLL
         /// </summary>
         public List<LearnSite.Model.Room> DataTableToList(DataTable dt)
         {
-            List<LearnSite.Model.Room> modelList = new List<LearnSite.Model.Room>();
-            int rowsCount = dt.Rows.Count;
-            if (rowsCount > 0)
-            {
-                LearnSite.Model.Room model;
-                for (int n = 0; n < rowsCount; n++)
-                {
-                    model = new LearnSite.Model.Room();
-                    if (dt.Rows[n]["Rid"].ToString() != "")
-                    {
-                        model.Rid = int.Parse(dt.Rows[n]["Rid"].ToString());
-                    }
-                    if (dt.Rows[n]["Rhid"].ToString() != "")
-                    {
-                        model.Rhid = int.Parse(dt.Rows[n]["Rhid"].ToString());
-                    }
-                    if (dt.Rows[n]["Rgrade"].ToString() != "")
-                    {
-                        model.Rgrade = int.Parse(dt.Rows[n]["Rgrade"].ToString());
-                    }
-                    if (dt.Rows[n]["Rclass"].ToString() != "")
-                    {
-                        model.Rclass = int.Parse(dt.Rows[n]["Rclass"].ToString());
-                    }
-                    if (dt.Rows[n]["Rset"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Rset"].ToString() == "1") || (dt.Rows[n]["Rset"].ToString().ToLower() == "true"))
-                        {
-                            model.Rset = true;
-                        }
-                        else
-                        {
-                            model.Rset = false;
-                        }
-                    }
-                    model.Rpwd = dt.Rows[n]["Rpwd"].ToString();
-                    if (dt.Rows[n]["Rlock"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Rlock"].ToString() == "1") || (dt.Rows[n]["Rlock"].ToString().ToLower() == "true"))
-                        {
-                            model.Rlock = true;
-                        }
-                        else
-                        {
-                            model.Rlock = false;
-                        }
-                    }
-                    model.Rip = dt.Rows[n]["Rip"].ToString();
-                    if (dt.Rows[n]["Rgauge"] != null && dt.Rows[n]["Rgauge"].ToString() != "")
-                    {
-                        if ((dt.Rows[n]["Rgauge"].ToString() == "1") || (dt.Rows[n]["Rgauge"].ToString().ToLower() == "true"))
-                        {
-                            model.Rgauge = true;
-                        }
-                        else
-                        {
-                            model.Rgauge = false;
-                        }
-                    }
-                    modelList.Add(model);
-                }
-            }
-            return modelList;
+            return BllDataTableMappers.MapRoomList(dt);
         }
 
         /// <summary>
@@ -842,4 +780,3 @@ namespace LearnSite.BLL
         #endregion  成员方法
     }
 }
-

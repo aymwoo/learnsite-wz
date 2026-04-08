@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="Teacher_index" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="index.aspx.cs" Inherits="Teacher_index" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style>
@@ -13,7 +13,7 @@
             width: 100%;
             padding: 0.85rem 1.5rem;
             border: none;
-            border-radius: 0.85rem;
+            border-radius: 0.375rem;
             background: linear-gradient(135deg, #4f46e5 0%, #4338ca 50%, #6366f1 100%);
             background-size: 200% 200%;
             color: #ffffff;

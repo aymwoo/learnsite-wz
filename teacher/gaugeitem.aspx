@@ -1,9 +1,22 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"   StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="gaugeitem.aspx.cs" Inherits="Teacher_gaugeitem" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master"   StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="gaugeitem.aspx.cs" Inherits="Teacher_gaugeitem" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+
 <div>
 <div class="centerdiv">
 <div style=" margin: auto; width: 680px; font-size:11pt; text-align:center">
+                    <div class="gaugeitem-toolbar">
+                        <span class="gaugeitem-provider"><asp:Label ID="LabelProviderName" runat="server"></asp:Label></span>
+                        <div style="display:flex;gap:10px;">
+                            <input id="BtnAppendAI" type="button" value="追加AI生成" class="gaugeitem-ai-btn" onclick="return startGaugeRegenerate('append');" />
+                            <input id="BtnRegenerateAI" type="button" value="重新用AI生成一次" class="gaugeitem-ai-btn" onclick="return startGaugeRegenerate('replace');" />
+                        </div>
+                    </div>
+                    <asp:Panel ID="PanelAIGenerated" runat="server" Visible="false" CssClass="gauge-ai-notice">
+                        <p class="gauge-ai-notice__title"><asp:Label ID="LabelAIGeneratedTitle" runat="server"></asp:Label></p>
+                        <asp:Label ID="LabelAIGeneratedMsg" runat="server" CssClass="gauge-ai-notice__msg"></asp:Label>
+                        <asp:BulletedList ID="BulletedListAIItems" runat="server" CssClass="gauge-ai-notice__list"></asp:BulletedList>
+                    </asp:Panel>
                     <br />
                     自定义评价标准：<asp:Label ID="LabelGtitle" runat="server" Font-Bold="True"></asp:Label>
                     <br />
@@ -82,18 +95,37 @@
                             <asp:ListItem>11</asp:ListItem>
                             <asp:ListItem>12</asp:ListItem>
             </asp:DropDownList>
-                        &nbsp;<asp:Button ID="Btnadd" runat="server"  Text="添加"  onclick="Btnadd_Click" 
-                            SkinID="BtnSmall"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
-                    &nbsp;<asp:Button ID="Btnreturn" runat="server"  Text="返回"  onclick="Btnreturn_Click" 
-                            SkinID="BtnSmall" Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />                    
+                        &nbsp;<asp:Button ID="Btnadd" runat="server"  Text="添加量规项"  onclick="Btnadd_Click"
+                            CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
+                    &nbsp;<asp:Button ID="Btnreturn" runat="server"  Text="返回列表"  onclick="Btnreturn_Click"
+                            Width="60px"  CssClass="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" />
                     <br />
                     </div>
-                        </div>
-                        
-                        </div>
+                         </div>
+                         
+                         </div>
+    <div id="gaugeItemLoading" class="gauge-ai-loading" aria-live="polite" aria-busy="true">
+        <div class="gauge-ai-loading__card">
+            <div class="gauge-ai-loading__spinner"></div>
+            <p class="gauge-ai-loading__title">正在重新生成量规项</p>
+            <p id="gaugeItemLoadingDesc" class="gauge-ai-loading__desc">系统正在读取当前量规并调用 AI 重新生成，请稍候。</p>
+            <ul id="gaugeItemLoadingSteps" class="gauge-ai-loading__steps">
+                <li class="gauge-ai-loading__step is-active"><span class="gauge-ai-loading__step-index">1</span><span>正在读取当前量规</span></li>
+                <li class="gauge-ai-loading__step"><span class="gauge-ai-loading__step-index">2</span><span>正在调用 AI 生成评价项</span></li>
+                <li class="gauge-ai-loading__step"><span class="gauge-ai-loading__step-index">3</span><span>正在覆盖旧量规项并写入新内容</span></li>
+            </ul>
+        </div>
+    </div>
     <br />
 <br />
 </div>
 
-</asp:Content>
 
+    <script type="text/javascript">
+        window.__gaugeitemConfig = {
+            gauge_generateUrl: '<%= ResolveUrl("~/teacher/gauge_generate.ashx") %>',
+            request_QueryString_gid: '<%= Request.QueryString["gid"] %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/gaugeitem.js"></script>
+</asp:Content>

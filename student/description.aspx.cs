@@ -83,6 +83,7 @@ public partial class Student_description : System.Web.UI.Page
             kmodel.Klid = Int32.Parse(Lid);
             kmodel.Ksid = sid;
             kmodel.Ktime = LearnSite.Common.Computer.GoneMinute(DateTime.Parse(LoginTime), Wdate);
+            kmodel.Kseconds = Int32.Parse(LearnSite.Common.Computer.Datagone(DateTime.Parse(LoginTime), Wdate));
             kmodel.Kcheck = false;
             kmodel.Kstar = Int32.Parse(star);
             kbll.Add(kmodel);

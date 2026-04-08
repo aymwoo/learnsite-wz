@@ -1,16 +1,17 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="python.aspx.cs" Inherits="Student_python" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="python.aspx.cs" Inherits="Student_python" ResponseEncoding="utf-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+        <meta charset="utf-8" />
+<title></title>
   <link href="../code/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
   <link href="../code/turtle.css" rel="stylesheet" type="text/css" />
+  <link href="../js/toolbar-buttons.css" rel="stylesheet" type="text/css" />
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
     <link href="../kindeditor/plugins/code/prettify.css?ver=621" rel="stylesheet" type="text/css" />
-
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <body  onload="prettyPrint(); ">
@@ -43,33 +44,24 @@
 <div id="codexample">
 	<div id="codeplace"></div>
 	<div id="codebutton">
-	<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0" id="prev">上一页</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btncode px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  id="next">下一页</button>
+	<button type="button" class="btncode py-subbtn" id="prev">上一页</button><button type="button" class="btncode py-subbtn" id="next">下一页</button>
 	</div>
 </div>
 <div class="tooltip"></div>
 
 <div id="savemsg"></div>
 
-<div  id="sideby">
-
-
-<button  onclick="fullide()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
-<i class="fa fa-expand" aria-hidden="true"></i>全屏</button>&nbsp;&nbsp;
-<span class="sp"></span>
-
-<button  onclick="remember()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
-<i class="fa fa-video-camera" aria-hidden="true"></i>回忆</button>&nbsp;&nbsp;
-<span class="sp"></span>
-
-<button  onclick="runit()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
-<i class="fa fa-play-circle" aria-hidden="true"></i>运行</button>&nbsp;&nbsp;
-<span class="sp"></span>
-
-<button  onclick="checkright()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0"  >
-<i class="fa fa-save" aria-hidden="true"></i>保存</button>&nbsp;&nbsp;
-<span class="sp"></span>
-<button  onclick="returnurl()" class="button px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300 shadow-md border-0">
-<i class="fa fa-reply" aria-hidden="true"></i>返回</button>
+<div id="sideby" class="py-toolbar">
+<button type="button" onclick="fullide()" class="py-toolbar__btn py-toolbar__btn--neutral">
+<i class="fa fa-expand" aria-hidden="true"></i><span>全屏编辑</span></button>
+<button type="button" onclick="remember()" class="py-toolbar__btn py-toolbar__btn--neutral">
+<i class="fa fa-history" aria-hidden="true"></i><span>回放记录</span></button>
+<button type="button" onclick="runit()" class="py-toolbar__btn">
+<i class="fa fa-play-circle" aria-hidden="true"></i><span>运行代码</span></button>
+<button type="button" onclick="checkright()" class="py-toolbar__btn py-toolbar__btn--secondary">
+<i class="fa fa-save" aria-hidden="true"></i><span>保存作品</span></button>
+<button type="button" onclick="returnurl()" class="py-toolbar__btn py-toolbar__btn--neutral">
+<i class="fa fa-reply" aria-hidden="true"></i><span>返回学案</span></button>
 </div>
 
 </div>

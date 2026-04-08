@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="pythonIdle.aspx.cs" Inherits="Student_pythonIdle" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="pythonIdle.aspx.cs" Inherits="Student_pythonIdle" ResponseEncoding="utf-8" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Python交互式测评</title>
 
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
+    <link href="../js/css/tailwind-utilities-2.2.19.min.css" rel="stylesheet">
 </head>
 
 <script src="../code/skulpt.min.js?ver=20210116" type="text/javascript"></script>

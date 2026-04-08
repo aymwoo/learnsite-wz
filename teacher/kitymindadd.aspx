@@ -1,31 +1,10 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="kitymindadd.aspx.cs" Inherits="teacher_kitymindadd" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" Validaterequest="false"  AutoEventWireup="true" CodeFile="kitymindadd.aspx.cs" Inherits="teacher_kitymindadd" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <style type="text/css">
-        .mindmap-add-page {
-            --content-add-page-bg: linear-gradient(180deg, #f8fafc 0%, #f5f3ff 100%);
-            --content-add-hero-bg: linear-gradient(135deg, #5b21b6 0%, #7c3aed 55%, #a78bfa 100%);
-            --content-add-hero-shadow: 0 22px 45px -28px rgba(124, 58, 237, 0.72);
-            --content-add-primary-bg: #7c3aed;
-            --content-add-primary-hover: #6d28d9;
-            --content-add-primary-shadow: 0 14px 24px -18px rgba(124, 58, 237, 0.82);
-            --content-add-secondary-bg: #f5f3ff;
-            --content-add-secondary-fg: #6d28d9;
-            --content-add-secondary-border: #ddd6fe;
-            --content-add-secondary-hover: #ede9fe;
-            --content-add-focus: #7c3aed;
-            --content-add-focus-ring: rgba(124, 58, 237, 0.14);
-        }
-
-        .mindmap-add-upload input[type="file"] {
-            width: 100%;
-        }
-
-        .mindmap-add-editor-stage textarea {
-            width: 830px;
-            height: 450px;
-        }
-    </style>
+    <link href="../js/fileupload.css" rel="stylesheet" />
+    <link href="../js/vendors/wangeditor/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../js/vendors/vditor/index.css" />
+    
 
     <div class="content-add-page mindmap-add-page">
         <div class="content-add-shell is-medium">
@@ -60,8 +39,8 @@
 
                     <div class="content-add-field content-add-field-wide">
                         <label class="content-add-label" for="<%= Fupload.ClientID %>">思维导图实例文件</label>
-                        <div class="content-add-static mindmap-add-upload">
-                            <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
+                        <div class="ls-upload" data-accept=".km" data-label="点击或拖拽上传实例文件" data-hint="支持 km 格式">
+                            <asp:FileUpload ID="Fupload" runat="server" />
                         </div>
                     </div>
                 </div>
@@ -69,30 +48,31 @@
 
             <section class="content-add-editor">
                 <h2 class="content-add-section-title">导图说明</h2>
-                <p class="content-add-section-desc">说明内容继续使用 KindEditor，保持现有图片上传和自动高度行为。</p>
+                <div class="mindmap-add-editor-wrap">
+                    <p class="content-add-section-desc" style="margin:0;">支持 KindEditor、WangEditor 和 Vditor 三种编辑方式切换。</p>
+                    <div>
+                        <label class="content-add-label" for="editorSelector">编辑器选择</label><br />
+                        <select id="editorSelector" onchange="switchEditor(this.value)" class="mindmap-add-editor-select">
+                            <option value="kindeditor" selected>原生编辑器 (KindEditor)</option>
+                            <option value="wangeditor">WangEditor</option>
+                            <option value="vditor">Vditor</option>
+                        </select>
+                    </div>
+                </div>
                 <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
                 <script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-                <script>
-                    var editor;
-                    var cid = <%=myCid() %>;
-                    var ty = "Course";
-                    var upjs = '../kindeditor/aspnet/upload_json.aspx?cid=' + cid + '&ty=' + ty;
-                    var fmjs = '../kindeditor/aspnet/file_manager_json.aspx?cid=' + cid + '&ty=' + ty;
-                    KindEditor.ready(function (K) {
-                        editor = K.create('textarea[name="textareaItem"]', {
-                            resizeType: 1,
-                            newlineTag: "br",
-                            uploadJson: upjs,
-                            fileManagerJson: fmjs,
-                            allowFileManager: true,
-                            filterMode: false,
-                            afterCreate: function () {
-                                this.loadPlugin('autoheight');
-                            }
-                        });
-                    });
-                </script>
+                <script src="../js/vendors/vditor/index.min.js"></script>
+                <script src="../js/vendors/wangeditor/index.js"></script>
+                <script src="../teacher/editor-upload-helper.js" type="text/javascript"></script>
+                
                 <div class="content-add-editor-stage mindmap-add-editor-stage custom-scrollbar">
+                    <div id="wangeditor-wrap" style="display:none; width:100%; position:relative; border:1px solid #ccc; z-index:100;">
+                        <div id="wangeditor-toolbar" style="border-bottom:1px solid #ccc;"></div>
+                        <div id="wangeditor-text" style="height:350px;"></div>
+                    </div>
+                    <div id="vditor-wrap" style="display:none; width:100%; position:relative; margin-bottom:10px;">
+                        <div id="vditor-container"></div>
+                    </div>
                     <textarea name="textareaItem"></textarea>
                 </div>
             </section>
@@ -104,9 +84,16 @@
             </section>
 
             <section class="content-add-actions">
-                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" SkinID="BtnNormal" CssClass="content-add-primary" />
-                <asp:Button ID="BtnCourse" runat="server" Text="学案返回" OnClick="BtnCourse_Click" SkinID="BtnNormal" CssClass="content-add-secondary" />
+                <asp:Button ID="Btnadd" runat="server" Text="添加主题" OnClick="Btnadd_Click" OnClientClick="return syncContent();" CssClass="content-add-primary" />
+                <asp:Button ID="BtnCourse" runat="server" Text="返回学案" OnClick="BtnCourse_Click" CssClass="content-add-secondary" />
             </section>
         </div>
     </div>
+    <script src="../js/fileupload.js"></script>
+    <script type="text/javascript">
+        window.__kitymindaddConfig = {
+            myCid: '<%=myCid() %>'
+        };
+    </script>
+    <script type="text/javascript" src="../js/kitymindadd.js"></script>
 </asp:Content>

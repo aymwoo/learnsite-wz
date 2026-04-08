@@ -2712,8 +2712,14 @@ namespace LearnSite.DAL
         /// <param name="Wnum"></param>
         public void Delmywork(int Wmid, string Wnum)
         {
-            string mysql = "delete Works where Wmid=" + Wmid + " and Wnum='" + Wnum + "'";
-            DbHelperSQL.ExecuteSql(mysql);
+            string mysql = "delete Works where Wmid=@Wmid and Wnum=@Wnum";
+            SqlParameter[] parameters = {
+                new SqlParameter("@Wmid", SqlDbType.Int, 4),
+                new SqlParameter("@Wnum", SqlDbType.NVarChar, 50)
+            };
+            parameters[0].Value = Wmid;
+            parameters[1].Value = Wnum;
+            DbHelperSQL.ExecuteSql(mysql, parameters);
         }
         /// <summary>
         /// 根据学号和任务ID返回成绩值和评语

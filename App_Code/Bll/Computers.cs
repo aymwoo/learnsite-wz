@@ -402,39 +402,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public List<LearnSite.Model.Computers> DataTableToList(DataTable dt)
 		{
-			List<LearnSite.Model.Computers> modelList = new List<LearnSite.Model.Computers>();
-			int rowsCount = dt.Rows.Count;
-			if (rowsCount > 0)
-			{
-				LearnSite.Model.Computers model;
-				for (int n = 0; n < rowsCount; n++)
-				{
-					model = new LearnSite.Model.Computers();
-					if(dt.Rows[n]["Pid"].ToString()!="")
-					{
-						model.Pid=int.Parse(dt.Rows[n]["Pid"].ToString());
-					}
-					model.Pip=dt.Rows[n]["Pip"].ToString();
-					model.Pmachine=dt.Rows[n]["Pmachine"].ToString();
-					if(dt.Rows[n]["Plock"].ToString()!="")
-					{
-						if((dt.Rows[n]["Plock"].ToString()=="1")||(dt.Rows[n]["Plock"].ToString().ToLower()=="true"))
-						{
-						model.Plock=true;
-						}
-						else
-						{
-							model.Plock=false;
-						}
-					}
-					if(dt.Rows[n]["Pdate"].ToString()!="")
-					{
-						model.Pdate=DateTime.Parse(dt.Rows[n]["Pdate"].ToString());
-					}
-					modelList.Add(model);
-				}
-			}
-			return modelList;
+			return BllDataTableMappers.MapComputersList(dt);
 		}
 
 		/// <summary>
@@ -464,4 +432,3 @@ namespace LearnSite.BLL
 		#endregion  Method
 	}
 }
-

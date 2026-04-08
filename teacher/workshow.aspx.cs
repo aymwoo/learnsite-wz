@@ -105,7 +105,6 @@ public partial class Teacher_workshow : System.Web.UI.Page
                         string urlstr = Sgrade.ToString() + "&sc=" + Sclass.ToString() + "&ci=" + myCid + "&mi=" + Wmid.ToString() + "&ty=" + Mfiletype;
                         HLautoplay.Visible = true;
                         HLautoplay.NavigateUrl = "~/teacher/circleshow.aspx?sg=" + urlstr;
-                        HLautoplay.ImageUrl = "~/images/flashauto.png";
                         if (Mfiletype == "py" || Mfiletype == "ware")
                         {
                             BtnCheck.Visible = true;
@@ -374,7 +373,6 @@ public partial class Teacher_workshow : System.Web.UI.Page
                 string urlstr = Ggrade.ToString() + "&sc=" + Gclass.ToString() + "&ci=" + myCid + "&mi=" + Gmid.ToString();
                 HLgroupplay.Visible = true;
                 HLgroupplay.NavigateUrl = "~/teacher/circlegroups.aspx?sg=" + urlstr;
-                HLgroupplay.ImageUrl = "~/images/weboffice.png";
             }
             else
             {
@@ -387,7 +385,7 @@ public partial class Teacher_workshow : System.Web.UI.Page
         ShowUploadMsort();
         ShowWorks();
     }
-    protected void ImgBtnFlasherror_Click(object sender, ImageClickEventArgs e)
+    protected void ImgBtnFlasherror_Click(object sender, EventArgs e)
     {
         int Sgrade = Int32.Parse(Request.QueryString["wgrade"].ToString());
         int Sclass = Int32.Parse(Request.QueryString["wclass"].ToString());
@@ -413,7 +411,7 @@ public partial class Teacher_workshow : System.Web.UI.Page
         System.Threading.Thread.Sleep(200);
         showGroup();
     }
-    protected void Btnreflash_Click(object sender, ImageClickEventArgs e)
+    protected void Btnreflash_Click(object sender, EventArgs e)
     {
         ShowWorks();
     }
@@ -427,7 +425,7 @@ public partial class Teacher_workshow : System.Web.UI.Page
         ShowDoneWorks();
     }
 
-    protected void BtnCheck_Click(object sender, ImageClickEventArgs e)
+    protected void BtnCheck_Click(object sender, EventArgs e)
     {
         QuickSetScore("Check");
         ShowDoneWorks();

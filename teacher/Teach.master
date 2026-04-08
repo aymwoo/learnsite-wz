@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/StyleSheet.css" />
     <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/course-workspace.css" />
     <link rel="stylesheet" type="text/css" href="../App_Themes/Teacher/course-content-add.css" />
-    <link rel="stylesheet" type="text/css" href="../js/css/tailwind-utilities.css" />
+    <link rel="stylesheet" type="text/css" href="../js/css/tailwind-utilities-2.2.19.min.css" />
     <script src="../js/MenuCookie.js" type="text/javascript"></script>
     <script src="../js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="../kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
@@ -21,8 +21,6 @@
 			"autoplay": "on",
 	}
 	</script>
-
-    <link href="https://cdn.bootcdn.net/ajax/libs/tailwindcss/2.2.19/utilities.min.css" rel="stylesheet">
 </head>
 <body onload="prettyPrint();" class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
     <form id="form1" runat="server">
@@ -30,7 +28,7 @@
             <!-- Header -->
             <header class="w-full max-w-full h-16 bg-gradient-to-r from-indigo-900 to-indigo-700 text-white flex items-center justify-between px-3 sm:px-6 shadow-md z-20 relative" style="box-sizing: border-box; overflow: hidden;">
                 <div class="flex items-center cursor-pointer group min-w-0 flex-shrink transition-all" onclick="ShowMenu()">
-                    <span class="text-xl sm:text-2xl font-black tracking-wider text-white drop-shadow-md truncate hover:text-indigo-100 transition-colors">Learnsite</span>
+                    <span class="text-xl sm:text-2xl font-black tracking-wider text-white drop-shadow-md truncate hover:text-indigo-100 transition-colors"><%= SiteTitle %></span>
                 </div>
                 <div class="flex items-center gap-2 text-sm font-medium text-indigo-100 flex-shrink min-w-0 ml-2">
                     <div class="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-full bg-indigo-800/50 border border-indigo-400/20 min-w-0 max-w-full">
@@ -54,40 +52,40 @@
                 <aside id="MenuDiv" class="w-24 lg:w-28 flex-shrink-0 bg-white shadow-[2px_0_8px_-3px_rgba(0,0,0,0.05)] flex flex-col z-10 transition-all duration-300">
                     <nav class="flex-1 overflow-y-auto py-6 custom-scrollbar">
                         <ul class="flex flex-col space-y-2 px-3">
-                            <li><a href="../teacher/start.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/start.aspx" data-section="start" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">上课</span>
                             </a></li>
-                            <li><a href="../teacher/course.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/course.aspx" data-section="course" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">备课</span>
                             </a></li>
-                            <li><a href="../teacher/gauge.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/gauge.aspx" data-section="gauge" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">量规</span>
                             </a></li>
-                            <li><a href="../teacher/works.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/works.aspx" data-section="works" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">作品</span>
                             </a></li>
-                            <li><a href="../teacher/signin.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/signin.aspx" data-section="signin" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">签到</span>
                             </a></li>
-                            <li><a href="../teacher/student.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/student.aspx" data-section="student" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">学生</span>
                             </a></li>
-                            <li><a href="../teacher/soft.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/soft.aspx" data-section="soft" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">资源</span>
                             </a></li>
-                            <li><a href="../teacher/aiprovider.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/aiconfig.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">AI</span>
                             </a></li>
 
-                            <li><a href="../teacher/systeminfo.aspx" class="group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                            <li><a href="../teacher/systeminfo.aspx" data-section="systeminfo" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">状态</span>
                             </a></li>
@@ -100,7 +98,7 @@
 
                 <!-- Content Area -->
                 <main class="flex-1 overflow-y-auto bg-slate-50/50 p-4 md:p-6 lg:p-8 relative custom-scrollbar">
-                    <div class="mx-auto min-h-full">
+                    <div class="mx-auto min-h-full w-full max-w-[1600px]">
                         <div class="bg-white shadow-sm ring-1 ring-slate-200/50 rounded-2xl min-h-[calc(100vh-8rem)] overflow-hidden">
                             <asp:ContentPlaceHolder id="Content" runat="server">
                             </asp:ContentPlaceHolder>
@@ -113,6 +111,68 @@
             html, body, #form1 {
                 max-width: 100vw;
                 overflow-x: hidden;
+            }
+            main .course-hero-content,
+            main .course-old-hero-content,
+            main .course-create-hero-content,
+            main .course-import-hero-content,
+            main .course-edit-hero-content,
+            main .content-add-hero-content,
+            main .admin-form-hero-content,
+            main .course-show-hero-content,
+            main [class$='-hero-content'],
+            main [class*=' hero-content'],
+            main [class$='__hero-content'],
+            main [class*=' hero__content'] {
+                text-align: left !important;
+            }
+            main .course-title,
+            main .course-old-title,
+            main .course-create-title,
+            main .course-import-title,
+            main .course-edit-title,
+            main .content-add-title,
+            main .admin-form-title,
+            main .course-show-title,
+            main [class$='-hero__title'],
+            main [class*=' hero__title'],
+            main [class$='-hero-title'],
+            main [class*=' hero-title'],
+            main .survey-settings-title,
+            main .survey-settings-toolbar-title,
+            main .typing-admin-title {
+                color: #ffffff !important;
+                text-align: left !important;
+            }
+            main .course-subtitle,
+            main .course-old-subtitle,
+            main .course-create-subtitle,
+            main .course-import-subtitle,
+            main .course-edit-subtitle,
+            main .content-add-subtitle,
+            main .admin-form-subtitle,
+            main [class$='-hero__subtitle'],
+            main [class*=' hero__subtitle'],
+            main [class$='-hero-subtitle'],
+            main [class*=' hero-subtitle'],
+            main .survey-settings-subtitle,
+            main .typing-admin-subtitle {
+                color: rgba(255, 255, 255, 0.88) !important;
+                text-align: left !important;
+            }
+            main .course-eyebrow,
+            main .course-old-eyebrow,
+            main .course-create-eyebrow,
+            main .course-import-eyebrow,
+            main .course-edit-eyebrow,
+            main .content-add-eyebrow,
+            main .admin-form-eyebrow,
+            main [class$='-hero__eyebrow'],
+            main [class*=' hero__eyebrow'],
+            main .survey-settings-toolbar-eyebrow,
+            main .presurvey-toolbar__eyebrow,
+            main .typing-admin-eyebrow {
+                text-align: left !important;
             }
             /* Reset Sidebar legacy styles */
             #MenuDiv ul, #MenuDiv li {
@@ -130,11 +190,51 @@
             #MenuDiv a:hover {
                 color: #4f46e5 !important; /* text-indigo-600 */
             }
+            /* Active nav item */
+            #MenuDiv a.nav-item.is-active {
+                background: #eef2ff !important;
+                color: #4f46e5 !important;
+            }
+            #MenuDiv a.nav-item.is-active svg {
+                color: #4f46e5;
+            }
             .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
             .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
             .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
             .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         </style>
+        <script type="text/javascript">
+        (function () {
+            // Map each data-section value to page filename prefixes that belong to it
+            var sectionMap = {
+                'start':      ['start'],
+                'course':     ['course'],
+                'gauge':      ['gauge'],
+                'works':      ['works', 'workcheck', 'worklist'],
+                'signin':     ['signin'],
+                'student':    ['student', 'stuinfo', 'stulist'],
+                'soft':       ['soft', 'softlist'],
+                'aiprovider': ['aiprovider', 'aiconfig'],
+                'systeminfo': ['systeminfo', 'sysconfig']
+            };
+
+            var path = window.location.pathname.toLowerCase();
+            var file = path.substring(path.lastIndexOf('/') + 1).replace(/\.aspx.*$/, '');
+
+            var items = document.querySelectorAll('#MenuDiv a.nav-item');
+            for (var i = 0; i < items.length; i++) {
+                var section = items[i].getAttribute('data-section');
+                if (!section) continue;
+                var prefixes = sectionMap[section] || [section];
+                for (var j = 0; j < prefixes.length; j++) {
+                    if (file === prefixes[j] || file.indexOf(prefixes[j]) === 0) {
+                        items[i].classList.add('is-active');
+                        break;
+                    }
+                }
+            }
+        })();
+        </script>
     </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master"  StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="alltyper.aspx.cs" Inherits="Student_alltyper" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master"  StylesheetTheme="Student"  AutoEventWireup="true" CodeFile="alltyper.aspx.cs" Inherits="Student_alltyper" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
 <div class="w-full max-w-6xl mx-auto space-y-6">
@@ -97,4 +97,3 @@
     </div>
 </div>
 </asp:Content>
-

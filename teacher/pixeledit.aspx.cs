@@ -36,7 +36,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
     }
     protected void Btnedit_Click(object sender, EventArgs e)
     {
-        string fckstr = mcontent.InnerText;
+        string fckstr = LearnSite.Common.MarkdownContentGuard.NormalizeCodeFences(mcontent.Value);
         if (Texttitle.Text != "" && fckstr != "")
         {
             if (Request.QueryString["mcid"] != null && Request.QueryString["mid"] != null)
@@ -49,85 +49,16 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
                 mission.Mtitle = HttpUtility.HtmlEncode(Texttitle.Text.Trim());
                 mission.Mupload = true;
 
-                string exampleurl = "";//编程实例
                 mission.Mpublish = CheckPublish.Checked;
                 mission.Mcontent = HttpUtility.HtmlEncode(fckstr);
                 string titleValue = DDLTitle.SelectedValue;
-                switch (titleValue)
+                LearnSite.Common.CustomActivityExampleResult exampleResult = LearnSite.Common.CustomActivityCatalog.BuildExampleValue(titleValue, GetSelectedDeviceValues(), Texturl.Text);
+                if (!exampleResult.IsValid)
                 {
-                    case "17":
-                        mission.Mfiletype = "qrcode";//二维码
-                        break;
-                    case "18":
-                        mission.Mfiletype = "word";//在线文档
-                        break;
-                    case "19":
-                        mission.Mfiletype = "pptist";//演示文稿
-                        break;
-                    case "20":
-                        mission.Mfiletype = "poster";//演示文稿
-                        break;
-                    case "21":
-                        mission.Mfiletype = "style";//风格迁移
-                        break;
-                    case "22":
-                        mission.Mfiletype = "mlimg";//图像分类
-                        break;
-                    case "23":
-                        mission.Mfiletype = "face";//人脸识别
-                        break;
-                    case "24":
-                        mission.Mfiletype = "mqtt";//物联网mqtt
-                        foreach (ListItem li in Ckdevice.Items)
-                        {
-                            if (li.Selected) exampleurl += li.Value + ",";
-                        }
-                        break;
-                    case "25":
-                        mission.Mfiletype = "excalidraw";//手绘画布
-                        break;
-                    case "26":
-                        mission.Mfiletype = "sokoban";//推箱子地图
-                        break;
-                    case "27":
-                        mission.Mfiletype = "ai";//人工智能对话
-                        break;
-                    case "28":
-                        mission.Mfiletype = "speek";//语音合成
-                        break;
-                    case "29":
-                        mission.Mfiletype = "ocr";//文字识别
-                        break;
-                    case "30":
-                        mission.Mfiletype = "sound";//声音分析
-                        break;
-                    case "31":
-                        mission.Mfiletype = "tic-tac-toe";//井字棋
-                        break;
-                    case "32":
-                        mission.Mfiletype = "handnum";//手写数字识别
-                        break;
-                    case "33":
-                        mission.Mfiletype = "markdown";//Markdown写作
-                        break;
-                    case "34":
-                        mission.Mfiletype = "iframe";//iframe嵌入网页
-                        exampleurl = Texturl.Text.Trim();
-                        break;
-                    case "35":
-                        mission.Mfiletype = "text-to-image";//文生图
-                        break;
-                    case "36":
-                        mission.Mfiletype = "web";//素材库
-                        break;
-                    case "37":
-                        mission.Mfiletype = "website";//网站设计
-                        break;
-
-                    default:
-                        mission.Mfiletype = "pxl";//像素画
-                        break;
+                    Labelmsg.Text = exampleResult.ErrorMessage;
+                    return;
                 }
+                mission.Mfiletype = LearnSite.Common.CustomActivityCatalog.GetFileType(titleValue);
                 mission.Mcategory = Int32.Parse(titleValue);//自定义主题页面
                 mission.Mdate = DateTime.Now;
                 mission.Mhit = 0;
@@ -137,7 +68,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
                 else
                     mission.Mgid = 0;
 
-                mission.Mexample = exampleurl;//编程实例
+                mission.Mexample = exampleResult.ExampleValue;//编程实例
 
                 LearnSite.BLL.Mission missionbll = new LearnSite.BLL.Mission();
                 missionbll.Update(mission);
@@ -186,7 +117,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
             mission = missionbll.GetModel(Mid);
             CheckPublish.Checked = mission.Mpublish;
             Texttitle.Text = mission.Mtitle;
-            mcontent.InnerText = HttpUtility.HtmlDecode(mission.Mcontent);
+            mcontent.Value = HttpUtility.HtmlDecode(mission.Mcontent);
             DDLTitle.SelectedValue = mission.Mcategory.ToString();
             string mgid = mission.Mgid.ToString();
                 string exampleurl = mission.Mexample;
@@ -194,6 +125,7 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
                 DDLMgid.SelectedValue = mgid;
             if (DDLTitle.SelectedValue == "24")
             {
+                PanelDeviceConfig.Visible = true;
                 Ckdevice.Visible = true;
                 if (exampleurl != "")
                 {
@@ -202,16 +134,70 @@ public partial class Teacher_pixeledit : System.Web.UI.Page
             }
             else
             {
+                PanelDeviceConfig.Visible = false;
                 Ckdevice.Visible = false;
             }
             if (DDLTitle.SelectedValue == "34")
             {
+                PanelIframeConfig.Visible = true;
                 Texturl.Visible = true;
                 Texturl.Text = exampleurl;
             }
             else
             {
+                PanelIframeConfig.Visible = false;
                 Texturl.Visible = false;
+            }
+        }
+    }
+
+    protected string GetActivityDisplayName()
+    {
+        return GetCurrentActivityMeta().DisplayName;
+    }
+
+    protected string GetActivityDescription()
+    {
+        return GetCurrentActivityMeta().Description;
+    }
+
+    protected string GetStudentEntryUrl()
+    {
+        return GetCurrentActivityMeta().StudentEntryUrl;
+    }
+
+    protected string GetEditFocusText()
+    {
+        return GetCurrentActivityMeta().EditFocus;
+    }
+
+    protected string GetActivityIconUrl()
+    {
+        return ResolveUrl(GetCurrentActivityMeta().IconUrl);
+    }
+
+    protected string GetActivityBadgeBackground()
+    {
+        return GetCurrentActivityMeta().BadgeBackground;
+    }
+
+    protected string GetActivityBadgeForeground()
+    {
+        return GetCurrentActivityMeta().BadgeForeground;
+    }
+
+    private LearnSite.Common.CustomActivityMeta GetCurrentActivityMeta()
+    {
+        return LearnSite.Common.CustomActivityCatalog.GetMeta(DDLTitle.SelectedValue);
+    }
+
+    private IEnumerable<string> GetSelectedDeviceValues()
+    {
+        foreach (ListItem li in Ckdevice.Items)
+        {
+            if (li.Selected)
+            {
+                yield return li.Value;
             }
         }
     }

@@ -1,14 +1,26 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="mywork.aspx.cs" Inherits="Student_mywork" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/student/Stud.master" StylesheetTheme="Student" AutoEventWireup="true" CodeFile="mywork.aspx.cs" Inherits="Student_mywork" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" Runat="Server">
+    <!-- Page Header -->
+    <div class="flex items-center gap-4 mb-6 p-5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl shadow text-white">
+        <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="min-w-0">
+            <h2 class="text-xl font-bold tracking-tight truncate">我的作品</h2>
+            <p class="text-blue-100 text-sm mt-0.5">查看和下载你提交的所有课堂作品</p>
+        </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 w-full max-w-full">
         <!-- Main Content (Left Column) -->
         <div class="lg:col-span-3 space-y-8 overflow-hidden min-w-0">
-            <div class="space-y-4">
-                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2 border-b border-slate-100 pb-2">
-                    <span class="w-1.5 h-5 bg-blue-500 rounded-full inline-block"></span> 我的作品
-                </h3>
-<div class="overflow-x-auto w-full rounded-xl border border-slate-200 shadow-sm">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="px-5 py-4 border-b border-slate-100 flex items-center gap-2">
+                    <span class="w-1.5 h-5 bg-blue-500 rounded-full inline-block"></span>
+                    <h3 class="text-base font-bold text-slate-800">作品列表</h3>
+                </div>
+<div class="overflow-x-auto w-full">
     <asp:GridView ID="GridViewworks" runat="server" AllowPaging="True" OnPageIndexChanging="GridViewworks_PageIndexChanging" 
         PageSize="15" Width="100%" SkinID="GridViewInfo" 
         onrowdatabound="GridViewworks_RowDataBound" AutoGenerateColumns="False" EnableModelValidation="True"
@@ -124,4 +136,3 @@
         </div>
     </div>
 </asp:Content>
-

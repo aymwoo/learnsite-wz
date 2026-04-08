@@ -649,7 +649,14 @@ namespace LearnSite.DBUtility
         public static int CreateTable(){
             string sqlurl = "sql/learnsite.sql";
             string sqlpath = HttpContext.Current.Server.MapPath(sqlurl);
-            return ExeSqlTextSetup(ExecuteSqlFile(sqlpath));
+            return ExeSqlTextSetup(connectionString, ExecuteSqlFile(sqlpath));
+        }
+
+        public static int CreateTable(string targetConnectionString)
+        {
+            string sqlurl = "sql/learnsite.sql";
+            string sqlpath = HttpContext.Current.Server.MapPath(sqlurl);
+            return ExeSqlTextSetup(targetConnectionString, ExecuteSqlFile(sqlpath));
         }
 
 
@@ -663,8 +670,8 @@ namespace LearnSite.DBUtility
             ArrayList alSql = new ArrayList();           //每读取一条语名存入ArrayList
             StringBuilder str = new StringBuilder();
 
-            //读取.sql脚本文件
-            using (StreamReader sr = new StreamReader(varFileName, System.Text.Encoding.GetEncoding("gb2312")))
+            // 兼容新版 UTF-8 脚本，保留对旧编码脚本的自动识别
+            using (StreamReader sr = new StreamReader(varFileName, true))
             {
                 string varLine = "";
                 while ((varLine = sr.ReadLine()) != null)
@@ -699,10 +706,10 @@ namespace LearnSite.DBUtility
         /// 采用事务处理sql脚本
         /// </summary>
         /// <param name="arr">sql脚本数组</param>
-        private static int ExeSqlTextSetup(ArrayList arr)
+        private static int ExeSqlTextSetup(string targetConnectionString, ArrayList arr)
         {
             int i = 0;
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(targetConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
