@@ -1,35 +1,50 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="exammonitor.aspx.cs" Inherits="exam_exammonitor" MasterPageFile="~/teacher/Teach.master" %><asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-        .monitor-container { padding: 20px; }
-        .monitor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
-        .monitor-header h2 { margin: 0; }
-        .stats-cards { display: flex; gap: 15px; margin-bottom: 20px; }
-        .stat-card { flex: 1; background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
-        .stat-card .value { font-size: 32px; font-weight: bold; color: #1890ff; }
-        .stat-card .label { font-size: 14px; color: #666; margin-top: 5px; }
-        .stat-card.warning .value { color: #faad14; }
-        .stat-card.success .value { color: #52c41a; }
-        .monitor-content { display: flex; gap: 20px; }
-        .student-list { flex: 2; background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .student-list h3 { margin: 0 0 15px 0; font-size: 16px; }
-        .filter-bar { margin-bottom: 15px; }
-        .filter-bar select, .filter-bar input { padding: 6px 10px; border: 1px solid #d9d9d9; border-radius: 4px; }
-        .student-table { width: 100%; border-collapse: collapse; }
-        .student-table th, .student-table td { padding: 10px; text-align: left; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
-        .student-table th { background: #fafafa; font-weight: 600; }
-        .status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
-        .status-answering { background: #e6f7ff; color: #1890ff; }
-        .status-submitted { background: #f6ffed; color: #52c41a; }
-        .progress-bar { height: 6px; background: #f0f0f0; border-radius: 3px; overflow: hidden; }
-        .progress-bar .progress { height: 100%; background: #1890ff; transition: width 0.3s; }
-        .realtime-panel { flex: 1; background: #fff; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .realtime-panel h3 { margin: 0 0 15px 0; font-size: 16px; }
-        .realtime-item { padding: 10px; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
-        .realtime-item .time { color: #999; font-size: 12px; }
-        .btn { padding: 6px 16px; border: none; border-radius: 4px; cursor: pointer; }
-        .btn-primary { background: #1890ff; color: #fff; }
-        .btn-danger { background: #ff4d4f; color: #fff; }
-        .auto-refresh { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .monitor-page { min-height: calc(100vh - 8rem); padding: 1.5rem; background: #f8fafc; }
+        .monitor-shell { display: flex; flex-direction: column; gap: 1.25rem; }
+        .monitor-hero, .monitor-card, .student-list, .realtime-panel, .stat-card { border: 1px solid rgba(148, 163, 184, 0.18); border-radius: 1.25rem; background: #ffffff; box-shadow: 0 12px 32px -28px rgba(15, 23, 42, 0.28); }
+        .monitor-hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+        .monitor-title { margin: 0; color: #0f172a; font-size: 1.625rem; font-weight: 700; line-height: 1.2; }
+        .monitor-subtitle { margin: 0.75rem 0 0; color: #475569; font-size: 0.95rem; line-height: 1.7; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .page-btn, .hero-actions input { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 1px solid transparent; border-radius: 0.9rem; font-size: 0.875rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s ease; }
+        .page-btn-secondary { background: #ffffff; color: #475569; border-color: #cbd5e1; }
+        .page-btn-secondary:hover { color: #1e293b; border-color: #94a3b8; background: #f8fafc; }
+        .hero-actions input, .page-btn-primary { background: #2563eb; color: #ffffff; box-shadow: 0 10px 20px -14px rgba(37, 99, 235, 0.85); }
+        .hero-actions input:hover, .page-btn-primary:hover { background: #1d4ed8; }
+        .stats-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+        .stat-card { padding: 1.25rem; text-align: center; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; color: #2563eb; }
+        .stat-card .label { margin-top: 0.45rem; color: #64748b; font-size: 0.85rem; }
+        .stat-card.warning .value { color: #d97706; }
+        .stat-card.success .value { color: #15803d; }
+        .monitor-content { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 1rem; }
+        .student-list, .realtime-panel { padding: 1.25rem; }
+        .student-list h3, .realtime-panel h3 { margin: 0 0 1rem; color: #0f172a; font-size: 1rem; font-weight: 700; }
+        .filter-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .filter-bar select, .filter-bar input[type='text'] { min-height: 2.5rem; padding: 0 0.9rem; border: 1px solid #cbd5e1; border-radius: 0.9rem; background: #f8fafc; color: #0f172a; }
+        .filter-bar label { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.55rem 0.8rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; }
+        .table-wrap { overflow-x: auto; }
+        .student-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 760px; }
+        .student-table th, .student-table td { padding: 0.9rem 1rem; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; }
+        .student-table th { background: #f8fafc; color: #475569; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.76rem; }
+        .status-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+        .status-answering { background: #dbeafe; color: #1d4ed8; }
+        .status-submitted { background: #dcfce7; color: #15803d; }
+        .progress-bar { height: 0.5rem; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+        .progress-bar .progress { height: 100%; background: linear-gradient(90deg, #60a5fa 0%, #2563eb 100%); transition: width 0.3s; }
+        .realtime-item { padding: 0.85rem 0; border-bottom: 1px solid #e2e8f0; font-size: 0.85rem; color: #334155; }
+        .realtime-item:last-child { border-bottom: 0; }
+        .realtime-item .time { margin-top: 0.3rem; color: #94a3b8; font-size: 0.75rem; }
+        @media (max-width: 1100px) {
+            .stats-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .monitor-content { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .monitor-page { padding: 1rem; }
+            .monitor-hero { flex-direction: column; }
+            .stats-cards { grid-template-columns: 1fr; }
+        }
     </style>
     <script type="text/javascript">
         function autoRefresh() {
@@ -42,19 +57,18 @@
         }
     </script>
 </asp:Content><asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
-    <div class="monitor-container">
-        <div class="monitor-header">
+    <div class="monitor-page">
+        <div class="monitor-shell">
+        <section class="monitor-hero">
             <div>
-                <h2><asp:Literal ID="ltlExamName" runat="server"></asp:Literal></h2>
-                <p style="margin:5px 0 0;color:#666;font-size:13px;">
-                    考试时间：<asp:Literal ID="ltlExamTime" runat="server"></asp:Literal>
-                </p>
+                <h2 class="monitor-title"><asp:Literal ID="ltlExamName" runat="server"></asp:Literal></h2>
+                <p class="monitor-subtitle">考试时间：<asp:Literal ID="ltlExamTime" runat="server"></asp:Literal></p>
             </div>
-            <div>
-                <asp:Button ID="btnRefresh" runat="server" Text="刷新" CssClass="btn btn-primary" OnClick="btnRefresh_Click" />
-                <a href="examlist.aspx" class="btn" style="background:#f0f0f0;color:#333;text-decoration:none;padding:6px 16px;border-radius:4px;">返回列表</a>
+            <div class="hero-actions">
+                <asp:Button ID="btnRefresh" runat="server" Text="刷新" CssClass="page-btn page-btn-primary" OnClick="btnRefresh_Click" />
+                <a href="examlist.aspx" class="page-btn page-btn-secondary">返回列表</a>
             </div>
-        </div>
+        </section>
 
         <div class="stats-cards">
             <div class="stat-card">
@@ -92,6 +106,7 @@
                         自动刷新（30秒）
                     </label>
                 </div>
+                <div class="table-wrap">
                 <asp:Repeater ID="rptStudents" runat="server">
                     <HeaderTemplate>
                         <table class="student-table">
@@ -132,6 +147,7 @@
                         </table>
                     </FooterTemplate>
                 </asp:Repeater>
+                </div>
             </div>
 
             <div class="realtime-panel">
@@ -145,6 +161,7 @@
                     </ItemTemplate>
                 </asp:Repeater>
             </div>
+        </div>
         </div>
     </div>
     <script type="text/javascript">autoRefresh();</script>
