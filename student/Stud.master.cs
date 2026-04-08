@@ -65,9 +65,17 @@ public partial class Student_Stud : System.Web.UI.MasterPage
         {
             hlSummary.Visible = summaryEnabled;
         }
+        if (hlSummaryMobile != null)
+        {
+            hlSummaryMobile.Visible = summaryEnabled;
+        }
         if (hlHonors != null)
         {
             hlHonors.Visible = honorsEnabled;
+        }
+        if (hlHonorsMobile != null)
+        {
+            hlHonorsMobile.Visible = honorsEnabled;
         }
     }
 

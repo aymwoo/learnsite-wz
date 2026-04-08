@@ -1352,7 +1352,7 @@ public partial class Teacher_start : System.Web.UI.Page
     {
         return LearnSite.Common.CustomActivityCatalog.GetMeta(category).IconUrl;
     }
-}
+
     protected void Button1_Click(object sender, EventArgs e)
     {
         if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)

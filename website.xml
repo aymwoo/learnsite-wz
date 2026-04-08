@@ -30,9 +30,9 @@
     <add key="HideName" value="True" />
     <add key="OfficePng" value="True" />
     <add key="EnablePreClassCheck" value="false" />
-    <add key="EnableGames" value="false" />
+    <add key="EnableGames" value="true" />
     <add key="EnableGroupChat" value="false" />
-    <add key="EnableSummary" value="false" />
+    <add key="EnableSummary" value="true" />
     <add key="EnableHonors" value="false" />
     <add key="EnableTyping" value="true" />
     <add key="AutoGameMode" value="true" />

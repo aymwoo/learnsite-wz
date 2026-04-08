@@ -87,10 +87,6 @@
                     <div class="icon">✅</div>
                     <div class="text">课前检查</div>
                 </asp:HyperLink>
-                <asp:HyperLink ID="HLenergy" runat="server" NavigateUrl="~/FreeTree/FreeTreeTeacher.aspx" CssClass="link-card">
-                    <div class="icon">⚡</div>
-                    <div class="text">能量管理</div>
-                </asp:HyperLink>
                 <asp:HyperLink ID="HLpingjia" runat="server" NavigateUrl="~/pingjia/pingjia.aspx" CssClass="link-card">
                     <div class="icon">📝</div>
                     <div class="text">学生评价</div>

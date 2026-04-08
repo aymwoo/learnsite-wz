@@ -74,8 +74,6 @@
          </div>
          注明：资源属性为教程和微课，则学生在浏览学习时能提交自学作品！<br />           
         </div>
-</asp:Content>
-
     <div class="soft-add-page">
         <div class="lesson-shell">
             <div class="lesson-hero">

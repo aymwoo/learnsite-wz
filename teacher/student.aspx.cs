@@ -130,13 +130,12 @@ public partial class Teacher_student : System.Web.UI.Page
     }
     private void InitSortDropDown()
     {
-        // 初始化排序下拉框，默认选择按机号排序
-        DDLsort.SelectedValue = "Sseat";
+        ViewState["SortField"] = "Sseat";
     }
 
     protected void DDLsort_SelectedIndexChanged(object sender, EventArgs e)
     {
-        GVStudent.PageIndex = 0;
+        ViewState["PageIndex"] = 0;
         ShowStudents();
     }
 
@@ -144,7 +143,7 @@ public partial class Teacher_student : System.Web.UI.Page
     {
         int Sgrade = Int32.Parse(DDLgrade.SelectedValue.ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
-        string sortField = DDLsort.SelectedValue;
+        string sortField = (ViewState["SortField"] as string) ?? "Sseat";
         LearnSite.BLL.Students stus = new LearnSite.BLL.Students();
 
         // 获取学生数据
@@ -176,9 +175,40 @@ public partial class Teacher_student : System.Web.UI.Page
             }
         }
 
-        Label1.Text = "学生总数" + ds.Tables[0].Rows.Count.ToString() + "位";
-        GVStudent.DataSource = ds;
-        GVStudent.DataBind();
+        DataTable sourceTable = ds.Tables[0];
+        _totalCount = sourceTable.Rows.Count;
+        Label1.Text = "学生总数" + _totalCount.ToString() + "位";
+
+        if (ViewState["PageIndex"] != null)
+        {
+            _currentPage = (int)ViewState["PageIndex"];
+        }
+
+        int pageCount = Math.Max(1, (int)Math.Ceiling((double)_totalCount / PageSize));
+        if (_currentPage >= pageCount)
+        {
+            _currentPage = pageCount - 1;
+        }
+
+        DataTable pageTable = sourceTable.Clone();
+        int startIndex = _currentPage * PageSize;
+        int endIndex = Math.Min(startIndex + PageSize, _totalCount);
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            pageTable.ImportRow(sourceTable.Rows[i]);
+        }
+
+        RptStudent.DataSource = pageTable;
+        RptStudent.DataBind();
+
+        LblPageIndex.Text = (_currentPage + 1).ToString();
+        LblPageCount.Text = pageCount.ToString();
+        PagerDiv.Visible = _totalCount > 0;
+        btnFirst.Enabled = _currentPage > 0;
+        btnPrev.Enabled = _currentPage > 0;
+        btnNext.Enabled = _currentPage < pageCount - 1;
+        btnLast.Enabled = _currentPage < pageCount - 1;
+        ViewState["PageIndex"] = _currentPage;
         ds.Dispose();
     }
 
@@ -216,7 +246,7 @@ public partial class Teacher_student : System.Web.UI.Page
             DDLclass.DataSource = rm.GetLimitClass(Rgrade);
             DDLclass.DataBind();
             InitSortDropDown();
-            GVStudent.PageIndex = 0;
+            ViewState["PageIndex"] = 0;
             ShowStudents();
             profileSet();
             addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -248,51 +278,6 @@ public partial class Teacher_student : System.Web.UI.Page
     {
         LearnSite.BLL.Students stu = new LearnSite.BLL.Students();
         stu.StudentsToExcel();
-    }
-    protected void GVStudent_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        if (e.CommandName.Equals("ChangePwd"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            string myPwd = LearnSite.Common.WordProcess.GenerateRandomNum(2);
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.UpdateSidPwd(mySid.ToString(), myPwd);
-            ShowStudents();
-            string ch = "你的新密码是：" + myPwd;
-            LearnSite.Common.WordProcess.Alert(ch, this.Page);
-        }
-        if (e.CommandName.Equals("ChangeGroup"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.ChangeSleader(mySid);
-            System.Threading.Thread.Sleep(300);
-            ShowStudents();
-        }
-
-        if (e.CommandName.Equals("QuitGroup"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
-            bll.QuitThitGroup(mySid);
-            System.Threading.Thread.Sleep(300);
-            ShowStudents();
-        }
-
-        if (e.CommandName.Equals("EditNum"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentnumedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
-            ClientScript.RegisterStartupScript(this.GetType(), "EditNum", jsstr, true);
-        }
-
-        if (e.CommandName.Equals("EditSeat"))
-        {
-            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
-            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentseatedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
-            ClientScript.RegisterStartupScript(this.GetType(), "EditSeat", jsstr, true);
-        }
-
     }
     protected void BtnSpell_Click(object sender, EventArgs e)
     {

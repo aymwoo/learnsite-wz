@@ -1,8 +1,5 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="examresult.aspx.cs" Inherits="exam_examresult" MasterPageFile="~/teacher/Teach.master" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="examresult.aspx.cs" Inherits="exam_examresult" MasterPageFile="~/teacher/Teach.master" %><asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
-
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <style>
         .result-container { padding: 20px; }

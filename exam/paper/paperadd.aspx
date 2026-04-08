@@ -1,13 +1,9 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="paperadd.aspx.cs" Inherits="exam_paper_paperadd" MasterPageFile="~/teacher/Teach.master" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="paperadd.aspx.cs" Inherits="exam_paper_paperadd" MasterPageFile="~/teacher/Teach.master" %><asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script src="/js/MenuCookie.js" type="text/javascript"></script>
     <script src="/js/jquery-1.8.2.min.js" type="text/javascript"></script>
     <script src="/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
     <script src="/js/ruffle.js" type="text/javascript"></script>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
+</asp:Content><asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <style>
         .paper-form { padding: 20px; }
         .form-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }

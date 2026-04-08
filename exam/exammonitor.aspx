@@ -1,6 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="exammonitor.aspx.cs" Inherits="exam_exammonitor" MasterPageFile="~/teacher/Teach.master" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="exammonitor.aspx.cs" Inherits="exam_exammonitor" MasterPageFile="~/teacher/Teach.master" %><asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .monitor-container { padding: 20px; }
         .monitor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
@@ -43,9 +41,7 @@
             }
         }
     </script>
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
+</asp:Content><asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <div class="monitor-container">
         <div class="monitor-header">
             <div>

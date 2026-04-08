@@ -43,8 +43,8 @@ namespace LearnSite.DBUtility
         {
             try
             {
-                if (DbHelperSQL.ColumnExists("Survey", "Venableai")) return "1912";
-                if (DbHelperSQL.TabExists("AIStudentExamAssessment")) return "1911";
+                if (DbHelperSQL.ColumnExists("Survey", "Venableai") && HasCoreExamTables()) return "1912";
+                if (DbHelperSQL.TabExists("AIStudentExamAssessment") && HasCoreExamTables()) return "1911";
                 if (DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return "1910";
                 if (DbHelperSQL.TabExists("AICustomSkill")) return "1900";
                 if (DbHelperSQL.TabExists("AISkill")) return "1800";
@@ -81,6 +81,7 @@ namespace LearnSite.DBUtility
                     {
                         if (!DbHelperSQL.TabExists("AISkill")) return false;
                         if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
+                        if (!HasCoreExamTables()) return false;
                         if (!DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return false;
                         if (!DbHelperSQL.ColumnExists("Survey", "Venableai")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
@@ -95,6 +96,16 @@ namespace LearnSite.DBUtility
             }
             else
                 return false;
+        }
+
+        private static bool HasCoreExamTables()
+        {
+            return DbHelperSQL.TabExists("Exam")
+                && DbHelperSQL.TabExists("ExamPaper")
+                && DbHelperSQL.TabExists("ExamQuestion")
+                && DbHelperSQL.TabExists("ExamPaperQuestion")
+                && DbHelperSQL.TabExists("ExamAnswer")
+                && DbHelperSQL.TabExists("ExamResult");
         }
 
         public static void updateDatabase()
@@ -2559,6 +2570,8 @@ namespace LearnSite.DBUtility
                 defaultStr.Append(" ('DeepSeek', 'DeepSeek', 'deepseek-chat', '', 'https://api.deepseek.com/v1', 1),");
                 defaultStr.Append(" ('智谱GLM', 'ZhipuAI', 'glm-4', '', 'https://open.bigmodel.cn/api/paas/v4', 0);");
                 DbHelperSQL.ExecuteSql(defaultStr.ToString());
+            }
+
             if (!DbHelperSQL.TabExists("IpNet"))
             {
                 StringBuilder netStr = new StringBuilder();
@@ -2668,6 +2681,8 @@ namespace LearnSite.DBUtility
             {
                 string createIndexSql = "create nonclustered index IX_MenuWorks_Klid_Ksid on MenuWorks (Klid asc, Ksid asc) include (Ktime, Kseconds, Kcheck, Kstar)";
                 DbHelperSQL.ExecuteSql(createIndexSql);
+            }
+
             if (!DbHelperSQL.TabExists("CheckRecords"))
             {
                 StringBuilder str = new StringBuilder();

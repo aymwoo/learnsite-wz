@@ -1,7 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CourseSchedule.aspx.cs" Inherits="kcb_CourseSchedule" MasterPageFile="~/teacher/Teach.master" %>
-
-
-<asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CourseSchedule.aspx.cs" Inherits="kcb_CourseSchedule" MasterPageFile="~/teacher/Teach.master" %><asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <style type="text/css">
         .header-section {
             width: 90%;

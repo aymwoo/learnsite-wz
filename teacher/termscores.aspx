@@ -143,8 +143,6 @@
             <br />
             <br />
         </div>
-</asp:Content>
-
     <div class="placehold term-page">
         <div class="term-shell">
             <div class="term-hero">

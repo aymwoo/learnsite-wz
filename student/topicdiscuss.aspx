@@ -1,7 +1,5 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/student/Scm.master" StylesheetTheme="Student" Validaterequest="false" AutoEventWireup="true" CodeFile="topicdiscuss.aspx.cs" Inherits="Student_topicdiscuss" ResponseEncoding="utf-8" %>
-
 <%@ Register Assembly="Anthem" Namespace="Anthem" TagPrefix="anthem" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="Cpcm" Runat="Server">
 			<asp:Label ID="LabelCid" runat="server" Visible="False"></asp:Label>
 			<asp:Label ID="LabelLid" runat="server" Visible="False"></asp:Label>
