@@ -4,10 +4,20 @@
     <link rel="stylesheet" type="text/css" href="/App_Themes/Teacher/start.css" />
 
     <div class="placehold lesson-start">
+        <div style="display:none;">
+            <asp:Label ID="Labelsigin" runat="server"></asp:Label>
+            <asp:Label ID="Labelsigno" runat="server"></asp:Label>
+            <asp:Label ID="Labelcount" runat="server"></asp:Label>
+            <asp:Label ID="Labelfresh" runat="server"></asp:Label>
+            <asp:Label ID="LabelToday" runat="server"></asp:Label>
+            <asp:HyperLink ID="HLrate" runat="server"></asp:HyperLink>
+            <asp:HyperLink ID="HLworkshow" runat="server"></asp:HyperLink>
+            <asp:HyperLink ID="HLtotal" runat="server"></asp:HyperLink>
+        </div>
         <div class="lesson-shell">
             <div class="lesson-hero">
                 <div class="lesson-hero__content">
-                    <div>
+                    <div class="lesson-hero__intro">
                         <h1 class="lesson-hero__title">课堂启动中心</h1>
                         <p class="lesson-hero__subtitle">选择班级与学案，启动课堂后实时查看学生进度与各项功能控制。</p>
                     </div>
@@ -32,51 +42,68 @@
             </div>
 
             <div class="lesson-grid">
-                <section class="lesson-card lesson-card--span-8 lesson-theme--blue">
+                <section class="lesson-card lesson-card--span-7 lesson-theme--blue lesson-card--setup">
                     <div class="lesson-card__head">
                         <div>
                             <span class="lesson-section-kicker">Setup</span>
-                            <h2 class="lesson-card__title">课堂准备</h2>
+                            <h2 class="lesson-card__title">课堂准备与收尾</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div style="margin-bottom: 12px;">
-                            <asp:Label ID="lblScheduleInfo" runat="server" CssClass="lesson-label"></asp:Label>
-                        </div>
-                        <div id="weekendSelector" style="margin-bottom: 12px; display: none;">
-                            <span class="lesson-label">周末上课，请选择按哪天的课表</span>
-                            <div class="lesson-actions" style="margin-top: 8px;">
-                                <asp:DropDownList ID="DDLWeekendDay" runat="server" CssClass="lesson-select">
-                                    <asp:ListItem Value="1" Text="星期一"></asp:ListItem>
-                                    <asp:ListItem Value="2" Text="星期二"></asp:ListItem>
-                                    <asp:ListItem Value="3" Text="星期三"></asp:ListItem>
-                                    <asp:ListItem Value="4" Text="星期四"></asp:ListItem>
-                                    <asp:ListItem Value="5" Text="星期五" Selected="True"></asp:ListItem>
-                                </asp:DropDownList>
-                                <asp:Button ID="BtnWeekendSelect" runat="server" Text="确定" onclick="BtnWeekendSelect_Click" CssClass="lesson-btn lesson-btn--secondary" />
+                        <div class="lesson-setup-split">
+                            <div class="lesson-setup-split__main">
+                                <div style="margin-bottom: 12px;">
+                                    <asp:Label ID="lblScheduleInfo" runat="server" CssClass="lesson-label"></asp:Label>
+                                </div>
+                                <div id="weekendSelector" style="margin-bottom: 12px; display: none;">
+                                    <span class="lesson-label">周末上课，请选择按哪天的课表</span>
+                                    <div class="lesson-actions" style="margin-top: 8px;">
+                                        <asp:DropDownList ID="DDLWeekendDay" runat="server" CssClass="lesson-select">
+                                            <asp:ListItem Value="1" Text="星期一"></asp:ListItem>
+                                            <asp:ListItem Value="2" Text="星期二"></asp:ListItem>
+                                            <asp:ListItem Value="3" Text="星期三"></asp:ListItem>
+                                            <asp:ListItem Value="4" Text="星期四"></asp:ListItem>
+                                            <asp:ListItem Value="5" Text="星期五" Selected="True"></asp:ListItem>
+                                        </asp:DropDownList>
+                                        <asp:Button ID="BtnWeekendSelect" runat="server" Text="确定" onclick="BtnWeekendSelect_Click" CssClass="lesson-btn lesson-btn--secondary" />
+                                    </div>
+                                </div>
+                                <div class="lesson-form-grid">
+                                    <div class="lesson-field">
+                                        <span class="lesson-label">年级</span>
+                                        <asp:DropDownList ID="DDLgrade" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLgrade_SelectedIndexChanged"></asp:DropDownList>
+                                    </div>
+                                    <div class="lesson-field">
+                                        <span class="lesson-label">班级</span>
+                                        <asp:DropDownList ID="DDLclass" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLclass_SelectedIndexChanged"></asp:DropDownList>
+                                    </div>
+                                    <div class="lesson-field">
+                                        <span class="lesson-label">当前学案</span>
+                                        <asp:DropDownList ID="DDLCid" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLCid_SelectedIndexChanged"></asp:DropDownList>
+                                    </div>
+                                    <div class="lesson-field lesson-field--actions">
+                                        <div class="lesson-actions">
+                                            <asp:Button ID="Btnset" runat="server" Text="开始上课" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
+                                            <asp:Button ID="BtnChouWen" runat="server" Text="随机抽问" OnClientClick="return SuiJiChouWen();" CssClass="lesson-btn lesson-btn--secondary" />
+                                            <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
+                                            <div class="lesson-input-group" style="min-width: 200px; max-width: 240px;">
+                                                <span class="lesson-input-group__label">班级口令</span>
+                                                <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" CssClass="lesson-input-group__input"></asp:TextBox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="lesson-form-grid">
-                            <div class="lesson-field">
-                                <span class="lesson-label">年级</span>
-                                <asp:DropDownList ID="DDLgrade" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLgrade_SelectedIndexChanged"></asp:DropDownList>
-                            </div>
-                            <div class="lesson-field">
-                                <span class="lesson-label">班级</span>
-                                <asp:DropDownList ID="DDLclass" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLclass_SelectedIndexChanged"></asp:DropDownList>
-                            </div>
-                            <div class="lesson-field">
-                                <span class="lesson-label">当前学案</span>
-                                <asp:DropDownList ID="DDLCid" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLCid_SelectedIndexChanged"></asp:DropDownList>
-                            </div>
-                            <div class="lesson-field lesson-field--actions">
-                                <div class="lesson-actions">
-                                    <asp:Button ID="Btnset" runat="server" Text="开始上课" ToolTip="设置上课班级登录密码" onclick="Btnset_Click" CssClass="lesson-btn" />
-                                    <asp:Button ID="BtnChouWen" runat="server" Text="随机抽问" OnClientClick="return SuiJiChouWen();" CssClass="lesson-btn lesson-btn--secondary" />
-                                    <asp:Button ID="Btnstudent" runat="server" Text="模拟学生" ToolTip="模拟本班级学生角色登录学生平台" onclick="Btnstudent_Click" Enabled="False" CssClass="lesson-btn lesson-btn--secondary" />
-                                    <div class="lesson-input-group" style="min-width: 200px; max-width: 240px;">
-                                        <span class="lesson-input-group__label">班级口令</span>
-                                        <asp:TextBox ID="TBpwd" runat="server" ReadOnly="True" CssClass="lesson-input-group__input"></asp:TextBox>
+
+                            <div class="lesson-setup-split__aside">
+                                <div>
+                                    <span class="lesson-label">课堂收尾</span>
+                                    <p class="lesson-card__desc" style="margin-top: 8px;">下课时可统一让当前班级学生退出登录，避免继续占用课堂状态。</p>
+                                </div>
+                                <div class="lesson-footer lesson-footer--inline" id="LessonQuitFooter" runat="server" visible="false">
+                                    <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn lesson-btn--danger" />
+                                    <div class="lesson-footer__meta">
+                                        <span>该操作会让当前上课班级学生全部退出登录，建议仅在下课时使用。</span>
                                     </div>
                                 </div>
                             </div>
@@ -84,43 +111,45 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-4 lesson-theme--purple">
+                <section class="lesson-card lesson-card--span-5 lesson-theme--indigo lesson-card--control-list">
                     <div class="lesson-card__head">
                         <div>
-                            <span class="lesson-section-kicker">Overview</span>
-                            <h2 class="lesson-card__title">课堂速览</h2>
+                            <span class="lesson-section-kicker">Control</span>
+                            <h2 class="lesson-card__title">课堂控制</h2>
                         </div>
                     </div>
                     <div class="lesson-card__body">
-                        <div class="lesson-status-grid">
-                            <div class="lesson-stat">
-                                <p class="lesson-stat__label">已签到</p>
-                                <span class="lesson-stat__value"><asp:Label ID="Labelsigin" runat="server"></asp:Label></span>
-                            </div>
-                            <div class="lesson-stat">
-                                <p class="lesson-stat__label">未签到</p>
-                                <span class="lesson-stat__value"><asp:Label ID="Labelsigno" runat="server"></asp:Label></span>
-                            </div>
-                            <div class="lesson-stat">
-                                <p class="lesson-stat__label">作品提交</p>
-                                <span class="lesson-stat__sub" style="margin-top: 10px;"><asp:Label ID="Labelcount" runat="server"></asp:Label></span>
-                            </div>
-                            <div class="lesson-stat">
-                                <p class="lesson-stat__label">课堂时钟</p>
-                                <span class="lesson-stat__sub" style="margin-top: 10px;"><asp:Label ID="Labelfresh" runat="server"></asp:Label></span>
-                                <span class="lesson-stat__sub"><asp:Label ID="LabelToday" runat="server" ToolTip="服务器日期校准：作品、签到日期以此为准"></asp:Label></span>
-                            </div>
+                        <div class="lesson-sort">
+                            <span class="lesson-label">视图排序</span>
+                            <anthem:RadioButtonList ID="RBsort" runat="server" AutoPostBack="True" CssClass="lesson-radio-list" RepeatDirection="Horizontal" RepeatLayout="Flow" onselectedindexchanged="RBsort_SelectedIndexChanged">
+                                <Items>
+                                    <asp:ListItem Value="3">机房视图</asp:ListItem>
+                                    <asp:ListItem Value="0">主机排序</asp:ListItem>
+                                    <asp:ListItem Value="1" Selected="True">学号排序</asp:ListItem>
+                                    <asp:ListItem Value="2">小组排序</asp:ListItem>
+                                </Items>
+                            </anthem:RadioButtonList>
                         </div>
 
-                        <div class="lesson-links" style="margin-top: 14px;">
-                            <asp:HyperLink ID="HLrate" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">学习进度</asp:HyperLink>
-                            <asp:HyperLink ID="HLworkshow" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">作品展示</asp:HyperLink>
-                            <asp:HyperLink ID="HLtotal" runat="server" BorderStyle="None" Font-Underline="False" Target="_blank" CssClass="lesson-link">学习汇总</asp:HyperLink>
+                        <div class="lesson-toggle-group lesson-toggle-group--stack lesson-toggle-group--control" style="margin-top: 14px;">
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="当前学案活动依次完成后解锁下一个活动" oncheckedchanged="CheckBoxPass_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="本班学生登录后，直接进入当前学案导航" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="选中表示公开显示班级密码，未选表示隐藏" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="选中表示允许本班单独个人模式登录" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPreClassCheck" runat="server" Text="课前检查" AutoPostBack="True" ToolTip="启用后学生登录先进入课前检查页面" oncheckedchanged="CheckBoxPreClassCheck_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxGames" runat="server" Text="游戏开关" AutoPostBack="True" ToolTip="选中表示启用游戏功能" oncheckedchanged="CheckBoxGames_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxGroupChat" runat="server" Text="小组讨论" AutoPostBack="True" ToolTip="选中表示启用小组讨论功能" oncheckedchanged="CheckBoxGroupChat_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkTypingEnabled" runat="server" Text="打字宝典" AutoPostBack="true" ToolTip="控制学生导航中是否显示打字宝典" OnCheckedChanged="chkTypingEnabled_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkSummaryEnabled" runat="server" Text="学习汇总" AutoPostBack="true" ToolTip="控制学生导航中是否显示学习汇总" OnCheckedChanged="chkSummaryEnabled_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkHonorsEnabled" runat="server" Text="荣誉榜" AutoPostBack="true" ToolTip="控制学生导航中是否显示荣誉榜" OnCheckedChanged="chkHonorsEnabled_CheckedChanged" /></div>
                         </div>
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-12 lesson-theme--orange">
+                <section class="lesson-card lesson-card--span-7 lesson-theme--orange lesson-card--activity-grid">
                     <div class="lesson-card__head">
                         <div>
                             <span class="lesson-section-kicker">Activity</span>
@@ -149,6 +178,35 @@
                                 </div>
                             </ItemTemplate>
                         </asp:DataList>
+                    </div>
+                </section>
+
+                <section class="lesson-card lesson-card--span-5 lesson-theme--cyan lesson-card--lab-panel">
+                    <div class="lesson-card__head">
+                        <div>
+                            <span class="lesson-section-kicker">Lab</span>
+                            <h2 class="lesson-card__title">机房与资源</h2>
+                        </div>
+                    </div>
+                    <div class="lesson-card__body">
+                        <div class="lesson-room-meta lesson-room-meta--panel">
+                            <div class="lesson-field">
+                                <span class="lesson-label">机房 / 座位配置</span>
+                                <asp:DropDownList ID="DDLhouse" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLhouse_SelectedIndexChanged"></asp:DropDownList>
+                            </div>
+                            <div class="lesson-room-tools lesson-room-tools--panel">
+                                <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank" CssClass="lesson-link">座位表</asp:HyperLink>
+                                <asp:Button ID="Btnrefresh" runat="server" Text="刷新座位" OnClick="Btnrefresh_Click" Enabled="False" CssClass="lesson-refresh" />
+                                <asp:HyperLink ID="HylkDiskstu" runat="server" ImageUrl="~/images/disksmallstu.gif" Target="_blank" ToolTip="查看学生网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
+                                <asp:HyperLink ID="HylkDiskGroup" runat="server" ImageUrl="~/images/disksmall.gif" Target="_blank" ToolTip="查看小组网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
+                            </div>
+                        </div>
+
+                        <div class="lesson-toggle-group lesson-toggle-group--stack lesson-toggle-group--compact" style="margin-top: 14px;">
+                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="选中表示网盘启用，未选表示网盘禁用" oncheckedchanged="CheckBoxShare_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="选中表示小组网盘启用（需先启用网盘开关）" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></div>
+                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxRegister" runat="server" Text="登记确认" Checked="false" AutoPostBack="True" ToolTip="选中表示弹出登记确认窗口" oncheckedchanged="CheckBoxRegister_CheckedChanged" /></div>
+                        </div>
                     </div>
                 </section>
 
@@ -286,73 +344,6 @@
                     </div>
                 </div>
 
-                <section class="lesson-card lesson-card--span-6 lesson-theme--indigo">
-                    <div class="lesson-card__head">
-                        <div>
-                            <span class="lesson-section-kicker">Control</span>
-                            <h2 class="lesson-card__title">课堂控制</h2>
-                        </div>
-                    </div>
-                    <div class="lesson-card__body">
-                        <div class="lesson-sort">
-                            <span class="lesson-label">视图排序</span>
-                            <anthem:RadioButtonList ID="RBsort" runat="server" AutoPostBack="True" CssClass="lesson-radio-list" RepeatDirection="Horizontal" RepeatLayout="Flow" onselectedindexchanged="RBsort_SelectedIndexChanged">
-                                <Items>
-                                    <asp:ListItem Value="3">机房视图</asp:ListItem>
-                                    <asp:ListItem Value="0">主机排序</asp:ListItem>
-                                    <asp:ListItem Value="1" Selected="True">学号排序</asp:ListItem>
-                                    <asp:ListItem Value="2">小组排序</asp:ListItem>
-                                </Items>
-                            </anthem:RadioButtonList>
-                        </div>
-
-                        <div class="lesson-toggle-group" style="margin-top: 14px;">
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxScratch" runat="server" Text="编程控制" AutoPostBack="True" ToolTip="编程开关控制，选中表示可以进入编程页面" oncheckedchanged="CheckBoxScratch_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxRgauge" runat="server" Text="作品互评" AutoPostBack="True" ToolTip="作品互评控制，选中表示开启" oncheckedchanged="CheckBoxRgauge_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxip" runat="server" Text="IP锁定登录" AutoPostBack="True" ToolTip="根据上次登录的IP进行锁定登录" oncheckedchanged="CheckBoxip_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPass" runat="server" Text="闯关模式" AutoPostBack="True" ToolTip="当前学案活动依次完成后解锁下一个活动" oncheckedchanged="CheckBoxPass_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxOpen" runat="server" Text="快速模式" AutoPostBack="True" ToolTip="本班学生登录后，直接进入当前学案导航" oncheckedchanged="CheckBoxOpen_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPwd" runat="server" Text="班级密码" AutoPostBack="True" ToolTip="选中表示公开显示班级密码，未选表示隐藏" oncheckedchanged="CheckBoxPwd_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxLogin" runat="server" Text="个人模式" AutoPostBack="True" ToolTip="选中表示允许本班单独个人模式登录" oncheckedchanged="CheckBoxLogin_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxPreClassCheck" runat="server" Text="课前检查" AutoPostBack="True" ToolTip="启用后学生登录先进入课前检查页面" oncheckedchanged="CheckBoxPreClassCheck_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxGames" runat="server" Text="游戏开关" AutoPostBack="True" ToolTip="选中表示启用游戏功能" oncheckedchanged="CheckBoxGames_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxGroupChat" runat="server" Text="小组讨论" AutoPostBack="True" ToolTip="选中表示启用小组讨论功能" oncheckedchanged="CheckBoxGroupChat_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkTypingEnabled" runat="server" Text="打字宝典" AutoPostBack="true" ToolTip="控制学生导航中是否显示打字宝典" OnCheckedChanged="chkTypingEnabled_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkSummaryEnabled" runat="server" Text="学习汇总" AutoPostBack="true" ToolTip="控制学生导航中是否显示学习汇总" OnCheckedChanged="chkSummaryEnabled_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="chkHonorsEnabled" runat="server" Text="荣誉榜" AutoPostBack="true" ToolTip="控制学生导航中是否显示荣誉榜" OnCheckedChanged="chkHonorsEnabled_CheckedChanged" /></div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="lesson-card lesson-card--span-6 lesson-theme--cyan">
-                    <div class="lesson-card__head">
-                        <div>
-                            <span class="lesson-section-kicker">Lab</span>
-                            <h2 class="lesson-card__title">机房与资源</h2>
-                        </div>
-                    </div>
-                    <div class="lesson-card__body">
-                        <div class="lesson-room-meta">
-                            <div class="lesson-field">
-                                <span class="lesson-label">机房 / 座位配置</span>
-                                <asp:DropDownList ID="DDLhouse" runat="server" AutoPostBack="True" CssClass="lesson-select" onselectedindexchanged="DDLhouse_SelectedIndexChanged"></asp:DropDownList>
-                            </div>
-                            <div class="lesson-room-tools">
-                                <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank" CssClass="lesson-link">座位表</asp:HyperLink>
-                                <asp:Button ID="Btnrefresh" runat="server" Text="刷新座位" OnClick="Btnrefresh_Click" Enabled="False" CssClass="lesson-refresh" />
-                                <asp:HyperLink ID="HylkDiskstu" runat="server" ImageUrl="~/images/disksmallstu.gif" Target="_blank" ToolTip="查看学生网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
-                                <asp:HyperLink ID="HylkDiskGroup" runat="server" ImageUrl="~/images/disksmall.gif" Target="_blank" ToolTip="查看小组网盘存档情况" CssClass="lesson-icon-link"></asp:HyperLink>
-                            </div>
-                        </div>
-
-                        <div class="lesson-toggle-group" style="margin-top: 14px;">
-                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxShare" runat="server" Text="网盘开关" AutoPostBack="True" ToolTip="选中表示网盘启用，未选表示网盘禁用" oncheckedchanged="CheckBoxShare_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><asp:CheckBox ID="CheckBoxGroupShare" runat="server" Text="小组网盘" AutoPostBack="True" ToolTip="选中表示小组网盘启用（需先启用网盘开关）" oncheckedchanged="CheckBoxGroupShare_CheckedChanged" /></div>
-                            <div class="ls-ck-switch"><anthem:CheckBox ID="CheckBoxRegister" runat="server" Text="登记确认" Checked="false" AutoPostBack="True" ToolTip="选中表示弹出登记确认窗口" oncheckedchanged="CheckBoxRegister_CheckedChanged" /></div>
-                        </div>
-                    </div>
-                </section>
-
                 <section class="lesson-card lesson-card--span-12 lesson-theme--slate">
                     <div class="lesson-card__head">
                         <div>
@@ -376,22 +367,6 @@
                     </div>
                 </section>
 
-                <section class="lesson-card lesson-card--span-12 lesson-theme--red">
-                    <div class="lesson-card__head">
-                        <div>
-                            <span class="lesson-section-kicker">Finish</span>
-                            <h2 class="lesson-card__title">课堂收尾</h2>
-                        </div>
-                    </div>
-                    <div class="lesson-card__body">
-                        <div class="lesson-footer" id="LessonQuitFooter" runat="server" visible="false">
-                            <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线" Visible="False" EnableViewState="False" onclick="BtnaAllQuit_Click" CssClass="lesson-btn lesson-btn--danger" />
-                            <div class="lesson-footer__meta">
-                                <span>该操作会让当前上课班级学生全部退出登录，建议仅在下课时使用。</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
             </div>
             <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" style="display:none;" />
 
