@@ -108,10 +108,16 @@
                                 <svg class="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 2"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide leading-none">状态</span>
                             </a></li>
-                            <li class="px-3 pt-3 mt-1">
-                                <div class="border-t border-slate-200 pt-3 text-center cursor-pointer group" onclick="HideMenu()">
-                                    <div class="text-[10px] uppercase tracking-[0.18em] text-slate-400 font-semibold">Version</div>
-                                    <asp:Label ID="LabelVer" runat="server" CssClass="mt-1 block text-[11px] text-slate-500 font-mono group-hover:text-indigo-600 transition-colors"></asp:Label>
+                            <li class="menu-version-item px-3 pt-3 mt-1">
+                                <div class="menu-version border-t border-slate-200 pt-3">
+                                    <div class="menu-footer flex items-center justify-center gap-1">
+                                        <button id="MenuToggleBtn" type="button" class="menu-toggle group inline-flex h-8 w-8 items-center justify-center rounded-lg border border-transparent bg-transparent text-slate-500 transition-all duration-200 hover:bg-slate-100 hover:text-indigo-600" onclick="ToggleMenuCollapse()" aria-label="收起菜单" title="收起菜单">
+                                            <svg class="menu-toggle-icon h-5 w-5 flex-shrink-0 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M15 19l-7-7 7-7"></path></svg>
+                                        </button>
+                                        <div class="menu-version-meta text-center">
+                                            <asp:Label ID="LabelVer" runat="server" CssClass="menu-version-text block text-[9px] text-slate-500 font-mono transition-colors"></asp:Label>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -220,6 +226,10 @@
                 border: 1px solid transparent;
                 justify-content: flex-start;
             }
+            #MenuDiv .menu-toggle {
+                justify-content: center;
+                background: transparent !important;
+            }
             #MenuDiv a.nav-item:hover {
                 background: rgba(219, 234, 254, 0.82) !important;
                 border-color: #bfdbfe !important;
@@ -249,6 +259,36 @@
             #MenuDiv a.nav-item span {
                 white-space: nowrap;
             }
+            #MenuDiv.is-collapsed {
+                width: 4.5rem !important;
+            }
+            #MenuDiv.is-collapsed a.nav-item {
+                justify-content: center;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+            #MenuDiv.is-collapsed a.nav-item span,
+            #MenuDiv.is-collapsed .menu-version-meta,
+            #MenuDiv.is-collapsed .menu-version-text {
+                display: none;
+            }
+            #MenuDiv.is-collapsed .menu-toggle-icon {
+                transform: rotate(180deg);
+            }
+            #MenuDiv.is-collapsed a.nav-item.is-active::after {
+                left: 4px;
+            }
+            #MenuDiv.is-collapsed .menu-version-item {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            #MenuDiv.is-collapsed .menu-version {
+                padding-top: 0;
+                border-top: 0;
+            }
+            #MenuDiv.is-collapsed .menu-footer {
+                justify-content: center;
+            }
             .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
             .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
             .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
@@ -256,6 +296,8 @@
         </style>
         <script type="text/javascript">
         (function () {
+            var collapseStorageKey = 'teacher-menu-collapsed';
+
             // Map each data-section value to page filename prefixes that belong to it
             var sectionMap = {
                 'start':      ['start'],
@@ -275,9 +317,15 @@
             var path = window.location.pathname.toLowerCase();
             var file = path.substring(path.lastIndexOf('/') + 1).replace(/\.aspx.*$/, '');
 
+            var menuDiv = document.getElementById('MenuDiv');
+            var menuToggleBtn = document.getElementById('MenuToggleBtn');
             var items = document.querySelectorAll('#MenuDiv a.nav-item');
             for (var i = 0; i < items.length; i++) {
                 var section = items[i].getAttribute('data-section');
+                var navText = items[i].textContent.replace(/^\s+|\s+$/g, '');
+                if (navText) {
+                    items[i].setAttribute('title', navText);
+                }
                 if (!section) continue;
                 var prefixes = sectionMap[section] || [section];
                 for (var j = 0; j < prefixes.length; j++) {
@@ -287,6 +335,53 @@
                     }
                 }
             }
+
+            function setMenuCollapsed(collapsed) {
+                if (!menuDiv) return;
+
+                if (collapsed) {
+                    menuDiv.classList.add('is-collapsed');
+                } else {
+                    menuDiv.classList.remove('is-collapsed');
+                }
+
+                if (menuToggleBtn) {
+                    var label = collapsed ? '展开菜单' : '收起菜单';
+                    menuToggleBtn.setAttribute('title', label);
+                    menuToggleBtn.setAttribute('aria-label', label);
+                }
+
+                try {
+                    window.localStorage.setItem(collapseStorageKey, collapsed ? '1' : '0');
+                } catch (error) {
+                }
+            }
+
+            function isMenuCollapsed() {
+                return !!menuDiv && menuDiv.classList.contains('is-collapsed');
+            }
+
+            function readStoredCollapsed() {
+                try {
+                    return window.localStorage.getItem(collapseStorageKey) === '1';
+                } catch (error) {
+                    return false;
+                }
+            }
+
+            window.ToggleMenuCollapse = function () {
+                setMenuCollapsed(!isMenuCollapsed());
+            };
+
+            window.ShowMenu = function () {
+                setMenuCollapsed(false);
+            };
+
+            window.HideMenu = function () {
+                setMenuCollapsed(true);
+            };
+
+            setMenuCollapsed(readStoredCollapsed());
         })();
         </script>
     </form>
