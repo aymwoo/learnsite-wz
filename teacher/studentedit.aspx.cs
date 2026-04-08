@@ -81,7 +81,7 @@ public partial class Teacher_studentedit : System.Web.UI.Page
     }
     protected void Btnreturn_Click(object sender, EventArgs e)
     {
-        string url = "~/teacher/student.aspx" ;        
+        string url = "~/teacher/teachermanage.aspx" ;        
         Response.Redirect(url, false);
     }
 

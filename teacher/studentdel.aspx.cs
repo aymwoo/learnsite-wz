@@ -20,7 +20,7 @@ public partial class Teacher_studentdel : System.Web.UI.Page
             }
             else
             {
-                Response.Redirect("~/teacher/student.aspx", false);
+                Response.Redirect("~/teacher/teachermanage.aspx", false);
             }
         }
     }
@@ -47,12 +47,12 @@ public partial class Teacher_studentdel : System.Web.UI.Page
 
         stu.Delete(Sid);//学生表中删除该学生
         System.Threading.Thread.Sleep(500);
-        string url = "~/teacher/student.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&&sclass=" + Request.QueryString["sclass"].ToString();
+        string url = "~/teacher/teachermanage.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&&sclass=" + Request.QueryString["sclass"].ToString();
         Response.Redirect(url, false);
     }
     protected void LinkBtncancel_Click(object sender, EventArgs e)
     {
-        string url = "~/teacher/student.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&&sclass=" + Request.QueryString["sclass"].ToString();
+        string url = "~/teacher/teachermanage.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&&sclass=" + Request.QueryString["sclass"].ToString();
         Response.Redirect(url, false);
     }
 }

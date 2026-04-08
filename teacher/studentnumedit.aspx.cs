@@ -22,7 +22,7 @@ public partial class Teacher_studentnumedit : System.Web.UI.Page
             }
             else
             {
-                Response.Redirect("~/teacher/student.aspx", false);
+                Response.Redirect("~/teacher/teachermanage.aspx", false);
             }
         }
     }
