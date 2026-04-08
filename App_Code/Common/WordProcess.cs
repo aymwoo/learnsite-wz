@@ -1607,12 +1607,14 @@ namespace LearnSite.Common
                 FCADImage.Base.Y = 300;
                 FCADImage.LoadFromFile(dxfpath);
 
-                Image img = new Bitmap(800, 600);
-                Graphics g = Graphics.FromImage(img);
-                FCADImage.Draw(g);
+                using (Image img = new Bitmap(800, 600))
+                using (Graphics g = Graphics.FromImage(img))
+                {
+                    FCADImage.Draw(g);
 
-                string gfile = dxfpath.Replace(".dxf", ".jpg");
-                img.Save(gfile);
+                    string gfile = dxfpath.Replace(".dxf", ".jpg");
+                    img.Save(gfile);
+                }
             }
             catch { }
 
@@ -3134,19 +3136,19 @@ namespace LearnSite.Common
             bool isok = false;
             try
             {
-                FileStream fs = new FileStream(picPath, FileMode.Open, FileAccess.Read);
-                BinaryReader reader = new BinaryReader(fs);
                 string fileClass;
                 byte buffer;
                 byte[] b = new byte[2];
-                buffer = reader.ReadByte();
-                b[0] = buffer;
-                fileClass = buffer.ToString();
-                buffer = reader.ReadByte();
-                b[1] = buffer;
-                fileClass += buffer.ToString();
-                reader.Close();
-                fs.Close();
+                using (FileStream fs = new FileStream(picPath, FileMode.Open, FileAccess.Read))
+                using (BinaryReader reader = new BinaryReader(fs))
+                {
+                    buffer = reader.ReadByte();
+                    b[0] = buffer;
+                    fileClass = buffer.ToString();
+                    buffer = reader.ReadByte();
+                    b[1] = buffer;
+                    fileClass += buffer.ToString();
+                }
                 switch (fileClass)
                 {
                     case "255216":

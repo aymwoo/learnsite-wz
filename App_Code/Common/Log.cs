@@ -52,23 +52,18 @@ namespace LearnSite.Common
             string myurl = HttpContext.Current.Request.Url.ToString();//获取当前网页url
             string logger = today.ToString() + " 页面:" + myurl + "\r\n\r\n" + "信息类型：" + HttpUtility.HtmlDecode(cook.Sname) + "\r\n\r\n" + msgtype + "\r\n\r\n" + msg;
             string logpath = GetLogFilename(today);
-            FileStream fs = new FileStream(logpath, FileMode.Create);
-            StreamWriter sw = new StreamWriter(fs);
             try
             {
-                //开始写入
-                sw.Write(logger);
-                //清空缓冲区
-                sw.Flush();
-                //关闭流
-                sw.Close();
-                fs.Close();
+                using (FileStream fs = new FileStream(logpath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(logger);
+                    sw.Flush();
+                }
             }
             catch
             {
                 HttpContext.Current.Response.Write("无法写log记录，请确认网站目录为everyone可读写!");
-                sw.Close();
-                fs.Close();
             }
         }
         private static string GetLogFilename(DateTime dt)

@@ -13,9 +13,8 @@ namespace LearnSite.Common
         {
             if (!File.Exists(filename))
                 throw new FileNotFoundException(filename);
-            FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            BinaryReader reader = new BinaryReader(stream);
-            try
+            using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (BinaryReader reader = new BinaryReader(stream))
             {
                 if (stream.Length < 8)
                     throw new InvalidDataException("文件不是 Flash 文件格式");
@@ -27,39 +26,31 @@ namespace LearnSite.Common
                 fileLength = reader.ReadInt32();
                 byte[] dataPart = new byte[stream.Length - 8];
                 reader.Read(dataPart, 0, dataPart.Length);
-                MemoryStream dataStream = new MemoryStream(dataPart);
-                try
+                using (MemoryStream dataStream = new MemoryStream(dataPart))
                 {
                     if (isCompressed)
                     {
                         //midified by nasdaqhe
-                        MemoryStream outStream = new MemoryStream();
-                        zlib.ZOutputStream outZStream = new zlib.ZOutputStream(outStream);
-                        CopyStream(dataStream, outZStream);
-                        outStream.Position = 0;
-                        ProcessCompressedPart(outStream);
-                        outZStream.Close();
-                        outStream.Close();
+                        using (MemoryStream outStream = new MemoryStream())
+                        using (zlib.ZOutputStream outZStream = new zlib.ZOutputStream(outStream))
+                        {
+                            CopyStream(dataStream, outZStream);
+                            outZStream.Flush();
+                            outStream.Position = 0;
+                            ProcessCompressedPart(outStream);
+                        }
                     }
                     else
+                    {
                         ProcessCompressedPart(dataStream);
+                    }
                 }
-                finally
-                {
-                    dataStream.Close();
-                }
-            }
-            finally
-            {
-                reader.Close();
-                stream.Close();
             }
         }
 
         private void ProcessCompressedPart(MemoryStream stream)
         {
-            BinaryReader reader = new BinaryReader(stream);
-            try
+            using (BinaryReader reader = new BinaryReader(stream, Encoding.Default, true))
             {
                 byte[] rect;
                 int nbits, totalBits, totalBytes;
@@ -92,10 +83,6 @@ namespace LearnSite.Common
                 string heightBinary = result.Substring(3 * nbits + 5, nbits);
                 width = Convert.ToInt32(FlashInfo.BinaryToInt64(widthBinary) / 20);
                 height = Convert.ToInt32(FlashInfo.BinaryToInt64(heightBinary) / 20);
-            }
-            finally
-            {
-                reader.Close();
             }
         }
 

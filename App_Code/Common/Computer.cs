@@ -546,18 +546,20 @@ public class Computer
             if (UrlExistsUsingSockets(strUrl))
             {
                 WebRequest wreq = WebRequest.Create(strUrl);
-                WebResponse wresp = (WebResponse)wreq.GetResponse();
-                Stream s = wresp.GetResponseStream();
-                StreamReader sr = new StreamReader(s, System.Text.Encoding.GetEncoding("utf-8"));
-                string HTML = sr.ReadToEnd();
-                int laststr = HTML.LastIndexOf("℃");
-                if (laststr > 0)
+                using (WebResponse wresp = wreq.GetResponse())
+                using (Stream s = wresp.GetResponseStream())
+                using (StreamReader sr = new StreamReader(s, System.Text.Encoding.GetEncoding("utf-8")))
                 {
-                    string Newhtml = HTML.Substring(0, laststr + 1);
-                    int startstr = Newhtml.LastIndexOf(">");
-                    int mylen = laststr - startstr;
-                    WeatherToday = Newhtml.Substring(startstr + 1, mylen);
-                    WeatherToday = " 今天天气：" + WeatherToday;
+                    string HTML = sr.ReadToEnd();
+                    int laststr = HTML.LastIndexOf("℃");
+                    if (laststr > 0)
+                    {
+                        string Newhtml = HTML.Substring(0, laststr + 1);
+                        int startstr = Newhtml.LastIndexOf(">");
+                        int mylen = laststr - startstr;
+                        WeatherToday = Newhtml.Substring(startstr + 1, mylen);
+                        WeatherToday = " 今天天气：" + WeatherToday;
+                    }
                 }
             }
             return WeatherToday;
@@ -575,8 +577,10 @@ public class Computer
                 System.Net.HttpWebRequest myRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
                 myRequest.Method = "HEAD";
                 myRequest.Timeout = 100;
-                System.Net.HttpWebResponse res = (System.Net.HttpWebResponse)myRequest.GetResponse();
-                return (res.StatusCode == System.Net.HttpStatusCode.OK);
+                using (System.Net.HttpWebResponse res = (System.Net.HttpWebResponse)myRequest.GetResponse())
+                {
+                    return (res.StatusCode == System.Net.HttpStatusCode.OK);
+                }
             }
             catch (System.Net.WebException we)
             {

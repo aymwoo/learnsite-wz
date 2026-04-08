@@ -94,20 +94,14 @@ namespace LearnSite.Common
             if (flen > 0)
             {
                 FileMode fMode = File.Exists(fpath) ? FileMode.Append : FileMode.Create;
-                FileStream fs = new FileStream(fpath, fMode);
-
                 Byte[] fdata = new Byte[flen];
                 Stream sr = upfile.InputStream;
                 sr.Read(fdata, 0, flen);
 
-                try
+                using (FileStream fs = new FileStream(fpath, fMode))
                 {
                     fs.Position = fs.Length;
                     fs.Write(fdata, 0, fdata.Length);
-                }
-                finally
-                {
-                    fs.Close();
                 }
 
                 msg.url = furl;

@@ -258,14 +258,27 @@ namespace LearnSite.Common.DXFImport
 		}
 		public void LoadFromFile(string FileName)
 		{
+			CloseStream();
 			FMain = new DXFSection();
 			FMain.Converter = this;
-			if (FStream == null) 
+			FStream = new StreamReader(FileName);
+			try
 			{
-				FStream = new StreamReader(FileName);
+				FMain.Complex = true;
+				FMain.ReadState();		
 			}
-			FMain.Complex = true;
-			FMain.ReadState();		
+			finally
+			{
+				CloseStream();
+			}
+		}
+		private void CloseStream()
+		{
+			if (FStream != null)
+			{
+				FStream.Close();
+				FStream = null;
+			}
 		}
 
 		public SFPoint GetPoint(SFPoint Point)

@@ -53,9 +53,10 @@ namespace LearnSite.Store
             if (File.Exists(xmlCourseName))
                 File.Delete(xmlCourseName);
             XmlSerializer xs = new XmlSerializer(typeof(LearnSite.Model.Courses));
-            Stream stream = new FileStream(xmlCourseName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-            xs.Serialize(stream, course);
-            stream.Close();
+            using (Stream stream = new FileStream(xmlCourseName, FileMode.Create, FileAccess.Write, FileShare.ReadWrite))
+            {
+                xs.Serialize(stream, course);
+            }
 
             if (File.Exists(xmlCourseName))
             {

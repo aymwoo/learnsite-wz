@@ -336,14 +336,13 @@ namespace LearnSite.DBUtility
         public static ArrayList ExecuteSqlArrayList(string sql, params SqlParameter[] cmdParms)
         {
             ArrayList al = new ArrayList();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataReader dr = SqlHelper.ExecuteReader(CommandType.Text, sql, cmdParms);
-            while (dr.Read())
+            using (SqlDataReader dr = SqlHelper.ExecuteReader(CommandType.Text, sql, cmdParms))
             {
-                al.Add(dr.GetString(0));
+                while (dr.Read())
+                {
+                    al.Add(dr.GetValue(0).ToString());
+                }
             }
-            dr.Close();
-            cmd.Dispose();
 
             return al;
         }

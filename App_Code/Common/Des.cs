@@ -140,16 +140,19 @@ namespace LearnSite.Common
         public string Encrypto(string Source)
         {
             byte[] bytIn = UTF8Encoding.UTF8.GetBytes(Source);
-            MemoryStream ms = new MemoryStream();
             mobjCryptoService.Key = GetLegalKey();
             mobjCryptoService.IV = GetLegalIV();
             ICryptoTransform encrypto = mobjCryptoService.CreateEncryptor();
-            CryptoStream cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Write);
-            cs.Write(bytIn, 0, bytIn.Length);
-            cs.FlushFinalBlock();
-            ms.Close();
-            byte[] bytOut = ms.ToArray();
-            return Convert.ToBase64String(bytOut);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (CryptoStream cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Write))
+                {
+                    cs.Write(bytIn, 0, bytIn.Length);
+                    cs.FlushFinalBlock();
+                }
+                byte[] bytOut = ms.ToArray();
+                return Convert.ToBase64String(bytOut);
+            }
         }
         /// <summary>  
         /// 解密方法  
@@ -159,16 +162,17 @@ namespace LearnSite.Common
         public string Decrypto(string Source)
         {
             byte[] bytIn = Convert.FromBase64String(Source);
-            MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length);
             mobjCryptoService.Key = GetLegalKey();
             mobjCryptoService.IV = GetLegalIV();
             ICryptoTransform encrypto = mobjCryptoService.CreateDecryptor();
-            CryptoStream cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Read);
-            StreamReader sr = new StreamReader(cs);
-            return sr.ReadToEnd();
+            using (MemoryStream ms = new MemoryStream(bytIn, 0, bytIn.Length))
+            using (CryptoStream cs = new CryptoStream(ms, encrypto, CryptoStreamMode.Read))
+            using (StreamReader sr = new StreamReader(cs))
+            {
+                return sr.ReadToEnd();
+            }
         }
     }
 
 
 }
-

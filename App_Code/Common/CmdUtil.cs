@@ -34,30 +34,33 @@ namespace LearnSite.Common
         /// 命令输出文本
         public static string ExeCommand(string[] commandTexts)
         {
-            Process p = new Process();
-            p.StartInfo.FileName = "cmd.exe";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.CreateNoWindow = true;
             string strOutput = null;
-            try
+            using (Process p = new Process())
             {
-                p.Start();
-                foreach (string item in commandTexts)
+                p.StartInfo.FileName = "cmd.exe";
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardInput = true;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                try
                 {
-                    p.StandardInput.WriteLine(item);
+                    p.Start();
+                    foreach (string item in commandTexts)
+                    {
+                        p.StandardInput.WriteLine(item);
+                    }
+                    p.StandardInput.WriteLine("exit");
+                    p.StandardInput.Flush();
+                    p.StandardInput.Close();
+                    strOutput = p.StandardOutput.ReadToEnd();
+                    //strOutput = Encoding.UTF8.GetString(Encoding.Default.GetBytes(strOutput));
+                    p.WaitForExit();
                 }
-                p.StandardInput.WriteLine("exit");
-                strOutput = p.StandardOutput.ReadToEnd();
-                //strOutput = Encoding.UTF8.GetString(Encoding.Default.GetBytes(strOutput));
-                p.WaitForExit();
-                p.Close();
-            }
-            catch (Exception e)
-            {
-                strOutput = e.Message;
+                catch (Exception e)
+                {
+                    strOutput = e.Message;
+                }
             }
             return strOutput;
         }
@@ -100,19 +103,20 @@ namespace LearnSite.Common
         public static bool StartApp(string appName, string arguments, ProcessWindowStyle style)
         {
             bool blnRst = false;
-            Process p = new Process();
-            p.StartInfo.FileName = appName;//exe,bat and so on
-            p.StartInfo.WindowStyle = style;
-            p.StartInfo.Arguments = arguments;
-            try
+            using (Process p = new Process())
             {
-                p.Start();
-                p.WaitForExit();
-                p.Close();
-                blnRst = true;
-            }
-            catch
-            {
+                p.StartInfo.FileName = appName;//exe,bat and so on
+                p.StartInfo.WindowStyle = style;
+                p.StartInfo.Arguments = arguments;
+                try
+                {
+                    p.Start();
+                    p.WaitForExit();
+                    blnRst = true;
+                }
+                catch
+                {
+                }
             }
             return blnRst;
         }

@@ -223,16 +223,19 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         public static DataSet ExecuteDataset(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandTimeout = 60;
-            PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters);
+            using (SqlCommand cmd = new SqlCommand())
+            {
+                cmd.CommandTimeout = 60;
+                PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters);
 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-
-            da.Fill(ds);
-            cmd.Parameters.Clear();
-            return ds;
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    cmd.Parameters.Clear();
+                    return ds;
+                }
+            }
         }
         /// <summary>
         /// 有事务处理，返回dataset
@@ -245,23 +248,27 @@ namespace LearnSite.DBUtility
         /// <returns></returns>
         public static DataSet ExecuteDataset(SqlTransaction transaction, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandTimeout = 60;
-            PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataSet ds = new DataSet();
-            try
+            using (SqlCommand cmd = new SqlCommand())
             {
-                da.Fill(ds);
-                cmd.Parameters.Clear();
+                cmd.CommandTimeout = 60;
+                PrepareCommand(cmd, transaction.Connection, transaction, commandType, commandText, commandParameters);
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataSet ds = new DataSet();
+                    try
+                    {
+                        da.Fill(ds);
+                        cmd.Parameters.Clear();
+                    }
+                    catch (SqlException ex)
+                    {
+                        string msgtype = "ExecuteDataset" + "\r\n\r\n sql语句：" + commandText;
+                        LearnSite.Common.Log.Addlog(msgtype, ex.Message);
+                        throw new Exception(ex.Message);
+                    }
+                    return ds;
+                }
             }
-            catch (SqlException ex)
-            {
-                string msgtype = "ExecuteDataset" + "\r\n\r\n sql语句：" + commandText;
-                LearnSite.Common.Log.Addlog(msgtype, ex.Message);
-                throw new Exception(ex.Message);
-            }
-            return ds;
         }
         /// <summary>
         /// 执行查询语句，返回DataSet
