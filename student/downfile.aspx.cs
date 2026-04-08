@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using LearnSite.BLL;
 
 public partial class Student_downfile : System.Web.UI.Page
 {
@@ -13,7 +14,7 @@ public partial class Student_downfile : System.Web.UI.Page
         {
             if (!IsPostBack)
             {
- 
+
                 ShowFile();
                 ShowList();
                 ShowTime();
@@ -68,7 +69,7 @@ public partial class Student_downfile : System.Web.UI.Page
                         {
                             Panelswfupload.Visible = true;
                             string Fid = Request.QueryString["fid"].ToString();
-                            
+
                             LearnSite.BLL.Autonomic abll = new LearnSite.BLL.Autonomic();
                             LearnSite.Model.Autonomic amodel = new LearnSite.Model.Autonomic();
                             amodel = abll.GetModel(cook.Sid, Int32.Parse(Fid));
@@ -109,7 +110,7 @@ public partial class Student_downfile : System.Web.UI.Page
                 case "教程":
                 case "资料":
                     {
-                        LBtnfile.Visible = true;
+                        LBtnfile.Visible = false;
                         break;
                     }
                 case "软件":
@@ -117,7 +118,7 @@ public partial class Student_downfile : System.Web.UI.Page
                         LearnSite.BLL.Soft st = new LearnSite.BLL.Soft();
                         if (st.IsDownCan())
                         {
-                            LBtnfile.Visible = true;
+                            LBtnfile.Visible = false;
                             Labelmsg.Text = "";
                         }
                         else
@@ -131,18 +132,48 @@ public partial class Student_downfile : System.Web.UI.Page
                 case "游戏":
                 case "课程":
                     {
-                        LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
-                        int todayScore = wbll.GetTodayWorkScores(cook.Snum);
-                        if (todayScore > Int32.Parse(Labelopen.Text) - 1)
+                        // 使用保存的原始Fopen值
+                        int requiredScore = ViewState["FopenValue"] != null ? Convert.ToInt32(ViewState["FopenValue"]) : 0;
+
+                        // 判断评分方式
+                        if (requiredScore >= 10000)
                         {
-                            LBtnfile.Visible = true;
-                            Labelmsg.Text = "你的作品平均得"+todayScore.ToString()+"分";
+                            // 综合评分制
+                            LearnSite.BLL.StudentScoreService scoreService = new LearnSite.BLL.StudentScoreService();
+                            int comprehensiveScore = scoreService.GetComprehensiveScore(cook.Snum);
+                            int actualRequiredScore = requiredScore - 10000;
+
+                            if (comprehensiveScore >= actualRequiredScore)
+                            {
+                                LBtnfile.Visible = false;
+                                HLurl.Visible = true;
+                                Labelmsg.Text = "你的综合得分" + comprehensiveScore.ToString() + "分，已达到要求！";
+                            }
+                            else
+                            {
+                                Labelcontent.Text = "<br/><br/><br/><div style='text-align: center'>隐藏内容</div><br/><br/><br/>";
+                                Labelmsg.Text = "你的综合得分" + comprehensiveScore.ToString() + "分，需要达到" + actualRequiredScore.ToString() + "分才能访问！";
+                                LBtnfile.Visible = false;
+                                HLurl.Visible = false;
+                            }
                         }
                         else
                         {
-                            Labelcontent.Text = "<br/><br/><br/><div style='text-align: center'>隐藏内容</div><br/><br/><br/>";
-                            Labelmsg.Text = "今天作品赚取"+todayScore.ToString()+"学分不够使用！";
-                            LBtnfile.Visible = false;
+                            // 原学分制 - 使用本节课学分
+                            int currentScore = GetCurrentLessonScore(cook.Snum);
+                            if (currentScore > requiredScore - 1)
+                            {
+                                LBtnfile.Visible = false;
+                                HLurl.Visible = true;
+                                Labelmsg.Text = "你本节课的学分" + currentScore.ToString() + "分，已达到要求！";
+                            }
+                            else
+                            {
+                                Labelcontent.Text = "<br/><br/><br/><div style='text-align: center'>隐藏内容</div><br/><br/><br/>";
+                                Labelmsg.Text = "你本节课的学分" + currentScore.ToString() + "分，需要达到" + requiredScore.ToString() + "分才能访问！";
+                                LBtnfile.Visible = false;
+                                HLurl.Visible = false;
+                            }
                         }
                         break;
                     }
@@ -151,6 +182,33 @@ public partial class Student_downfile : System.Web.UI.Page
             {
                 LBtnfile.Visible = false;
             }
+        }
+    }
+
+    /// <summary>
+    /// 获取学生在当前课程中的学分
+    /// </summary>
+    /// <param name="snum">学生学号</param>
+    /// <returns>当前课程学分</returns>
+    private int GetCurrentLessonScore(string snum)
+    {
+        try
+        {
+            // 直接从数据库中查询学生的最新学分，避免使用缓存数据
+            string sql = "SELECT Sscore FROM Students WHERE Snum = @Snum";
+            System.Data.SqlClient.SqlParameter[] parameters = {
+                new System.Data.SqlClient.SqlParameter("@Snum", snum)
+            };
+            object result = LearnSite.DBUtility.DbHelperSQL.GetSingle(sql, parameters);
+            if (result != null && result != DBNull.Value)
+            {
+                return Convert.ToInt32(result);
+            }
+            return 0;
+        }
+        catch (Exception)
+        {
+            return 0;
         }
     }
     private void ShowFile()
@@ -178,9 +236,38 @@ public partial class Student_downfile : System.Web.UI.Page
                 }
                 ImageType.ImageUrl = "~/images/filetype/" + typestr.ToLower() + ".gif";
                 Labelclass.Text = smodel.Fclass;
-                HLurl.NavigateUrl = smodel.Furl;
-                Labelopen.Text = smodel.Fopen.ToString();
-                Labelcontent.Text = HttpUtility.HtmlDecode(smodel.Fcontent);
+                HLurl.NavigateUrl = "javascript:void(0);";
+                HLurl.Attributes["data-fid"] = Fidstr;
+                HLurl.Attributes["onclick"] = "accessResource(" + Fidstr + "); return false;";
+                HLurl.Text = "访问资源";
+
+                ViewState["FopenValue"] = smodel.Fopen ?? 0;
+
+                // 根据评分方式显示不同的内容
+                int fopenValue = smodel.Fopen ?? 0;
+                if (fopenValue >= 10000)
+                {
+                    // 综合评分制
+                    Labelopen.Text = "综合" + (fopenValue - 10000).ToString() + "分";
+                }
+                else
+                {
+                    // 原学分制
+                    string grade = "";
+                    switch (fopenValue)
+                    {
+                        case 10: grade = "A"; break;
+                        case 8: grade = "B"; break;
+                        case 6: grade = "C"; break;
+                        case 4: grade = "D"; break;
+                        case 2: grade = "E"; break;
+                        default: grade = fopenValue.ToString(); break;
+                    }
+                    Labelopen.Text = "学分" + grade;
+                }
+
+                string processedContent = LearnSite.Common.LinkEncryption.ProcessContentLinks(HttpUtility.HtmlDecode(smodel.Fcontent), Fidstr);
+                Labelcontent.Text = processedContent;
                 LabelFyid.Text= smodel.Fyid.ToString();
                 LBtnfile.Visible = false;
                 st.UpdateFhit(Fid);
@@ -189,7 +276,7 @@ public partial class Student_downfile : System.Web.UI.Page
     }
     private void ShowList()
     {
-        
+
         LearnSite.BLL.Soft st = new LearnSite.BLL.Soft();
         string fyid = LabelFyid.Text;
         if (!string.IsNullOrEmpty(fyid))
@@ -205,7 +292,56 @@ public partial class Student_downfile : System.Web.UI.Page
     {
         if (Request.QueryString["fid"] != null && HLurl.NavigateUrl != "")
         {
-            LearnSite.Common.FileDown.DownLoadOut(HLurl.NavigateUrl);
+            // 检查学生是否有权限下载该资源
+            if (CanDownloadResource())
+            {
+                LearnSite.Common.FileDown.DownLoadOut(HLurl.NavigateUrl);
+            }
+            else
+            {
+                Labelmsg.Text = "你没有权限下载此资源！";
+                LBtnfile.Visible = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 检查学生是否有权限下载资源
+    /// </summary>
+    /// <returns>是否有权限</returns>
+    private bool CanDownloadResource()
+    {
+        string ch = Labelclass.Text;
+        switch (ch)
+        {
+            case "微课":
+            case "教程":
+            case "资料":
+                return true;
+            case "软件":
+                LearnSite.BLL.Soft st = new LearnSite.BLL.Soft();
+                return st.IsDownCan();
+            case "游戏":
+            case "课程":
+                // 使用保存的原始Fopen值
+                int requiredScore = ViewState["FopenValue"] != null ? Convert.ToInt32(ViewState["FopenValue"]) : 0;
+
+                // 判断评分方式
+                if (requiredScore >= 10000)
+                {
+                    // 综合评分制
+                    LearnSite.BLL.StudentScoreService scoreService = new LearnSite.BLL.StudentScoreService();
+                    int comprehensiveScore = scoreService.GetComprehensiveScore(cook.Snum);
+                    return comprehensiveScore >= (requiredScore - 10000);
+                }
+                else
+                {
+                    // 原学分制 - 使用本节课学分
+                    int currentScore = GetCurrentLessonScore(cook.Snum);
+                    return currentScore > requiredScore - 1;
+                }
+            default:
+                return false;
         }
     }
     protected void GVSoft_RowDataBound(object sender, GridViewRowEventArgs e)

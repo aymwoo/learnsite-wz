@@ -1678,4 +1678,4 @@ var dynamicLoading = {
   head.appendChild(script);
   }
   }
-  dynamicLoading.css("../kindeditor/plugins/code/prettify.css");
+  dynamicLoading.css("/kindeditor/plugins/code/prettify.css");

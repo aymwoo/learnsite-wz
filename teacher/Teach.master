@@ -21,6 +21,8 @@
 			"autoplay": "on",
 	}
 	</script>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body onload="prettyPrint();" class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-900">
     <form id="form1" runat="server">
@@ -85,6 +87,37 @@
                                 <span class="text-[13px] font-semibold tracking-wide">AI</span>
                             </a></li>
 
+                            <li><a href="../teacher/teachermanage.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                <span class="text-[13px] font-semibold tracking-wide">管理</span>
+                            </a></li>
+
+                            <li><a href="../teacher/typer.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                                <span class="text-[13px] font-semibold tracking-wide">中文</span>
+                            </a></li>
+
+                            <li><a href="../teacher/typechinese.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+				<span class="text-[13px] font-semibold tracking-wide">拼音</span>
+                            </a></li>
+
+                            <li><a href="../teacher/infomation.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+				<span class="text-[13px] font-semibold tracking-wide">信息</span>
+                            </a></li>
+
+                            <li><a href="../teacher/helper.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+				<span class="text-[13px] font-semibold tracking-wide">帮助</span>
+                            </a></li>
+
+                            <li><a href="../exam/examlist.aspx" data-section="aiprovider" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
+                                <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+				<span class="text-[13px] font-semibold tracking-wide">考试</span>
+                            </a></li>
+
+
                             <li><a href="../teacher/systeminfo.aspx" data-section="systeminfo" class="nav-item group flex flex-col items-center py-3 px-2 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200">
                                 <svg class="w-6 h-6 mb-1.5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                 <span class="text-[13px] font-semibold tracking-wide">状态</span>
@@ -105,6 +138,8 @@
                         </div>
                     </div>
                 </main>
+            <div onclick="HideMenu()">
+                <asp:Label ID="LabelVer" runat="server" Font-Size="8pt"></asp:Label>
             </div>
         </div>
         <style type="text/css">

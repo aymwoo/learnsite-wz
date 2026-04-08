@@ -94,6 +94,32 @@ public partial class Teacher_soft : System.Web.UI.Page
         if (e.Row.RowIndex > -1)
         {
             e.Row.Cells[0].Text = Convert.ToString(GVSource.PageIndex * GVSource.PageSize + e.Row.RowIndex + 1);
+            
+            // 修改评分方式显示
+            int fopenValue = 0;
+            if (int.TryParse(e.Row.Cells[5].Text, out fopenValue))
+            {
+                if (fopenValue >= 10000)
+                {
+                    // 综合评分制
+                    e.Row.Cells[5].Text = "综合" + (fopenValue - 10000).ToString() + "分";
+                }
+                else
+                {
+                    // 原学分制
+                    string grade = "";
+                    switch (fopenValue)
+                    {
+                        case 10: grade = "A"; break;
+                        case 8: grade = "B"; break;
+                        case 6: grade = "C"; break;
+                        case 4: grade = "D"; break;
+                        case 2: grade = "E"; break;
+                        default: grade = fopenValue.ToString(); break;
+                    }
+                    e.Row.Cells[5].Text = "学分" + grade;
+                }
+            }
         }
 
         if (e.Row.RowType == DataControlRowType.DataRow)

@@ -26,7 +26,7 @@ namespace LearnSite.Store
                 string uploadfile = fudpackage.PostedFile.FileName;
                 if (uploadfile != "")
                 {
-                    string fileName = uploadfile.Substring(uploadfile.LastIndexOf("\\") + 1);
+                    string fileName = System.IO.Path.GetFileName(uploadfile);
                     string fileType = fileName.Substring(fileName.LastIndexOf(".") + 1);
                     string ftl = fileType.ToLower();
                     if (ftl == "rar" || ftl == "zip")

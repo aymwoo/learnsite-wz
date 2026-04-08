@@ -23,6 +23,7 @@ public partial class Teacher_student : System.Web.UI.Page
             if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
             {
                 GradeClass();
+                InitSortDropDown();
                 ShowStudents();
                 profileSet();
                 addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -127,35 +128,57 @@ public partial class Teacher_student : System.Web.UI.Page
             DDLclass.SelectedValue = Session[Hid + "class"].ToString();
         }
     }
+    private void InitSortDropDown()
+    {
+        // 初始化排序下拉框，默认选择按机号排序
+        DDLsort.SelectedValue = "Sseat";
+    }
+
+    protected void DDLsort_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GVStudent.PageIndex = 0;
+        ShowStudents();
+    }
+
     private void ShowStudents()
     {
         int Sgrade = Int32.Parse(DDLgrade.SelectedValue.ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
+        string sortField = DDLsort.SelectedValue;
         LearnSite.BLL.Students stus = new LearnSite.BLL.Students();
-        System.Data.DataSet ds = stus.GetListStudents(Sgrade, Sclass);
-        System.Data.DataTable dt = ds.Tables[0];
-        _totalCount = dt.Rows.Count;
-        Label1.Text = "学生总数" + _totalCount.ToString() + "位";
 
-        if (ViewState["PageIndex"] != null)
-            _currentPage = (int)ViewState["PageIndex"];
+        // 获取学生数据
+        DataSet ds = stus.GetListStudents(Sgrade, Sclass);
 
-        int pageCount = (_totalCount + PageSize - 1) / PageSize;
-        if (_currentPage >= pageCount) _currentPage = Math.Max(0, pageCount - 1);
+        if (ds != null && ds.Tables.Count > 0)
+        {
+            // 确保包含Sseat列
+            if (!ds.Tables[0].Columns.Contains("Sseat"))
+            {
+                ds.Tables[0].Columns.Add("Sseat", typeof(string));
+            }
 
-        LblPageIndex.Text = (_currentPage + 1).ToString();
-        LblPageCount.Text = pageCount.ToString();
-        btnFirst.Enabled = btnPrev.Enabled = _currentPage > 0;
-        btnNext.Enabled = btnLast.Enabled = _currentPage < pageCount - 1;
+            // 从Students表获取每个学生的实际座位信息（优先临时座位）
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                string snum = row["Snum"].ToString();
+                row["Sseat"] = stus.GetActualSeat(snum);
+            }
 
-        System.Data.DataTable page = dt.Clone();
-        int start = _currentPage * PageSize;
-        int end = Math.Min(start + PageSize, _totalCount);
-        for (int i = start; i < end; i++)
-            page.ImportRow(dt.Rows[i]);
+            // 如果选择按机号排序
+            if (sortField == "Sseat")
+            {
+                DataView dv = ds.Tables[0].DefaultView;
+                dv.Sort = "Sseat ASC";
+                DataTable sortedTable = dv.ToTable();
+                ds.Tables.Clear();
+                ds.Tables.Add(sortedTable.Copy());
+            }
+        }
 
-        RptStudent.DataSource = page;
-        RptStudent.DataBind();
+        Label1.Text = "学生总数" + ds.Tables[0].Rows.Count.ToString() + "位";
+        GVStudent.DataSource = ds;
+        GVStudent.DataBind();
         ds.Dispose();
     }
 
@@ -192,7 +215,8 @@ public partial class Teacher_student : System.Web.UI.Page
             LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
             DDLclass.DataSource = rm.GetLimitClass(Rgrade);
             DDLclass.DataBind();
-            ViewState["PageIndex"] = 0;
+            InitSortDropDown();
+            GVStudent.PageIndex = 0;
             ShowStudents();
             profileSet();
             addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -218,11 +242,57 @@ public partial class Teacher_student : System.Web.UI.Page
         profileSet();
         addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
         Labelmsg.Text = "";
+        InitSortDropDown();
     }
     protected void BtnExcel_Click(object sender, EventArgs e)
     {
         LearnSite.BLL.Students stu = new LearnSite.BLL.Students();
         stu.StudentsToExcel();
+    }
+    protected void GVStudent_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        if (e.CommandName.Equals("ChangePwd"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            string myPwd = LearnSite.Common.WordProcess.GenerateRandomNum(2);
+            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
+            bll.UpdateSidPwd(mySid.ToString(), myPwd);
+            ShowStudents();
+            string ch = "你的新密码是：" + myPwd;
+            LearnSite.Common.WordProcess.Alert(ch, this.Page);
+        }
+        if (e.CommandName.Equals("ChangeGroup"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
+            bll.ChangeSleader(mySid);
+            System.Threading.Thread.Sleep(300);
+            ShowStudents();
+        }
+
+        if (e.CommandName.Equals("QuitGroup"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            LearnSite.BLL.Students bll = new LearnSite.BLL.Students();
+            bll.QuitThitGroup(mySid);
+            System.Threading.Thread.Sleep(300);
+            ShowStudents();
+        }
+
+        if (e.CommandName.Equals("EditNum"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentnumedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
+            ClientScript.RegisterStartupScript(this.GetType(), "EditNum", jsstr, true);
+        }
+
+        if (e.CommandName.Equals("EditSeat"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentseatedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
+            ClientScript.RegisterStartupScript(this.GetType(), "EditSeat", jsstr, true);
+        }
+
     }
     protected void BtnSpell_Click(object sender, EventArgs e)
     {

@@ -58,7 +58,26 @@ public partial class Teacher_softadd : System.Web.UI.Page
             soft.Ffiletype = "";
             soft.Furl = "";
             soft.Fhide = CheckBoxFhide.Checked;
-            soft.Fopen = Int32.Parse(DDLopen.SelectedValue);
+            
+            // 根据评分方式设置Fopen值
+            string scoreType = DDLscoreType.SelectedValue;
+            if (scoreType == "comprehensive")
+            {
+                // 综合评分制：使用10000+综合得分
+                int requiredScore = 60;
+                if (!string.IsNullOrEmpty(TXTscore.Text))
+                {
+                    int.TryParse(TXTscore.Text, out requiredScore);
+                    if (requiredScore < 0) requiredScore = 0;
+                    if (requiredScore > 100) requiredScore = 100;
+                }
+                soft.Fopen = 10000 + requiredScore; // 10000+表示综合评分制
+            }
+            else
+            {
+                // 原学分制：直接使用学分值
+                soft.Fopen = Int32.Parse(DDLopen.SelectedValue);
+            }
             
             if (!CheckBoxFhid.Checked)
                 soft.Fhid = Int32.Parse(Fhid);

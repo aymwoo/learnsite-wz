@@ -51,7 +51,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public void Delete(int Tid)
 		{
-			
+
 			dal.Delete(Tid);
 		}
 
@@ -60,7 +60,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.TermTotal GetModel(int Tid)
 		{
-			
+
 			return dal.GetModel(Tid);
 		}
 
@@ -69,7 +69,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.TermTotal GetModelByCache(int Tid)
 		{
-			
+
 			string CacheKey = "TermTotalModel-" + Tid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -125,7 +125,7 @@ namespace LearnSite.BLL
 		{
 			return GetList("");
 		}
-                        
+
         /// <summary>
         /// 生成学期统计表
         /// </summary>
@@ -277,7 +277,7 @@ namespace LearnSite.BLL
         {
             dal.TotalTermExcel(Tyear, Tgrade, Tterm);
         }
-                
+
         /// <summary>
         /// 初始化新增字段TyearTclassTname
         /// </summary>
@@ -286,7 +286,7 @@ namespace LearnSite.BLL
         {
             return dal.initTyearTclassTname();
         }
-                
+
         /// <summary>
         /// 获取入学年度列表
         /// </summary>

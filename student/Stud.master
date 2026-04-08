@@ -207,6 +207,7 @@
         <br />
 		<div class="chatimg"  onclick="showChat()"  title="小组在线聊天" ></div>
 		<div class="robotimg"  title="人工智能对话"   onclick="showRobot()" ></div>
+
     </form>
 </body>
 </html>

@@ -15,7 +15,7 @@ namespace LearnSite.DBUtility
     /// </summary>
     public class DbHelperSQL
     {
-        
+
         public DbHelperSQL()
         {
             //
@@ -60,6 +60,23 @@ namespace LearnSite.DBUtility
             return Convert.ToInt32(res) > 0;
         }
 
+        /// <summary>
+        /// 判断是否存在某表的某个索引
+        /// </summary>
+        /// <param name="tableName">表名称</param>
+        /// <param name="indexName">索引名称</param>
+        /// <returns>是否存在</returns>
+        public static bool IndexExists(string tableName, string indexName)
+        {
+            string sql = "select count(1) from sysindexes where [id]=object_id('" + tableName + "') and [name]='" + indexName + "'";
+            object res = SqlHelper.GetSingleNo(sql);
+            if (res == null)
+            {
+                return false;
+            }
+            return Convert.ToInt32(res) > 0;
+        }
+
         public static void AddColumn(string tableName, string columnName, string columnType, int defaultvalue)
         {
             StringBuilder str = new StringBuilder();
@@ -70,7 +87,29 @@ namespace LearnSite.DBUtility
                 string bb = " default "+defaultvalue;
                 str.Append(bb);
             }
-            
+
+            ExecuteSql(str.ToString());
+        }
+
+        public static void AddColumn(string tableName, string columnName, string columnType, object defaultvalue)
+        {
+            StringBuilder str = new StringBuilder();
+            str.Append(" alter table " + tableName + " add " + columnName + " " + columnType);
+            if (defaultvalue != null)
+            {
+                if (defaultvalue is string)
+                {
+                    str.Append(" default '" + defaultvalue + "'");
+                }
+                else if (defaultvalue is bool)
+                {
+                    str.Append(" default " + (((bool)defaultvalue) ? 1 : 0));
+                }
+                else
+                {
+                    str.Append(" default " + defaultvalue);
+                }
+            }
             ExecuteSql(str.ToString());
         }
 
@@ -261,7 +300,7 @@ namespace LearnSite.DBUtility
             }
         }
 
-        
+
         #endregion
 
 
@@ -363,7 +402,7 @@ namespace LearnSite.DBUtility
              {
                  return obj.ToString();
              }
-    
+
         }
 
         /// <summary>
@@ -477,10 +516,10 @@ namespace LearnSite.DBUtility
             string mysqlb = "update SurveyFeedback set Fsid="+newSid+"  where Fnum='"+Snum+"'";
             DbHelperSQL.ExecuteSql(mysqlb);
 
-            
+
             string mysqlc = "update TopicReply set Rsid="+newSid+"  where Rsnum='"+Snum+"'";
             DbHelperSQL.ExecuteSql(mysqlc);
-                        
+
             string mysqld = "update Signin set Qsid="+newSid+" where Qnum='"+Snum+"'";
             DbHelperSQL.ExecuteSql(mysqld);
 
@@ -499,6 +538,6 @@ namespace LearnSite.DBUtility
             string mysqlj = "update WorksDiscuss set Dsid="+newSid+" where Dsnum='"+Snum+"'";
             DbHelperSQL.ExecuteSql(mysqlj);
         }
-        
+
     }
 }

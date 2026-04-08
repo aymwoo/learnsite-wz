@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using LearnSite.Model;
+using LearnSite.DBUtility;
 namespace LearnSite.BLL
 {
 	/// <summary>
@@ -13,8 +14,8 @@ namespace LearnSite.BLL
 		public Students()
 		{}
 		#region  成员方法
-        
-                
+
+
         /// <summary>
         /// 初始化ztype打字成绩
         /// </summary>
@@ -47,7 +48,7 @@ namespace LearnSite.BLL
         {
             dal.initSwdscore();
         }
-               
+
         /// <summary>
         /// 初始化中文拼音分数总计
         /// </summary>
@@ -77,13 +78,24 @@ namespace LearnSite.BLL
         {
             return dal.GetMaxSnum(Sgrade,Sclass);
         }
-                
+
         /// <summary>
         /// 是否存在该学号
         /// </summary>
         public bool ExistsSnum(string Snum)
         {
             return dal.ExistsSnum(Snum);
+        }
+
+        /// <summary>
+        /// 更新学生学号
+        /// </summary>
+        /// <param name="Sid">学生ID</param>
+        /// /// <param name="newSnum">新学号</param>
+        /// <returns>是否成功</returns>
+        public bool UpdateSnum(int Sid, string newSnum)
+        {
+            return dal.UpdateSnum(Sid, newSnum);
         }
 		/// <summary>
 		/// 是否存在该记录
@@ -92,7 +104,7 @@ namespace LearnSite.BLL
 		{
 			return dal.Exists(Sid);
 		}
-                
+
         /// <summary>
         /// 班级测评情况
         /// </summary>
@@ -166,14 +178,186 @@ namespace LearnSite.BLL
 		}
 
 		/// <summary>
+	/// 更新学生的固定座位信息
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <param name="Seat">座位号</param>
+	public void UpdateFixedSeat(string Snum, string Seat)
+	{
+		dal.UpdateFixedSeat(Snum, Seat);
+	}
+
+	/// <summary>
+	/// 更新学生的固定座位信息（返回是否成功）
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <param name="Seat">座位号</param>
+	/// <returns>是否成功</returns>
+	public bool UpdateFixedSeatBool(string Snum, string Seat)
+	{
+		return dal.UpdateFixedSeat(Snum, Seat);
+	}
+
+	/// <summary>
+	/// 清空班级所有学生的固定IP和座位信息
+	/// </summary>
+	/// <param name="Sgrade">年级</param>
+	/// <param name="Sclass">班级</param>
+	public void ClearAllSeats(int Sgrade, int Sclass)
+	{
+		dal.ClearAllSeats(Sgrade, Sclass);
+	}
+
+	/// <summary>
+	/// 按学号顺序分配班级学生的固定IP和座位（基于机房IP表）
+	/// </summary>
+	/// <param name="Sgrade">年级</param>
+	/// <param name="Sclass">班级</param>
+	/// <param name="HouseId">机房ID</param>
+	/// <returns>分配成功的学生数量</returns>
+	public int AssignSeatsBySnum(int Sgrade, int Sclass, int HouseId)
+	{
+		return dal.AssignSeatsBySnum(Sgrade, Sclass, HouseId);
+	}
+
+	/// <summary>
+	/// 清空指定学生的固定IP和座位信息
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	public void ClearStudentSeat(string Snum)
+	{
+		dal.ClearStudentSeat(Snum);
+	}
+
+	/// <summary>
+	/// 为指定学生分配指定座位
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <param name="HouseId">机房ID</param>
+	/// <param name="SeatNum">座位号</param>
+	/// <returns>是否成功</returns>
+	public bool AssignSeatToStudent(string Snum, int HouseId, int SeatNum)
+	{
+		return dal.AssignSeatToStudent(Snum, HouseId, SeatNum);
+	}
+
+	/// <summary>
+	/// 为学生临时分配座位（只对当前节课有效）
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <param name="TempIp">临时IP</param>
+	/// <param name="TempSeat">临时座位号</param>
+	/// <param name="ExpireMinutes">有效时长（分钟）</param>
+	/// <returns>是否成功</returns>
+	public bool TempAssignSeat(string Snum, string TempIp, string TempSeat, int ExpireMinutes)
+	{
+		return dal.TempAssignSeat(Snum, TempIp, TempSeat, ExpireMinutes);
+	}
+
+	/// <summary>
+	/// 清理过期的临时座位记录
+	/// </summary>
+	/// <param name="Snum">学号，如果为空则清理所有过期记录</param>
+	/// <returns>清理的记录数</returns>
+	public int ClearExpiredTempSeat(string Snum)
+	{
+		return dal.ClearExpiredTempSeat(Snum);
+	}
+
+	/// <summary>
+	/// 清除指定学生的所有临时座位记录（包括未过期的）
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <returns>清除的记录数</returns>
+	public int ClearTempSeat(string Snum)
+	{
+		return dal.ClearTempSeat(Snum);
+	}
+
+	/// <summary>
+	/// 获取学生的有效临时座位信息
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <returns>临时座位信息，如果不存在或已过期则返回null</returns>
+	public System.Data.DataTable GetTempSeat(string Snum)
+	{
+		return dal.GetTempSeat(Snum);
+	}
+
+	/// <summary>
+	/// 获取学生的实际座位号（优先临时座位，其次固定座位）
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <returns>座位号字符串</returns>
+	public string GetActualSeat(string Snum)
+	{
+		// 先检查临时座位
+		DataTable tempSeat = GetTempSeat(Snum);
+		if (tempSeat != null && tempSeat.Rows.Count > 0)
+		{
+			string tempSeatNum = tempSeat.Rows[0]["TempSeat"].ToString();
+			if (!string.IsNullOrEmpty(tempSeatNum))
+			{
+				return tempSeatNum + "(临时)";
+			}
+		}
+
+		// 如果没有临时座位，返回固定座位
+		Model.Students student = SnumGetModel(Snum);
+		if (student != null && !string.IsNullOrEmpty(student.Sseat))
+		{
+			return student.Sseat;
+		}
+
+		return "";
+	}
+
+	/// <summary>
+	/// 获取学生当天签到的机号
+	/// </summary>
+	/// <param name="Snum">学号</param>
+	/// <returns>当天签到机号字符串</returns>
+	public string GetTodayMachine(string Snum)
+	{
+		return dal.GetTodayMachine(Snum);
+	}
+
+	/// <summary>
+	/// 获取所有年级列表
+	/// </summary>
+	public DataSet GetGradeList()
+	{
+		return dal.GetGradeList();
+	}
+
+	/// <summary>
+	/// 根据年级获取班级列表
+	/// </summary>
+	public DataSet GetClassList(int Sgrade)
+	{
+		return dal.GetClassList(Sgrade);
+	}
+
+	/// <summary>
+	/// 从Signin表导入学生登录IP和机号到Students表
+	/// </summary>
+	/// <param name="Sgrade">年级</param>
+	/// <param name="Sclass">班级</param>
+	/// <returns>导入的学生数量</returns>
+	public int ImportSeatsFromSignin(int Sgrade, int Sclass)
+	{
+		return dal.ImportSeatsFromSignin(Sgrade, Sclass);
+	}
+
+	/// <summary>
 		/// 删除一条数据
 		/// </summary>
 		public void Delete(int Sid)
 		{
-			
+
 			dal.Delete(Sid);
 		}
-                
+
         /// <summary>
         /// 根据年级和班级 随机得到该班某个学生一个对象实体
         /// </summary>
@@ -188,7 +372,7 @@ namespace LearnSite.BLL
         {
           return  dal.GetStudentModel(Snum, Spwd);
         }
-                
+
         /// <summary>
         /// 根据学号，得到一个对象实体
         /// </summary>
@@ -196,7 +380,7 @@ namespace LearnSite.BLL
         {
             return dal.SnumGetModel(Snum);
         }
-                
+
         /// <summary>
         /// 根据自动编号返回姓名
         /// </summary>
@@ -206,7 +390,7 @@ namespace LearnSite.BLL
         {
             return dal.GetSnameBySid(Sid);
         }
-                
+
         /// <summary>
         /// 根据学号返回姓名
         /// </summary>
@@ -221,7 +405,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Students GetModel(int Sid)
 		{
-			
+
 			return dal.GetModel(Sid);
 		}
 
@@ -230,7 +414,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Students GetModelByCache(int Sid)
 		{
-			
+
 			string CacheKey = "StudentsModel-" + Sid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -301,7 +485,7 @@ namespace LearnSite.BLL
 		{
 			return GetList("");
 		}
-        
+
         /// <summary>
         /// 获得当前班级学生表现数据列表
         /// </summary>
@@ -364,7 +548,7 @@ namespace LearnSite.BLL
             dal.TermAPE(perA,perE);
         }
 
-                
+
         /// <summary>
         /// 终结性评定
         /// </summary>
@@ -372,7 +556,7 @@ namespace LearnSite.BLL
         {
             dal.TermABCD();
         }
-      
+
         /// <summary>
         /// 最终成绩评定导出Excel表
         /// </summary>
@@ -388,11 +572,19 @@ namespace LearnSite.BLL
             dal.StudentsToExcel();
         }
                 /// <summary>
-        /// 获得学生管理页数据列表
+        /// 按年级和班级分页获取学生列表，支持排序
+        /// </summary>
+        public DataSet GetListStudents(int Sgrade, int Sclass, string sortField)
+        {
+            return dal.GetListStudents(Sgrade, Sclass, sortField);
+        }
+
+        /// <summary>
+        /// 按年级和班级分页获取学生列表（默认按机号排序）
         /// </summary>
         public DataSet GetListStudents(int Sgrade, int Sclass)
         {
-            return dal.GetListStudents(Sgrade, Sclass);
+            return dal.GetListStudents(Sgrade, Sclass, "Qmachine");
         }        
         /// <summary>
         /// 获得本班学生学号和姓名数据列表
@@ -481,7 +673,7 @@ namespace LearnSite.BLL
         {
             return dal.ShowTopScore(Sgrade).Tables[0];
         }
-                
+
         /// <summary>
         /// 显示本班级20条记录
         /// </summary>
@@ -502,7 +694,7 @@ namespace LearnSite.BLL
         {
             return dal.ShowMyclassScore(Sgrade, Sclass);
         }
-                
+
         /// <summary>
         /// 查询学生表的记录总数
         /// </summary>
@@ -521,7 +713,7 @@ namespace LearnSite.BLL
         {
             dal.SetSquiz(Rsid, Squiz);
         }
-               
+
         /// <summary>
         /// 将所有学生的测验统计成绩更新为其测验最高分
         /// </summary>
@@ -578,7 +770,7 @@ namespace LearnSite.BLL
         {
             return dal.ExistsLoginSelf(Snum, Spwd);
         }
-                
+
         /// <summary>
         /// 更新学生表中网页制作成绩
         /// </summary>
@@ -586,18 +778,32 @@ namespace LearnSite.BLL
         {
             dal.UpdateWebScore();
         }
-                
+
         /// <summary>
         /// 登录账号教师所教班级按设定百分比计算总分
         /// </summary>
-        /// <param name="persscore"></param>
-        /// <param name="persquiz"></param>
-        /// <param name="perswscore"></param>
-        /// <param name="perstscore"></param>
-        public void UpdateAllScore(int persscore, int persexam, int perstscore, int perattitude, int Rhid)
+        /// <param name="persscore">作品分组权重</param>
+        /// <param name="persexam">测验权重</param>
+        /// <param name="perstscore">打字技能权重</param>
+        /// <param name="perattitude">表现权重</param>
+        /// <param name="persurvey">调查问卷权重</param>
+        /// <param name="perssignin">签到权重</param>
+        /// <param name="Rhid">教师ID</param>
+        public void UpdateAllScore(int persscore, int persexam, int perstscore, int perattitude, int persurvey, int perssignin, int Rhid)
         {
-            dal.UpdateAllScore(persscore, persexam, perstscore, perattitude, Rhid);
-        }        
+            dal.UpdateAllScore(persscore, persexam, perstscore, perattitude, persurvey, perssignin, Rhid);
+        }
+
+        /// <summary>
+        /// 根据筛选条件更新学生总分
+        /// </summary>
+        public void UpdateAllScoreWithFilter(int persscore, int persquiz, int perstscore, int perattitude, int persurvey, int perssignin, int Rhid,
+                                           bool useWork, bool useGroup, bool useDiscuss, bool useForm, bool useIdle, bool useSurvey)
+        {
+            dal.UpdateAllScoreWithFilter(persscore, persquiz, perstscore, perattitude, persurvey, perssignin, Rhid,
+                                        useWork, useGroup, useDiscuss, useForm, useIdle, useSurvey);
+        }
+
         /// <summary>
         /// 更新学生表的打字成绩
         /// </summary>
@@ -615,7 +821,7 @@ namespace LearnSite.BLL
         {
             dal.UpdateStuclass(Sclass, Snum);
         }
-                
+
         /// <summary>
         /// 根据教师自动编号Hid，返回所教班级的Syear,Sclass数据集
         /// </summary>
@@ -635,7 +841,7 @@ namespace LearnSite.BLL
         {
             return dal.SpwdToSpell(hid, Spwd);
         }
-               
+
         /// <summary>
         /// 初始化Sleader值，数据库升级时用
         /// </summary>
@@ -680,8 +886,8 @@ namespace LearnSite.BLL
         {
             return dal.GroupMember(Sgrade, Sclass, Sgroup);
         } 
-       
-                
+
+
         /// <summary>
         /// 获取本班未参加小组名单
         /// </summary>
@@ -725,7 +931,7 @@ namespace LearnSite.BLL
         {
             return dal.GetGroupCount(Sgrade, Sclass, Sgroup);
         }
-                
+
         /// <summary>
         ///  将该学号非组长同学退组
         /// </summary>
@@ -751,7 +957,7 @@ namespace LearnSite.BLL
         {
             return dal.IsLeader(Snum);
         }
-                
+
         /// <summary>
         /// 是否组长
         /// </summary>
@@ -761,7 +967,7 @@ namespace LearnSite.BLL
         {
             return dal.IsLeaderSid(Sid);
         }
-                
+
         /// <summary>
         /// 获取小组名称
         /// </summary>
@@ -771,7 +977,7 @@ namespace LearnSite.BLL
         {
             return dal.GetSgtitle(Sgroup);
         }
-                
+
         /// <summary>
         /// 更新小组名称
         /// </summary>
@@ -791,7 +997,7 @@ namespace LearnSite.BLL
         {
             return dal.GroupSnum(Snum);
         }
-                
+
         /// <summary>
         /// 获取该学号年级
         /// </summary>
@@ -801,7 +1007,7 @@ namespace LearnSite.BLL
         {
             return dal.GetSgrade(Snum);
         }
-                        
+
         /// <summary>
         /// 根据学号，修改姓名
         /// </summary>
@@ -841,7 +1047,7 @@ namespace LearnSite.BLL
         {
             return dal.UpdateSfscore();
         }
-                
+
         /// <summary>
         /// 更新中文拼音成绩
         /// </summary>
@@ -866,7 +1072,7 @@ namespace LearnSite.BLL
         {
             return dal.GetLeader(Sid);
         }
-                
+
         /// <summary>
         /// 返回小组名称
         /// </summary>
@@ -890,7 +1096,7 @@ namespace LearnSite.BLL
         {
             return dal.NoGroup(Sgrade, Sclass);
         }
-                
+
         /// <summary>
         /// 获取当前班级学号集合用,分隔
         /// </summary>
@@ -901,7 +1107,7 @@ namespace LearnSite.BLL
         {
             return dal.ShowClassSnums(Sgrade, Sclass);
         }
-                
+
         /// <summary>
         /// 获取当前班级学生编号集合用,分隔
         /// </summary>
@@ -941,7 +1147,7 @@ namespace LearnSite.BLL
         {
             return dal.DeleteClassMate(Sgrade, Sclass);
         }
-                
+
         /// <summary>
         /// 汇总表小组统计
         /// </summary>
@@ -953,7 +1159,7 @@ namespace LearnSite.BLL
         {
             return dal.groupscores(Sgrade, Sclass, dttotal,Gcid);
         }
-                
+
         /// <summary>
         /// 获取未参组班级内学生
         /// </summary>
@@ -977,7 +1183,7 @@ namespace LearnSite.BLL
         {
             return dal.Teamer(Sgrade, Sclass, Sgroup, Snum, Sname, Sex);
         }
-                
+
         /// <summary>
         /// 聊天表情图标
         /// </summary>
@@ -998,7 +1204,7 @@ namespace LearnSite.BLL
         {
             return dal.GroupTeam(Sgrade, Sclass, Sgroup);
         }
-                
+
         /// <summary>
         /// 获取本小组成员字符串，以逗号为分隔符
         /// </summary>
@@ -1010,7 +1216,7 @@ namespace LearnSite.BLL
         {
             return dal.GroupSnums(Sgrade, Sclass, Sgroup);
         }
-        
+
         /// <summary>
         /// 获取本小组成员
         /// </summary>
@@ -1044,7 +1250,7 @@ namespace LearnSite.BLL
         {
             return dal.MyGroupSscores(Sgrade, Sclass, Sgroup);
         }
-                
+
         /// <summary>
         /// 初始化小组名称为组长姓名（条件：小组名称为空）
         /// </summary>
@@ -1053,7 +1259,7 @@ namespace LearnSite.BLL
         {
             return dal.InitSgtitle();
         }
-                
+
         /// <summary>
         /// 根据Sid获取组号
         /// </summary>
@@ -1114,6 +1320,31 @@ namespace LearnSite.BLL
         {
             dal.UpdateSidSteam(Sid, Steam);
         }
+
+        /// <summary>
+        /// 获取班级学生统计信息
+        /// </summary>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <param name="term">学期，0表示全部</param>
+        /// <param name="cid">课程ID，0表示全部</param>
+        /// <returns>学生统计DataTable</returns>
+        public DataTable GetStudentStats(int Sgrade, int Sclass, int term, int cid)
+        {
+            return dal.GetStudentStats(Sgrade, Sclass, term, cid);
+        }
+
+        /// <summary>
+        /// 根据年级和班级获取学生列表
+        /// </summary>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <returns>学生列表DataTable</returns>
+        public DataTable GetListByGradeClass(int Sgrade, int Sclass)
+        {
+            return dal.GetListByGradeClass(Sgrade, Sclass);
+        }
+
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>

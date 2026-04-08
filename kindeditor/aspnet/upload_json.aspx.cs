@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web;
 using System.IO;
 using System.Globalization;
@@ -55,12 +56,6 @@ public partial class kindeditor_aspnet_upload_json : System.Web.UI.Page
         //最大文件大小
         int maxSize = 524288000;//500MB
 
-        HttpPostedFile imgFile = Request.Files["imgFile"];
-        if (imgFile == null)
-        {
-            showError("请选择文件。");
-        }
-
         String dirPath = Server.MapPath(savePath);
 
         String dirName = Request.QueryString["dir"];
@@ -73,49 +68,97 @@ public partial class kindeditor_aspnet_upload_json : System.Web.UI.Page
             showError("目录名不正确。");
         }
 
-        String fileName = imgFile.FileName;
-        String fileExt = Path.GetExtension(fileName).ToLower();//包含点的后缀名 如 .jpg
-        if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
+        // 检查是否为批量上传
+        if (Request.Files.Count > 1)
         {
-            showError("上传文件大小超过限制。");
-        }
+            // 批量上传处理
+            List<Hashtable> files = new List<Hashtable>();
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                HttpPostedFile imgFile = Request.Files[i];
+                if (imgFile == null || imgFile.ContentLength == 0)
+                    continue;
 
-        if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
+                String fileName = imgFile.FileName;
+                String fileExt = Path.GetExtension(fileName).ToLower();//包含点的后缀名 如 .jpg
+                if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
+                {
+                    continue; // 跳过超过大小限制的文件
+                }
+
+                if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
+                {
+                    continue; // 跳过不允许的文件类型
+                }
+
+                //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
+                String shortFileName = Path.GetFileName(fileName);
+                String FilterFileName = LearnSite.Common.WordProcess.FilterFileName(shortFileName) + fileExt;
+                
+                if (ty == "Topic") {
+                    String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
+                    FilterFileName = newFileName;
+                }
+                String filePath = dirPath + FilterFileName;
+
+                imgFile.SaveAs(filePath);
+
+                String fileUrl = saveUrl + FilterFileName;
+                Hashtable hash = new Hashtable();
+                hash["error"] = 0;
+                hash["url"] = fileUrl;
+                files.Add(hash);
+            }
+
+            // 返回批量上传结果
+            Hashtable result = new Hashtable();
+            result["error"] = 0;
+            result["files"] = files;
+            Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+            Response.Write(JsonMapper.ToJson(result));
+            Response.End();
+        }
+        else
         {
-            showError("上传文件扩展名是不允许的扩展名。\n只允许" + ((String)extTable[dirName]) + "格式。");
-        }
+            // 单个文件上传处理
+            HttpPostedFile imgFile = Request.Files["imgFile"];
+            if (imgFile == null)
+            {
+                showError("请选择文件。");
+            }
 
-        //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
-        String shortFileName = Path.GetFileName(fileName);
-        String FilterFileName = LearnSite.Common.WordProcess.FilterFileName(shortFileName) + fileExt;
-        
-        /*
-        switch (fileExt)
-        {
-            case ".mp4":
-            case ".flv":
-                FilterFileName = LearnSite.Common.WordProcess.FilterSpecial(FilterFileName);
-                FilterFileName = LearnSite.Common.Gbk2Spell.Chinese.Convert(FilterFileName);
-                break;
-            default:
-                break;//不转换
-        }
-        */
-        if (ty == "Topic") {
-            String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
-            FilterFileName = newFileName;
-        }
-        String filePath = dirPath + FilterFileName;
+            String fileName = imgFile.FileName;
+            String fileExt = Path.GetExtension(fileName).ToLower();//包含点的后缀名 如 .jpg
+            if (imgFile.InputStream == null || imgFile.InputStream.Length > maxSize)
+            {
+                showError("上传文件大小超过限制。");
+            }
 
-        imgFile.SaveAs(filePath);
+            if (String.IsNullOrEmpty(fileExt) || Array.IndexOf(((String)extTable[dirName]).Split(','), fileExt.Substring(1).ToLower()) == -1)
+            {
+                showError("上传文件扩展名是不允许的扩展名。\n只允许" + ((String)extTable[dirName]) + "格式。");
+            }
 
-        String fileUrl = saveUrl + FilterFileName;
-        Hashtable hash = new Hashtable();
-        hash["error"] = 0;
-        hash["url"] = fileUrl;
-        Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
-        Response.Write(JsonMapper.ToJson(hash));
-        Response.End();
+            //String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
+            String shortFileName = Path.GetFileName(fileName);
+            String FilterFileName = LearnSite.Common.WordProcess.FilterFileName(shortFileName) + fileExt;
+            
+            if (ty == "Topic") {
+                String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
+                FilterFileName = newFileName;
+            }
+            String filePath = dirPath + FilterFileName;
+
+            imgFile.SaveAs(filePath);
+
+            String fileUrl = saveUrl + FilterFileName;
+            Hashtable hash = new Hashtable();
+            hash["error"] = 0;
+            hash["url"] = fileUrl;
+            Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+            Response.Write(JsonMapper.ToJson(hash));
+            Response.End();
+        }
     }
 
     private void showError(string message)

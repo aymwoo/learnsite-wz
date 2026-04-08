@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
 
 public partial class Student_myinfo : System.Web.UI.Page
 {
@@ -81,7 +82,7 @@ public partial class Student_myinfo : System.Web.UI.Page
         if (rcids != "")
             allcids = allcids + rcids;
 
-        
+
         LabelCids.Text = LearnSite.Common.WordProcess.SimpleWordsNew(allcids);
     }
     private void shownew()
@@ -190,7 +191,7 @@ public partial class Student_myinfo : System.Web.UI.Page
             string myCid = datakey[0].ToString();
             Literal ps = (Literal)e.Row.FindControl("Process");
             LearnSite.BLL.Courses cbll = new LearnSite.BLL.Courses();
-           
+
             if (!String.IsNullOrEmpty(myCid))
             {
                 int[] score = cbll.Workrecord(myCid);//获取任务完成得分，未完成为-1
@@ -263,7 +264,7 @@ public partial class Student_myinfo : System.Web.UI.Page
         int Qyear=today.Year;
         int Qmonth=today.Month;
         int Qday=today.Day;
-        
+
         LearnSite.BLL.Signin sg = new LearnSite.BLL.Signin();
         DataListonline.DataSource = sg.OnlineToday(cook.Sgrade, cook.Sclass, Qyear, Qmonth, Qday);
         DataListonline.DataBind();
@@ -278,6 +279,70 @@ public partial class Student_myinfo : System.Web.UI.Page
         string Sclass = cook.Sclass.ToString();
         sclass.Text = Sgrade + "." + Sclass + "班";
         sname.Text = Server.UrlDecode(cook.Sname);
+
+        // 获取当天表现分
+        LearnSite.BLL.Signin sgll = new LearnSite.BLL.Signin();
+        int todayAttitude = sgll.GetTodayAttitudeBySnum(mysnum);
+        lblTodayAttitude.Text = todayAttitude.ToString();
+
+        // 获取最新表现评语
+        string latestAttitudeNote = sgll.GetLatestAttitudeNote(mysnum);
+        LabelAttitudeNote.Text = latestAttitudeNote;
+
+        // 从数据库实时获取最新学分和表现分
+        LearnSite.BLL.Students dbll = new LearnSite.BLL.Students();
+        DataSet ds = dbll.GetList("Sid=" + mySid);
+        if (ds != null && ds.Tables[0].Rows.Count > 0)
+        {
+            DataRow dr = ds.Tables[0].Rows[0];
+            int dbSscore = dr["Sscore"] != DBNull.Value ? Convert.ToInt32(dr["Sscore"]) : 0;
+            int dbSattitude = dr["Sattitude"] != DBNull.Value ? Convert.ToInt32(dr["Sattitude"]) : 0;
+            int totalScore = dbSscore + dbSattitude; // 总分 = 学分 + 表现分
+
+            sscore.Text = dbSscore.ToString();
+            sattitude.Text = dbSattitude.ToString();
+            lblTotalScore.Text = totalScore.ToString(); // 显示总分
+
+            // 更新Cook对象中的分数并重新写入Cookie
+            cook.Sscore = dbSscore;
+            cook.Sattitude = dbSattitude;
+
+            // 重新写入Cookie
+            System.Web.HttpCookie StuCookie = new System.Web.HttpCookie(LearnSite.Common.CookieHelp.stuCookieNname);
+            StuCookie.Value = cook.ToStr();
+            string str = LearnSite.Common.XmlHelp.GetStudentCookiesPeriod();
+            if (str == "1")
+            {
+                StuCookie.Expires = DateTime.Now.AddHours(1);
+            }
+            else if (str == "2")
+            {
+                StuCookie.Expires = DateTime.Now.AddHours(2);
+            }
+            else if (str == "3")
+            {
+                StuCookie.Expires = DateTime.Now.AddHours(3);
+            }
+            else if (str == "4")
+            {
+                StuCookie.Expires = DateTime.Now.AddHours(12);
+            }
+            else if (str == "5")
+            {
+                StuCookie.Expires = DateTime.Now.AddDays(1);
+            }
+            StuCookie.Path = "/";
+            StuCookie.HttpOnly = true;
+            StuCookie.Secure = Request.IsSecureConnection;
+            Response.AppendCookie(StuCookie);
+        }
+        else
+        {
+            // 如果数据库查询失败，使用Cookie中的值
+            sscore.Text = cook.Sscore.ToString();
+            sattitude.Text = cook.Sattitude.ToString();
+        }
+
         string ssex = Server.UrlDecode(cook.Sex);
         int Sterm = cook.ThisTerm;
         LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
@@ -294,10 +359,18 @@ public partial class Student_myinfo : System.Web.UI.Page
         {
             Hlwork.Visible = false;
         }
-        LearnSite.BLL.Students dbll = new LearnSite.BLL.Students();
         int Sgroup = dbll.GetSgroup(mySid);
         string Sgtitle = dbll.GetMySgtitle(mySid);//根据自己的组号，获取小组名称
         Labelteam.Text = dbll.GroupTeam(cook.Sgrade, cook.Sclass, Sgroup);
+
+        // 获取学生座位信息
+        string mySeat = dbll.GetActualSeat(cook.Snum);
+        if (string.IsNullOrEmpty(mySeat))
+        {
+            // 如果没有固定座位，尝试获取当天签到机号
+            mySeat = dbll.GetTodayMachine(cook.Snum);
+        }
+        Labelseat.Text = mySeat;
 
         if (Sgtitle != "")
         {

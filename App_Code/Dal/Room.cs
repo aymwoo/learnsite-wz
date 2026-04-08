@@ -51,7 +51,7 @@ namespace LearnSite.DAL
 			SqlParameter[] parameters = {
 					new SqlParameter("@Rid", SqlDbType.Int,4)};
 			parameters[0].Value = Rid;
-            
+
 			return DbHelperSQL.Exists(strSql.ToString(),parameters);
 		}
         /// <summary>
@@ -233,7 +233,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public void Delete(int Rid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Room ");
 			strSql.Append(" where Rid=@Rid ");
@@ -560,7 +560,7 @@ namespace LearnSite.DAL
                         model.Rscratch = false;
                     }
                 }
-                
+
                 if (ds.Tables[0].Rows[0]["Rlogin"] != null && ds.Tables[0].Rows[0]["Rlogin"].ToString() != "")
                 {
                     if ((ds.Tables[0].Rows[0]["Rlogin"].ToString() == "1") || (ds.Tables[0].Rows[0]["Rlogin"].ToString().ToLower() == "true"))
@@ -765,6 +765,25 @@ namespace LearnSite.DAL
 
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
+
+        /// <summary>
+        /// 获取当前教师正在上课的班级（Rset=1）
+        /// </summary>
+        /// <param name="Rhid">教师ID</param>
+        /// <returns>返回年级和班级的DataTable</returns>
+        public DataTable GetCurrentTeachingClass(int Rhid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select Rgrade,Rclass ");
+            strSql.Append(" FROM Room ");
+            strSql.Append(" where Rhid=@Rhid and Rset=1 order by Rgrade,Rclass");
+            SqlParameter[] parameters = {
+					new SqlParameter("@Rhid", SqlDbType.Int,4)};
+            parameters[0].Value = Rhid;
+
+            return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
+        }
+
         /// <summary>
         /// 查询是否有任教班级
         /// </summary>
@@ -994,7 +1013,71 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(sql);
            // string strsql = "UPDATE Students SET Spwd='" + Rpwd + "'  WHERE Sgrade=" + Rgrade + " and  Sclass=" + Rclass;
            // DbHelperSQL.ExecuteSql(strsql);
+
+            // 自动补签功能：为今天已签到但课程信息为空的学生补充课程信息
+            AutoFillSigninCourseInfo(Rgrade, Rclass);
+
             return Rpwd;
+        }
+
+        /// <summary>
+        /// 自动补签功能：为今天已签到但课程信息为空的学生补充课程信息
+        /// 当教师点击"开始上课"后，自动将当前班级今天已签到但Qcid=0的学生补充课程信息
+        /// </summary>
+        /// <param name="Rgrade">年级</param>
+        /// <param name="Rclass">班级</param>
+        private void AutoFillSigninCourseInfo(int Rgrade, int Rclass)
+        {
+            try
+            {
+                DateTime today = DateTime.Now;
+                int year = today.Year;
+                int month = today.Month;
+                int day = today.Day;
+
+                // 获取当前班级的当前课程ID
+                BLL.Room rbll = new BLL.Room();
+                string cidStr = rbll.GetRcid(Rgrade, Rclass);
+
+                if (!string.IsNullOrEmpty(cidStr))
+                {
+                    int cid = Int32.Parse(cidStr);
+
+                    // 获取课程的标题
+                    BLL.Courses cbll = new BLL.Courses();
+                    Model.Courses courseModel = cbll.GetModel(cid);
+                    string ctitle = courseModel != null ? courseModel.Ctitle : "";
+
+                    // 获取当前时间对应的课时（节次）
+                    string csession = LearnSite.Common.TimeSlotHelper.GetCurrentTimeSlot();
+
+                    // 查询今天已签到但Qcid=0的学生，并批量更新
+                    // 注意：只更新今天还没有课程信息的签到记录（Qcid=0且Qtitle和Qsession为空）
+                    string updateSql = string.Format(@"
+                        UPDATE Signin
+                        SET Qcid = {0}, Qtitle = '{1}', Qsession = '{2}'
+                        WHERE Qgrade = {3} AND Qclass = {4}
+                          AND Qyear = {5} AND Qmonth = {6} AND Qday = {7}
+                          AND Qcid = 0
+                          AND (Qtitle = '' OR Qtitle IS NULL)
+                          AND (Qsession = '' OR Qsession IS NULL)",
+                        cid,
+                        ctitle.Replace("'", "''"), // 转义单引号
+                        csession.Replace("'", "''"), // 转义单引号
+                        Rgrade,
+                        Rclass,
+                        year,
+                        month,
+                        day);
+
+                    DbHelperSQL.ExecuteSql(updateSql);
+                }
+            }
+            catch (Exception ex)
+            {
+                // 记录错误日志但不影响主流程
+                // LearnSite.Common.LogHelper.WriteLog("自动补签失败：" + ex.Message);
+            }
         }
         /// <summary>
         /// 根据年级范围和班级最大值，循环生成所有班级数
@@ -1114,10 +1197,11 @@ namespace LearnSite.DAL
             return DbHelperSQL.ExecuteSqlArrayList(mysql);
         }
         /// <summary>
-        /// 班级学生登录IP锁定取反
+        /// 更新班级的固定IP登录开关状态
         /// </summary>
-        /// <param name="Rgrade"></param>
-        /// <param name="Rclass"></param>
+        /// <param name="Rgrade">年级</param>
+        /// <param name="Rclass">班级</param>
+        /// <param name="Rlock">是否开启固定IP登录</param>
         public void UpdateLock(int Rgrade, int Rclass,bool Rlock)
         {
             StringBuilder strSql = new StringBuilder();
@@ -1131,7 +1215,7 @@ namespace LearnSite.DAL
             parameters[0].Value = Rgrade;
             parameters[1].Value = Rclass;
             parameters[2].Value = Rlock;
-            
+
             DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
         }
         /// <summary>
@@ -1143,11 +1227,11 @@ namespace LearnSite.DAL
             DbHelperSQL.ExecuteSql(mysql);
         }
         /// <summary>
-        /// 判断该班级的登录IP是否锁定，如果锁定则返回真
+        /// 判断该班级的固定IP登录模式是否开启
         /// </summary>
-        /// <param name="Rgrade"></param>
-        /// <param name="Rclass"></param>
-        /// <returns></returns>
+        /// <param name="Rgrade">年级</param>
+        /// <param name="Rclass">班级</param>
+        /// <returns>true:已开启固定IP登录; false:未开启</returns>
         public bool IsLoginLock(int Rgrade, int Rclass)
         {
             string mysql = "select count(1) from Room where Rlock=1 and Rgrade=" + Rgrade + " and Rclass=" + Rclass;
@@ -1499,7 +1583,7 @@ namespace LearnSite.DAL
             string mysql = "select  Rchinese from Room where Rgrade=" + Rgrade + " and Rclass=" + Rclass;
             return DbHelperSQL.FindString(mysql);
         }
-        
+
         /// <summary>
         /// 获取Rid
         /// </summary>

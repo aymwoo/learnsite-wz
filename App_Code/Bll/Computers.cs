@@ -35,7 +35,7 @@ namespace LearnSite.BLL
         {
             return dal.CmpRoom();
         }
-                
+
         /// <summary>
         /// 根据Ip获取分配的学号
         /// </summary>
@@ -45,7 +45,7 @@ namespace LearnSite.BLL
         {
             return dal.getIpSnum(ip);
         }
-                
+
         /// <summary>
         /// 清除分配的学号
         /// </summary>
@@ -165,7 +165,7 @@ namespace LearnSite.BLL
 		{
 			return dal.Exists(Pid);
 		}
-                
+
         /// <summary>
         /// 是否存在该记录
         /// </summary>
@@ -187,6 +187,15 @@ namespace LearnSite.BLL
         public string ExistPlock(string Pip)
         {
             return dal.ExistPlock(Pip);
+        }
+		/// <summary>
+        /// 根据主机名（座位号）获取IP
+        /// </summary>
+        /// <param name="Pmachine">主机名/座位号</param>
+        /// <returns>IP地址</returns>
+        public string GetIpByMachine(string Pmachine)
+        {
+            return dal.GetIpByMachine(Pmachine);
         }
 		/// <summary>
         /// 增加一条数据Pip,Pmachine,Plock,Pdate
@@ -217,7 +226,7 @@ namespace LearnSite.BLL
         {
             dal.UnLockAll();
         }
-                
+
         /// <summary>
         /// 将表中Plock值为0，即解锁
         /// </summary>
@@ -271,7 +280,7 @@ namespace LearnSite.BLL
             }
             return isok;
         }
-                        
+
         /// <summary>
         /// 根据Pid更新主机名并锁定
         /// </summary>
@@ -284,10 +293,10 @@ namespace LearnSite.BLL
 		/// </summary>
 		public bool Delete(int Pid)
 		{
-			
+
 			return dal.Delete(Pid);
 		}
-                
+
         /// <summary>
         /// 删除所有数据
         /// </summary>
@@ -295,7 +304,7 @@ namespace LearnSite.BLL
         {
             return dal.DeleteAll();
         }
-                
+
         /// <summary>
         /// 删除该日期之前的记录
         /// </summary>
@@ -324,7 +333,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Computers GetModel(int Pid)
 		{
-			
+
 			return dal.GetModel(Pid);
 		}
 
@@ -333,7 +342,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Computers GetModelByCache(int Pid)
 		{
-			
+
 			string CacheKey = "ComputersModel-" + Pid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -412,7 +421,7 @@ namespace LearnSite.BLL
 		{
 			return GetList("");
 		}
-                
+
         /// <summary>
         /// 获取IP与主机名对应表
         /// </summary>
@@ -422,12 +431,48 @@ namespace LearnSite.BLL
             return dal.GetPipPmachine();
         }
 		/// <summary>
-		/// 分页获取数据列表
+        /// 根据学号获取机器号，优先从Signin表获取，然后从Computers表获取
 		/// </summary>
-		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
-		//{
-			//return dal.GetList(PageSize,PageIndex,strWhere);
-		//}
+        /// <param name="snum">学号</param>
+        /// <returns>机器号</returns>
+        public string GetMachineBySnum(string snum)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(snum))
+                    return string.Empty;
+
+                // 优先从Signin表获取机器号（最新签到记录中的Qmachine）
+                LearnSite.BLL.Signin signinBll = new LearnSite.BLL.Signin();
+                LearnSite.Model.Signin signinModel = signinBll.GetModelm(snum);
+
+                if (signinModel != null && !string.IsNullOrEmpty(signinModel.Qmachine))
+                {
+                    return signinModel.Qmachine;
+                }
+
+                // 如果Signin表中没有获取到，再尝试从Computers表获取
+                string machineName = dal.GetMachineBySnum(snum);
+
+                return machineName;
+            }
+            catch (Exception ex)
+            {
+                // 异常处理
+                return dal.GetMachineBySnum(snum);
+            }
+        }
+
+        /// <summary>
+        /// 获取班级所有电脑IP列表
+        /// </summary>
+        /// <param name="grade">年级</param>
+        /// <param name="classNum">班级</param>
+        /// <returns>电脑列表</returns>
+        public DataTable GetClassComputers(int grade, int classNum)
+        {
+            return dal.GetClassComputers(grade, classNum);
+        }
 
 		#endregion  Method
 	}

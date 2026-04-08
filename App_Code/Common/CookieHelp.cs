@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Web.Security;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -49,6 +50,7 @@ namespace LearnSite.Common
             StuCookie.Expires = DateTime.Now.AddDays(1);
             StuCookie.Path = "/";
             StuCookie.HttpOnly = false; //如果设置为true，则页面使用js无法获取cookie
+            StuCookie.Secure = HttpContext.Current.Request.IsSecureConnection;
             HttpContext.Current.Response.AppendCookie(StuCookie);
 
             if (string.IsNullOrEmpty(Snum)) {
@@ -66,17 +68,19 @@ namespace LearnSite.Common
             {
                 LearnSite.BLL.Signin gbll = new BLL.Signin();
                 LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
+                // 判断该班级是否开启了固定IP登录模式
                 if (rm.IsLoginLock(stumod.Sgrade.Value, stumod.Sclass.Value))
                 {
+                    // 检查当前登录IP是否与学生的固定座位对应的IP一致（如果学生未设置固定座位，则允许登录）
                     if (gbll.IsSameIp(stumod.Snum, logip))
                     {
-                        //如果全班IP登录锁定，如果IP不变 写cookies
+                        //如果固定IP登录模式开启，且IP验证通过，写cookies
                         isset = SetStuCookie(stumod, logip);
                     }
                 }
                 else
                 {
-                    //如果全班IP不锁定，写cookies
+                    //如果未开启固定IP登录模式，直接写cookies
                     isset = SetStuCookie(stumod, logip);
                 }
             }
@@ -150,6 +154,7 @@ namespace LearnSite.Common
                 StuCookie.Expires = StudentCookiesPeriod(str);
                 StuCookie.Path = "/";
                 StuCookie.HttpOnly = true;
+                StuCookie.Secure = HttpContext.Current.Request.IsSecureConnection;
                 HttpContext.Current.Response.AppendCookie(StuCookie);
                 return true;
             }
@@ -166,20 +171,24 @@ namespace LearnSite.Common
         {
             try
             {
+                // 清除主要管理员Cookie
                 ClearCookieByName(mngCookieNname);
                 
-                string[] systemCookies = { "ASP.NET_SessionId" };
+                // 清除相关的系统Cookie
+                string[] systemCookies = { "ASP.NET_SessionId", FormsAuthentication.FormsCookieName };
                 foreach (string cookieName in systemCookies)
                 {
                     ClearCookieByName(cookieName);
                 }
                 
+                // 清除Session
                 if (HttpContext.Current.Session != null)
                 {
                     HttpContext.Current.Session.RemoveAll();
                     HttpContext.Current.Session.Abandon();
                 }
                 
+                // 清除Request.Cookies
                 if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
                 {
                     HttpContext.Current.Request.Cookies.Clear();
@@ -198,20 +207,24 @@ namespace LearnSite.Common
         {
             try
             {
+                // 清除主要教师Cookie
                 ClearCookieByName(teaCookieNname);
                 
-                string[] systemCookies = { "ASP.NET_SessionId" };
+                // 清除相关的系统Cookie
+                string[] systemCookies = { "ASP.NET_SessionId", FormsAuthentication.FormsCookieName };
                 foreach (string cookieName in systemCookies)
                 {
                     ClearCookieByName(cookieName);
                 }
                 
+                // 清除Session
                 if (HttpContext.Current.Session != null)
                 {
                     HttpContext.Current.Session.RemoveAll();
                     HttpContext.Current.Session.Abandon();
                 }
                 
+                // 清除Request.Cookies
                 if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
                 {
                     HttpContext.Current.Request.Cookies.Clear();
@@ -230,20 +243,24 @@ namespace LearnSite.Common
         {
             try
             {
+                // 清除主要学生Cookie
                 ClearCookieByName(stuCookieNname);
                 
-                string[] systemCookies = { "ASP.NET_SessionId" };
+                // 清除相关的系统Cookie
+                string[] systemCookies = { "ASP.NET_SessionId", FormsAuthentication.FormsCookieName };
                 foreach (string cookieName in systemCookies)
                 {
                     ClearCookieByName(cookieName);
                 }
                 
+                // 清除Session
                 if (HttpContext.Current.Session != null)
                 {
                     HttpContext.Current.Session.RemoveAll();
                     HttpContext.Current.Session.Abandon();
                 }
                 
+                // 清除Request.Cookies
                 if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies != null)
                 {
                     HttpContext.Current.Request.Cookies.Clear();
@@ -265,11 +282,16 @@ namespace LearnSite.Common
             {
                 if (HttpContext.Current.Request != null && HttpContext.Current.Request.Cookies[cookieName] != null)
                 {
+                    HttpCookie oldCookie = HttpContext.Current.Request.Cookies[cookieName];
+                    
+                    // 创建新的Cookie用于覆盖
                     HttpCookie clearCookie = new HttpCookie(cookieName, "");
                     clearCookie.Expires = DateTime.Now.AddYears(-1);
                     clearCookie.Path = "/";
                     clearCookie.HttpOnly = true;
+                    clearCookie.Secure = HttpContext.Current.Request.IsSecureConnection;
                     
+                    // 添加到响应中
                     if (HttpContext.Current.Response != null)
                     {
                         HttpContext.Current.Response.Cookies.Add(clearCookie);
@@ -494,6 +516,7 @@ namespace LearnSite.Common
                 TCookies.Expires = DateTime.Now.AddDays(1);
                 TCookies.Path = "/";
                 TCookies.HttpOnly = true;
+                TCookies.Secure = HttpContext.Current.Request.IsSecureConnection;
                 HttpContext.Current.Response.AppendCookie(TCookies);
                 return true;
             }
@@ -527,6 +550,7 @@ namespace LearnSite.Common
                 MCookies.Expires = DateTime.Now.AddDays(1);
                 MCookies.Path = "/";
                 MCookies.HttpOnly = true;
+                MCookies.Secure = HttpContext.Current.Request.IsSecureConnection;
                 HttpContext.Current.Response.AppendCookie(MCookies);
                 return true;
             }
