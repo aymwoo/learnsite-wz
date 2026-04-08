@@ -1,238 +1,162 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="signinmanage.aspx.cs" Inherits="Teacher_signinmanage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
-    <style type="text/css">
-        .manage-container {
-            width: 98%;
-            margin: 0 auto;
+    <style>
+        .signin-page { padding: 24px; }
+        .signin-shell { display: flex; flex-direction: column; gap: 24px; }
+        .signin-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, #0f172a 0%, #7c3aed 52%, #ec4899 100%);
+            color: #fdf2f8;
+            box-shadow: 0 20px 46px rgba(15,23,42,0.16);
         }
-        .header-bar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .signin-hero::after {
+            content: "";
+            position: absolute;
+            right: -48px;
+            top: -48px;
+            width: 210px;
+            height: 210px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+        }
+        .signin-hero__content {
+            position: relative;
+            z-index: 1;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-        .header-bar .title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .header-bar .selector {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header-bar select {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .header-bar .btn-return {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        .header-bar .btn-return:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        .score-panels {
-            display: flex;
             gap: 20px;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
         }
-        .score-panel {
-            flex: 1;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        .signin-hero__title { margin: 0; font-size: 32px; font-weight: 800; }
+        .signin-hero__subtitle { margin: 10px 0 0; max-width: 760px; color: rgba(253,242,248,0.9); line-height: 1.75; }
+        .signin-selectors {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: rgba(15,23,42,0.22);
+            border: 1px solid rgba(255,255,255,0.16);
+        }
+        .signin-select, .signin-btn {
+            height: 40px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+        .signin-select { padding: 0 12px; border: none; color: #0f172a; }
+        .signin-btn {
+            padding: 0 14px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+        }
+        .signin-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.06);
             overflow: hidden;
         }
-        .score-panel.add-panel .panel-header {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-        }
-        .score-panel.sub-panel .panel-header {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-        }
-        .panel-header {
-            color: white;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
+        .signin-empty {
             text-align: center;
+            padding: 48px 20px;
+            color: #64748b;
+            font-size: 16px;
         }
-        .score-display {
+        .signin-empty__icon { font-size: 52px; margin-bottom: 12px; }
+        .signin-panels {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+        .signin-panel {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+        }
+        .signin-panel__head { padding: 18px 20px; color: #fff; font-size: 18px; font-weight: 800; }
+        .signin-panel--add .signin-panel__head { background: linear-gradient(135deg, #059669 0%, #22c55e 100%); }
+        .signin-panel--sub .signin-panel__head { background: linear-gradient(135deg, #dc2626 0%, #f97316 100%); }
+        .signin-score {
             text-align: center;
             padding: 20px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #eee;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
         }
-        .score-number {
-            font-size: 240px;
-            font-weight: bold;
-            line-height: 1;
-        }
-        .score-number.add {
-            color: #11998e;
-        }
-        .score-number.sub {
-            color: #eb3349;
-        }
-        .score-label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-        .panel-body {
-            padding: 15px 20px;
-        }
-        .checkbox-grid {
+        .signin-score__num { font-size: 72px; font-weight: 800; line-height: 1; }
+        .signin-score__num--add { color: #059669; }
+        .signin-score__num--sub { color: #dc2626; }
+        .signin-score__meta { margin-top: 8px; color: #64748b; font-size: 13px; }
+        .signin-panel__body { padding: 20px; }
+        .signin-checks table { width: 100%; }
+        .signin-checks td { padding: 6px 10px 6px 0; }
+        .signin-footer {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 15px;
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #e2e8f0;
         }
-        .checkbox-item {
+        .signin-msg { font-size: 13px; font-weight: 700; }
+        .signin-btn--action {
+            border: none;
+            border-radius: 12px;
+            padding: 11px 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .signin-btn--add { background: #059669; }
+        .signin-btn--sub { background: #dc2626; }
+        .signin-alert {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            background: #f8f9fa;
-            padding: 8px 15px;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding: 18px 20px;
             border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border: 1px solid #fdba74;
         }
-        .checkbox-item:hover {
-            background: #e9ecef;
-        }
-        .checkbox-item.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-        .checkbox-item input {
-            margin-right: 8px;
-            cursor: pointer;
-        }
-        .checkbox-item label {
-            cursor: pointer;
-            font-size: 14px;
-            color: #333;
-        }
-        .panel-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 10px;
-            border-top: 1px solid #eee;
-        }
-        .btn-action {
-            padding: 10px 25px;
+        .signin-alert__title { font-size: 16px; font-weight: 800; color: #9a3412; }
+        .signin-alert__desc { margin-top: 4px; color: #c2410c; font-size: 13px; }
+        .signin-alert__btn {
             border: none;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
+            border-radius: 12px;
+            padding: 11px 16px;
+            background: #ea580c;
+            color: #fff;
+            font-weight: 700;
         }
-        .btn-add {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: white;
-        }
-        .btn-add:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(17, 153, 142, 0.4);
-        }
-        .btn-sub {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-            color: white;
-        }
-        .btn-sub:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(235, 51, 73, 0.4);
-        }
-        .message-label {
-            font-size: 13px;
-            padding: 5px 10px;
-            border-radius: 3px;
-        }
-        .unsign-panel {
-            background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(255, 94, 98, 0.3);
-        }
-        .unsign-panel .unsign-title {
-            font-size: 15px;
-            font-weight: bold;
-        }
-        .unsign-panel .unsign-desc {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-        .btn-unsign {
-            background: white;
-            color: #ff5e62;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 5px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .btn-unsign:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        .grid-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            padding: 15px;
-        }
-        .grid-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .grid-header .select-all {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .grid-header .tip {
-            color: #666;
-            font-size: 13px;
-        }
-        .no-class-tip {
-            text-align: center;
-            padding: 40px;
-            color: #666;
-            font-size: 16px;
-        }
-        .no-class-tip .icon {
-            font-size: 48px;
-            margin-bottom: 15px;
+        .signin-table-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 22px; box-shadow: 0 14px 34px rgba(15,23,42,0.06); }
+        .signin-table-card__head { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:22px 24px 0; flex-wrap:wrap; }
+        .signin-table-card__title { margin:0; font-size:20px; font-weight:800; color:#0f172a; }
+        .signin-table-card__desc { margin:6px 0 0; color:#64748b; font-size:14px; }
+        .signin-table-card__body { padding:22px 24px 24px; }
+        .signin-table-wrap { overflow-x:auto; border-radius:18px; border:1px solid #e2e8f0; }
+        .signin-table-wrap table { width:100%; min-width:1000px; border-collapse:separate; border-spacing:0; }
+        .signin-table-wrap th { position:sticky; top:0; background:#eff6ff; color:#1e3a8a; font-size:13px; font-weight:800; padding:12px 10px; border-bottom:1px solid #dbeafe; text-align:center; }
+        .signin-table-wrap td { padding:11px 10px; border-bottom:1px solid #eef2f7; text-align:center; color:#0f172a; font-size:13px; background:#fff; }
+        .signin-table-wrap tr:nth-child(even) td { background:#fcfdff; }
+        @media (max-width: 980px) { .signin-panels { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            .signin-page { padding:16px; }
+            .signin-hero { padding:22px 20px; }
+            .signin-hero__title { font-size:26px; }
+            .signin-table-card__head, .signin-table-card__body { padding-left:18px; padding-right:18px; }
         }
     </style>
-    
+
     <script type="text/javascript">
         function updateAddScore() {
             var checkboxes = document.getElementById('<%= CBLAddReason.ClientID %>').getElementsByTagName('input');
@@ -240,25 +164,19 @@
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked) {
                     count++;
-                    checkboxes[i].parentElement.classList.add('selected');
-                } else {
-                    checkboxes[i].parentElement.classList.remove('selected');
                 }
             }
             var totalScore = count * 5;
             document.getElementById('<%= lblAddTotal.ClientID %>').innerText = "+" + totalScore;
             document.getElementById('<%= lblAddCount.ClientID %>').innerText = "选中 " + count + " 项，每项5分";
         }
-        
+
         function updateSubScore() {
             var checkboxes = document.getElementById('<%= CBLSubReason.ClientID %>').getElementsByTagName('input');
             var count = 0;
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked) {
                     count++;
-                    checkboxes[i].parentElement.classList.add('selected');
-                } else {
-                    checkboxes[i].parentElement.classList.remove('selected');
                 }
             }
             var totalScore = count * 5;
@@ -266,133 +184,127 @@
             document.getElementById('<%= lblSubCount.ClientID %>').innerText = "选中 " + count + " 项，每项5分";
         }
     </script>
-    
-    <div class="manage-container">
-        <div class="header-bar">
-            <div class="title">签到表现评价</div>
-            <div class="selector">
-                <asp:DropDownList ID="DDLgrade" runat="server" AutoPostBack="True"
-                    onselectedindexchanged="DDLgrade_SelectedIndexChanged">
-                </asp:DropDownList>
-                <span>年级</span>
-                <asp:DropDownList ID="DDLclass" runat="server" AutoPostBack="True"
-                    onselectedindexchanged="DDLclass_SelectedIndexChanged">
-                </asp:DropDownList>
-                <span>班级</span>
-                <asp:Label ID="Lbterm" runat="server"></asp:Label>
-            </div>
-            <asp:Button ID="BtnReturn" runat="server" Text="返回" CssClass="btn-return"
-                onclick="BtnReturn_Click" ToolTip="返回教师管理首页" />
+
+    <div class="signin-page">
+        <div class="signin-shell">
+            <section class="signin-hero">
+                <div class="signin-hero__content">
+                    <div>
+                        <h1 class="signin-hero__title">签到表现评价</h1>
+                        <p class="signin-hero__subtitle">对当前上课班级学生进行批量加分、扣分和未签到扣分处理，并同步查看当天签到名单。</p>
+                    </div>
+                    <div class="signin-selectors">
+                        <asp:DropDownList ID="DDLgrade" runat="server" AutoPostBack="True" onselectedindexchanged="DDLgrade_SelectedIndexChanged" CssClass="signin-select"></asp:DropDownList>
+                        <span>年级</span>
+                        <asp:DropDownList ID="DDLclass" runat="server" AutoPostBack="True" onselectedindexchanged="DDLclass_SelectedIndexChanged" CssClass="signin-select"></asp:DropDownList>
+                        <span>班级</span>
+                        <asp:Label ID="Lbterm" runat="server"></asp:Label>
+                        <asp:Button ID="BtnReturn" runat="server" Text="返回" CssClass="signin-btn" onclick="BtnReturn_Click" ToolTip="返回教师管理首页" />
+                    </div>
+                </div>
+            </section>
+
+            <asp:Panel ID="PanelNoClass" runat="server" Visible="false">
+                <div class="signin-card signin-empty">
+                    <div class="signin-empty__icon">📚</div>
+                    <div>当前没有正在上课的班级，请先在“开始上课”页面选择班级开始上课。</div>
+                </div>
+            </asp:Panel>
+
+            <asp:Panel ID="PanelContent" runat="server" Visible="true">
+                <div class="signin-panels">
+                    <section class="signin-panel signin-panel--add">
+                        <div class="signin-panel__head">批量加分（每项 5 分）</div>
+                        <div class="signin-score">
+                            <div class="signin-score__num signin-score__num--add"><asp:Label ID="lblAddTotal" runat="server">+0</asp:Label></div>
+                            <div class="signin-score__meta"><asp:Label ID="lblAddCount" runat="server">选中 0 项，每项5分</asp:Label></div>
+                        </div>
+                        <div class="signin-panel__body">
+                            <div class="signin-checks">
+                                <asp:CheckBoxList ID="CBLAddReason" runat="server" RepeatLayout="Flow" onclick="updateAddScore()">
+                                    <asp:ListItem Value="路队有序">路队有序</asp:ListItem>
+                                    <asp:ListItem Value="按时签到">按时签到</asp:ListItem>
+                                    <asp:ListItem Value="认真学习">认真学习</asp:ListItem>
+                                    <asp:ListItem Value="爱护公物">爱护公物</asp:ListItem>
+                                    <asp:ListItem Value="保持卫生">保持卫生</asp:ListItem>
+                                    <asp:ListItem Value="遵守纪律">遵守纪律</asp:ListItem>
+                                </asp:CheckBoxList>
+                            </div>
+                            <div class="signin-footer">
+                                <asp:Label ID="lblAddMsg" runat="server" CssClass="signin-msg" ForeColor="#059669"></asp:Label>
+                                <asp:Button ID="BtnAddScore" runat="server" Text="确定加分" CssClass="signin-btn--action signin-btn--add" onclick="BtnAddScore_Click" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="signin-panel signin-panel--sub">
+                        <div class="signin-panel__head">批量扣分（每项 5 分）</div>
+                        <div class="signin-score">
+                            <div class="signin-score__num signin-score__num--sub"><asp:Label ID="lblSubTotal" runat="server">-0</asp:Label></div>
+                            <div class="signin-score__meta"><asp:Label ID="lblSubCount" runat="server">选中 0 项，每项5分</asp:Label></div>
+                        </div>
+                        <div class="signin-panel__body">
+                            <div class="signin-checks">
+                                <asp:CheckBoxList ID="CBLSubReason" runat="server" RepeatLayout="Flow" onclick="updateSubScore()">
+                                    <asp:ListItem Value="迟到">迟到</asp:ListItem>
+                                    <asp:ListItem Value="早退">早退</asp:ListItem>
+                                    <asp:ListItem Value="无故缺席">无故缺席</asp:ListItem>
+                                    <asp:ListItem Value="课堂讲话">课堂讲话</asp:ListItem>
+                                    <asp:ListItem Value="影响秩序">影响秩序</asp:ListItem>
+                                    <asp:ListItem Value="卫生欠佳">卫生欠佳</asp:ListItem>
+                                </asp:CheckBoxList>
+                            </div>
+                            <div class="signin-footer">
+                                <asp:Label ID="lblSubMsg" runat="server" CssClass="signin-msg" ForeColor="#dc2626"></asp:Label>
+                                <asp:Button ID="BtnSubScore" runat="server" Text="确定扣分" CssClass="signin-btn--action signin-btn--sub" onclick="BtnSubScore_Click" />
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="signin-alert">
+                    <div>
+                        <div class="signin-alert__title">未签到统一扣分</div>
+                        <div class="signin-alert__desc">对当前班级今天未签到学生统一扣除 30 分，并记录“未签到扣分”。</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+                        <asp:Label ID="lblUnSignMsg" runat="server" CssClass="signin-msg" ForeColor="#c2410c"></asp:Label>
+                        <asp:Button ID="BtnUnSignSub" runat="server" Text="执行未签到扣分" CssClass="signin-alert__btn" onclick="BtnUnSignSub_Click" />
+                    </div>
+                </div>
+
+                <section class="signin-table-card">
+                    <div class="signin-table-card__head">
+                        <div>
+                            <h2 class="signin-table-card__title">今日签到列表</h2>
+                            <p class="signin-table-card__desc">勾选学生后可执行上方批量加分或扣分操作。</p>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:13px;font-weight:700;">
+                            <asp:CheckBox ID="CBSelectAll" runat="server" AutoPostBack="True" OnCheckedChanged="CBSelectAll_CheckedChanged" />
+                            全选本页
+                        </div>
+                    </div>
+                    <div class="signin-table-card__body">
+                        <div class="signin-table-wrap">
+                            <asp:GridView ID="GVSignin" runat="server" AutoGenerateColumns="False" Width="100%" AllowPaging="True" PageSize="30" DataKeyNames="Qid" onpageindexchanging="GVSignin_PageIndexChanging">
+                                <Columns>
+                                    <asp:TemplateField HeaderText="选择">
+                                        <ItemTemplate><asp:CheckBox ID="CBSelect" runat="server" /></ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:BoundField HeaderText="序号" DataField="RowNum" />
+                                    <asp:BoundField HeaderText="学号" DataField="Snum" />
+                                    <asp:BoundField HeaderText="姓名" DataField="Sname" />
+                                    <asp:BoundField HeaderText="座位" DataField="Sseat" />
+                                    <asp:BoundField HeaderText="签到时间" DataField="Qtime" />
+                                    <asp:BoundField HeaderText="表现分" DataField="Qattitude" />
+                                    <asp:BoundField HeaderText="加分原因" DataField="Qgood" />
+                                    <asp:BoundField HeaderText="扣分原因" DataField="Qbad" />
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </div>
+                </section>
+            </asp:Panel>
         </div>
-
-        <asp:Panel ID="PanelNoClass" runat="server" Visible="false">
-            <div class="no-class-tip">
-                <div class="icon">📚</div>
-                <div>当前没有正在上课的班级，请先在"开始上课"页面选择班级开始上课</div>
-            </div>
-        </asp:Panel>
-
-        <asp:Panel ID="PanelContent" runat="server" Visible="true">
-            <div class="score-panels">
-                <div class="score-panel add-panel">
-                    <div class="panel-header">批量加分（每项5分）</div>
-                    <div class="score-display">
-                        <div class="score-number add"><asp:Label ID="lblAddTotal" runat="server">+0</asp:Label></div>
-                        <div class="score-label"><asp:Label ID="lblAddCount" runat="server">选中 0 项，每项5分</asp:Label></div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="checkbox-grid">
-                            <asp:CheckBoxList ID="CBLAddReason" runat="server" RepeatLayout="Flow" onclick="updateAddScore()">
-                                <asp:ListItem Value="路队有序">路队有序</asp:ListItem>
-                                <asp:ListItem Value="按时签到">按时签到</asp:ListItem>
-                                <asp:ListItem Value="认真学习">认真学习</asp:ListItem>
-                                <asp:ListItem Value="爱护公物">爱护公物</asp:ListItem>
-                                <asp:ListItem Value="保持卫生">保持卫生</asp:ListItem>
-                                <asp:ListItem Value="遵守纪律">遵守纪律</asp:ListItem>
-                            </asp:CheckBoxList>
-                        </div>
-                        <div class="panel-footer">
-                            <asp:Label ID="lblAddMsg" runat="server" CssClass="message-label" ForeColor="#11998e"></asp:Label>
-                            <asp:Button ID="BtnAddScore" runat="server" Text="确定加分" CssClass="btn-action btn-add"
-                                onclick="BtnAddScore_Click" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="score-panel sub-panel">
-                    <div class="panel-header">批量减分（每项5分）</div>
-                    <div class="score-display">
-                        <div class="score-number sub"><asp:Label ID="lblSubTotal" runat="server">-0</asp:Label></div>
-                        <div class="score-label"><asp:Label ID="lblSubCount" runat="server">选中 0 项，每项5分</asp:Label></div>
-                    </div>
-                    <div class="panel-body">
-                        <div class="checkbox-grid">
-                            <asp:CheckBoxList ID="CBLSubReason" runat="server" RepeatLayout="Flow" onclick="updateSubScore()">
-                                <asp:ListItem Value="路队喧闹">路队喧闹</asp:ListItem>
-                                <asp:ListItem Value="没有签到">没有签到</asp:ListItem>
-                                <asp:ListItem Value="不爱学习">不爱学习</asp:ListItem>
-                                <asp:ListItem Value="大声喧哗">大声喧哗</asp:ListItem>
-                                <asp:ListItem Value="损坏设备">损坏设备</asp:ListItem>
-                                <asp:ListItem Value="偷吃东西">偷吃东西</asp:ListItem>
-                                <asp:ListItem Value="乱扔垃圾">乱扔垃圾</asp:ListItem>
-                                <asp:ListItem Value="不放桌椅">不放桌椅</asp:ListItem>
-                            </asp:CheckBoxList>
-                        </div>
-                        <div class="panel-footer">
-                            <asp:Label ID="lblSubMsg" runat="server" CssClass="message-label" ForeColor="#eb3349"></asp:Label>
-                            <asp:Button ID="BtnSubScore" runat="server" Text="确定减分" CssClass="btn-action btn-sub"
-                                onclick="BtnSubScore_Click" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="unsign-panel">
-                <div>
-                    <div class="unsign-title">未签到学生操作</div>
-                    <div class="unsign-desc">为当前班级今天未签到的学生减30分</div>
-                </div>
-                <div>
-                    <asp:Button ID="BtnUnSignSub" runat="server" Text="未签到学生减30分" CssClass="btn-unsign"
-                        onclick="BtnUnSignSub_Click" ToolTip="为所有未签到的学生减30分" />
-                    <asp:Label ID="lblUnSignMsg" runat="server" style="margin-left:15px; font-size:13px;"></asp:Label>
-                </div>
-            </div>
-
-            <div class="grid-container">
-                <div class="grid-header">
-                    <div class="select-all">
-                        <asp:CheckBox ID="CBSelectAll" runat="server" AutoPostBack="True"
-                            oncheckedchanged="CBSelectAll_CheckedChanged" Text="全选" />
-                    </div>
-                    <div class="tip">提示：勾选学生后可进行批量加减分操作</div>
-                </div>
-                <asp:GridView ID="GVSignin" runat="server" AllowPaging="True"
-                    AutoGenerateColumns="False" PageSize="50" Width="100%"
-                    onpageindexchanging="GVSignin_PageIndexChanging"
-                    CellPadding="8" DataKeyNames="Qid" GridLines="Both" 
-                    BorderColor="#e0e0e0" BorderStyle="Solid" BorderWidth="1px">
-                    <HeaderStyle BackColor="#f5f5f5" ForeColor="#333" Font-Bold="true" Height="35px" />
-                    <RowStyle Height="32px" />
-                    <AlternatingRowStyle BackColor="#fafafa" />
-                    <PagerStyle Height="35px" />
-                    <Columns>
-                        <asp:TemplateField HeaderText="选择" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="50px">
-                            <ItemTemplate>
-                                <asp:CheckBox ID="CBSelect" runat="server" />
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:BoundField HeaderText="序号" DataField="RowNum" ItemStyle-Width="50px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="学号" DataField="Qnum" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="姓名" DataField="Sname" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="签到时间" DataField="Qdate" ItemStyle-Width="150px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="座位号" DataField="Qmachine" ItemStyle-Width="100px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="IP地址" DataField="Qip" ItemStyle-Width="120px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="学习表现" DataField="Qattitude" ItemStyle-Width="80px" ItemStyle-HorizontalAlign="Center" />
-                        <asp:BoundField HeaderText="备注" DataField="Qnote" />
-                    </Columns>
-                </asp:GridView>
-            </div>
-        </asp:Panel>
     </div>
 </asp:Content>

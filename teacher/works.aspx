@@ -1,7 +1,222 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher" AutoEventWireup="true" CodeFile="works.aspx.cs" Inherits="Teacher_works" ResponseEncoding="utf-8" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <link rel="stylesheet" type="text/css" href="../webform/bootstrap-icons.min.css" />
-    
+
+    <style>
+        .course-page { padding: 24px; }
+        .course-shell { display: flex; flex-direction: column; gap: 24px; }
+        .course-hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, #0f172a 0%, #4338ca 48%, #7c3aed 100%);
+            color: #eef2ff;
+            box-shadow: 0 20px 46px rgba(15, 23, 42, 0.16);
+        }
+        .course-hero::after {
+            content: "";
+            position: absolute;
+            top: -48px;
+            right: -52px;
+            width: 220px;
+            height: 220px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+        }
+        .course-hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+        .course-eyebrow {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.14);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .course-title { margin: 14px 0 0; font-size: 34px; font-weight: 800; letter-spacing: 0.04em; }
+        .course-subtitle { margin: 10px 0 0; max-width: 760px; color: rgba(238, 242, 255, 0.9); line-height: 1.75; }
+        .course-hero-action { display: flex; gap: 12px; flex-wrap: wrap; }
+        .course-secondary-btn, .course-primary-btn {
+            border-radius: 14px;
+            padding: 11px 16px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .course-secondary-btn {
+            background: rgba(255,255,255,0.96);
+            border: 1px solid #c7d2fe;
+            color: #4338ca;
+        }
+        .course-primary-btn {
+            background: #22c55e;
+            border: 1px solid #4ade80;
+            color: #052e16;
+        }
+        .course-secondary-btn:hover, .course-primary-btn:hover { transform: translateY(-1px); }
+        .course-toolbar, .course-table-panel {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 22px;
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+        }
+        .course-toolbar { padding: 22px 24px; }
+        .course-toolbar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .course-field {
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #f8fbff 0%, #eff6ff 100%);
+            border: 1px solid #dbeafe;
+        }
+        .course-field-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 700;
+        }
+        .course-select {
+            min-width: 88px;
+            height: 42px;
+            padding: 0 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            background: #fff;
+            color: #0f172a;
+            font-weight: 700;
+        }
+        .course-note {
+            display: inline-flex;
+            align-items: center;
+            min-height: 42px;
+            padding: 0 14px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #1e40af;
+            font-weight: 800;
+        }
+        .course-table-panel { overflow: hidden; }
+        .course-table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 22px 24px 0;
+        }
+        .course-table-title { margin: 0; font-size: 20px; font-weight: 800; color: #0f172a; }
+        .course-table-desc { margin: 6px 0 0; color: #64748b; font-size: 14px; }
+        .course-table-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4338ca;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .course-table-wrap {
+            padding: 22px 24px 24px;
+            overflow-x: auto;
+        }
+        .course-grid {
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 920px;
+        }
+        .course-grid th {
+            position: sticky;
+            top: 0;
+            background: #eff6ff;
+            color: #1e3a8a;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 12px 10px;
+            border-bottom: 1px solid #dbeafe;
+        }
+        .course-grid td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #eef2f7;
+            background: #fff;
+            color: #0f172a;
+            font-size: 13px;
+        }
+        .course-grid tr:nth-child(even) td { background: #fcfdff; }
+        .course-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 38px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+        .course-badge-warning { background: #fff7ed; color: #c2410c; }
+        .course-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            background: #eef2ff;
+            color: #4338ca;
+            text-decoration: none;
+        }
+        .course-pager {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 16px 0 4px;
+        }
+        .course-pager a, .course-pager span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+        }
+        .course-pager a {
+            padding: 0 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            color: #334155 !important;
+            text-decoration: none;
+            font-weight: 700;
+        }
+        @media (max-width: 820px) {
+            .course-toolbar-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            .course-page { padding: 16px; }
+            .course-hero { padding: 22px 20px; }
+            .course-title { font-size: 28px; }
+            .course-toolbar, .course-table-wrap { padding-left: 18px; padding-right: 18px; }
+            .course-table-header { padding-left: 18px; padding-right: 18px; }
+        }
+    </style>
 
     <div class="course-page">
         <div class="course-shell">

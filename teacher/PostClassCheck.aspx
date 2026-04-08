@@ -1,62 +1,121 @@
-<%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/teacher/Teach.master" %>
 <%@ Import Namespace="System.Collections.Generic" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="LearnSite.DAL" %>
 <%@ Import Namespace="LearnSite.BLL" %>
 <%@ Import Namespace="LearnSite.Model" %>
 
-<!DOCTYPE html>
-<html>
-<head>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <meta charset="utf-8" />
-    <title>课后检查登记</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        .pc-page,
+        .pc-page * {
             box-sizing: border-box;
         }
-        body {
+        .pc-page {
             font-family: Microsoft YaHei, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            color: #0f172a;
+        }
+        .hero {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, #0f172a 0%, #7c3aed 52%, #ec4899 100%);
+            color: #fdf2f8;
+            box-shadow: 0 20px 46px rgba(15,23,42,0.16);
+            margin-bottom: 24px;
+        }
+        .hero::after {
+            content: "";
+            position: absolute;
+            right: -48px;
+            top: -48px;
+            width: 210px;
+            height: 210px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.08);
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            color: #fdf2f8;
+        }
+        .hero-title {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .hero-title strong {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+        }
+        .hero-title span {
+            margin-top: 6px;
+            max-width: 760px;
+            color: rgba(253,242,248,0.9);
+            font-size: 15px;
+            line-height: 1.75;
+        }
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: rgba(15,23,42,0.22);
+            border: 1px solid rgba(255,255,255,0.16);
+        }
+        .hero-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 14px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.16);
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.18s ease;
+        }
+        .hero-link:hover {
+            background: rgba(255,255,255,0.2);
         }
         .container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-        }
-        .header {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        h1 {
-            color: #333;
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            color: #666;
-            font-size: 16px;
+            padding: 24px;
         }
         
         /* 主操作区 */
         .check-panel {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+            margin-bottom: 24px;
         }
         .panel-title {
             font-size: 20px;
-            color: #333;
+            font-weight: 800;
+            color: #0f172a;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 1px solid #e2e8f0;
         }
         
         /* 输入区 */
@@ -67,9 +126,10 @@
             margin-bottom: 30px;
         }
         .machine-input {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 12px;
+            background: linear-gradient(180deg, #f8fbff 0%, #eff6ff 100%);
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid #dbeafe;
         }
         .input-group {
             margin-bottom: 20px;
@@ -96,14 +156,14 @@
         .btn-query {
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 500;
+            font-weight: 700;
         }
         .btn-query:hover {
             transform: translateY(-2px);
@@ -112,10 +172,10 @@
         
         /* 学生信息显示 */
         .student-info {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #06b6d4 100%);
             color: white;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 18px;
             display: none;
         }
         .student-info.show {
@@ -165,9 +225,9 @@
             gap: 15px;
         }
         .reason-card {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
             padding: 20px;
             cursor: pointer;
             transition: all 0.3s;
@@ -178,8 +238,8 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         .reason-card.selected {
-            background: #667eea;
-            border-color: #667eea;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-color: #2563eb;
             color: white;
         }
         .reason-icon {
@@ -204,10 +264,10 @@
         .btn-submit {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
@@ -251,9 +311,10 @@
         /* 记录列表 */
         .records-panel {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.06);
         }
         .records-header {
             display: flex;
@@ -262,27 +323,29 @@
             margin-bottom: 20px;
         }
         .records-count {
-            background: #667eea;
+            background: #eff6ff;
             color: white;
             padding: 8px 16px;
-            border-radius: 20px;
+            border-radius: 999px;
             font-size: 14px;
+            color: #2563eb;
+            font-weight: 800;
         }
         table {
             width: 100%;
             border-collapse: collapse;
         }
         th {
-            background: #f8f9fa;
+            background: #eff6ff;
             padding: 15px;
             text-align: left;
-            font-weight: 600;
-            color: #555;
-            border-bottom: 2px solid #e0e0e0;
+            font-weight: 800;
+            color: #1e3a8a;
+            border-bottom: 1px solid #dbeafe;
         }
         td {
             padding: 15px;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #eef2f7;
         }
         tr:hover {
             background: #f8f9fa;
@@ -331,10 +394,11 @@
         /* 座位排列 */
         .classroom-panel {
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            padding: 24px;
+            border-radius: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 14px 34px rgba(15,23,42,0.06);
+            margin-bottom: 24px;
         }
         .classroom-grid {
             display: grid;
@@ -343,9 +407,9 @@
             margin-top: 20px;
         }
         .seat {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
@@ -388,8 +452,9 @@
         .batch-actions {
             margin-top: 20px;
             padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            background: linear-gradient(180deg, #fff7ed 0%, #ffedd5 100%);
+            border: 1px solid #fdba74;
+            border-radius: 18px;
             display: none;
         }
         .batch-actions.show {
@@ -397,16 +462,64 @@
         }
         .batch-actions h3 {
             margin-bottom: 15px;
-            color: #333;
+            color: #9a3412;
+        }
+        @media (max-width: 900px) {
+            .container {
+                padding: 16px;
+            }
+            .header,
+            .check-panel,
+            .classroom-panel,
+            .records-panel {
+                padding: 20px;
+            }
+            .input-section {
+                grid-template-columns: 1fr;
+            }
+            .student-details {
+                grid-template-columns: 1fr;
+            }
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .classroom-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            .hero {
+                padding: 22px 20px;
+            }
+            .hero-title strong {
+                font-size: 26px;
+            }
+            .hero-title span {
+                font-size: 14px;
+            }
+            .classroom-grid,
+            .quick-actions,
+            .reason-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
-</head>
-<body>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
+    <div class="pc-page">
     <div class="container">
-        <!-- 页面标题 -->
-        <div class="header">
-            <h1>📋 课后检查登记</h1>
-            <p class="subtitle">检查学生下课后机位情况，登记扣分并计入学生能量</p>
+        <div class="hero">
+            <div class="hero-inner">
+                <div class="hero-title">
+                <strong>课后检查中心</strong>
+                <span>统一风格页面 · 座位巡检、扣分登记与当日记录</span>
+                </div>
+                <div class="hero-actions">
+                    <a href="teachermanage.aspx" class="hero-link">返回管理页</a>
+                    <a href="start.aspx" class="hero-link">返回课堂启动</a>
+                </div>
+            </div>
         </div>
 
         <% 
@@ -521,7 +634,7 @@
 
             <h2 class="panel-title">🏫 选择班级</h2>
             
-            <form method="post" id="classForm">
+            <div id="classForm">
                 <div class="input-section">
                     <div class="machine-input">
                         <div class="input-group">
@@ -548,12 +661,12 @@
                                 <option value="6" <%= Request.Form["classNum"] == "6" ? "selected" : "" %>>6班</option>
                             </select>
                         </div>
-                        <button type="submit" name="action" value="loadClass" class="btn-query">
+                        <button type="submit" name="action" value="loadClass" class="btn-query" onclick="this.form.action.value='loadClass';">
                             📋 加载班级学生
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!-- 座位排列 -->
@@ -612,7 +725,7 @@
             <!-- 批量操作 -->
             <div class="batch-actions" id="batchActions">
                 <h3>📋 批量操作</h3>
-                <form method="post" id="batchForm">
+                <div id="batchForm">
                     <input type="hidden" name="action" value="batchSubmit" />
                     <input type="hidden" name="grade" value="<%= grade %>" />
                     <input type="hidden" name="classNum" value="<%= classNum %>" />
@@ -631,10 +744,10 @@
                         </select>
                     </div>
                     
-                    <button type="submit" class="btn-submit" id="batchSubmitBtn" disabled>
+                    <button type="submit" class="btn-submit" id="batchSubmitBtn" disabled onclick="this.form.action.value='batchSubmit';">
                         ⚠️ 请先选择学生和扣分原因
                     </button>
-                </form>
+                </div>
             </div>
         </div>
         <% } %>
@@ -670,7 +783,7 @@
                 </div>
                 
                 <!-- 扣分表单 -->
-                <form method="post" id="singleSubmitForm" style="margin-top: 30px;">
+                <div id="singleSubmitForm" style="margin-top: 30px;">
                     <input type="hidden" name="action" value="submit" />
                     <input type="hidden" name="machineNum" id="hiddenMachineNum" />
                     <input type="hidden" name="studentNum" id="hiddenStudentNum" />
@@ -712,10 +825,10 @@
                         </div>
                     </div>
                     
-                    <button type="submit" class="btn-submit" id="singleSubmitBtn" disabled>
+                    <button type="submit" class="btn-submit" id="singleSubmitBtn" disabled onclick="this.form.action.value='submit';">
                         ⚠️ 请先选择扣分原因
                     </button>
-                </form>
+                </div>
             </div>
         </div>
 
@@ -859,5 +972,5 @@
             }
         });
     </script>
-</body>
-</html>
+    </div>
+</asp:Content>
