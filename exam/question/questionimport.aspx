@@ -2,38 +2,46 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <style>
-        .import-container { padding: 20px; }
-        .import-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
-        .import-header h2 { margin: 0; }
-        .import-form { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e8e8e8; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
-        .form-group input, .form-group select, .form-group textarea { 
-            width: 100%; padding: 10px; border: 1px solid #d9d9d9; border-radius: 4px; font-size: 14px;
-        }
-        .form-group textarea { min-height: 300px; font-family: Consolas, Monaco, monospace; font-size: 13px; }
-        .btn { display: inline-block; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-right: 10px; }
-        .btn-primary { background: #1890ff; color: #fff; }
-        .btn-primary:hover { background: #40a9ff; }
-        .btn-default { background: #f0f0f0; color: #333; }
-        .btn-default:hover { background: #d9d9d9; }
-        .help-box { background: #f5f5f5; padding: 15px; border-radius: 4px; margin-bottom: 20px; }
-        .help-box h4 { margin: 0 0 10px 0; color: #333; }
-        .help-box p { margin: 5px 0; color: #666; font-size: 13px; }
-        .help-box code { background: #e8e8e8; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
-        .help-box pre { background: #fff; padding: 10px; border-radius: 4px; overflow-x: auto; font-size: 12px; margin: 10px 0; }
-        .result-box { margin-top: 20px; padding: 15px; border-radius: 4px; }
-        .result-success { background: #f6ffed; border: 1px solid #b7eb8f; color: #52c41a; }
-        .result-error { background: #fff2f0; border: 1px solid #ffccc7; color: #ff4d4f; }
-        .result-warning { background: #fffbe6; border: 1px solid #ffe58f; color: #faad14; }
-        .stats { margin-top: 10px; padding: 10px; background: #fff; border-radius: 4px; }
-        .stats span { margin-right: 20px; }
+        .import-page { min-height: calc(100vh - 8rem); padding: 1.5rem; background: #f8fafc; }
+        .import-shell { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+        .import-hero, .help-box, .import-form, .result-box, .error-panel { border: 1px solid rgba(148, 163, 184, 0.18); border-radius: 1.25rem; background: #ffffff; box-shadow: 0 12px 32px -28px rgba(15, 23, 42, 0.28); }
+        .import-hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+        .import-title { margin: 0; color: #0f172a; font-size: 1.625rem; font-weight: 700; }
+        .import-subtitle { margin: 0.75rem 0 0; color: #475569; font-size: 0.95rem; line-height: 1.7; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .page-btn, .form-actions input, .hero-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 1px solid transparent; border-radius: 0.9rem; font-size: 0.875rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s ease; }
+        .page-btn-primary, .form-actions input[id$='btnImport'] { background: #2563eb; color: #ffffff; box-shadow: 0 10px 20px -14px rgba(37, 99, 235, 0.85); }
+        .page-btn-secondary, .form-actions input[id$='btnClear'], .form-actions input[id$='btnContinue'], .hero-actions a { background: #ffffff; color: #475569; border-color: #cbd5e1; }
+        .help-box, .import-form, .error-panel { padding: 1.5rem; }
+        .help-box h4 { margin: 0 0 1rem 0; color: #0f172a; font-size: 1rem; }
+        .help-box p { margin: 0.35rem 0; color: #475569; font-size: 0.88rem; line-height: 1.7; }
+        .help-box pre { background: #f8fafc; padding: 1rem; border-radius: 0.9rem; overflow-x: auto; font-size: 0.78rem; color: #334155; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.45rem; color: #334155; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 0.9rem; border: 1px solid #cbd5e1; border-radius: 0.9rem; font-size: 0.875rem; background: #f8fafc; box-sizing: border-box; }
+        .form-group textarea { min-height: 320px; font-family: Consolas, Monaco, monospace; font-size: 0.82rem; }
+        .form-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+        .result-box { padding: 1.5rem; }
+        .result-success { background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%); color: #15803d; }
+        .result-error { background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%); color: #dc2626; }
+        .result-warning { background: linear-gradient(135deg, #fffbeb 0%, #fffef7 100%); color: #d97706; }
+        .stats { margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.8); border-radius: 0.9rem; }
+        .stats span { margin-right: 1.25rem; }
+        .error-panel { margin-top: 1.25rem; }
+        @media (max-width: 900px) { .import-page { padding: 1rem; } .import-hero { flex-direction: column; } }
     </style>
 
-    <div class="import-container">
-        <div class="import-header">
-            <h2><asp:Literal ID="ltlBankName" runat="server"></asp:Literal> - 批量导入题目</h2>
-        </div>
+    <div class="import-page">
+        <div class="import-shell">
+        <section class="import-hero">
+            <div>
+                <h2 class="import-title"><asp:Literal ID="ltlBankName" runat="server"></asp:Literal> - 批量导入题目</h2>
+                <p class="import-subtitle">支持按约定格式一次性导入多种题型，减少重复录入成本，并保持题库维护页的视觉一致性。</p>
+            </div>
+            <div class="hero-actions">
+                <a href="questionlist.aspx?bankId=<%= BankId %>" class="page-btn page-btn-secondary">返回列表</a>
+            </div>
+        </section>
 
         <asp:Panel ID="pnlImport" runat="server">
             <div class="help-box">
@@ -76,9 +84,9 @@
                 </div>
 
                 <div class="form-actions">
-                    <asp:Button ID="btnImport" runat="server" Text="开始导入" CssClass="btn btn-primary" OnClick="btnImport_Click" />
-                    <a href="questionlist.aspx?bankId=<%= BankId %>" class="btn btn-default">返回列表</a>
-                    <asp:Button ID="btnClear" runat="server" Text="清空内容" CssClass="btn btn-default" OnClick="btnClear_Click" />
+                    <asp:Button ID="btnImport" runat="server" Text="开始导入" CssClass="page-btn page-btn-primary" OnClick="btnImport_Click" />
+                    <a href="questionlist.aspx?bankId=<%= BankId %>" class="page-btn page-btn-secondary">返回列表</a>
+                    <asp:Button ID="btnClear" runat="server" Text="清空内容" CssClass="page-btn page-btn-secondary" OnClick="btnClear_Click" />
                 </div>
             </div>
         </asp:Panel>
@@ -94,14 +102,15 @@
             </div>
             
             <div style="margin-top: 20px;">
-                <a href="questionlist.aspx?bankId=<%= BankId %>" class="btn btn-primary">查看题目列表</a>
-                <asp:Button ID="btnContinue" runat="server" Text="继续导入" CssClass="btn btn-default" OnClick="btnContinue_Click" />
+                <a href="questionlist.aspx?bankId=<%= BankId %>" class="page-btn page-btn-primary">查看题目列表</a>
+                <asp:Button ID="btnContinue" runat="server" Text="继续导入" CssClass="page-btn page-btn-secondary" OnClick="btnContinue_Click" />
             </div>
 
-            <asp:Panel ID="pnlErrorDetails" runat="server" Visible="false" style="margin-top: 20px;">
+            <asp:Panel ID="pnlErrorDetails" runat="server" Visible="false" CssClass="error-panel">
                 <h4>错误详情：</h4>
                 <asp:Literal ID="ltlErrorDetails" runat="server"></asp:Literal>
             </asp:Panel>
         </asp:Panel>
+        </div>
     </div>
 </asp:Content>

@@ -6,45 +6,57 @@
     <script src="/js/ruffle.js" type="text/javascript"></script>
 </asp:Content><asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
     <style>
-        .question-form { padding: 20px; max-width: 900px; margin: 0 auto; }
-        .form-header { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; }
-        .form-header h2 { margin: 0; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #333; }
-        .form-group label span.required { color: #ff4d4f; }
-        .form-control { width: 100%; padding: 8px 12px; border: 1px solid #d9d9d9; border-radius: 4px; box-sizing: border-box; }
-        .form-control:focus { border-color: #40a9ff; outline: none; }
-        .form-row { display: flex; gap: 15px; }
+        .question-form-page { min-height: calc(100vh - 8rem); padding: 1.5rem; background: #f8fafc; }
+        .question-form-shell { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.25rem; }
+        .form-hero, .form-card { border: 1px solid rgba(148, 163, 184, 0.18); border-radius: 1.25rem; background: #ffffff; box-shadow: 0 12px 32px -28px rgba(15, 23, 42, 0.28); }
+        .form-hero { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.5rem; background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
+        .form-title { margin: 0; color: #0f172a; font-size: 1.625rem; font-weight: 700; }
+        .form-subtitle { margin: 0.75rem 0 0; color: #475569; font-size: 0.95rem; line-height: 1.7; }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .page-btn, .form-actions input, .hero-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 1px solid transparent; border-radius: 0.9rem; font-size: 0.875rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s ease; }
+        .page-btn-primary, .form-actions input[id$='btnSave'] { background: #2563eb; color: #ffffff; box-shadow: 0 10px 20px -14px rgba(37, 99, 235, 0.85); }
+        .page-btn-success, .form-actions input[id$='btnSaveAdd'] { background: #16a34a; color: #ffffff; box-shadow: 0 10px 20px -14px rgba(22, 163, 74, 0.9); }
+        .page-btn-secondary, .form-actions input[id$='btnCancel'], .hero-actions a { background: #ffffff; color: #475569; border-color: #cbd5e1; }
+        .form-card { padding: 1.5rem; }
+        .section-title { margin: 0 0 1rem; color: #0f172a; font-size: 1rem; font-weight: 700; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.45rem; font-weight: 600; color: #334155; }
+        .form-group label span.required { color: #dc2626; }
+        .form-row { display: flex; gap: 1rem; }
         .form-row .form-group { flex: 1; }
-        textarea.form-control { min-height: 120px; resize: vertical; }
-        .options-container { border: 1px solid #e8e8e8; border-radius: 4px; padding: 15px; margin-top: 10px; }
-        .option-item { display: flex; align-items: center; margin-bottom: 10px; gap: 10px; }
-        .option-item .label { width: 30px; font-weight: 600; }
-        .option-item input[type="text"] { flex: 1; padding: 8px; border: 1px solid #d9d9d9; border-radius: 4px; }
-        .option-item input[type="checkbox"], .option-item input[type="radio"] { margin-right: 5px; }
-        .btn { display: inline-block; padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
-        .btn-primary { background: #1890ff; color: #fff; }
-        .btn-default { background: #f0f0f0; color: #333; }
-        .btn-success { background: #52c41a; color: #fff; }
-        .btn-sm { padding: 4px 8px; font-size: 12px; }
-        .form-actions { margin-top: 20px; padding-top: 15px; border-top: 1px solid #e8e8e8; text-align: center; }
-        .form-actions .btn { min-width: 100px; margin: 0 5px; }
-        .help-text { font-size: 12px; color: #999; margin-top: 5px; }
-        .editor-toolbar { border: 1px solid #d9d9d9; border-bottom: none; border-radius: 4px 4px 0 0; padding: 5px; background: #fafafa; }
-        .editor-toolbar button { padding: 4px 8px; margin-right: 5px; border: 1px solid #d9d9d9; background: #fff; cursor: pointer; border-radius: 3px; }
-        .editor-toolbar button:hover { background: #e6f7ff; }
-        .editor-content { border: 1px solid #d9d9d9; border-radius: 0 0 4px 4px; min-height: 150px; padding: 10px; }
-        .editor-content:focus { outline: none; border-color: #40a9ff; }
+        .form-control, .option-item input[type="text"] { width: 100%; min-height: 2.75rem; padding: 0.7rem 0.9rem; border: 1px solid #cbd5e1; border-radius: 0.9rem; box-sizing: border-box; background: #f8fafc; color: #0f172a; }
+        .form-control:focus, .option-item input[type="text"]:focus { outline: none; border-color: #93c5fd; background: #ffffff; box-shadow: 0 0 0 4px rgba(191, 219, 254, 0.6); }
+        textarea.form-control { min-height: 7rem; resize: vertical; }
+        .help-text { font-size: 0.78rem; color: #94a3b8; margin-top: 0.45rem; line-height: 1.6; }
+        .options-container { border: 1px solid #e2e8f0; border-radius: 1rem; padding: 1rem; background: #f8fafc; margin-top: 0.75rem; }
+        .option-item { display: flex; align-items: center; margin-bottom: 0.75rem; gap: 0.75rem; }
+        .option-item .label { width: 2rem; font-weight: 700; color: #475569; }
+        .option-item input[type="checkbox"], .option-item input[type="radio"] { margin-right: 0.2rem; }
+        .inline-choice { display: inline-flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .inline-choice label { display: inline-flex; align-items: center; gap: 0.35rem; margin: 0; padding: 0.6rem 0.85rem; border: 1px solid #dbeafe; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-weight: 500; }
+        .btn-sm { min-height: 2.25rem; padding: 0 0.85rem; }
+        .btn-default { background: #ffffff; color: #475569; border: 1px solid #cbd5e1; }
+        .form-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.5rem; }
+        @media (max-width: 900px) { .question-form-page { padding: 1rem; } .form-hero, .form-row { flex-direction: column; } }
     </style>
 
-    <div class="question-form">
-        <div class="form-header">
-            <h2><asp:Literal ID="ltlTitle" runat="server">添加题目</asp:Literal></h2>
-        </div>
+    <div class="question-form-page">
+        <div class="question-form-shell">
+        <section class="form-hero">
+            <div>
+                <h2 class="form-title"><asp:Literal ID="ltlTitle" runat="server">添加题目</asp:Literal></h2>
+                <p class="form-subtitle">在当前题库中维护单选、多选、填空、简答和扩展题型，统一使用考试模块的新表单风格。</p>
+            </div>
+            <div class="hero-actions">
+                <a href="questionlist.aspx?bankId=<%= BankId %>" class="page-btn page-btn-secondary">返回题目列表</a>
+            </div>
+        </section>
 
         <asp:HiddenField ID="hfQuestionId" runat="server" />
         <asp:HiddenField ID="hfBankId" runat="server" />
 
+        <section class="form-card">
+        <h3 class="section-title">基础信息</h3>
         <div class="form-row">
             <div class="form-group">
                 <label><span class="required">*</span> 题型</label>
@@ -81,21 +93,24 @@
             <label><span class="required">*</span> 题目内容</label>
             <asp:TextBox ID="txtContent" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="请输入题目内容..."></asp:TextBox>
         </div>
+        </section>
 
         <!-- 选项区域 -->
+        <section class="form-card">
+        <h3 class="section-title">答案设置</h3>
         <asp:Panel ID="pnlOptions" runat="server" CssClass="form-group">
             <label><span class="required">*</span> 选项设置</label>
             <p class="help-text">勾选正确答案</p>
             <div class="options-container">
                 <asp:PlaceHolder ID="phOptions" runat="server"></asp:PlaceHolder>
-                <asp:Button ID="btnAddOption" runat="server" Text="+ 添加选项" CssClass="btn btn-default btn-sm" OnClick="btnAddOption_Click" />
+                <asp:Button ID="btnAddOption" runat="server" Text="+ 添加选项" CssClass="page-btn btn-default btn-sm" OnClick="btnAddOption_Click" />
             </div>
         </asp:Panel>
 
         <!-- 判断题区域 -->
         <asp:Panel ID="pnlJudge" runat="server" CssClass="form-group" Visible="false">
             <label><span class="required">*</span> 正确答案</label>
-            <div>
+            <div class="inline-choice">
                 <label style="margin-right: 20px;"><asp:RadioButton ID="rbTrue" runat="server" GroupName="judge" /> 正确</label>
                 <label><asp:RadioButton ID="rbFalse" runat="server" GroupName="judge" /> 错误</label>
             </div>
@@ -188,7 +203,10 @@
             <p class="help-text">格式：类别名:选项1,选项2,选项3（每行一个类别）</p>
             <asp:TextBox ID="txtSorting" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="4" placeholder="编程语言:Python,Java,C++&#10;数据库:MySQL,MongoDB,Redis"></asp:TextBox>
         </asp:Panel>
+        </section>
 
+        <section class="form-card">
+        <h3 class="section-title">补充信息</h3>
         <div class="form-group">
             <label>答案解析</label>
             <asp:TextBox ID="txtAnalysis" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" placeholder="答案解析（可选）"></asp:TextBox>
@@ -209,10 +227,11 @@
         <asp:HiddenField ID="hfCorrectAnswers" runat="server" />
 
         <div class="form-actions">
-            <asp:Button ID="btnSave" runat="server" Text="保存" CssClass="btn btn-primary" OnClick="btnSave_Click" />
-            <asp:Button ID="btnSaveAdd" runat="server" Text="保存并继续添加" CssClass="btn btn-success" OnClick="btnSaveAdd_Click" />
-            <asp:Button ID="btnCancel" runat="server" Text="取消" CssClass="btn btn-default" OnClick="btnCancel_Click" />
+            <asp:Button ID="btnSave" runat="server" Text="保存" CssClass="page-btn page-btn-primary" OnClick="btnSave_Click" />
+            <asp:Button ID="btnSaveAdd" runat="server" Text="保存并继续添加" CssClass="page-btn page-btn-success" OnClick="btnSaveAdd_Click" />
+            <asp:Button ID="btnCancel" runat="server" Text="取消" CssClass="page-btn page-btn-secondary" OnClick="btnCancel_Click" />
         </div>
+        </section>
 
         <script type="text/javascript">
             // 在表单提交前收集正确答案
@@ -298,5 +317,6 @@
                 }, 1000);
             });
         </script>
+        </div>
     </div>
 </asp:Content>
