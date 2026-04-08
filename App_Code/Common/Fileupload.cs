@@ -29,7 +29,7 @@ namespace LearnSite.Common
             if (FUsoft.HasFile)
             {
                 string uploadfile = FUsoft.PostedFile.FileName;
-                string filename = uploadfile.Substring(uploadfile.LastIndexOf("\\") + 1);
+                string filename = System.IO.Path.GetFileName(uploadfile);
                 string DownloadPath = "~/Download/";
                 string realpath = HttpContext.Current.Server.MapPath(DownloadPath);
                 DateTime dt = DateTime.Now;

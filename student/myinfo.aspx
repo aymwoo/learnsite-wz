@@ -164,8 +164,40 @@
     <div class="divinfo1">成员</div>
     <div class="divinfo2"></div>
         <asp:Label ID="Labelteam" runat="server" ></asp:Label>
-    </div><br /><br />
+    </div>
+    <div class="divinfo">
+    <div class="divinfo1">座位</div>
+    <div class="divinfo2"><asp:Label ID="Labelseat" runat="server" ></asp:Label></div>
+    </div>
+    <div class="divinfo">
+    <div class="divinfo1">表现</div>
+    <div class="divinfo2"><asp:Label ID="lblTodayAttitude" runat="server" Text="0"></asp:Label></div>
+    </div>
+    <div class="divinfo">
+    <div class="divinfo1">学分</div>
+    <div class="divinfo2"><asp:Label ID="lblTotalScore" runat="server" Font-Bold="true" ForeColor="#FF6600"></asp:Label></div>
+    </div>
+    <div class="divinfo" style="width: 200px;">
+    <div class="divinfo1" style="width: 60px;">期末总分</div>
+    <div class="divinfo2" style="width: 130px;"><asp:Label ID="sscore" runat="server" ></asp:Label></div>
+    </div>
+    <div class="divinfo" style="width: 200px;">
+    <div class="divinfo1" style="width: 60px;">表现汇总</div>
+    <div class="divinfo2" style="width: 130px;">
+        <asp:HyperLink ID="sattitude" runat="server"
+            NavigateUrl="~/Student/attituderank.aspx" Target="_blank"
+            ToolTip="点击显示表现排行">[sattitude]</asp:HyperLink>
+    </div>
+    </div>
+    <br /><br />
     <div class="divnull">
+        最新表现评语：
+        <br />
+        <div style="padding: 4px; width: 90%; border: 1px dashed #ABC1EB; margin:auto;">
+        <asp:Label ID="LabelAttitudeNote" runat="server" ></asp:Label>
+        </div>
+        <br />
+        <br />
         最新作品评语：
         <br />
         <div style="padding: 4px; width: 90%; border: 1px dashed #ABC1EB; margin:auto;">
@@ -180,33 +212,10 @@
         <br />
         <br />
         <asp:Button ID="BtnExit" runat="server"  onclick="BtnExit_Click" 
-            Width="80px" Enabled="False"  Text="" CssClass="buttonnone"  />
+            Width="80px" Text="平台退出" CssClass="buttonimg"  />
         <br />
         <asp:Label ID="LabelCids" runat="server" ForeColor="White" Visible="false"></asp:Label>
         <br />
-        <script type="text/javascript">
-            var i = 2;//设定退出按钮几秒钟后有效
-            function setbar() {
-                i--;
-                var btnid = "<%= BtnExit.ClientID %>";
-                if (document.getElementById(btnid).value != "") {
-                    document.getElementById(btnid).value = "平台退出";
-                }
-                if (i <0) {
-                    document.getElementById(btnid).disabled = false;
-                    if (document.getElementById(btnid).value != "") {
-                        document.getElementById(btnid).value = "平台退出";
-                    }
-                    return;
-                }
-                else {
-                    document.getElementById(btnid).disabled = true;
-                }
-                
-                setTimeout("setbar()", 1000);
-            }
-            setbar(); 
-          </script>
         <br />
         <br />
     </div>   

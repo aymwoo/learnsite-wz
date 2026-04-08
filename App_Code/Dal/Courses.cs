@@ -352,7 +352,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public LearnSite.Model.Courses GetModel(int Cid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Cid,Ctitle,Cclass,Ccontent,Cdate,Chit,Cobj,Cterm,Cks,Cfiletype,Cupload,Chid,Cpublish,Cbanner from Courses ");
 			strSql.Append(" where Cid=@Cid ");
@@ -519,7 +519,7 @@ namespace LearnSite.DAL
             parameters[0].Value = Mcid;
 
             return DbHelperSQL.FindString(strSql.ToString(), parameters);
-            
+
         }
 
 		/// <summary>
@@ -987,6 +987,268 @@ namespace LearnSite.DAL
             string mysql = "select top 1 Wurl from Courses,Works where Wtype='" + Wtype + "' and  Cid=Wcid and Wnum='" + Wnum + "' and Cid!= " + Cid + " order by Cid desc";
             return DBUtility.DbHelperSQL.FindString(mysql);
         }
+
+        /// <summary>
+        /// 获取课程进度数据
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="term">学期</param>
+        /// <returns></returns>
+        public DataTable GetLessonPregress(int teacherId, int term)
+        {
+            string sql = @"
+                SELECT
+                    Cid,
+                    Ctitle,
+                    Cclass,
+                    Cks,
+                    Cobj,
+                    Cterm,
+                    CONVERT(nvarchar(10), Cdate, 120) as Cdate
+                FROM Courses
+                WHERE Chid = @TeacherId
+                  AND Cterm = @Term
+                  AND Cdelete = 0
+                  AND Cold = 0
+                ORDER BY Cobj, Cks";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@TeacherId", SqlDbType.Int),
+                new SqlParameter("@Term", SqlDbType.Int)
+            };
+            parameters[0].Value = teacherId;
+            parameters[1].Value = term;
+
+            return DbHelperSQL.Query(sql, parameters).Tables[0];
+        }
+
+        /// <summary>
+        /// 获取课程进度数据（基于skdj表的优化版本）
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="term">学期</param>
+        /// <returns></returns>
+        public DataTable GetLessonPregressBySkdj(int teacherId, int term)
+        {
+            string sql = @"
+                SELECT
+                    c.Cid,
+                    c.Ctitle,
+                    c.Cclass,
+                    c.Cks,
+                    c.Cobj,
+                    c.Cterm,
+                    CONVERT(nvarchar(10), c.Cdate, 120) as Cdate,
+                    s.Tcid
+                FROM Courses c
+                LEFT JOIN Skdj s ON c.Cid = s.Tcid AND s.Thid = @TeacherId
+                WHERE c.Chid = @TeacherId
+                  AND c.Cterm = @Term
+                  AND c.Cdelete = 0
+                  AND c.Cold = 0
+                ORDER BY c.Cobj, c.Cks";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@TeacherId", SqlDbType.Int),
+                new SqlParameter("@Term", SqlDbType.Int)
+            };
+            parameters[0].Value = teacherId;
+            parameters[1].Value = term;
+
+            return DbHelperSQL.Query(sql, parameters).Tables[0];
+        }
+
+        /// <summary>
+        /// 根据当前时间获取教师的课程安排
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="currentTime">当前时间</param>
+        /// <param name="dayOfWeek">星期几(1-5)</param>
+        /// <returns></returns>
+        public DataTable GetCurrentSchedule(int teacherId, TimeSpan currentTime, int dayOfWeek)
+        {
+            string sql = @"
+                SELECT TOP 1
+                       cs.ScheduleID,
+                       cs.SchoolYear,
+                       cs.Term,
+                       cs.WeekDay,
+                       cs.TimeSlot,
+                       cs.ClassName,
+                       cs.Subject,
+                       t.SlotID as TimeSlotID,
+                       t.SlotName,
+                       t.StartTime,
+                       t.EndTime,
+                       PARSENAME(REPLACE(cs.ClassName, '-', '.'), 2) as Grade,
+                       PARSENAME(REPLACE(cs.ClassName, '-', '.'), 1) as Class
+                FROM CourseSchedule cs
+                INNER JOIN TimeSlots t ON t.SlotID = cs.TimeSlot
+                INNER JOIN Room r ON PARSENAME(REPLACE(cs.ClassName, '-', '.'), 2) = r.Rgrade
+                                    AND PARSENAME(REPLACE(cs.ClassName, '-', '.'), 1) = r.Rclass
+                WHERE cs.SchoolYear = @Year
+                  AND cs.Term = @Term
+                  AND cs.WeekDay = @WeekDay
+                  AND r.Rhid = @TeacherId
+                  AND cs.ClassName IS NOT NULL
+                  AND cs.ClassName <> ''
+                  AND DATEADD(MINUTE, -15, t.StartTime) <= @CurrentTime
+                  AND t.EndTime >= @CurrentTime
+                ORDER BY t.DisplayOrder";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Year", SqlDbType.Int),
+                new SqlParameter("@Term", SqlDbType.Int),
+                new SqlParameter("@WeekDay", SqlDbType.Int),
+                new SqlParameter("@TeacherId", SqlDbType.Int),
+                new SqlParameter("@CurrentTime", SqlDbType.Time)
+            };
+            parameters[0].Value = GetCurrentSchoolYear();
+            parameters[1].Value = GetCurrentTerm();
+            parameters[2].Value = dayOfWeek;
+            parameters[3].Value = teacherId;
+            parameters[4].Value = currentTime;
+
+            return DbHelperSQL.Query(sql, parameters).Tables[0];
+        }
+
+        /// <summary>
+        /// 获取教师的下一节课安排
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="currentTime">当前时间</param>
+        /// <param name="dayOfWeek">星期几(1-5)</param>
+        /// <returns></returns>
+        public DataTable GetNextSchedule(int teacherId, TimeSpan currentTime, int dayOfWeek)
+        {
+            string sql = @"
+                SELECT TOP 1
+                       cs.ScheduleID,
+                       cs.SchoolYear,
+                       cs.Term,
+                       cs.WeekDay,
+                       cs.TimeSlot,
+                       cs.ClassName,
+                       cs.Subject,
+                       t.SlotID as TimeSlotID,
+                       t.SlotName,
+                       t.StartTime,
+                       t.EndTime,
+                       PARSENAME(REPLACE(cs.ClassName, '-', '.'), 2) as Grade,
+                       PARSENAME(REPLACE(cs.ClassName, '-', '.'), 1) as Class
+                FROM CourseSchedule cs
+                INNER JOIN TimeSlots t ON t.SlotID = cs.TimeSlot
+                INNER JOIN Room r ON PARSENAME(REPLACE(cs.ClassName, '-', '.'), 2) = r.Rgrade
+                                    AND PARSENAME(REPLACE(cs.ClassName, '-', '.'), 1) = r.Rclass
+                WHERE cs.SchoolYear = @Year
+                  AND cs.Term = @Term
+                  AND cs.WeekDay = @WeekDay
+                  AND r.Rhid = @TeacherId
+                  AND cs.ClassName IS NOT NULL
+                  AND cs.ClassName <> ''
+                  AND DATEADD(MINUTE, -15, t.StartTime) > @CurrentTime
+                ORDER BY t.DisplayOrder";
+
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Year", SqlDbType.Int),
+                new SqlParameter("@Term", SqlDbType.Int),
+                new SqlParameter("@WeekDay", SqlDbType.Int),
+                new SqlParameter("@TeacherId", SqlDbType.Int),
+                new SqlParameter("@CurrentTime", SqlDbType.Time)
+            };
+            parameters[0].Value = GetCurrentSchoolYear();
+            parameters[1].Value = GetCurrentTerm();
+            parameters[2].Value = dayOfWeek;
+            parameters[3].Value = teacherId;
+            parameters[4].Value = currentTime;
+
+            return DbHelperSQL.Query(sql, parameters).Tables[0];
+        }
+
+	/// <summary>
+	/// 获取当前学年
+	/// 1期（9月-次年1月底/2月初）：学年为当前年份
+	/// 2期（2月中旬-8月10日）：学年为当前年份
+	/// 例如：
+	/// - 2025年9月-2026年2月10日：学年为2025
+	/// - 2026年2月11日-2026年8月10日：学年为2026
+	/// </summary>
+	private int GetCurrentSchoolYear()
+	{
+		int currentYear = DateTime.Now.Year;
+		int currentMonth = DateTime.Now.Month;
+		int currentDay = DateTime.Now.Day;
+
+		if (currentMonth >= 9)
+		{
+			// 9月-12月：学年为当前年份（例如2025年9月-12月，学年为2025）
+			return currentYear;
+		}
+		else if (currentMonth == 1 || (currentMonth == 2 && currentDay <= 10))
+		{
+			// 1月-2月10日：学年为前一年（例如2026年1月-2月10日，学年为2025）
+			return currentYear - 1;
+		}
+		else if (currentMonth == 2 && currentDay > 10)
+		{
+			// 2月11日及以后：学年为当前年份（例如2026年2月11日，学年为2026）
+			return currentYear;
+		}
+		else if (currentMonth >= 3 && currentMonth <= 8)
+		{
+			// 3月-8月：学年为当前年份（例如2026年3月-8月，学年为2026）
+			return currentYear;
+		}
+		else
+		{
+			// 默认情况
+			return currentYear;
+		}
+	}
+
+	/// <summary>
+	/// 获取当前学期
+	/// 1期（9月-次年2月10日）：学期为1
+	/// 2期（2月11日-8月10日）：学期为2
+	/// 例如：
+	/// - 2025年9月-2026年2月10日：学期为1
+	/// - 2026年2月11日-2026年8月10日：学期为2
+	/// </summary>
+	private int GetCurrentTerm()
+	{
+		int currentMonth = DateTime.Now.Month;
+		int currentDay = DateTime.Now.Day;
+
+		if (currentMonth >= 9)
+		{
+			// 9月-12月：学期为1（例如2025年9月-12月，学期为1）
+			return 1;
+		}
+		else if (currentMonth == 1 || (currentMonth == 2 && currentDay <= 10))
+		{
+			// 1月-2月10日：学期为1（例如2026年1月-2月10日，学期为1）
+			return 1;
+		}
+		else if (currentMonth == 2 && currentDay > 10)
+		{
+			// 2月11日及以后：学期为2（例如2026年2月11日，学期为2）
+			return 2;
+		}
+		else if (currentMonth >= 3 && currentMonth <= 8)
+		{
+			// 3月-8月：学期为2（例如2026年3月-8月，学期为2）
+			return 2;
+		}
+		else
+		{
+			// 默认情况：学期为1
+			return 1;
+		}
+	}
 		/*
 		/// <summary>
 		/// 分页获取数据列表
@@ -1013,6 +1275,37 @@ namespace LearnSite.DAL
 		}*/
 
 		#endregion  成员方法
+
+		/// <summary>
+		/// 获取指定学生本学期所有学案的汇总数据
+		/// </summary>
+		/// <param name="Sid">学生ID</param>
+		/// <param name="Sgrade">年级</param>
+		/// <param name="Sclass">班级</param>
+		/// <param name="Cterm">学期</param>
+		/// <returns>学习汇总数据表</returns>
+		public DataTable GetCoursesByGradeTerm(int Sgrade, int Cterm)
+		{
+			StringBuilder strSql = new StringBuilder();
+			strSql.Append("SELECT Cid, Ctitle, Cks FROM Courses ");
+			strSql.Append("WHERE Cobj = @Sgrade AND Cterm = @Cterm AND Cdelete = 0 ");
+			strSql.Append("ORDER BY Cks ASC");
+
+			SqlParameter[] parameters = {
+				new SqlParameter("@Sgrade", SqlDbType.Int, 4),
+				new SqlParameter("@Cterm", SqlDbType.Int, 4)
+			};
+			parameters[0].Value = Sgrade;
+			parameters[1].Value = Cterm;
+
+			return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
+	}
+
+		public DataTable GetStudentCourseTotals(int Sid, int Sgrade, int Sclass, int Cterm)
+		{
+			// 这个方法在BLL层实现，这里保持空实现或返回空表
+			return new DataTable();
+		}
 	}
 }
 

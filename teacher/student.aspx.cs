@@ -20,6 +20,7 @@ public partial class Teacher_student : System.Web.UI.Page
             if (Request.Cookies[LearnSite.Common.CookieHelp.teaCookieNname] != null)
             {
                 GradeClass();
+                InitSortDropDown();
                 ShowStudents();
                 profileSet();
                 addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
@@ -105,12 +106,54 @@ public partial class Teacher_student : System.Web.UI.Page
             DDLclass.SelectedValue = Session[Hid + "class"].ToString();
         }
     }
+    private void InitSortDropDown()
+    {
+        // 初始化排序下拉框，默认选择按机号排序
+        DDLsort.SelectedValue = "Sseat";
+    }
+
+    protected void DDLsort_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        GVStudent.PageIndex = 0;
+        ShowStudents();
+    }
+
     private void ShowStudents()
     {
         int Sgrade = Int32.Parse(DDLgrade.SelectedValue.ToString());
         int Sclass = Int32.Parse(DDLclass.SelectedValue.ToString());
+        string sortField = DDLsort.SelectedValue;
         LearnSite.BLL.Students stus = new LearnSite.BLL.Students();
+
+        // 获取学生数据
         DataSet ds = stus.GetListStudents(Sgrade, Sclass);
+
+        if (ds != null && ds.Tables.Count > 0)
+        {
+            // 确保包含Sseat列
+            if (!ds.Tables[0].Columns.Contains("Sseat"))
+            {
+                ds.Tables[0].Columns.Add("Sseat", typeof(string));
+            }
+
+            // 从Students表获取每个学生的实际座位信息（优先临时座位）
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                string snum = row["Snum"].ToString();
+                row["Sseat"] = stus.GetActualSeat(snum);
+            }
+
+            // 如果选择按机号排序
+            if (sortField == "Sseat")
+            {
+                DataView dv = ds.Tables[0].DefaultView;
+                dv.Sort = "Sseat ASC";
+                DataTable sortedTable = dv.ToTable();
+                ds.Tables.Clear();
+                ds.Tables.Add(sortedTable.Copy());
+            }
+        }
+
         Label1.Text = "学生总数" + ds.Tables[0].Rows.Count.ToString() + "位";
         GVStudent.DataSource = ds;
         GVStudent.DataBind();
@@ -133,6 +176,7 @@ public partial class Teacher_student : System.Web.UI.Page
             LearnSite.BLL.Room rm = new LearnSite.BLL.Room();
             DDLclass.DataSource = rm.GetLimitClass(Rgrade);
             DDLclass.DataBind();
+            InitSortDropDown();
             GVStudent.PageIndex = 0;
             ShowStudents();
             profileSet();
@@ -159,6 +203,7 @@ public partial class Teacher_student : System.Web.UI.Page
         profileSet();
         addStuJs(DDLgrade.SelectedValue, DDLclass.SelectedValue);
         Labelmsg.Text = "";
+        InitSortDropDown();
     }
     protected void BtnExcel_Click(object sender, EventArgs e)
     {
@@ -193,6 +238,20 @@ public partial class Teacher_student : System.Web.UI.Page
             bll.QuitThitGroup(mySid);
             System.Threading.Thread.Sleep(300);
             ShowStudents();
+        }
+
+        if (e.CommandName.Equals("EditNum"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentnumedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
+            ClientScript.RegisterStartupScript(this.GetType(), "EditNum", jsstr, true);
+        }
+
+        if (e.CommandName.Equals("EditSeat"))
+        {
+            int mySid = Convert.ToInt32(e.CommandArgument.ToString());
+            string jsstr = "window.parent.TINY.box.show({iframe:'../teacher/studentseatedit.aspx?sid=" + mySid + "', boxid:'frameless', width:500, height:450, fixed:false, maskopacity:40})";
+            ClientScript.RegisterStartupScript(this.GetType(), "EditSeat", jsstr, true);
         }
 
     }

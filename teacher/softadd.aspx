@@ -16,6 +16,10 @@
             <asp:ListItem>游戏</asp:ListItem>
             <asp:ListItem>课程</asp:ListItem>
         </asp:DropDownList>
+        &nbsp;评分方式：<asp:DropDownList ID="DDLscoreType" runat="server" Font-Size="9pt">
+            <asp:ListItem Value="original">原学分制</asp:ListItem>
+            <asp:ListItem Value="comprehensive">综合评分制</asp:ListItem>
+        </asp:DropDownList>
         &nbsp;学分限制：<asp:DropDownList ID="DDLopen" runat="server" Font-Size="9pt">
             <asp:ListItem Value="10">A</asp:ListItem>
             <asp:ListItem Value="8">B</asp:ListItem>
@@ -23,6 +27,7 @@
             <asp:ListItem Value="4">D</asp:ListItem>
             <asp:ListItem Value="2">E</asp:ListItem>
         </asp:DropDownList>
+        &nbsp;综合得分：<asp:TextBox ID="TXTscore" runat="server" Width="40px" Text="60" ToolTip="学生综合得分达到此值才能访问资源（0-100分）"></asp:TextBox>
         &nbsp;<asp:CheckBox ID="CheckBoxFhide" runat="server" Text="是否隐藏" />
         &nbsp;<asp:CheckBox ID="CheckBoxFhid" runat="server" Text="是否共享" />
         </div>

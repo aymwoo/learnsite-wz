@@ -2,6 +2,178 @@
     AutoEventWireup="true" CodeFile="downfile.aspx.cs" Inherits="Student_downfile" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Cphs" runat="Server">
+    <script type="text/javascript">
+        // 页面加载后检查是否有游戏链接需要跳转
+        window.onload = function() {
+            var gameUrl = localStorage.getItem('gameUrl');
+            if (gameUrl) {
+                // 清除 localStorage 中的游戏链接
+                localStorage.removeItem('gameUrl');
+                // 跳转到游戏链接
+                window.location.href = gameUrl;
+            }
+        };
+
+        function accessResource(fid) {
+            // 先获取资源信息，了解需要扣除的学分
+            var infoXhr = new XMLHttpRequest();
+            infoXhr.open('POST', '../api/ScoreProxy.ashx?action=getinfo', true);
+            infoXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            infoXhr.onreadystatechange = function() {
+                if (infoXhr.readyState === 4) {
+                    if (infoXhr.status === 200) {
+                        try {
+                            var infoResult = JSON.parse(infoXhr.responseText);
+                            if (infoResult.code === 1) {
+                                // 检查是否已经扣除过该资源的学分
+                                if (infoResult.hasDeducted) {
+                                    alert('已经扣除过该资源的学分，无法重复扣除');
+                                    return;
+                                }
+                                
+                                // 显示扣除确认
+                                if (confirm('访问此资源需要扣除 ' + infoResult.score + ' 学分，你当前的学分为 ' + infoResult.currentScore + ' 分，是否继续？')) {
+                                    // 扣除学分
+                                    var deductXhr = new XMLHttpRequest();
+                                    deductXhr.open('POST', '../api/ScoreProxy.ashx?action=deduct', true);
+                                    deductXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    deductXhr.onreadystatechange = function() {
+                                        if (deductXhr.readyState === 4) {
+                                            if (deductXhr.status === 200) {
+                                                try {
+                                                    var deductResult = JSON.parse(deductXhr.responseText);
+                                                    if (deductResult.code === 1) {
+                                                        // 学分扣除成功，继续访问资源
+                                                        var resourceXhr = new XMLHttpRequest();
+                                                        resourceXhr.open('POST', '../api/ResourceProxy.ashx?action=geturl&fid=' + fid, true);
+                                                        resourceXhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                                        resourceXhr.onreadystatechange = function() {
+                                                            if (resourceXhr.readyState === 4) {
+                                                                if (resourceXhr.status === 200) {
+                                                                    try {
+                                                                        var result = JSON.parse(resourceXhr.responseText);
+                                                                        if (result.code === 1) {
+                                                                            // 保存游戏链接到 localStorage
+                                                                            localStorage.setItem('gameUrl', result.url);
+                                                                            // 刷新页面，更新学分显示
+                                                                            location.reload();
+                                                                        } else {
+                                                                            alert(result.msg || '无法访问该资源');
+                                                                        }
+                                                                    } catch (e) {
+                                                                        alert('访问失败，请重试');
+                                                                    }
+                                                                } else {
+                                                                    alert('网络错误，请重试');
+                                                                }
+                                                            }
+                                                        };
+                                                        resourceXhr.send();
+                                                    } else {
+                                                        alert(deductResult.msg || '扣除学分失败');
+                                                    }
+                                                } catch (e) {
+                                                    alert('扣除学分失败，请重试');
+                                                }
+                                            } else {
+                                                alert('网络错误，无法扣除学分');
+                                            }
+                                        }
+                                    };
+                                    deductXhr.send('fid=' + fid);
+                                }
+                            } else {
+                                alert(infoResult.msg || '获取资源信息失败');
+                            }
+                        } catch (e) {
+                            alert('获取资源信息失败，请重试');
+                        }
+                    } else {
+                        alert('网络错误，无法获取资源信息');
+                    }
+                }
+            };
+            infoXhr.send('fid=' + fid);
+        }
+
+        function openSecureLink(element) {
+            var linkUrl = element.getAttribute('data-link');
+            var fid = element.getAttribute('data-fid');
+
+            if (!linkUrl) {
+                alert('链接无效');
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '../api/LinkProxy.ashx?action=getlink', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            var result = JSON.parse(xhr.responseText);
+                            if (result.code === 1) {
+                                window.location.href = result.url;
+                            } else {
+                                alert(result.msg || '无法访问该链接');
+                            }
+                        } catch (e) {
+                            window.location.href = linkUrl;
+                        }
+                    } else {
+                        alert('网络错误，请重试');
+                    }
+                }
+            };
+            xhr.send('url=' + encodeURIComponent(linkUrl) + '&fid=' + (fid || ''));
+        }
+
+        (function() {
+            document.addEventListener('contextmenu', function(e) {
+                var target = e.target;
+                while (target) {
+                    if (target.tagName === 'A' && target.hasAttribute('data-link')) {
+                        e.preventDefault();
+                        alert('此链接受保护，无法右键复制！');
+                        return false;
+                    }
+                    target = target.parentElement;
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.ctrlKey && e.key === 'u') {
+                    e.preventDefault();
+                    alert('此页面禁止查看源代码！');
+                    return false;
+                }
+                if (e.key === 'F12') {
+                    e.preventDefault();
+                    alert('此页面禁止使用开发者工具！');
+                    return false;
+                }
+            });
+
+            document.addEventListener('copy', function(e) {
+                var selection = window.getSelection();
+                var container = selection.anchorNode;
+                while (container && container !== document) {
+                    if (container.nodeType === 1) {
+                        var links = container.getElementsByTagName('a');
+                        for (var i = 0; i < links.length; i++) {
+                            if (links[i].hasAttribute('data-link')) {
+                                e.preventDefault();
+                                alert('此内容受保护，无法复制！');
+                                return false;
+                            }
+                        }
+                    }
+                    container = container.parentNode;
+                }
+            });
+        })();
+    </script>
     <div id="student">
         <div class="left">
             <br />
@@ -15,7 +187,7 @@
                 <asp:Label ID="Labelfiletype" runat="server" SkinID="LabelFileShow"></asp:Label>
                 点击率：<asp:Label ID="Labelhit" runat="server" SkinID="LabelFileShow"></asp:Label>
                 更新日期：<asp:Label ID="Labeldate" runat="server" SkinID="LabelFileShow"></asp:Label>
-                学分：<asp:Label ID="Labelopen" runat="server" SkinID="LabelFileShow"></asp:Label>
+                评分方式：<asp:Label ID="Labelopen" runat="server" SkinID="LabelFileShow"></asp:Label>
                 <asp:Label ID="LabelFyid" runat="server" Visible="False"></asp:Label>
                 <asp:Label ID="LabelFid" runat="server" Visible="False"></asp:Label>
                 <asp:Label ID="LabelSid" runat="server" Visible="False"></asp:Label>
@@ -38,7 +210,7 @@
                 Font-Underline="False" BorderColor="#7DBF80" BorderStyle="Dashed" BorderWidth="1px"
                 CssClass="txtszcenter" Height="18px" BackColor="#E2F3E3" Width="80px">点击下载</asp:LinkButton>
             <br />
-            <asp:HyperLink ID="HLurl" runat="server" Visible="false"></asp:HyperLink>
+            <asp:HyperLink ID="HLurl" runat="server"></asp:HyperLink>
             <br />
         </div>
         <div class="right">

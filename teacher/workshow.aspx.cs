@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -64,8 +65,28 @@ public partial class Teacher_workshow : System.Web.UI.Page
         int Wmid = Int32.Parse(DDLmid.SelectedValue);
         string mySort = RBsort.SelectedValue;
         LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
-        DataListworks.DataSource = wbll.ShowClassWorksBySort(Sgrade, Sclass, Wmid, mySort);
-        DataListworks.DataBind();//Wid,Sname,Wurl,Wvote,Wscore,Qwork,Wcheck
+        DataTable dt = wbll.ShowClassWorksBySort(Sgrade, Sclass, Wmid, mySort);
+
+        // 优先从 Signin 表获取当天签到的机号，没有签到记录则使用 Students 表中的 Sseat 字段
+        if (dt != null && dt.Columns.Count > 0 && dt.Rows.Count > 0)
+        {
+            LearnSite.BLL.Students sbll = new LearnSite.BLL.Students();
+            foreach (DataRow row in dt.Rows)
+            {
+                string snum = row["Wnum"].ToString();
+                // 优先从 Signin 表获取当天签到的机号
+                string todayMachine = sbll.GetTodayMachine(snum);
+                if (!string.IsNullOrEmpty(todayMachine) && todayMachine != "-")
+                {
+                    // 使用当天签到的机号（可能已换座位）
+                    row["Sseat"] = todayMachine;
+    }
+                // 如果没有签到记录，保持 Students 表中的 Sseat 字段不变
+            }
+        }
+
+        DataListworks.DataSource = dt;
+        DataListworks.DataBind();//Wid,Sname,Wurl,Wvote,Wscore,Qwork,Wcheck,Sseat
     }
     /// <summary>
     /// 分开是为了不让学案Cid重取
@@ -87,10 +108,30 @@ public partial class Teacher_workshow : System.Web.UI.Page
                     ShowDoneWorks(); //独立出来方便刷新 
                     int Wmid = Int32.Parse(DDLmid.SelectedValue);
                     LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
-                                      
+
                     Labelcounts.Text = DataListworks.Items.Count.ToString();
 
-                    DataListNoworks.DataSource = wbll.ShowTodayNotWorks(Syear, Sgrade, Sclass, Wmid);//获取今天本班未提交作品的学生列表
+                    // 获取未提交作品的学生列表
+                    DataSet dsNoworks = wbll.ShowTodayNotWorks(Syear, Sgrade, Sclass, Wmid);
+
+                    // 优先从 Signin 表获取当天签到的机号，没有签到记录则使用 Students 表中的 Sseat 字段
+                    if (dsNoworks != null && dsNoworks.Tables.Count > 0 && dsNoworks.Tables[0].Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dsNoworks.Tables[0].Rows)
+                        {
+                            string snum = row["Snum"].ToString();
+                            // 优先从 Signin 表获取当天签到的机号
+                            string todayMachine = sbll.GetTodayMachine(snum);
+                            if (!string.IsNullOrEmpty(todayMachine) && todayMachine != "-")
+                            {
+                                // 使用当天签到的机号（可能已换座位）
+                                row["Sseat"] = todayMachine;
+                            }
+                            // 如果没有签到记录，保持 Students 表中的 Sseat 字段不变
+                        }
+                    }
+
+                    DataListNoworks.DataSource = dsNoworks;
                     DataListNoworks.DataBind();
 
                     Labelmsg.Text = CalculateScores();

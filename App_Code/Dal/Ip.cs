@@ -169,7 +169,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public bool Delete(int Iid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Ip ");
 			strSql.Append(" where Iid=@Iid");
@@ -213,7 +213,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public LearnSite.Model.Ip GetModel(int Iid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Iid,Ihid,Inum,Iip from Ip ");
 			strSql.Append(" where Iid=@Iid");
@@ -373,6 +373,66 @@ namespace LearnSite.DAL
             }
             return stustr;
         }
+
+        /// <summary>
+        /// 根据IP地址和机房ID获取机号
+        /// </summary>
+        /// <param name="ip">IP地址</param>
+        /// <param name="ihid">机房ID</param>
+        /// <returns>机号，如果未找到返回空字符串</returns>
+        public string GetInumByIpAndHid(string ip, int ihid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select top 1 Inum from Ip where Iip=@Iip and Ihid=@Ihid");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@Iip", SqlDbType.NVarChar, 50),
+                    new SqlParameter("@Ihid", SqlDbType.Int, 4)};
+            parameters[0].Value = ip;
+            parameters[1].Value = ihid;
+
+            object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return obj.ToString();
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 根据IP地址获取机号（自动识别机房）
+        /// </summary>
+        /// <param name="ip">IP地址</param>
+        /// <returns>机号，如果未找到返回空字符串</returns>
+        public string GetInumByIp(string ip)
+        {
+            int? hid = LearnSite.Common.Computer.GetHidByIp(ip);
+            if (hid.HasValue)
+            {
+                return GetInumByIpAndHid(ip, hid.Value);
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 根据机房ID获取该机房的最大机号
+        /// </summary>
+        /// <param name="ihid">机房ID</param>
+        /// <returns>最大机号</returns>
+        public int GetMaxInumByHid(int ihid)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("select max(Inum) from Ip where Ihid=@Ihid");
+            SqlParameter[] parameters = {
+                    new SqlParameter("@Ihid", SqlDbType.Int, 4)};
+            parameters[0].Value = ihid;
+
+            object obj = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (obj != null && obj != DBNull.Value)
+            {
+                return Convert.ToInt32(obj);
+            }
+            return 0;
+        }
 		/*
 		/// <summary>
 		/// 分页获取数据列表
@@ -384,7 +444,7 @@ namespace LearnSite.DAL
 					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
 					new SqlParameter("@PageSize", SqlDbType.Int),
 					new SqlParameter("@PageIndex", SqlDbType.Int),
-					new SqlParameter("@IsReCount", SqlDbType.Bit),
+					new SqlParameter("@IsRecount", SqlDbType.Bit),
 					new SqlParameter("@OrderType", SqlDbType.Bit),
 					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};

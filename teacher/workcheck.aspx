@@ -76,6 +76,7 @@
             <asp:ListItem Value="2">IP 排序</asp:ListItem>
                 <asp:ListItem Value="3">小组排序</asp:ListItem>
                 <asp:ListItem Value="4">投票排序</asp:ListItem>
+                <asp:ListItem Value="5">机号排序</asp:ListItem>
             </Items>
         </asp:RadioButtonList>
 
@@ -93,6 +94,8 @@
                             <div>
                             <asp:HyperLink ID="HyperLink1" runat="server" Text='<%# Eval("Sname") %>' 
                                  ToolTip='<%# HttpUtility.HtmlDecode(  Eval("Wself").ToString()) %>' Target="_blank" CssClass="workname"></asp:HyperLink>
+                            <asp:Label ID="LabelMachine" runat="server" Text='<%# Eval("Sseat") %>'
+                                 ToolTip="机号" Font-Size="12px" ForeColor="#333333" style="margin-left:2px; background-color: #FFE4C4; padding: 2px 5px; border-radius: 3px; font-weight: bold;"></asp:Label>
                             <asp:CheckBox ID="CB" runat="server" Checked='<%# Eval("Wcheck") %>' 
                                 EnableTheming="True" ToolTip="评价状态：取消则评分为0并可重新提交，选中则初始评分为0并不可重新提交" 
                                     oncheckedchanged="CB_CheckedChanged"  AutoPostBack="True" BorderStyle="None" />
@@ -196,10 +199,11 @@
                 <asp:DataList ID="DataListNoworks" runat="server" RepeatDirection="Horizontal" 
                     RepeatColumns="8"  CellPadding="1" Caption="未提交作品学生列表">
                     <ItemTemplate>
-                        <div  >
+                        <div style="white-space:nowrap;">
                             <asp:Label ID="Label1" runat="server" Height="18px" Text='<%# Eval("Sname") %>' 
-                               ToolTip='<%# Eval("Sscore") %>'  Width="80px"></asp:Label>
-                            <br />
+                               ToolTip='<%# Eval("Sscore") %>'></asp:Label>
+                            <asp:Label ID="LabelMachine" runat="server" Text='<%# Eval("Sseat") %>'
+                               ToolTip="机号" Font-Size="10px" ForeColor="#333333" style="margin-left:2px; background-color: #FFE4C4; padding: 2px 4px; border-radius: 3px;"></asp:Label>
                             </div>
                     </ItemTemplate>
                 </asp:DataList>
@@ -209,7 +213,7 @@
 </div>
     </div>
     </div>
-    
+
     </form>
 </body>
 </html>

@@ -21,6 +21,7 @@ public partial class UpGrade : System.Web.UI.Page
                 LearnSite.DBUtility.UpdateGrade.UpdateTableEnglish();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1500();
                 LearnSite.DBUtility.UpdateGrade.UpdateTable1600();
+                LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
 
                 Labelmsg.Text = "升级完毕，请删除本页面！以免数据库出错！";
 
@@ -207,6 +208,42 @@ public partial class UpGrade : System.Web.UI.Page
         LearnSite.DBUtility.UpdateGrade.UpdateTable1352();
         LearnSite.DBUtility.UpdateGrade.UpdateTable1360();
         LearnSite.DBUtility.UpdateGrade.UpdateTable1365();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1700();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1800();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1801();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1802();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1803();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1804();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1805();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1806();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1807();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1808();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1809();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1810();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1811();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1812();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1813();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1814();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1815();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1816();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1817();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1818();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1819();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1820();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1821();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1822();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1823();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1824();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1825();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1826();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1827();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1828();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1829();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1830();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1831();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1832();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1833();
+        LearnSite.DBUtility.UpdateGrade.UpdateTable1834();
     }
     protected void BtnCreateTable_Click(object sender, EventArgs e)
     {

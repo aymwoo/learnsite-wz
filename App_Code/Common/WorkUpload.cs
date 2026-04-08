@@ -172,11 +172,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         private static string oldCheckbdir(string str)
         {
-            if (!str.EndsWith("\\"))
-            {
-                str = str + "\\";
-            }
-            return str;
+            return LearnSite.Common.Flatform.Checkbdir(str);
         }        
 
     }

@@ -201,7 +201,7 @@ namespace LearnSite.Common
                         groupNode.InnerText = theStu.Sgtitle;
                 }
             }
-            string savefile = TodaySavePath(savepath) + @"\" + classname + "." + xmltype;
+            string savefile = System.IO.Path.Combine(TodaySavePath(savepath), classname + "." + xmltype);
             if (File.Exists(savefile))
                 File.Delete(savefile);            
             xmlsave.Save(savefile);//保存生成的新班级模型
@@ -414,7 +414,7 @@ namespace LearnSite.Common
             string xmlpath = "";
             if (xmltype == "xml" || xmltype == "cls")
             {
-                xmlpath =savepath+@"\"+ newxml + "." + xmltype;
+                xmlpath = System.IO.Path.Combine(savepath, newxml + "." + xmltype);
                 FileUpXml.PostedFile.SaveAs(xmlpath);               
             }
             return xmlpath;

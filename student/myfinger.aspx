@@ -95,7 +95,7 @@
         NavigateUrl="~/student/allfinger.aspx" Target="_self" SkinID="HyperLink" 
         Width="120px" CssClass="txtszcenter" Height="18px">英文输入英雄榜</asp:HyperLink>
     <br />  
-    <div >
+    <div id="gamesDiv" runat="server">
     <br />
     <asp:HyperLink ID="Hlztype" runat="server" 
         NavigateUrl="~/ztype/index.html" Target="_blank" SkinID="HyperLink" 
@@ -111,6 +111,7 @@
         NavigateUrl="~/wuziqi/index.aspx" Target="_blank" SkinID="HyperLink" 
         Width="120px" CssClass="txtszcenter" Height="18px" >AI 五子棋</asp:HyperLink>
     <br />  
+        <br />
     </div>  
     <div id="victory" style=" display:none">
     <img src="../js/images/v.gif"  alt=""/>

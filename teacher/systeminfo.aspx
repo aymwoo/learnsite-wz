@@ -185,6 +185,53 @@
                 </td>
             </tr>
             </table>
+            <br />
+            <table style="border: 1px solid #D8D8D8;  width: 800px;  text-align: left;  " 
+            cellpadding="4" cellspacing="0">
+            <tr>
+                <td style="font-weight: bold; color: black; height: 16px; background-color: #E6E6E6; text-align: center;" 
+                    colspan="4">
+                    系统详细信息</td>
+            </tr>
+            <tr>
+                <td style="width: 150px" >
+                    系统版本：</td>
+                <td style="width: 250px" >
+                    <asp:Label ID="Label24" runat="server"></asp:Label>
+                </td>
+                <td style="width: 150px" >
+                    内存使用率：</td>
+                <td >
+                    <asp:Label ID="Label25" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px" >
+                    磁盘占用：</td>
+                <td style="width: 250px" >
+                    <asp:Label ID="Label26" runat="server"></asp:Label>
+                </td>
+                <td style="width: 150px" >
+                    系统负载：</td>
+                <td >
+                    <asp:Label ID="Label27" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px" >
+                    网络使用率：</td>
+                <td style="width: 250px" colspan="3">
+                    <asp:Label ID="Label28" runat="server"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px" >
+                    进程 TOP10：</td>
+                <td style="width: 250px" colspan="3">
+                    <asp:Label ID="Label29" runat="server"></asp:Label>
+                </td>
+            </tr>
+            </table>
     <br />
     </center>
         </div>

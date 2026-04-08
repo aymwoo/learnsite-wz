@@ -21,7 +21,7 @@ namespace LearnSite.BLL
 		{
 			return dal.GetMaxId();
 		}
-                
+
         /// <summary>
         /// 将所有学案编号和标题生成对照目录放到学案包目录下，方便以后查看
         /// </summary>
@@ -37,7 +37,7 @@ namespace LearnSite.BLL
 		{
 			return dal.Exists(Cid);
 		}
-                
+
         /// <summary>
         /// 返回任务完成情况
         /// </summary>
@@ -94,7 +94,7 @@ namespace LearnSite.BLL
         {
             dal.UpdateCpublish(Cid, Cpublish);
         }
-                
+
         /// <summary>
         /// 修改学案发布状态
         /// </summary>
@@ -121,10 +121,10 @@ namespace LearnSite.BLL
 		/// </summary>
         public void Delete(int Cid, int Chid)
 		{
-			
+
 			dal.Delete(Cid,Chid);
 		}
-                
+
         /// <summary>
         /// 删除一条数据
         /// </summary>
@@ -137,7 +137,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Courses GetModel(int Cid)
 		{
-			
+
 			return dal.GetModel(Cid);
 		}
 
@@ -146,7 +146,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Courses GetModelByCache(int Cid)
 		{
-			
+
 			string CacheKey = "CoursesModel-" + Cid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -174,7 +174,7 @@ namespace LearnSite.BLL
             return dal.GetTableModel(dt);
         }
 
-                      
+
         /// <summary>
         /// 获取网页制作活动Mid
         /// </summary>
@@ -422,7 +422,7 @@ namespace LearnSite.BLL
         {
             return dal.GetTitle(Cid);
         }
-                
+
         /// <summary>
         /// 根据学案编号，返回学案横幅
         /// </summary>
@@ -518,7 +518,7 @@ namespace LearnSite.BLL
         {
             return dal.CksMaxValue(Cterm, Cobj,Chid);
         }
-                
+
         /// <summary>
         /// 获取网页制作学案的年级列表
         /// </summary>
@@ -767,7 +767,7 @@ namespace LearnSite.BLL
                 }
             }            
         }
-                
+
         /// <summary>
         /// 获取Cid集的所有学案列表，返回字段Cid,Cobj,Cks,Ctitle,Cclass
         /// </summary>
@@ -826,6 +826,52 @@ namespace LearnSite.BLL
         }
 
 		/// <summary>
+        /// 获取课程进度数据
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="term">学期</param>
+        /// <returns></returns>
+        public DataTable GetLessonPregress(int teacherId, int term)
+        {
+            return dal.GetLessonPregress(teacherId, term);
+        }
+
+        /// <summary>
+        /// 获取课程进度数据（基于skdj表的优化版本）
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="term">学期</param>
+        /// <returns></returns>
+        public DataTable GetLessonPregressBySkdj(int teacherId, int term)
+        {
+            return dal.GetLessonPregressBySkdj(teacherId, term);
+        }
+
+        /// <summary>
+        /// 根据当前时间获取教师的课程安排
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="currentTime">当前时间</param>
+        /// <param name="dayOfWeek">星期几(1-5)</param>
+        /// <returns></returns>
+        public DataTable GetCurrentSchedule(int teacherId, TimeSpan currentTime, int dayOfWeek)
+        {
+            return dal.GetCurrentSchedule(teacherId, currentTime, dayOfWeek);
+        }
+
+        /// <summary>
+        /// 获取教师的下一节课安排
+        /// </summary>
+        /// <param name="teacherId">教师ID</param>
+        /// <param name="currentTime">当前时间</param>
+        /// <param name="dayOfWeek">星期几(1-5)</param>
+        /// <returns></returns>
+        public DataTable GetNextSchedule(int teacherId, TimeSpan currentTime, int dayOfWeek)
+        {
+            return dal.GetNextSchedule(teacherId, currentTime, dayOfWeek);
+        }
+
+		/// <summary>
 		/// 获得数据列表
 		/// </summary>
 		//public DataSet GetList(int PageSize,int PageIndex,string strWhere)
@@ -834,6 +880,77 @@ namespace LearnSite.BLL
 		//}
 
 		#endregion  成员方法
+
+        /// <summary>
+        /// 获取指定学生本学期所有学案的汇总数据（包含每个学案的所有学习活动）
+        /// </summary>
+        /// <param name="Sid">学生ID</param>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <param name="Cterm">学期</param>
+        /// <returns>学习汇总数据表</returns>
+        public DataTable GetStudentCourseTotals(int Sid, int Sgrade, int Sclass, int Cterm)
+        {
+            // 获取该学生本学期的所有学案
+            DataTable dtCourses = GetCoursesByGradeTerm(Sgrade, Cterm);
+
+            if (dtCourses == null || dtCourses.Rows.Count == 0)
+            {
+                return new DataTable();
+	}
+
+            // 创建结果表
+            DataTable dtResult = new DataTable();
+            dtResult.Columns.Add("课时", typeof(int));
+            dtResult.Columns.Add("学习内容", typeof(string));
+
+            // 遍历每个学案
+            foreach (DataRow drCourse in dtCourses.Rows)
+            {
+                int Cid = Convert.ToInt32(drCourse["Cid"]);
+                string Ctitle = drCourse["Ctitle"].ToString();
+                int Cks = Convert.ToInt32(drCourse["Cks"]);
+
+                // 获取该学案的所有学习活动
+                ListMenu lbll = new ListMenu();
+                DataTable dtMenu = lbll.GetShowedMenu(Cid).Tables[0];
+
+                if (dtMenu != null && dtMenu.Rows.Count > 0)
+                {
+                    // 添加该学案的每个学习活动
+                    foreach (DataRow drMenu in dtMenu.Rows)
+                    {
+                        string Ltype = drMenu["Ltype"].ToString();
+                        int Lxid = Convert.ToInt32(drMenu["Lxid"]);
+                        string Ltitle = drMenu["Ltitle"].ToString();
+
+                        DataRow dr = dtResult.NewRow();
+                        dr["课时"] = Cks;
+                        dr["学习内容"] = Ctitle + " - " + Ltitle;
+                        dtResult.Rows.Add(dr);
+}
+                }
+                else
+                {
+                    // 如果没有学习活动，只显示学案标题
+                    DataRow dr = dtResult.NewRow();
+                    dr["课时"] = Cks;
+                    dr["学习内容"] = Ctitle;
+                    dtResult.Rows.Add(dr);
+                }
+            }
+
+            return dtResult;
+        }
+
+        /// <summary>
+        /// 获取指定年级学期的所有学案
+        /// </summary>
+        public DataTable GetCoursesByGradeTerm(int Sgrade, int Cterm)
+        {
+            return dal.GetCoursesByGradeTerm(Sgrade, Cterm);
+        }
 	}
 }
+
 

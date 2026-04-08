@@ -4,20 +4,35 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <div  class="placehold" >
     <div  class="startdiv">
-        上课选择<asp:DropDownList ID="DDLgrade" 
-            runat="server" Font-Size="9pt" 
-            Width="40px" EnableTheming="True" AutoPostBack="True" 
+        <div style="margin-bottom: 10px;">
+            <asp:Label ID="lblScheduleInfo" runat="server" Font-Size="10pt" ForeColor="Blue"></asp:Label>
+        </div>
+        <div id="weekendSelector" style="margin-bottom: 10px; display: none;">
+            周末上课，请选择按哪天的课表：
+            <asp:DropDownList ID="DDLWeekendDay" runat="server" Font-Size="9pt" Width="100px">
+                <asp:ListItem Value="1" Text="星期一"></asp:ListItem>
+                <asp:ListItem Value="2" Text="星期二"></asp:ListItem>
+                <asp:ListItem Value="3" Text="星期三"></asp:ListItem>
+                <asp:ListItem Value="4" Text="星期四"></asp:ListItem>
+                <asp:ListItem Value="5" Text="星期五" Selected="True"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:Button ID="BtnWeekendSelect" runat="server" Text="确定" SkinID="BtnNormal"
+                onclick="BtnWeekendSelect_Click" BackColor="#9BCBFF" />
+        </div>
+        上课选择<asp:DropDownList ID="DDLgrade"
+            runat="server" Font-Size="9pt"
+            Width="40px" EnableTheming="True" AutoPostBack="True"
             onselectedindexchanged="DDLgrade_SelectedIndexChanged">
         </asp:DropDownList>
-        年级<asp:DropDownList ID="DDLclass" runat="server" Font-Size="9pt" Width="40px" 
+        年级<asp:DropDownList ID="DDLclass" runat="server" Font-Size="9pt" Width="40px"
             AutoPostBack="True" onselectedindexchanged="DDLclass_SelectedIndexChanged">
         </asp:DropDownList>
-        班 <asp:DropDownList ID="DDLCid" runat="server" Font-Size="9pt" Width="180px" 
+        班 <asp:DropDownList ID="DDLCid" runat="server" Font-Size="9pt" Width="180px"
             AutoPostBack="True" onselectedindexchanged="DDLCid_SelectedIndexChanged">
         </asp:DropDownList>
-        &nbsp; <asp:Button ID="Btnset" runat="server" Text="开始上课"  SkinID="BtnNormal"
+        &nbsp; <asp:Button ID="Btnset" runat="server" Text="上课"  SkinID="BtnNormal"
             onclick="Btnset_Click" ToolTip="设置上课班级登录密码" BackColor="#9BCBFF"  />
-            &nbsp;&nbsp; <asp:Button ID="Btnstudent" runat="server" Text="模拟学生"  
+            &nbsp;&nbsp; <asp:Button OnClientClick="return SuiJiChouWen();"  ID="BtnChouWen" runat="server"  SkinID="BtnNormal"  BackColor="#9BCBFF" Text="随机抽问" />&nbsp;&nbsp; <asp:Button ID="Btnstudent" runat="server" Text="模拟学生"  
             SkinID="BtnNormal" ToolTip="模拟本班级学生角色登录学生平台" 
             onclick="Btnstudent_Click" Enabled="False" BackColor="#9BCBFF" />
                     &nbsp;&nbsp;
@@ -33,6 +48,7 @@
                     &nbsp;<asp:HyperLink ID="HLtotal" runat="server" BorderStyle="None" 
             CssClass="textcenter20" Font-Underline="False" Target="_blank" 
             Height="20px">学习汇总</asp:HyperLink>
+            <asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" style="display:none;" />
     </div>     
     <div  class="startdiv">
         <br />
@@ -72,39 +88,46 @@
          今天已签到情况：<asp:Label ID="Labelsigin" runat="server" Width="60px"></asp:Label>位
 </div>
         <br />
-        <asp:DataList ID="DLonline" runat="server" RepeatColumns="8" onitemdatabound="DLonline_ItemDataBound" 
-            DataKeyField="Qid" onitemcommand="DLonline_ItemCommand"  RepeatDirection="Vertical" HorizontalAlign="Center">
+        <asp:DataList ID="DLonline" runat="server" RepeatColumns="20" onitemdatabound="DLonline_ItemDataBound" 
+            DataKeyField="Qid" onitemcommand="DLonline_ItemCommand" 
+            HorizontalAlign="Center" CellSpacing="5">
                     <ItemTemplate>
                         <div  class="divonline">
                             <div><asp:Label ID="Labelqnum"  runat="server"  Text='<%# Eval("Qnum") %>' Font-Size="8pt" ></asp:Label></div>  
                             <div><asp:Label ID="HyperSname" runat="server" Text='<%# Eval("Qname") %>' CssClass="labelname"></asp:Label>
                             </div> 
-                            <div><asp:Label ID="LabelQmachine" runat="server"  Text='<%# Eval("QmachineShort") %>'  Font-Size="8pt"  Visible="false" ></asp:Label>
+                            <div><asp:Label ID="LabelQmachine" runat="server"  Text='<%# Eval("QmachineShort") %>'  Font-Size="12pt"  ToolTip="座位号" ForeColor='<%# string.IsNullOrEmpty(Eval("Qname").ToString()) ? System.Drawing.Color.Black : System.Drawing.Color.Red %>' ></asp:Label>
                             </div>                            
                             <div><asp:HyperLink ID="Groupflag" runat="server" >g</asp:HyperLink>
                             <asp:Label ID="Labelcolor" runat="server" Text='<%# Eval("Qgscore") %>' ToolTip='<%# "组评语："+Eval("Qgroup") %>'   CssClass="groupscore"></asp:Label>
                             <asp:LinkButton ID="Lunlock" runat="server" CommandArgument="Qid" CommandName="UnLock" ToolTip="单击执行：让该学生重新登录！" CssClass="lockbtn"></asp:LinkButton>
                             <div>                            
                             <asp:Label ID="Labelwork" runat="server" Text='<%# Eval("Qwork") %>' Visible="false" ></asp:Label>
-                            <asp:Label ID="Labelattitude" runat="server" Text='<%# Eval("Qattitude") %>' Visible="false" ></asp:Label>
-                            <asp:Label ID="Labelnote" runat="server" Text='<%# Eval("Qnote") %>' Visible="false" ></asp:Label>
+                            <asp:Label ID="Labelattitude" runat="server" Text='<%# Eval("Qattitude") %>' Font-Size="8pt" ToolTip="表现分" CssClass="groupscore"></asp:Label>
+                            <asp:Label ID="LabelWscore" runat="server" Text="" Font-Size="8pt" ToolTip="作业得分" CssClass="groupscore"></asp:Label>
+                            <asp:Label ID="Labelnote" runat="server" Text='<%# Eval("Qnote") %>'></asp:Label>
                             <asp:Label ID="LabelSleader" runat="server" Text='<%# Eval("Sleader") %>' Visible="false" ></asp:Label>
                             <asp:Label ID="LabelSgroup" runat="server" Text='<%# Eval("Sgroup") %>' Visible="false" ></asp:Label>
                             <asp:Label ID="LabelSgtitle" runat="server" Text='<%# Eval("Sgtitle") %>' Visible="false" ></asp:Label>
                         </div>
                     </ItemTemplate>
-                </asp:DataList>   
+
+                </asp:DataList>
+                <asp:Label ID="lblNoData" runat="server" Text="暂无学生登录,不能排序" Visible="false" style="color:Red"></asp:Label>   
         <br />
         <anthem:RadioButtonList ID="RBsort" runat="server" AutoPostBack="True" 
             Font-Size="9pt" onselectedindexchanged="RBsort_SelectedIndexChanged" 
             RepeatDirection="Horizontal" RepeatLayout="Flow">
             <Items>
-                <asp:ListItem Value="3">机房视图</asp:ListItem>
+            <asp:ListItem Value="3" Selected="True">机房视图</asp:ListItem>
             <asp:ListItem Value="0">主机排序</asp:ListItem>
-            <asp:ListItem Value="1" Selected="True">学号排序</asp:ListItem>
+            <asp:ListItem Value="1">学号排序</asp:ListItem>
             <asp:ListItem Value="2">小组排序</asp:ListItem>
             </Items>
         </anthem:RadioButtonList>&nbsp;
+        &nbsp;&nbsp; <asp:ImageButton ID="Btnrefresh" runat="server" onclick="Btnrefresh_Click" Enabled="False"
+            ImageUrl="~/images/refresh.gif" />
+     <br />
      <anthem:CheckBox ID="CheckBoxScratch" runat="server" 
             Text="编程控制" AutoPostBack="True" 
             ToolTip="提示：编程开关控制，选中表示可以进入编程页面" 
@@ -114,9 +137,9 @@
             oncheckedchanged="CheckBoxRgauge_CheckedChanged" 
             ToolTip="提示：作品互评控制，选中表示开启" />
         <anthem:CheckBox ID="CheckBoxip" runat="server" 
-            Text="IP锁定登录" AutoPostBack="True" 
+            Text="固定IP登录" AutoPostBack="True" 
             oncheckedchanged="CheckBoxip_CheckedChanged" 
-            ToolTip="提示：根据上次登录的IP进行锁定登录" />
+            ToolTip="提示：学生首次登录后锁定当前IP，后续只能从该IP登录。可通过座位管理功能调整固定IP。" />
      <anthem:CheckBox ID="CheckBoxPass" runat="server" 
             Text="闯关模式" AutoPostBack="True" 
             oncheckedchanged="CheckBoxPass_CheckedChanged" 
@@ -133,10 +156,33 @@
             Text="个人模式" AutoPostBack="True" 
             ToolTip="提示：选中表示允许本班单独个人模式登录，未选表示使用后台统一模式登录！" 
             oncheckedchanged="CheckBoxLogin_CheckedChanged" />
+        <anthem:CheckBox ID="CheckBoxPreClassCheck" runat="server" 
+            Text="课前检查" AutoPostBack="True" 
+            oncheckedchanged="CheckBoxPreClassCheck_CheckedChanged" 
+            ToolTip="提示：选中表示启用课前检查模式，学生登录后直接进入sub.aspx页面，不跳转到课程页面！" />
+        <anthem:CheckBox ID="chkTypingEnabled" runat="server" Text="打字宝典" 
+            AutoPostBack="true" OnCheckedChanged="chkTypingEnabled_CheckedChanged" 
+            ToolTip="提示：选中表示学生导航中显示打字宝典链接，未选表示隐藏打字宝典链接！" />
+        <anthem:CheckBox ID="CheckBoxGames" runat="server" 
+            Text="游戏开关" AutoPostBack="True" 
+            oncheckedchanged="CheckBoxGames_CheckedChanged" 
+            ToolTip="提示：选中表示启用游戏功能，未选表示禁用游戏功能！" />
+        <anthem:CheckBox ID="CheckBoxGroupChat" runat="server" 
+            Text="小组讨论" AutoPostBack="True" 
+            oncheckedchanged="CheckBoxGroupChat_CheckedChanged" 
+            ToolTip="提示：选中表示启用小组讨论功能，未选表示禁用小组讨论功能！" />
+        <anthem:CheckBox ID="chkSummaryEnabled" runat="server" Text="学习汇总" 
+            AutoPostBack="true" OnCheckedChanged="chkSummaryEnabled_CheckedChanged" 
+            ToolTip="提示：选中表示学生导航中显示学习汇总链接，未选表示隐藏该链接！" />
+        <anthem:CheckBox ID="chkHonorsEnabled" runat="server" Text="荣誉榜" 
+            AutoPostBack="true" OnCheckedChanged="chkHonorsEnabled_CheckedChanged" 
+            ToolTip="提示：选中表示学生导航中显示荣誉榜链接，未选表示隐藏该链接！" />
+
+
      </div>
         <div  class="startdiv">
             <br />
-            <asp:Label ID="Label2" runat="server" Width="450px" Height="16px" 
+            <asp:Label ID="Label2" runat="server" Width="450px" Height="16px"
                 ForeColor="White" ></asp:Label>
             今天未签到情况：<asp:Label ID="Labelsigno" runat="server" Width="60px"></asp:Label>位
             <br />
@@ -151,6 +197,7 @@
                              </div>  
                             <div>
                             <asp:Label ID="LabelSscore" runat="server" Text='<%# Eval("Sscore") %>' Font-Size="8pt" Width="66px" ToolTip="总学分"></asp:Label>
+
                             </div>
                         </div>
                     </ItemTemplate>
@@ -163,16 +210,21 @@
         </asp:DropDownList>
         <asp:HyperLink ID="HyperLinkSeat" runat="server" Target="_blank" >座位表</asp:HyperLink>
         &nbsp;
-        &nbsp;&nbsp; <asp:ImageButton ID="Btnrefresh" runat="server" onclick="Btnrefresh_Click" Enabled="False"
-            ImageUrl="~/images/refresh.gif" />
-        &nbsp;&nbsp;<asp:CheckBox ID="CheckBoxShare" runat="server" 
+
+        &nbsp;&nbsp;<asp:CheckBox ID="CheckBoxShare" runat="server"
             Text="网盘开关" AutoPostBack="True" 
             oncheckedchanged="CheckBoxShare_CheckedChanged" 
             ToolTip="提示：选中表示网盘启用，未选表示网盘禁用！" />
-       <asp:CheckBox ID="CheckBoxGroupShare" runat="server" 
-            Text="小组网盘" AutoPostBack="True" 
-            oncheckedchanged="CheckBoxGroupShare_CheckedChanged" 
+       <asp:CheckBox ID="CheckBoxGroupShare" runat="server"
+            Text="小组网盘" AutoPostBack="True"
+            oncheckedchanged="CheckBoxGroupShare_CheckedChanged"
             ToolTip="提示：选中表示小组网盘启用（前提为前面的网盘开关启用），未选表示小组网盘禁用！" />
+
+        <anthem:CheckBox ID="CheckBoxRegister" runat="server"
+            Text="登记确认" Checked="false" AutoPostBack="True"
+            oncheckedchanged="CheckBoxRegister_CheckedChanged"
+            ToolTip="提示：选中表示弹出登记确认窗口，未选表示不弹出确认窗口但仍记录上课内容！" />
+
         &nbsp;&nbsp; <asp:HyperLink ID="HylkDiskstu" runat="server" 
             ImageUrl="~/images/disksmallstu.gif" Target="_blank" 
             ToolTip="查看学生网盘存档情况"></asp:HyperLink>
@@ -217,7 +269,7 @@
         <div class="startdiv">
          <br />
         <asp:Button ID="BtnaAllQuit" runat="server" Text="全班下线"  SkinID="BtnSmall"
-            onclick="BtnaAllQuit_Click" Visible="False" EnableViewState="False" />
+            onclick="BtnaAllQuit_Click" Visible="True" EnableViewState="False" />
         <br />
         <asp:Label ID="LabelToday" runat="server" Font-Size="9pt" 
             ToolTip="*服务器日期校准：作品、签到日期以此为准*" Font-Bold="False"  ></asp:Label>
@@ -228,6 +280,7 @@
         <script src="../js/spanToolTip.js" type="text/javascript"></script>
         <link href="../js/tinybox.css" rel="stylesheet" type="text/css" />
         <script src="../js/tinybox.js" type="text/javascript"></script>
+        
         <script type ="text/javascript" >
             function myrefresh() {
                 document.getElementById("<%= Btnrefresh.ClientID %>").click();
@@ -245,6 +298,36 @@
             function attitudegroup(g, m, q, c) {
                 var urlat = "../teacher/attitudegroup.aspx?sg=" + g + "&ld=" + m + "&qd=" + q + "&qcid=" + c;
                 TINY.box.show({ iframe: urlat, boxid: 'frameless', width: 360, height: 200, fixed: false, maskopacity: 60, close:true })
+            }
+            //随机抽问
+            function SuiJiChouWen() {
+           
+                // 获取所有在线学生的div元素
+                var studentDivs = Array.from(document.getElementsByClassName('divonline')).filter(container => container.querySelector(`.labelname`))
+                if (studentDivs.length > 0) {
+                    
+                    // 随机选择一个学生
+                    var randomIndex = Math.floor(Math.random() * studentDivs.length);
+                    var selectedStudent = studentDivs[randomIndex];
+                    
+                    // 移除之前的选中样式
+                    for (var i = 0; i < studentDivs.length; i++) {
+                        studentDivs[i].style.backgroundColor = '';
+                    }
+                   
+                    // 高亮显示选中的学生
+                    selectedStudent.style.backgroundColor = '#FFFF99';
+
+                    // 获取学生姓名
+                    var labelName=selectedStudent.querySelector('.labelname');
+                    if(labelName){
+                        alert(labelName.innerText)
+                    }                 
+   
+                } else {
+                    alert('当前没有在线学生可以抽问！');
+                }
+                return false;
             }
         </script>
 </div>

@@ -58,7 +58,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public bool Delete(int Hid)
 		{
-			
+
 			return dal.Delete(Hid);
 		}
 		/// <summary>
@@ -80,7 +80,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.House GetModel(int Hid)
 		{
-			
+
 			return dal.GetModel(Hid);
 		}
 
@@ -89,7 +89,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.House GetModelByCache(int Hid)
 		{
-			
+
 			string CacheKey = "HouseModel-" + Hid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -115,7 +115,7 @@ namespace LearnSite.BLL
 		{
 			return dal.GetList(strWhere);
 		}
-                
+
         /// <summary>
         /// 获得数据列表
         /// </summary>
@@ -129,6 +129,16 @@ namespace LearnSite.BLL
         public string GetHseat(int Hid)
         {
             return dal.GetHseat(Hid);
+        }
+		/// <summary>
+        /// 根据机房ID和座位号获取对应的IP
+        /// </summary>
+        /// <param name="HouseId">机房ID</param>
+        /// <param name="SeatNum">座位号</param>
+        /// <returns>IP地址，如果不存在则返回空字符串</returns>
+        public string GetIpBySeat(int HouseId, int SeatNum)
+        {
+            return dal.GetIpBySeat(HouseId, SeatNum);
         }
 		/// <summary>
 		/// 获得前几行数据

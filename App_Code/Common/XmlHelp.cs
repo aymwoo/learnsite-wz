@@ -282,6 +282,105 @@ namespace LearnSite.Common
             return SetValue("LoginMode", FieldStr, lmode);
         }
         /// <summary>
+        /// 设置课前检查开关
+        /// </summary>
+        /// <param name="preClassCheckStr"></param>
+        /// <returns></returns>
+        public static bool SetPreClassCheck(string preClassCheckStr)
+        {
+            return SetValue("EnablePreClassCheck", FieldStr, preClassCheckStr);
+        }
+
+        /// <summary>
+        /// 设置游戏开关
+        /// </summary>
+        /// <param name="gamesStr"></param>
+        /// <returns></returns>
+        public static bool SetGames(string gamesStr)
+        {
+            return SetValue("EnableGames", FieldStr, gamesStr);
+        }
+
+        /// <summary>
+        /// 设置小组讨论开关
+        /// </summary>
+        /// <param name="groupChatStr"></param>
+        /// <returns></returns>
+        public static bool SetGroupChat(string groupChatStr)
+        {
+            return SetValue("EnableGroupChat", FieldStr, groupChatStr);
+        }
+
+        /// <summary>
+        /// 设置登记开关
+        /// </summary>
+        /// <param name="registerStr"></param>
+        /// <returns></returns>
+        public static bool SetRegister(string registerStr)
+        {
+            return SetValue("EnableRegister", FieldStr, registerStr);
+        }
+
+        /// <summary>
+        /// 设置学习汇总开关
+        /// </summary>
+        /// <param name="summaryStr"></param>
+        /// <returns></returns>
+        public static bool SetSummary(string summaryStr)
+        {
+            return SetValue("EnableSummary", FieldStr, summaryStr);
+        }
+
+        /// <summary>
+        /// 设置荣誉榜开关
+        /// </summary>
+        /// <param name="honorsStr"></param>
+        /// <returns></returns>
+        public static bool SetHonors(string honorsStr)
+        {
+            return SetValue("EnableHonors", FieldStr, honorsStr);
+        }
+
+        /// <summary>
+        /// 获取荣誉榜显示范围
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHonorDisplayScope()
+        {
+            return GetTypeName("HonorDisplayScope");
+        }
+
+        /// <summary>
+        /// 设置荣誉榜显示范围
+        /// </summary>
+        /// <param name="scopeStr"></param>
+        /// <returns></returns>
+        public static bool SetHonorDisplayScope(string scopeStr)
+        {
+            return SetValue("HonorDisplayScope", FieldStr, scopeStr);
+        }
+
+        /// <summary>
+        /// 设置打字宝典开关
+        /// </summary>
+        /// <param name="typingStr"></param>
+        /// <returns></returns>
+        public static bool SetTyping(string typingStr)
+        {
+            return SetValue("EnableTyping", FieldStr, typingStr);
+        }
+
+        /// <summary>
+        /// 设置游戏自动模式
+        /// </summary>
+        /// <param name="autoModeStr"></param>
+        /// <returns></returns>
+        public static bool SetTypeName(string key, string value)
+        {
+            return SetValue(key, FieldStr, value);
+        }
+
+        /// <summary>
         /// 获得多少时间后下载
         /// </summary>
         /// <returns></returns>
@@ -356,7 +455,7 @@ namespace LearnSite.Common
 
         private static string xmlFile()
         {
-            string xmlFileName = Flatform.Checkbdir(HttpContext.Current.Server.MapPath("~/")) + @"website.xml";
+            string xmlFileName = Path.Combine(Flatform.Checkbdir(HttpContext.Current.Server.MapPath("~/")), "website.xml");
             return xmlFileName;
         }
         /// <summary>

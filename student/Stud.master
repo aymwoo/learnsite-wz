@@ -38,7 +38,7 @@
       <div  class="studmasterhead">
             <div  class="banner" > 
             </div>
-            <div  class="menu">
+            <div class="menu">
             <ul class="nav">
             <li ><a href="../student/myinfo.aspx">我的学案</a></li>
             <li ><span class="sp"></span></li>
@@ -48,7 +48,13 @@
             <li ><span class="sp"></span></li>
             <li ><a href="../student/myfile.aspx">在线资源</a></li>
             <li ><span class="sp"></span></li>
-            <li ><a onclick="showShare()">我的网盘</a> </li>
+            <li ><a onclick="showShare()">网盘</a> </li>
+            <li ><span class="sp"></span></li>
+            <li ><a href="../student/examlist.aspx">考试</a></li>
+            <li ><span class="sp"></span></li>
+            <li ><asp:HyperLink ID="hlSummary" runat="server" NavigateUrl="~/student/mytotal.aspx">学习汇总</asp:HyperLink></li>
+            <li ><span class="sp"></span></li>
+            <li ><asp:HyperLink ID="hlHonors" runat="server" NavigateUrl="~/student/honorboard.aspx">荣誉</asp:HyperLink></li>
             </ul>             
             </div>
       <div class="st">
@@ -66,6 +72,7 @@
         <br />
 		<div class="chatimg"  onclick="showChat()"  title="小组在线聊天" ></div>
 		<div class="robotimg"  title="人工智能对话"   onclick="showRobot()" ></div>
+
     </form>
 </body>
 </html>

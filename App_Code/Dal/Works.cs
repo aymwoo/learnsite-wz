@@ -51,7 +51,7 @@ namespace LearnSite.DAL
 
             return DbHelperSQL.Exists(strSql.ToString(), parameters);
         }
-        
+
         /// <summary>
         /// 是否存在该学号任务作品
         /// </summary>
@@ -290,7 +290,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public void Delete(int Wid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Works ");
 			strSql.Append(" where Wid=@Wid ");
@@ -750,7 +750,7 @@ namespace LearnSite.DAL
             SqlParameter[] parameters = {
 					new SqlParameter("@Wcid", SqlDbType.Int,4)};
             parameters[0].Value = Wcid;           
-           
+
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
         }
 
@@ -798,7 +798,7 @@ namespace LearnSite.DAL
             parameters[1].Value = hid;
 
             return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
-            
+
         }
         /// <summary>
         /// 根据学生生的年级、班级(不影响班级升学)
@@ -938,7 +938,7 @@ namespace LearnSite.DAL
             strSql.Append("Wlemotion=0,");
             strSql.Append("Wcheck=1");
             strSql.Append(" where Wcheck=0 and Wscore=10 and Wcid=@Wcid and Wmid=@Wmid and Wnum in (select Snum from Students where Sgrade=@Sgrade and Sclass=@Sclass)");
-           
+
             SqlParameter[] parameters = {
 					new SqlParameter("@Wcid", SqlDbType.Int,4),
 					new SqlParameter("@Sgrade", SqlDbType.Int,4),
@@ -988,7 +988,7 @@ namespace LearnSite.DAL
             strSql.Append("Wlemotion=0,");
             strSql.Append("Wcheck=1");
             strSql.Append(" where Wcheck=0 and Wscore=10 and Wcid=@Wcid  and Wnum in (select Snum from Students where Sgrade=@Sgrade and Sclass=@Sclass)");
-           
+
             SqlParameter[] parameters = {
 					new SqlParameter("@Wcid", SqlDbType.Int,4),
 					new SqlParameter("@Sgrade", SqlDbType.Int,4),
@@ -1032,7 +1032,7 @@ namespace LearnSite.DAL
             string strSql = "update Works set Wscore=6,Wcheck=1 where Wcheck=0 and Wnum in ( select Snum from Students,Room where Sgrade=Rgrade and Sclass=Rclass  and Rhid=" + Rhid + ")";
             DbHelperSQL.ExecuteSql(strSql);
         }
-        
+
         /// <summary>
         /// 更新指定Wid作品的积分
         /// </summary>
@@ -1122,7 +1122,7 @@ namespace LearnSite.DAL
         public string GetWcode(string Wmid, string Wnum)
         {
             //string mysql = "select top 1 Wcode from Works where Wtype='py' and Wmid=" + Wmid + " and Wnum='" + Wnum + "'";
-            
+
             string mysql = "select top 1 Wcode from Works where  Wmid=" + Wmid + " and Wnum='" + Wnum + "'";
             return DbHelperSQL.FindString(mysql);
         }
@@ -1521,7 +1521,7 @@ namespace LearnSite.DAL
         public DataTable ShowClassWorksBySort(int Sgrade, int Sclass,int Wmid, string Sort)
         {
             StringBuilder strSql = new StringBuilder();
-            strSql.Append(" select Wid,Wnum,Wurl,Wscore,Wip,Wvote,Wcheck,Wself,Wcan,Wgood,Wtype,Wlscore,Wlemotion,Woffice,Wflash,Werror,Wfscore,Wdscore,Weditday,Sname,Sgroup ");
+            strSql.Append(" select Wid,Wnum,Wurl,Wscore,Wip,Wvote,Wcheck,Wself,Wcan,Wgood,Wtype,Wlscore,Wlemotion,Woffice,Wflash,Werror,Wfscore,Wdscore,Weditday,Sname,Sgroup,Sseat ");
             strSql.Append(" from Works,Students ");
             strSql.Append(" where Sgrade=@Sgrade and Sclass=@Sclass ");
             strSql.Append(" and Wsid=Sid and Wmid=@Wmid ");
@@ -1620,7 +1620,7 @@ namespace LearnSite.DAL
         {
             //string mysql = "select distinct Wid,Sname,Wurl,Wcheck from Works,Students where  Wnum=Snum and Wcid=" + Wcid + " and Wmid=" + Wmid + " and Wnum in ( select Snum from Students where  Sgrade=" + Sgrade + " and Sclass=" + Sclass + ") order by Wid asc";
             string mysql = "select distinct Wid,Sname,Wurl,Wcheck from Works,Students where  Wnum=Snum and Wcid=" + Wcid + " and Wmid=" + Wmid + " and Sgrade=" + Sgrade + " and Sclass=" + Sclass + " order by Wid asc";
-            
+
             DataTable dt = DbHelperSQL.Query(mysql).Tables[0];
             return dt;
         }
@@ -1740,7 +1740,7 @@ namespace LearnSite.DAL
         /// <returns></returns>
         public DataSet ShowTodayNotWorks(int Syear, int Sgrade, int Sclass, int Wmid)
         {
-            string mysql = "select Snum,Sname,Sscore from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and  Snum not in ( select Wnum from Works where  Wyear=" + Syear + " and Wgrade=" + Sgrade + " and Wclass=" + Sclass + " and Wmid=" + Wmid + " ) order by Snum asc";
+            string mysql = "select Snum,Sname,Sscore,Sseat from Students where Sgrade=" + Sgrade + " and Sclass=" + Sclass + " and  Snum not in ( select Wnum from Works where  Wyear=" + Syear + " and Wgrade=" + Sgrade + " and Wclass=" + Sclass + " and Wmid=" + Wmid + " ) order by Snum asc";
             return DbHelperSQL.Query(mysql);
         }
         /// <summary>
@@ -2590,7 +2590,7 @@ namespace LearnSite.DAL
         public void Updatemscore(int Wmid, string Wnum, int Wlscore)
         {
             string mysql = "update Works set Wscore=@Wlscore,Wgood=0,Wcheck=1 where  Wmid=@Wmid and Wnum=@Wnum ";
-           
+
             if (Wlscore == 12)
             {
                 mysql = "update Works set Wscore=@Wlscore,Wgood=1,Wcheck=1 where  Wmid=@Wmid and Wnum=@Wnum ";
@@ -2633,7 +2633,7 @@ namespace LearnSite.DAL
             parameters[2].Value = Wlscore;
             parameters[3].Value = Wself;
             parameters[4].Value = Wdscore;
-            
+
             DbHelperSQL.ExecuteSql(mysql, parameters);
         }
 
@@ -2676,7 +2676,7 @@ namespace LearnSite.DAL
             {
                 mysql = "update Works set Wscore=@Wlscore,Wself=@Wself,Wgood=1,Wcheck=1,Wdscore=@Wdscore where " + temp + " and Wnum=@Wnum";
             }
-            
+
             SqlParameter[] parameters = {
 					new SqlParameter("@Wcid", SqlDbType.Int,4),
 					new SqlParameter("@Wmid", SqlDbType.Int,4),              
@@ -2811,7 +2811,7 @@ namespace LearnSite.DAL
 
             return DbHelperSQL.Query(strSql.ToString(), parameters);
         }
-        
+
         /// <summary>
         /// 显示该学案的所有优秀推荐作品
         /// </summary>

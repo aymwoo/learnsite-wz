@@ -129,6 +129,29 @@ namespace LearnSite.DAL
             string strSql = "select top 1 Pmachine from Computers where Pip='" + Pip + "' order by Pid desc";
             return DbHelperSQL.FindString(strSql);
         }
+
+		/// <summary>
+        /// 根据主机名（座位号）获取IP
+        /// </summary>
+        /// <param name="Pmachine">主机名/座位号</param>
+        /// <returns>IP地址</returns>
+        public string GetIpByMachine(string Pmachine)
+        {
+            string strSql = "select top 1 Pip from Computers where Pmachine='" + Pmachine + "' order by Pid desc";
+            return DbHelperSQL.FindString(strSql);
+        }
+
+        /// <summary>
+        /// 根据学号获取主机名（座位号）
+        /// </summary>
+        /// <param name="snum">学号</param>
+        /// <returns>主机名（座位号）</returns>
+        public string GetMachineBySnum(string snum)
+        {
+            string strSql = "select top 1 Pmachine from Computers where Pmachine = '" + snum + "'";
+            return DbHelperSQL.FindString(strSql);
+        }
+
 		/// <summary>
 		/// 是否存在该记录
 		/// </summary>
@@ -433,7 +456,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public bool Delete(int Pid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Computers ");
 			strSql.Append(" where Pid=@Pid");
@@ -477,7 +500,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public LearnSite.Model.Computers GetModel(int Pid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Pid,Pip,Pmachine,Plock,Pdate from Computers ");
 			strSql.Append(" where Pid=@Pid");
@@ -622,6 +645,32 @@ namespace LearnSite.DAL
             string sql = "select Pip,Pmachine from Computers order by Pip asc,Pid desc";
             return DbHelperSQL.Query(sql).Tables[0];
         }
+
+        /// <summary>
+        /// 获取班级所有电脑IP列表（根据签到记录中的年级班级筛选）
+        /// </summary>
+        /// <param name="grade">年级</param>
+        /// <param name="classNum">班级</param>
+        /// <returns>电脑列表</returns>
+        public DataTable GetClassComputers(int grade, int classNum)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT DISTINCT s.Qip as Cip ");
+            strSql.Append("FROM Signin s ");
+            strSql.Append("WHERE s.Qgrade = @Grade AND s.Qclass = @Class ");
+            strSql.Append("AND s.Qip IS NOT NULL AND s.Qip != '' ");
+            strSql.Append("ORDER BY s.Qip");
+
+            SqlParameter[] parameters = {
+                new SqlParameter("@Grade", SqlDbType.Int, 4),
+                new SqlParameter("@Class", SqlDbType.Int, 4)
+            };
+            parameters[0].Value = grade;
+            parameters[1].Value = classNum;
+
+            return DbHelperSQL.Query(strSql.ToString(), parameters).Tables[0];
+        }
+
 		/*
 		/// <summary>
 		/// 分页获取数据列表

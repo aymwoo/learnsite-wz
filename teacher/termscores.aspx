@@ -80,6 +80,34 @@
                 <asp:ListItem>10</asp:ListItem>
                 <asp:ListItem>0</asp:ListItem>
             </asp:DropDownList>
+            问卷：<asp:DropDownList ID="DDLsurvey" runat="server" 
+                Font-Size="9pt" Width="50px">
+                <asp:ListItem>100</asp:ListItem>
+                <asp:ListItem>90</asp:ListItem>
+                <asp:ListItem>80</asp:ListItem>
+                <asp:ListItem>70</asp:ListItem>
+                <asp:ListItem>60</asp:ListItem>
+                <asp:ListItem>50</asp:ListItem>
+                <asp:ListItem>40</asp:ListItem>
+                <asp:ListItem>30</asp:ListItem>
+                <asp:ListItem>20</asp:ListItem>
+                <asp:ListItem>10</asp:ListItem>
+                <asp:ListItem Selected="True">0</asp:ListItem>
+            </asp:DropDownList>
+            签到：<asp:DropDownList ID="DDLsignin" runat="server" 
+                Font-Size="9pt" Width="50px">
+                <asp:ListItem>100</asp:ListItem>
+                <asp:ListItem>90</asp:ListItem>
+                <asp:ListItem>80</asp:ListItem>
+                <asp:ListItem>70</asp:ListItem>
+                <asp:ListItem>60</asp:ListItem>
+                <asp:ListItem>50</asp:ListItem>
+                <asp:ListItem>40</asp:ListItem>
+                <asp:ListItem>30</asp:ListItem>
+                <asp:ListItem>20</asp:ListItem>
+                <asp:ListItem>10</asp:ListItem>
+                <asp:ListItem Selected="True">0</asp:ListItem>
+            </asp:DropDownList>
             &nbsp;&nbsp;
             <br />
             <br />

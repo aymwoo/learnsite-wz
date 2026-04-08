@@ -90,7 +90,7 @@ namespace LearnSite.Common
             string file_index = HttpContext.Current.Request.Form["file_index"];
             string file_total = HttpContext.Current.Request.Form["file_total"];
             furl = furl + "/" + fname;
-            fpath = fpath + "\\" + fname;
+            fpath = System.IO.Path.Combine(fpath, fname);
             if (flen > 0)
             {
                 FileMode fMode = File.Exists(fpath) ? FileMode.Append : FileMode.Create;

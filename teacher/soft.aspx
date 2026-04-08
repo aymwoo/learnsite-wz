@@ -31,7 +31,7 @@
                             DataTextField="Ftitle" HeaderText="标题" />
                         <asp:BoundField DataField="Ffiletype" HeaderText="格式" />
                         <asp:BoundField DataField="Fhit" HeaderText="次数" />
-                        <asp:BoundField DataField="Fopen" HeaderText="学分" />
+                        <asp:BoundField DataField="Fopen" HeaderText="评分方式" />
                         <asp:HyperLinkField DataNavigateUrlFields="Furl" HeaderText="下载" Text="点击" 
                             Target="_blank" />
                         <asp:CheckBoxField DataField="Fhide" HeaderText="隐藏" ReadOnly="True" />

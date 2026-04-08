@@ -2248,7 +2248,7 @@ namespace LearnSite.Common
         /// <returns></returns>
         public static string getbackpath(string fname)
         {
-            string mypath = fname.Substring(0, fname.LastIndexOf(@"\"));
+            string mypath = fname.Substring(0, fname.LastIndexOf(System.IO.Path.DirectorySeparatorChar));
             return mypath;
         }
         /// <summary>

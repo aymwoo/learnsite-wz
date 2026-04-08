@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Net;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Linq;
 namespace LearnSite.Common
 {
 /// <summary>
@@ -14,6 +15,30 @@ namespace LearnSite.Common
 /// </summary>
 public class Computer
 {
+	// 定义 Windows API 结构和函数
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+	private struct MEMORYSTATUSEX
+	{
+		public uint dwLength;
+		public uint dwMemoryLoad;
+		public ulong ullTotalPhys;
+		public ulong ullAvailPhys;
+		public ulong ullTotalPageFile;
+		public ulong ullAvailPageFile;
+		public ulong ullTotalVirtual;
+		public ulong ullAvailVirtual;
+		public ulong ullAvailExtendedVirtual;
+	}
+
+	[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	private static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+
+	// 定义 Windows API 函数用于获取系统 CPU 时间
+	[DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+	[return: MarshalAs(UnmanagedType.Bool)]
+	private static extern bool GetSystemTimes(out long lpIdleTime, out long lpKernelTime, out long lpUserTime);
+
 	public Computer()
 	{
 		//
@@ -601,6 +626,390 @@ public class Computer
             {
                 System.Diagnostics.Trace.Write(se.Message);
                 return false;
+            }
+        }
+
+        /// <summary>
+        /// 从IP地址中提取网段前缀（前三段）
+        /// </summary>
+        /// <param name="ip">完整IP地址，如 172.16.3.100</param>
+        /// <returns>网段前缀，如 172.16.3</returns>
+        public static string GetIpNetPrefix(string ip)
+        {
+            if (string.IsNullOrEmpty(ip))
+                return string.Empty;
+
+            string[] parts = ip.Split('.');
+            if (parts.Length >= 3)
+            {
+                return parts[0] + "." + parts[1] + "." + parts[2];
+    }
+            return string.Empty;
+}
+
+        /// <summary>
+        /// 根据IP地址获取对应的机房ID
+        /// 通过网段配置表查询
+        /// </summary>
+        /// <param name="ip">客户端IP地址</param>
+        /// <returns>机房ID，如果未配置则返回null</returns>
+        public static int? GetHidByIp(string ip)
+        {
+            if (string.IsNullOrEmpty(ip))
+                return null;
+
+            try
+            {
+                LearnSite.BLL.IpNet bll = new LearnSite.BLL.IpNet();
+                return bll.GetHidByIp(ip);
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 根据IP地址获取对应的网段名称
+        /// </summary>
+        /// <param name="ip">客户端IP地址</param>
+        /// <returns>网段名称</returns>
+        public static string GetNetNameByIp(string ip)
+        {
+            if (string.IsNullOrEmpty(ip))
+                return string.Empty;
+
+            try
+            {
+                string netPrefix = GetIpNetPrefix(ip);
+                if (!string.IsNullOrEmpty(netPrefix))
+                {
+                    LearnSite.BLL.IpNet bll = new LearnSite.BLL.IpNet();
+                    int? hid = bll.GetHidByNet(netPrefix);
+                    if (hid.HasValue)
+                    {
+                        LearnSite.BLL.House houseBll = new LearnSite.BLL.House();
+                        LearnSite.Model.House house = houseBll.GetModel(hid.Value);
+                        if (house != null)
+                        {
+                            return house.Hname;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// 获取内存使用情况
+        /// </summary>
+        /// <returns>内存使用情况，格式："总量: X MB, 已用: Y MB, 可用: Z MB, 缓存: W MB"</returns>
+        public static string GetMemoryInfo()
+        {
+            try
+            {
+                // 检测当前平台
+                bool isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32S || 
+                                Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.WinCE;
+                
+                if (isWindows)
+                {
+                    // 尝试使用 Windows API 获取系统内存信息
+                    MEMORYSTATUSEX memStatus = new MEMORYSTATUSEX();
+                    memStatus.dwLength = (uint)Marshal.SizeOf(memStatus);
+                    
+                    if (GlobalMemoryStatusEx(ref memStatus))
+                    {
+                        int totalMemoryMB = (int)(memStatus.ullTotalPhys / (1024 * 1024));
+                        int availableMemoryMB = (int)(memStatus.ullAvailPhys / (1024 * 1024));
+                        int usedMemoryMB = totalMemoryMB - availableMemoryMB;
+                        uint memoryLoad = memStatus.dwMemoryLoad;
+                        
+                        // 显示系统总内存、已用内存、可用内存和内存使用率
+                        return string.Format("总量: {0:N0} MB, 已用: {1:N0} MB, 可用: {2:N0} MB, 使用率: {3}%", totalMemoryMB, usedMemoryMB, availableMemoryMB, memoryLoad);
+                    }
+                    else
+                    {
+                        // 如果 Windows API 调用失败，返回当前进程的内存使用情况
+                        System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                        long memoryUsage = currentProcess.WorkingSet64 / (1024 * 1024); // 转换为 MB
+                        return string.Format("当前进程: {0:N0} MB (Windows API 调用失败)", memoryUsage);
+                    }
+                }
+                else
+                {
+                    // 在非 Windows 平台上，返回当前进程的内存使用情况
+                    System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                    long memoryUsage = currentProcess.WorkingSet64 / (1024 * 1024); // 转换为 MB
+                    return string.Format("当前进程: {0:N0} MB (非 Windows 平台)", memoryUsage);
+                }
+            }
+            catch (Exception ex)
+            {
+                // 如果出现异常，返回当前进程的内存使用情况
+                try
+                {
+                    System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                    long memoryUsage = currentProcess.WorkingSet64 / (1024 * 1024); // 转换为 MB
+                    return string.Format("当前进程: {0:N0} MB (错误: {1})", memoryUsage, ex.Message);
+                }
+                catch (Exception ex2)
+                {
+                    return "获取内存信息失败: " + ex2.Message;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 获取磁盘分区使用情况
+        /// </summary>
+        /// <returns>磁盘分区使用情况，格式："C: X% (X GB/X GB), D: Y% (Y GB/Y GB), ..."</returns>
+        public static string GetDiskInfo()
+        {
+            try
+            {
+                System.Text.StringBuilder diskInfo = new System.Text.StringBuilder();
+                foreach (System.IO.DriveInfo drive in System.IO.DriveInfo.GetDrives())
+                {
+                    if (drive.IsReady && drive.DriveType == System.IO.DriveType.Fixed)
+                    {
+                        long totalSpace = drive.TotalSize / (1024 * 1024 * 1024); // 转换为 GB
+                        long freeSpace = drive.AvailableFreeSpace / (1024 * 1024 * 1024); // 转换为 GB
+                        long usedSpace = totalSpace - freeSpace;
+                        int usagePercent = (int)((double)usedSpace / totalSpace * 100);
+                        diskInfo.AppendFormat("{0}: {1}% ({2} GB/{3} GB), ", drive.Name, usagePercent, usedSpace, totalSpace);
+                    }
+                }
+                if (diskInfo.Length > 0)
+                {
+                    diskInfo.Length -= 2; // 移除最后一个逗号和空格
+                }
+                return diskInfo.ToString();
+            }
+            catch
+            {
+            }
+            return "获取磁盘信息失败";
+        }
+
+        /// <summary>
+        /// 获取占用 CPU/内存最高的进程 TOP10
+        /// </summary>
+        /// <returns>进程列表，格式："进程名 (PID): CPU%/内存MB, ..."</returns>
+        public static string GetTopProcesses()
+        {
+            try
+            {
+                var processes = System.Diagnostics.Process.GetProcesses()
+                    .Where(p => p.ProcessName != "Idle")
+                    .OrderByDescending(p => {
+                        try { return p.WorkingSet64; }
+                        catch { return 0L; }
+                    })
+                    .Take(10);
+                
+                System.Text.StringBuilder processInfo = new System.Text.StringBuilder();
+                foreach (var process in processes)
+                {
+                    try
+                    {
+                        string processName = process.ProcessName;
+                        int processId = process.Id;
+                        long memoryUsage = process.WorkingSet64 / (1024 * 1024); // 转换为 MB
+                        
+                        processInfo.AppendFormat("{0} ({1}): {2:N0}MB, ", processName, processId, memoryUsage);
+                    }
+                    catch
+                    {
+                        // 忽略无法获取信息的进程
+                    }
+                }
+                
+                if (processInfo.Length > 0)
+                {
+                    processInfo.Length -= 2; // 移除最后一个逗号和空格
+                }
+                return processInfo.ToString();
+            }
+            catch
+            {
+            }
+            return "获取进程信息失败";
+        }
+
+        /// <summary>
+        /// 获取网络使用率
+        /// </summary>
+        /// <returns>网络使用率，格式："网卡1: 发送X%/接收X%, 网卡2: 发送X%/接收X%, ..."</returns>
+        public static string GetNetworkUsage()
+        {
+            try
+            {
+                // 存储第一次网络统计信息
+                Dictionary<string, Tuple<long, long>> firstStats = new Dictionary<string, Tuple<long, long>>();
+                foreach (System.Net.NetworkInformation.NetworkInterface nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up)
+                    {
+                        var stats = nic.GetIPv4Statistics();
+                        firstStats[nic.Name] = new Tuple<long, long>(stats.BytesSent, stats.BytesReceived);
+                    }
+                }
+                
+                // 等待一段时间，让系统有时间积累网络流量
+                System.Threading.Thread.Sleep(1000);
+                
+                // 计算网络使用率
+                System.Text.StringBuilder networkInfo = new System.Text.StringBuilder();
+                foreach (System.Net.NetworkInformation.NetworkInterface nic in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (nic.OperationalStatus == System.Net.NetworkInformation.OperationalStatus.Up && firstStats.ContainsKey(nic.Name))
+                    {
+                        var stats = nic.GetIPv4Statistics();
+                        long bytesSent = stats.BytesSent - firstStats[nic.Name].Item1;
+                        long bytesReceived = stats.BytesReceived - firstStats[nic.Name].Item2;
+                        
+                        // 估计网络带宽（这里使用 100Mbps 作为默认值，实际应该根据网卡的最大带宽来计算）
+                        long estimatedBandwidth = 100 * 1024 * 1024 / 8; // 100Mbps 转换为字节/秒
+                        
+                        // 计算使用率百分比
+                        double sendUsage = 0;
+                        double receiveUsage = 0;
+                        if (estimatedBandwidth > 0)
+                        {
+                            sendUsage = (double)bytesSent / estimatedBandwidth * 100;
+                            receiveUsage = (double)bytesReceived / estimatedBandwidth * 100;
+                        }
+                        
+                        networkInfo.AppendFormat("{0}: 发送{1:N1}%/接收{2:N1}%, ", nic.Name, sendUsage, receiveUsage);
+                    }
+                }
+                
+                if (networkInfo.Length > 0)
+                {
+                    networkInfo.Length -= 2; // 移除最后一个逗号和空格
+                }
+                return networkInfo.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "获取网络使用率失败: " + ex.Message;
+            }
+        }
+
+        /// <summary>
+        /// 获取系统负载
+        /// </summary>
+        /// <returns>系统负载，格式："CPU 使用率: X%, 系统平均负载: Y"</returns>
+        public static string GetSystemLoad()
+        {
+            try
+            {
+                // 检测当前平台
+                bool isWindows = Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32S || 
+                                Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.WinCE;
+                
+                if (isWindows)
+                {
+                    // 尝试使用 Windows API 获取系统 CPU 使用率
+                    long idleTime1, kernelTime1, userTime1;
+                    long idleTime2, kernelTime2, userTime2;
+                    
+                    // 获取第一次时间
+                    if (!GetSystemTimes(out idleTime1, out kernelTime1, out userTime1))
+                    {
+                        // 如果 Windows API 调用失败，返回当前进程的 CPU 使用情况
+                        System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                        System.TimeSpan cpuTime = currentProcess.TotalProcessorTime;
+                        System.TimeSpan elapsedTime = System.DateTime.Now - currentProcess.StartTime;
+                        double processCpuUsage = 0;
+                        
+                        if (elapsedTime.TotalMilliseconds > 0)
+                        {
+                            // 计算当前进程的 CPU 使用率（近似值）
+                            processCpuUsage = (cpuTime.TotalMilliseconds / elapsedTime.TotalMilliseconds) * 100;
+                        }
+                        
+                        return string.Format("当前进程 CPU: {0:N1}% (Windows API 调用失败)", processCpuUsage);
+                    }
+                    
+                    // 等待一段时间，让系统有时间积累 CPU 时间
+                    System.Threading.Thread.Sleep(100);
+                    
+                    // 获取第二次时间
+                    if (!GetSystemTimes(out idleTime2, out kernelTime2, out userTime2))
+                    {
+                        // 如果 Windows API 调用失败，返回当前进程的 CPU 使用情况
+                        System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                        System.TimeSpan cpuTime = currentProcess.TotalProcessorTime;
+                        System.TimeSpan elapsedTime = System.DateTime.Now - currentProcess.StartTime;
+                        double processCpuUsage = 0;
+                        
+                        if (elapsedTime.TotalMilliseconds > 0)
+                        {
+                            // 计算当前进程的 CPU 使用率（近似值）
+                            processCpuUsage = (cpuTime.TotalMilliseconds / elapsedTime.TotalMilliseconds) * 100;
+                        }
+                        
+                        return string.Format("当前进程 CPU: {0:N1}% (Windows API 调用失败)", processCpuUsage);
+                    }
+                    
+                    // 计算总时间差
+                    long totalTimeDiff = (kernelTime2 - kernelTime1) + (userTime2 - userTime1);
+                    // 计算空闲时间差
+                    long idleTimeDiff = idleTime2 - idleTime1;
+                    
+                    // 计算 CPU 使用率
+                    double systemCpuUsage = 0;
+                    if (totalTimeDiff > 0)
+                    {
+                        systemCpuUsage = ((double)(totalTimeDiff - idleTimeDiff) / totalTimeDiff) * 100;
+                    }
+                    
+                    return string.Format("CPU 使用率: {0:N1}%", systemCpuUsage);
+                }
+                else
+                {
+                    // 在非 Windows 平台上，返回当前进程的 CPU 使用情况
+                    System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                    System.TimeSpan cpuTime = currentProcess.TotalProcessorTime;
+                    System.TimeSpan elapsedTime = System.DateTime.Now - currentProcess.StartTime;
+                    double processCpuUsage = 0;
+                    
+                    if (elapsedTime.TotalMilliseconds > 0)
+                    {
+                        // 计算当前进程的 CPU 使用率（近似值）
+                        processCpuUsage = (cpuTime.TotalMilliseconds / elapsedTime.TotalMilliseconds) * 100;
+                    }
+                    
+                    return string.Format("当前进程 CPU: {0:N1}% (非 Windows 平台)", processCpuUsage);
+                }
+            }
+            catch (Exception ex)
+            {
+                // 如果出现异常，返回当前进程的 CPU 使用情况
+                try
+                {
+                    System.Diagnostics.Process currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+                    System.TimeSpan cpuTime = currentProcess.TotalProcessorTime;
+                    System.TimeSpan elapsedTime = System.DateTime.Now - currentProcess.StartTime;
+                    double processCpuUsage = 0;
+                    
+                    if (elapsedTime.TotalMilliseconds > 0)
+                    {
+                        // 计算当前进程的 CPU 使用率（近似值）
+                        processCpuUsage = (cpuTime.TotalMilliseconds / elapsedTime.TotalMilliseconds) * 100;
+                    }
+                    
+                    return string.Format("当前进程 CPU: {0:N1}% (错误: {1})", processCpuUsage, ex.Message);
+                }
+                catch (Exception ex2)
+                {
+                    return "获取系统负载失败: " + ex2.Message;
+                }
             }
         }
     }

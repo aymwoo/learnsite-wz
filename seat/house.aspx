@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
     <div>
-    
+
         <br />
         <strong>机房布置</strong><br />
         <br />
@@ -21,6 +21,8 @@
                         <asp:HyperLinkField DataNavigateUrlFields="hid" 
                             DataNavigateUrlFormatString="ip.aspx?Hid={0}" HeaderText="IP表" 
                             Text="对应" Target="_blank" />
+                        <asp:HyperLinkField NavigateUrl="ipnet.aspx" HeaderText="网段" 
+                            Text="配置" Target="_blank" />
                         <asp:TemplateField ShowHeader="False" HeaderText="操作">
                             <ItemTemplate>
                                 <asp:LinkButton ID="LinkButtonDel" runat="server" CausesValidation="false" 
@@ -53,7 +55,7 @@
         <br />
         <br />
         <br />
-    
+
     </div>
 </asp:Content>
 

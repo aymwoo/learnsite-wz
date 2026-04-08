@@ -28,23 +28,71 @@
     <script charset="utf-8" src="../kindeditor/kindeditor-min.js"></script>
 		<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
 		<script>
-		    var editor;
-            var cid= <%=myCid() %>;
-            var ty="Course";
-            var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&ty='+ty;
-            var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&ty='+ty;
-		    KindEditor.ready(function (K) {
-		        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
-		            resizeType: 1,
-		            newlineTag: "br",  
-                    cssPath : ['../kindeditor/plugins/code/prettify.css'],
-				uploadJson : upjs,
-				fileManagerJson : fmjs,
-				allowFileManager : true,
-                filterMode : false
-		        });
-		    });
-		</script>
+    var editor;
+    var cid= <%=myCid() %>;
+    var ty="Course";
+    var upjs= '../kindeditor/aspnet/upload_json.aspx?cid='+cid+'&ty='+ty;
+    var fmjs='../kindeditor/aspnet/file_manager_json.aspx?cid='+cid+'&ty='+ty;
+    KindEditor.ready(function (K) {
+        editor = K.create('textarea[name="ctl00$Content$mcontent"]', {
+            resizeType: 1,
+            newlineTag: "br",  
+            cssPath : ['../kindeditor/plugins/code/prettify.css'],
+		uploadJson : upjs,
+		fileManagerJson : fmjs,
+		allowFileManager : true,
+            filterMode : false,
+            // 图片默认大小设置
+            afterCreate : function() {
+                var self = this;
+                // 重写图片上传对话框
+                self.plugin.imageDialog = function(options) {
+                    var imageUrl = K.undef(options.imageUrl, '');
+                    var title = K.undef(options.title, '');
+                    var width = K.undef(options.width, 400); // 默认宽度400px
+                    var height = K.undef(options.height, '');
+                    var border = K.undef(options.border, '');
+                    var align = K.undef(options.align, '');
+                    var showRemote = K.undef(options.showRemote, true);
+                    var showLocal = K.undef(options.showLocal, true);
+                    var clickFn = options.clickFn;
+                    
+                    K.imageDialog({
+                        showRemote : showRemote,
+                        showLocal : showLocal,
+                        imageUrl : imageUrl,
+                        title : title,
+                        width : width,
+                        height : height,
+                        border : border,
+                        align : align,
+                        allowFileManager : true,
+                        clickFn : function(url, title, width, height, border, align) {
+                            // 默认宽度设置为400px
+                            if (!width) width = 400;
+                            if (clickFn) {
+                                clickFn.call(self, url, title, width, height, border, align);
+                            } else {
+                                self.insertHtml('<img src="' + url + '" width="' + width + '" alt="' + title + '" />');
+                            }
+                        },
+                        // 自定义上传表单
+                        extraFileUploadParams : {
+                            multiple : true
+                        },
+                        // 重写上传表单
+                        afterRender : function() {
+                            // 为文件输入框添加multiple属性
+                            var fileInput = this.dialog.div.find('input[type="file"]');
+                            fileInput.attr('multiple', 'multiple');
+                            fileInput.attr('accept', 'image/*');
+                        }
+                    });
+                };
+            }
+        });
+    });
+    </script>
     <textarea  id ="mcontent" runat ="server" style="width: 780px; height:400px; left:10px;" ></textarea>  
     </div>
      <div  class="placehold">

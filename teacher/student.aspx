@@ -12,6 +12,12 @@
                 onselectedindexchanged="DDLclass_SelectedIndexChanged">
         </asp:DropDownList>
             班级
+            <asp:DropDownList ID="DDLsort" runat="server"
+            Width="80px" EnableTheming="True" AutoPostBack="True"
+                onselectedindexchanged="DDLsort_SelectedIndexChanged">
+            <asp:ListItem Value="Sseat" Selected="True">按机号排序</asp:ListItem>
+            <asp:ListItem Value="Snum">按学号排序</asp:ListItem>
+        </asp:DropDownList>
             <asp:Label ID="Label1" runat="server" Width="360px" Height="16px"></asp:Label>
             <asp:HyperLink ID="HkaddStu" runat="server" SkinID="HyperLinkBtn">添加学生</asp:HyperLink>
                 &nbsp;
@@ -26,6 +32,11 @@
             <AlternatingRowStyle BackColor="White" />
             <Columns>
                 <asp:BoundField HeaderText="序号" />
+                <asp:TemplateField HeaderText="机号">
+                    <ItemTemplate>
+                        <asp:Label ID="LabelMachine" runat="server" Text='<%# Eval("Sseat") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="Snum" HeaderText="学号">
                     <ControlStyle Width="30px" />
                 </asp:BoundField>
@@ -71,6 +82,18 @@
                     DataNavigateUrlFormatString="studentworks.aspx?snum={0}"  Text="浏览"
                     HeaderText="作品" Target="_blank" />
                 <asp:BoundField DataField="Sattitude" HeaderText="表现" />
+                <asp:TemplateField HeaderText="改学号">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LbtnEditNum" runat="server" CommandArgument='<%# Eval("Sid") %>'
+                            CommandName="EditNum" Text="修改" ForeColor="Blue"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="改机号">
+                    <ItemTemplate>
+                        <asp:LinkButton ID="LbtnEditSeat" runat="server" CommandArgument='<%# Eval("Sid") %>'
+                            CommandName="EditSeat" Text="修改" ForeColor="Blue"></asp:LinkButton>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:HyperLinkField DataNavigateUrlFields="Sid,Sgrade,Sclass" DataNavigateUrlFormatString="studentdel.aspx?sid={0}&amp;sgrade={1}&amp;sclass={2}"
                     Text="删除" />
                 <asp:TemplateField Visible="False">

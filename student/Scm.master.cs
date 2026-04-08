@@ -72,12 +72,9 @@ public partial class Student_Scm : System.Web.UI.MasterPage
             }
 
             string CurWay = "";
-
             LearnSite.BLL.Courses cbll = new LearnSite.BLL.Courses();
             Cbanner = cbll.GetBanner(Int32.Parse(myCid)).Replace("~", "../..");
-
-            string Ctitle = " 首页 "; //cbll.GetTitle(Int32.Parse(Cid));
-
+            string Ctitle = " 首页 "; 
             AddLessonFirst(CurWay, myCid.ToString(), Ctitle);
             LearnSite.BLL.ListMenu lbll = new LearnSite.BLL.ListMenu();
             DataTable dt = lbll.GetShowedMenu(Int32.Parse(myCid)).Tables[0];
@@ -89,16 +86,13 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                 string urlarrow = "~/images/arrow.png";
                 string urllocker = "~/images/locker.png";
                 string urlfinish = "~/images/finish.png";
-                //string urlfinishing = "~/images/finishing.png";
                 LearnSite.BLL.Works wbll = new LearnSite.BLL.Works();
-
                 bool ispass = false;
                 LearnSite.BLL.Room rbll = new LearnSite.BLL.Room();
-                ispass = rbll.GetRpass(cook.Sgrade, cook.Sclass);//获取闯关模式开关
+                ispass = rbll.GetRpass(cook.Sgrade, cook.Sclass);
                 int lcount = dcount;
                 if (ispass)
                 {
-                    //如果课堂活动为闯关模式
                     LearnSite.BLL.MenuWorks kbll = new LearnSite.BLL.MenuWorks();
                     string lidall = "";
                     for (int i = 0; i < dcount; i++)
@@ -108,7 +102,6 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                         if (i < dcount - 1)
                             lidall = lidall + ",";
                     }
-                    //获取已经完成的关卡数
                     lcount = kbll.GetMyLidCount(cook.Sid, lidall);
                 }
                 for (int i = 0; i < dcount; i++)
@@ -126,155 +119,155 @@ public partial class Student_Scm : System.Web.UI.MasterPage
 
                     switch (Ltype)
                     {
-                        case "1"://活动
+                        case "1":
                             ma.ImageUrl = "~/images/mission.png";
                             ma.NavigateUrl = "~/student/show" + mUrl + ".aspx?lid=" + Lid;
                             break;
-                        case "2"://调查
+                        case "2":
                             ma.ImageUrl = "~/images/survey.png";
                             ma.NavigateUrl = "~/student/myexam.aspx?lid=" + Lid;
                             break;
-                        case "3"://讨论
+                        case "3":
                             ma.ImageUrl = "~/images/topic.png";
                             ma.NavigateUrl = "~/student/topicdiscuss.aspx?lid=" + Lid;
                             break;
-                        case "4"://表单
+                        case "4":
                             ma.ImageUrl = "~/images/inquiry.png";
                             ma.NavigateUrl = "~/student/txtform.aspx?lid=" + Lid;
                             break;
-                        case "5"://编程
+                        case "5":
                             ma.ImageUrl = "~/images/program.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "6"://描述
+                        case "6":
                             ma.ImageUrl = "~/images/description.png";
                             ma.NavigateUrl = "~/student/description.aspx?lid=" + Lid;
                             break;
-                        case "8"://编程
+                        case "8":
                             ma.ImageUrl = "~/images/python.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "9"://交互式python测评
+                        case "9":
                             ma.ImageUrl = "~/images/console.png";
                             ma.NavigateUrl = "~/student/console.aspx?lid=" + Lid;
                             break;
-                        case "10"://流程图
+                        case "10":
                             ma.ImageUrl = "~/images/mxgraph.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "11"://像素画
+                        case "11":
                             ma.ImageUrl = "~/images/pixel.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "12"://单网页
+                        case "12":
                             ma.ImageUrl = "~/images/html.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "13"://拼图编程
+                        case "13":
                             ma.ImageUrl = "~/images/pythonblock.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "14"://积木编程
+                        case "14":
                             ma.ImageUrl = "~/images/blockpy.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "15"://思维导图
+                        case "15":
                             ma.ImageUrl = "~/images/kitymind.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "16"://表格处理
+                        case "16":
                             ma.ImageUrl = "~/images/excel.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "17"://二维码
+                        case "17":
                             ma.ImageUrl = "~/images/qrcode.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "18"://在线文档
+                        case "18":
                             ma.ImageUrl = "~/images/word.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "19"://演示文稿
+                        case "19":
                             ma.ImageUrl = "~/images/pptist.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "20"://海报设计
+                        case "20":
                             ma.ImageUrl = "~/images/poster.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "21"://风格迁移
+                        case "21":
                             ma.ImageUrl = "~/images/style.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "22"://图像分类
+                        case "22":
                             ma.ImageUrl = "~/images/mlimg.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "23"://人脸识别
+                        case "23":
                             ma.ImageUrl = "~/images/face.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "24"://物联网mqtt
+                        case "24":
                             ma.ImageUrl = "~/images/mqtt.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "25"://手绘画布
+                        case "25":
                             ma.ImageUrl = "~/images/excalidraw.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "26"://推箱子地图
+                        case "26":
                             ma.ImageUrl = "~/images/sokoban.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "27"://人工智能对话
+                        case "27":
                             ma.ImageUrl = "~/images/ai.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "28"://语音合成
+                        case "28":
                             ma.ImageUrl = "~/images/speek.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "29"://文字识别
+                        case "29":
                             ma.ImageUrl = "~/images/ocr.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "30"://声音分析
+                        case "30":
                             ma.ImageUrl = "~/images/sound.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "31"://井字棋
+                        case "31":
                             ma.ImageUrl = "~/images/tic-tac-toe.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "32"://手写数字识别
+                        case "32":
                             ma.ImageUrl = "~/images/handnum.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "33"://Markdown写作
+                        case "33":
                             ma.ImageUrl = "~/images/markdown.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "34"://iframe嵌入网页
+                        case "34":
                             ma.ImageUrl = "~/images/iframe.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "35"://文生图
+                        case "35":
                             ma.ImageUrl = "~/images/text-to-image.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "36"://素材库
+                        case "36":
                             ma.ImageUrl = "~/images/web.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "37"://网站设计
+                        case "37":
                             ma.ImageUrl = "~/images/website.png";
                             ma.NavigateUrl = "~/student/program.aspx?lid=" + Lid;
                             break;
-                        case "38"://网页课件
+                        case "38":
                             ma.ImageUrl = "~/images/ware.png";
                             ma.NavigateUrl = "~/student/ware.aspx?lid=" + Lid;
                             break;
-                        case "39"://课堂考试
+                        case "39":
                             ma.ImageUrl = "~/images/wvote.png";
                             ma.NavigateUrl = "~/webform/preview.aspx?lid=" + Lid;
                             break;
@@ -291,7 +284,7 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                         {
                             ma.ImageUrl = urllocker;
                             if (cook.Sid > 0)
-                                ma.NavigateUrl = "#";//如果不是模拟学生则显示链接
+                                ma.NavigateUrl = "#";
                         }
                     }
                     if (Lidstr == Lid)
@@ -299,16 +292,85 @@ public partial class Student_Scm : System.Web.UI.MasterPage
                         CurWay = Ltitlestr;
                         ma.Selected = true;
                     }
-                    Menuact.Items.Add(ma);//添加活动菜单
+                    Menuact.Items.Add(ma);
                 }
             }
             dt.Dispose();
             AddReturn();
-
+            
+            // 添加学习汇总和荣誉榜菜单项
+            AddSummaryAndHonorsMenuItems();
+            
             int timepass = LearnSite.Common.Computer.TimePassed();
             this.Page.Title = HttpUtility.UrlDecode(cook.Sname) + " " + cook.Snum + " (" + timepass + "分钟)";
-
         }
-
+    }
+    
+    /// <summary>
+    /// 添加学习汇总和荣誉榜菜单项
+    /// </summary>
+    private void AddSummaryAndHonorsMenuItems()
+    {
+        // 检查学习汇总开关状态
+        bool summaryEnabled = false;
+        if (Application["SummaryEnabled"] != null)
+        {
+            summaryEnabled = Convert.ToBoolean(Application["SummaryEnabled"]);
+        }
+        else if (Session["SummaryEnabled"] != null)
+        {
+            summaryEnabled = Convert.ToBoolean(Session["SummaryEnabled"]);
+        }
+        else
+        {
+            // 从XML配置文件读取
+            string summarySetting = LearnSite.Common.XmlHelp.GetTypeName("EnableSummary");
+            if (!string.IsNullOrEmpty(summarySetting))
+            {
+                summaryEnabled = Convert.ToBoolean(summarySetting);
+            }
+        }
+        
+        // 检查荣誉榜开关状态
+        bool honorsEnabled = false;
+        if (Application["HonorsEnabled"] != null)
+        {
+            honorsEnabled = Convert.ToBoolean(Application["HonorsEnabled"]);
+        }
+        else if (Session["HonorsEnabled"] != null)
+        {
+            honorsEnabled = Convert.ToBoolean(Session["HonorsEnabled"]);
+        }
+        else
+        {
+            // 从XML配置文件读取
+            string honorsSetting = LearnSite.Common.XmlHelp.GetTypeName("EnableHonors");
+            if (!string.IsNullOrEmpty(honorsSetting))
+            {
+                honorsEnabled = Convert.ToBoolean(honorsSetting);
+            }
+        }
+        
+        // 添加学习汇总菜单项
+        if (summaryEnabled)
+        {
+            MenuItem summaryItem = new MenuItem();
+            summaryItem.Text = "学习汇总";
+            summaryItem.ImageUrl = "~/images/summary.png";
+            summaryItem.SeparatorImageUrl = "../images/separate.gif";
+            summaryItem.NavigateUrl = "~/student/mytotal.aspx";
+            Menuact.Items.Add(summaryItem);
+        }
+        
+        // 添加荣誉榜菜单项
+        if (honorsEnabled)
+        {
+            MenuItem honorsItem = new MenuItem();
+            honorsItem.Text = "荣誉榜";
+            honorsItem.ImageUrl = "~/images/honors.png";
+            honorsItem.SeparatorImageUrl = "../images/separate.gif";
+            honorsItem.NavigateUrl = "~/student/honorboard.aspx";
+            Menuact.Items.Add(honorsItem);
+        }
     }
 }

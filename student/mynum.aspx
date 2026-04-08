@@ -48,7 +48,10 @@
                                     HorizontalAlign="Center" CellSpacing="2">
                                     <ItemTemplate>
                                         <div class="stunum">
-                                            <asp:Image ID="ImageStu" class="stuimg" runat="server" Visible="True" /><br />
+                                            <asp:HyperLink ID="HLImage" runat="server">
+                                                <asp:Image ID="ImageStu" class="stuimg" runat="server" Visible="True" />
+                                            </asp:HyperLink>
+                                            <br />
                                             <asp:HyperLink ID="HLSnum" runat="server" Text='<%# Eval("Sname") %>' ToolTip='<%# Eval("Snum") %>'  CssClass="stulink"></asp:HyperLink>
                                         </div>
                                     </ItemTemplate>

@@ -180,7 +180,7 @@ namespace LearnSite.BLL
         {
             return dal.GetList(strWhere);
         }
-                
+
         /// <summary>
         /// 获取闯关控制值
         /// </summary>
@@ -191,7 +191,7 @@ namespace LearnSite.BLL
         {
             return dal.GetRpass(Rgrade, Rclass);
         }
-                
+
         /// <summary>
         /// 更新闯关控制
         /// </summary>
@@ -222,7 +222,7 @@ namespace LearnSite.BLL
         {
             dal.UpdateMyRgauge(Rgrade, Rclass, Rgauge);
         }
-                
+
         /// <summary>
         /// 班级编程控制开关
         /// </summary>
@@ -233,7 +233,7 @@ namespace LearnSite.BLL
         {
             dal.UpdateMyRscratch(Rgrade, Rclass, Rscratch);
         }
-                
+
         /// <summary>
         /// 允许本班单独个人模式登录开关
         /// </summary>
@@ -411,7 +411,7 @@ namespace LearnSite.BLL
         {
             return dal.GetLimitClass(Rgrade).Tables[0];
         }
-        
+
         /// <summary>
         /// 从下拉列表框中选取年级后重新获得不重复的所有班级，不限制
         /// </summary>
@@ -515,11 +515,23 @@ namespace LearnSite.BLL
         {
             return dal.GetGradeClassSnum(Sgrade, Sclass);
         }
+
         /// <summary>
-        /// 班级学生登录IP锁定取反
+        /// 获取当前教师正在上课的班级（Rset=1）
         /// </summary>
-        /// <param name="Rgrade"></param>
-        /// <param name="Rclass"></param>
+        /// <param name="Rhid">教师ID</param>
+        /// <returns>返回年级和班级的DataTable</returns>
+        public DataTable GetCurrentTeachingClass(int Rhid)
+        {
+            return dal.GetCurrentTeachingClass(Rhid);
+        }
+
+        /// <summary>
+        /// 更新班级的固定IP登录开关状态
+        /// </summary>
+        /// <param name="Rgrade">年级</param>
+        /// <param name="Rclass">班级</param>
+        /// <param name="Rlock">是否开启固定IP登录</param>
         public void UpdateLock(int Rgrade, int Rclass, bool Rlock)
         {
             dal.UpdateLock(Rgrade, Rclass, Rlock);
@@ -533,11 +545,11 @@ namespace LearnSite.BLL
         }
 
         /// <summary>
-        /// 判断该班级的登录IP是否锁定，如果锁定则返回真
+        /// 判断该班级的固定IP登录模式是否开启
         /// </summary>
-        /// <param name="Rgrade"></param>
-        /// <param name="Rclass"></param>
-        /// <returns></returns>
+        /// <param name="Rgrade">年级</param>
+        /// <param name="Rclass">班级</param>
+        /// <returns>true:已开启固定IP登录; false:未开启</returns>
         public bool IsLoginLock(int Rgrade, int Rclass)
         {
             return dal.IsLoginLock(Rgrade, Rclass);
@@ -683,7 +695,7 @@ namespace LearnSite.BLL
         {
             dal.initRpwdsee();
         }
-                
+
         /// <summary>
         /// 更新Rshare
         /// </summary>
@@ -793,7 +805,7 @@ namespace LearnSite.BLL
         {
             return dal.GetRchineseByClass(Rgrade, Rclass);
         }
-                
+
         /// <summary>
         /// 获取Rid
         /// </summary>

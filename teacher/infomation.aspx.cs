@@ -37,6 +37,12 @@ public partial class Teacher_infomation : System.Web.UI.Page
             LearnSite.Common.CookieHelp.ClearStudentCookies();//教师退出的话把本机模拟学生角色登录的学生平台也退出
             LearnSite.Common.App.AppUserMatchRemove("s" + Rhid.ToString());//教师退出时移除全局变量中模拟学生
             LearnSite.Common.App.CurrentClassRemove(Rhid);//教师退出时移除全局变量中当前上课班级的学生
+            
+            // 清除上课状态的Session
+            Session.Remove(Rhid.ToString() + "grade");
+            Session.Remove(Rhid.ToString() + "class");
+            Session.Remove(Rhid.ToString() + "StartTime");
+            
             Session.Abandon();//取消当前会话
             Session.RemoveAll();
             Session.Clear();//清除当前浏览器进程所有session
