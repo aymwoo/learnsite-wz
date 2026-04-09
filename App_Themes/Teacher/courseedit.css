@@ -176,125 +176,57 @@
 
         .course-edit-shell {
             position: relative;
+            border-radius: 1rem;
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: background-image 0.3s ease;
+        }
+
+        .course-edit-shell.has-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.18) 0%, rgba(15, 23, 42, 0.04) 12%, rgba(248, 250, 252, 0.96) 32%, rgba(248, 250, 252, 1) 52%);
+            pointer-events: none;
+        }
+
+        .course-edit-shell > * {
+            position: relative;
+            z-index: 1;
         }
 
         .course-edit-hero {
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             transition: background-image 0.3s ease;
         }
 
-        .course-edit-hero.has-banner::before {
-            content: '';
+        .course-edit-hero-actions {
             position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(15,23,42,0.55) 0%, rgba(49,46,129,0.45) 100%);
-            pointer-events: none;
+            top: 1.25rem;
+            right: 1.25rem;
+            z-index: 3;
         }
 
-        .course-edit-hero.has-banner .course-edit-hero-content {
-            position: relative;
-            z-index: 1;
-            color: #fff;
+        .course-edit-hero-actions .course-show-hero-edit {
+            backdrop-filter: blur(10px);
         }
 
-        .course-edit-hero.has-banner .course-edit-eyebrow,
-        .course-edit-hero.has-banner .course-edit-subtitle {
-            color: rgba(255,255,255,0.85);
-        }
-
-        .course-edit-banner-trigger {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            z-index: 10;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 14px;
-            border-radius: 0.375rem;
-            border: 1px solid rgba(255,255,255,0.3);
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(8px);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background .15s;
-        }
-
-        .course-edit-banner-trigger:hover { background: rgba(255,255,255,0.25); }
-        .course-edit-banner-trigger svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-        /* Banner Modal */
-        .ce-banner-modal {
+        .course-edit-hidden {
             display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: rgba(15,23,42,0.55);
-            align-items: center;
-            justify-content: center;
         }
-        .ce-banner-modal.is-open { display: flex; }
-        .ce-banner-dialog {
-            background: #fff;
-            border-radius: 1rem;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 24px 60px rgba(15,23,42,0.2);
-            overflow: hidden;
+
+        @media (max-width: 768px) {
+            .course-edit-hero-actions {
+                top: 1rem;
+                right: 1rem;
+            }
         }
-        .ce-banner-head {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: 20px 24px 0;
-        }
-        .ce-banner-title { margin: 0; font-size: 16px; font-weight: 800; color: #0f172a; }
-        .ce-banner-desc  { margin: 4px 0 0; font-size: 13px; color: #64748b; }
-        .ce-banner-close {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 32px; height: 32px; border-radius: 50%; border: none;
-            background: #f1f5f9; cursor: pointer; flex-shrink: 0;
-        }
-        .ce-banner-close svg { width: 16px; height: 16px; stroke: #64748b; fill: none; stroke-width: 2; stroke-linecap: round; }
-        .ce-banner-body { padding: 20px 24px; }
-        .ce-banner-dropzone {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 10px; padding: 32px 20px;
-            border: 2px dashed #cbd5e1; border-radius: 1rem;
-            background: #f8fafc; cursor: pointer; transition: all .15s; text-align: center;
-            position: relative;
-        }
-        .ce-banner-dropzone.is-dragover { border-color: #60a5fa; background: #eff6ff; }
-        .ce-banner-dropzone svg { width: 36px; height: 36px; stroke: #94a3b8; fill: none; stroke-width: 1.5; stroke-linecap: round; }
-        .ce-banner-dropzone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-        .ce-banner-drop-title { font-size: 14px; font-weight: 700; color: #334155; }
-        .ce-banner-drop-desc  { font-size: 12px; color: #64748b; }
-        .ce-banner-preview {
-            display: none; margin-top: 12px; border-radius: .75rem; overflow: hidden;
-            height: 120px; background-size: cover; background-position: center;
-            border: 1px solid #e2e8f0;
-        }
-        .ce-banner-status { margin-top: 10px; font-size: 13px; font-weight: 600; min-height: 20px; }
-        .ce-banner-status.is-error { color: #dc2626; }
-        .ce-banner-status.is-success { color: #16a34a; }
-        .ce-banner-foot {
-            display: flex; justify-content: flex-end; gap: 10px;
-            padding: 16px 24px; border-top: 1px solid #f1f5f9;
-        }
-        .ce-banner-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-height: 40px; padding: 0 20px; border-radius: 0.375rem; border: 1px solid #e2e8f0;
-            font-size: 14px; font-weight: 700; cursor: pointer; background: #fff; color: #475569;
-            transition: background .15s;
-        }
-        .ce-banner-btn.primary {
-            background: linear-gradient(135deg,#4f46e5,#4338ca); color: #fff; border: none;
-            box-shadow: 0 4px 12px rgba(79,70,229,.2);
-        }
-        .ce-banner-btn:disabled { opacity: .5; cursor: not-allowed; }

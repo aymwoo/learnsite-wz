@@ -1,17 +1,19 @@
 <%@ Page Validaterequest="false" Title="" Language="C#" MasterPageFile="~/teacher/Teach.master" StylesheetTheme="Teacher"  AutoEventWireup="true" CodeFile="courseedit.aspx.cs" Inherits="Teacher_courseedit" ResponseEncoding="utf-8" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" Runat="Server">
+    <link rel="stylesheet" type="text/css" href="/App_Themes/Teacher/courseshow.css" />
     
 
     <div class="course-edit-page">
-        <div class="course-edit-shell">
+        <div class="course-edit-shell" id="EditShell">
             <section id="EditHeroSection" class="course-edit-hero">
-                <button type="button" class="course-edit-banner-trigger" id="BannerTrigger">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
-                    编辑横幅
-                </button>
                 <div class="course-edit-hero-content">
                     <h1 class="course-edit-title">学案编辑</h1>
+                </div>
+                <div class="course-show-hero-actions course-edit-hero-actions">
+                    <a id="HeroEditLink" runat="server" class="course-show-hero-edit" title="编辑横幅" aria-label="编辑横幅">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"></path><path d="M16.5 4.5a2.12 2.12 0 1 1 3 3L12 15l-4 1 1-4 7.5-7.5z"></path></svg>
+                    </a>
                 </div>
             </section>
 
@@ -57,17 +59,8 @@
                             <asp:CheckBox ID="CheckPublish" runat="server" Text="是否发布" Checked="True" />
                         </label>
                     </div>
-
-                    <div class="course-edit-field course-edit-field-wide" style="display:none;">
-                        <span class="course-edit-label">横幅设置</span>
-                        <div class="course-edit-banner-row">
-                            <asp:HyperLink ID="HLbanner" runat="server" Target="_blank" CssClass="course-edit-banner-link">学案横幅</asp:HyperLink>
-                            <div class="course-edit-file">
-                                <asp:FileUpload ID="Fupload" runat="server" Font-Size="10pt" />
-                            </div>
-                        </div>
-                    </div>
                     <asp:HiddenField ID="HiddenBannerUrl" runat="server" />
+                    <asp:HiddenField ID="HiddenCourseId" runat="server" Value='<%= myCid() %>' />
                 </div>
             </section>
 
@@ -119,34 +112,65 @@
                 <asp:Button ID="Btnedit" runat="server" Text="保存学案" onclick="Btnedit_Click" OnClientClick="return syncContent();" CssClass="course-edit-primary-btn" />
                 <asp:Button ID="Btnreturn" runat="server" Text="返回列表" onclick="Btnreturn_Click" CssClass="course-edit-secondary-btn" />
             </section>
+
+            <div class="course-edit-hidden" aria-hidden="true">
+                <asp:HyperLink ID="HLbanner" runat="server" Target="_blank" CssClass="course-edit-banner-link">查看横幅</asp:HyperLink>
+            </div>
         </div>
     </div>
 
-    <!-- Banner Modal -->
-    <div id="CeBannerModal" class="ce-banner-modal" aria-hidden="true">
-        <div class="ce-banner-dialog">
-            <div class="ce-banner-head">
+    <div id="BannerModal" class="course-show-banner-modal" aria-hidden="true">
+        <div class="course-show-banner-dialog" role="dialog" aria-modal="true" aria-labelledby="BannerModalTitle">
+            <div class="course-show-banner-dialog-head">
                 <div>
-                    <h2 class="ce-banner-title">编辑学案横幅</h2>
-                    <p class="ce-banner-desc">上传图片作为学案横幅背景，建议使用横向大图。</p>
+                    <h2 id="BannerModalTitle" class="course-show-banner-dialog-title">编辑课程横幅</h2>
+                    <p class="course-show-banner-dialog-desc">拖入图片或从本地选择新封面，预览确认后直接更新当前学案横幅。</p>
                 </div>
-                <button type="button" class="ce-banner-close" id="CeBannerClose">
-                    <svg viewBox="0 0 24 24"><path d="M6 6l12 12"></path><path d="M18 6l-12 12"></path></svg>
+                <button id="BannerModalClose" type="button" class="course-show-banner-close" aria-label="关闭弹窗">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6l-12 12"></path></svg>
                 </button>
             </div>
-            <div class="ce-banner-body">
-                <div class="ce-banner-dropzone" id="CeBannerDropzone">
-                    <svg viewBox="0 0 24 24"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"></path></svg>
-                    <p class="ce-banner-drop-title">点击选择或拖拽图片到此处</p>
-                    <p class="ce-banner-drop-desc">支持 png、jpg、gif、webp，建议横向大图</p>
-                    <input type="file" id="CeBannerFile" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" />
+            <div class="course-show-banner-dialog-body">
+                <div class="course-show-banner-upload">
+                    <div id="BannerDropzone" class="course-show-banner-dropzone">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V7"></path><path d="M8.5 10.5L12 7l3.5 3.5"></path><path d="M5 17v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1"></path><rect x="3" y="3" width="18" height="18" rx="3"></rect></svg>
+                        <p class="course-show-banner-drop-title">拖动图片到这里上传横幅</p>
+                        <p class="course-show-banner-drop-desc">支持 png、jpg、jpeg、gif、webp，建议使用横向大图，大小不超过 5MB。</p>
+                        <label for="BannerFileInput" class="course-show-banner-browse">选择图片</label>
+                        <input id="BannerFileInput" type="file" class="course-show-banner-file" accept="image/png,image/jpeg,image/jpg,image/gif,image/webp" />
+                    </div>
+                    <div class="course-show-banner-meta">
+                        <span class="course-show-banner-chip">拖拽上传</span>
+                        <span class="course-show-banner-chip">粘贴图片</span>
+                        <span class="course-show-banner-chip">实时预览</span>
+                        <span class="course-show-banner-chip">无刷新保存</span>
+                    </div>
+                    <div id="BannerUploadProgress" class="course-show-banner-progress" hidden="hidden">
+                        <div id="BannerUploadProgressBar" class="course-show-banner-progress-bar"></div>
+                    </div>
+                    <div id="BannerUploadStatus" class="course-show-banner-status"></div>
                 </div>
-                <div id="CeBannerPreview" class="ce-banner-preview"></div>
-                <div id="CeBannerStatus" class="ce-banner-status"></div>
+                <div class="course-show-banner-preview-card">
+                    <div class="course-show-banner-preview-head">
+                        <span id="BannerCurrentState" class="course-show-banner-current">当前封面：默认样式</span>
+                        <p class="course-show-banner-preview-title">封面预览</p>
+                        <p class="course-show-banner-preview-desc">保存后将立即替换当前编辑页背景横幅，并保持当前页面停留。</p>
+                    </div>
+                    <div id="BannerPreviewStage" class="course-show-banner-stage">
+                        <div id="BannerPreviewEmpty" class="course-show-banner-stage-empty">当前还没有选择新的横幅图片</div>
+                        <div class="course-show-banner-stage-copy">
+                            <strong><asp:Literal ID="LiteralBannerPreviewTitle" runat="server">学案横幅预览</asp:Literal></strong>
+                            <span>新的学案横幅将应用到当前编辑页背景</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="ce-banner-foot">
-                <button type="button" class="ce-banner-btn" id="CeBannerCancel">取消</button>
-                <button type="button" class="ce-banner-btn primary" id="CeBannerSave">保存横幅</button>
+            <div class="course-show-banner-dialog-foot">
+                <div class="course-show-banner-foot-note">上传成功后会立即更新学案横幅，并同步刷新当前编辑页背景。</div>
+                <div class="course-show-banner-actions">
+                    <button id="BannerModalCancel" type="button" class="course-show-banner-btn">取消</button>
+                    <button id="BannerUploadButton" type="button" class="course-show-banner-btn primary">保存横幅</button>
+                </div>
             </div>
         </div>
     </div>
@@ -157,8 +181,12 @@
             myCid: '<%=myCid() %>',
             mcontentId: '<%= mcontent.ClientID %>',
             hiddenBannerUrlId: '<%= HiddenBannerUrl.ClientID %>',
-            hLbannerId: '<%= HLbanner.ClientID %>'
+            hLbannerId: '<%= HLbanner.ClientID %>',
+            hiddenCourseId: '<%= HiddenCourseId.ClientID %>',
+            heroEditLinkId: '<%= HeroEditLink.ClientID %>',
+            shellId: 'EditShell'
         };
     </script>
+    <script type="text/javascript" src="/js/course-banner-modal.js"></script>
     <script type="text/javascript" src="../js/courseedit.js"></script>
 </asp:Content>
