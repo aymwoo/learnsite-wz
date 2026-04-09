@@ -179,49 +179,42 @@ namespace LearnSite.Common
                 byte[] buffer = new byte[chunkSize];
                 //已读的字节数   
                 long dataToRead = 0;
-                FileStream stream = null;
                 try
                 {
                     //打开文件   
-                    stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    dataToRead = stream.Length;
-
-                    //添加Http头   
-                    HttpContext.Current.Response.ContentType = "application/octet-stream";
-                    HttpContext.Current.Response.AddHeader("Content-Disposition", "attachement;filename=" + browseSelectOld(filePath));
-                    HttpContext.Current.Response.AddHeader("Content-Length", dataToRead.ToString());
-
-                    while (dataToRead > 0)
+                    using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        if (HttpContext.Current.Response.IsClientConnected)
+                        dataToRead = stream.Length;
+
+                        //添加Http头   
+                        HttpContext.Current.Response.ContentType = "application/octet-stream";
+                        HttpContext.Current.Response.AddHeader("Content-Disposition", "attachement;filename=" + browseSelectOld(filePath));
+                        HttpContext.Current.Response.AddHeader("Content-Length", dataToRead.ToString());
+
+                        while (dataToRead > 0)
                         {
-                            int length = stream.Read(buffer, 0, Convert.ToInt32(chunkSize));
-                            HttpContext.Current.Response.OutputStream.Write(buffer, 0, length);
-                            HttpContext.Current.Response.Flush();
-                            HttpContext.Current.Response.Clear();
-                            dataToRead -= length;
-                        }
-                        else
-                        {
-                            //防止client失去连接   
-                            dataToRead = -1;
+                            if (HttpContext.Current.Response.IsClientConnected)
+                            {
+                                int length = stream.Read(buffer, 0, Convert.ToInt32(chunkSize));
+                                HttpContext.Current.Response.OutputStream.Write(buffer, 0, length);
+                                HttpContext.Current.Response.Flush();
+                                HttpContext.Current.Response.Clear();
+                                dataToRead -= length;
+                            }
+                            else
+                            {
+                                //防止client失去连接   
+                                dataToRead = -1;
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (stream != null)
-                    {
-                        stream.Close();
-                    }
                     HttpContext.Current.Response.Write("Error:" + ex.Message);
                 }
                 finally
                 {
-                    if (stream != null)
-                    {
-                        stream.Close();
-                    }
                     HttpContext.Current.Response.Close();
                 }
             }
@@ -242,49 +235,42 @@ namespace LearnSite.Common
                 byte[] buffer = new byte[chunkSize];
                 //已读的字节数   
                 long dataToRead = 0;
-                FileStream stream = null;
                 try
                 {
                     //打开文件   
-                    stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                    dataToRead = stream.Length;
-
-                    //添加Http头   
-                    HttpContext.Current.Response.ContentType = "application/octet-stream";
-                    HttpContext.Current.Response.AddHeader("Content-Disposition", "attachement;filename=" + browseSelectOld(newfilename).Replace("+", ""));
-                    HttpContext.Current.Response.AddHeader("Content-Length", dataToRead.ToString());
-
-                    while (dataToRead > 0)
+                    using (FileStream stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        if (HttpContext.Current.Response.IsClientConnected)
+                        dataToRead = stream.Length;
+
+                        //添加Http头   
+                        HttpContext.Current.Response.ContentType = "application/octet-stream";
+                        HttpContext.Current.Response.AddHeader("Content-Disposition", "attachement;filename=" + browseSelectOld(newfilename).Replace("+", ""));
+                        HttpContext.Current.Response.AddHeader("Content-Length", dataToRead.ToString());
+
+                        while (dataToRead > 0)
                         {
-                            int length = stream.Read(buffer, 0, Convert.ToInt32(chunkSize));
-                            HttpContext.Current.Response.OutputStream.Write(buffer, 0, length);
-                            HttpContext.Current.Response.Flush();
-                            HttpContext.Current.Response.Clear();
-                            dataToRead -= length;
-                        }
-                        else
-                        {
-                            //防止client失去连接   
-                            dataToRead = -1;
+                            if (HttpContext.Current.Response.IsClientConnected)
+                            {
+                                int length = stream.Read(buffer, 0, Convert.ToInt32(chunkSize));
+                                HttpContext.Current.Response.OutputStream.Write(buffer, 0, length);
+                                HttpContext.Current.Response.Flush();
+                                HttpContext.Current.Response.Clear();
+                                dataToRead -= length;
+                            }
+                            else
+                            {
+                                //防止client失去连接   
+                                dataToRead = -1;
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    if (stream != null)
-                    {
-                        stream.Close();
-                    }
                     HttpContext.Current.Response.Write("Error:" + ex.Message);
                 }
                 finally
                 {
-                    if (stream != null)
-                    {
-                        stream.Close();
-                    }
                     HttpContext.Current.Response.Close();
                 }
             }
@@ -316,12 +302,13 @@ namespace LearnSite.Common
         /// <param name="filenamep">物理路径</param>
         private static void Psdout(string filenamep)
         {
-            Bitmap bmp = psdToBmp.myImg(filenamep);
-            MemoryStream ms = new MemoryStream();
-            bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-            HttpContext.Current.Response.BinaryWrite(ms.GetBuffer());
-            HttpContext.Current.Response.End();
-            ms.Dispose();
+            using (Bitmap bmp = psdToBmp.myImg(filenamep))
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                HttpContext.Current.Response.BinaryWrite(ms.ToArray());
+                HttpContext.Current.Response.End();
+            }
         }
 
         /// <summary>
@@ -340,19 +327,20 @@ namespace LearnSite.Common
             {
                 if (!jpgexist)//如果不存在jpg则转换
                 {
-                    
-                    Bitmap bmp =psdToBmp.myImg(psdpath);
-                    bmp.Save(jpgpath, System.Drawing.Imaging.ImageFormat.Jpeg);//另存为jpg格式
-                    bmp.Dispose();
+                    using (Bitmap bmp = psdToBmp.myImg(psdpath))
+                    {
+                        bmp.Save(jpgpath, System.Drawing.Imaging.ImageFormat.Jpeg);//另存为jpg格式
+                    }
                 }
                 else
                 {
                     FileInfo jpgfi = new FileInfo(jpgpath);
                     if (DateTime.Compare(psdfi.LastWriteTime, jpgfi.LastWriteTime) > 0)//如果psd修改的日期比jpg迟，说明重新提交过了
                     {
-                        Bitmap bmp = psdToBmp.myImg(psdpath);
-                        bmp.Save(jpgpath, System.Drawing.Imaging.ImageFormat.Jpeg);//再次另存为jpg格式
-                        bmp.Dispose();
+                        using (Bitmap bmp = psdToBmp.myImg(psdpath))
+                        {
+                            bmp.Save(jpgpath, System.Drawing.Imaging.ImageFormat.Jpeg);//再次另存为jpg格式
+                        }
                     }
                 }
                 return jpgfilename;//返回jpg格式的相对路径

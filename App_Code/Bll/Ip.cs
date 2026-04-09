@@ -30,7 +30,7 @@ namespace LearnSite.BLL
 		{
 			return dal.Exists(Iid);
 		}
-                
+
         /// <summary>
         /// 是否存在该记录
         /// </summary>
@@ -53,7 +53,7 @@ namespace LearnSite.BLL
 		{
 			return dal.Update(model);
 		}
-                
+
         /// <summary>
         /// 更新一条数据
         /// </summary>
@@ -73,7 +73,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public bool Delete(int Iid)
 		{
-			
+
 			return dal.Delete(Iid);
 		}
 		/// <summary>
@@ -89,7 +89,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Ip GetModel(int Iid)
 		{
-			
+
 			return dal.GetModel(Iid);
 		}
 
@@ -98,7 +98,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Ip GetModelByCache(int Iid)
 		{
-			
+
 			string CacheKey = "IpModel-" + Iid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -159,7 +159,7 @@ namespace LearnSite.BLL
 		{
 			return GetList("");
 		}
-                
+
         /// <summary>
         /// 获取本班当天签到同学的 Qnum,Qname,Inum
         /// </summary>
@@ -170,7 +170,7 @@ namespace LearnSite.BLL
         {
             return dal.GetSiginStudents(Sgrade, Sclass, Ihid);
         }
-                
+
         /// <summary>
         /// 获取本班当天签到同学的Inum- Qnum- Qname-phototype| 形式的字符串
         /// </summary>
@@ -180,6 +180,37 @@ namespace LearnSite.BLL
         public string GetSiginStudentStr(int Sgrade, int Sclass, int Ihid, bool isshow)
         {
             return dal.GetSiginStudentStr(Sgrade, Sclass, Ihid,isshow);
+        }
+
+		/// <summary>
+        /// 根据IP地址和机房ID获取机号
+        /// </summary>
+        /// <param name="ip">IP地址</param>
+        /// <param name="ihid">机房ID</param>
+        /// <returns>机号，如果未找到返回空字符串</returns>
+        public string GetInumByIpAndHid(string ip, int ihid)
+        {
+            return dal.GetInumByIpAndHid(ip, ihid);
+        }
+
+        /// <summary>
+        /// 根据IP地址获取机号（自动识别机房）
+        /// </summary>
+        /// <param name="ip">IP地址</param>
+        /// <returns>机号，如果未找到返回空字符串</returns>
+        public string GetInumByIp(string ip)
+        {
+            return dal.GetInumByIp(ip);
+        }
+
+        /// <summary>
+        /// 根据机房ID获取该机房的最大机号
+        /// </summary>
+        /// <param name="ihid">机房ID</param>
+        /// <returns>最大机号</returns>
+        public int GetMaxInumByHid(int ihid)
+        {
+            return dal.GetMaxInumByHid(ihid);
         }
 		/// <summary>
 		/// 分页获取数据列表

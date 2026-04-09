@@ -126,7 +126,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public bool Delete(int Hid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from House ");
 			strSql.Append(" where Hid=@Hid");
@@ -200,7 +200,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public LearnSite.Model.House GetModel(int Hid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Hid,Hname,Hseat from House ");
 			strSql.Append(" where Hid=@Hid");
@@ -253,6 +253,30 @@ namespace LearnSite.DAL
             strSql.Append(" order by Hid asc");
 
             return DbHelperSQL.Query(strSql.ToString());
+        }
+
+        /// <summary>
+        /// 根据机房ID和座位号获取对应的IP
+        /// </summary>
+        /// <param name="HouseId">机房ID</param>
+        /// <param name="SeatNum">座位号</param>
+        /// <returns>IP地址，如果不存在则返回空字符串</returns>
+        public string GetIpBySeat(int HouseId, int SeatNum)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SELECT Iip FROM Ip WHERE Ihid=@Ihid AND Inum=@Inum");
+            SqlParameter[] parameters = {
+                new SqlParameter("@Ihid", SqlDbType.Int,4),
+                new SqlParameter("@Inum", SqlDbType.Int,4)};
+            parameters[0].Value = HouseId;
+            parameters[1].Value = SeatNum;
+
+            object result = DbHelperSQL.GetSingle(strSql.ToString(), parameters);
+            if (result != null && result != DBNull.Value)
+            {
+                return result.ToString();
+            }
+            return string.Empty;
         }
 
         /// <summary>

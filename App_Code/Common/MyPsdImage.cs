@@ -788,23 +788,24 @@ namespace LearnSite.Common
         public Bitmap ImagePsd(string p_FileFullPath)
         {
             if (!File.Exists(p_FileFullPath)) return null;
-            FileStream _PSD = File.Open(p_FileFullPath, FileMode.Open);
-            byte[] _HeadByte = new byte[26];
-            _PSD.Read(_HeadByte, 0, 26);
-            m_Head = new PSDHEAD(_HeadByte);
-            m_ColorModel = new ColorModel(_PSD);
-
-            long _ReadCount = _PSD.Position;
-            while (true)
+            using (FileStream _PSD = File.Open(p_FileFullPath, FileMode.Open))
             {
-                BIM _Bim = new BIM(_PSD);
-                if (!_Bim.Read || _PSD.Position - _ReadCount >= m_ColorModel.BIMSize) break;
-                m_8BIMList.Add(_Bim);
+                byte[] _HeadByte = new byte[26];
+                _PSD.Read(_HeadByte, 0, 26);
+                m_Head = new PSDHEAD(_HeadByte);
+                m_ColorModel = new ColorModel(_PSD);
+
+                long _ReadCount = _PSD.Position;
+                while (true)
+                {
+                    BIM _Bim = new BIM(_PSD);
+                    if (!_Bim.Read || _PSD.Position - _ReadCount >= m_ColorModel.BIMSize) break;
+                    m_8BIMList.Add(_Bim);
+                }
+                m_LayerMaskInfo = new LayerMaskInfo(_PSD);
+                m_ImageData = new ImageData(_PSD, m_Head);
+                if (m_Head.ColorMode == 2) m_ImageData.PSDImage.Palette = m_ColorModel.ColorData;
             }
-            m_LayerMaskInfo = new LayerMaskInfo(_PSD);
-            m_ImageData = new ImageData(_PSD, m_Head);
-            if (m_Head.ColorMode == 2) m_ImageData.PSDImage.Palette = m_ColorModel.ColorData;
-            _PSD.Close();
             return m_ImageData.PSDImage;
         }
 
@@ -841,42 +842,47 @@ namespace LearnSite.Common
                 byte[] _Bim = new byte[] { 0x38, 0x42, 0x49, 0x4D, 0x03, 0xED, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x96, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x96, 0x00, 0x00, 0x00, 0x01, 0x00, 0x05, 0x38, 0x42, 0x49, 0x4D, 0x03, 0xF3, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x42, 0x49, 0x4D, 0x27, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02 };
                 m_ColorModel.BIMSize = (uint)_Bim.Length;
 
-                FileStream _SaveFile = new FileStream(p_FileFullName, FileMode.Create, FileAccess.Write);
-                byte[] _Bytes = m_Head.GetBytes();
-                _SaveFile.Write(_Bytes, 0, _Bytes.Length);
-                _Bytes = m_ColorModel.GetBytes();
-                _SaveFile.Write(_Bytes, 0, _Bytes.Length);
-                _SaveFile.Write(_Bim, 0, _Bim.Length);
-                _SaveFile.Write(new byte[2], 0, 2);
-                _Bytes = m_LayerMaskInfo.GetBytes();
-                _SaveFile.Write(_Bytes, 0, _Bytes.Length);
-                Bitmap _Bitmap = new Bitmap(_Width, _Height, PixelFormat.Format24bppRgb);
-                Graphics _Graphics = Graphics.FromImage(_Bitmap);
-                _Graphics.DrawImage(PSDImage, 0, 0, _Width, _Height);
-                _Graphics.Dispose();
-
-                BitmapData _SaveData = _Bitmap.LockBits(new Rectangle(0, 0, _Width, _Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
-                byte[] _ReadByte = new byte[_SaveData.Stride * _Height];
-                Marshal.Copy(_SaveData.Scan0, _ReadByte, 0, _ReadByte.Length);
-                byte[] _WriteByte = new byte[_Bitmap.Width * _Bitmap.Height * 3];
-                int _Size = _Width * _Height;
-                int _Size2 = _Size * 2;
-                for (int i = 0; i != _Height; i++)
+                using (FileStream _SaveFile = new FileStream(p_FileFullName, FileMode.Create, FileAccess.Write))
                 {
-                    int _Index = i * _SaveData.Stride;
-                    int _WriteIndex = i * _Width;
-                    for (int z = 0; z != _Width; z++)
+                    byte[] _Bytes = m_Head.GetBytes();
+                    _SaveFile.Write(_Bytes, 0, _Bytes.Length);
+                    _Bytes = m_ColorModel.GetBytes();
+                    _SaveFile.Write(_Bytes, 0, _Bytes.Length);
+                    _SaveFile.Write(_Bim, 0, _Bim.Length);
+                    _SaveFile.Write(new byte[2], 0, 2);
+                    _Bytes = m_LayerMaskInfo.GetBytes();
+                    _SaveFile.Write(_Bytes, 0, _Bytes.Length);
+                    using (Bitmap _Bitmap = new Bitmap(_Width, _Height, PixelFormat.Format24bppRgb))
+                    using (Graphics _Graphics = Graphics.FromImage(_Bitmap))
                     {
-                        _WriteByte[_WriteIndex + z] = _ReadByte[_Index + (z * 3) + 2];
-                        _WriteByte[_WriteIndex + _Size + z] = _ReadByte[_Index + (z * 3) + 1];
-                        _WriteByte[_WriteIndex + _Size2 + z] = _ReadByte[_Index + (z * 3) + 0];
+                        _Graphics.DrawImage(PSDImage, 0, 0, _Width, _Height);
+                        BitmapData _SaveData = _Bitmap.LockBits(new Rectangle(0, 0, _Width, _Height), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+                        try
+                        {
+                            byte[] _ReadByte = new byte[_SaveData.Stride * _Height];
+                            Marshal.Copy(_SaveData.Scan0, _ReadByte, 0, _ReadByte.Length);
+                            byte[] _WriteByte = new byte[_Bitmap.Width * _Bitmap.Height * 3];
+                            int _Size = _Width * _Height;
+                            int _Size2 = _Size * 2;
+                            for (int i = 0; i != _Height; i++)
+                            {
+                                int _Index = i * _SaveData.Stride;
+                                int _WriteIndex = i * _Width;
+                                for (int z = 0; z != _Width; z++)
+                                {
+                                    _WriteByte[_WriteIndex + z] = _ReadByte[_Index + (z * 3) + 2];
+                                    _WriteByte[_WriteIndex + _Size + z] = _ReadByte[_Index + (z * 3) + 1];
+                                    _WriteByte[_WriteIndex + _Size2 + z] = _ReadByte[_Index + (z * 3) + 0];
+                                }
+                            }
+                            _SaveFile.Write(_WriteByte, 0, _WriteByte.Length);
+                        }
+                        finally
+                        {
+                            _Bitmap.UnlockBits(_SaveData);
+                        }
                     }
                 }
-                _Bitmap.UnlockBits(_SaveData);
-                _Bitmap.Dispose();
-
-                _SaveFile.Write(_WriteByte, 0, _WriteByte.Length);
-                _SaveFile.Close();
             }
         }
 

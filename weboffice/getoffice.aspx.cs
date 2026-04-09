@@ -24,13 +24,13 @@ public partial class weboffice_getoffice : System.Web.UI.Page
                 string officepath = MapPath(officeurl);
                 if (File.Exists(officepath))
                 {
-                    FileStream myfileStream;
-                    long fileSize;
-                    myfileStream = new FileStream(officepath, FileMode.Open);
-                    fileSize = myfileStream.Length;
-                    byte[] Buffer = new byte[(int)fileSize];
-                    myfileStream.Read(Buffer, 0, (int)fileSize);
-                    myfileStream.Close();
+                    byte[] Buffer;
+                    using (FileStream myfileStream = new FileStream(officepath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        long fileSize = myfileStream.Length;
+                        Buffer = new byte[(int)fileSize];
+                        myfileStream.Read(Buffer, 0, (int)fileSize);
+                    }
                     Response.BinaryWrite(Buffer);
                     Response.End();
                 }

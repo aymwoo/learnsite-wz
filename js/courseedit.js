@@ -191,95 +191,15 @@ var kindEditorObj;
                      }
 
 (function(){
-        var hero = document.getElementById('EditHeroSection');
-        var modal = document.getElementById('CeBannerModal');
-        var trigger = document.getElementById('BannerTrigger');
-        var closeBtn = document.getElementById('CeBannerClose');
-        var cancelBtn = document.getElementById('CeBannerCancel');
-        var saveBtn = document.getElementById('CeBannerSave');
-        var dropzone = document.getElementById('CeBannerDropzone');
-        var fileInput = document.getElementById('CeBannerFile');
-        var preview = document.getElementById('CeBannerPreview');
-        var status = document.getElementById('CeBannerStatus');
-        var hiddenUrl = document.getElementById(window.__courseeditConfig.hiddenBannerUrlId);
-        var hlBanner = document.getElementById(window.__courseeditConfig.hLbannerId);
-        var cidField = document.querySelector('input[id$="HiddenCourseId"]');
-        var selectedFile = null;
-
-        // 初始化：如果已有横幅则应用
-        var initUrl = hlBanner ? hlBanner.href : '';
-        if (initUrl && initUrl !== window.location.href) applyHero(initUrl);
-
-        function applyHero(url) {
-            if (!url) return;
-            hero.style.backgroundImage = "url('" + url.replace(/'/g,"\\'"  ) + "')";
-            hero.classList.add('has-banner');
+        var config = window.__courseeditConfig || {};
+        if (!window.LearnSiteCourseBanner) {
+            return;
         }
-
-        function setStatus(msg, cls) {
-            status.textContent = msg;
-            status.className = 'ce-banner-status' + (cls ? ' ' + cls : '');
-        }
-
-        trigger.addEventListener('click', function(){ modal.classList.add('is-open'); });
-        closeBtn.addEventListener('click', closeModal);
-        cancelBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
-
-        function closeModal(){
-            modal.classList.remove('is-open');
-            selectedFile = null;
-            preview.style.display = 'none';
-            setStatus('');
-            fileInput.value = '';
-        }
-
-        fileInput.addEventListener('change', function(){
-            if (this.files && this.files[0]) previewFile(this.files[0]);
-        });
-        dropzone.addEventListener('dragover', function(e){ e.preventDefault(); dropzone.classList.add('is-dragover'); });
-        dropzone.addEventListener('dragleave', function(){ dropzone.classList.remove('is-dragover'); });
-        dropzone.addEventListener('drop', function(e){
-            e.preventDefault(); dropzone.classList.remove('is-dragover');
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) previewFile(e.dataTransfer.files[0]);
-        });
-
-        function previewFile(file) {
-            selectedFile = file;
-            var url = URL.createObjectURL(file);
-            preview.style.backgroundImage = "url('" + url + "')";
-            preview.style.display = 'block';
-            setStatus('已选择：' + file.name);
-        }
-
-        saveBtn.addEventListener('click', function(){
-            if (!selectedFile) { setStatus('请先选择图片', 'is-error'); return; }
-            var cid = new URLSearchParams(window.location.search).get('cid');
-            if (!cid) { setStatus('缺少课程编号', 'is-error'); return; }
-            var fd = new FormData();
-            fd.append('action', 'upload');
-            fd.append('cid', cid);
-            fd.append('banner', selectedFile);
-            saveBtn.disabled = true;
-            setStatus('上传中...');
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'coursebanner.ashx');
-            xhr.onload = function(){
-                saveBtn.disabled = false;
-                try {
-                    var res = JSON.parse(xhr.responseText);
-                    if (res.success && res.bannerUrl) {
-                        applyHero(res.bannerUrl);
-                        if (hlBanner) hlBanner.href = res.bannerUrl;
-                        if (hiddenUrl) hiddenUrl.value = res.bannerUrl;
-                        setStatus('横幅已更新', 'is-success');
-                        setTimeout(closeModal, 700);
-                    } else {
-                        setStatus(res.message || '上传失败', 'is-error');
-                    }
-                } catch(e) { setStatus('响应解析失败', 'is-error'); }
-            };
-            xhr.onerror = function(){ saveBtn.disabled = false; setStatus('网络错误', 'is-error'); };
-            xhr.send(fd);
+        window.LearnSiteCourseBanner.init({
+            triggerId: config.heroEditLinkId,
+            targetId: config.shellId || 'EditShell',
+            hiddenBannerUrlId: config.hiddenBannerUrlId,
+            hiddenCourseId: config.hiddenCourseId,
+            linkId: config.hLbannerId
         });
     })();

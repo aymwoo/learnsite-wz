@@ -31,6 +31,8 @@ namespace LearnSite.Model
         private int _qclass;
         private int _qsyear;
         private int _qcid;
+        private string _Qtitle;//新增
+        private string _Qsession;//新增
         /// <summary>
         /// 
         /// </summary>
@@ -199,6 +201,22 @@ namespace LearnSite.Model
         {
             set { _qcid = value; }
             get { return _qcid; }
+        }
+        /// <summary>
+        /// 机房日志 学习内容，学案标题
+        /// </summary>
+        public string Qtitle
+        {
+            set { _Qtitle = value; }
+            get { return _Qtitle; }
+        }
+        /// <summary>
+        /// 机房日志 学习内容，学案标题
+        /// </summary>
+        public string Qsession
+        {
+            set { _Qsession = value; }
+            get { return _Qsession; }
         }
         #endregion Model
 

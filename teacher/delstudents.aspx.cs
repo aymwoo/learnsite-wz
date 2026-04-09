@@ -91,7 +91,7 @@ public partial class Teacher_delstudents : System.Web.UI.Page
     }
     protected void LinkBtncancel_Click(object sender, EventArgs e)
     {
-        string url = "~/teacher/student.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&sclass=" + Request.QueryString["sclass"].ToString();
+        string url = "~/teacher/teachermanage.aspx?sgrade=" + Request.QueryString["sgrade"].ToString() + "&sclass=" + Request.QueryString["sclass"].ToString();
         Response.Redirect(url, false);
     }
 }

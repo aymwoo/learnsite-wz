@@ -207,10 +207,10 @@ namespace LearnSite.Common
             string fpath = HttpContext.Current.Server.MapPath(filepath);
             if (File.Exists(fpath))
             {
-                StreamReader fr = new StreamReader(fpath, System.Text.Encoding.UTF8);
-                str = fr.ReadToEnd();
-                fr.Close();
-                fr.Dispose();
+                using (StreamReader fr = new StreamReader(fpath, System.Text.Encoding.UTF8))
+                {
+                    str = fr.ReadToEnd();
+                }
             }
             return str;
         }
@@ -219,13 +219,16 @@ namespace LearnSite.Common
         /// </summary>
         private static void UpdateTextFile(string FileName, string oldStr, string newStr)
         {
-            System.IO.StreamReader sr = new System.IO.StreamReader(FileName, System.Text.Encoding.Default);//GetEncoding("gb2312 "));
-            string s = sr.ReadToEnd();
-            sr.Close();
+            string s;
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(FileName, System.Text.Encoding.Default))//GetEncoding("gb2312 "));
+            {
+                s = sr.ReadToEnd();
+            }
             s = s.Replace(oldStr, newStr);
-            System.IO.StreamWriter sw = new System.IO.StreamWriter(FileName, false);
-            sw.Write(s);
-            sw.Close();
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(FileName, false))
+            {
+                sw.Write(s);
+            }
         }
         /// <summary>
         /// 无效

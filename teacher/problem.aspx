@@ -31,10 +31,9 @@
             <li class="navigli"><a href="../teacher/gauge.aspx">量规</a></li>
             <li class="navigli"><a href="../teacher/works.aspx">作品</a></li>
             <li class="navigli"><a href="../teacher/signin.aspx">签到</a></li>
-            <li class="navigli"><a href="../teacher/student.aspx">学生</a></li>
+            <li class="navigli"><a href="../teacher/teachermanage.aspx">管理</a></li>
             <li class="navigli"><a href="../quiz/quiz.aspx">测验</a></li>
-            <li class="navigli"><a href="../teacher/typer.aspx">中文</a></li>
-            <li class="navigli"><a href="../teacher/typechinese.aspx">拼音</a></li>
+            <li class="navigli"><a href="../teacher/typer.aspx">打字</a></li>
             <li class="navigli"><a href="../teacher/soft.aspx">资源</a></li>
             <li class="navigli"><a href="../teacher/infomation.aspx">信息</a></li>
             <li class="navigli"><a href="../teacher/systeminfo.aspx">状态</a></li>

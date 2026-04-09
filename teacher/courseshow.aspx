@@ -270,6 +270,7 @@
             hiddenSortOrder: '<%= HiddenSortOrder.ClientID %>'
         };
     </script>
+    <script type="text/javascript" src="/js/course-banner-modal.js"></script>
     <script type="text/javascript" src="/js/courseshow.js"></script>
     <script type="text/javascript">
         window.__contentShowMarkdown = {

@@ -23,6 +23,7 @@ namespace LearnSite.Model
 		private int? _tpscore;
 		private int? _tallscore;
 		private string _tape;
+		private int? _tsignin;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -126,6 +127,14 @@ namespace LearnSite.Model
 		{
 			set{ _tape=value;}
 			get{return _tape;}
+		}
+		/// <summary>
+		/// 签到分数
+		/// </summary>
+		public int? Tsignin
+		{
+			set{ _tsignin=value;}
+			get{return _tsignin;}
 		}
 		#endregion Model
 

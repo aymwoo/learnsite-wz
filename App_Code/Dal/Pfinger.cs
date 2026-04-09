@@ -196,7 +196,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public bool Delete(int Pid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Pfinger ");
 			strSql.Append(" where Pid=@Pid");
@@ -240,7 +240,7 @@ namespace LearnSite.DAL
 		/// </summary>
 		public LearnSite.Model.Pfinger GetModel(int Pid)
 		{
-			
+
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Pid,Psnum,Pspd,Pyear,Pmonth,Pdate,Pdegree,Pgrade,Pterm from Pfinger ");
 			strSql.Append(" where Pid=@Pid");
@@ -377,6 +377,72 @@ namespace LearnSite.DAL
                 if (pstr != "")
                 {
                     isok = UpdatePspd(Int32.Parse(pstr), Pspd, nowdate,pgrade,pterm);//如果存在则更新速度
+                    string mysql = "update Students set Sfscore=" + Pspd + " where Snum='" + psnum + "'";//学生表成绩同步
+                    DbHelperSQL.ExecuteSql(mysql);
+                }
+                else
+                {
+                    Model.Pfinger pmodel = new Model.Pfinger();
+                    pmodel.Psnum = psnum;
+                    pmodel.Pspd = Pspd;
+                    pmodel.Pyear = Pyear;
+                    pmodel.Pmonth = Pmonth;
+                    pmodel.Pdate = nowdate;
+                    pmodel.Pdegree = 0;
+                    pmodel.Pgrade = pgrade;
+                    pmodel.Pterm = pterm;
+                    if (Add(pmodel) > 0)
+                    {
+                        isok = true;
+                        string mysql = "update Students set Sfscore="+Pspd+" where Snum='"+psnum+"'";
+                        DbHelperSQL.ExecuteSql(mysql);
+                        string sqlstr = "update Pfinger set Psid=Sid from Pfinger,Students where Psnum='"+psnum+"' and  Psnum=Snum ";
+                        DbHelperSQL.ExecuteSql(sqlstr);
+                    }
+                }
+            }
+            return isok;
+        }
+
+        /// <summary>
+        /// 保存成绩（带防作弊验证）
+        /// </summary>
+        /// <param name="psnum">学号</param>
+        /// <param name="myspd">速度</param>
+        /// <param name="pgrade">年级</param>
+        /// <param name="lettercount">总字数</param>
+        /// <param name="letterright">正确字数</param>
+        /// <param name="lastminute">本次打字时间（分钟）</param>
+        /// <returns></returns>
+        public bool saveSpd(string psnum, string myspd, int pgrade, int lettercount, int letterright, decimal lastminute)
+        {
+            bool isok = false;
+            if (psnum.Trim() != "" && myspd.Trim() != "")
+            {
+                DateTime nowdate = DateTime.Now;
+                int Pyear = nowdate.Year;
+                int Pmonth = nowdate.Month;
+                decimal Pspd = decimal.Parse(myspd);
+
+                // 速度合理性验证：理论最大速度不应超过字数/时间*1.5倍
+                if (lastminute > 0)
+                {
+                    decimal theoreticalMaxSpeed = lettercount / lastminute * 1.5m;
+                    if (Pspd > theoreticalMaxSpeed || Pspd > 50)
+                    {
+                        return isok; // 速度异常，判定为作弊
+                    }
+                }
+                else
+                {
+                    if (Pspd > 50) return isok;
+                }
+
+                string pstr = ExistsPsnum(psnum);
+                int pterm = Int32.Parse(LearnSite.Common.XmlHelp.GetTerm());
+                if (pstr != "")
+                {
+                    isok = UpdatePspd(Int32.Parse(pstr), Pspd, nowdate, pgrade, pterm);//如果存在则更新速度
                     string mysql = "update Students set Sfscore=" + Pspd + " where Snum='" + psnum + "'";//学生表成绩同步
                     DbHelperSQL.ExecuteSql(mysql);
                 }

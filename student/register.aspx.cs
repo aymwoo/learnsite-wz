@@ -72,7 +72,9 @@ public partial class Student_register : System.Web.UI.Page
                     {
                         DateTime LoginTime = DateTime.Now;
                         LearnSite.BLL.Signin gbll = new LearnSite.BLL.Signin();
-                        gbll.SigninToday(Tsnum, LoginTime, lbip, Sgrade, Qterm, Sid, n, Sclass, Syear);//签到
+                        string Qtitle = ""; // 新注册学生暂无课程
+                        string Qsession = LearnSite.Common.TimeSlotHelper.GetCurrentTimeSlot(); // 当前时间段
+                        gbll.SigninToday(Tsnum, LoginTime, lbip, Sgrade, Qterm, Sid, n, Sclass, Syear, Qtitle, Qsession);//签到
                         System.Threading.Thread.Sleep(200);
                         OpenJump(Sgrade, Sclass);//跳转选择
                     }

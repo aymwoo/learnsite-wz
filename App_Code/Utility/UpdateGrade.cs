@@ -43,8 +43,8 @@ namespace LearnSite.DBUtility
         {
             try
             {
-                if (DbHelperSQL.ColumnExists("Survey", "Venableai")) return "1912";
-                if (DbHelperSQL.TabExists("AIStudentExamAssessment")) return "1911";
+                if (DbHelperSQL.ColumnExists("Survey", "Venableai") && HasCoreExamTables()) return "1912";
+                if (DbHelperSQL.TabExists("AIStudentExamAssessment") && HasCoreExamTables()) return "1911";
                 if (DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return "1910";
                 if (DbHelperSQL.TabExists("AICustomSkill")) return "1900";
                 if (DbHelperSQL.TabExists("AISkill")) return "1800";
@@ -81,6 +81,7 @@ namespace LearnSite.DBUtility
                     {
                         if (!DbHelperSQL.TabExists("AISkill")) return false;
                         if (!DbHelperSQL.TabExists("AICustomSkill")) return false;
+                        if (!HasCoreExamTables()) return false;
                         if (!DbHelperSQL.ColumnExists("MenuWorks", "Kseconds")) return false;
                         if (!DbHelperSQL.ColumnExists("Survey", "Venableai")) return false;
                         return DbHelperSQL.ColumnExists(CheckTabel, CheckField);
@@ -95,6 +96,16 @@ namespace LearnSite.DBUtility
             }
             else
                 return false;
+        }
+
+        private static bool HasCoreExamTables()
+        {
+            return DbHelperSQL.TabExists("Exam")
+                && DbHelperSQL.TabExists("ExamPaper")
+                && DbHelperSQL.TabExists("ExamQuestion")
+                && DbHelperSQL.TabExists("ExamPaperQuestion")
+                && DbHelperSQL.TabExists("ExamAnswer")
+                && DbHelperSQL.TabExists("ExamResult");
         }
 
         public static void updateDatabase()
@@ -1940,7 +1951,7 @@ namespace LearnSite.DBUtility
         {
             if (!DbHelperSQL.TabExists("Consoles"))
             {
-                
+
                 StringBuilder Gstr = new StringBuilder();
                 Gstr.Append(" create table Consoles (");
                 Gstr.Append(" Nid int  IDENTITY (1, 1)  primary key not null, ");
@@ -2128,7 +2139,7 @@ namespace LearnSite.DBUtility
             if (count == 0) {
                 LearnSite.Common.DataExcel.DataSetaddEnglish(level);
             }       
-        
+
         }
 
         public static void UpdateIdleClass() {
@@ -2208,7 +2219,7 @@ namespace LearnSite.DBUtility
             {
                 DbHelperSQL.AddColumn(TurtleTable, Tstudystr, "bit", 0);
             }
-            
+
             string Tsidstr = "Tsid";//学生ID
             string Tscore = "Tscore";//学生ID
             string Tip = "Tip";//ip地址
@@ -2301,7 +2312,7 @@ namespace LearnSite.DBUtility
             }
 
         }
-        
+
         public static void UpdateTable1338()
         {
             string missiontalble = "Mission";
@@ -2434,7 +2445,7 @@ namespace LearnSite.DBUtility
             {
                 DbHelperSQL.AddColumn(Studentstable, Steam, "int", 0);
             }
-            
+
             string TxtFormtable = "TxtForm";
             string Mcollabo = "Mcollabo";//填表内容
             if (!DbHelperSQL.ColumnExists(TxtFormtable, Mcollabo))
@@ -2560,6 +2571,20 @@ namespace LearnSite.DBUtility
                 defaultStr.Append(" ('智谱GLM', 'ZhipuAI', 'glm-4', '', 'https://open.bigmodel.cn/api/paas/v4', 0);");
                 DbHelperSQL.ExecuteSql(defaultStr.ToString());
             }
+
+            if (!DbHelperSQL.TabExists("IpNet"))
+            {
+                StringBuilder netStr = new StringBuilder();
+                netStr.Append(" CREATE TABLE [dbo].[IpNet] (");
+                netStr.Append(" [Nid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                netStr.Append(" [Nnet] NVARCHAR(50) NOT NULL, ");
+                netStr.Append(" [Nhid] INT NULL, ");
+                netStr.Append(" [Nname] NVARCHAR(100) NULL, ");
+                netStr.Append(" [Nremark] NVARCHAR(200) NULL ");
+                netStr.Append(" )");
+
+                DbHelperSQL.ExecuteSql(netStr.ToString());
+            }
         }
 
         public static void UpdateTable1800()
@@ -2656,6 +2681,711 @@ namespace LearnSite.DBUtility
             {
                 string createIndexSql = "create nonclustered index IX_MenuWorks_Klid_Ksid on MenuWorks (Klid asc, Ksid asc) include (Ktime, Kseconds, Kcheck, Kstar)";
                 DbHelperSQL.ExecuteSql(createIndexSql);
+            }
+
+            if (!DbHelperSQL.TabExists("CheckRecords"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[CheckRecords] (");
+                str.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [PcName] NVARCHAR(50) NULL, ");
+                str.Append(" [IpAddress] NVARCHAR(50) NULL, ");
+                str.Append(" [ClassName] NVARCHAR(20) NULL, ");
+                str.Append(" [HasRubbish] BIT NULL, ");
+                str.Append(" [DrawerClean] BIT NULL, ");
+                str.Append(" [EquipmentArranged] BIT NULL, ");
+                str.Append(" [ChairAdjusted] BIT NULL, ");
+                str.Append(" [KeyboardMouseDamaged] BIT NULL, ");
+                str.Append(" [CableUnplugged] BIT NULL, ");
+                str.Append(" [PeripheralUnplugged] BIT NULL, ");
+                str.Append(" [ScreenMarked] BIT NULL, ");
+                str.Append(" [SubmitTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [snid] INT NULL, ");
+                str.Append(" [xuehao] NVARCHAR(20) NULL, ");
+                str.Append(" [sname] NVARCHAR(20) NULL, ");
+                str.Append(" [suser] NVARCHAR(50) NULL, ");
+                str.Append(" [Comment] NVARCHAR(500) NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1801()
+        {
+            if (!DbHelperSQL.TabExists("ClassInfo"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ClassInfo] (");
+                str.Append(" [ClassID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [ClassName] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [Grade] INT NOT NULL, ");
+                str.Append(" [Class] INT NOT NULL, ");
+                str.Append(" [IsActive] BIT DEFAULT 1 NOT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1802()
+        {
+            if (!DbHelperSQL.TabExists("CourseSchedule"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[CourseSchedule] (");
+                str.Append(" [ScheduleID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [SchoolYear] INT NOT NULL, ");
+                str.Append(" [Term] INT NOT NULL, ");
+                str.Append(" [WeekDay] INT NOT NULL, ");
+                str.Append(" [TimeSlot] INT NOT NULL, ");
+                str.Append(" [ClassName] NVARCHAR(50) NULL, ");
+                str.Append(" [Subject] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME NULL, ");
+                str.Append(" [TeacherID] INT DEFAULT 0 NOT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1803()
+        {
+            if (!DbHelperSQL.TabExists("kechengbiao"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[kechengbiao] (");
+                str.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [Year] INT NOT NULL, ");
+                str.Append(" [Day1] NVARCHAR(255) NOT NULL, ");
+                str.Append(" [Day2] NVARCHAR(255) NOT NULL, ");
+                str.Append(" [Term] INT NOT NULL, ");
+                str.Append(" [TeacherId] INT NOT NULL, ");
+                str.Append(" [SubjectId] INT NOT NULL, ");
+                str.Append(" [Day3] NVARCHAR(255) NOT NULL, ");
+                str.Append(" [Day4] NVARCHAR(255) NOT NULL, ");
+                str.Append(" [Day5] NVARCHAR(255) NOT NULL, ");
+                str.Append(" [SlotNumber] INT NULL, ");
+                str.Append(" [StartTime] TIME NULL, ");
+                str.Append(" [EndTime] TIME NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1804()
+        {
+            if (!DbHelperSQL.TabExists("Exam"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[Exam] (");
+                str.Append(" [ExamId] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [ExamCode] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [ExamName] NVARCHAR(200) NOT NULL, ");
+                str.Append(" [PaperId] INT NOT NULL, ");
+                str.Append(" [ExamType] INT DEFAULT 1, ");
+                str.Append(" [StartTime] DATETIME NOT NULL, ");
+                str.Append(" [EndTime] DATETIME NOT NULL, ");
+                str.Append(" [Duration] INT DEFAULT 60, ");
+                str.Append(" [LateMinutes] INT DEFAULT 0, ");
+                str.Append(" [AllowRetake] INT DEFAULT 0, ");
+                str.Append(" [ShowAnswer] INT DEFAULT 0, ");
+                str.Append(" [ShowScore] INT DEFAULT 1, ");
+                str.Append(" [ShowRank] INT DEFAULT 0, ");
+                str.Append(" [AntiCheat] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Password] NVARCHAR(100) NULL, ");
+                str.Append(" [IpWhitelist] NVARCHAR(MAX) NULL, ");
+                str.Append(" [MaxParticipants] INT DEFAULT 0, ");
+                str.Append(" [ParticipantType] INT DEFAULT 1, ");
+                str.Append(" [Participants] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Status] INT DEFAULT 0, ");
+                str.Append(" [PublishTime] DATETIME NULL, ");
+                str.Append(" [CreateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [UpdateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [UpdateTime] DATETIME NULL, ");
+                str.Append(" [TimeMode] INT DEFAULT 1, ");
+                str.Append(" [ValidDays] INT DEFAULT 0 ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1805()
+        {
+            if (!DbHelperSQL.TabExists("ExamQuestionBank"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamQuestionBank] (");
+                str.Append(" [BankId] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [BankCode] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [BankName] NVARCHAR(100) NOT NULL, ");
+                str.Append(" [SubjectId] INT NULL, ");
+                str.Append(" [GradeId] INT NULL, ");
+                str.Append(" [Description] NVARCHAR(500) NULL, ");
+                str.Append(" [QuestionCount] INT DEFAULT 0, ");
+                str.Append(" [Status] INT DEFAULT 1, ");
+                str.Append(" [CreateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [UpdateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [UpdateTime] DATETIME NULL, ");
+                str.Append(" [CourseId] INT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1806()
+        {
+            if (!DbHelperSQL.TabExists("ExamQuestion"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamQuestion] (");
+                str.Append(" [QuestionId] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [BankId] INT NOT NULL, ");
+                str.Append(" [QuestionType] INT NOT NULL, ");
+                str.Append(" [QuestionContent] NVARCHAR(MAX) NOT NULL, ");
+                str.Append(" [QuestionText] NVARCHAR(1000) NOT NULL, ");
+                str.Append(" [Options] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Answer] NVARCHAR(MAX) NULL, ");
+                str.Append(" [QuestionConfig] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Analysis] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Score] DECIMAL(5,2) DEFAULT 2.00, ");
+                str.Append(" [Difficulty] INT DEFAULT 1, ");
+                str.Append(" [KnowledgePoint] NVARCHAR(200) NULL, ");
+                str.Append(" [Tags] NVARCHAR(200) NULL, ");
+                str.Append(" [Image] NVARCHAR(200) NULL, ");
+                str.Append(" [Audio] NVARCHAR(200) NULL, ");
+                str.Append(" [Video] NVARCHAR(200) NULL, ");
+                str.Append(" [ParentId] BIGINT NULL, ");
+                str.Append(" [SortOrder] INT DEFAULT 0, ");
+                str.Append(" [Status] INT DEFAULT 1, ");
+                str.Append(" [UseCount] INT DEFAULT 0, ");
+                str.Append(" [CorrectRate] DECIMAL(5,2) DEFAULT 0.00, ");
+                str.Append(" [CreateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [UpdateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [UpdateTime] DATETIME NULL, ");
+                str.Append(" [GradeId] INT NULL, ");
+                str.Append(" [CourseId] INT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1807()
+        {
+            if (!DbHelperSQL.TabExists("ExamPaper"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamPaper] (");
+                str.Append(" [PaperId] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [PaperCode] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [PaperName] NVARCHAR(200) NOT NULL, ");
+                str.Append(" [PaperType] INT DEFAULT 1, ");
+                str.Append(" [SubjectId] INT NULL, ");
+                str.Append(" [GradeId] INT NULL, ");
+                str.Append(" [TotalScore] DECIMAL(5,2) DEFAULT 100.00, ");
+                str.Append(" [PassScore] DECIMAL(5,2) DEFAULT 60.00, ");
+                str.Append(" [QuestionCount] INT DEFAULT 0, ");
+                str.Append(" [Duration] INT DEFAULT 60, ");
+                str.Append(" [Description] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Sections] NVARCHAR(MAX) NULL, ");
+                str.Append(" [RandomConfig] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Status] INT DEFAULT 0, ");
+                str.Append(" [CreateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [UpdateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [UpdateTime] DATETIME NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1808()
+        {
+            if (!DbHelperSQL.TabExists("ExamPaperQuestion"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamPaperQuestion] (");
+                str.Append(" [Id] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [PaperId] INT NOT NULL, ");
+                str.Append(" [QuestionId] BIGINT NOT NULL, ");
+                str.Append(" [SectionName] NVARCHAR(100) NULL, ");
+                str.Append(" [Score] DECIMAL(5,2) NOT NULL, ");
+                str.Append(" [SortOrder] INT DEFAULT 0 ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1809()
+        {
+            if (!DbHelperSQL.TabExists("ExamAnswer"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamAnswer] (");
+                str.Append(" [AnswerId] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [ExamId] INT NOT NULL, ");
+                str.Append(" [PaperId] INT NOT NULL, ");
+                str.Append(" [StudentId] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [StudentName] NVARCHAR(50) NULL, ");
+                str.Append(" [ClassId] INT NULL, ");
+                str.Append(" [Answers] NVARCHAR(MAX) NULL, ");
+                str.Append(" [TempAnswers] NVARCHAR(MAX) NULL, ");
+                str.Append(" [RandomQuestions] NVARCHAR(MAX) NULL, ");
+                str.Append(" [StartTime] DATETIME NOT NULL, ");
+                str.Append(" [SubmitTime] DATETIME NULL, ");
+                str.Append(" [Duration] INT DEFAULT 0, ");
+                str.Append(" [TotalScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [ObjectiveScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [SubjectiveScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [ScoreDetails] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Status] INT DEFAULT 0, ");
+                str.Append(" [IpAddress] NVARCHAR(50) NULL, ");
+                str.Append(" [UserAgent] NVARCHAR(500) NULL, ");
+                str.Append(" [MarkedBy] NVARCHAR(50) NULL, ");
+                str.Append(" [MarkTime] DATETIME NULL, ");
+                str.Append(" [Remark] NVARCHAR(500) NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1810()
+        {
+            if (!DbHelperSQL.TabExists("ExamAnswerLog"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamAnswerLog] (");
+                str.Append(" [LogId] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [AnswerId] BIGINT NOT NULL, ");
+                str.Append(" [EventType] INT NOT NULL, ");
+                str.Append(" [EventData] NVARCHAR(MAX) NULL, ");
+                str.Append(" [EventTime] DATETIME DEFAULT GETDATE() ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1811()
+        {
+            if (!DbHelperSQL.TabExists("ExamResult"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamResult] (");
+                str.Append(" [ResultId] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [ExamId] INT NOT NULL, ");
+                str.Append(" [AnswerId] BIGINT NOT NULL, ");
+                str.Append(" [StudentId] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [StudentName] NVARCHAR(50) NULL, ");
+                str.Append(" [ClassId] INT NULL, ");
+                str.Append(" [TotalScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [ObjectiveScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [SubjectiveScore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [RankInClass] INT NULL, ");
+                str.Append(" [RankInGrade] INT NULL, ");
+                str.Append(" [CorrectCount] INT DEFAULT 0, ");
+                str.Append(" [WrongCount] INT DEFAULT 0, ");
+                str.Append(" [PartialCount] INT DEFAULT 0, ");
+                str.Append(" [Duration] INT DEFAULT 0, ");
+                str.Append(" [SubmitTime] DATETIME NULL, ");
+                str.Append(" [Status] INT DEFAULT 1 ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1812()
+        {
+            if (!DbHelperSQL.TabExists("ExamDictQuestionType"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamDictQuestionType] (");
+                str.Append(" [TypeId] INT NOT NULL PRIMARY KEY, ");
+                str.Append(" [TypeName] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [TypeCode] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [HasOptions] INT DEFAULT 0, ");
+                str.Append(" [AutoScore] INT DEFAULT 1, ");
+                str.Append(" [SortOrder] INT DEFAULT 0, ");
+                str.Append(" [Status] INT DEFAULT 1 ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1813()
+        {
+            if (!DbHelperSQL.TabExists("ExamSurvey"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamSurvey] (");
+                str.Append(" [SurveyId] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [SurveyCode] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [SurveyName] NVARCHAR(200) NOT NULL, ");
+                str.Append(" [SurveyType] INT DEFAULT 1, ");
+                str.Append(" [Questions] NVARCHAR(MAX) NOT NULL, ");
+                str.Append(" [Settings] NVARCHAR(MAX) NULL, ");
+                str.Append(" [StartTime] DATETIME NULL, ");
+                str.Append(" [EndTime] DATETIME NULL, ");
+                str.Append(" [Anonymous] INT DEFAULT 0, ");
+                str.Append(" [Status] INT DEFAULT 0, ");
+                str.Append(" [CreateBy] NVARCHAR(50) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE() ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1814()
+        {
+            if (!DbHelperSQL.TabExists("ExamSurveyAnswer"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ExamSurveyAnswer] (");
+                str.Append(" [AnswerId] BIGINT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [SurveyId] INT NOT NULL, ");
+                str.Append(" [UserId] NVARCHAR(50) NULL, ");
+                str.Append(" [Answers] NVARCHAR(MAX) NOT NULL, ");
+                str.Append(" [SubmitTime] DATETIME DEFAULT GETDATE(), ");
+                str.Append(" [IpAddress] NVARCHAR(50) NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1815()
+        {
+            if (!DbHelperSQL.TabExists("HonorBoardSettings"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[HonorBoardSettings] (");
+                str.Append(" [ID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [Syear] NVARCHAR(10) NOT NULL, ");
+                str.Append(" [Scope] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [Sgrade] INT NULL, ");
+                str.Append(" [Sclass] INT NULL, ");
+                str.Append(" [CreateTime] DATETIME NULL, ");
+                str.Append(" [UpdateTime] DATETIME NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1816()
+        {
+            if (!DbHelperSQL.TabExists("HonorConfig"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[HonorConfig] (");
+                str.Append(" [HonorCode] NVARCHAR(50) NOT NULL PRIMARY KEY, ");
+                str.Append(" [HonorName] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [HonorType] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [IconClass] NVARCHAR(100) NULL, ");
+                str.Append(" [IconEmoji] NVARCHAR(10) NULL, ");
+                str.Append(" [Description] NVARCHAR(200) NULL, ");
+                str.Append(" [IsActive] BIT DEFAULT 1, ");
+                str.Append(" [SortOrder] INT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1817()
+        {
+            if (!DbHelperSQL.TabExists("StudentHonors"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[StudentHonors] (");
+                str.Append(" [ID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [Snum] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [HonorCode] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [HonorLevel] INT DEFAULT 1 NOT NULL, ");
+                str.Append(" [EarnDate] DATETIME DEFAULT GETDATE() NOT NULL, ");
+                str.Append(" [EarnCount] INT DEFAULT 1 NOT NULL, ");
+                str.Append(" [Continuous] INT DEFAULT 1 NOT NULL, ");
+                str.Append(" [Term] NVARCHAR(20) NULL, ");
+                str.Append(" [Remarks] NVARCHAR(500) NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1818()
+        {
+            if (!DbHelperSQL.TabExists("performance_score"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[performance_score] (");
+                str.Append(" [Id] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [StudentId] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [StudentName] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [Score] INT NOT NULL, ");
+                str.Append(" [Reason] NVARCHAR(255) NULL, ");
+                str.Append(" [CreateTime] DATETIME DEFAULT GETDATE() ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1819()
+        {
+            if (!DbHelperSQL.TabExists("Skdj"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[Skdj] (");
+                str.Append(" [Ssid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [Sstid] INT NULL, ");
+                str.Append(" [Ssdate] DATETIME NULL, ");
+                str.Append(" [SSyear] INT NULL, ");
+                str.Append(" [SSmonth] INT NULL, ");
+                str.Append(" [SSday] INT NULL, ");
+                str.Append(" [SSweek] NVARCHAR(50) NULL, ");
+                str.Append(" [Ssession] NVARCHAR(20) NULL, ");
+                str.Append(" [SSgrade] INT NULL, ");
+                str.Append(" [SSclass] INT NULL, ");
+                str.Append(" [Ssctitle] NVARCHAR(MAX) NULL, ");
+                str.Append(" [Sstname] NVARCHAR(50) NULL, ");
+                str.Append(" [Ssnotes] NVARCHAR(MAX) NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1820()
+        {
+            if (!DbHelperSQL.TabExists("student_scores"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[student_scores] (");
+                str.Append(" [ID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [StudentID] NVARCHAR(20) NOT NULL, ");
+                str.Append(" [Qattitude] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [Wscore] DECIMAL(5,2) DEFAULT 0, ");
+                str.Append(" [CreateDate] DATE DEFAULT GETDATE(), ");
+                str.Append(" [CreatedAt] DATETIME DEFAULT GETDATE() ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1821()
+        {
+            if (!DbHelperSQL.TabExists("Teachers"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[Teachers] (");
+                str.Append(" [Tid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [TeacherName] NVARCHAR(50) NULL, ");
+                str.Append(" [TeacherPwd] NVARCHAR(50) NULL, ");
+                str.Append(" [Theme] NVARCHAR(50) NULL, ");
+                str.Append(" [Tdate] DATETIME NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1822()
+        {
+            if (!DbHelperSQL.TabExists("TempSeat"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[TempSeat] (");
+                str.Append(" [Tid] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [Snum] NVARCHAR(50) NOT NULL, ");
+                str.Append(" [TempIp] NVARCHAR(50) NULL, ");
+                str.Append(" [TempSeat] NVARCHAR(50) NULL, ");
+                str.Append(" [ExpireTime] DATETIME NOT NULL, ");
+                str.Append(" [CreateTime] DATETIME NOT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1823()
+        {
+            if (!DbHelperSQL.TabExists("ThemeSettings"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[ThemeSettings] (");
+                str.Append(" [SettingId] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [SettingKey] NVARCHAR(50) NULL, ");
+                str.Append(" [SettingValue] NVARCHAR(200) NULL, ");
+                str.Append(" [SettingDesc] NVARCHAR(200) NULL, ");
+                str.Append(" [CreatedDate] DATETIME NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1824()
+        {
+            if (!DbHelperSQL.TabExists("TimeSlots"))
+            {
+                StringBuilder str = new StringBuilder();
+                str.Append(" CREATE TABLE [dbo].[TimeSlots] (");
+                str.Append(" [SlotID] INT IDENTITY(1,1) PRIMARY KEY, ");
+                str.Append(" [SlotName] NVARCHAR(100) NOT NULL, ");
+                str.Append(" [StartTime] TIME NOT NULL, ");
+                str.Append(" [EndTime] TIME NOT NULL, ");
+                str.Append(" [DisplayOrder] INT NOT NULL ");
+                str.Append(" )");
+                DbHelperSQL.ExecuteSql(str.ToString());
+            }
+        }
+
+        public static void UpdateTable1825()
+        {
+            string QuizTable = "Quiz";
+            string[] fields = { "BankId", "Difficulty", "Tags", "OptionsJson", "QuestionConfig", "KnowledgePoint", "UseCount" };
+            string[] types = { "int", "int", "nvarchar(500)", "nvarchar(MAX)", "nvarchar(MAX)", "nvarchar(200)", "int" };
+            object[] defaults = { null, 1, null, null, null, null, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(QuizTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(QuizTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1826()
+        {
+            string QuizGradeTable = "QuizGrade";
+            string[] fields = { "Qfill", "Qmatch", "Qcategory", "Qessay", "Qnpfield", "Qselectfield", "Qscorefield", "Qmatrixfield", "Qmultiblankfield" };
+            string type = "int";
+            object defaultVal = 1;
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(QuizGradeTable, fields[i]))
+                {
+                    if (fields[i] == "Qnpfield" || fields[i] == "Qselectfield" || fields[i] == "Qscorefield" || fields[i] == "Qmatrixfield")
+                        defaultVal = 0;
+                    else
+                        defaultVal = 1;
+                    DbHelperSQL.AddColumn(QuizGradeTable, fields[i], type, defaultVal);
+                }
+            }
+        }
+
+        public static void UpdateTable1827()
+        {
+            string ResultTable = "Result";
+            string Ranswer = "Ranswer";
+            if (!DbHelperSQL.ColumnExists(ResultTable, Ranswer))
+            {
+                DbHelperSQL.AddColumn(ResultTable, Ranswer, "NVARCHAR(MAX)", null);
+            }
+        }
+
+        public static void UpdateTable1828()
+        {
+            string RoomTable = "Room";
+            string[] fields = { "ClassName", "Campus", "Rinternet" };
+            string[] types = { "nvarchar(100)", "nvarchar(100)", "bit" };
+            object[] defaults = { null, "", 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(RoomTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(RoomTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1829()
+        {
+            string SigninTable = "Signin";
+            string[] fields = { "Qtitle", "Qsession", "Qonline" };
+            string[] types = { "nvarchar(MAX)", "nvarchar(50)", "bit" };
+            object[] defaults = { null, null, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(SigninTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(SigninTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1830()
+        {
+            string StudentsTable = "Students";
+            string[] fields = { "SigninCount", "Sfixedip", "Sseat", "Theme" };
+            string[] types = { "int", "nvarchar(50)", "nvarchar(20)", "nvarchar(50)" };
+            object[] defaults = { 0, null, null, null };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(StudentsTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(StudentsTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1831()
+        {
+            string SurveyTable = "Survey";
+            string[] fields = { "YunXuXueShengChuTi", "Qscorefield", "Qnpfield", "Qmatrixfield", "Qselectfield" };
+            string[] types = { "bit", "int", "int", "int", "int" };
+            object[] defaults = { 0, 0, 0, 0, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(SurveyTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(SurveyTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1832()
+        {
+            string SurveyFeedbackTable = "SurveyFeedback";
+            string[] fields = { "FBlanks", "FError", "FCiShu" };
+            string[] types = { "nvarchar(MAX)", "nvarchar(MAX)", "int" };
+            object[] defaults = { null, null, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(SurveyFeedbackTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(SurveyFeedbackTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1833()
+        {
+            string SurveyItemTable = "SurveyItem";
+            string[] fields = { "Image", "SortOrder" };
+            string[] types = { "nvarchar(500)", "int" };
+            object[] defaults = { null, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(SurveyItemTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(SurveyItemTable, fields[i], types[i], defaults[i]);
+                }
+            }
+        }
+
+        public static void UpdateTable1834()
+        {
+            string SurveyQuestionTable = "SurveyQuestion";
+            string[] fields = { "ChuTiRen", "ChuTiRenID", "ZhuangTai", "DianZan", "CanKaoYe", "Qtype", "QuestionConfig", "MinLength", "MaxLength", "Required", "SortOrder" };
+            string[] types = { "nvarchar(50)", "nvarchar(50)", "int", "nvarchar(MAX)", "nvarchar(MAX)", "int", "nvarchar(MAX)", "int", "int", "bit", "int" };
+            object[] defaults = { null, null, 1, null, null, 0, null, null, null, 1, 0 };
+            
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (!DbHelperSQL.ColumnExists(SurveyQuestionTable, fields[i]))
+                {
+                    DbHelperSQL.AddColumn(SurveyQuestionTable, fields[i], types[i], defaults[i]);
+                }
             }
         }
     }

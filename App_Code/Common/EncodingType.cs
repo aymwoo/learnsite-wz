@@ -23,10 +23,10 @@ namespace LearnSite.Common
         /// <returns>编码类型</returns>
         public static System.Text.Encoding GetType(string FILE_NAME)
         {
-            FileStream fs = new FileStream(FILE_NAME, FileMode.Open, FileAccess.Read);
-            Encoding r = GetTypeFs(fs);
-            fs.Close();
-            return r;
+            using (FileStream fs = new FileStream(FILE_NAME, FileMode.Open, FileAccess.Read))
+            {
+                return GetTypeFs(fs);
+            }
         }
 
         /// <summary> 
@@ -41,23 +41,24 @@ namespace LearnSite.Common
             byte[] UTF8 = new byte[] { 0xEF, 0xBB, 0xBF }; //带BOM 
             Encoding reVal = Encoding.Default;
 
-            BinaryReader r = new BinaryReader(fs, System.Text.Encoding.Default);
-            int i;
-            int.TryParse(fs.Length.ToString(), out i);
-            byte[] ss = r.ReadBytes(i);
-            if (IsUTF8Bytes(ss) || (ss[0] == 0xEF && ss[1] == 0xBB && ss[2] == 0xBF))
+            using (BinaryReader r = new BinaryReader(fs, System.Text.Encoding.Default))
             {
-                reVal = Encoding.UTF8;
+                int i;
+                int.TryParse(fs.Length.ToString(), out i);
+                byte[] ss = r.ReadBytes(i);
+                if (IsUTF8Bytes(ss) || (ss[0] == 0xEF && ss[1] == 0xBB && ss[2] == 0xBF))
+                {
+                    reVal = Encoding.UTF8;
+                }
+                else if (ss[0] == 0xFE && ss[1] == 0xFF && ss[2] == 0x00)
+                {
+                    reVal = Encoding.BigEndianUnicode;
+                }
+                else if (ss[0] == 0xFF && ss[1] == 0xFE && ss[2] == 0x41)
+                {
+                    reVal = Encoding.Unicode;
+                }
             }
-            else if (ss[0] == 0xFE && ss[1] == 0xFF && ss[2] == 0x00)
-            {
-                reVal = Encoding.BigEndianUnicode;
-            }
-            else if (ss[0] == 0xFF && ss[1] == 0xFE && ss[2] == 0x41)
-            {
-                reVal = Encoding.Unicode;
-            }
-            r.Close();
             return reVal;
 
         }

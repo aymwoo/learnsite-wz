@@ -36,6 +36,8 @@ namespace LearnSite.Model
         private int? _sgscore;
         private int? _stxtform;
         private int? _sidle;
+        private string _sfixedip;
+        private string _sseat;
 
 		/// <summary>
 		/// 
@@ -244,6 +246,23 @@ namespace LearnSite.Model
         {
             set { _sidle = value; }
             get { return _sidle; }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Sfixedip
+        {
+            set { _sfixedip = value; }
+            get { return _sfixedip; }
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        public string Sseat
+        {
+            set { _sseat = value; }
+            get { return _sseat; }
         }
 		#endregion Model
 

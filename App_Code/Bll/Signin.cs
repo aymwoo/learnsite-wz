@@ -68,10 +68,10 @@ namespace LearnSite.BLL
 		/// </summary>
 		public void Delete(int Qid)
 		{
-			
+
 			dal.Delete(Qid);
 		}
-                
+
         /// <summary>
         /// 清除几年前的签到记录
         /// </summary>
@@ -85,10 +85,10 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Signin GetModel(int Qid)
 		{
-			
+
 			return dal.GetModel(Qid);
 		}
-                
+
         /// <summary>
         /// 根据学号得到一个对象实体，最近的签到记录
         /// </summary>
@@ -101,7 +101,7 @@ namespace LearnSite.BLL
 		/// </summary>
 		public LearnSite.Model.Signin GetModelByCache(int Qid)
 		{
-			
+
 			string CacheKey = "SigninModel-" + Qid;
             object objModel = LearnSite.Common.DataCache.GetCache(CacheKey);
 			if (objModel == null)
@@ -156,7 +156,7 @@ namespace LearnSite.BLL
 		{
 			return GetList("");
 		}
-               
+
         /// <summary>
         /// 学生界面今天签到显示
         /// </summary>
@@ -170,7 +170,7 @@ namespace LearnSite.BLL
         {
           return  dal.OnlineToday(Sgrade, Sclass, Qyear, Qmonth, Qday).Tables[0];
         }
-        
+
         /// <summary>
         /// 查询班级签到列表
         /// </summary>
@@ -194,9 +194,9 @@ namespace LearnSite.BLL
         {
             return dal.Signclassdetail(Sgrade, Sclass, Qyear, Qmonth, Qday);
         }
-        public DataSet SignclassdetailSort(int Sgrade, int Sclass, int Qyear, int Qmonth, int Qday, int sort)
+        public DataSet SignclassdetailSort(int Sgrade, int Sclass, int Qyear, int Qmonth, int Qday, string Qtitle, int sort, string Qsession)
         {
-            return dal.SignclassdetailSort(Sgrade, Sclass, Qyear, Qmonth, Qday, sort);
+            return dal.SignclassdetailSort(Sgrade, Sclass, Qyear, Qmonth, Qday, Qtitle, sort, Qsession);
         }
         /// <summary>
         /// 某班级签到导出到Excel
@@ -228,7 +228,7 @@ namespace LearnSite.BLL
             return dal.NoSignclassdetail(Sgrade, Sclass, Qyear, Qmonth, Qday);
         }
 
-                
+
         /// <summary>
         /// 获取今天签到的同学
         /// </summary>
@@ -348,8 +348,8 @@ namespace LearnSite.BLL
             }
             return sct;
         }
-                
-        
+
+
         /// <summary>
         /// 查询开始上课页面，班级没有签到列表
         /// </summary>
@@ -406,22 +406,24 @@ namespace LearnSite.BLL
         ///模传递参数Qnum,Qdate,Qyear,Qmonth,Qday,Qweek,Qip
         /// </summary>
         /// <param name="smodel"></param>
-        public int SigninToday(string Qnum, DateTime Qdate, string Qip, int Qgrade, int Qterm, int Qsid, string Qname, int Qclass, int Qsyear)
+        public int SigninToday(string Qnum, DateTime Qdate, string Qip, int Qgrade, int Qterm, int Qsid, string Qname, int Qclass, int Qsyear, string Qtitle, string Qsession)
         {
-           return dal.SigninToday(Qnum, Qdate, Qip,Qgrade,Qterm,Qsid,Qname,Qclass,Qsyear);
+            return dal.SigninToday(Qnum, Qdate, Qip, Qgrade, Qterm, Qsid, Qname, Qclass, Qsyear, Qtitle, Qsession);
         }
-                
+
         /// <summary>
         /// 判断当前登录的IP是否与最近日期登录的IP一致
+        /// 判断当前登录的IP是否与Students表中的固定IP一致
+        /// 注意：此方法检查的是Students.Sfixedip字段（固定IP），不是历史登录IP
         /// </summary>
-        /// <param name="Qnum"></param>
-        /// <param name="LoginIp"></param>
-        /// <returns></returns>
+        /// <param name="Qnum">学号</param>
+        /// <param name="LoginIp">当前登录IP</param>
+        /// <returns>true:允许登录(IP匹配或未设置固定IP); false:IP不匹配，拒绝登录</returns>
         public bool IsSameIp(string Qnum, string LoginIp)
         {
             return dal.IsSameIp(Qnum, LoginIp);
         }
-                        
+
         /// <summary>
         /// 获取最近三个月内本机登录过的学生姓名
         /// </summary>
@@ -442,7 +444,7 @@ namespace LearnSite.BLL
         {
             return dal.UpdateSgroup(Sgroup, Qgroup, Qgscore,Qcid);
         }
-                
+
         /// <summary>
         /// 删除该班级的签到记录
         /// </summary>
@@ -465,7 +467,7 @@ namespace LearnSite.BLL
         {
             return dal.GetQnameQip(Rhid, weeks);
         }
-                
+
         /// <summary>
         /// 获得该本班本课的课堂表现
         /// </summary>
@@ -477,7 +479,7 @@ namespace LearnSite.BLL
         {
             return dal.GetClassListQattitude(Sgrade, Sclass, Qcid);
         }
-                
+
         /// <summary>
         /// 获取组长的小组表现分
         /// </summary>
@@ -488,7 +490,7 @@ namespace LearnSite.BLL
         {
             return dal.GetLeaderQgroup(Qnum, Qcid);
         }
-                
+
         /// <summary>
         /// 获取组长的小组表现分
         /// </summary>
@@ -506,7 +508,135 @@ namespace LearnSite.BLL
 		//{
 			//return dal.GetList(PageSize,PageIndex,strWhere);
 		//}
+        //新增按年份导出签到数据 罗启斌
+        public System.Data.DataSet GetSigninListByYear(int year)
+        {
+            return dal.GetSigninListByYear(year);
+        }
+        public System.Data.DataSet GetAllSigninList()
+        {
+            return dal.GetAllSigninList();
+        }
 
+        /// <summary>
+        /// 获取指定年级班级当天的签到列表
+        /// </summary>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <returns>签到数据集</returns>
+        public DataSet GetTodaySigninList(int Sgrade, int Sclass)
+        {
+            return dal.GetTodaySigninList(Sgrade, Sclass);
+        }
+
+        /// <summary>
+        /// 获取指定学生当天的表现分
+        /// </summary>
+        /// <param name="Snum">学号</param>
+        /// <returns>表现分</returns>
+        public int GetTodayAttitudeBySnum(string Snum)
+        {
+            return dal.GetTodayAttitudeBySnum(Snum);
+        }
+
+        /// <summary>
+        /// 获取指定学生最新的表现评语
+        /// </summary>
+        /// <param name="Snum">学号</param>
+        /// <returns>表现评语</returns>
+        public string GetLatestAttitudeNote(string Snum)
+        {
+            return dal.GetLatestAttitudeNote(Snum);
+        }
+
+        /// <summary>
+        /// 批量给当天已签到的学生加学习表现分
+        /// </summary>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <param name="addScore">加分数值</param>
+        /// <param name="reason">加分原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int BatchAddAttitudeScore(int Sgrade, int Sclass, int addScore, string reason)
+        {
+            return dal.BatchAddAttitudeScore(Sgrade, Sclass, addScore, reason);
+        }
+
+        /// <summary>
+        /// 批量给当天已签到的学生扣学习表现分
+        /// </summary>
+        /// <param name="Sgrade">年级</param>
+        /// <param name="Sclass">班级</param>
+        /// <param name="subScore">扣分数值</param>
+        /// <param name="reason">扣分原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int BatchSubAttitudeScore(int Sgrade, int Sclass, int subScore, string reason)
+        {
+            return dal.BatchSubAttitudeScore(Sgrade, Sclass, subScore, reason);
+        }
+
+        /// <summary>
+        /// 给选中的学生加学习表现分
+        /// </summary>
+        /// <param name="selectedIds">选中的签到记录ID列表</param>
+        /// <param name="addScore">加分数值</param>
+        /// <param name="reason">加分原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int SelectedAddAttitudeScore(List<int> selectedIds, int addScore, string reason)
+        {
+            return dal.SelectedAddAttitudeScore(selectedIds, addScore, reason);
+        }
+
+        /// <summary>
+        /// 给选中的学生扣学习表现分
+        /// </summary>
+        /// <param name="selectedIds">选中的签到记录ID列表</param>
+        /// <param name="subScore">扣分数值</param>
+        /// <param name="reason">扣分原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int SelectedSubAttitudeScore(List<int> selectedIds, int subScore, string reason)
+        {
+            return dal.SelectedSubAttitudeScore(selectedIds, subScore, reason);
+        }
+        
+        /// <summary>
+        /// 为未签到的学生加分
+        /// </summary>
+        /// <param name="grade">年级</param>
+        /// <param name="classNum">班级</param>
+        /// <param name="score">分数</param>
+        /// <param name="reason">原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int AddScoreToUnsignStudents(int grade, int classNum, int score, string reason)
+        {
+            return dal.AddScoreToUnsignStudents(grade, classNum, score, reason);
+        }
+        
+        /// <summary>
+        /// 为未签到的学生减分
+        /// </summary>
+        /// <param name="grade">年级</param>
+        /// <param name="classNum">班级</param>
+        /// <param name="score">分数</param>
+        /// <param name="reason">原因</param>
+        /// <returns>影响的学生数量</returns>
+        public int SubScoreToUnsignStudents(int grade, int classNum, int score, string reason)
+        {
+            return dal.SubScoreToUnsignStudents(grade, classNum, score, reason);
+        }
+        
+        /// <summary>
+        /// 根据学生ID和课程ID获取签到记录
+        /// </summary>
+        /// <param name="Sid">学生ID</param>
+        /// <param name="Cid">课程ID</param>
+        /// <returns>签到记录列表</returns>
+        public DataTable GetStudentSigninBySidCid(int Sid, int Cid)
+        {
+            return dal.GetStudentSigninBySidCid(Sid, Cid);
+        }
+
+        //新增按年份导出签到数据 罗启斌
 		#endregion  成员方法
 	}
 }

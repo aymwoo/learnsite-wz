@@ -168,6 +168,8 @@
                         <a href="../student/mycourse.aspx" class="stud-topbar-link">我的学案</a>
                         <a href="../student/mywork.aspx" class="stud-topbar-link">我的作品</a>
                         <a href="../student/myfinger.aspx" class="stud-topbar-link">打字宝典</a>
+                        <asp:HyperLink ID="hlSummary" runat="server" NavigateUrl="~/student/summary.aspx" CssClass="stud-topbar-link">学习汇总</asp:HyperLink>
+                        <asp:HyperLink ID="hlHonors" runat="server" NavigateUrl="~/student/myhonors.aspx" CssClass="stud-topbar-link">我的荣誉</asp:HyperLink>
                         <a href="../student/myfile.aspx" class="stud-topbar-link">在线资源</a>
                         <a onclick="showShare()" class="stud-topbar-link" style="cursor:pointer;">我的网盘</a>
                         <div class="stud-topbar-sep"></div>
@@ -185,6 +187,8 @@
                         <a href="../student/mycourse.aspx" class="stud-mobile-link">我的学案</a>
                         <a href="../student/mywork.aspx" class="stud-mobile-link">我的作品</a>
                         <a href="../student/myfinger.aspx" class="stud-mobile-link">打字宝典</a>
+                        <asp:HyperLink ID="hlSummaryMobile" runat="server" NavigateUrl="~/student/summary.aspx" CssClass="stud-mobile-link">学习汇总</asp:HyperLink>
+                        <asp:HyperLink ID="hlHonorsMobile" runat="server" NavigateUrl="~/student/myhonors.aspx" CssClass="stud-mobile-link">我的荣誉</asp:HyperLink>
                         <a href="../student/myfile.aspx" class="stud-mobile-link">在线资源</a>
                         <a onclick="showShare()" class="stud-mobile-link" style="cursor:pointer;">我的网盘</a>
                         <div class="stud-mobile-sep"></div>
@@ -207,6 +211,7 @@
         <br />
 		<div class="chatimg"  onclick="showChat()"  title="小组在线聊天" ></div>
 		<div class="robotimg"  title="人工智能对话"   onclick="showRobot()" ></div>
+
     </form>
 </body>
 </html>

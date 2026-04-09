@@ -18,6 +18,10 @@ namespace LearnSite.Model
 		private int? _mcount=0;
         private int? _mcid;
         private bool _mblack = false;
+
+        // 新增字段
+        private string _image;
+        private int _sortorder = 0;
 		/// <summary>
 		/// 
 		/// </summary>
@@ -82,6 +86,24 @@ namespace LearnSite.Model
         {
             set { _mblack = value; }
             get { return _mblack; }
+        }
+
+        /// <summary>
+        /// 选项图片
+        /// </summary>
+        public string Image
+        {
+            set { _image = value; }
+            get { return _image; }
+        }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
+        public int SortOrder
+        {
+            set { _sortorder = value; }
+            get { return _sortorder; }
         }
 
 		#endregion Model

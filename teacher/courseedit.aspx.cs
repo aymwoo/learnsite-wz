@@ -53,21 +53,8 @@ public partial class Teacher_courseedit : System.Web.UI.Page
                     course.Chid = tcook.Hid;
                     course.Cpublish = CheckPublish.Checked;
 
-                    if (Fupload.HasFile)
-                    {
-                        string bannerfilename = Fupload.FileName;
-                        string savePath = LearnSite.Store.CourseStore.GetSaveUrl("Course", Mcidstr);
-                        string shortFileName = System.IO.Path.GetFileName(bannerfilename);
-                        string savefilename = savePath + shortFileName;
-                        string bannerpath = this.Server.MapPath(savefilename);
-                        Fupload.SaveAs(bannerpath);
-                        course.Cbanner = savefilename;
-                    }
-                    else {
-                        // 优先用 modal 上传后写入的 HiddenBannerUrl，其次保留原值
-                        string hiddenUrl = HiddenBannerUrl.Value;
-                        course.Cbanner = !string.IsNullOrEmpty(hiddenUrl) ? hiddenUrl : HLbanner.NavigateUrl;
-                    }
+                    string hiddenUrl = HiddenBannerUrl.Value;
+                    course.Cbanner = !string.IsNullOrEmpty(hiddenUrl) ? hiddenUrl : HLbanner.NavigateUrl;
 
                     LearnSite.BLL.Courses coursebll = new LearnSite.BLL.Courses();
                     coursebll.UpdateCourse(course);
@@ -93,8 +80,10 @@ public partial class Teacher_courseedit : System.Web.UI.Page
         DDLCks.SelectedValue = course.Cks.ToString();
         mcontent.Value = HttpUtility.HtmlDecode(course.Ccontent);
         CheckPublish.Checked = course.Cpublish;
+        LiteralBannerPreviewTitle.Text = course.Ctitle;
         HLbanner.NavigateUrl = course.Cbanner;
         HiddenBannerUrl.Value = course.Cbanner;
+        HLbanner.Visible = !string.IsNullOrEmpty(course.Cbanner);
     }
     private void Grade()
     {

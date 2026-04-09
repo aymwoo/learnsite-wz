@@ -40,7 +40,9 @@ public partial class Teacher_termscores : System.Web.UI.Page
         int persexam = int.Parse(DDLexam.SelectedValue);
         int perstscore = int.Parse(DDLtyper.SelectedValue);
         int perattitude = int.Parse(DDLattitude.SelectedValue);
-        stu.UpdateAllScore(persscore, persexam, perstscore, perattitude,hid);//登录账号教师所教班级按设定百分比计算总分
+        int persurvey = int.Parse(DDLsurvey.SelectedValue);
+        int perssignin = int.Parse(DDLsignin.SelectedValue);
+        stu.UpdateAllScore(persscore, persexam, perstscore, perattitude, persurvey, perssignin, hid);//登录账号教师所教班级按设定百分比计算总分
         DateTime nowtime2 = DateTime.Now;
         Labelmsg.Text = "统计用时：" + LearnSite.Common.Computer.DatagoneMilliseconds(nowtime1, nowtime2) + "毫秒";
         System.Threading.Thread.Sleep(200);
